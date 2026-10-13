@@ -1,0 +1,158 @@
+[
+  {
+    "check": "bond_table_to_unique_cohp_coop",
+    "material": "Pb2Sb2Te5",
+    "rows": 109,
+    "pass_check": true
+  },
+  {
+    "check": "transport_finite_shape_and_mirrors",
+    "material": "Pb2Sb2Te5",
+    "variant": "noSOC",
+    "shape": [
+      13,
+      17,
+      3,
+      3
+    ],
+    "pass_check": true
+  },
+  {
+    "check": "transport_finite_shape_and_mirrors",
+    "material": "Pb2Sb2Te5",
+    "variant": "SOC",
+    "shape": [
+      13,
+      17,
+      3,
+      3
+    ],
+    "pass_check": true
+  },
+  {
+    "check": "DFPT_OUTCAR_to_both_AMSET_settings",
+    "material": "Pb2Sb2Te5",
+    "pass_check": true
+  },
+  {
+    "check": "bond_table_to_unique_cohp_coop",
+    "material": "Pb2Bi2Te5",
+    "rows": 90,
+    "pass_check": true
+  },
+  {
+    "check": "transport_finite_shape_and_mirrors",
+    "material": "Pb2Bi2Te5",
+    "variant": "noSOC",
+    "shape": [
+      12,
+      17,
+      3,
+      3
+    ],
+    "pass_check": true
+  },
+  {
+    "check": "transport_finite_shape_and_mirrors",
+    "material": "Pb2Bi2Te5",
+    "variant": "SOC",
+    "shape": [
+      12,
+      17,
+      3,
+      3
+    ],
+    "pass_check": true
+  },
+  {
+    "check": "DFPT_OUTCAR_to_both_AMSET_settings",
+    "material": "Pb2Bi2Te5",
+    "pass_check": true
+  },
+  {
+    "check": "bond_table_to_unique_cohp_coop",
+    "material": "Sn2Sb2Te5",
+    "rows": 111,
+    "pass_check": true
+  },
+  {
+    "check": "transport_finite_shape_and_mirrors",
+    "material": "Sn2Sb2Te5",
+    "variant": "noSOC",
+    "shape": [
+      13,
+      17,
+      3,
+      3
+    ],
+    "pass_check": true
+  },
+  {
+    "check": "transport_finite_shape_and_mirrors",
+    "material": "Sn2Sb2Te5",
+    "variant": "SOC",
+    "shape": [
+      13,
+      17,
+      3,
+      3
+    ],
+    "pass_check": true
+  },
+  {
+    "check": "DFPT_OUTCAR_to_both_AMSET_settings",
+    "material": "Sn2Sb2Te5",
+    "pass_check": true
+  },
+  {
+    "check": "bond_table_to_unique_cohp_coop",
+    "material": "Sn2Bi2Te5",
+    "rows": 92,
+    "pass_check": true
+  },
+  {
+    "check": "transport_finite_shape_and_mirrors",
+    "material": "Sn2Bi2Te5",
+    "variant": "noSOC",
+    "shape": [
+      12,
+      17,
+      3,
+      3
+    ],
+    "pass_check": true
+  },
+  {
+    "check": "transport_finite_shape_and_mirrors",
+    "material": "Sn2Bi2Te5",
+    "variant": "SOC",
+    "shape": [
+      12,
+      17,
+      3,
+      3
+    ],
+    "pass_check": true
+  },
+  {
+    "check": "DFPT_OUTCAR_to_both_AMSET_settings",
+    "material": "Sn2Bi2Te5",
+    "pass_check": true
+  },
+  {
+    "check": "recomputed_SOC_comparison_CSV",
+    "file": "全温度_全浓度_方向及平均对比.csv",
+    "rows": 3400,
+    "checked_values": 34000,
+    "max_abs_error": 0,
+    "pass_check": true
+  },
+  {
+    "check": "recomputed_SOC_comparison_CSV",
+    "file": "300K_正负1e19_汇总.csv",
+    "rows": 8,
+    "checked_values": 80,
+    "max_abs_error": 0,
+    "pass_check": true
+  }
+]

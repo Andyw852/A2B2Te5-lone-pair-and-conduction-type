@@ -1,0 +1,10 @@
+{
+  "remote": "jzzn:/public/home/wangchao/ke_work/Sn2Bi2Te5/ke-dft-cpu/soc_dfpt_v2",
+  "files": {
+    "KPOINTS": "abfad0e2e60f9243970dd2acc888722cc854085e0162206be07578fb7f2aa6b5",
+    "POSCAR": "50e9a5e0e5cc23843496bfea196841382da50a2f2154c6dd9234a695bfbf6ad7",
+    "INCAR": "32fc950c0e1fd43ca164b0666bdf7bbd6a3bbfee7e71c9964d9dea50ddd963e5",
+    "OSZICAR": "ee31c9debf31c77c307d9b55e2f5710b92d0410ad57e9585a7f3d220efc56b7a",
+    "OUTCAR.gz": "d6e5cd2edf1588255e86fbd3ad8e8302748cb949ef8a70ec7607d6c17a5a4506"
+  }
+}

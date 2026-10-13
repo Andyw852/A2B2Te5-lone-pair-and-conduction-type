@@ -1,0 +1,153 @@
+{
+  "step": "step4_fatband_plot",
+  "step4_dir": "/public/home/wangchao/joint_research_project/huang/Pb2Bi2Te5/POSCAR_B/band/step4_HSE_band",
+  "out_dir": "/public/home/wangchao/joint_research_project/huang/Pb2Bi2Te5/POSCAR_B/band/step4_fatband_plot",
+  "checked_at": "2026-07-28T21:46:59",
+  "status": "ok",
+  "soc": true,
+  "nelect": 88,
+  "n_path_kpts": 200,
+  "band_source": "EIGENVAL(zero-weight)",
+  "proj_source": "PROCAR",
+  "orbitals_parsed": [
+    "s",
+    "py",
+    "pz",
+    "px",
+    "dxy",
+    "dyz",
+    "dz2",
+    "dxz",
+    "x2-y2"
+  ],
+  "projection_groups": [
+    "Bi-s",
+    "Bi-p",
+    "Bi-d",
+    "Te-s",
+    "Te-p",
+    "Te-d",
+    "Pb-s",
+    "Pb-p",
+    "Pb-d"
+  ],
+  "group_colors": {
+    "Bi-s": "#1f5fbf",
+    "Bi-p": "#e07b39",
+    "Bi-d": "#8e44ad",
+    "Te-s": "#17b4c4",
+    "Te-p": "#3a923a",
+    "Te-d": "#d4a017",
+    "Pb-s": "#2c7fb8",
+    "Pb-p": "#c0392b",
+    "Pb-d": "#16a085"
+  },
+  "gap_eV": 0.1141,
+  "gap_type": "indirect",
+  "min_direct_gap_eV": 0.1176,
+  "min_direct_gap_k_frac": [
+    0.0,
+    0.0,
+    0.071429
+  ],
+  "vbm": {
+    "E_eV": 5.5972,
+    "k_frac": [
+      0.0,
+      0.0,
+      0.142857
+    ]
+  },
+  "cbm": {
+    "E_eV": 5.7113,
+    "k_frac": [
+      0.0,
+      0.0,
+      0.0
+    ]
+  },
+  "efermi_scf_eV": 5.6527,
+  "energy_zero": "VBM",
+  "plot_title": "step4_HSE_band   $E_g$ = 0.114 eV (indirect);  $E_g^{\\rm dir}$ = 0.118 eV",
+  "extrema_marked": false,
+  "edge_labels": [
+    {
+      "E_eV": -11.8207,
+      "label": "Te s"
+    },
+    {
+      "E_eV": -10.8307,
+      "label": "Bi s"
+    },
+    {
+      "E_eV": -9.8407,
+      "label": "Te s"
+    },
+    {
+      "E_eV": -8.8507,
+      "label": "Pb s"
+    },
+    {
+      "E_eV": -3.1137,
+      "label": "Te p"
+    },
+    {
+      "E_eV": 1.7211,
+      "label": "Bi p"
+    },
+    {
+      "E_eV": 2.7111,
+      "label": "Pb p"
+    },
+    {
+      "E_eV": 3.7011,
+      "label": "Te p"
+    },
+    {
+      "E_eV": 4.6911,
+      "label": "Bi p"
+    },
+    {
+      "E_eV": 5.6811,
+      "label": "Te p"
+    },
+    {
+      "E_eV": 6.6711,
+      "label": "Te d"
+    },
+    {
+      "E_eV": 7.6611,
+      "label": "Bi p"
+    }
+  ],
+  "inputs_copied": [
+    "EIGENVAL",
+    "vasprun.xml",
+    "PROCAR",
+    "POSCAR",
+    "INCAR",
+    "KPOINTS",
+    "workflow_method.txt"
+  ],
+  "files": {
+    "dat": "/public/home/wangchao/joint_research_project/huang/Pb2Bi2Te5/POSCAR_B/band/step4_fatband_plot/fatband.dat",
+    "klabels": "/public/home/wangchao/joint_research_project/huang/Pb2Bi2Te5/POSCAR_B/band/step4_fatband_plot/fatband_klabels.txt",
+    "png": "/public/home/wangchao/joint_research_project/huang/Pb2Bi2Te5/POSCAR_B/band/step4_fatband_plot/fatband.png",
+    "summary": "/public/home/wangchao/joint_research_project/huang/Pb2Bi2Te5/POSCAR_B/band/step4_fatband_plot/fatband_summary.json"
+  },
+  "labels_found": [
+    "Γ",
+    "M",
+    "K",
+    "Γ",
+    "A",
+    "L",
+    "H",
+    "A|L",
+    "M|K",
+    "H"
+  ],
+  "kpath_source": "内置六方表(坐标匹配)",
+  "kpath_method": null,
+  "kpath_note": null
+}

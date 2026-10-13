@@ -1,0 +1,102 @@
+[
+  {
+    "path": "02_图表\\证据链_成键到带边缺陷输运.png",
+    "sha256": "a027477f25d33870965389e4681bf5e9ffb01bc80a9059c032784a10e75fa812"
+  },
+  {
+    "path": "02_图表\\介电_电子与总静态张量.png",
+    "sha256": "dda8e9fb7ce029250ad5d76c0a62e108338b8ce478f1b6b7db6164d1f925a0c1"
+  },
+  {
+    "path": "02_图表\\带边_简并态与能窗.png",
+    "sha256": "91de9ef8e79a790fa26905281c33a6bf42eca8273c4bcb02e04dbf4aa0778b62"
+  },
+  {
+    "path": "02_图表\\fatband_Pb2Sb2Te5.png",
+    "sha256": "d95c711d02788cbfc4bebc50d30f683226924f9ff6975a2c0a1fbcfc9e0a02a7"
+  },
+  {
+    "path": "02_图表\\fatband_Pb2Bi2Te5.png",
+    "sha256": "d76557ecbc8586fbb5e1e07b56de21dfe956ce89d78b2931f45f425e424a5b96"
+  },
+  {
+    "path": "02_图表\\fatband_Sn2Sb2Te5.png",
+    "sha256": "1f0dbd6712b60ec18acf1757c03499ef39ea1794cc621f04ffc9c5c37778e09c"
+  },
+  {
+    "path": "02_图表\\fatband_Sn2Bi2Te5.png",
+    "sha256": "88d0dcab1eea497407d2566736adbafccf58c4f5e91a80e4f8c12caeff6ca172"
+  },
+  {
+    "path": "02_图表\\成键_ICOHP_ICOOP_电荷转移.png",
+    "sha256": "a0c64fedcbf225012560328da8d4372cfe3fdca6071453eea299aaee07f574c4"
+  },
+  {
+    "path": "02_图表\\全元素对_ICOHP_ICOOP.png",
+    "sha256": "ef16bcfd27e22f81072325e23d030d7aa43adf67847e38324c2e05d4589c96b9"
+  },
+  {
+    "path": "02_图表\\Bader_charge_summary.png",
+    "sha256": "6ddb79b2b1e05b1a3b9e2c49c441009a075b435350335f43a0f3f3d3f35d5685"
+  },
+  {
+    "path": "02_图表\\ES_ET_ELF_文献口径.png",
+    "sha256": "8db4eee43fda1df597c038e38eb7b9ca5036b7a6680b4878ce9e4b3a3e2cfaa2"
+  },
+  {
+    "path": "02_图表\\elf_Pb2Sb2Te5.png",
+    "sha256": "a83119c9e319b34c80178baf1c8de379364f036397ac0d5944809449885f8f9f"
+  },
+  {
+    "path": "02_图表\\elf_Pb2Bi2Te5.png",
+    "sha256": "f6e46f0a6bff5f0f54e64dac297ade9d381f3fe61b20cb8dca559cd32b84db25"
+  },
+  {
+    "path": "02_图表\\elf_Sn2Sb2Te5.png",
+    "sha256": "95eaa7f45b6158703c028987a81163663589a59f382bfbb6c67710429060b51a"
+  },
+  {
+    "path": "02_图表\\elf_Sn2Bi2Te5.png",
+    "sha256": "3d20c84d975401b48bc92a666d2ff52fc534a8f35464f6a0fc35e8d6d68a9c8a"
+  },
+  {
+    "path": "02_图表\\COHP_四材料总曲线_审核重绘.png",
+    "sha256": "8cd1aeceb5f9d40f06af1952ab3eb3711cd61553816d9406586b6b500e03d48f"
+  },
+  {
+    "path": "02_图表\\Pb2Sb2Te5_Pb2Sb2Te5_最低缺陷与载流子.png",
+    "sha256": "abc2a670bff42d7915da7a29f9d2b61e8fab69553e24ad639db0626fcb659bea"
+  },
+  {
+    "path": "02_图表\\Pb2Sb2Te5_Pb2Sb2Te5_多条件形成能组合图.png",
+    "sha256": "26c6f8e99623efe8ca259688383d9a4ccdaf3aba46cd6a5d28e0f27d9cb1f16a"
+  },
+  {
+    "path": "02_图表\\Sn2Sb2Te5_Sn2Sb2Te5_最低缺陷与载流子.png",
+    "sha256": "8d01469b241fca9b6a63799a9d8c5036f747fa6f84eab677b82fb19e77d19e4a"
+  },
+  {
+    "path": "02_图表\\Sn2Sb2Te5_Sn2Sb2Te5_多条件形成能组合图.png",
+    "sha256": "3620c04ca4342eeb6b936983d22d3db79897face1e4539ab09b6f70fa848bad4"
+  },
+  {
+    "path": "02_图表\\Pb2Bi2Te5_Pb2Bi2Te5_最低缺陷与载流子.png",
+    "sha256": "67e999fbd2f81adf763e30579cabfbe2ecc03e3a6fd455c62f5e648c618d3c07"
+  },
+  {
+    "path": "02_图表\\Pb2Bi2Te5_Pb2Bi2Te5_多条件形成能组合图.png",
+    "sha256": "e701b074074d62426ff68a31f49748e86a071f5e23d8ba8eb0abd1d3de102743"
+  },
+  {
+    "path": "02_图表\\Sn2Bi2Te5_Sn2Bi2Te5_最低缺陷与载流子.png",
+    "sha256": "91145452bdbd787b34d0fcce1932c434baf5cc3ceea1041d4aa864c8abd23ded"
+  },
+  {
+    "path": "02_图表\\Sn2Bi2Te5_Sn2Bi2Te5_多条件形成能组合图.png",
+    "sha256": "5faa1c2e6547995d51cba44ae3252317ab44b29f48a457142bc487c59e0eb98c"
+  },
+  {
+    "path": "02_图表\\SnBi_缺陷浓度_SOC输运.png",
+    "sha256": "6882a03280a00f81bf5bdc4f1d3d3d09b872c6a0e07fc6a23d3458ced7764280"
+  }
+]

@@ -1,0 +1,2029 @@
+{
+  "algorithm": "sha256",
+  "excluded": [
+    "09_审查/文件SHA256.json"
+  ],
+  "file_count": 404,
+  "files": [
+    {
+      "path": "01_报告\\完整分析报告.html",
+      "bytes": 19522983,
+      "sha256": "bf7088d50c73e0a2347cdff622328a6e51a70326f61db359b61efd800be7b4f5"
+    },
+    {
+      "path": "01_报告\\源数据\\AMSET_results\\分类输运\\00_合并原始结果\\Pb2Bi2Te5\\settings.yaml",
+      "bytes": 1015,
+      "sha256": "28274f84b81f6d6c1b8bc71f4f883a0b2ce88eb6ffb3ba2825f3eecd019a2f14"
+    },
+    {
+      "path": "01_报告\\源数据\\AMSET_results\\分类输运\\00_合并原始结果\\Pb2Bi2Te5\\transport.json",
+      "bytes": 302084,
+      "sha256": "6c77faa6695d38fdcfd29aa3dc8354fb51656f4d22e5953ebb0fbc7b717737e4"
+    },
+    {
+      "path": "01_报告\\源数据\\AMSET_results\\分类输运\\00_合并原始结果\\Pb2Sb2Te5\\settings.yaml",
+      "bytes": 1007,
+      "sha256": "f340d6ff4f5aa7e69ef0201d872a159531081d2496b5670f1c01f2474c9fbfb4"
+    },
+    {
+      "path": "01_报告\\源数据\\AMSET_results\\分类输运\\00_合并原始结果\\Pb2Sb2Te5\\transport.json",
+      "bytes": 328419,
+      "sha256": "9ac1ba2f0b74bdb4ac607c0afdca6f7efc5b1a903fa134346c79c9506116a2ed"
+    },
+    {
+      "path": "01_报告\\源数据\\AMSET_results\\分类输运\\00_合并原始结果\\Sn2Bi2Te5\\settings.yaml",
+      "bytes": 1026,
+      "sha256": "49f18207f6b5c74c1665de697e00c7c4b75ea775ee95c334459a2cb589b9b63d"
+    },
+    {
+      "path": "01_报告\\源数据\\AMSET_results\\分类输运\\00_合并原始结果\\Sn2Bi2Te5\\transport.json",
+      "bytes": 302736,
+      "sha256": "24ac5091f333826a4ca1abb17e165601bd6a3e92ba7596d3bcdbcbc6d4017987"
+    },
+    {
+      "path": "01_报告\\源数据\\AMSET_results\\分类输运\\00_合并原始结果\\Sn2Sb2Te5\\settings.yaml",
+      "bytes": 1043,
+      "sha256": "2f04cccb54e34ba3c0091c0143208b77df17175076acb6b2adba931375ccdbf7"
+    },
+    {
+      "path": "01_报告\\源数据\\AMSET_results\\分类输运\\00_合并原始结果\\Sn2Sb2Te5\\transport.json",
+      "bytes": 328312,
+      "sha256": "5ece14a7cb770de3402194d4d7f3cda216a9a285109d6a59189ad77a9c9cc1c7"
+    },
+    {
+      "path": "01_报告\\源数据\\AMSET_results\\分类输运\\02_缺陷对应浓度\\Pb2Bi2Te5\\def-005_Pb_Bi\\v1\\条件说明.json",
+      "bytes": 1001,
+      "sha256": "1d365ed1aa8255486e1fbee8614b3a6042f60ca3ddb674c53c1f7d366fa48330"
+    },
+    {
+      "path": "01_报告\\源数据\\AMSET_results\\分类输运\\02_缺陷对应浓度\\Pb2Bi2Te5\\def-005_Pb_Bi\\v2\\条件说明.json",
+      "bytes": 996,
+      "sha256": "a3b9bb2559e66a8774e0129595a1c289e701e0e12046b775badbc1db68f163d6"
+    },
+    {
+      "path": "01_报告\\源数据\\AMSET_results\\分类输运\\02_缺陷对应浓度\\Pb2Bi2Te5\\def-007_Bi_Te\\v0\\条件说明.json",
+      "bytes": 989,
+      "sha256": "b2c601d9fafbf49832d1b2cef5b5858f0ccdf8369a85838d2e5791876938aff7"
+    },
+    {
+      "path": "01_报告\\源数据\\AMSET_results\\分类输运\\02_缺陷对应浓度\\Pb2Bi2Te5\\def-013_Bi_Pb\\v3\\条件说明.json",
+      "bytes": 899,
+      "sha256": "f25e1c520da2912ab98e3b23934a21feafcc39342a4bd52b3b25cefdb01bc9a0"
+    },
+    {
+      "path": "01_报告\\源数据\\AMSET_results\\分类输运\\02_缺陷对应浓度\\Pb2Sb2Te5\\def-005_Pb_Sb\\v0\\条件说明.json",
+      "bytes": 885,
+      "sha256": "72608c63e93d766cac94591dbd3ef70f714c5fa97a2bfdab23975ef84ade5c59"
+    },
+    {
+      "path": "01_报告\\源数据\\AMSET_results\\分类输运\\02_缺陷对应浓度\\Pb2Sb2Te5\\def-005_Pb_Sb\\v1\\条件说明.json",
+      "bytes": 999,
+      "sha256": "e98e59bafe88dd0b1c310e6cd027d1092359aea6c090cda87276cead725ead9c"
+    },
+    {
+      "path": "01_报告\\源数据\\AMSET_results\\分类输运\\02_缺陷对应浓度\\Pb2Sb2Te5\\def-005_Pb_Sb\\v2\\条件说明.json",
+      "bytes": 1002,
+      "sha256": "63cba18622fd05757705b70be5541cf752af8c88a8ea8e953d237a80cf1d0934"
+    },
+    {
+      "path": "01_报告\\源数据\\AMSET_results\\分类输运\\02_缺陷对应浓度\\Pb2Sb2Te5\\def-008_Sb_Te\\v3\\条件说明.json",
+      "bytes": 1000,
+      "sha256": "c31d1d054a5a2888304b263d84209a5cd0b214c804b27be3fed9d1e54753ce28"
+    },
+    {
+      "path": "01_报告\\源数据\\AMSET_results\\分类输运\\02_缺陷对应浓度\\Pb2Sb2Te5\\def-008_Sb_Te\\v4\\条件说明.json",
+      "bytes": 1000,
+      "sha256": "c476bb8b7af66e9ec33199b0e7d73318824d495aaa1d11de1006924c2703b63f"
+    },
+    {
+      "path": "01_报告\\源数据\\AMSET_results\\分类输运\\02_缺陷对应浓度\\Sn2Bi2Te5\\def-005_Sn_Bi\\v1\\条件说明.json",
+      "bytes": 1003,
+      "sha256": "02a4d9adfae9b0035fbe2c4bcd04ad7a953c75860217595dcff1a38361f0e203"
+    },
+    {
+      "path": "01_报告\\源数据\\AMSET_results\\分类输运\\02_缺陷对应浓度\\Sn2Bi2Te5\\def-005_Sn_Bi\\v2\\条件说明.json",
+      "bytes": 997,
+      "sha256": "d92e20e13f6b543467abca4d4326c985c0807d75f2b270538d0000ff206fd9ae"
+    },
+    {
+      "path": "01_报告\\源数据\\AMSET_results\\分类输运\\02_缺陷对应浓度\\Sn2Bi2Te5\\def-005_Sn_Bi\\v3\\条件说明.json",
+      "bytes": 897,
+      "sha256": "fbb0d903c565b498e33eb6291935606f6bd09615b84017d7b958f5b43a7190bf"
+    },
+    {
+      "path": "01_报告\\源数据\\AMSET_results\\分类输运\\02_缺陷对应浓度\\Sn2Bi2Te5\\def-007_Bi_Te\\v0\\条件说明.json",
+      "bytes": 989,
+      "sha256": "927af130e2b4549bb73980f03149a30b153445a81a4e927994437f094e9ebab9"
+    },
+    {
+      "path": "01_报告\\源数据\\AMSET_results\\分类输运\\02_缺陷对应浓度\\Sn2Sb2Te5\\def-005_Sn_Sb\\v0\\条件说明.json",
+      "bytes": 990,
+      "sha256": "69ae6044632b430b2e5d412a0a9eedef82f0b82163c77db26cfb09a0a0e638f1"
+    },
+    {
+      "path": "01_报告\\源数据\\AMSET_results\\分类输运\\02_缺陷对应浓度\\Sn2Sb2Te5\\def-005_Sn_Sb\\v1\\条件说明.json",
+      "bytes": 990,
+      "sha256": "841381d43eac7ac9a84d798b5dd321e729e102faf292491ec6b9a5b5a2ca3317"
+    },
+    {
+      "path": "01_报告\\源数据\\AMSET_results\\分类输运\\02_缺陷对应浓度\\Sn2Sb2Te5\\def-005_Sn_Sb\\v2\\条件说明.json",
+      "bytes": 1004,
+      "sha256": "c7b54053b33b017d79b6c55f45bd88825fb276cd4566a66bba74276041e59402"
+    },
+    {
+      "path": "01_报告\\源数据\\AMSET_results\\分类输运\\02_缺陷对应浓度\\Sn2Sb2Te5\\def-007_Sb_Te\\v3\\条件说明.json",
+      "bytes": 1004,
+      "sha256": "1a91de3aef9e76f8bbd59a6b6952af5676fba00e56cdaf4a941669bd24d1100d"
+    },
+    {
+      "path": "01_报告\\源数据\\AMSET_results\\分类输运\\02_缺陷对应浓度\\Sn2Sb2Te5\\def-007_Sb_Te\\v4\\条件说明.json",
+      "bytes": 1001,
+      "sha256": "8eaa661f8442c079cb45396fb0334de0d4f7b319a667d4b5d5da071757f57c2d"
+    },
+    {
+      "path": "01_报告\\源数据\\AMSET_results\\分类输运\\缺陷条件索引.csv",
+      "bytes": 2944,
+      "sha256": "642db4d8b19ca6690c35bf12c1030cf2572668e86b4970b548f8be4288e4e69e"
+    },
+    {
+      "path": "01_报告\\源数据\\清单.json",
+      "bytes": 1979,
+      "sha256": "6e5fbfb39fe4e1aeddfe968554ef38a5593c015200b8d78cb5948bac1337b619"
+    },
+    {
+      "path": "01_报告\\源数据\\说明.txt",
+      "bytes": 1657,
+      "sha256": "9b93c5398567182ff2ddccf7dd698ce0cbee07407f3633a407796b82a11bffb7"
+    },
+    {
+      "path": "01_报告\\结构对应报告.html",
+      "bytes": 19511,
+      "sha256": "e83eb1759b36d0d101e7a42fdc674b8bec72bc038c796159ac3a705d12f8eb51"
+    },
+    {
+      "path": "02_图表\\Bader_charge_summary.pdf",
+      "bytes": 17520,
+      "sha256": "be450a14a324ade7416fe01b447acb2232d2e286f277a71d8473fff4f5ab3e88"
+    },
+    {
+      "path": "02_图表\\Bader_charge_summary.png",
+      "bytes": 170435,
+      "sha256": "6ddb79b2b1e05b1a3b9e2c49c441009a075b435350335f43a0f3f3d3f35d5685"
+    },
+    {
+      "path": "02_图表\\Bader_charge_summary.svg",
+      "bytes": 48897,
+      "sha256": "274a81edfb625e7ed274100e8c2a22fbe38d9974d072ae9f1d63fc09efbfa1c6"
+    },
+    {
+      "path": "02_图表\\COHP_四材料总曲线_审核重绘.pdf",
+      "bytes": 40353,
+      "sha256": "fccf0b31f33e24023e13203bb85a9a37a36eeac2c3794f4c187d58b982108bf3"
+    },
+    {
+      "path": "02_图表\\COHP_四材料总曲线_审核重绘.png",
+      "bytes": 290567,
+      "sha256": "8cd1aeceb5f9d40f06af1952ab3eb3711cd61553816d9406586b6b500e03d48f"
+    },
+    {
+      "path": "02_图表\\COHP_四材料总曲线_审核重绘.svg",
+      "bytes": 160857,
+      "sha256": "f4b0a4bb52223c772d46f7df2304a9ff3c6046a1ccbe1f3aa60178aaafa6082a"
+    },
+    {
+      "path": "02_图表\\elf_Pb2Bi2Te5.png",
+      "bytes": 805990,
+      "sha256": "f6e46f0a6bff5f0f54e64dac297ade9d381f3fe61b20cb8dca559cd32b84db25"
+    },
+    {
+      "path": "02_图表\\elf_Pb2Sb2Te5.png",
+      "bytes": 798985,
+      "sha256": "a83119c9e319b34c80178baf1c8de379364f036397ac0d5944809449885f8f9f"
+    },
+    {
+      "path": "02_图表\\elf_Sn2Bi2Te5.png",
+      "bytes": 804514,
+      "sha256": "3d20c84d975401b48bc92a666d2ff52fc534a8f35464f6a0fc35e8d6d68a9c8a"
+    },
+    {
+      "path": "02_图表\\elf_Sn2Sb2Te5.png",
+      "bytes": 799800,
+      "sha256": "95eaa7f45b6158703c028987a81163663589a59f382bfbb6c67710429060b51a"
+    },
+    {
+      "path": "02_图表\\ES_ET_ELF_文献口径.pdf",
+      "bytes": 16199,
+      "sha256": "ba901b9f1c41e464301cd873d1849004dbac14c2fb8e856388d9b6fb4de7522e"
+    },
+    {
+      "path": "02_图表\\ES_ET_ELF_文献口径.png",
+      "bytes": 169662,
+      "sha256": "8db4eee43fda1df597c038e38eb7b9ca5036b7a6680b4878ce9e4b3a3e2cfaa2"
+    },
+    {
+      "path": "02_图表\\ES_ET_ELF_文献口径.svg",
+      "bytes": 31290,
+      "sha256": "eb43e02d35fb537f77eafbb8b41f9f8a00842073c83237bc3c230b1d9b639708"
+    },
+    {
+      "path": "02_图表\\fatband_Pb2Bi2Te5.png",
+      "bytes": 1329908,
+      "sha256": "d76557ecbc8586fbb5e1e07b56de21dfe956ce89d78b2931f45f425e424a5b96"
+    },
+    {
+      "path": "02_图表\\fatband_Pb2Sb2Te5.png",
+      "bytes": 1366305,
+      "sha256": "d95c711d02788cbfc4bebc50d30f683226924f9ff6975a2c0a1fbcfc9e0a02a7"
+    },
+    {
+      "path": "02_图表\\fatband_Sn2Bi2Te5.png",
+      "bytes": 1388338,
+      "sha256": "88d0dcab1eea497407d2566736adbafccf58c4f5e91a80e4f8c12caeff6ca172"
+    },
+    {
+      "path": "02_图表\\fatband_Sn2Sb2Te5.png",
+      "bytes": 1381863,
+      "sha256": "1f0dbd6712b60ec18acf1757c03499ef39ea1794cc621f04ffc9c5c37778e09c"
+    },
+    {
+      "path": "02_图表\\Pb2Bi2Te5_Pb2Bi2Te5_多条件形成能组合图.png",
+      "bytes": 437622,
+      "sha256": "e701b074074d62426ff68a31f49748e86a071f5e23d8ba8eb0abd1d3de102743"
+    },
+    {
+      "path": "02_图表\\Pb2Bi2Te5_Pb2Bi2Te5_最低缺陷与载流子.png",
+      "bytes": 279583,
+      "sha256": "67e999fbd2f81adf763e30579cabfbe2ecc03e3a6fd455c62f5e648c618d3c07"
+    },
+    {
+      "path": "02_图表\\Pb2Sb2Te5_Pb2Sb2Te5_多条件形成能组合图.png",
+      "bytes": 501546,
+      "sha256": "26c6f8e99623efe8ca259688383d9a4ccdaf3aba46cd6a5d28e0f27d9cb1f16a"
+    },
+    {
+      "path": "02_图表\\Pb2Sb2Te5_Pb2Sb2Te5_最低缺陷与载流子.png",
+      "bytes": 307050,
+      "sha256": "abc2a670bff42d7915da7a29f9d2b61e8fab69553e24ad639db0626fcb659bea"
+    },
+    {
+      "path": "02_图表\\Sn2Bi2Te5_Sn2Bi2Te5_多条件形成能组合图.png",
+      "bytes": 442355,
+      "sha256": "5faa1c2e6547995d51cba44ae3252317ab44b29f48a457142bc487c59e0eb98c"
+    },
+    {
+      "path": "02_图表\\Sn2Bi2Te5_Sn2Bi2Te5_最低缺陷与载流子.png",
+      "bytes": 281984,
+      "sha256": "91145452bdbd787b34d0fcce1932c434baf5cc3ceea1041d4aa864c8abd23ded"
+    },
+    {
+      "path": "02_图表\\Sn2Sb2Te5_Sn2Sb2Te5_多条件形成能组合图.png",
+      "bytes": 526623,
+      "sha256": "3620c04ca4342eeb6b936983d22d3db79897face1e4539ab09b6f70fa848bad4"
+    },
+    {
+      "path": "02_图表\\Sn2Sb2Te5_Sn2Sb2Te5_最低缺陷与载流子.png",
+      "bytes": 306844,
+      "sha256": "8d01469b241fca9b6a63799a9d8c5036f747fa6f84eab677b82fb19e77d19e4a"
+    },
+    {
+      "path": "02_图表\\SnBi_缺陷浓度_SOC输运.pdf",
+      "bytes": 20205,
+      "sha256": "913b6ae95fd4cb930e8f7cc95a079e3496f6f911359e98fe7b7c881b30493d76"
+    },
+    {
+      "path": "02_图表\\SnBi_缺陷浓度_SOC输运.png",
+      "bytes": 648696,
+      "sha256": "6882a03280a00f81bf5bdc4f1d3d3d09b872c6a0e07fc6a23d3458ced7764280"
+    },
+    {
+      "path": "02_图表\\SnBi_缺陷浓度_SOC输运.svg",
+      "bytes": 55251,
+      "sha256": "dc8aab9f3b3e59f14cabb21d06be28a155ca235635c4081b0013ad12e8d8cf6b"
+    },
+    {
+      "path": "02_图表\\介电_电子与总静态张量.pdf",
+      "bytes": 18100,
+      "sha256": "0578cf0df4383acedb42ca181fdde802a53fa39d3ff7e085636ea2953f8394ca"
+    },
+    {
+      "path": "02_图表\\介电_电子与总静态张量.png",
+      "bytes": 187140,
+      "sha256": "dda8e9fb7ce029250ad5d76c0a62e108338b8ce478f1b6b7db6164d1f925a0c1"
+    },
+    {
+      "path": "02_图表\\介电_电子与总静态张量.svg",
+      "bytes": 21459,
+      "sha256": "2479b180f37fd6364847fbe133f4704b8e595f15feb26babd42e36f3bed3a90a"
+    },
+    {
+      "path": "02_图表\\全元素对_ICOHP_ICOOP.pdf",
+      "bytes": 12000,
+      "sha256": "22ffd34f7f6fc2a915b156caee99d18d61d2a0c722518a138f838e98d497c78b"
+    },
+    {
+      "path": "02_图表\\全元素对_ICOHP_ICOOP.png",
+      "bytes": 110006,
+      "sha256": "ef16bcfd27e22f81072325e23d030d7aa43adf67847e38324c2e05d4589c96b9"
+    },
+    {
+      "path": "02_图表\\全元素对_ICOHP_ICOOP.svg",
+      "bytes": 26083,
+      "sha256": "80744a5ce9c8e5c66bc78fbf8e7551979461e8019eaa937c9b3514c979cb00ce"
+    },
+    {
+      "path": "02_图表\\历史图_仅作对照\\用户原图_1.png",
+      "bytes": 151092,
+      "sha256": "2cbca99f9544940e2095ab7c5b4f3e09d207f1203c9ff67413a0c29977724254"
+    },
+    {
+      "path": "02_图表\\历史图_仅作对照\\用户原图_2.png",
+      "bytes": 405099,
+      "sha256": "e0930bc558b8ac8fb4e7fa4f3fe0421c626644344a783d58533a7f093da3e6c8"
+    },
+    {
+      "path": "02_图表\\历史图_仅作对照\\用户原图_3.png",
+      "bytes": 777807,
+      "sha256": "1c2198769a81b54b04f344f11f86f5128978899ce75ee4211564d9e3279f78a8"
+    },
+    {
+      "path": "02_图表\\历史图_仅作对照\\用户原图_4.png",
+      "bytes": 199970,
+      "sha256": "f21e7a14464cd152b32e318fe30010506512fdda400561de08ee62f8c67045a5"
+    },
+    {
+      "path": "02_图表\\历史图_仅作对照\\用户原图_5.png",
+      "bytes": 243827,
+      "sha256": "2c46378d8159c76cca35d8c24306ee3e40bc79725eebfd82cb3da717ba49f547"
+    },
+    {
+      "path": "02_图表\\带边_简并态与能窗.pdf",
+      "bytes": 29420,
+      "sha256": "3a4b68967070511366224113322e033d17958609f234fc4270655437265dd2ff"
+    },
+    {
+      "path": "02_图表\\带边_简并态与能窗.png",
+      "bytes": 666321,
+      "sha256": "91de9ef8e79a790fa26905281c33a6bf42eca8273c4bcb02e04dbf4aa0778b62"
+    },
+    {
+      "path": "02_图表\\带边_简并态与能窗.svg",
+      "bytes": 106866,
+      "sha256": "6e44746c66b2972627f89a49379d192f0accaa7469a5783c04593d65070b9dc7"
+    },
+    {
+      "path": "02_图表\\成键_ICOHP_ICOOP_电荷转移.pdf",
+      "bytes": 25296,
+      "sha256": "26959a1770e5d3c1c90f9322e0bd1e0de76573d9eb967f8d2ada5a7b4368a7cb"
+    },
+    {
+      "path": "02_图表\\成键_ICOHP_ICOOP_电荷转移.png",
+      "bytes": 416626,
+      "sha256": "a0c64fedcbf225012560328da8d4372cfe3fdca6071453eea299aaee07f574c4"
+    },
+    {
+      "path": "02_图表\\成键_ICOHP_ICOOP_电荷转移.svg",
+      "bytes": 47565,
+      "sha256": "e3f9d08866a18d9616659345e8f55f01f3c9f9c9fd3a4e40214e74719b1e1779"
+    },
+    {
+      "path": "02_图表\\证据链_成键到带边缺陷输运.pdf",
+      "bytes": 40965,
+      "sha256": "382ac98277e052f992f94f47e912e555f9763168fb64fd8e56e2bf9b3dae2eac"
+    },
+    {
+      "path": "02_图表\\证据链_成键到带边缺陷输运.png",
+      "bytes": 155615,
+      "sha256": "a027477f25d33870965389e4681bf5e9ffb01bc80a9059c032784a10e75fa812"
+    },
+    {
+      "path": "02_图表\\证据链_成键到带边缺陷输运.svg",
+      "bytes": 115948,
+      "sha256": "e03a5656ec5a69e2bb4b6d6e560adfd6e3b4ff88cbf9006c013357dcd8e8b521"
+    },
+    {
+      "path": "03_缺陷形成能与PN型数据\\Pb2Bi2Te5.zip",
+      "bytes": 1632666,
+      "sha256": "c79597779d3ac24051e6406ae6a30336d6aa936663a2493aca1d14df1411e741"
+    },
+    {
+      "path": "03_缺陷形成能与PN型数据\\Pb2Sb2Te5.zip",
+      "bytes": 1805818,
+      "sha256": "1f3da459d14b29b139e54a26aa225e2b9377628051b94fb08f2adf5b42912276"
+    },
+    {
+      "path": "03_缺陷形成能与PN型数据\\Sn2Bi2Te5.zip",
+      "bytes": 1648343,
+      "sha256": "f5f45e4587d789a450527a22482534fdf38a62382e69d8c62607b2674f4edc8d"
+    },
+    {
+      "path": "03_缺陷形成能与PN型数据\\Sn2Sb2Te5.zip",
+      "bytes": 1851772,
+      "sha256": "08ba893c5e81b8a8bdb01d102685238d75163e8a82ee7c2dae5dc3dd7d4bee34"
+    },
+    {
+      "path": "03_缺陷形成能与PN型数据\\带边轨道投影\\Pb2Bi2Te5_fatband_summary.json",
+      "bytes": 3017,
+      "sha256": "ecae247452c5cf640250663814c61174a70c4b873d9a0215a1ac523c6f59c2ab"
+    },
+    {
+      "path": "03_缺陷形成能与PN型数据\\带边轨道投影\\Pb2Sb2Te5_fatband_summary.json",
+      "bytes": 2816,
+      "sha256": "417d4700374edcd91b443e374dfb60a0bbf987cb2ef749c235d78dd3de3045a2"
+    },
+    {
+      "path": "03_缺陷形成能与PN型数据\\带边轨道投影\\Sn2Bi2Te5_fatband_summary.json",
+      "bytes": 3129,
+      "sha256": "55341dbb8408bb25c014622361de1ced3708cc43e8c11696c5b7980db0932cbf"
+    },
+    {
+      "path": "03_缺陷形成能与PN型数据\\带边轨道投影\\Sn2Sb2Te5_fatband_summary.json",
+      "bytes": 2873,
+      "sha256": "420ebf21ab5eee906799d63dd5022ae8541a682f7aaaf1961580e59c13f71907"
+    },
+    {
+      "path": "04_AMSET输运数据\\README.md",
+      "bytes": 374,
+      "sha256": "6d59b4f4ff6adf42753c857eb064f8ce3336c198a78763da93f11e66caa8789d"
+    },
+    {
+      "path": "04_AMSET输运数据\\全量输运数据_含平均_两位小数.csv",
+      "bytes": 373681,
+      "sha256": "748e8796142c77541c4d46c1245f4bdebb726cc8630d6aa56dafa7af1be873a5"
+    },
+    {
+      "path": "04_AMSET输运数据\\整体输运报告_含平均.html",
+      "bytes": 575827,
+      "sha256": "d2e4b85a28e25695928213569158ab0e9d1bdbacf7eb5e920e6d0ebf4e833936"
+    },
+    {
+      "path": "04_AMSET输运数据\\整体输运报告_含平均.md",
+      "bytes": 258955,
+      "sha256": "7826ace76690ac5f9db2f2637265abffba46ee8c7b0556b936420cbb36e439e6"
+    },
+    {
+      "path": "05_SOC_AMSET补算\\06_SOC_无SOC对比\\300K_正负1e19_汇总.csv",
+      "bytes": 3747,
+      "sha256": "f5a42c76b28d0554a14baa327a35d9fc325302109882ed1b560e932385a6ef07"
+    },
+    {
+      "path": "05_SOC_AMSET补算\\06_SOC_无SOC对比\\Pb2Bi2Te5_300K_doping_comparison.png",
+      "bytes": 430125,
+      "sha256": "77252e85aa1f73cc459983418eafece00d77f527b7c691fba1efdd85683e87bd"
+    },
+    {
+      "path": "05_SOC_AMSET补算\\06_SOC_无SOC对比\\Pb2Bi2Te5_300K_doping_comparison.svg",
+      "bytes": 234788,
+      "sha256": "636d272cbd0a8c5d960a7fe9ae4ba68f846e6e07176b3627dc9bc7c4d84a9a64"
+    },
+    {
+      "path": "05_SOC_AMSET补算\\06_SOC_无SOC对比\\Pb2Bi2Te5_temperature_comparison.png",
+      "bytes": 367113,
+      "sha256": "e83920fd39eff42bddcb1b3be98e0df4551ea80f2ad5375db9eccc594fe9458e"
+    },
+    {
+      "path": "05_SOC_AMSET补算\\06_SOC_无SOC对比\\Pb2Bi2Te5_temperature_comparison.svg",
+      "bytes": 203686,
+      "sha256": "4f80df6fdd29b72b597910c1401876ba3d4eac8d0709a80d012a2f0013657788"
+    },
+    {
+      "path": "05_SOC_AMSET补算\\06_SOC_无SOC对比\\Pb2Sb2Te5_300K_doping_comparison.png",
+      "bytes": 423636,
+      "sha256": "b260f92bd0ff809cf0ca127ced927bab3250310ba771c4aa2a22d059d9432968"
+    },
+    {
+      "path": "05_SOC_AMSET补算\\06_SOC_无SOC对比\\Pb2Sb2Te5_300K_doping_comparison.svg",
+      "bytes": 232843,
+      "sha256": "5bdc6ccc705cf85d4c282a857be885afc2e9831e44fb0c871bdcca7411db00a6"
+    },
+    {
+      "path": "05_SOC_AMSET补算\\06_SOC_无SOC对比\\Pb2Sb2Te5_temperature_comparison.png",
+      "bytes": 411334,
+      "sha256": "9633143ca758c0d923e2805c4e1ee610ab5e0aae34bdd17fe75dfd03b62b482e"
+    },
+    {
+      "path": "05_SOC_AMSET补算\\06_SOC_无SOC对比\\Pb2Sb2Te5_temperature_comparison.svg",
+      "bytes": 203513,
+      "sha256": "4f0a85ff445f938625d793b95ccad01f082075157c5f960031522fa28e04a942"
+    },
+    {
+      "path": "05_SOC_AMSET补算\\06_SOC_无SOC对比\\Sn2Bi2Te5_300K_doping_comparison.png",
+      "bytes": 428980,
+      "sha256": "d2d1613538ec57d250c13c966156a555089b0cba00a239bd4006e52ce3a76635"
+    },
+    {
+      "path": "05_SOC_AMSET补算\\06_SOC_无SOC对比\\Sn2Bi2Te5_300K_doping_comparison.svg",
+      "bytes": 237131,
+      "sha256": "65665b688ac79ae962fff07f3ef187e3f09503f4beb4c134140945f5730edf47"
+    },
+    {
+      "path": "05_SOC_AMSET补算\\06_SOC_无SOC对比\\Sn2Bi2Te5_temperature_comparison.png",
+      "bytes": 357908,
+      "sha256": "7faa890283f7552fe4de65ccc118ea8a701cf51a765cd1f12d06fedf80589388"
+    },
+    {
+      "path": "05_SOC_AMSET补算\\06_SOC_无SOC对比\\Sn2Bi2Te5_temperature_comparison.svg",
+      "bytes": 201238,
+      "sha256": "52385cb84cb8ff6c2f1798426d52f1946acffd4288b5e43afbe7d8e0197e63c3"
+    },
+    {
+      "path": "05_SOC_AMSET补算\\06_SOC_无SOC对比\\Sn2Sb2Te5_300K_doping_comparison.png",
+      "bytes": 407031,
+      "sha256": "5ac7b6017bf5d394e463478a8e5c854dc0ca5a948db8b696bdf59b45f22b24eb"
+    },
+    {
+      "path": "05_SOC_AMSET补算\\06_SOC_无SOC对比\\Sn2Sb2Te5_300K_doping_comparison.svg",
+      "bytes": 229756,
+      "sha256": "78e8cde0685d0887d9ab97f515c6c89df8f5a0ea54ffe9e9aff7e5a11b0b416e"
+    },
+    {
+      "path": "05_SOC_AMSET补算\\06_SOC_无SOC对比\\Sn2Sb2Te5_temperature_comparison.png",
+      "bytes": 419049,
+      "sha256": "d7a5aa0488b5070ea3b7ac70306d0964716935a5ae4ef6d27cb4168900a670cd"
+    },
+    {
+      "path": "05_SOC_AMSET补算\\06_SOC_无SOC对比\\Sn2Sb2Te5_temperature_comparison.svg",
+      "bytes": 206270,
+      "sha256": "6fe819b39fc9da41abe3b3776736e13355caca7f606eb989e2a548d6daffb660"
+    },
+    {
+      "path": "05_SOC_AMSET补算\\06_SOC_无SOC对比\\SOC_无SOC对比报告.html",
+      "bytes": 4335363,
+      "sha256": "07ae083055177ed39c60236fb5262832c14110ec681e13c22ebdd89d6ae22239"
+    },
+    {
+      "path": "05_SOC_AMSET补算\\06_SOC_无SOC对比\\全温度_全浓度_方向及平均对比.csv",
+      "bytes": 1402276,
+      "sha256": "8ace75a80d3d3629bf56939bf917caec753e8d21f2e4b205abed484bf5d0967b"
+    },
+    {
+      "path": "05_SOC_AMSET补算\\06_SOC_无SOC对比\\输入与校验.json",
+      "bytes": 3230,
+      "sha256": "087baea81c80874266093028b7b4a441bd8839eeb87c06b852d820a52bc37b0a"
+    },
+    {
+      "path": "05_SOC_AMSET补算\\Pb2Bi2Te5\\01_结构与输入\\POSCAR_原始结构",
+      "bytes": 1306,
+      "sha256": "7e4535e41f242546bc3e604852ea30213ef487cca99d4f64c53b5a4946de4bfd"
+    },
+    {
+      "path": "05_SOC_AMSET补算\\Pb2Bi2Te5\\01_结构与输入\\seed_manifest.json",
+      "bytes": 1365,
+      "sha256": "e446935471e9956fc72e6057cbd56da4ea0e77cdc4f0ed50622ca79aec001d5a"
+    },
+    {
+      "path": "05_SOC_AMSET补算\\Pb2Bi2Te5\\03_SOC形变势\\band_edges.json",
+      "bytes": 1647,
+      "sha256": "6b62afdfc99bff7f321c4fdb2a31983931aee36af4012bda2bf247b519f07910"
+    },
+    {
+      "path": "05_SOC_AMSET补算\\Pb2Bi2Te5\\03_SOC形变势\\deformation.h5",
+      "bytes": 168340,
+      "sha256": "844f84b687e05a2fc4a209abac15b340bb4c2e34248bff7a4653e5397e85f741"
+    },
+    {
+      "path": "05_SOC_AMSET补算\\Pb2Bi2Te5\\03_SOC形变势\\INCAR",
+      "bytes": 1596,
+      "sha256": "809a7044b69788cb4abe7ff6a406d0a5fff9eb69cce079e80a4ffab23df145fa"
+    },
+    {
+      "path": "05_SOC_AMSET补算\\Pb2Bi2Te5\\03_SOC形变势\\KPOINTS",
+      "bytes": 77,
+      "sha256": "e8147b64759d312e7bcf94bd6e920c140f9ff5f39aa45fe1760e9c73296baccd"
+    },
+    {
+      "path": "05_SOC_AMSET补算\\Pb2Bi2Te5\\03_SOC形变势\\POSCAR",
+      "bytes": 1306,
+      "sha256": "7e4535e41f242546bc3e604852ea30213ef487cca99d4f64c53b5a4946de4bfd"
+    },
+    {
+      "path": "05_SOC_AMSET补算\\Pb2Bi2Te5\\03_SOC形变势\\submit.sh",
+      "bytes": 628,
+      "sha256": "9b8ecf45b53b6c16adbbe77ad2ca08d935d96c97571daeb54fb1f298e2e15609"
+    },
+    {
+      "path": "05_SOC_AMSET补算\\Pb2Bi2Te5\\03_SOC形变势\\workflow_method.txt",
+      "bytes": 49,
+      "sha256": "d37f15bff2ee7af82aa5651072f52d24e445fbb65ed3ea3d49fff8c2aa01fbe8"
+    },
+    {
+      "path": "05_SOC_AMSET补算\\Pb2Bi2Te5\\04_AMSET输运\\settings.yaml",
+      "bytes": 1126,
+      "sha256": "882fc6c8c94aa37864c480af92f9667bc698c0c9b519cd8afad198eb5214ceaf"
+    },
+    {
+      "path": "05_SOC_AMSET补算\\Pb2Bi2Te5\\04_AMSET输运\\submit.sh",
+      "bytes": 1697,
+      "sha256": "6725b5522a7b09d762edd81d23d4667870cefd7547bc3d90c8e61f4c61fc25df"
+    },
+    {
+      "path": "05_SOC_AMSET补算\\Pb2Bi2Te5\\04_AMSET输运\\transport.json",
+      "bytes": 303878,
+      "sha256": "eb534fa9be15ff74e9bfd9179aad5d27abe1cb01f10f6958db6771e4275b45e5"
+    },
+    {
+      "path": "05_SOC_AMSET补算\\Pb2Bi2Te5\\04_AMSET输运\\本次输入快照\\INCAR",
+      "bytes": 1091,
+      "sha256": "7b8e0dbaf9a4c6eb01a8596fbabff780b77cd002952ee939ef5c95d0c0781564"
+    },
+    {
+      "path": "05_SOC_AMSET补算\\Pb2Bi2Te5\\04_AMSET输运\\本次输入快照\\KPOINTS",
+      "bytes": 77,
+      "sha256": "e8147b64759d312e7bcf94bd6e920c140f9ff5f39aa45fe1760e9c73296baccd"
+    },
+    {
+      "path": "05_SOC_AMSET补算\\Pb2Bi2Te5\\04_AMSET输运\\本次输入快照\\POSCAR",
+      "bytes": 1306,
+      "sha256": "7e4535e41f242546bc3e604852ea30213ef487cca99d4f64c53b5a4946de4bfd"
+    },
+    {
+      "path": "05_SOC_AMSET补算\\Pb2Bi2Te5\\04_AMSET输运\\本次输入快照\\submit.sh",
+      "bytes": 1697,
+      "sha256": "6725b5522a7b09d762edd81d23d4667870cefd7547bc3d90c8e61f4c61fc25df"
+    },
+    {
+      "path": "05_SOC_AMSET补算\\Pb2Sb2Te5\\01_结构与输入\\POSCAR_原始结构",
+      "bytes": 1306,
+      "sha256": "17b215b44d580f579e567bf51ba9ff85787fc185b27bac59effa342473424b35"
+    },
+    {
+      "path": "05_SOC_AMSET补算\\Pb2Sb2Te5\\01_结构与输入\\seed_manifest.json",
+      "bytes": 1365,
+      "sha256": "0add46da925b905e1bc8b4ebfdbb98113dc431a309def976bbd3fa7c56453359"
+    },
+    {
+      "path": "05_SOC_AMSET补算\\Pb2Sb2Te5\\03_SOC形变势\\band_edges.json",
+      "bytes": 1656,
+      "sha256": "dba411e2717bae5313d1bdc7d4d3a3b1766f8838e8d1228e6be7f7322a380446"
+    },
+    {
+      "path": "05_SOC_AMSET补算\\Pb2Sb2Te5\\03_SOC形变势\\deformation.h5",
+      "bytes": 149421,
+      "sha256": "ec2e213108e3bd5cf7690b2ab3421822c4a49db9989784631fea0c38bcfc97e8"
+    },
+    {
+      "path": "05_SOC_AMSET补算\\Pb2Sb2Te5\\03_SOC形变势\\INCAR",
+      "bytes": 1596,
+      "sha256": "2f5049d8fa6fd6f527b0d692b8c42932157c6e185e19935c7d374fd53261d3d3"
+    },
+    {
+      "path": "05_SOC_AMSET补算\\Pb2Sb2Te5\\03_SOC形变势\\KPOINTS",
+      "bytes": 77,
+      "sha256": "e8147b64759d312e7bcf94bd6e920c140f9ff5f39aa45fe1760e9c73296baccd"
+    },
+    {
+      "path": "05_SOC_AMSET补算\\Pb2Sb2Te5\\03_SOC形变势\\POSCAR",
+      "bytes": 1306,
+      "sha256": "17b215b44d580f579e567bf51ba9ff85787fc185b27bac59effa342473424b35"
+    },
+    {
+      "path": "05_SOC_AMSET补算\\Pb2Sb2Te5\\03_SOC形变势\\submit.sh",
+      "bytes": 628,
+      "sha256": "9b8ecf45b53b6c16adbbe77ad2ca08d935d96c97571daeb54fb1f298e2e15609"
+    },
+    {
+      "path": "05_SOC_AMSET补算\\Pb2Sb2Te5\\03_SOC形变势\\workflow_method.txt",
+      "bytes": 49,
+      "sha256": "d37f15bff2ee7af82aa5651072f52d24e445fbb65ed3ea3d49fff8c2aa01fbe8"
+    },
+    {
+      "path": "05_SOC_AMSET补算\\Pb2Sb2Te5\\04_AMSET输运\\settings.yaml",
+      "bytes": 1121,
+      "sha256": "781a2810f9dbf261db7c56e845beb86e0702ecd2a8a5dc2af48d477c74263846"
+    },
+    {
+      "path": "05_SOC_AMSET补算\\Pb2Sb2Te5\\04_AMSET输运\\submit.sh",
+      "bytes": 1697,
+      "sha256": "b7b465aabe9f4b2f79f49280d11907d1c94c842b0ac46219e7d5dc275624b699"
+    },
+    {
+      "path": "05_SOC_AMSET补算\\Pb2Sb2Te5\\04_AMSET输运\\transport.json",
+      "bytes": 330032,
+      "sha256": "476726cd26602c8fdad8f72907b7c3a607021104c5ab757230f50b7a69e0979a"
+    },
+    {
+      "path": "05_SOC_AMSET补算\\Pb2Sb2Te5\\04_AMSET输运\\本次输入快照\\INCAR",
+      "bytes": 1091,
+      "sha256": "b4f53e124ecc27614df8aa9bd6c4908eacefa7d5626ccb51820c1e8ebe462eb5"
+    },
+    {
+      "path": "05_SOC_AMSET补算\\Pb2Sb2Te5\\04_AMSET输运\\本次输入快照\\KPOINTS",
+      "bytes": 77,
+      "sha256": "e8147b64759d312e7bcf94bd6e920c140f9ff5f39aa45fe1760e9c73296baccd"
+    },
+    {
+      "path": "05_SOC_AMSET补算\\Pb2Sb2Te5\\04_AMSET输运\\本次输入快照\\POSCAR",
+      "bytes": 1306,
+      "sha256": "17b215b44d580f579e567bf51ba9ff85787fc185b27bac59effa342473424b35"
+    },
+    {
+      "path": "05_SOC_AMSET补算\\Pb2Sb2Te5\\04_AMSET输运\\本次输入快照\\submit.sh",
+      "bytes": 1697,
+      "sha256": "b7b465aabe9f4b2f79f49280d11907d1c94c842b0ac46219e7d5dc275624b699"
+    },
+    {
+      "path": "05_SOC_AMSET补算\\Sn2Bi2Te5\\01_结构与输入\\POSCAR_原始结构",
+      "bytes": 1306,
+      "sha256": "50e9a5e0e5cc23843496bfea196841382da50a2f2154c6dd9234a695bfbf6ad7"
+    },
+    {
+      "path": "05_SOC_AMSET补算\\Sn2Bi2Te5\\01_结构与输入\\seed_manifest.json",
+      "bytes": 1365,
+      "sha256": "9b8927ccc24b535792204e6b2a7892ee005520db225a688d4e5441787af69a73"
+    },
+    {
+      "path": "05_SOC_AMSET补算\\Sn2Bi2Te5\\03_SOC形变势\\band_edges.json",
+      "bytes": 1657,
+      "sha256": "56bcb5a0c2249ca8f4f9e2b5289ee0cf35b807a3845452f7842da0920260f8f8"
+    },
+    {
+      "path": "05_SOC_AMSET补算\\Sn2Bi2Te5\\03_SOC形变势\\deformation.h5",
+      "bytes": 158404,
+      "sha256": "3d0031e50e51285212f860463bfb180b0262807e54f6759095e66a7c93724335"
+    },
+    {
+      "path": "05_SOC_AMSET补算\\Sn2Bi2Te5\\03_SOC形变势\\INCAR",
+      "bytes": 1596,
+      "sha256": "809a7044b69788cb4abe7ff6a406d0a5fff9eb69cce079e80a4ffab23df145fa"
+    },
+    {
+      "path": "05_SOC_AMSET补算\\Sn2Bi2Te5\\03_SOC形变势\\KPOINTS",
+      "bytes": 77,
+      "sha256": "e8147b64759d312e7bcf94bd6e920c140f9ff5f39aa45fe1760e9c73296baccd"
+    },
+    {
+      "path": "05_SOC_AMSET补算\\Sn2Bi2Te5\\03_SOC形变势\\POSCAR",
+      "bytes": 1306,
+      "sha256": "50e9a5e0e5cc23843496bfea196841382da50a2f2154c6dd9234a695bfbf6ad7"
+    },
+    {
+      "path": "05_SOC_AMSET补算\\Sn2Bi2Te5\\03_SOC形变势\\submit.sh",
+      "bytes": 628,
+      "sha256": "9b8ecf45b53b6c16adbbe77ad2ca08d935d96c97571daeb54fb1f298e2e15609"
+    },
+    {
+      "path": "05_SOC_AMSET补算\\Sn2Bi2Te5\\03_SOC形变势\\workflow_method.txt",
+      "bytes": 49,
+      "sha256": "d37f15bff2ee7af82aa5651072f52d24e445fbb65ed3ea3d49fff8c2aa01fbe8"
+    },
+    {
+      "path": "05_SOC_AMSET补算\\Sn2Bi2Te5\\04_AMSET输运\\settings.yaml",
+      "bytes": 1140,
+      "sha256": "8a53d8731ac8aaee20090e0445ef27056f242a870ccc7262dc39e724e9387e04"
+    },
+    {
+      "path": "05_SOC_AMSET补算\\Sn2Bi2Te5\\04_AMSET输运\\submit.sh",
+      "bytes": 1697,
+      "sha256": "1a1f07c71f9fd4052d5fe7f58466381370660b11fe9eabd988eda1f2e66d7583"
+    },
+    {
+      "path": "05_SOC_AMSET补算\\Sn2Bi2Te5\\04_AMSET输运\\transport.json",
+      "bytes": 305288,
+      "sha256": "6b2cf2591e67c7e3e26cdbd880a9229e5f0c9e056325130492e5aaf5cf16e323"
+    },
+    {
+      "path": "05_SOC_AMSET补算\\Sn2Bi2Te5\\04_AMSET输运\\本次输入快照\\INCAR",
+      "bytes": 1091,
+      "sha256": "7b8e0dbaf9a4c6eb01a8596fbabff780b77cd002952ee939ef5c95d0c0781564"
+    },
+    {
+      "path": "05_SOC_AMSET补算\\Sn2Bi2Te5\\04_AMSET输运\\本次输入快照\\KPOINTS",
+      "bytes": 77,
+      "sha256": "e8147b64759d312e7bcf94bd6e920c140f9ff5f39aa45fe1760e9c73296baccd"
+    },
+    {
+      "path": "05_SOC_AMSET补算\\Sn2Bi2Te5\\04_AMSET输运\\本次输入快照\\POSCAR",
+      "bytes": 1306,
+      "sha256": "50e9a5e0e5cc23843496bfea196841382da50a2f2154c6dd9234a695bfbf6ad7"
+    },
+    {
+      "path": "05_SOC_AMSET补算\\Sn2Bi2Te5\\04_AMSET输运\\本次输入快照\\submit.sh",
+      "bytes": 1697,
+      "sha256": "1a1f07c71f9fd4052d5fe7f58466381370660b11fe9eabd988eda1f2e66d7583"
+    },
+    {
+      "path": "05_SOC_AMSET补算\\Sn2Sb2Te5\\01_结构与输入\\POSCAR_原始结构",
+      "bytes": 1306,
+      "sha256": "dbb89c3f3378e820d5dd1286485372680d9b4f63c4099b9a50870bf6fc9f42dc"
+    },
+    {
+      "path": "05_SOC_AMSET补算\\Sn2Sb2Te5\\01_结构与输入\\seed_manifest.json",
+      "bytes": 1365,
+      "sha256": "5b9730feb3c70665cd95cb5b4e33c7b56b82cce59868068ea0b680d13943d977"
+    },
+    {
+      "path": "05_SOC_AMSET补算\\Sn2Sb2Te5\\03_SOC形变势\\band_edges.json",
+      "bytes": 1657,
+      "sha256": "a59a6c1aa51a56e9d748115fb52311d7905dbce20a00a58fc352558526b6088b"
+    },
+    {
+      "path": "05_SOC_AMSET补算\\Sn2Sb2Te5\\03_SOC形变势\\deformation.h5",
+      "bytes": 146018,
+      "sha256": "72a189e2e40c9586bd11b56ae70f6b2af0f220283e5ac0e76cac38f31e49f47f"
+    },
+    {
+      "path": "05_SOC_AMSET补算\\Sn2Sb2Te5\\03_SOC形变势\\INCAR",
+      "bytes": 1596,
+      "sha256": "7c519eec93ad4b73d9cde8bc3aab73bd532d5196e18aaaf57935b3ffee545010"
+    },
+    {
+      "path": "05_SOC_AMSET补算\\Sn2Sb2Te5\\03_SOC形变势\\KPOINTS",
+      "bytes": 77,
+      "sha256": "e8147b64759d312e7bcf94bd6e920c140f9ff5f39aa45fe1760e9c73296baccd"
+    },
+    {
+      "path": "05_SOC_AMSET补算\\Sn2Sb2Te5\\03_SOC形变势\\POSCAR",
+      "bytes": 1306,
+      "sha256": "dbb89c3f3378e820d5dd1286485372680d9b4f63c4099b9a50870bf6fc9f42dc"
+    },
+    {
+      "path": "05_SOC_AMSET补算\\Sn2Sb2Te5\\03_SOC形变势\\submit.sh",
+      "bytes": 628,
+      "sha256": "9b8ecf45b53b6c16adbbe77ad2ca08d935d96c97571daeb54fb1f298e2e15609"
+    },
+    {
+      "path": "05_SOC_AMSET补算\\Sn2Sb2Te5\\03_SOC形变势\\workflow_method.txt",
+      "bytes": 49,
+      "sha256": "d37f15bff2ee7af82aa5651072f52d24e445fbb65ed3ea3d49fff8c2aa01fbe8"
+    },
+    {
+      "path": "05_SOC_AMSET补算\\Sn2Sb2Te5\\04_AMSET输运\\settings.yaml",
+      "bytes": 1153,
+      "sha256": "0ec35d43738062b27a4894bd855be11bbeedd6279a2383d09244ded2492e4e28"
+    },
+    {
+      "path": "05_SOC_AMSET补算\\Sn2Sb2Te5\\04_AMSET输运\\submit.sh",
+      "bytes": 1697,
+      "sha256": "c633ba7661803c6e2ba2aafb118fbbb2e589389ab3ea8431fe6dc15429701b68"
+    },
+    {
+      "path": "05_SOC_AMSET补算\\Sn2Sb2Te5\\04_AMSET输运\\transport.json",
+      "bytes": 326032,
+      "sha256": "97087a81327b00cc0c6804bff3188a50c6421ccd444816b7b0060c1b5df6aa2b"
+    },
+    {
+      "path": "05_SOC_AMSET补算\\Sn2Sb2Te5\\04_AMSET输运\\本次输入快照\\INCAR",
+      "bytes": 1091,
+      "sha256": "f835a7191b366989811214ce9c9990717167891c1dd2d08373ccf2e63bf69a15"
+    },
+    {
+      "path": "05_SOC_AMSET补算\\Sn2Sb2Te5\\04_AMSET输运\\本次输入快照\\KPOINTS",
+      "bytes": 77,
+      "sha256": "e8147b64759d312e7bcf94bd6e920c140f9ff5f39aa45fe1760e9c73296baccd"
+    },
+    {
+      "path": "05_SOC_AMSET补算\\Sn2Sb2Te5\\04_AMSET输运\\本次输入快照\\POSCAR",
+      "bytes": 1306,
+      "sha256": "dbb89c3f3378e820d5dd1286485372680d9b4f63c4099b9a50870bf6fc9f42dc"
+    },
+    {
+      "path": "05_SOC_AMSET补算\\Sn2Sb2Te5\\04_AMSET输运\\本次输入快照\\submit.sh",
+      "bytes": 1687,
+      "sha256": "8b67497d82e9d52f8b32831d65417cb9c6451df4ca2c72d661241715db7acb1f"
+    },
+    {
+      "path": "06_COGITO成键分析与COHP\\历史ES_TET_PPT.pptx",
+      "bytes": 3270247,
+      "sha256": "91e39feb646673a901c2d90171e4378b3e5e0b5dd5b34e5130526095772b060d"
+    },
+    {
+      "path": "06_COGITO成键分析与COHP\\图_交互式COHP\\Pb2Bi2Te5_COHP交互图.html",
+      "bytes": 3992301,
+      "sha256": "32955c44483b56f9b3519541e7133105664db4199291e82b73c70d64e8fb6843"
+    },
+    {
+      "path": "06_COGITO成键分析与COHP\\图_交互式COHP\\Pb2Bi2Te5_晶体键图.html",
+      "bytes": 5239333,
+      "sha256": "4e65105ff4a91e8bb43a477071c7f967e0fb1da6f4fb63feb74e0bb106738507"
+    },
+    {
+      "path": "06_COGITO成键分析与COHP\\图_交互式COHP\\Pb2Sb2Te5_COHP交互图.html",
+      "bytes": 3365462,
+      "sha256": "6b3e85536ca33d45805277efa8d48027db027f198cff57948f6c7e772cb338ee"
+    },
+    {
+      "path": "06_COGITO成键分析与COHP\\图_交互式COHP\\Pb2Sb2Te5_晶体键图.html",
+      "bytes": 5191549,
+      "sha256": "e41c6e02e4d1307d39b1200528370bd06bc211fa4a415372af50c5f8c69c4ed8"
+    },
+    {
+      "path": "06_COGITO成键分析与COHP\\图_交互式COHP\\Sn2Bi2Te5_COHP交互图.html",
+      "bytes": 4662292,
+      "sha256": "5ef9ab65e65d57fbd5b67861732a7f36a856914c2041cc317db28a0b5bbea4cf"
+    },
+    {
+      "path": "06_COGITO成键分析与COHP\\图_交互式COHP\\Sn2Bi2Te5_晶体键图.html",
+      "bytes": 5203418,
+      "sha256": "b730b1b2c0577f6ecb6c25d27558cb094ad3ea920bb3741a69cf90477ec2f9ac"
+    },
+    {
+      "path": "06_COGITO成键分析与COHP\\图_交互式COHP\\Sn2Sb2Te5_COHP交互图.html",
+      "bytes": 3997395,
+      "sha256": "0c715f3aae78c53869b8c3bdd0a25901b487a509a6569962ffeaf225516bf1db"
+    },
+    {
+      "path": "06_COGITO成键分析与COHP\\图_交互式COHP\\Sn2Sb2Te5_晶体键图.html",
+      "bytes": 5239607,
+      "sha256": "79a8d35a692b3de937c442b73162d7f393e5bd2dbab32d3545f8ccb92a8a97eb"
+    },
+    {
+      "path": "06_COGITO成键分析与COHP\\图_收敛性\\Pb2Bi2Te5\\orb_change.png",
+      "bytes": 23531,
+      "sha256": "9bf0631aba6d2115ba6eb4767cb5c4088841ffbd55ddf4daae5695673b5a2368"
+    },
+    {
+      "path": "06_COGITO成键分析与COHP\\图_收敛性\\Pb2Bi2Te5\\overlaps_decay.png",
+      "bytes": 45181,
+      "sha256": "bcbc9382829ceea9fbf6d6ce2abee5859bcb4ff5e7670d29564dc20e46f1f682"
+    },
+    {
+      "path": "06_COGITO成键分析与COHP\\图_收敛性\\Pb2Bi2Te5\\tbparams_decay.png",
+      "bytes": 48330,
+      "sha256": "f17e3b4fec79be23ac7bc22f1a2bdd8b2ec789cb092e040e34940ccec4cb7ff8"
+    },
+    {
+      "path": "06_COGITO成键分析与COHP\\图_收敛性\\Pb2Sb2Te5\\orb_change.png",
+      "bytes": 22957,
+      "sha256": "0b29937af231009bfb7cdb4e6fde44c9a8638a44418c04546c5d1969c4697627"
+    },
+    {
+      "path": "06_COGITO成键分析与COHP\\图_收敛性\\Pb2Sb2Te5\\overlaps_decay.png",
+      "bytes": 45442,
+      "sha256": "fa7b5f7e760bfabd0c697ab6e272a0118b4d643dc90b725b642f70c4420287b0"
+    },
+    {
+      "path": "06_COGITO成键分析与COHP\\图_收敛性\\Pb2Sb2Te5\\tbparams_decay.png",
+      "bytes": 48408,
+      "sha256": "324fb8e0b8996032d22747f43d1a10f8fc7c15dfd0ce71e8f97fa6ba0864f212"
+    },
+    {
+      "path": "06_COGITO成键分析与COHP\\图_收敛性\\Sn2Bi2Te5\\orb_change.png",
+      "bytes": 26294,
+      "sha256": "629fd3e271a6e2f197e472383405e27da2b2c245e2b92cee8a084c5117aeb8dd"
+    },
+    {
+      "path": "06_COGITO成键分析与COHP\\图_收敛性\\Sn2Bi2Te5\\overlaps_decay.png",
+      "bytes": 45844,
+      "sha256": "705c03f0518d4d258ba56f82a8ba4cd55f5e3e287870d2edde9e3c73758278d0"
+    },
+    {
+      "path": "06_COGITO成键分析与COHP\\图_收敛性\\Sn2Bi2Te5\\tbparams_decay.png",
+      "bytes": 47962,
+      "sha256": "d84da1a971d9fe553213c7acfafb31c19044eb21bd1486fdc10bce32acf6f6f6"
+    },
+    {
+      "path": "06_COGITO成键分析与COHP\\图_收敛性\\Sn2Sb2Te5\\orb_change.png",
+      "bytes": 26059,
+      "sha256": "c33479bb9e72fe9575528e470494f059e304818776063de14fcb814f64689baa"
+    },
+    {
+      "path": "06_COGITO成键分析与COHP\\图_收敛性\\Sn2Sb2Te5\\overlaps_decay.png",
+      "bytes": 46382,
+      "sha256": "648b70253be68bf499c339775274b25ec937b59dbd2aa82bf9a91c81a78ec38c"
+    },
+    {
+      "path": "06_COGITO成键分析与COHP\\图_收敛性\\Sn2Sb2Te5\\tbparams_decay.png",
+      "bytes": 47834,
+      "sha256": "6eb61936ff0cd44b5a47b7ac0632a255c7304ad41ec73f82d9697c8c713c3e68"
+    },
+    {
+      "path": "06_COGITO成键分析与COHP\\审核与重绘\\Pb2Bi2Te5_total_COHP.csv",
+      "bytes": 22837,
+      "sha256": "df5b506faae656e927729beed3f9922a71467a622854b8fad8bbc0f1a04f94f5"
+    },
+    {
+      "path": "06_COGITO成键分析与COHP\\审核与重绘\\Pb2Sb2Te5_total_COHP.csv",
+      "bytes": 17271,
+      "sha256": "79330021a677db6836c9d804351d11d2edb616edc3e9586c48ef68c0993d1123"
+    },
+    {
+      "path": "06_COGITO成键分析与COHP\\审核与重绘\\README.md",
+      "bytes": 368,
+      "sha256": "d8643997aa3ff1dfdb422c7e6bd45c728b102468805fb78ccd8f7e6cd06f511b"
+    },
+    {
+      "path": "06_COGITO成键分析与COHP\\审核与重绘\\Sn2Bi2Te5_total_COHP.csv",
+      "bytes": 22833,
+      "sha256": "e4dc239e699ef280da0ca5127b48d44f9b3c8d59bf3fc36f96093dcdafc98b95"
+    },
+    {
+      "path": "06_COGITO成键分析与COHP\\审核与重绘\\Sn2Sb2Te5_total_COHP.csv",
+      "bytes": 21256,
+      "sha256": "052ebdee9f4dc573fbe088815e6ddafd25d5fc3c9293294469813830fc073ead"
+    },
+    {
+      "path": "06_COGITO成键分析与COHP\\源数据\\Bader_TET_ES原始密度\\Bader_charge_recalculation.json",
+      "bytes": 3211,
+      "sha256": "764f01bb07965460d209c512129163881d024e80c1fe9c8b5d8c3f9c62f8d30a"
+    },
+    {
+      "path": "06_COGITO成键分析与COHP\\源数据\\Bader_TET_ES原始密度\\Pb2Bi2Te5\\AECCAR0.gz",
+      "bytes": 4631948,
+      "sha256": "2eb3e29da656969b59169a3f283214af4ee0a16489a0750d00db568077005a23"
+    },
+    {
+      "path": "06_COGITO成键分析与COHP\\源数据\\Bader_TET_ES原始密度\\Pb2Bi2Te5\\AECCAR2.gz",
+      "bytes": 2663291,
+      "sha256": "f639830f8a47a7c3f89a866c54b36dde348a0af8f30e3040b76d342a0bd69f88"
+    },
+    {
+      "path": "06_COGITO成键分析与COHP\\源数据\\Bader_TET_ES原始密度\\Pb2Bi2Te5\\CHGCAR.gz",
+      "bytes": 3908174,
+      "sha256": "bcb662c764afc536b318552236bb7957c0e32601b01b4a119b1d30ac2b1ef419"
+    },
+    {
+      "path": "06_COGITO成键分析与COHP\\源数据\\Bader_TET_ES原始密度\\Pb2Bi2Te5\\ELFCAR.gz",
+      "bytes": 201108,
+      "sha256": "036cabdb1e183f1124383b7d8e97bce441d3768c9d5b6e1a125efec7755eb55f"
+    },
+    {
+      "path": "06_COGITO成键分析与COHP\\源数据\\Bader_TET_ES原始密度\\Pb2Bi2Te5\\INCAR",
+      "bytes": 345,
+      "sha256": "f5039b9e49ef085969f0246425d5e6ff2611cf113dd7eb6513c68478fe311a98"
+    },
+    {
+      "path": "06_COGITO成键分析与COHP\\源数据\\Bader_TET_ES原始密度\\Pb2Bi2Te5\\KPOINTS",
+      "bytes": 77,
+      "sha256": "e8147b64759d312e7bcf94bd6e920c140f9ff5f39aa45fe1760e9c73296baccd"
+    },
+    {
+      "path": "06_COGITO成键分析与COHP\\源数据\\Bader_TET_ES原始密度\\Pb2Bi2Te5\\OUTCAR.gz",
+      "bytes": 26769,
+      "sha256": "f0fcac01cd22f0256b6232c979383505028ca4ae9f8cf4ba3345196a79158758"
+    },
+    {
+      "path": "06_COGITO成键分析与COHP\\源数据\\Bader_TET_ES原始密度\\Pb2Bi2Te5\\POSCAR",
+      "bytes": 1306,
+      "sha256": "f3385b0f3a9885ee6317ff14e226784ee501741defaa2e301c605f780c1c65f8"
+    },
+    {
+      "path": "06_COGITO成键分析与COHP\\源数据\\Bader_TET_ES原始密度\\Pb2Sb2Te5\\AECCAR0.gz",
+      "bytes": 4422987,
+      "sha256": "d592bc4c669a9e067ec8d8b2b9b4c0a43c68269eaa3f24a24a4b9afd8d72b9e0"
+    },
+    {
+      "path": "06_COGITO成键分析与COHP\\源数据\\Bader_TET_ES原始密度\\Pb2Sb2Te5\\AECCAR2.gz",
+      "bytes": 2576003,
+      "sha256": "c1df3db4639d56cd07cd186e272a63629032bb004b5769b2eeeda8751323f80e"
+    },
+    {
+      "path": "06_COGITO成键分析与COHP\\源数据\\Bader_TET_ES原始密度\\Pb2Sb2Te5\\CHGCAR.gz",
+      "bytes": 3560030,
+      "sha256": "129c4d5e3ebbf3bad82f161fd2241066c947773f716ddd660ab33b6fb26e9ed5"
+    },
+    {
+      "path": "06_COGITO成键分析与COHP\\源数据\\Bader_TET_ES原始密度\\Pb2Sb2Te5\\ELFCAR.gz",
+      "bytes": 193980,
+      "sha256": "71ad9cecbace1c7411ace04fdff0bf1bde7ee2a1d828f4400a0ad3699b047bff"
+    },
+    {
+      "path": "06_COGITO成键分析与COHP\\源数据\\Bader_TET_ES原始密度\\Pb2Sb2Te5\\INCAR",
+      "bytes": 519,
+      "sha256": "78c6ff77547d88ac71554e44af7950932d182ffbe7d1d4c6f6dcff9fabc5bf1f"
+    },
+    {
+      "path": "06_COGITO成键分析与COHP\\源数据\\Bader_TET_ES原始密度\\Pb2Sb2Te5\\KPOINTS",
+      "bytes": 77,
+      "sha256": "e8147b64759d312e7bcf94bd6e920c140f9ff5f39aa45fe1760e9c73296baccd"
+    },
+    {
+      "path": "06_COGITO成键分析与COHP\\源数据\\Bader_TET_ES原始密度\\Pb2Sb2Te5\\OUTCAR.gz",
+      "bytes": 25933,
+      "sha256": "9a3ffccc285e4ad5d458da7af00e25e94a2a24869b6500b380b1b9c9912f93e4"
+    },
+    {
+      "path": "06_COGITO成键分析与COHP\\源数据\\Bader_TET_ES原始密度\\Pb2Sb2Te5\\POSCAR",
+      "bytes": 1306,
+      "sha256": "51c4cdf507aa57acafbe60d8086073b7ea303e0e265349c6d54ac50285d0652d"
+    },
+    {
+      "path": "06_COGITO成键分析与COHP\\源数据\\Bader_TET_ES原始密度\\README.md",
+      "bytes": 764,
+      "sha256": "3eb7dd3842fc6f275fa13055df48e3b705f218cb32aa6dc08c5de4683799d471"
+    },
+    {
+      "path": "06_COGITO成键分析与COHP\\源数据\\Bader_TET_ES原始密度\\Sn2Bi2Te5\\AECCAR0.gz",
+      "bytes": 4620802,
+      "sha256": "a0616db674c4d3c7d10f6a0a9a2d22e4b7e29dc84b05dc492939e4d0c7335191"
+    },
+    {
+      "path": "06_COGITO成键分析与COHP\\源数据\\Bader_TET_ES原始密度\\Sn2Bi2Te5\\AECCAR2.gz",
+      "bytes": 2661707,
+      "sha256": "0396c4f13879eabf44d998474ef82d27f6c67304246000a6628c6f8d44cff33c"
+    },
+    {
+      "path": "06_COGITO成键分析与COHP\\源数据\\Bader_TET_ES原始密度\\Sn2Bi2Te5\\CHGCAR.gz",
+      "bytes": 3943301,
+      "sha256": "fe6efada84fb6b9a5840fc0ef5c992dcfb2d0c5f414c241656216fea684d12c7"
+    },
+    {
+      "path": "06_COGITO成键分析与COHP\\源数据\\Bader_TET_ES原始密度\\Sn2Bi2Te5\\ELFCAR.gz",
+      "bytes": 201078,
+      "sha256": "4867e4361d7aa83a5af3cb55e8f2afdcc7c18f6dd2445dcc75327e5ae5a4f0f9"
+    },
+    {
+      "path": "06_COGITO成键分析与COHP\\源数据\\Bader_TET_ES原始密度\\Sn2Bi2Te5\\INCAR",
+      "bytes": 435,
+      "sha256": "4a40c7ac3fc2fd752cd68769e4e6c18d9e90fed7404dd46eedff101e1d088d09"
+    },
+    {
+      "path": "06_COGITO成键分析与COHP\\源数据\\Bader_TET_ES原始密度\\Sn2Bi2Te5\\KPOINTS",
+      "bytes": 77,
+      "sha256": "e8147b64759d312e7bcf94bd6e920c140f9ff5f39aa45fe1760e9c73296baccd"
+    },
+    {
+      "path": "06_COGITO成键分析与COHP\\源数据\\Bader_TET_ES原始密度\\Sn2Bi2Te5\\OUTCAR.gz",
+      "bytes": 26682,
+      "sha256": "f8dc0cf3e5a4e631f539f2c718e8624056a6c09a404394474d4c3679b9c42edd"
+    },
+    {
+      "path": "06_COGITO成键分析与COHP\\源数据\\Bader_TET_ES原始密度\\Sn2Bi2Te5\\POSCAR",
+      "bytes": 1306,
+      "sha256": "4243d78363321a13ecdc9f63241f7ab01f6bfd37471e12883e21814fb2c2e6a4"
+    },
+    {
+      "path": "06_COGITO成键分析与COHP\\源数据\\Bader_TET_ES原始密度\\Sn2Sb2Te5\\AECCAR0.gz",
+      "bytes": 4405367,
+      "sha256": "6e8f9b973cf6d84feaa5da0e63cd01715f13f9fe03e7daa193cd7898f2d4e40e"
+    },
+    {
+      "path": "06_COGITO成键分析与COHP\\源数据\\Bader_TET_ES原始密度\\Sn2Sb2Te5\\AECCAR2.gz",
+      "bytes": 2574369,
+      "sha256": "656458cd5397d9620344380d749cddf348d859f3c52885ead0748a027f5d0fc2"
+    },
+    {
+      "path": "06_COGITO成键分析与COHP\\源数据\\Bader_TET_ES原始密度\\Sn2Sb2Te5\\CHGCAR.gz",
+      "bytes": 3718046,
+      "sha256": "aee98861944be6cc32c9f48e15132ce941271c87d908822cdf7567a630553928"
+    },
+    {
+      "path": "06_COGITO成键分析与COHP\\源数据\\Bader_TET_ES原始密度\\Sn2Sb2Te5\\ELFCAR.gz",
+      "bytes": 193842,
+      "sha256": "912ec16ffbb405964bbc4281318c9ca93045ad49ce8afeb3826b5a6bdb466219"
+    },
+    {
+      "path": "06_COGITO成键分析与COHP\\源数据\\Bader_TET_ES原始密度\\Sn2Sb2Te5\\INCAR",
+      "bytes": 435,
+      "sha256": "8aee7b1d7c409c74118a1a06841442b0cbe01a89d24f36c2c79469f06f502259"
+    },
+    {
+      "path": "06_COGITO成键分析与COHP\\源数据\\Bader_TET_ES原始密度\\Sn2Sb2Te5\\KPOINTS",
+      "bytes": 77,
+      "sha256": "e8147b64759d312e7bcf94bd6e920c140f9ff5f39aa45fe1760e9c73296baccd"
+    },
+    {
+      "path": "06_COGITO成键分析与COHP\\源数据\\Bader_TET_ES原始密度\\Sn2Sb2Te5\\OUTCAR.gz",
+      "bytes": 24283,
+      "sha256": "fb5d8fff3c07eda0541537bdb1b1243ceeefc3e511da8a62072fd56108919b2a"
+    },
+    {
+      "path": "06_COGITO成键分析与COHP\\源数据\\Bader_TET_ES原始密度\\Sn2Sb2Te5\\POSCAR",
+      "bytes": 1306,
+      "sha256": "2432bc3a7c6fcaa9ee507edc95684936b5296c9c8d5ef86be258b9059653032a"
+    },
+    {
+      "path": "06_COGITO成键分析与COHP\\源数据\\Bader_TET_ES原始密度\\原密度文件清单.json",
+      "bytes": 9839,
+      "sha256": "05af0d0af8fb49f2db7b2db93d1508cc70486631816f087e23f4a255acaf5833"
+    },
+    {
+      "path": "06_COGITO成键分析与COHP\\源数据\\Raty2021_ES_ET_DI\\DI_公式与校验.md",
+      "bytes": 1137,
+      "sha256": "17834d0d11f04bede9df5fbf06272e17fbc93997a76d5003d87ea45d5604e29a"
+    },
+    {
+      "path": "06_COGITO成键分析与COHP\\源数据\\Raty2021_ES_ET_DI\\DI结果\\DI_results_lowdin.json",
+      "bytes": 26496,
+      "sha256": "6df5c2708bc36abd50523837db5cfa6afc72b5c3961bc9f0eeecbdb2ef11196b"
+    },
+    {
+      "path": "06_COGITO成键分析与COHP\\源数据\\Raty2021_ES_ET_DI\\DI结果\\DI_run_log.txt",
+      "bytes": 8011,
+      "sha256": "4e7b3225c40092fd38fd404cc7288c92fbe26db5e675c9866dd5f9cf08623287"
+    },
+    {
+      "path": "06_COGITO成键分析与COHP\\源数据\\Raty2021_ES_ET_DI\\DI结果\\ES_逐接触汇总.json",
+      "bytes": 110048,
+      "sha256": "a0730ba65d3c6a373f656743afadd22bfaa9f6126c9227bb1f2102827c1913ab"
+    },
+    {
+      "path": "06_COGITO成键分析与COHP\\源数据\\Raty2021_ES_ET_DI\\ELF_f_localization_domains.json",
+      "bytes": 55631,
+      "sha256": "c4182388a0259f4755183f84fc44f633332101a916ef2bbc4767a784ba883ae0"
+    },
+    {
+      "path": "06_COGITO成键分析与COHP\\源数据\\Raty2021_ES_ET_DI\\ET_全密度Bader汇总.json",
+      "bytes": 7870,
+      "sha256": "368defd1694a33ef8eb6a34e10b5787e8d1e1544689b30c6fee5e2835b8ce1f8"
+    },
+    {
+      "path": "06_COGITO成键分析与COHP\\源数据\\Raty2021_ES_ET_DI\\波函数输入\\Pb2Bi2Te5\\INCAR",
+      "bytes": 479,
+      "sha256": "613d4304df9749c41828fc07121308126e8723d32cf3a836430a6455d9a968e2"
+    },
+    {
+      "path": "06_COGITO成键分析与COHP\\源数据\\Raty2021_ES_ET_DI\\波函数输入\\Pb2Bi2Te5\\KPOINTS",
+      "bytes": 15566,
+      "sha256": "c166c101621124cdeb5ef86519b2337d36c1c0e2a304d90046823bb9f7caab82"
+    },
+    {
+      "path": "06_COGITO成键分析与COHP\\源数据\\Raty2021_ES_ET_DI\\波函数输入\\Pb2Bi2Te5\\POSCAR",
+      "bytes": 1306,
+      "sha256": "54ea82de5fc1d03e66588fa25f33b9a54a95b1e7b5767af78522475a40070d99"
+    },
+    {
+      "path": "06_COGITO成键分析与COHP\\源数据\\Raty2021_ES_ET_DI\\波函数输入\\Pb2Sb2Te5\\INCAR",
+      "bytes": 569,
+      "sha256": "84069a6ef8ca3f3183ee1a7b163996911964474dfbc4bd41d4ef23092c9cfdf0"
+    },
+    {
+      "path": "06_COGITO成键分析与COHP\\源数据\\Raty2021_ES_ET_DI\\波函数输入\\Pb2Sb2Te5\\KPOINTS",
+      "bytes": 2545,
+      "sha256": "3d0eb464c90bb5e80a4e4fde60a3d2b7c634e21f33e2aad760cb3831ee36291a"
+    },
+    {
+      "path": "06_COGITO成键分析与COHP\\源数据\\Raty2021_ES_ET_DI\\波函数输入\\Pb2Sb2Te5\\POSCAR",
+      "bytes": 1306,
+      "sha256": "17b215b44d580f579e567bf51ba9ff85787fc185b27bac59effa342473424b35"
+    },
+    {
+      "path": "06_COGITO成键分析与COHP\\源数据\\Raty2021_ES_ET_DI\\波函数输入\\Sn2Bi2Te5\\INCAR",
+      "bytes": 479,
+      "sha256": "39ccaa288d53df01de4d422d115edcb60bede5423947cb85f71d882833103a41"
+    },
+    {
+      "path": "06_COGITO成键分析与COHP\\源数据\\Raty2021_ES_ET_DI\\波函数输入\\Sn2Bi2Te5\\KPOINTS",
+      "bytes": 15826,
+      "sha256": "2d1e17fa19e4a6739edcb6718ea866e7db9fee17cbeeb822f9d5c07eb951dd80"
+    },
+    {
+      "path": "06_COGITO成键分析与COHP\\源数据\\Raty2021_ES_ET_DI\\波函数输入\\Sn2Bi2Te5\\POSCAR",
+      "bytes": 1306,
+      "sha256": "50e9a5e0e5cc23843496bfea196841382da50a2f2154c6dd9234a695bfbf6ad7"
+    },
+    {
+      "path": "06_COGITO成键分析与COHP\\源数据\\Raty2021_ES_ET_DI\\波函数输入\\Sn2Sb2Te5\\INCAR",
+      "bytes": 503,
+      "sha256": "e82f5351e0dccf02d0665e7529ebc4d9601434483f48a7dcc3568101604c60cd"
+    },
+    {
+      "path": "06_COGITO成键分析与COHP\\源数据\\Raty2021_ES_ET_DI\\波函数输入\\Sn2Sb2Te5\\KPOINTS",
+      "bytes": 2545,
+      "sha256": "3d0eb464c90bb5e80a4e4fde60a3d2b7c634e21f33e2aad760cb3831ee36291a"
+    },
+    {
+      "path": "06_COGITO成键分析与COHP\\源数据\\Raty2021_ES_ET_DI\\波函数输入\\Sn2Sb2Te5\\POSCAR",
+      "bytes": 1306,
+      "sha256": "dbb89c3f3378e820d5dd1286485372680d9b4f63c4099b9a50870bf6fc9f42dc"
+    },
+    {
+      "path": "06_COGITO成键分析与COHP\\源数据\\文献方法\\Raty2021.pdf",
+      "bytes": 6457230,
+      "sha256": "331f12d0cf6c5ae4f10c4597a175e89d73be185b479465ced3c43361b46db76b"
+    },
+    {
+      "path": "06_COGITO成键分析与COHP\\源数据\\文献方法\\Raty2021_文本.txt",
+      "bytes": 56277,
+      "sha256": "19b742fa72c671d5a11ff49ce1b8a9c87808ae1c5e28f3b747aabc0d0f4e1010"
+    },
+    {
+      "path": "06_COGITO成键分析与COHP\\结果\\Pb2Bi2Te5\\all_atoms.json",
+      "bytes": 48239,
+      "sha256": "567fd02acc21e78558fe700ef4665462a848f50450f0ab4ce75333056b981ea5"
+    },
+    {
+      "path": "06_COGITO成键分析与COHP\\结果\\Pb2Bi2Te5\\all_unique_bonds.json",
+      "bytes": 35444,
+      "sha256": "07519d62fb32d01292b4af8909d10d4b30e63003ad91b44d4b0959025761ca44"
+    },
+    {
+      "path": "06_COGITO成键分析与COHP\\结果\\Pb2Bi2Te5\\bond_info.txt",
+      "bytes": 6556,
+      "sha256": "d2d1a7fb2ac4f8305d963ee39f008a26bf3229e9d4e2ef3519278c676d7e395b"
+    },
+    {
+      "path": "06_COGITO成键分析与COHP\\结果\\Pb2Bi2Te5\\cogito_summary.json",
+      "bytes": 948,
+      "sha256": "610371bfd79e7bdf59d516dfac6365eec73051e01fa5a4ec78dfd6ebe7d8fbfc"
+    },
+    {
+      "path": "06_COGITO成键分析与COHP\\结果\\Pb2Bi2Te5\\error_output.txt",
+      "bytes": 1568,
+      "sha256": "9e5f550b09808eabd6fe608221facc21e67c28011b17b5429b1ada9823d93a63"
+    },
+    {
+      "path": "06_COGITO成键分析与COHP\\结果\\Pb2Bi2Te5\\icohp_report.md",
+      "bytes": 2729,
+      "sha256": "999ba1dccf541c5eb1f19917be538e981ddca5859031574c2802434d20e6c2b1"
+    },
+    {
+      "path": "06_COGITO成键分析与COHP\\结果\\Pb2Bi2Te5\\icohp_short_long.json",
+      "bytes": 1642,
+      "sha256": "051e6dd06790409d0ea2d4f3b6b3008be754291bdf1e582e65d1d56c787f38bb"
+    },
+    {
+      "path": "06_COGITO成键分析与COHP\\结果\\Pb2Bi2Te5\\icohp_table.json",
+      "bytes": 17547,
+      "sha256": "d78bb177507bbd5f50618c5e7981dcd2b327387de47e8725978d6e7e78f5360b"
+    },
+    {
+      "path": "06_COGITO成键分析与COHP\\结果\\Pb2Sb2Te5\\all_atoms.json",
+      "bytes": 35584,
+      "sha256": "f870aa0472addf6b1ee8190fc73f859af1ac2ccfddb0034dd06a612d69539bce"
+    },
+    {
+      "path": "06_COGITO成键分析与COHP\\结果\\Pb2Sb2Te5\\all_unique_bonds.json",
+      "bytes": 39991,
+      "sha256": "08fb9496ec17e56f5026c826b1a8aad5e1e804d3a7e740029fd674b9b75675d1"
+    },
+    {
+      "path": "06_COGITO成键分析与COHP\\结果\\Pb2Sb2Te5\\bond_info.txt",
+      "bytes": 7905,
+      "sha256": "8299af9a3e158872fb1d4b92378bd33bcad66119f173cc094f0ad365d3a8ea55"
+    },
+    {
+      "path": "06_COGITO成键分析与COHP\\结果\\Pb2Sb2Te5\\cogito_summary.json",
+      "bytes": 932,
+      "sha256": "f60492629996f9cfd413571d4bca091829dcd6aecb1d61751a2a81d8b23254a1"
+    },
+    {
+      "path": "06_COGITO成键分析与COHP\\结果\\Pb2Sb2Te5\\error_output.txt",
+      "bytes": 1567,
+      "sha256": "2579064c047a0bad37fdcc0406452e7a2a162e0f6867241b94aa90bbc86e3da6"
+    },
+    {
+      "path": "06_COGITO成键分析与COHP\\结果\\Pb2Sb2Te5\\icohp_report.md",
+      "bytes": 3211,
+      "sha256": "8ea79ce6ead5c2ca265546cfbe2925e79b61fc40d93fb872ebc88d75312740d1"
+    },
+    {
+      "path": "06_COGITO成键分析与COHP\\结果\\Pb2Sb2Te5\\icohp_short_long.json",
+      "bytes": 1636,
+      "sha256": "eace8fc3c9c9fb8568eb7aba4e6cb5af4c4ead8f57ccdb4e611003673ddc058e"
+    },
+    {
+      "path": "06_COGITO成键分析与COHP\\结果\\Pb2Sb2Te5\\icohp_table.json",
+      "bytes": 21242,
+      "sha256": "869d7686fc5af35dea255d1780fe597a6badbff7f40923321a854f6a34ba1cdf"
+    },
+    {
+      "path": "06_COGITO成键分析与COHP\\结果\\Sn2Bi2Te5\\all_atoms.json",
+      "bytes": 47865,
+      "sha256": "50b6b303afd0d5faa9ce17d54c78bb4c6bfec268a21adb6f916e31f173c0e7d8"
+    },
+    {
+      "path": "06_COGITO成键分析与COHP\\结果\\Sn2Bi2Te5\\all_unique_bonds.json",
+      "bytes": 35096,
+      "sha256": "42f76359bfbae0e55f9efc122013aedbddc0bdcb7e889ccfac1c75325ef0f1aa"
+    },
+    {
+      "path": "06_COGITO成键分析与COHP\\结果\\Sn2Bi2Te5\\bond_info.txt",
+      "bytes": 6698,
+      "sha256": "bf00abacbad44d691726b711af0cc9cfb2152081f1ec383319a80080775886d6"
+    },
+    {
+      "path": "06_COGITO成键分析与COHP\\结果\\Sn2Bi2Te5\\cogito_summary.json",
+      "bytes": 926,
+      "sha256": "616abe44a2e6e6bf438ddf5ebe9651fa50ec91b48acbef867b264512a69e79ba"
+    },
+    {
+      "path": "06_COGITO成键分析与COHP\\结果\\Sn2Bi2Te5\\error_output.txt",
+      "bytes": 1568,
+      "sha256": "8c96204ced103709afaf7c3369e5a9b56137e4ed3b1e28b54e2f22c8eb9fd1fe"
+    },
+    {
+      "path": "06_COGITO成键分析与COHP\\结果\\Sn2Bi2Te5\\icohp_report.md",
+      "bytes": 2731,
+      "sha256": "3edac292e07ad774d395237cbf9c57a7360836cd5134cc033c82a387fd5a296c"
+    },
+    {
+      "path": "06_COGITO成键分析与COHP\\结果\\Sn2Bi2Te5\\icohp_short_long.json",
+      "bytes": 1627,
+      "sha256": "d582ef8ac5814573d2a8f7f572fe96e93e1090cbe500d44c6121228e7811625c"
+    },
+    {
+      "path": "06_COGITO成键分析与COHP\\结果\\Sn2Bi2Te5\\icohp_table.json",
+      "bytes": 17937,
+      "sha256": "79047f1371d2846baaa756a02dc379d2a6088f8cb479da11acc7579e7c93c6dc"
+    },
+    {
+      "path": "06_COGITO成键分析与COHP\\结果\\Sn2Sb2Te5\\all_atoms.json",
+      "bytes": 35430,
+      "sha256": "0b68aec24afe629c9351dd10bf8826eed88f0953555ee71b176c5ab3ab7cc13b"
+    },
+    {
+      "path": "06_COGITO成键分析与COHP\\结果\\Sn2Sb2Te5\\all_unique_bonds.json",
+      "bytes": 38921,
+      "sha256": "a93442e6c9ded954648bd01f4d40eecff9836d5571980ae9d2e98a6df21b1db2"
+    },
+    {
+      "path": "06_COGITO成键分析与COHP\\结果\\Sn2Sb2Te5\\bond_info.txt",
+      "bytes": 8046,
+      "sha256": "255cbccd333285253f5e4f7cddb3da6e5733a0a1ab8d92a7007972e1fa23effb"
+    },
+    {
+      "path": "06_COGITO成键分析与COHP\\结果\\Sn2Sb2Te5\\cogito_summary.json",
+      "bytes": 932,
+      "sha256": "2bbd561ada0b52deb53d6f6198196733379a15e150b3d53181e023b4ce58c675"
+    },
+    {
+      "path": "06_COGITO成键分析与COHP\\结果\\Sn2Sb2Te5\\error_output.txt",
+      "bytes": 1568,
+      "sha256": "ba2e0e563c929ac607998cd50eb25f93af21b2841c44e0c3c23cc9acf9cdce2b"
+    },
+    {
+      "path": "06_COGITO成键分析与COHP\\结果\\Sn2Sb2Te5\\icohp_report.md",
+      "bytes": 3270,
+      "sha256": "786a40db1c79fc3fbfc52521a6e5693cb05bdc3730fc0cedd4561d5b17400469"
+    },
+    {
+      "path": "06_COGITO成键分析与COHP\\结果\\Sn2Sb2Te5\\icohp_short_long.json",
+      "bytes": 1644,
+      "sha256": "9619e97d43ab5282ec1f012ed7a240686425380d13d6bf3cff2832c67f764cbd"
+    },
+    {
+      "path": "06_COGITO成键分析与COHP\\结果\\Sn2Sb2Te5\\icohp_table.json",
+      "bytes": 21626,
+      "sha256": "edb475795a8528b7014f7adc89e3704036bdb0efdca6c4e78324279b5d8148f8"
+    },
+    {
+      "path": "06_COGITO成键分析与COHP\\运行日志\\Pb2Bi2Te5\\analyze.log",
+      "bytes": 1145,
+      "sha256": "1e17a64236809f1959382fa2e1dc536b03cb64d994f0f39a1a11635918db218c"
+    },
+    {
+      "path": "06_COGITO成键分析与COHP\\运行日志\\Pb2Bi2Te5\\COG_output.txt",
+      "bytes": 14545,
+      "sha256": "27640e95b0518fb567e499ee436da496be5ee1b3c8a498b25b0737ca454119ca"
+    },
+    {
+      "path": "06_COGITO成键分析与COHP\\运行日志\\Pb2Bi2Te5\\cogito_run.log",
+      "bytes": 14700,
+      "sha256": "f8bbe8e76ad787638595100541083b80fc1cab656f741167829ed3c02c2fa8fb"
+    },
+    {
+      "path": "06_COGITO成键分析与COHP\\运行日志\\Pb2Bi2Te5\\orb_converg_info.json",
+      "bytes": 87806,
+      "sha256": "413bccee1fd01a392ef0942830ac6a8063ba18c72fb69788bd947757a218e3cb"
+    },
+    {
+      "path": "06_COGITO成键分析与COHP\\运行日志\\Pb2Bi2Te5\\post.log",
+      "bytes": 15348,
+      "sha256": "e28001ae1e1e20639e696c9be0075d407cce7cc56c44abd3334803b865682839"
+    },
+    {
+      "path": "06_COGITO成键分析与COHP\\运行日志\\Pb2Bi2Te5\\submit.sh",
+      "bytes": 2478,
+      "sha256": "93df481496c7bb33d7310a543897f3ee1dc54ed6890f3d6805c61e798b549b4d"
+    },
+    {
+      "path": "06_COGITO成键分析与COHP\\运行日志\\Pb2Sb2Te5\\analyze.log",
+      "bytes": 923,
+      "sha256": "fd5ef0074f3cbeaf70905895f21f098336b624baca260e9031e31c4c47daea7c"
+    },
+    {
+      "path": "06_COGITO成键分析与COHP\\运行日志\\Pb2Sb2Te5\\COG_output.txt",
+      "bytes": 14185,
+      "sha256": "d5fd55d0ade7ad10c8889028ffde638e9c7251f2d5cb0369dea04e5806f014f2"
+    },
+    {
+      "path": "06_COGITO成键分析与COHP\\运行日志\\Pb2Sb2Te5\\cogito_run.log",
+      "bytes": 14340,
+      "sha256": "814129a7fa9fdbdd46cea6469a1cb609a6fbe6d436d628f2b87a5a565e061dd3"
+    },
+    {
+      "path": "06_COGITO成键分析与COHP\\运行日志\\Pb2Sb2Te5\\orb_converg_info.json",
+      "bytes": 72121,
+      "sha256": "6ac115471c8a4e0c19d756ef37f9e5d36d58d24762038bca8ee3ec060381bdbd"
+    },
+    {
+      "path": "06_COGITO成键分析与COHP\\运行日志\\Pb2Sb2Te5\\post.log",
+      "bytes": 15589,
+      "sha256": "fe440c97d51e203c00a5d176e3b0a7b67970414c17af997f2ce7c7338dc68d56"
+    },
+    {
+      "path": "06_COGITO成键分析与COHP\\运行日志\\Pb2Sb2Te5\\submit.sh",
+      "bytes": 2478,
+      "sha256": "7fef58290ee3782b869b77f431236d962965cd46c25de0aa107e48f7bde0fafa"
+    },
+    {
+      "path": "06_COGITO成键分析与COHP\\运行日志\\Sn2Bi2Te5\\analyze.log",
+      "bytes": 1693,
+      "sha256": "0c1ce38f3f69ab6fd1aca229b735fd1ef3753b94cfdd6c5b02efa9f8607d9dd8"
+    },
+    {
+      "path": "06_COGITO成键分析与COHP\\运行日志\\Sn2Bi2Te5\\COG_output.txt",
+      "bytes": 14050,
+      "sha256": "cd25a257c63e2179a490c37246f2487975be4f5ecc734cb70d3dc3a7642d4197"
+    },
+    {
+      "path": "06_COGITO成键分析与COHP\\运行日志\\Sn2Bi2Te5\\cogito_run.log",
+      "bytes": 14205,
+      "sha256": "956498f7a0a847729ceec18c95df7f0e476a968f11877d3a0b9b6c90d6a9a82e"
+    },
+    {
+      "path": "06_COGITO成键分析与COHP\\运行日志\\Sn2Bi2Te5\\orb_converg_info.json",
+      "bytes": 87785,
+      "sha256": "0e376859dcc7b7ecc886432b023fa730293e3eb9485a882e5c7d40dfadf1bca8"
+    },
+    {
+      "path": "06_COGITO成键分析与COHP\\运行日志\\Sn2Bi2Te5\\post.log",
+      "bytes": 806,
+      "sha256": "53c2ebdc675262941f7f322ce098719720470cfa30b1cdcd705442c5b9ce6778"
+    },
+    {
+      "path": "06_COGITO成键分析与COHP\\运行日志\\Sn2Bi2Te5\\submit.sh",
+      "bytes": 2478,
+      "sha256": "9cf2b44e4a4c8e88a7fd1352cf20222980678bf00bda3300973227074778d177"
+    },
+    {
+      "path": "06_COGITO成键分析与COHP\\运行日志\\Sn2Sb2Te5\\analyze.log",
+      "bytes": 901,
+      "sha256": "6435ecfd9b734778e6008efe63dbe8846ffa6d4ff468c5cae2c4d174554175ee"
+    },
+    {
+      "path": "06_COGITO成键分析与COHP\\运行日志\\Sn2Sb2Te5\\COG_output.txt",
+      "bytes": 13693,
+      "sha256": "e820ec961dd65d12496ae3a8ff5d379608a1bf136aa7fa7d870c75decd6e870f"
+    },
+    {
+      "path": "06_COGITO成键分析与COHP\\运行日志\\Sn2Sb2Te5\\cogito_run.log",
+      "bytes": 13848,
+      "sha256": "66ecf21c4e014e0b4f6d9438bed87477ad0cee9fdc349cc602253ff55406941a"
+    },
+    {
+      "path": "06_COGITO成键分析与COHP\\运行日志\\Sn2Sb2Te5\\orb_converg_info.json",
+      "bytes": 72135,
+      "sha256": "086c2e11102f0463a99fe36b9f6ec5c9bfe5f94aa45e4a303a6deb662488aaf7"
+    },
+    {
+      "path": "06_COGITO成键分析与COHP\\运行日志\\Sn2Sb2Te5\\post.log",
+      "bytes": 15753,
+      "sha256": "ae4b8161644b6f491746856324931ca09a26a213f510fe8514693db570dfcd76"
+    },
+    {
+      "path": "06_COGITO成键分析与COHP\\运行日志\\Sn2Sb2Te5\\submit.sh",
+      "bytes": 2478,
+      "sha256": "bafa2a8fd48c7faa443361ec0b3608f679cd6b1ce7a522eeb0177a151e6eacfc"
+    },
+    {
+      "path": "07_带边能窗\\入选态清单.csv",
+      "bytes": 28239,
+      "sha256": "86662f35a825c3a24a46ed4a2c693a39060a5e21dd1ff7ed6eebed7b251a6d58"
+    },
+    {
+      "path": "07_带边能窗\\带边能窗统计.csv",
+      "bytes": 11401,
+      "sha256": "ecfd51149f4d68d62f53f865b81459d4bccedc8cc3aff4c9e1bfd5385df05f81"
+    },
+    {
+      "path": "07_带边能窗\\带边能窗统计.json",
+      "bytes": 59308,
+      "sha256": "83f9c083a78fccc1ac6ba1002cc711eeb92f6e3b7f4ed0059b6aca8d5226fb9f"
+    },
+    {
+      "path": "07_带边能窗\\源数据\\Pb2Bi2Te5\\INCAR",
+      "bytes": 546,
+      "sha256": "1c0a53a64b0f75ee9f56c61ac6da4a4961b4c4a93b13b3072e198532fe29199a"
+    },
+    {
+      "path": "07_带边能窗\\源数据\\Pb2Bi2Te5\\KPOINTS",
+      "bytes": 15566,
+      "sha256": "c166c101621124cdeb5ef86519b2337d36c1c0e2a304d90046823bb9f7caab82"
+    },
+    {
+      "path": "07_带边能窗\\源数据\\Pb2Bi2Te5\\POSCAR",
+      "bytes": 1306,
+      "sha256": "54ea82de5fc1d03e66588fa25f33b9a54a95b1e7b5767af78522475a40070d99"
+    },
+    {
+      "path": "07_带边能窗\\源数据\\Pb2Bi2Te5\\PROCAR.gz",
+      "bytes": 10082570,
+      "sha256": "998267d17942de8d7e90a1c3d944b422e0203fc91c5fc316f6aac2042c93ed06"
+    },
+    {
+      "path": "07_带边能窗\\源数据\\Pb2Bi2Te5\\原始来源.json",
+      "bytes": 161,
+      "sha256": "25bba554d7767eb0f7e10d2ee273737b254138ff9d98d97052de487903f3f1a6"
+    },
+    {
+      "path": "07_带边能窗\\源数据\\Pb2Bi2Te5\\解析投影.npz",
+      "bytes": 318155,
+      "sha256": "b851e601348ca58eca8f9365109f9de0299c6667ee4f25b114c1741d357727ad"
+    },
+    {
+      "path": "07_带边能窗\\源数据\\Pb2Sb2Te5\\INCAR",
+      "bytes": 658,
+      "sha256": "dba0622922d4861a495e829247eaa6823e2d8423a0268080cab2c20ea10286f1"
+    },
+    {
+      "path": "07_带边能窗\\源数据\\Pb2Sb2Te5\\kpath.json",
+      "bytes": 14375,
+      "sha256": "52d42bb537c192610b6f57e7524a7c26e7584df5c8732afde9ea3d0f82d8acf2"
+    },
+    {
+      "path": "07_带边能窗\\源数据\\Pb2Sb2Te5\\KPOINTS",
+      "bytes": 2545,
+      "sha256": "3d0eb464c90bb5e80a4e4fde60a3d2b7c634e21f33e2aad760cb3831ee36291a"
+    },
+    {
+      "path": "07_带边能窗\\源数据\\Pb2Sb2Te5\\KPOINTS_OPT",
+      "bytes": 13323,
+      "sha256": "0bb7c40ac095014eb1f7e384dd93075fd6655bbe17a709fecd3f2902f387a0ce"
+    },
+    {
+      "path": "07_带边能窗\\源数据\\Pb2Sb2Te5\\POSCAR",
+      "bytes": 1306,
+      "sha256": "17b215b44d580f579e567bf51ba9ff85787fc185b27bac59effa342473424b35"
+    },
+    {
+      "path": "07_带边能窗\\源数据\\Pb2Sb2Te5\\PROCAR_OPT.gz",
+      "bytes": 7441355,
+      "sha256": "56729fa85256f65e584b21746674789aabfcd503e2a7475c192cd4525af84da5"
+    },
+    {
+      "path": "07_带边能窗\\源数据\\Pb2Sb2Te5\\原始来源.json",
+      "bytes": 165,
+      "sha256": "e56f643e45d2ab305bc6d571ef8e7d9de46ea62ac963acb3ce9b6e134b5108e0"
+    },
+    {
+      "path": "07_带边能窗\\源数据\\Pb2Sb2Te5\\解析投影.npz",
+      "bytes": 294723,
+      "sha256": "c497325f030d1bc419d884d6b487a4be8894c3ea76a6a529da714c85944f3c94"
+    },
+    {
+      "path": "07_带边能窗\\源数据\\Sn2Bi2Te5\\INCAR",
+      "bytes": 546,
+      "sha256": "743e08ddb91e60655d48bb1f885ba3a3c7152cd9dd0bea1a53b7936d08d0a41c"
+    },
+    {
+      "path": "07_带边能窗\\源数据\\Sn2Bi2Te5\\KPOINTS",
+      "bytes": 15826,
+      "sha256": "2d1e17fa19e4a6739edcb6718ea866e7db9fee17cbeeb822f9d5c07eb951dd80"
+    },
+    {
+      "path": "07_带边能窗\\源数据\\Sn2Bi2Te5\\POSCAR",
+      "bytes": 1306,
+      "sha256": "50e9a5e0e5cc23843496bfea196841382da50a2f2154c6dd9234a695bfbf6ad7"
+    },
+    {
+      "path": "07_带边能窗\\源数据\\Sn2Bi2Te5\\PROCAR.gz",
+      "bytes": 10295096,
+      "sha256": "28862e94ef7c4c29834bc76b96d10d21a3bda125654f1303d743b517865321ac"
+    },
+    {
+      "path": "07_带边能窗\\源数据\\Sn2Bi2Te5\\原始来源.json",
+      "bytes": 161,
+      "sha256": "a2d09386d516a6dd0ce5b5478cce983ccc0ff273c7d56b546e9cef6f13e529e9"
+    },
+    {
+      "path": "07_带边能窗\\源数据\\Sn2Bi2Te5\\解析投影.npz",
+      "bytes": 324894,
+      "sha256": "0e77b2f39a85789e4e9577c474f6844c3aa6a0e59e40b90579b5b676d3d5a365"
+    },
+    {
+      "path": "07_带边能窗\\源数据\\Sn2Sb2Te5\\INCAR",
+      "bytes": 590,
+      "sha256": "52874e77a50bbe716fcc90dfa9b6fbb0aadd9895b82e71dbcaa7b0ca6263bb80"
+    },
+    {
+      "path": "07_带边能窗\\源数据\\Sn2Sb2Te5\\kpath.json",
+      "bytes": 14370,
+      "sha256": "79e8ffac6ac3077bcef875393b72ce4a11ef0c2300f8a046be579208d8377ef4"
+    },
+    {
+      "path": "07_带边能窗\\源数据\\Sn2Sb2Te5\\KPOINTS",
+      "bytes": 2545,
+      "sha256": "3d0eb464c90bb5e80a4e4fde60a3d2b7c634e21f33e2aad760cb3831ee36291a"
+    },
+    {
+      "path": "07_带边能窗\\源数据\\Sn2Sb2Te5\\KPOINTS_OPT",
+      "bytes": 13323,
+      "sha256": "0bb7c40ac095014eb1f7e384dd93075fd6655bbe17a709fecd3f2902f387a0ce"
+    },
+    {
+      "path": "07_带边能窗\\源数据\\Sn2Sb2Te5\\POSCAR",
+      "bytes": 1306,
+      "sha256": "dbb89c3f3378e820d5dd1286485372680d9b4f63c4099b9a50870bf6fc9f42dc"
+    },
+    {
+      "path": "07_带边能窗\\源数据\\Sn2Sb2Te5\\PROCAR_OPT.gz",
+      "bytes": 7409393,
+      "sha256": "ed1ca05ae8011c6a3e0c17aa46709088096110339482ba5ee0d4852272b4b275"
+    },
+    {
+      "path": "07_带边能窗\\源数据\\Sn2Sb2Te5\\原始来源.json",
+      "bytes": 165,
+      "sha256": "c36583d6eda2ccd00f23a9dbef7b348c3371a2ce4591c3d9dec84b73371289ca"
+    },
+    {
+      "path": "07_带边能窗\\源数据\\Sn2Sb2Te5\\解析投影.npz",
+      "bytes": 292487,
+      "sha256": "a144018a662b5dda9adb3f300a8d02d22704b1713e313633fba67742d030afc8"
+    },
+    {
+      "path": "08_介电复核\\介电复核.json",
+      "bytes": 4273,
+      "sha256": "3ea44c0dec733b6e3b07b6cc3175784e8b3682e9d5eb965dce8a21ba536e1587"
+    },
+    {
+      "path": "08_介电复核\\源数据\\Pb2Bi2Te5\\INCAR",
+      "bytes": 912,
+      "sha256": "d1c5db644c05733ec4e797042ec8d9f078177129bc0be7452cf84465c5fcfbc1"
+    },
+    {
+      "path": "08_介电复核\\源数据\\Pb2Bi2Te5\\KPOINTS",
+      "bytes": 45,
+      "sha256": "abfad0e2e60f9243970dd2acc888722cc854085e0162206be07578fb7f2aa6b5"
+    },
+    {
+      "path": "08_介电复核\\源数据\\Pb2Bi2Te5\\OSZICAR",
+      "bytes": 87089,
+      "sha256": "0b67b3b662fe17ba6cfd907a5d502c9cc2fff7557dc517c357f968fe4945bef9"
+    },
+    {
+      "path": "08_介电复核\\源数据\\Pb2Bi2Te5\\OUTCAR.gz",
+      "bytes": 3697011,
+      "sha256": "adcfbcf1914edb1a4a28cda8d9fbd8cde798edaff13987ba1bb3c19aa9e54b04"
+    },
+    {
+      "path": "08_介电复核\\源数据\\Pb2Bi2Te5\\POSCAR",
+      "bytes": 1306,
+      "sha256": "7e4535e41f242546bc3e604852ea30213ef487cca99d4f64c53b5a4946de4bfd"
+    },
+    {
+      "path": "08_介电复核\\源数据\\Pb2Bi2Te5\\来源.json",
+      "bytes": 516,
+      "sha256": "7d9ebcd66314d21daa859845647e5a79bd68ed52f5f0e3156201fa99c8135e07"
+    },
+    {
+      "path": "08_介电复核\\源数据\\Pb2Sb2Te5\\INCAR",
+      "bytes": 911,
+      "sha256": "cf38705319a764dcf6fe1e06cd64c592f9b73e34cd8c726bab059370c9c38cc8"
+    },
+    {
+      "path": "08_介电复核\\源数据\\Pb2Sb2Te5\\KPOINTS",
+      "bytes": 43,
+      "sha256": "c4a2a3e08b0cd53761be6f513c0250666ba1edbfb01d1b2b943f63d9ccf8cf55"
+    },
+    {
+      "path": "08_介电复核\\源数据\\Pb2Sb2Te5\\OSZICAR",
+      "bytes": 76894,
+      "sha256": "2678fe4c23f43470d16bfef0db1469e6f63b2f7d42a58c21b39ea7dd26af900f"
+    },
+    {
+      "path": "08_介电复核\\源数据\\Pb2Sb2Te5\\OUTCAR.gz",
+      "bytes": 1715511,
+      "sha256": "1ab79dc7cd7c8d32ba506b62afcd36a21bcc298e91bcd2b6881eed4160e11e4f"
+    },
+    {
+      "path": "08_介电复核\\源数据\\Pb2Sb2Te5\\POSCAR",
+      "bytes": 1306,
+      "sha256": "17b215b44d580f579e567bf51ba9ff85787fc185b27bac59effa342473424b35"
+    },
+    {
+      "path": "08_介电复核\\源数据\\Pb2Sb2Te5\\来源.json",
+      "bytes": 525,
+      "sha256": "397da9fb1f10cc8da594647c31ec9c3c453c3d3ec69c3668ec8dcf958870d463"
+    },
+    {
+      "path": "08_介电复核\\源数据\\Sn2Bi2Te5\\INCAR",
+      "bytes": 912,
+      "sha256": "32fc950c0e1fd43ca164b0666bdf7bbd6a3bbfee7e71c9964d9dea50ddd963e5"
+    },
+    {
+      "path": "08_介电复核\\源数据\\Sn2Bi2Te5\\KPOINTS",
+      "bytes": 45,
+      "sha256": "abfad0e2e60f9243970dd2acc888722cc854085e0162206be07578fb7f2aa6b5"
+    },
+    {
+      "path": "08_介电复核\\源数据\\Sn2Bi2Te5\\OSZICAR",
+      "bytes": 80917,
+      "sha256": "ee31c9debf31c77c307d9b55e2f5710b92d0410ad57e9585a7f3d220efc56b7a"
+    },
+    {
+      "path": "08_介电复核\\源数据\\Sn2Bi2Te5\\OUTCAR.gz",
+      "bytes": 3666581,
+      "sha256": "d6e5cd2edf1588255e86fbd3ad8e8302748cb949ef8a70ec7607d6c17a5a4506"
+    },
+    {
+      "path": "08_介电复核\\源数据\\Sn2Bi2Te5\\POSCAR",
+      "bytes": 1306,
+      "sha256": "50e9a5e0e5cc23843496bfea196841382da50a2f2154c6dd9234a695bfbf6ad7"
+    },
+    {
+      "path": "08_介电复核\\源数据\\Sn2Bi2Te5\\来源.json",
+      "bytes": 516,
+      "sha256": "edafd68bd25cfd09abe8d2c79592774db190999238c1d4b7ca38dad2af2c36f4"
+    },
+    {
+      "path": "08_介电复核\\源数据\\Sn2Sb2Te5\\INCAR",
+      "bytes": 911,
+      "sha256": "534b47595cd6e037737256088c3e9bc3c61fd94f59a3c500a5b32ca9ed03dbc7"
+    },
+    {
+      "path": "08_介电复核\\源数据\\Sn2Sb2Te5\\KPOINTS",
+      "bytes": 45,
+      "sha256": "abfad0e2e60f9243970dd2acc888722cc854085e0162206be07578fb7f2aa6b5"
+    },
+    {
+      "path": "08_介电复核\\源数据\\Sn2Sb2Te5\\OSZICAR",
+      "bytes": 67789,
+      "sha256": "1e486a97aa159584562b68cf3983cd86aa47ad73bdfa925504f63672d93e4001"
+    },
+    {
+      "path": "08_介电复核\\源数据\\Sn2Sb2Te5\\OUTCAR.gz",
+      "bytes": 1662155,
+      "sha256": "fc20936c559c06d133519c5352ae70dc25136cd843e57a6028b9ebc7e8e04c37"
+    },
+    {
+      "path": "08_介电复核\\源数据\\Sn2Sb2Te5\\POSCAR",
+      "bytes": 1306,
+      "sha256": "dbb89c3f3378e820d5dd1286485372680d9b4f63c4099b9a50870bf6fc9f42dc"
+    },
+    {
+      "path": "08_介电复核\\源数据\\Sn2Sb2Te5\\来源.json",
+      "bytes": 516,
+      "sha256": "5fc58d3df549bb6cd4f277b17192b9a592471fab004b3f063563491bd8a4ddf4"
+    },
+    {
+      "path": "09_审查\\ELF原网格积分校验.json",
+      "bytes": 1454,
+      "sha256": "86a5a2de6c3ecf876cf5b85ad4b9508039ce7a1e903fa732462dec3fd92d6950"
+    },
+    {
+      "path": "09_审查\\SnBi缺陷输运对应.json",
+      "bytes": 30177,
+      "sha256": "52bf97e3d5de9412b7a4227a62a669f11bfdd33dd6bdc832dad71f02dab65d4e"
+    },
+    {
+      "path": "09_审查\\共享与局域化审查.json",
+      "bytes": 1855,
+      "sha256": "f8f6886a1bf20326d5b4441da4e7401c6934be2a243f3288979fb039457a7cb3"
+    },
+    {
+      "path": "09_审查\\共享电荷局域化绘图数据.json",
+      "bytes": 945,
+      "sha256": "6bff0aeccd0aa2dbf8db0df033d584170c59040c2d0b707aefc922ad5a921d20"
+    },
+    {
+      "path": "09_审查\\成键复算.json",
+      "bytes": 78299,
+      "sha256": "d7d2e3ada1150346aae22c19d205ca0b528b11a77ce64015c9e885812ed845ca"
+    },
+    {
+      "path": "09_审查\\报告图片来源.json",
+      "bytes": 3865,
+      "sha256": "4deac57a56aab8a27f01be556e26a6029bcc5e3ffdbe11bb7cecf115d335f2cd"
+    },
+    {
+      "path": "09_审查\\数值审查.json",
+      "bytes": 3052,
+      "sha256": "693e10a65046d12d2aeb612617931e8012a4ce543fdd89962fc2ca116fecbb11"
+    },
+    {
+      "path": "09_审查\\最终审查.json",
+      "bytes": 2137,
+      "sha256": "fd77c4fc3efc1053e448b9a03852479aa672bf5b49978320ee424972025e1d40"
+    },
+    {
+      "path": "09_审查\\最终审查报告.html",
+      "bytes": 3267,
+      "sha256": "a09343287a116e044a0c96942f6987d9130689fa4cf18a8ea3820812abaf6662"
+    },
+    {
+      "path": "09_审查\\本地COGITO源镜像核对.md",
+      "bytes": 1399,
+      "sha256": "86942d64df892a921b615bc647acc7f92d32d11a07a7957a56e100a2e31399b7"
+    },
+    {
+      "path": "09_审查\\本次交付整理.json",
+      "bytes": 155,
+      "sha256": "9b7af0e0636b4d69935f9bcc22bdb8763282f5437a4d3b6fe6840f7d7b030884"
+    },
+    {
+      "path": "09_审查\\浏览器检查.json",
+      "bytes": 840,
+      "sha256": "49fb6db6188867030a87605f7975cbfbff62e6108899de3c80f5dad63a47d050"
+    },
+    {
+      "path": "09_审查\\清理记录.json",
+      "bytes": 26206,
+      "sha256": "89d49dcab4ad17ba5bef83a7042e603f33882fa603dea05552cb8cd539c1ec07"
+    },
+    {
+      "path": "09_审查\\缺陷复算.json",
+      "bytes": 9130,
+      "sha256": "0561cb06e96d99ee0c28f2f1e82b9d6425eed9e5209bc2c3786434e5916d391a"
+    },
+    {
+      "path": "09_审查\\补充审查.json",
+      "bytes": 761,
+      "sha256": "8d05c0de217c531e6152ee6270d8479ccad33072887133525858506d3123f30d"
+    },
+    {
+      "path": "09_审查\\输运复算.json",
+      "bytes": 1363224,
+      "sha256": "0831dab8bfe3bdb45fb14365bf43f798e83d55e037462ab78b0d2ce533b0185e"
+    },
+    {
+      "path": "10_脚本\\analyze_sources.py",
+      "bytes": 9070,
+      "sha256": "268eb2e1a10e29117cc890f8359ee889eeac023bc091ec6b0f6f466d242780a1"
+    },
+    {
+      "path": "10_脚本\\audit_sharing.py",
+      "bytes": 2735,
+      "sha256": "93f4cc4ecd1596d0d2d2dc139844d3c14bdba5cdbefa2a20b5485c9dfc66cfad"
+    },
+    {
+      "path": "10_脚本\\band_windows.py",
+      "bytes": 8044,
+      "sha256": "bebc0abcca6a8ec69c83988cac1add59124d0b9348e706ea039270ee8b32d15b"
+    },
+    {
+      "path": "10_脚本\\build_report.py",
+      "bytes": 48373,
+      "sha256": "cea25eac60858a0a3fd87ad722e1b8cd4a9a4de16ff54f84874c4c4cd487fd70"
+    },
+    {
+      "path": "10_脚本\\compare_soc_transport.py",
+      "bytes": 7029,
+      "sha256": "0a0cc8a4512808ae474dec613c4b55c577d01fc7fe63104d7845ab3533ce62d2"
+    },
+    {
+      "path": "10_脚本\\extra_audit.py",
+      "bytes": 5210,
+      "sha256": "2b213b57f79cf4039e1bdbfff2e635c9f36b2fad6603b168a74d9ca21a2ef19b"
+    },
+    {
+      "path": "10_脚本\\final_audit.py",
+      "bytes": 13455,
+      "sha256": "8f8d1b6d358feb2830541fdbc7ec6d10adb6511a2d5db964e4c3d9fdfc7d4e02"
+    },
+    {
+      "path": "10_脚本\\paper_revision.py",
+      "bytes": 18260,
+      "sha256": "40e379b93df6e420572d51d98736b0514451b2fe023653bd82abfd84e3857e74"
+    },
+    {
+      "path": "10_脚本\\README.md",
+      "bytes": 958,
+      "sha256": "08a2c8c6be356cddf4005538dd19e24a28962e84a1a0fc36c3a47307ee3b2f88"
+    },
+    {
+      "path": "10_脚本\\redraw_evidence_chain.py",
+      "bytes": 3262,
+      "sha256": "936581c8de512e64dda298d165fabe4d32446e6c27fbdb00d39071520a195fbe"
+    },
+    {
+      "path": "10_脚本\\render_transport_report.py",
+      "bytes": 14506,
+      "sha256": "8adb400150c7fb783e2f0ecdeb40f16505d36a0182203bae761fe336f2fe5aed"
+    },
+    {
+      "path": "10_脚本\\requirements.txt",
+      "bytes": 70,
+      "sha256": "7aea4882a2955774013721c54fc7ac4086cd8de3743e210d05a1092f4aa4c87a"
+    },
+    {
+      "path": "10_脚本\\共享与局域化\\bader_fulldensity_ET.py",
+      "bytes": 4134,
+      "sha256": "ab763c9741107d0ac2cc0371aeb4e554cd1af95969832be45dde8db749d057b5"
+    },
+    {
+      "path": "10_脚本\\共享与局域化\\di_from_wavecar.py",
+      "bytes": 12294,
+      "sha256": "a507c01df02d2b5efdc869e50c069ab698dac7a0ed9fbb71bdf03fa67491d09f"
+    },
+    {
+      "path": "10_脚本\\共享与局域化\\elf_basin_integrate.py",
+      "bytes": 7731,
+      "sha256": "112a64fb4caae8252023b4c977741ccad033004defb7ef8336ea9c7c5de7b517"
+    },
+    {
+      "path": "10_脚本\\共享与局域化\\汇总DI与ES.py",
+      "bytes": 7824,
+      "sha256": "535dfdbb0b24d78c5fb6a3817b26d2eb95b2864754001c8288a1364d994ecd79"
+    },
+    {
+      "path": "10_脚本\\报告模板\\缺陷参考文献.html",
+      "bytes": 674,
+      "sha256": "bb3d03ac46fbd9be6337e1d19de6571f2e298d23fb641781b079f1dc324c8232"
+    },
+    {
+      "path": "10_脚本\\报告模板\\缺陷章节.html",
+      "bytes": 27693,
+      "sha256": "224039f8df008d8ad0bae54f5de48edc91b780a509f5928feff6c7a19f070288"
+    },
+    {
+      "path": "10_脚本\\方法依据\\COGITOpost_bond_info_excerpt.txt",
+      "bytes": 3732,
+      "sha256": "0dca214ba8a891ac80b252adbeab65c3a493402b24a4e574ee298902c411f7cc"
+    },
+    {
+      "path": "README_文档导航与数据溯源.md",
+      "bytes": 1447,
+      "sha256": "8eb7d980769905a6462b0df1315e1a6fa33a6ed7f6c0eb4d0dffba9a96f90c44"
+    }
+  ]
+}

@@ -1,0 +1,56 @@
+{
+  "status": "数据展示一致性通过；共享估计物理有效性存在未通过项",
+  "checks": [
+    {
+      "check": "主报告关键数表对JSON（含共享估计，非ES物理有效性证明）",
+      "passed": true,
+      "tables": 11
+    },
+    {
+      "check": "56组能窗重新选态和投影归一化",
+      "passed": true,
+      "materials": 4,
+      "windows_per_edge": 7
+    },
+    {
+      "check": "基线全量CSV对原始张量",
+      "passed": true,
+      "rows": 3400,
+      "numeric_fields": 30600
+    },
+    {
+      "check": "原主报告高温Seebeck文字结论重算",
+      "passed": true,
+      "v0_v2_all_positive": true
+    },
+    {
+      "check": "报告图片解码、SHA256及本地链接",
+      "passed": true,
+      "embedded_images": {
+        "01_报告\\完整分析报告.html": 25,
+        "01_报告\\结构对应报告.html": 0,
+        "04_AMSET输运数据\\整体输运报告_含平均.html": 0,
+        "05_SOC_AMSET补算\\06_SOC_无SOC对比\\SOC_无SOC对比报告.html": 8
+      },
+      "broken_links": []
+    },
+    {
+      "check": "四材料缺陷ZIP完整性",
+      "passed": true
+    },
+    {
+      "check": "清理范围核对",
+      "passed": true,
+      "removed_files": 85,
+      "removed_bytes": 44867065,
+      "calculation_workspace_deleted": false
+    }
+  ],
+  "limitations": [
+    "共享矩阵的对称轨道计数检查未通过：4/38 个 k 点与预期不同，累计 308 对 288。Ê 仅保留为待验证方法输出，不能称为严格逐接触 ES。详见共享与局域化审查.json。",
+    "COGITO Qabs、ICOHP 与 ICOOP 有原始键表/原子表可复算；Qabs 与文献逐接触 ET 的定义不同，报告中不混用。",
+    "当前 SOC-DFPT 9×9×2 介电张量已作为收敛屏蔽输入，并逐项匹配两套 AMSET 设置。",
+    "缺陷形成能和 p/n 使用源模型记录；本报告复核排序、相对能量差和化学势条件下的判型趋势。",
+    "fatband、ELF 和缺陷图均链接到保留的可追溯源数据，综合图由相应归档数值重绘。"
+  ]
+}

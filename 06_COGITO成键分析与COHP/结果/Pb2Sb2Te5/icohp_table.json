@@ -1,0 +1,983 @@
+[
+  {
+    "atom1": "Te",
+    "atom2": "Sb",
+    "dist_ang": 3.02,
+    "icohp_ev_per_bond": -1.5516,
+    "icoop_elec_per_bond": 0.2416,
+    "count_per_cell": 6.0,
+    "icohp_ev_per_cell": -9.3098
+  },
+  {
+    "atom1": "Te",
+    "atom2": "Sb",
+    "dist_ang": 3.17,
+    "icohp_ev_per_bond": -0.5846,
+    "icoop_elec_per_bond": 0.1172,
+    "count_per_cell": 6.0,
+    "icohp_ev_per_cell": -3.5074
+  },
+  {
+    "atom1": "Te",
+    "atom2": "Pb",
+    "dist_ang": 3.2,
+    "icohp_ev_per_bond": -1.069,
+    "icoop_elec_per_bond": 0.1804,
+    "count_per_cell": 6.0,
+    "icohp_ev_per_cell": -6.4142
+  },
+  {
+    "atom1": "Te",
+    "atom2": "Pb",
+    "dist_ang": 3.21,
+    "icohp_ev_per_bond": -1.131,
+    "icoop_elec_per_bond": 0.1821,
+    "count_per_cell": 6.0,
+    "icohp_ev_per_cell": -6.7861
+  },
+  {
+    "atom1": "Te",
+    "atom2": "Te",
+    "dist_ang": 3.58,
+    "icohp_ev_per_bond": 0.3577,
+    "icoop_elec_per_bond": -0.0059,
+    "count_per_cell": 3.0,
+    "icohp_ev_per_cell": 1.0732
+  },
+  {
+    "atom1": "Te",
+    "atom2": "Te",
+    "dist_ang": 4.38,
+    "icohp_ev_per_bond": 0.2194,
+    "icoop_elec_per_bond": -0.0132,
+    "count_per_cell": 21.0,
+    "icohp_ev_per_cell": 4.6084
+  },
+  {
+    "atom1": "Pb",
+    "atom2": "Pb",
+    "dist_ang": 4.39,
+    "icohp_ev_per_bond": 0.1128,
+    "icoop_elec_per_bond": -0.0042,
+    "count_per_cell": 6.0,
+    "icohp_ev_per_cell": 0.6768
+  },
+  {
+    "atom1": "Sb",
+    "atom2": "Sb",
+    "dist_ang": 4.39,
+    "icohp_ev_per_bond": 0.1896,
+    "icoop_elec_per_bond": -0.01,
+    "count_per_cell": 6.0,
+    "icohp_ev_per_cell": 1.1374
+  },
+  {
+    "atom1": "Sb",
+    "atom2": "Pb",
+    "dist_ang": 4.62,
+    "icohp_ev_per_bond": 0.1175,
+    "icoop_elec_per_bond": -0.0063,
+    "count_per_cell": 6.0,
+    "icohp_ev_per_cell": 0.7048
+  },
+  {
+    "atom1": "Te",
+    "atom2": "Te",
+    "dist_ang": 4.67,
+    "icohp_ev_per_bond": 0.1252,
+    "icoop_elec_per_bond": -0.0064,
+    "count_per_cell": 6.0,
+    "icohp_ev_per_cell": 0.751
+  },
+  {
+    "atom1": "Pb",
+    "atom2": "Pb",
+    "dist_ang": 4.68,
+    "icohp_ev_per_bond": 0.0912,
+    "icoop_elec_per_bond": -0.0045,
+    "count_per_cell": 3.0,
+    "icohp_ev_per_cell": 0.2736
+  },
+  {
+    "atom1": "Te",
+    "atom2": "Sb",
+    "dist_ang": 4.87,
+    "icohp_ev_per_bond": 0.039,
+    "icoop_elec_per_bond": -0.0023,
+    "count_per_cell": 6.0,
+    "icohp_ev_per_cell": 0.2342
+  },
+  {
+    "atom1": "Te",
+    "atom2": "Sb",
+    "dist_ang": 5.33,
+    "icohp_ev_per_bond": -0.0043,
+    "icoop_elec_per_bond": 0.0002,
+    "count_per_cell": 6.0,
+    "icohp_ev_per_cell": -0.0256
+  },
+  {
+    "atom1": "Te",
+    "atom2": "Sb",
+    "dist_ang": 5.42,
+    "icohp_ev_per_bond": -0.0057,
+    "icoop_elec_per_bond": 0.0002,
+    "count_per_cell": 6.0,
+    "icohp_ev_per_cell": -0.0344
+  },
+  {
+    "atom1": "Te",
+    "atom2": "Pb",
+    "dist_ang": 5.44,
+    "icohp_ev_per_bond": -0.0019,
+    "icoop_elec_per_bond": 0.0,
+    "count_per_cell": 12.0,
+    "icohp_ev_per_cell": -0.0226
+  },
+  {
+    "atom1": "Te",
+    "atom2": "Pb",
+    "dist_ang": 5.49,
+    "icohp_ev_per_bond": -0.0063,
+    "icoop_elec_per_bond": 0.0002,
+    "count_per_cell": 2.0,
+    "icohp_ev_per_cell": -0.0125
+  },
+  {
+    "atom1": "Te",
+    "atom2": "Te",
+    "dist_ang": 5.67,
+    "icohp_ev_per_bond": -0.0013,
+    "icoop_elec_per_bond": 0.0001,
+    "count_per_cell": 3.0,
+    "icohp_ev_per_cell": -0.0038
+  },
+  {
+    "atom1": "Sb",
+    "atom2": "Sb",
+    "dist_ang": 5.78,
+    "icohp_ev_per_bond": -0.0002,
+    "icoop_elec_per_bond": 0.0,
+    "count_per_cell": 1.0,
+    "icohp_ev_per_cell": -0.0002
+  },
+  {
+    "atom1": "Te",
+    "atom2": "Sb",
+    "dist_ang": 5.83,
+    "icohp_ev_per_bond": -0.0018,
+    "icoop_elec_per_bond": 0.0001,
+    "count_per_cell": 2.0,
+    "icohp_ev_per_cell": -0.0037
+  },
+  {
+    "atom1": "Te",
+    "atom2": "Pb",
+    "dist_ang": 5.89,
+    "icohp_ev_per_bond": -0.0016,
+    "icoop_elec_per_bond": 0.0,
+    "count_per_cell": 2.0,
+    "icohp_ev_per_cell": -0.0032
+  },
+  {
+    "atom1": "Te",
+    "atom2": "Te",
+    "dist_ang": 6.06,
+    "icohp_ev_per_bond": -0.0001,
+    "icoop_elec_per_bond": 0.0,
+    "count_per_cell": 2.0,
+    "icohp_ev_per_cell": -0.0002
+  },
+  {
+    "atom1": "Te",
+    "atom2": "Te",
+    "dist_ang": 6.19,
+    "icohp_ev_per_bond": -0.0171,
+    "icoop_elec_per_bond": 0.0013,
+    "count_per_cell": 6.0,
+    "icohp_ev_per_cell": -0.1028
+  },
+  {
+    "atom1": "Sb",
+    "atom2": "Pb",
+    "dist_ang": 6.38,
+    "icohp_ev_per_bond": -0.0057,
+    "icoop_elec_per_bond": 0.0002,
+    "count_per_cell": 6.0,
+    "icohp_ev_per_cell": -0.0342
+  },
+  {
+    "atom1": "Te",
+    "atom2": "Te",
+    "dist_ang": 6.41,
+    "icohp_ev_per_bond": 0.0066,
+    "icoop_elec_per_bond": 0.0001,
+    "count_per_cell": 6.0,
+    "icohp_ev_per_cell": 0.0394
+  },
+  {
+    "atom1": "Pb",
+    "atom2": "Pb",
+    "dist_ang": 6.42,
+    "icohp_ev_per_bond": -0.0041,
+    "icoop_elec_per_bond": 0.0,
+    "count_per_cell": 3.0,
+    "icohp_ev_per_cell": -0.0123
+  },
+  {
+    "atom1": "Te",
+    "atom2": "Sb",
+    "dist_ang": 6.56,
+    "icohp_ev_per_bond": -0.0074,
+    "icoop_elec_per_bond": 0.0002,
+    "count_per_cell": 6.0,
+    "icohp_ev_per_cell": -0.0442
+  },
+  {
+    "atom1": "Te",
+    "atom2": "Sb",
+    "dist_ang": 6.91,
+    "icohp_ev_per_bond": -0.002,
+    "icoop_elec_per_bond": 0.0,
+    "count_per_cell": 12.0,
+    "icohp_ev_per_cell": -0.024
+  },
+  {
+    "atom1": "Te",
+    "atom2": "Sb",
+    "dist_ang": 6.98,
+    "icohp_ev_per_bond": -0.0008,
+    "icoop_elec_per_bond": 0.0,
+    "count_per_cell": 12.0,
+    "icohp_ev_per_cell": -0.0095
+  },
+  {
+    "atom1": "Te",
+    "atom2": "Pb",
+    "dist_ang": 7.01,
+    "icohp_ev_per_bond": -0.0016,
+    "icoop_elec_per_bond": 0.0,
+    "count_per_cell": 36.0,
+    "icohp_ev_per_cell": -0.0571
+  },
+  {
+    "atom1": "Te",
+    "atom2": "Te",
+    "dist_ang": 7.17,
+    "icohp_ev_per_bond": -0.0001,
+    "icoop_elec_per_bond": -0.0,
+    "count_per_cell": 6.0,
+    "icohp_ev_per_cell": -0.0006
+  },
+  {
+    "atom1": "Sb",
+    "atom2": "Sb",
+    "dist_ang": 7.26,
+    "icohp_ev_per_bond": -0.0,
+    "icoop_elec_per_bond": 0.0,
+    "count_per_cell": 6.0,
+    "icohp_ev_per_cell": -0.0001
+  },
+  {
+    "atom1": "Te",
+    "atom2": "Sb",
+    "dist_ang": 7.3,
+    "icohp_ev_per_bond": -0.0004,
+    "icoop_elec_per_bond": 0.0,
+    "count_per_cell": 12.0,
+    "icohp_ev_per_cell": -0.0044
+  },
+  {
+    "atom1": "Te",
+    "atom2": "Pb",
+    "dist_ang": 7.35,
+    "icohp_ev_per_bond": -0.0011,
+    "icoop_elec_per_bond": 0.0,
+    "count_per_cell": 12.0,
+    "icohp_ev_per_cell": -0.0126
+  },
+  {
+    "atom1": "Te",
+    "atom2": "Te",
+    "dist_ang": 7.48,
+    "icohp_ev_per_bond": -0.0,
+    "icoop_elec_per_bond": -0.0,
+    "count_per_cell": 12.0,
+    "icohp_ev_per_cell": -0.0006
+  },
+  {
+    "atom1": "Te",
+    "atom2": "Te",
+    "dist_ang": 7.6,
+    "icohp_ev_per_bond": 0.0001,
+    "icoop_elec_per_bond": -0.0,
+    "count_per_cell": 21.0,
+    "icohp_ev_per_cell": 0.0019
+  },
+  {
+    "atom1": "Pb",
+    "atom2": "Pb",
+    "dist_ang": 7.61,
+    "icohp_ev_per_bond": -0.0002,
+    "icoop_elec_per_bond": 0.0,
+    "count_per_cell": 6.0,
+    "icohp_ev_per_cell": -0.0013
+  },
+  {
+    "atom1": "Sb",
+    "atom2": "Sb",
+    "dist_ang": 7.61,
+    "icohp_ev_per_bond": 0.0,
+    "icoop_elec_per_bond": -0.0,
+    "count_per_cell": 4.0,
+    "icohp_ev_per_cell": 0.0001
+  },
+  {
+    "atom1": "Te",
+    "atom2": "Te",
+    "dist_ang": 7.77,
+    "icohp_ev_per_bond": 0.0,
+    "icoop_elec_per_bond": -0.0,
+    "count_per_cell": 8.0,
+    "icohp_ev_per_cell": 0.0004
+  },
+  {
+    "atom1": "Pb",
+    "atom2": "Pb",
+    "dist_ang": 7.78,
+    "icohp_ev_per_bond": -0.0001,
+    "icoop_elec_per_bond": 0.0,
+    "count_per_cell": 6.0,
+    "icohp_ev_per_cell": -0.0005
+  },
+  {
+    "atom1": "Te",
+    "atom2": "Te",
+    "dist_ang": 7.88,
+    "icohp_ev_per_bond": -0.0001,
+    "icoop_elec_per_bond": -0.0,
+    "count_per_cell": 6.0,
+    "icohp_ev_per_cell": -0.0004
+  },
+  {
+    "atom1": "Te",
+    "atom2": "Sb",
+    "dist_ang": 7.89,
+    "icohp_ev_per_bond": 0.0,
+    "icoop_elec_per_bond": -0.0,
+    "count_per_cell": 8.0,
+    "icohp_ev_per_cell": 0.0003
+  },
+  {
+    "atom1": "Te",
+    "atom2": "Sb",
+    "dist_ang": 8.1,
+    "icohp_ev_per_bond": -0.0,
+    "icoop_elec_per_bond": -0.0,
+    "count_per_cell": 6.0,
+    "icohp_ev_per_cell": -0.0002
+  },
+  {
+    "atom1": "Te",
+    "atom2": "Te",
+    "dist_ang": 8.24,
+    "icohp_ev_per_bond": -0.0001,
+    "icoop_elec_per_bond": -0.0,
+    "count_per_cell": 3.0,
+    "icohp_ev_per_cell": -0.0002
+  },
+  {
+    "atom1": "Sb",
+    "atom2": "Sb",
+    "dist_ang": 8.79,
+    "icohp_ev_per_bond": -0.0002,
+    "icoop_elec_per_bond": 0.0,
+    "count_per_cell": 6.0,
+    "icohp_ev_per_cell": -0.0011
+  },
+  {
+    "atom1": "Te",
+    "atom2": "Te",
+    "dist_ang": 8.79,
+    "icohp_ev_per_bond": -0.0001,
+    "icoop_elec_per_bond": 0.0,
+    "count_per_cell": 13.0,
+    "icohp_ev_per_cell": -0.0012
+  },
+  {
+    "atom1": "Pb",
+    "atom2": "Pb",
+    "dist_ang": 8.79,
+    "icohp_ev_per_bond": -0.0001,
+    "icoop_elec_per_bond": 0.0,
+    "count_per_cell": 6.0,
+    "icohp_ev_per_cell": -0.0005
+  },
+  {
+    "atom1": "Te",
+    "atom2": "Te",
+    "dist_ang": 9.02,
+    "icohp_ev_per_bond": -0.0001,
+    "icoop_elec_per_bond": -0.0,
+    "count_per_cell": 6.0,
+    "icohp_ev_per_cell": -0.0007
+  },
+  {
+    "atom1": "Te",
+    "atom2": "Sb",
+    "dist_ang": 9.21,
+    "icohp_ev_per_bond": -0.0001,
+    "icoop_elec_per_bond": -0.0,
+    "count_per_cell": 6.0,
+    "icohp_ev_per_cell": -0.0003
+  },
+  {
+    "atom1": "Sb",
+    "atom2": "Pb",
+    "dist_ang": 9.3,
+    "icohp_ev_per_bond": 0.0,
+    "icoop_elec_per_bond": 0.0,
+    "count_per_cell": 6.0,
+    "icohp_ev_per_cell": 0.0002
+  },
+  {
+    "atom1": "Te",
+    "atom2": "Te",
+    "dist_ang": 9.34,
+    "icohp_ev_per_bond": -0.0002,
+    "icoop_elec_per_bond": -0.0,
+    "count_per_cell": 3.0,
+    "icohp_ev_per_cell": -0.0005
+  },
+  {
+    "atom1": "Te",
+    "atom2": "Pb",
+    "dist_ang": 9.39,
+    "icohp_ev_per_bond": 0.0013,
+    "icoop_elec_per_bond": -0.0,
+    "count_per_cell": 6.0,
+    "icohp_ev_per_cell": 0.0076
+  },
+  {
+    "atom1": "Te",
+    "atom2": "Pb",
+    "dist_ang": 9.48,
+    "icohp_ev_per_bond": -0.0001,
+    "icoop_elec_per_bond": -0.0,
+    "count_per_cell": 6.0,
+    "icohp_ev_per_cell": -0.0005
+  },
+  {
+    "atom1": "Sb",
+    "atom2": "Sb",
+    "dist_ang": 9.56,
+    "icohp_ev_per_bond": 0.001,
+    "icoop_elec_per_bond": -0.0,
+    "count_per_cell": 3.0,
+    "icohp_ev_per_cell": 0.0029
+  },
+  {
+    "atom1": "Te",
+    "atom2": "Sb",
+    "dist_ang": 9.59,
+    "icohp_ev_per_bond": 0.0001,
+    "icoop_elec_per_bond": -0.0,
+    "count_per_cell": 6.0,
+    "icohp_ev_per_cell": 0.0006
+  },
+  {
+    "atom1": "Te",
+    "atom2": "Pb",
+    "dist_ang": 9.62,
+    "icohp_ev_per_bond": -0.0012,
+    "icoop_elec_per_bond": -0.0,
+    "count_per_cell": 6.0,
+    "icohp_ev_per_cell": -0.007
+  },
+  {
+    "atom1": "Te",
+    "atom2": "Te",
+    "dist_ang": 9.73,
+    "icohp_ev_per_bond": -0.0007,
+    "icoop_elec_per_bond": 0.0,
+    "count_per_cell": 6.0,
+    "icohp_ev_per_cell": -0.0044
+  },
+  {
+    "atom1": "Te",
+    "atom2": "Te",
+    "dist_ang": 9.81,
+    "icohp_ev_per_bond": -0.0007,
+    "icoop_elec_per_bond": 0.0,
+    "count_per_cell": 12.0,
+    "icohp_ev_per_cell": -0.0087
+  },
+  {
+    "atom1": "Sb",
+    "atom2": "Pb",
+    "dist_ang": 9.93,
+    "icohp_ev_per_bond": 0.0,
+    "icoop_elec_per_bond": 0.0,
+    "count_per_cell": 8.0,
+    "icohp_ev_per_cell": 0.0002
+  },
+  {
+    "atom1": "Pb",
+    "atom2": "Pb",
+    "dist_ang": 9.96,
+    "icohp_ev_per_bond": 0.0003,
+    "icoop_elec_per_bond": 0.0,
+    "count_per_cell": 6.0,
+    "icohp_ev_per_cell": 0.0015
+  },
+  {
+    "atom1": "Te",
+    "atom2": "Te",
+    "dist_ang": 10.0,
+    "icohp_ev_per_bond": -0.0003,
+    "icoop_elec_per_bond": 0.0,
+    "count_per_cell": 22.0,
+    "icohp_ev_per_cell": -0.0056
+  },
+  {
+    "atom1": "Te",
+    "atom2": "Sb",
+    "dist_ang": 10.05,
+    "icohp_ev_per_bond": -0.0001,
+    "icoop_elec_per_bond": 0.0,
+    "count_per_cell": 10.0,
+    "icohp_ev_per_cell": -0.0011
+  },
+  {
+    "atom1": "Te",
+    "atom2": "Sb",
+    "dist_ang": 10.21,
+    "icohp_ev_per_bond": -0.0001,
+    "icoop_elec_per_bond": 0.0,
+    "count_per_cell": 12.0,
+    "icohp_ev_per_cell": -0.0013
+  },
+  {
+    "atom1": "Sb",
+    "atom2": "Pb",
+    "dist_ang": 10.29,
+    "icohp_ev_per_bond": 0.0,
+    "icoop_elec_per_bond": 0.0,
+    "count_per_cell": 12.0,
+    "icohp_ev_per_cell": 0.0005
+  },
+  {
+    "atom1": "Te",
+    "atom2": "Sb",
+    "dist_ang": 10.3,
+    "icohp_ev_per_bond": -0.0001,
+    "icoop_elec_per_bond": -0.0,
+    "count_per_cell": 10.0,
+    "icohp_ev_per_cell": -0.0011
+  },
+  {
+    "atom1": "Te",
+    "atom2": "Te",
+    "dist_ang": 10.32,
+    "icohp_ev_per_bond": -0.0003,
+    "icoop_elec_per_bond": 0.0,
+    "count_per_cell": 6.0,
+    "icohp_ev_per_cell": -0.0018
+  },
+  {
+    "atom1": "Te",
+    "atom2": "Pb",
+    "dist_ang": 10.34,
+    "icohp_ev_per_bond": -0.0002,
+    "icoop_elec_per_bond": -0.0,
+    "count_per_cell": 9.0,
+    "icohp_ev_per_cell": -0.002
+  },
+  {
+    "atom1": "Te",
+    "atom2": "Pb",
+    "dist_ang": 10.36,
+    "icohp_ev_per_bond": 0.0001,
+    "icoop_elec_per_bond": -0.0,
+    "count_per_cell": 12.0,
+    "icohp_ev_per_cell": 0.0014
+  },
+  {
+    "atom1": "Te",
+    "atom2": "Pb",
+    "dist_ang": 10.45,
+    "icohp_ev_per_bond": -0.0002,
+    "icoop_elec_per_bond": 0.0,
+    "count_per_cell": 12.0,
+    "icohp_ev_per_cell": -0.0021
+  },
+  {
+    "atom1": "Sb",
+    "atom2": "Sb",
+    "dist_ang": 10.52,
+    "icohp_ev_per_bond": -0.0,
+    "icoop_elec_per_bond": 0.0,
+    "count_per_cell": 2.0,
+    "icohp_ev_per_cell": -0.0001
+  },
+  {
+    "atom1": "Te",
+    "atom2": "Pb",
+    "dist_ang": 10.58,
+    "icohp_ev_per_bond": -0.0001,
+    "icoop_elec_per_bond": -0.0,
+    "count_per_cell": 8.0,
+    "icohp_ev_per_cell": -0.0005
+  },
+  {
+    "atom1": "Te",
+    "atom2": "Pb",
+    "dist_ang": 10.7,
+    "icohp_ev_per_bond": 0.0002,
+    "icoop_elec_per_bond": 0.0,
+    "count_per_cell": 6.0,
+    "icohp_ev_per_cell": 0.0009
+  },
+  {
+    "atom1": "Sb",
+    "atom2": "Pb",
+    "dist_ang": 10.9,
+    "icohp_ev_per_bond": 0.0001,
+    "icoop_elec_per_bond": 0.0,
+    "count_per_cell": 6.0,
+    "icohp_ev_per_cell": 0.0004
+  },
+  {
+    "atom1": "Te",
+    "atom2": "Sb",
+    "dist_ang": 10.99,
+    "icohp_ev_per_bond": 0.0001,
+    "icoop_elec_per_bond": 0.0,
+    "count_per_cell": 4.0,
+    "icohp_ev_per_cell": 0.0003
+  },
+  {
+    "atom1": "Te",
+    "atom2": "Sb",
+    "dist_ang": 11.2,
+    "icohp_ev_per_bond": 0.0001,
+    "icoop_elec_per_bond": -0.0,
+    "count_per_cell": 16.0,
+    "icohp_ev_per_cell": 0.0012
+  },
+  {
+    "atom1": "Te",
+    "atom2": "Pb",
+    "dist_ang": 11.23,
+    "icohp_ev_per_bond": 0.0,
+    "icoop_elec_per_bond": 0.0,
+    "count_per_cell": 6.0,
+    "icohp_ev_per_cell": 0.0003
+  },
+  {
+    "atom1": "Te",
+    "atom2": "Pb",
+    "dist_ang": 11.57,
+    "icohp_ev_per_bond": 0.0,
+    "icoop_elec_per_bond": 0.0,
+    "count_per_cell": 8.0,
+    "icohp_ev_per_cell": 0.0002
+  },
+  {
+    "atom1": "Te",
+    "atom2": "Te",
+    "dist_ang": 12.6,
+    "icohp_ev_per_bond": 0.0003,
+    "icoop_elec_per_bond": 0.0,
+    "count_per_cell": 5.0,
+    "icohp_ev_per_cell": 0.0016
+  },
+  {
+    "atom1": "Te",
+    "atom2": "Sb",
+    "dist_ang": 12.73,
+    "icohp_ev_per_bond": 0.0004,
+    "icoop_elec_per_bond": 0.0,
+    "count_per_cell": 5.0,
+    "icohp_ev_per_cell": 0.0021
+  },
+  {
+    "atom1": "Sb",
+    "atom2": "Pb",
+    "dist_ang": 12.8,
+    "icohp_ev_per_bond": 0.0001,
+    "icoop_elec_per_bond": 0.0,
+    "count_per_cell": 5.0,
+    "icohp_ev_per_cell": 0.0005
+  },
+  {
+    "atom1": "Te",
+    "atom2": "Te",
+    "dist_ang": 12.83,
+    "icohp_ev_per_bond": -0.0003,
+    "icoop_elec_per_bond": 0.0,
+    "count_per_cell": 2.0,
+    "icohp_ev_per_cell": -0.0006
+  },
+  {
+    "atom1": "Te",
+    "atom2": "Pb",
+    "dist_ang": 12.88,
+    "icohp_ev_per_bond": 0.0003,
+    "icoop_elec_per_bond": -0.0,
+    "count_per_cell": 12.0,
+    "icohp_ev_per_cell": 0.0034
+  },
+  {
+    "atom1": "Sb",
+    "atom2": "Sb",
+    "dist_ang": 12.99,
+    "icohp_ev_per_bond": -0.0,
+    "icoop_elec_per_bond": -0.0,
+    "count_per_cell": 2.0,
+    "icohp_ev_per_cell": -0.0
+  },
+  {
+    "atom1": "Te",
+    "atom2": "Sb",
+    "dist_ang": 13.01,
+    "icohp_ev_per_bond": 0.0001,
+    "icoop_elec_per_bond": 0.0,
+    "count_per_cell": 8.0,
+    "icohp_ev_per_cell": 0.0011
+  },
+  {
+    "atom1": "Te",
+    "atom2": "Pb",
+    "dist_ang": 13.03,
+    "icohp_ev_per_bond": 0.0,
+    "icoop_elec_per_bond": -0.0,
+    "count_per_cell": 8.0,
+    "icohp_ev_per_cell": 0.0002
+  },
+  {
+    "atom1": "Te",
+    "atom2": "Te",
+    "dist_ang": 13.11,
+    "icohp_ev_per_bond": -0.0,
+    "icoop_elec_per_bond": -0.0,
+    "count_per_cell": 6.0,
+    "icohp_ev_per_cell": -0.0003
+  },
+  {
+    "atom1": "Te",
+    "atom2": "Pb",
+    "dist_ang": 13.14,
+    "icohp_ev_per_bond": 0.0003,
+    "icoop_elec_per_bond": 0.0,
+    "count_per_cell": 12.0,
+    "icohp_ev_per_cell": 0.0036
+  },
+  {
+    "atom1": "Te",
+    "atom2": "Te",
+    "dist_ang": 13.17,
+    "icohp_ev_per_bond": -0.0001,
+    "icoop_elec_per_bond": 0.0,
+    "count_per_cell": 4.0,
+    "icohp_ev_per_cell": -0.0005
+  },
+  {
+    "atom1": "Sb",
+    "atom2": "Sb",
+    "dist_ang": 13.18,
+    "icohp_ev_per_bond": -0.0,
+    "icoop_elec_per_bond": 0.0,
+    "count_per_cell": 2.0,
+    "icohp_ev_per_cell": -0.0001
+  },
+  {
+    "atom1": "Pb",
+    "atom2": "Pb",
+    "dist_ang": 13.28,
+    "icohp_ev_per_bond": 0.0003,
+    "icoop_elec_per_bond": 0.0,
+    "count_per_cell": 2.0,
+    "icohp_ev_per_cell": 0.0006
+  },
+  {
+    "atom1": "Sb",
+    "atom2": "Pb",
+    "dist_ang": 13.29,
+    "icohp_ev_per_bond": 0.0001,
+    "icoop_elec_per_bond": 0.0,
+    "count_per_cell": 10.0,
+    "icohp_ev_per_cell": 0.0015
+  },
+  {
+    "atom1": "Te",
+    "atom2": "Sb",
+    "dist_ang": 13.35,
+    "icohp_ev_per_bond": -0.0001,
+    "icoop_elec_per_bond": 0.0,
+    "count_per_cell": 3.0,
+    "icohp_ev_per_cell": -0.0002
+  },
+  {
+    "atom1": "Te",
+    "atom2": "Sb",
+    "dist_ang": 13.37,
+    "icohp_ev_per_bond": 0.0001,
+    "icoop_elec_per_bond": 0.0,
+    "count_per_cell": 10.0,
+    "icohp_ev_per_cell": 0.0012
+  },
+  {
+    "atom1": "Te",
+    "atom2": "Sb",
+    "dist_ang": 13.47,
+    "icohp_ev_per_bond": -0.0,
+    "icoop_elec_per_bond": 0.0,
+    "count_per_cell": 3.0,
+    "icohp_ev_per_cell": -0.0001
+  },
+  {
+    "atom1": "Te",
+    "atom2": "Te",
+    "dist_ang": 13.56,
+    "icohp_ev_per_bond": -0.0001,
+    "icoop_elec_per_bond": 0.0,
+    "count_per_cell": 2.0,
+    "icohp_ev_per_cell": -0.0001
+  },
+  {
+    "atom1": "Te",
+    "atom2": "Te",
+    "dist_ang": 13.69,
+    "icohp_ev_per_bond": 0.0002,
+    "icoop_elec_per_bond": 0.0,
+    "count_per_cell": 6.0,
+    "icohp_ev_per_cell": 0.001
+  },
+  {
+    "atom1": "Te",
+    "atom2": "Sb",
+    "dist_ang": 13.88,
+    "icohp_ev_per_bond": 0.0001,
+    "icoop_elec_per_bond": 0.0,
+    "count_per_cell": 4.0,
+    "icohp_ev_per_cell": 0.0002
+  },
+  {
+    "atom1": "Pb",
+    "atom2": "Pb",
+    "dist_ang": 13.99,
+    "icohp_ev_per_bond": 0.0001,
+    "icoop_elec_per_bond": 0.0,
+    "count_per_cell": 2.0,
+    "icohp_ev_per_cell": 0.0001
+  },
+  {
+    "atom1": "Te",
+    "atom2": "Pb",
+    "dist_ang": 15.81,
+    "icohp_ev_per_bond": -0.0,
+    "icoop_elec_per_bond": -0.0,
+    "count_per_cell": 4.0,
+    "icohp_ev_per_cell": -0.0001
+  },
+  {
+    "atom1": "Sb",
+    "atom2": "Pb",
+    "dist_ang": 15.94,
+    "icohp_ev_per_bond": -0.0001,
+    "icoop_elec_per_bond": -0.0,
+    "count_per_cell": 3.0,
+    "icohp_ev_per_cell": -0.0002
+  },
+  {
+    "atom1": "Te",
+    "atom2": "Te",
+    "dist_ang": 15.98,
+    "icohp_ev_per_bond": 0.0001,
+    "icoop_elec_per_bond": -0.0,
+    "count_per_cell": 2.0,
+    "icohp_ev_per_cell": 0.0001
+  },
+  {
+    "atom1": "Te",
+    "atom2": "Pb",
+    "dist_ang": 16.18,
+    "icohp_ev_per_bond": 0.0,
+    "icoop_elec_per_bond": -0.0,
+    "count_per_cell": 2.0,
+    "icohp_ev_per_cell": 0.0001
+  },
+  {
+    "atom1": "Te",
+    "atom2": "Te",
+    "dist_ang": 16.27,
+    "icohp_ev_per_bond": 0.0001,
+    "icoop_elec_per_bond": -0.0,
+    "count_per_cell": 6.0,
+    "icohp_ev_per_cell": 0.0005
+  },
+  {
+    "atom1": "Te",
+    "atom2": "Sb",
+    "dist_ang": 16.3,
+    "icohp_ev_per_bond": 0.0001,
+    "icoop_elec_per_bond": 0.0,
+    "count_per_cell": 2.0,
+    "icohp_ev_per_cell": 0.0002
+  },
+  {
+    "atom1": "Te",
+    "atom2": "Pb",
+    "dist_ang": 16.32,
+    "icohp_ev_per_bond": 0.0001,
+    "icoop_elec_per_bond": -0.0,
+    "count_per_cell": 2.0,
+    "icohp_ev_per_cell": 0.0002
+  },
+  {
+    "atom1": "Te",
+    "atom2": "Pb",
+    "dist_ang": 16.4,
+    "icohp_ev_per_bond": 0.0,
+    "icoop_elec_per_bond": -0.0,
+    "count_per_cell": 10.0,
+    "icohp_ev_per_cell": 0.0005
+  },
+  {
+    "atom1": "Te",
+    "atom2": "Sb",
+    "dist_ang": 16.43,
+    "icohp_ev_per_bond": 0.0,
+    "icoop_elec_per_bond": -0.0,
+    "count_per_cell": 4.0,
+    "icohp_ev_per_cell": 0.0001
+  },
+  {
+    "atom1": "Te",
+    "atom2": "Sb",
+    "dist_ang": 16.72,
+    "icohp_ev_per_bond": -0.0,
+    "icoop_elec_per_bond": -0.0,
+    "count_per_cell": 1.0,
+    "icohp_ev_per_cell": -0.0
+  },
+  {
+    "atom1": "Te",
+    "atom2": "Te",
+    "dist_ang": 19.58,
+    "icohp_ev_per_bond": -0.0001,
+    "icoop_elec_per_bond": 0.0,
+    "count_per_cell": 2.0,
+    "icohp_ev_per_cell": -0.0001
+  },
+  {
+    "atom1": "Te",
+    "atom2": "Pb",
+    "dist_ang": 20.01,
+    "icohp_ev_per_bond": -0.0,
+    "icoop_elec_per_bond": 0.0,
+    "count_per_cell": 3.0,
+    "icohp_ev_per_cell": -0.0001
+  }
+]

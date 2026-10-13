@@ -1,0 +1,915 @@
+=== PAGE 1 ===
+How to Identify Lone Pairs, Van der Waals Gaps, and
+Metavalent Bonding Using Charge and Pair Density
+Methods: From Elemental Chalcogens to Lead
+Chalcogenides and Phase-Change Materials
+Jean-Yves Raty,* Carlo Gatti, Carl-Friedrich Schön, and Matthias Wuttig
+1. Introduction
+The concept of lone pairs is frequently used to explain key fea-
+tures of the structure of molecules or of the atomic arrangement
+of certain solids. A lone pair refers to a pair of valence electrons
+that are not shared in a covalent bond with another atom.
+Lone pairs are also invoked to describe bonding in molecular
+crystals, from low-temperature solid
+oxygen to ring, chain, or planar structures
+of several other elemental or molecular sol-
+ids. Sulfur, selenium, or transition metal
+dichalcogenides adopt such structures
+upon crystallization. [1] As the lone pairs
+are not involved in actual covalent bonding
+between atoms, the cohesion of the pseudo-
+molecular constituents is then ensured by
+noncovalent, van der Waals (vdW) forces,
+and a van der Waals gap is observed. Yet,
+lone pairs are also discussed for chalcoge-
+nides with cubic rocksalt structure, such as
+PbTe and PbSe. In those cases, the lone
+pairs (if present) are obviously more
+difﬁcult to detect because the atomic
+arrangement is undistorted and vdW gaps
+are absent.
+In some classes of chalcogenides, the
+ability to switch rapidly from a crystal to
+an amorphous phase that has very different
+optical and electrical properties is used for
+data storage. These materials are called
+phase-change materials, and some of the
+most popular compounds are based on
+compounds along the pseudobinary line between GeTe and
+Sb2Te3 (GeTe, Ge1Sb2Te4, Ge2Sb2Te5,… ,S b2Te3).[2] These alloys
+often form layered structures in their most stable crystalline
+state, sometimes explained using lone pairs and vdW gaps. [3–7]
+The amorphous structure, in contrast, appears to be very differ-
+ent.[8–13] Nevertheless, in some cases, lone pairs are also invoked
+to explain the structure of the amorphous phase, as in GeTe. [14]
+J.-Y. Raty
+CESAM and Condensed Matter Physics
+B5
+Université de Liège
+B4000 Sart-Tilman, Belgium
+E-mail: jyraty@uliege.be
+C. Gatti
+CNR-SCITEC
+Istituto di Scienze e Tecnologie Chimiche ‘Giulio Natta ’
+via Golgi Section, via Golgi 19, Milano 20133, Italy
+The ORCID identi ﬁcation number(s) for the author(s) of this article
+can be found under https://doi.org/10.1002/pssr.202000534.
+DOI: 10.1002/pssr.202000534
+C.-F. Schön, M. Wuttig
+Institute of Physics (IA)
+Physics of Novel Materials
+RWTH Aachen University
+52056 Aachen, Germany
+M. Wuttig
+Jülich-Aachen Research Alliance (JARA FIT and JARA HPC)
+RWTH Aachen University
+52056 Aachen, Germany
+M. Wuttig
+PGI 10 (Green IT)
+Forschungszentrum Jülich GmbH
+52428 Jülich, Germany
+Lone pairs explain the structure of many molecular solids, as well as the chain-
+like or layered structures encountered in many chalcogenide crystals. Such
+chalcogenides have enabled a plethora of applications, including phase-change
+memories, thermoelectrics, topological insulators or photoconductors. In many
+of these, lone pairs also are invoked to explain the unconventional material
+properties. The presence of so-called van der Waals gaps in layered chalcogenides
+and their low thermal conductivity have also been linked to lone pairs. However,
+for some of these systems, a second view of bonding has been proposed, where
+atoms are held together across the interlayer spacing by shared electrons.
+To clarify this situation, herein, several systems for which lone pairs have been
+frequently emphasized are reinvestigated theoretically. By comparing the charge
+and electron localization analysis in terms of a Hartree –Fock-like pair density
+obtained from Kohn –Sham density functional theory (KS-DFT), it is veri ﬁed that
+the structure of several chalcogenides is governed by the presence of lone pairs,
+whereas others are not. As an example, crystalline Se is demonstrated to form a
+structure with two covalent bonds and a lone pair, whereas metavalenty bonds
+are the essential characteristics of crystalline Sb, crystalline Te being an inter-
+mediate case.
+RESEARCH ARTICLE
+www.pss-rapid.com
+Phys. Status Solidi RRL 2021, 15, 2000534 2000534 (1 of 11) © 2021 Wiley-VCH GmbH
+
+
+=== PAGE 2 ===
+Sometimes, the crystal ’s vdW gap is observed to reorganize
+under an electric ﬁeld. Such an effect might provide an explana-
+tion for electronic switching in interfacial phase-change
+memories.[15,16]
+More recently, an alternate description of a number of chalco-
+genides has been proposed. They have been quali ﬁed as metava-
+lently bonded. The classi ﬁcation of metavalent bonding as a
+novel, fundamental bonding mechanism is based on a unique
+combination of properties [17] and an unconventional bond rup-
+ture upon exposition to high electrical ﬁelds in conjunction with
+short, intense, laser pulses. [18] Using the two quantum-chemical
+coordinates, the electrons transferred between adjacent atoms
+and the electrons shared between them, a map can be
+spanned[19,20] that separates the different bonding mechanisms
+(metallic, ionic, and covalent). Interestingly, metavalent solids
+are located in a well-de ﬁned region between ionic, covalent,
+and metallic bonding, as con ﬁrmed recently by other quantum-
+level descriptors. [21]
+Therefore, we have a number of chalcogenides, including
+Te,[22] Sb2Te3,[23] Bi2Se3,B i 2Te3,[24,25] GeTe,[26,27] PbSe,
+PbTe,[27,28] SnTe,[26,27] GeSb2Te4,G e 2Sb2Te5 (GST225),[29]
+AgSbTe2, and related compounds, [30] where both lone pairs
+and metavalent bonding have been suggested to be responsible
+for technologically important material properties. Because lone
+pairs and metavalent bonding correspond to two quite different
+types of electron localization mechanisms, it is thus necessary to
+derive unambiguous indicators for their presence and relative
+importance.
+Fortunately, in modern quantum chemistry tools have
+been developed in recent years that provide a quantitative
+description of bonding in solids. In this work, we have used
+those tools to obtain a coherent view of bonding in crystalline
+chalcogenides and related compounds by addressing ﬁve
+prototypical examples, PbO, Se, Te, Ge 2Sb2Te5, and PbTe.
+We will show that several of these systems show clear
+e v i d e n c eo ft h ep r e s e n c eo fl o n ep a i r s ,w h e r e a so t h e r s
+do not.
+Using ﬁrst-principle wavefunction approaches, lone pairs can
+be identiﬁed by performing an analysis of the charge density and
+its topology. [31] Most of the time, lone pairs can be associated
+with a well-identi ﬁable pocket of localized electrons. This pocket
+is characterized by negative values of the Laplacian of the density
+around a local minimum of this function. The so-called electron
+localization function (ELF[32]) provides a measure of the degree of
+electron localization at each point of the system, relative to that of
+the uniform electron gas sharing the same electron density value
+at that point. Lone pairs appear as areas of high ELF value
+because the kinetic energy density is high in those areas in com-
+parison with a homogeneous gas at the same electron density. [33]
+This can be seen in Figure 1, where ELF isosurfaces with a high
+value represent well the shape of the highly localized valence
+charge density pockets (see Figure 2 ). The number of electrons
+involved in those localization regions (so-called f-localization
+domains[36]) depends critically upon the threshold f used. By deﬁ-
+nition, the ELF value varies between 0 and 1. A value of 1 is
+obtained for a complete localization and a value of 0.5 is obtained
+if the kinetic energy is that of the uniform electron gas.
+Classically, crystalline Se is described as a molecular crystal
+made of covalently bonded chains. Because Se has six valence
+electrons (2 s and 4 p electrons), two electrons remain nonbond-
+ing and form a lone pair. Therefore, Se forms chains and ful ﬁlls
+the 8-N rule, the cohesion being due to dispersion forces.
+Alternatively, the twofold coordination has been explained by
+the Peierls distortion mechanism, [37,38] which stabilizes the
+structure by opening a gap at the Fermi level. The structure
+can then be described as a short –long–long alternation of bonds
+in three (almost) orthogonal directions in space (see Figure 1). [37]
+In three dimensions, this results in chains with well-de ﬁned
+relative orientation.
+Thus, on each atom, two p orbitals are involved in the forma-
+tion of bonds, whereas the third one is left intact and creates a
+free pair of electrons. These electrons are not shared between
+atoms and are highly localized; thus we can denote them as a
+lone pair. In contrast, the alignment between the intrachain bond
+Figure 1. Structure and ELF of crystalline selenium. a) Schematic representation of the crystal structure. It is derived from a simple cubic structure and
+produced by a Peierls distortion that triples the unit cell, creating short – long– long (SLL) bond alternation. Some nonbonding p orbitals are represented in
+green. b,c) f-localization ELF domains (not to be confused with charge density, i.e., Bader basins) plotted at the f ¼ 0.85 isovalue level. The ELF is
+computed using the valence charge density obtained through the VASP code with PAW potentials [34] (b) along the (010) axis and (c) isolated chain.
+The highly localized electron pockets (corresponding to the nonbonding p orbitals) are aligned with bonds on neighboring chains. The integrated charge
+density inside each pocket equals about two electrons. It is worth noting that these high-ELF-value regions are obtained for the valence charge only a nd as
+such they refer to ﬁctitious, yet well-de ﬁned and possibly useful electron and kinetic energy density models. The inclusion of the d electrons has a
+signiﬁcant effect, lowering the ELF values as explained in Kohout and Savin. [35]
+www.advancedsciencenews.com
+ www.pss-rapid.com
+Phys. Status Solidi RRL 2021, 15, 2000534 2000534 (2 of 11) © 2021 Wiley-VCH GmbH
+ 18626270, 2021, 11, Downloaded from https://onlinelibrary.wiley.com/doi/10.1002/pssr.202000534 by University Of Science, Wiley Online Library on [09/07/2026]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License
+
+
+=== PAGE 3 ===
+and bonds on neighboring chains is in agreement with the
+Peierls distortion mechanism and it has been linked to the reso-
+nant bonding picture. [39,40] More recently, the metavalent bond-
+ing concept was introduced, which can explain several effects [19]
+found in GeTe and related systems, but not in resonantly bonded
+systems such as graphene and graphite.
+Metavalent bonding has been introduced to explain the uncon-
+ventional property portfolio of several chalcogenides, including
+GeTe, Sb 2Te3, GeSb 2Te4,G e 2Sb2Te5, PbTe, and related com-
+pounds. Because the concept of chemical bonding has created
+so much controversy, [41,42] it is desirable to focus on observable
+quantities that are related to chemical bonding. Indeed, a num-
+ber of material properties, including the effective coordination
+number (ECoN), the chemical bond polarizability, i.e., Born
+effective charge Z*, the optical dielectric constant ε∞, as a mea-
+sure of the electronic polarizability, and the Grüneisen parameter
+for transverse optical modes γTO, as a measure of the anharmo-
+nicity of the solid, can be used to separate ionic, metallic, and
+covalent bonding. Interestingly, the aforementioned chalcoge-
+nides possess a property portfolio that differs from solids that
+use ionic, covalent, or metallic bonding. [17] Furthermore, these
+chalcogenides also show an unconventional bond rupture upon
+laser-assisted ﬁeld dissociation, as utilized in atom probe tomog-
+raphy.[18] This is strong evidence that another, different bonding
+mechanism prevails in these solids. Interestingly, recent quan-
+tum chemical calculations provide a data-driven framework for
+computational screening and discovery of “metavalent” solids.[21]
+These ﬁndings all provide strong evidence for metavalent bond-
+ing as a novel, fundamental bonding mechanism in solids.
+Furthermore, quantum-chemical calculations reveal that metava-
+lent bonding is accompanied by a particular range for two quan-
+tities, the number of electrons shared between adjacent atoms,
+which should be close to 1, i.e., corresponding to a 2 c–1e bond,
+while the charge transfer between the atoms should be small to
+moderate. The view that metavalent bonding is a type of chemical
+bonding, distinct from ionic, covalent, and metallic bonding, is
+supported by the observation of distinct property changes upon
+crossing the border between covalent and metavalent solids. [43]
+Therefore, covalent and metavalent solids can be distinguished
+unambiguously. In the past, chalcogenides such as GeTe,
+Sb2Te3, GeSb2Te4, and Ge 2Sb2Te5 have been identi ﬁed as being
+resonantly bonded. This wording, which some of us have also
+used and advocated, [40,44,45] is quite misleading though because
+many scientists relate resonant bonding to the bonding mecha-
+nism in benzene, graphite, or graphene. Graphite or benzene
+have properties such as the optical dielectric constant ε∞ or
+the Grüneisen parameter for transverse optical modes γTO, which
+are very different from the properties of the chalcogenides listed
+earlier.[17] In addition, graphene nanosheets show a distinctively
+different bond rupture and are located in a different region of the
+chemical bonding map spanned by the electron transfer and elec-
+tron sharing between adjacent atoms. [46] This is no surprise
+because the properties of benzene and graphite are characterized
+by the coexistence of an ordinary covalent bond and a metallic-
+like bond (half- ﬁlled π-bond). Metavalent bonding, in contrast, is
+characterized by the competition (and not coexistence) between
+electron localization (like in ionic and covalent bonding) and elec-
+tron delocalization, as in metallic bonding, due to a half- ﬁlled
+σ-bond from overlapping p orbitals.[17] Following the notion of
+Shaik et al. that a new class of bonds should be characterized
+by features, i.e., properties, that differ from those of previously
+deﬁned types of bonds, [47] we can therefore summarize that
+solids which use metavalent bonding form a well-de ﬁned class
+with a rather unique property portfolio, an unconventional bond
+rupture, and share about one electron between adjacent atoms.
+Again, following the notion of Shaik et al., we can go one step
+further and make predictions and explain material properties and
+their trends based on the two quantum-chemical bond descrip-
+tors electrons shared (ES) and electrons transferred (ET). For
+instance, the increase in charge transfer ET dramatically changes
+the dielectric properties (both Z* and the optical dielectric
+constant ε∞ decrease signi ﬁcantly), and the optical absorption
+is much reduced, too. [28]
+2. Pair Density Representation
+As stated before, one of the theoretical tools used by chemists to
+describe the chemical bond is the quantum theory of atoms in
+molecules (QTAIM). [31] Attributing the charge located at some
+point in space to a given atom is not a trivial task. One elegant
+way to achieve this goal is to analyze the topology of the charge
+Figure 2. Valence charge density plots for Se, Te, and Sb. Color scale from 0 to 0.67 e Å/C0 3 in Se and Te, but 0 – 0.47 e Å/C0 3 for Sb. The arrows denote high-
+charge-density areas where the valence ELF value is also large. The white asterisk lies in the middle of the X —X( X ¼ Se, Te, Sb) intrachain and of the X—X
+interchain distance. The numbers indicated in white are the number of ES between neighboring basins. For the lone pairs, the numbers correspond to the
+fractional number of electrons obtained by integrating an f-localization basin de ﬁned by an isosurface ELF value equal to 0.85 (arbitrary choice).
+www.advancedsciencenews.com
+ www.pss-rapid.com
+Phys. Status Solidi RRL 2021, 15, 2000534 2000534 (3 of 11) © 2021 Wiley-VCH GmbH
+ 18626270, 2021, 11, Downloaded from https://onlinelibrary.wiley.com/doi/10.1002/pssr.202000534 by University Of Science, Wiley Online Library on [09/07/2026]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License
+
+
+=== PAGE 4 ===
+density. Bader’s approach[31] is to de ﬁne the border of an atomic
+basin by the continuous surface with vanishing density gradient
+in the direction of the surface normal. As an example, some
+Bader basins determined with the Yu and Trinkle algorithm [48]
+are shown for the high-temperature phase of PbO in Figure 3 .
+The Bader charge is then obtained from the integration of the
+full charge density over an atomic basin Ω. By comparing the
+Bader charges with those of the neutral atoms, one can obtain
+the number of ET between atoms.
+Yet, the theory goes beyond the one-electron picture intrinsic
+to the charge density topology and introduces chemical bond
+descriptors in terms of explicit electron correlation effects.
+Particularly relevant are those de ﬁned in terms of the electron
+pair density. This pair density can be written as the product
+of two one-electron densities minus a correction due to the
+exchange-correlation interaction.
+ρðr1, r2Þ¼ ρðr1Þρðr2Þ/C0 ρðr1Þρðr2Þf ðr1, r2Þ (1)
+It thus expresses how the electronic density at a given point is
+modiﬁed by the correlation with an electron at another location.
+The second term in Equation (1) is the exchange-correlation part,
+ρxc ðr1, r2Þ, expressed with a correlation factor f ðr1, r2Þ.
+By integrating ρxc ðr1, r2Þ with coordinates r1 and r2 belonging
+to the same basin Ω, one obtains the so-called localization index
+(LI), which is a measure of the number of pair of electrons that
+are not exchanged with other basins. In contrast, the integration
+over two electron coordinates, each spanning a different basin,
+yields the delocalization index (DI), which measures the number
+of pairs of electrons shared (exchanged) between these two
+atomic basins Ω1 and Ω2. In this work, instead of using the delo-
+calization index, we will use ES ( ¼2 DI), the associated number
+of electrons shared in a “covalent” way, between two atoms. ES
+therefore provides a measure of the covalency of a bond. In the
+case of a lone pair of electrons, the two electrons are expected to
+be fully conﬁned in the same atomic basin and contribute only to
+the LI.[49] Alternatively, one can say that these would not contrib-
+ute to bonding by delocalization with another basin; hence, the
+lone pair will not contribute to ES. This analysis can thus help to
+identify both lone pairs and covalent bonds, as we will show in
+the following (note that pair density is clearly not available at the
+KS-DFT level, but a convenient, though thoroughly empirical,
+expression equal to the Hartree –Fock (HF)-like ansatz for this
+quantity is customarily adopted to evaluate the LIs and DIs. It
+is found that the KS-DFT LIs and DIs calculated in this way
+closely resemble the HF ones. The HF pair density takes full
+account of the electron exchange correlation, although it totally
+neglects, as is well known, electron Coulomb correlation.
+3. Elemental Crystals: Selenium, Tellurium, and
+Antimony
+In Figure 2, we compare the valence charge density (paw cores
+omitted) for crystalline Se, Te, and Sb. Upon going from Se to Te
+and Sb, the high-density pockets become less prominent (with
+smaller curvature of the density), whereas electrons begin to pop-
+ulate the interchain space (white asterisk in Figure 2), ﬁnally
+forming a metavalent bond (see previous studies [19,50]). This
+trend is corroborated by the doubled electron density ρb at the
+interchain bond critical point for Te and Sb ( ρb is 0.011 au in
+Se and 0.020 au in Te and Sb). Correspondingly, the number
+of electrons shared between adjacent chains/planes, ES,
+increases from 0.24 in Se to 0.55 in Te and 0.52 in Sb.
+Let us now use this approach to reinvestigate a few crystalline
+systems that have been previously linked to lone pairs.
+4. PbO: A Well-Known Lone-Pair Crystal
+Crystalline PbO is considered a prototype lone-pair crystal [51] in
+its α-form (litharge structure). At high temperature, the massicot
+structure (β-PbO) is stabilized. Both structures consist of stacked
+bilayers (see Figure 4 ); however, the geometry is different
+enough to suggest rather different bonding characteristics. [52]
+PbO has been studied intensively, in particular to understand
+the unusual atomic arrangement in the litharge structure in
+which layers of Pb atoms are facing each other. The Pb atoms
+form four bonds with O atoms located in the same plane.
+Such a con ﬁguration does not maximize the repulsion of nega-
+tively charged O atoms. The role of Pb 6 s electrons is essential for
+the formation of the structure as they can hybridize with O 6 p
+orbitals to produce what is called a stereochemically active
+lone-pair orbital pointing toward the interlayer space. [53–55]
+These electrons contribute to the top of the valence band in both
+structures (see Figure 5 ).
+The inspection of the valence charge density ( Figure 6) points
+to the dif ﬁculty of identifying bonding electrons. Indeed, the
+high density of Pb d electrons gives the impression that the
+charge is essentially spherical around the Pb atoms. However,
+the Pb d electron states lie at much lower energy (out of scale
+in Figure 5). They do not contribute to the valence density of
+Figure 3. Representation of some Bader basins in the layered massicot
+PbO structure (see text). The number of electrons shared is computed
+by choosing two different basins for the integration of the pair density.
+The number of transferred electrons is evaluated through integration of
+the electron density in the Bader basins.
+www.advancedsciencenews.com
+ www.pss-rapid.com
+Phys. Status Solidi RRL 2021, 15, 2000534 2000534 (4 of 11) © 2021 Wiley-VCH GmbH
+ 18626270, 2021, 11, Downloaded from https://onlinelibrary.wiley.com/doi/10.1002/pssr.202000534 by University Of Science, Wiley Online Library on [09/07/2026]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License
+
+
+=== PAGE 5 ===
+Figure 4. PbO crystal structures. Left: low-temperature α-PbO (litharge) structure; right: high-temperature β-PbO (massicot) structure.
+Figure 5. Projected densities of states for litharge (left) and massicot (right). One can note the contribution of Pb s states at the top of the valence band
+for both phases.
+Figure 6. Charge density (top) and ELF (bottom) contour plots for α-PbO (left) and β-PbO (right) crystals. The planes are de ﬁned by three Pb atoms in
+both cases (O atoms are slightly out of plane). Each panel is divided into two parts. The upper part is computed including all valence electrons, wherea s
+the lower part is computed using only the upper valence states with energies ranging from EF /C0 10 eV to EF. In this case, the charge density (top panels)
+does not show any charge accumulation between the layers. However, if only the states at the top of the valence bands are included in the charge density,
+then a slight increase of charge, highly localized, is seen in the interlayer spacing (white arrows). Similar conclusions can be drawn from the ELF pan els.
+www.advancedsciencenews.com
+ www.pss-rapid.com
+Phys. Status Solidi RRL 2021, 15, 2000534 2000534 (5 of 11) © 2021 Wiley-VCH GmbH
+ 18626270, 2021, 11, Downloaded from https://onlinelibrary.wiley.com/doi/10.1002/pssr.202000534 by University Of Science, Wiley Online Library on [09/07/2026]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License
+
+
+=== PAGE 6 ===
+states (DOS) down to 10 eV below EF, so they can be safely con-
+sidered (pseudo)-core states. When these are removed from the
+representation of the charge density, some electron pockets
+(arrows in Figure 6) are evidenced within the van der Waals
+gap. To measure the quantity of localized electrons, we use
+the ELF criterion to de ﬁne our integration volume. Upon select-
+ing the valence states (up from EF /C0 10 eV), localized electrons,
+with large ELF values, appear very clearly (see Figure 7 ). If we
+select the same threshold that yields 2two electrons inside a lone
+pair in crystalline Se (ELF ¼ 0.85), we obtain an integrated charge
+of about 1.3 electrons per Pb atom (Figure 7) for both phases.
+In the massicot structure, the localization pockets are a bit dif-
+ferent. One can see in the valence charge density that small lobes
+appear on the opposite side of the Pb ─O bonds, giving the 1.3
+electron LP a more pronounced p character. The band structure
+(Figure 8) further con ﬁrms that the Pb s states contribute to very
+weakly dispersive states around the valence band maximum
+(VBM), which accounts for the localized nature of LPs, but also
+the hybridization with the O p orbitals as described by Walsh and
+Watson.[54] It can be observed that the Pb ─Pb separation (4.09
+and 4.19 Å) is slightly larger than the sum of the covalent radii
+(4.04 Å) in both cases.
+The Bader analysis (all Bader-based calculations were per-
+formed on all electrons) shows that the massicot structure proves
+to be similarly ionic (1.17 electron transferred) to the litharge
+phase (1.16). But, let us now thus turn to the pair density analysis
+(see Table 1). In α-PbO, 0.95 electrons are shared between Pb and
+O atoms, but almost no electrons are shared across the van der
+Waals gap. In β-PbO, the Pb ─O bonding electrons are redistrib-
+uted between the shorter and longer bonds arising from the
+distortion, but the number of shared electrons across the gap
+remains extremely small (0.03 and 0.05 electrons, respectively).
+This fact thus con ﬁrms that the localized electrons do not con-
+tribute to bonding at all, at least in a covalent way, because they
+do marginally contribute to the interlayer cohesion via van der
+Waals forces.
+Figure 7. Left: 3D view of the ELF 0.85 isosurface in the litharge structure; right, integrated charge per Pb – O unit as a function of the ELF value in litharge
+and massicot. About 1.3 electrons are found inside each localization pocket ( f value between 0.85 and 1.0).
+Figure 8. Fat band structure (lower states omitted) for α-PbO (left) and β-PbO (right) crystal. Pb s states are colored in red, O p states in dark green, and
+Pb p in light green. The size of the red lines is proportional to the contribution to the state. The band ’s overall appearance is similar (bandwidth). In
+particular, the top valence bands are rather ﬂat along the Γ– Z and Γ– X lines that are perpendicular to the layers in litharge and massicot, respectively.
+www.advancedsciencenews.com
+ www.pss-rapid.com
+Phys. Status Solidi RRL 2021, 15, 2000534 2000534 (6 of 11) © 2021 Wiley-VCH GmbH
+ 18626270, 2021, 11, Downloaded from https://onlinelibrary.wiley.com/doi/10.1002/pssr.202000534 by University Of Science, Wiley Online Library on [09/07/2026]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License
+
+
+=== PAGE 7 ===
+5. PbTe: A Cubic Thermoelectric Compound
+PbO is a well-known lone-pair solid, yet with about only one local-
+ized valence electron per Pb (1.3 e to be more precise), as de ﬁned
+at the ELF 0.85 localization level. Nevertheless, the situation
+becomes less obvious when O is substituted by a heavier chalco-
+gen such as Se or Te. In those cases, the stable structure is of
+NaCl type. This structure has been shown to be correlated with,
+if not responsible for, a number of enhanced or anomalous prop-
+erties. Let us cite the high anharmonicity that is responsible for
+the high thermoelectric performance, [56] extremely large Born
+effective charges, and large dielectric constant, which leads to
+PbTe being classi ﬁed as an “incipient metal. ”[17] In contrast,
+Bozin et al. demonstrated that there exists an underlying hidden
+symmetry breaking associated with local structural dipoles [57]
+that have been linked to lone pairs. [58] More recently, a compara-
+tive study of lead chalcogenides revealed that bonding in PbTe
+(and PbSe and PbS) was signi ﬁcantly different from that in
+PbO.[28] The smaller difference in electronegativity in PbTe, con-
+ﬁrmed by the smaller electron transfer between Pb and Te,
+together with the presence of about one electron in σ p-bonds,
+not only causes the anomalous properties, but also appears to
+change the way bonds break in atom probe measurements.
+This had PbTe classi ﬁed as a “metavalent” compound according
+to a recent classi ﬁcation.[19] However, it is also commonly stated
+that the physicochemical behavior of PbTe is linked to lone
+pairs,[30] although p-orbital overlap was shown recently to be
+responsible for the valence band dispersion, [59] therefore
+questioning the relevance of lone pairs.
+Figure 9 shows a valence charge density (only s and p elec-
+trons) that is very much localized on the atoms ’cores, in agree-
+ment with the charge transfer of 0.7 electrons. The p character of
+the bonds is more clearly evidenced around Te atoms. The ELF
+shows that these Te p states are rather localized, but some s-like
+states appear localized on Pb atoms as well. If one used the same
+criterion to de ﬁne lone pairs in c-Se (iso-ELF value larger than
+0.85), one would ﬁnd about 2.7 localized electrons per PbTe pair
+(mostly s electrons localized around each Pb atoms).
+The band structure shown in Figure 10 shows that the Pb s
+states do not play any role in the uppermost valence states.
+They form a band centered about 8 eV below EF in which they
+slightly hybridize with some Te s states. This is totally different
+from the PbO structures, which indicate that Pb s orbitals in
+PbTe are not forming lone pairs, but some core-like states.
+Figure 9. Valence charge density (paw cores omitted, left) and valence ELF (right) for PbTe. The representation is made in the <100> plane. The
+electronic density is plotted from 0 to 0.67 e Å /C0 3 and the ELF from 0 to 1 with isolines at 0.8 and 0.85. The pseudocore d electrons were included
+in the self-consistent calculation, but not in these two plots. Pb atoms are at the center of the ﬁgures.
+Table 1. Results of the pair density analysis in litharge and massicot. LI is
+the localization index. The LP contributions are all embedded in the LI, and
+the amount of electrons shared across the vdW gap (3.73 and 4.19 Å wide)
+is negligible.
+PbO Litharge Massicot
+Total electron
+transfer
+1.16e 1.17e
+Electrons
+shared
+4 /C2 Pb─O 2.35 Å 0.95 e 1 /C2 Pb─O 2.26 Å 1.16 e
+4 /C2 Pb─Pb 3.73 Å 0.03 e 1 /C2 Pb─O 2.29 Å 1.10 e
+2 /C2 Pb─O 2.51 Å 0.72 e
+Other ( r > 4.19 Å) < 0.05e
+LI Pb 11.61 11.63
+O 5.9 5.96
+Figure 10. Fat band (orbital-projected) structure for PbTe. The size of the
+symbols corresponds to the orbital contribution to the states.
+www.advancedsciencenews.com
+ www.pss-rapid.com
+Phys. Status Solidi RRL 2021, 15, 2000534 2000534 (7 of 11) © 2021 Wiley-VCH GmbH
+ 18626270, 2021, 11, Downloaded from https://onlinelibrary.wiley.com/doi/10.1002/pssr.202000534 by University Of Science, Wiley Online Library on [09/07/2026]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License
+
+
+=== PAGE 8 ===
+The case of the p orbitals of Te is also very instructive.
+Figure 10 shows a global mirror symmetry between valence
+and conduction bands close to EF. Only the relative contribution
+is inverted, Te p electrons dominate the valence states, whereas
+Pb p states dominate in the conduction band.
+This is in line with the works by Walsh et al. [60] in which the
+weak s contribution at the top of the valence in SnTe is linked to
+the higher energy of the Te p orbital. This explains the absence of
+stereoactive lone pairs in SnTe, whereas these appear in SnS and
+SnSe. In addition , the relevance of lone pairs for thermoelectric-
+ity and optical properties in Pb –X systems has been questioned
+recently[28,59,61] as p–p bonding appears to drive the essential fea-
+tures for these applications. We can also note that the dispersive
+nature of the top valence and bottom conduction bands is due to
+the dominant role of p–sigma bonding. Holm et al. showed that
+upon forcing a distortion, PbTe exhibits small localized lone
+pairs[58,62] as in the stable GeTe phase. [27,63] This is an important
+observation to understand the good thermoelectric properties of
+PbTe. However, soft TO modes can be seen as an early sign of the
+onset of the Peierls distortion acting on a cubic network of pure
+p–sigma bonds. [64]
+The analyses of the charge density and of the pair density data
+are consistent. Bader (0.70e) and Mulliken charges (0.38e) are dif-
+ferent, but more importantly, the Mulliken analysis shows that
+each atom possesses about 2 s electrons, each p orbital being
+ﬁlled by 0.56 (Pb) and 1.48 (Te) electrons. A total of 6.12 electrons
+are contributing to six bonds, thus leaving 1.02 electrons per
+PbTe bond, not so different from the pair density value of 0.8
+shared electrons.
+Upon comparing PbO and PbTe (see Table 2), one can see that
+in the more ionic compound, lone pairs play a major role and no
+electrons are shared across a true van der Waals gap. In contrast,
+when the charge transfer decreases, the electron sharing
+becomes dominant.
+6. Ge 2Sb2Te5, a Phase-Change Material
+Among the most studied layered chalcogenide crystals, one ﬁnds
+the Ge–Sb–Te alloy family. Indeed, these have been at the origin
+of the development of new types of nonvolatile memories, based
+upon phase-change materials in which the two bits can be stored
+in a more conductive crystalline phase and a more resistive amor-
+phous phase.[2,65,66] However, it should be noted that it is not the
+stable crystal phase that is involved in that process, but a meta-
+stable cubic phase in which Ge, Sb, and vacancies are randomly
+sharing one site of the rocksalt structure. In contrast, the stable
+crystal phase has been suggested as being crucial for a potential
+interfacial phase-change memory. [67] The stable crystal phase is
+known to be layered, with groups of nine layers stacked in the
+z-direction of a hexagonal cell (Figure 11). Theoretically, the most
+stable arrangement, known as the Kooi structure (hereafter
+labeled GST225-Kooi), contains the layered sequence Te –Sb–
+Te–Ge–Te–Ge–Te–Sb–Te. It has been argued that the nine-layer
+stacks are bonded to each other through a van der Waals gap
+(dashed line in Figure 11) in which lone pairs are responsible
+for the large interlayer distance. However, the nature of the
+van der Waals gap has been questioned in several studies. [24,68]
+Similarly, the fact that strain can induce a change in proper-
+ties[69,70] seems incompatible with the existence of a true van
+der Waals gap.
+It should also be noted that the structure has been be
+explained by a Peierls distortion mechanism [37] in which a linear
+pattern of σ-bonded p orbitals, occurring in three decoupled
+directions, is stabilized by a distortion that multiplies the unit
+cell by a factor of nine. Figure 11 shows this distortion, with a
+zone depleted in electrons between Te layers at the edges of
+the nine-layer group. At this point, it should be noted that the
+Te─Te distance across this gap is signi ﬁcantly smaller than
+expected, in line with previous reports that question the van
+der Waals bonding across the gap. [70]
+Table 2. Results of the pair density analysis and analysis of the interlayer
+spacing. ES is the number of electrons shared, with the multiplicity and the
+nature of the bonds (intra ¼ intralayer, inter ¼ across the vdW gap). TET is
+the total number of electrons transferred (charge). The gap is given by the
+shortest distance across the interlayer spacing. The deviation (dev)
+between the sum of van der Waals radii ( Σr.vdW) and the gap is given
+in percentage. For GST225, the selected atom is the Te atom at the
+van der Waals gap. For PbO, “L” stands for litharge and “M” for massicot.
+ES TET Gap [Å] Σr.vdW [Å] Dev [%]
+Se 2.28 (2 /C2 ) intra – 3.57 3.80 /C0 6
+0.24 (4 /C2 ) inter
+Te 1.81 (2 /C2 ) intra – 3.51 4.12 /C0 15
+0.56 (4 /C2 ) inter
+Sb 1.45 (3 /C2 ) intra – 3.45 4.12 /C0 19
+0.52 (3 /C2 ) inter
+a-PbO 0.95 (4 /C2 ) intra 1.16 4.09 (L) 4.04 þ1 (L)
+0.03 (4 /C2 ) inter 4.19 (M) þ4 (M)
+PbTe 0.80 (6 /C2 ) intra 0.70 0.00 4.08 -Inf.
+GST225 1.36 (3 /C2 ) intra 0.3 3.65 4.12 /C0 12
+0.36 (3 /C2 ) inter
+Figure 11. Valence charge density (paw cores omitted, left) and valence
+ELF for GST225-Kooi. The charge color scale goes from 0 to 0.67. On the
+right panel, the ELF color scale goes from 0 to 1 with a contour line drawn
+at the 0.85 iso level. Notable ELF contributions can be seen on Ge, Sb
+atoms as well as on Te atoms located at the gap. Spherical localization
+regions are found around the Ge atoms due to the s electrons. The white
+numbers on the left panel correspond to the number of electrons shared in
+the bonds; the Te atoms ’ negative charges are indicated in yellow.
+www.advancedsciencenews.com
+ www.pss-rapid.com
+Phys. Status Solidi RRL 2021, 15, 2000534 2000534 (8 of 11) © 2021 Wiley-VCH GmbH
+ 18626270, 2021, 11, Downloaded from https://onlinelibrary.wiley.com/doi/10.1002/pssr.202000534 by University Of Science, Wiley Online Library on [09/07/2026]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License
+
+
+=== PAGE 9 ===
+This is consistent with our ﬁnding that there are indeed local-
+ized electrons in the structural gap (see Figure 11). Their appear-
+ance reminds us of the α–PbO case. Further inspection shows
+that opposite to that localized pocket within the gap, there is a
+pocket on the neighboring Sb atom, in addition to another spher-
+ical pocket (a pseudo-core s state, actually, as indicated by the lob-
+ster[71] charge analysis) on the Ge atoms. Interestingly, the orbital
+decomposition of the charge gives similar numbers for all Te
+atoms, irrespective of their location (central or peripheral to
+the nine-layer stack). The detailed electron count indicates that
+there are about four electrons with ELF > 0.85 for the entire cell,
+with a large contribution from the Ge s states. The number of
+electrons in the Te localization pocket is thus much smaller than
+one. Remarkably, all Te atoms have 1.9 s electrons and about 1.39
+electrons in each p orbital, whereas Sb atoms have 1.95 s elec-
+trons and 0.93 electrons in each p orbital (Ge: 1.9 s and 0.69
+in each p orbital). One can also note that the charge transfer
+is thus quite moderate as measured from the charge density.
+Interestingly, the Bader charge of the Te atoms proves to be dif-
+ferent according to the location of the atom (see Figure 11), the
+edge Te atoms being slightly less charged ( /C0 0.30e),
+More importantly, and contrarily to both PbO crystal struc-
+tures, in the case of GST, a small but non-negligible fraction
+of electrons (0.36 electrons) is shared between pairs of Te atoms
+located on both sides of the “van der Waals” gap, which accounts
+for the reduced distance (see Table 2) when compared to twice
+the van der Waals radius of the Te atom. The all electron charge
+density analysis indicates the presence of a bond critical point
+(noted (3, /C0 1)) at the center of the interlayer spacing, on the
+Te─Te segment and with a ρb value (0.015 au) that is exactly
+in between those observed for Se and Te (see earlier).
+These ﬁndings are comparable to what is observed in GeTe
+and many other compounds. [19,24,63,68,72] In those cases, the
+interlayer separation is even smaller, which has been attributed
+to the metavalent nature of the bonds. [68] In the case of GST, we
+nevertheless do not observe a normal 2c–1e bonding, as the align-
+ment of charge concentrations is quite imperfect, thus leading to
+0.3–0.4 electrons shared. It is therefore an intermediate case in
+which a pattern of self-avoiding lone pairs can be observed [72]
+apart from metavalent bonding. This conclusion is compatible
+with the unusual properties of GST225, such as the extremely
+high computed dielectric constant and the very large Born effec-
+tive charges as well as the small electronic bandgap. It is even
+suspected from these values that the system would easily become
+metallic under an electric ﬁeld applied in the z direction.
+Recently, the existence of crystalline metavalent bonding has
+been shown to favor a faster kinetics of crystallization from
+the amorphous phase. [73]
+The band structure shown in Figure 12 indicates that the p
+orbitals of the edge Te atoms contribute to very dispersive valence
+and conduction states. This is also true along the very short Γ–A
+path, which is oriented along the c-axis of the hexagonal cell. The
+s orbitals on these atoms do not hybridize with the p states and
+are located at much lower energies.
+7. Conclusion
+Lone pairs are often invoked to explain the peculiar behavior of
+certain solids, in particular when symmetry breaking occurs,
+such as in GST or when disorder is prevalent, such as in amor-
+phous GeTe. In this work, we have shown that using Bader ’s
+approach and computing the electron pair density, it is possible
+to verify if lone pairs are indeed present.
+Lone pairs, as observed in α- and β-PbO, can be evidenced in
+the band structure (very weakly dispersive state due to the local-
+ized nature of the LP), but also by the fact that no (or very few)
+electrons are shared in the space where LPs are observed as local-
+ized electron pockets in the valence ELF. In this case cohesion
+occurs via dispersion forces across a van der Waals gap. Its size is
+usually comparable to the sum of the atom ’s van der Waals radii.
+To actually measure whether electrons are shared across the pos-
+sible vdW gap, going beyond the one electron density provided by
+DFT, by analyzing the electron correlations, is required. The
+QTAIM provides a robust tool, through the use of the pair den-
+sity, to measure the degree of electrons shared between species.
+This shows that in PbTe metavalent bonding dominates over the
+impact of a very weak, electron-depleted s lone pair. It also shows
+that the layered GST crystal is an intermediate case where mis-
+aligned lone pairs and metavalent bonding coexist, which
+accounts for the reduced van der Waals gap width. The selenium
+crystal structure proves to be at the edge of a metavalently bonded
+system. Indeed, localized valence electron pockets containing
+two electrons are clearly identi ﬁed; i.e., a lone pair prevails,
+yet some electrons are nevertheless shared between atoms
+located on neighboring Se chains. These are not enough to be
+able to classify Se as a metavalent crystal, [19] in contrast to Te.
+8. Experimental Section
+The ab initio calculations were performed in the framework of DFT.
+Three different plane wave basis codes were used, including
+ABINIT,[74,75] Vienna Ab initio Simulation Package (VASP), [76] and
+Quantum Espresso.[77] The VASP and ABINIT codes were used in conjunc-
+tion with projector augmented wave (PAW) potentials[35,78] and the Perdew–
+Burke– Ernzerhof (PBE) exchange correlation. [79] PWSCF was applied with
+norm-conserving[80] and PAW potentials together with PBE. [81] The PBE
+Figure 12. Fat band plot for Ge2Sb2Te5 with the Kooi structure. The s and p
+states corresponding to the Te atoms located around the gap are shown in
+red and green, respectively, their radius being proportional to the orbital
+contribution to the KS state.
+www.advancedsciencenews.com
+ www.pss-rapid.com
+Phys. Status Solidi RRL 2021, 15, 2000534 2000534 (9 of 11) © 2021 Wiley-VCH GmbH
+ 18626270, 2021, 11, Downloaded from https://onlinelibrary.wiley.com/doi/10.1002/pssr.202000534 by University Of Science, Wiley Online Library on [09/07/2026]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License
+
+
+=== PAGE 10 ===
+functional revised for solids (PBESOL) [82] has been shown to provide
+improved structural parameters for layered Ge xSbyTez crystals.[83]
+The structures were relaxed to less than 1 /C2 10/C0 5 eV A/C0 1 and the plane
+wave cutoff was chosen large enough to ensure convergence of the energy
+to less than 1 meV/atom. The initial DFT wavefunctions were then post-
+processed either in the DGRID code [84] or followed by a transformation
+into maximally localized Wannier functions [85,86] and integration[48] within
+the CRITIC2 code. [87] In those calculations, the full density (charge þ
+valence) was analyzed to de ﬁne the Bader volumes.
+Acknowledgements
+J.-Y.R. acknowledges the collaborative convention between CEA-LETI and
+FRS-FNRS. M.W. acknowledges support by the DFG (SFB 917). J.-Y.R.
+acknowledges computational resources provided by the CECI funded by
+the F.R.S.-FNRS under Grant No. 2.5020.11 and the Tier-1 supercomputer
+of the Fédération Wallonie-Bruxelles, infrastructure funded by the Walloon
+Region under grant agreement n /C14 1117545. J.-Y.R acknowledges the FNRS
+CDR “ABIGLO” grant J.0154.21. The authors acknowledge the computa-
+tional resources granted from RWTH Aachen University under project
+RWTH0508 (initially JARA0183 and JARA0198).
+Conﬂict of Interest
+The authors declare no con ﬂict of interest.
+Data Availability Statement
+Research data are not shared.
+Keywords
+chalcogenides, lone pair, metavalent bonding, phase-change materials,
+van der Waals
+Received: November 16, 2020
+Revised: August 13, 2021
+Published online: September 4, 2021
+[1] M. Kulichenko, A. I. Boldyrev, J. Phys. Chem. C 2020, 124, 6267.
+[2] M. Wuttig, N. Yamada, Nat. Mater. 2007, 6, 824.
+[3] A. Lotnyk, U. Ross, T. Dankwort, I. Hilmi, L. Kienle, B. Rauschenbach,
+Acta Mater. 2017, 141, 92.
+[4] R. Wang, V. Bragaglia, J. E. Boschker, R. Calarco, Cryst. Growth Des.
+2016, 16, 3596.
+[5] P. Kowalczyk, F. Hippert, N. Bernier, C. Mocuta, C. Sabbione,
+W. Batista-Pessoa, P. Noé, Small 2018, 14, 1704514.
+[6] F. d ’Acapito, P. Kowalczyk, J. Raty, C. Sabbione, F. Hippert, P. Noé,
+J. Phys. D, Appl. Phys. 2020, 53, 404002.
+[7] J. Zhou, Z. Sun, Y. Pan, Z. Song, R. Ahuja, Europhys. Lett. 2011, 95,
+27002.
+[8] J.-Y. Raty, C. Otjacques, J.-P. Gaspard, C. Bichara, Solid State Sci.
+2010, 12, 193.
+[9] J.-Y. Raty, C. Otjacques, R. Peköz, V. Lordi, C. Bichara, in Molecular
+Dynamics Simulations of Disordered Materials: From Network Glasses to
+Phase-Change Memory Alloys (Eds: C. Massobrio, J. Du,
+M. Bernasconi, P. S. Salmon), Springer, Cham, Switzerland, 2015,
+pp. 485 – 509.
+[10] S. Caravati, M. Bernasconi, T. D. Kühne, M. Krack, M. Parrinello, Appl.
+Phys. Lett. 2007, 91, 171906.
+[11] R. Mazzarello, S. Caravati, S. Angioletti-Uberti, M. Bernasconi,
+M. Parrinello, Phys. Rev. Lett. 2010, 104, 085503.
+[12] M. Krbal, A. V. Kolobov, P. Fons, J. Tominaga, S. R. Elliott, J. Hegedus,
+T. Uruga, Phys Rev B 2011, 83, 054203.
+[13] J. Akola, J. Larrucea, R. Jones, Phys Rev B 2011, 83, 094113.
+[14] T. H. Lee, S. R. Elliott, Adv. Mater. 2020, 32, 2000340.
+[15] A. V. Kolobov, P. Fons, Y. Saito, J. Tominaga, ACS Omega 2017, 2,
+6223.
+[16] Y. Saito, P. Fons, K. V. Mitrofanov, K. Makino, J. Tominaga,
+J. Robertson, A. V. Kolobov, Pure Appl. Chem. 2019, 91, 1777.
+[17] M. Wuttig, V. L. Deringer, X. Gonze, C. Bichara, J.-Y. Raty, Adv. Mater.
+2018, 30, 1803777.
+[18] M. Zhu, O. Cojocaru-Mirédin, A. M. Mio, J. Keutgen, M. Küpers,
+Y. Yu, J.-Y. Cho, R. Dronskowski, M. Wuttig, Adv. Mater. 2018, 30,
+1706735.
+[19] J.-Y. Raty, M. Schumacher, P. Golub, V. L. Deringer, C. Gatti,
+M. Wuttig, Adv. Mater. 2019, 31, 1806280.
+[20] Y. Cheng, S. Wahl, M. Wuttig, Phys. Status Solidi RRL 2021, 15,
+2000482.
+[21] D. Giri, L. Williams, A. Mukherjee, K. Rajan, J. Chem. Phys. 2021, 154,
+124105.
+[22] S. Yi, Z. Zhu, X. Cai, Y. Jia, J.-H. Cho, Inorg. Chem. 2018, 57, 5083.
+[23] J. C. Martinez, L. Lu, J. Ning, W. Dong, T. Cao, R. E. Simpson, Phys.
+Status Solidi B 2020, 257, 1900289.
+[24] Y. Cheng, O. Cojocaru-Mirédin, J. Keutgen, Y. Yu, M. Küpers,
+M. Schumacher, P. Golub, J.-Y. Raty, R. Dronskowski, M. Wuttig,
+Adv. Mater. 2019, 31, 1904316.
+[25] E. B. Isaacs, G. M. Lu, C. Wolverton, J. Phys. Chem. Lett. 2020, 11,
+5577.
+[26] H. Wang, P. Gopal, S. Picozzi, S. Curtarolo, M. Buongiorno Nardelli,
+J. S ławi´nska, npj Comput. Mater. 2020, 6,7 .
+[27] U. Waghmare, N. Spaldin, H. Kandpal, R. Seshadri, Phys. Rev. B 2003,
+67, 125111.
+[28] S. Maier, S. Steinberg, M. Schumacher, P. Golub, J.-Y. Raty,
+R. Nelson, R. Mazzarello, O. Conjocaru-Mirédin, R. Dronskowski,
+M. Wuttig, Adv. Mater. 2020, 32, 2005533.
+[29] B. J. Kooi, J. T. M. D. Hosson, J. Appl. Phys. 2002, 92, 3584.
+[30] M. D. Nielsen, V. Ozolins, J. P. Heremans, Energy Environ. Sci. 2013,
+6, 570.
+[31] R. F. W. Bader, Atoms in Molecules – A Quantum Theory , Clarendon
+Press, Oxford, UK 1994.
+[32] B. Silvi, A. Savin, Nature 1994, 371, 683.
+[33] R. J. Gillespie, E. A. Robinson, J. Comput. Chem. 2007, 28, 87.
+[34] M. Kohout, A. Savin, J. Comput. Chem. 1997, 18, 1431.
+[35] A. Savin, B. Silvi, F. Colonna, Can. J. Chem. 1996, 74, 1088.
+[36] G. Kresse, D. Joubert, Phys. Rev. B 1999, 59, 1758.
+[37] J. Gaspard, F. Marinelli, A. Pellegatti, Europhys. Lett. 1987, 3, 1095.
+[38] J. P. Gaspard, A. Pellegatti, F. Marinelli, C. Bichara, Philos. Mag. B
+1998, 77, 727.
+[39] B. Huang, J. Robertson, Phys. Rev. B 2010, 81, 081204.
+[40] K. Shportko, S. Kremers, M. Woda, D. Lencer, J. Robertson,
+M. Wuttig, Nat. Mater. 2008, 7, 653.
+[41] K. Gavroglu, A. Simões, Neither Physics nor Chemistry: A History of
+Quantum Chemistry , MIT Press 2012.
+[42] P. Ball, Nature 2011, 469, 26.
+[43] L. Guarneri, S. Jakobs, A. von, S. Maier, M. Xu, M. Zhu, S. Wahl,
+C. Teichrib, Y. Zhou, O. Cojocaru-Mirédin, M. Raghuwanshi,
+C.-F. Schön, M. Drögeler, C. Stampfer, R. P. S. M. Lobo,
+A. Piarristeguy, A. Pradel, J.-Y. Raty, M. Wuttig, Adv. Mater. 2021,
+2102356.
+[44] D. Lencer, M. Salinga, B. Grabowski, T. Hickel, J. Neugebauer,
+M. Wuttig, Nat. Mater. 2008, 7, 972.
+[45] G. Lucovsky, R. M. White, Phys. Rev. B 1973, 8, 660.
+www.advancedsciencenews.com
+ www.pss-rapid.com
+Phys. Status Solidi RRL 2021, 15, 2000534 2000534 (10 of 11) © 2021 Wiley-VCH GmbH
+ 18626270, 2021, 11, Downloaded from https://onlinelibrary.wiley.com/doi/10.1002/pssr.202000534 by University Of Science, Wiley Online Library on [09/07/2026]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License
+
+
+=== PAGE 11 ===
+[46] M. Raghuwanshi, O. Cojocaru-Mirédin, M. Wuttig, Nano Lett. 2020,
+20, 116.
+[47] S. Shaik, D. Danovich, J. M. Galbraith, B. Braïda, W. Wu, P. C. Hiberty,
+Angew. Chem., Int. Ed. 2020, 59, 984.
+[48] M. Yu, D. R. Trinkle, J. Chem. Phys. 2011, 134, 064111.
+[49] X. Fradera, M. A. Austen, R. F. W. Bader, J. Phys. Chem. A 1999, 103,
+304.
+[50] M. Salinga, B. Kersting, I. Ronneberger, V. P. Jonnalagadda, X. T. Vu,
+M. Le Gallo, I. Giannopoulos, O. Cojocaru-Mirédin, R. Mazzarello,
+A. Sebastian, Nat. Mater. 2018, 17, 681.
+[51] G. Trinquier, R. Hoffmann, J. Phys. Chem. 1984, 88, 6696.
+[52] H. J. Terpstra, R. A. de Groot, C. Haas, Phys. Rev. B 1995, 52,
+11690.
+[53] G. W. Watson, S. C. Parker, J. Phys. Chem. B 1999, 103, 1258.
+[54] A. Walsh, G. W. Watson, J. Solid State Chem. 2005, 178, 1422.
+[55] J. Berashevich, O. Semeniuk, J. A. Rowlands, A. Reznik, Europhys. Lett.
+2012, 99, 47005.
+[56] S. Lee, K. Esfarjani, T. Luo, J. Zhou, Z. Tian, G. Chen, Nat. Commun.
+2014, 5, 3525.
+[57] E. S. Bo ž in, C. D. Malliakas, P. Souvatzis, T. Proffen, N. A. Spaldin,
+M. G. Kanatzidis, S. J. Billinge, Science 2010, 330, 1660.
+[58] K. A. U. Holm, N. Roth, C. M. Zeuthen, K. Tolborg, A. A. Feidenhans ’l,
+B. B. Iversen, Phys. Rev. B 2020, 102, 024112.
+[59] M. K. Brod, M. Y. Toriyama, G. J. Snyder, Chem. Mater. 2020, 32,
+9771.
+[60] A. Walsh, D. J. Payne, R. G. Egdell, G. W. Watson, Chem. Soc. Rev.
+2011, 40, 4455-.
+[61] M. Cagnoni, D. Führen, M. Wuttig, Adv. Mater. 2018, 30,
+1801787.
+[62] B. Sangiorgio, E. S. Bozin, D. C. Malliakas, M. Fechner, A. Simonov,
+M. G. Kanatzidis, S. J. L. Billinge, N. A. Spaldin, T. Weber, Phys. Rev.
+Mater. 2018, 2, 085402.
+[63] J.-Y. Raty, M. Wuttig, J. Phys. D: Appl. Phys. 2020, 53, 234002.
+[64] J. P. Gaspard, Phys. Status Solidi RRL 2021, 15, 2000536.
+[65] P. Noé, C. Vallée, F. Hippert, F. Fillot, J.-Y. Raty, Semicond. Sci.
+Technol. 2017, 33, 013002.
+[66] I. Friedrich, V. Weidenhof, W. Njoroge, P. Franz, M. Wuttig, J. Appl.
+Phys. 2000, 87, 4130.
+[67] R. E. Simpson, P. Fons, A. V. Kolobov, T. Fukaya, M. Krbal, T. Yagi,
+J. Tominaga, Nat. Nanotechnol. 2011, 6, 501.
+[68] B. J. Kooi, M. Wuttig, Adv. Mater. 2020, 32, 1908302.
+[69] E. Zallo, S. Cecchi, J. E. Boschker, A. M. Mio, F. Arciprete, S. Privitera,
+R. Calarco, Sci. Rep. 2017, 7, 1466.
+[70] R. Wang, F. R. L. Lange, S. Cecchi, M. Hanke, M. Wuttig, R. Calarco,
+Adv. Funct. Mater. 2018, 28, 1705901.
+[71] S. Maintz, V. L. Deringer, A. L. Tchougréeff, R. Dronskowski,
+J. Comput. Chem. 2016, 37, 1030.
+[72] K. Tolborg, C. Gatti, B. B. Iversen, IUCrJ 2020, 7, 480.
+[73] C. Persch, M. J. Müller, A. Yadav, J. Pries, N. Honné, P. Kerres, S. Wei,
+H. Tanaka, P. Fantini, E. Varesi, F. Pellizzer, M. Wuttig, Nat. Commun.
+2021, 12, 4978.
+[74] X. Gonze, G. M. Rignanese, M. Verstraete, J. M. Beuken, Y. Pouillon,
+R. Caracas, F. Jollet, M. Torrent, G. Zerah, M. Mikami, P. Ghosez,
+M. Veithen, J. Y. Raty, V. Olevano, F. Bruneval, L. Reining,
+R. Godby, G. Onida, D. R. Hamann, D. C. Allan, Z. Kristallogr.
+2005, 220, 558.
+[75] X. Gonze, J. M. Beuken, R. Caracas, F. Detraux, M. Fuchs,
+G. M. Rignanese, L. Sindic, M. Verstraete, G. Zerah, F. Jollet,
+M. Torrent, A. Roy, M. Mikami, P. Ghosez, J. Y. Raty, D. C. Allan,
+Comput. Mater. Sci. 2002, 25, 478.
+[76] G. Kresse, J. Furthmuller, Phys. Rev. B 1996, 54, 11169.
+[77] P. Giannozzi, S. Baroni, N. Bonini, M. Calandra, R. Car, C. Cavazzoni,
+D. Ceresoli, G. L. Chiarotti, M. Cococcioni, I. Dabo, A. Dal Corso,
+S. de Gironcoli, S. Fabris, G. Fratesi, R. Gebauer, U. Gerstmann,
+C. Gougoussis, A. Kokalj, M. Lazzeri, L. Martin-Samos,
+N. Marzari, F. Mauri, R. Mazzarello, S. Paolini, A. Pasquarello,
+L. Paulatto, C. Sbraccia, S. Scandolo, G. Sclauzero,
+A. P. Seitsonen, A. Smogunov, P. Umari, R. M. Wentzcovitch,
+J. Phys.: Condens. Matter 2009, 21, 395502.
+[78] P. E. Blöchl, Phys. Rev. B 1994, 50, 17953.
+[79] J. P. Perdew, K. Burke, M. Ernzerhof, Phys. Rev. Lett. 1996, 77, 3865.
+[80] D. R. Hamann, Phys. Rev. B 2013, 88, 085117.
+[81] C. Hartwigsen, S. Goedecker, J. Hutter, Phys. Rev. B 1998, 58, 3641.
+[82] J. P. Perdew, A. Ruzsinszky, G. I. Csonka, O. A. Vydrov, G. E. Scuseria,
+L. A. Constantin, X. Zhou, K. Burke, Phys. Rev. Lett. 2008, 100, 136406.
+[83] W. Ibarra-Hernández, J.-Y. Raty, Phys. Rev. B 2018, 97, 245205.
+[84] M. Kohout, DGrid 5.1, 2019.
+[85] N. Marzari, D. Vanderbilt, Phys. Rev. B 1997, 56, 12847.
+[86] A. A. Mosto ﬁ, J. R. Yates, Y.-S. Lee, I. Souza, D. Vanderbilt,
+N. Marzari, Comp. Phys. Commun. 2008, 178, 685.
+[87] A. Otero-de-la-Roza, E. R. Johnson, V. Lua ˜na, Comp. Phys. Commun.
+2014, 185, 1007.
+www.advancedsciencenews.com
+ www.pss-rapid.com
+Phys. Status Solidi RRL 2021, 15, 2000534 2000534 (11 of 11) © 2021 Wiley-VCH GmbH
+ 18626270, 2021, 11, Downloaded from https://onlinelibrary.wiley.com/doi/10.1002/pssr.202000534 by University Of Science, Wiley Online Library on [09/07/2026]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License

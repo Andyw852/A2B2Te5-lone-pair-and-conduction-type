@@ -1,0 +1,34 @@
+本目录是 `完整分析报告.html` 中 AMSET 输运数值的输入数据镜像。
+
+报告第 11 节（Sn₂Bi₂Te₅：缺陷条件与 AMSET 输运）表 10 的四个条件 v0–v3，直接取自
+
+    AMSET_results/分类输运/00_合并原始结果/Sn2Bi2Te5/transport.json
+
+的 300 K 切片中四个显式缺陷净浓度掺杂点（本目录内同名相对路径）：
+
+    v0  2.79408e19 cm⁻³  →  S=+107.51 μV/K  σ=1.927e5 S/m  PF=2.219 mW/(m·K²)
+    v1  1.21499e20 cm⁻³  →  S=+102.97 μV/K  σ=5.134e5 S/m  PF=5.208 mW/(m·K²)
+    v2  9.35027e18 cm⁻³  →  S=+115.77 μV/K  σ=1.035e5 S/m  PF=1.414 mW/(m·K²)
+    v3  2.37421e18 cm⁻³  →  S=+186.82 μV/K  σ=3.945e4 S/m  PF=1.386 mW/(m·K²)
+
+口径：S 与 σ 取三方向算术平均（迹/3）；PF 为逐方向 PF 后再平均，
+PF_i = σ_ii · (S_ii × 10⁻⁶)² × 1000，单位 mW/(m·K²)。
+
+`清单.json` 列出本目录 8 个文件的相对路径、作用与 sha256。核验方式：
+
+    python - <<'EOF'
+    import json, hashlib
+    from pathlib import Path
+    for e in json.loads(Path('清单.json').read_text(encoding='utf-8')):
+        p = Path(e['path'])
+        h = hashlib.sha256(p.read_bytes()).hexdigest()
+        print('OK ' if h == e['sha256'] else 'BAD', e['path'])
+    EOF
+
+（在 `01_报告/源数据/` 下执行。）
+
+四材料都列出，是因为完整分析报告与 SOC/无 SOC 对比共用同一批 `00_合并原始结果`；
+表 10 只用到 Sn₂Bi₂Te₅ 一份。
+
+数据版本：2026-09-16，9×9×2（kz≥2）DFPT 介电重算后重跑的 AMSET 结果。
+重算前的 9×9×1 版本见 `04_AMSET输运数据/旧版_20260909/`。

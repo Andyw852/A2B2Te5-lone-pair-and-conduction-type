@@ -1,0 +1,110 @@
+{
+  "Pb2Sb2Te5": {
+    "n_atoms": 9,
+    "total_bader_electrons": 68.0,
+    "sum_q_bader": 1.0000000019161348e-06,
+    "qabs_bader_e_per_cell": 2.4958255,
+    "elements": {
+      "Pb": {
+        "n_atoms": 2,
+        "mean_q_bader": 0.6270570000000006,
+        "sum_q_bader": 1.2541140000000013,
+        "mean_electron_population": 13.372943
+      },
+      "Sb": {
+        "n_atoms": 2,
+        "mean_q_bader": 0.6208559999999999,
+        "sum_q_bader": 1.2417119999999997,
+        "mean_electron_population": 4.379144
+      },
+      "Te": {
+        "n_atoms": 5,
+        "mean_q_bader": -0.4991649999999998,
+        "sum_q_bader": -2.495824999999999,
+        "mean_electron_population": 6.4991650000000005
+      }
+    },
+    "source": "band_and_elf\\Bader_TET\\Pb2Sb2Te5\\ES"
+  },
+  "Pb2Bi2Te5": {
+    "n_atoms": 9,
+    "total_bader_electrons": 88.0,
+    "sum_q_bader": -1.000000000139778e-06,
+    "qabs_bader_e_per_cell": 2.6579825000000006,
+    "elements": {
+      "Bi": {
+        "n_atoms": 2,
+        "mean_q_bader": 0.6699839999999995,
+        "sum_q_bader": 1.339967999999999,
+        "mean_electron_population": 14.330016
+      },
+      "Pb": {
+        "n_atoms": 2,
+        "mean_q_bader": 0.6590070000000008,
+        "sum_q_bader": 1.3180140000000016,
+        "mean_electron_population": 13.340993
+      },
+      "Te": {
+        "n_atoms": 5,
+        "mean_q_bader": -0.5315966000000001,
+        "sum_q_bader": -2.6579830000000007,
+        "mean_electron_population": 6.5315966
+      }
+    },
+    "source": "band_and_elf\\Bader_TET\\Pb2Bi2Te5\\ES"
+  },
+  "Sn2Sb2Te5": {
+    "n_atoms": 9,
+    "total_bader_electrons": 68.0,
+    "sum_q_bader": -8.881784197001252e-16,
+    "qabs_bader_e_per_cell": 2.424406,
+    "elements": {
+      "Sb": {
+        "n_atoms": 2,
+        "mean_q_bader": 0.588622,
+        "sum_q_bader": 1.177244,
+        "mean_electron_population": 4.411378
+      },
+      "Sn": {
+        "n_atoms": 2,
+        "mean_q_bader": 0.6235809999999997,
+        "sum_q_bader": 1.2471619999999994,
+        "mean_electron_population": 13.376419
+      },
+      "Te": {
+        "n_atoms": 5,
+        "mean_q_bader": -0.48488120000000007,
+        "sum_q_bader": -2.4244060000000003,
+        "mean_electron_population": 6.484881200000001
+      }
+    },
+    "source": "band_and_elf\\Bader_TET\\Sn2Sb2Te5\\ES"
+  },
+  "Sn2Bi2Te5": {
+    "n_atoms": 9,
+    "total_bader_electrons": 88.0,
+    "sum_q_bader": 1.9999999976150207e-06,
+    "qabs_bader_e_per_cell": 2.578109,
+    "elements": {
+      "Bi": {
+        "n_atoms": 2,
+        "mean_q_bader": 0.6470939999999992,
+        "sum_q_bader": 1.2941879999999983,
+        "mean_electron_population": 14.352906
+      },
+      "Sn": {
+        "n_atoms": 2,
+        "mean_q_bader": 0.6419610000000002,
+        "sum_q_bader": 1.2839220000000005,
+        "mean_electron_population": 13.358039
+      },
+      "Te": {
+        "n_atoms": 5,
+        "mean_q_bader": -0.5156216000000002,
+        "sum_q_bader": -2.578108000000001,
+        "mean_electron_population": 6.515621600000001
+      }
+    },
+    "source": "band_and_elf\\Bader_TET\\Sn2Bi2Te5\\ES"
+  }
+}

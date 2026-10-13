@@ -1,0 +1,36 @@
+# =====================================================================
+# SOC DFPT 介电: LSORBIT + IBRION=8 + LEPSILON (vasp_ncl)
+# 关键: DFPT 必须 KPAR=1 NCORE=1; Known issue#20: DFPT+SOC 需 ISYM=-1
+# (6.4.3/6.5.0 spinor 旋转缺失 bug, 官方修法 ISYM=-1)
+# 从原子电荷从头 SCF (ICHARG=2), 9x9x1 稀网格 81 全 k 点
+# =====================================================================
+SYSTEM = Pb2Sb2Te5 SOC DFPT dielectric
+ISTART = 0
+ICHARG = 2
+GGA    = PE
+PREC   = Accurate
+ENCUT  = 360
+LREAL  = .FALSE.
+LASPH  = .TRUE.
+ADDGRID= .TRUE.
+ALGO   = Normal
+EDIFF  = 1E-8
+NELM   = 200
+NELMIN = 6
+ISMEAR = 0
+SIGMA  = 0.05
+LSORBIT = .TRUE.
+GGA_COMPAT = .FALSE.
+LMAXMIX = 4
+ISYM   = -1
+IBRION = 7  # DFPT without symmetry (匹配 ISYM=-1)
+LEPSILON = .TRUE.
+LPEAD  = .FALSE.
+NSW    = 1
+LWAVE  = .FALSE.
+LCHARG = .FALSE.
+NBANDS = 80
+NCORE  = 1
+KPAR   = 1
+LSCALAPACK = .FALSE.
+MAGMOM    = 27*0.0

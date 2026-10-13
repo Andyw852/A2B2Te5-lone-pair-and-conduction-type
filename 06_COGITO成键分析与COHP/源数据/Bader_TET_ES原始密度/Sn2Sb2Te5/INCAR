@@ -1,0 +1,25 @@
+SYSTEM = Sn2Sb2Te5_B PBE ELF+Bader (step2.1; geometry=pbe-d3)
+ISTART   = 0
+ICHARG   = 2
+PREC     = Accurate
+ENCUT    = 370
+GGA      = PE
+EDIFF    = 1E-6
+NELM     = 100
+NELMIN   = 6
+ISMEAR   = 0
+SIGMA    = 0.05
+ISPIN    = 1
+ISYM     = 2
+IBRION   = -1
+NSW      = 0
+IVDW     = 12
+LREAL    = .FALSE.
+LASPH    = .TRUE.
+LWAVE    = .FALSE.
+LCHARG   = .TRUE.
+LORBIT   = 11
+LELF     = .TRUE.
+NPAR     = 1
+LAECHG   = .TRUE.
+LSCALAPACK = .FALSE.

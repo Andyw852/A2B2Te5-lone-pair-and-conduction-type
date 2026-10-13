@@ -1,0 +1,518 @@
+{
+  "scope": "仅交付目录；原计算工作区未删除",
+  "backup": "项目工作区/tmp/review_20260916/before_revision.zip",
+  "removed_files": 85,
+  "removed_bytes": 44867065,
+  "files": [
+    {
+      "path": "04_AMSET输运数据/旧版_20260909/Pb2Bi2Te5_transport.json",
+      "bytes": 133596,
+      "sha256": "eb0e312d16073f1aa54a7384dc8f7e4ead9de351951fbaf8aa187f7b13e5e32b",
+      "reason": "被当前 9x9x2 数据替代；清理前整包备份位于工作区"
+    },
+    {
+      "path": "04_AMSET输运数据/旧版_20260909/AMSET_results.zip",
+      "bytes": 1691799,
+      "sha256": "91647d06c8367c1d209588570ca6c787172e4c613637a9294ec388b6ecada395",
+      "reason": "被当前 9x9x2 数据替代；清理前整包备份位于工作区"
+    },
+    {
+      "path": "04_AMSET输运数据/旧版_20260909/Sn2Bi2Te5_transport.json",
+      "bytes": 134032,
+      "sha256": "5be419396bae20e1cbaa0937ccc6a18597a307aa8b598149d40b7228792d7a09",
+      "reason": "被当前 9x9x2 数据替代；清理前整包备份位于工作区"
+    },
+    {
+      "path": "04_AMSET输运数据/旧版_20260909/SOC_DFPT_transport_progress.md",
+      "bytes": 3160,
+      "sha256": "0440a255ff435d3ce41ef643863dcfce4d64c7d3c623ca79e754b298dd7a4a8f",
+      "reason": "被当前 9x9x2 数据替代；清理前整包备份位于工作区"
+    },
+    {
+      "path": "05_SOC_AMSET补算/Pb2Bi2Te5/04_AMSET输运/settings.yaml.9x9x1",
+      "bytes": 1197,
+      "sha256": "2846641d239c386da9bdf78d52dc33cd62bf74e4818d5806d7953923289f71a7",
+      "reason": "被当前 9x9x2 数据替代；清理前整包备份位于工作区"
+    },
+    {
+      "path": "05_SOC_AMSET补算/Pb2Bi2Te5/04_AMSET输运/transport.json.9x9x1",
+      "bytes": 304156,
+      "sha256": "923a8fb0cf2d2c1ca9a66e0f5873e1e15ada08668f9123b3f80020f6d951d8cf",
+      "reason": "被当前 9x9x2 数据替代；清理前整包备份位于工作区"
+    },
+    {
+      "path": "05_SOC_AMSET补算/06_SOC_无SOC对比/旧版_9x9x1/全温度_全浓度_方向及平均对比.csv.9x9x1",
+      "bytes": 1402463,
+      "sha256": "86879295aaedc2f36acf9be5025c52d00d167fb6eef7ee5782b2bfddf90f5b7d",
+      "reason": "被当前 9x9x2 数据替代；清理前整包备份位于工作区"
+    },
+    {
+      "path": "05_SOC_AMSET补算/06_SOC_无SOC对比/旧版_9x9x1/输入与校验.json",
+      "bytes": 3194,
+      "sha256": "f46047d01cdb593748d0e80cd76aaf85a602e1b9774e58f874aaad565c0e173b",
+      "reason": "被当前 9x9x2 数据替代；清理前整包备份位于工作区"
+    },
+    {
+      "path": "05_SOC_AMSET补算/06_SOC_无SOC对比/旧版_9x9x1/Sn2Sb2Te5_temperature_comparison.svg",
+      "bytes": 207132,
+      "sha256": "cd176bf2a68218e531986f527acfe232c4bca67c744f8ba2e7096348426c51c4",
+      "reason": "被当前 9x9x2 数据替代；清理前整包备份位于工作区"
+    },
+    {
+      "path": "05_SOC_AMSET补算/06_SOC_无SOC对比/旧版_9x9x1/Pb2Sb2Te5_300K_doping_comparison.png",
+      "bytes": 334373,
+      "sha256": "0ddaae076093a087e57251b0c5db16cf8d582ad40fcc934132cb948daff2e335",
+      "reason": "被当前 9x9x2 数据替代；清理前整包备份位于工作区"
+    },
+    {
+      "path": "05_SOC_AMSET补算/06_SOC_无SOC对比/旧版_9x9x1/Pb2Bi2Te5_temperature_comparison.svg",
+      "bytes": 212701,
+      "sha256": "2420db1e8502ad2e6a57b3d1eea656a479f57c369af70375dc92a0db87183ee3",
+      "reason": "被当前 9x9x2 数据替代；清理前整包备份位于工作区"
+    },
+    {
+      "path": "05_SOC_AMSET补算/06_SOC_无SOC对比/旧版_9x9x1/SOC_无SOC对比报告.html.9x9x1",
+      "bytes": 3805573,
+      "sha256": "665d7821e68d6277c3bf8e81d73d4915ec33db8e559df3c1c96a66b58415530e",
+      "reason": "被当前 9x9x2 数据替代；清理前整包备份位于工作区"
+    },
+    {
+      "path": "05_SOC_AMSET补算/06_SOC_无SOC对比/旧版_9x9x1/Pb2Bi2Te5_300K_doping_comparison.png",
+      "bytes": 333603,
+      "sha256": "20827688503948fa022349a293790f81e777db537386eea04b043e968e6998c2",
+      "reason": "被当前 9x9x2 数据替代；清理前整包备份位于工作区"
+    },
+    {
+      "path": "05_SOC_AMSET补算/06_SOC_无SOC对比/旧版_9x9x1/Sn2Bi2Te5_300K_doping_comparison.svg",
+      "bytes": 221792,
+      "sha256": "e6627ea999042d5db27cb945194eb1ec36693904407b2bbfcf5df63f1060b969",
+      "reason": "被当前 9x9x2 数据替代；清理前整包备份位于工作区"
+    },
+    {
+      "path": "05_SOC_AMSET补算/06_SOC_无SOC对比/旧版_9x9x1/Sn2Sb2Te5_temperature_comparison.png",
+      "bytes": 385554,
+      "sha256": "c4726b2462ba10f2e0ac920e0773f9b431b07e5e872ff6ea0b831dac0e14f8a1",
+      "reason": "被当前 9x9x2 数据替代；清理前整包备份位于工作区"
+    },
+    {
+      "path": "05_SOC_AMSET补算/06_SOC_无SOC对比/旧版_9x9x1/Sn2Bi2Te5_300K_doping_comparison.png",
+      "bytes": 315151,
+      "sha256": "6cc4e0075215988f50e97c5fb465c62946eefe4c0e898feab152a43a10f85731",
+      "reason": "被当前 9x9x2 数据替代；清理前整包备份位于工作区"
+    },
+    {
+      "path": "05_SOC_AMSET补算/06_SOC_无SOC对比/旧版_9x9x1/Pb2Sb2Te5_temperature_comparison.svg",
+      "bytes": 202555,
+      "sha256": "a2fd56a4ebf765efdb5bccc96bfd0727acf28b9733b5beb1fc07ce4bace63898",
+      "reason": "被当前 9x9x2 数据替代；清理前整包备份位于工作区"
+    },
+    {
+      "path": "05_SOC_AMSET补算/06_SOC_无SOC对比/旧版_9x9x1/Sn2Bi2Te5_temperature_comparison.svg",
+      "bytes": 201162,
+      "sha256": "a532f9459a658ad62f3cf6dfdb20576ce32c97b952d7039f538fc8385f9b4d0d",
+      "reason": "被当前 9x9x2 数据替代；清理前整包备份位于工作区"
+    },
+    {
+      "path": "05_SOC_AMSET补算/06_SOC_无SOC对比/旧版_9x9x1/Pb2Sb2Te5_temperature_comparison.png",
+      "bytes": 370907,
+      "sha256": "06c62a2333857d90710804c65b526de0d71dc8e9a175b5e7174de2ca82ad0bd1",
+      "reason": "被当前 9x9x2 数据替代；清理前整包备份位于工作区"
+    },
+    {
+      "path": "05_SOC_AMSET补算/06_SOC_无SOC对比/旧版_9x9x1/Sn2Sb2Te5_300K_doping_comparison.png",
+      "bytes": 341556,
+      "sha256": "d40ed4edd0e3a2aa20143cc69e958f7499b44d4991788b08f00b0fc093765c21",
+      "reason": "被当前 9x9x2 数据替代；清理前整包备份位于工作区"
+    },
+    {
+      "path": "05_SOC_AMSET补算/06_SOC_无SOC对比/旧版_9x9x1/Pb2Sb2Te5_300K_doping_comparison.svg",
+      "bytes": 226104,
+      "sha256": "4bc32e2e1f9c73939762245772c93f6a2181a553134498277d805b11404b5ad5",
+      "reason": "被当前 9x9x2 数据替代；清理前整包备份位于工作区"
+    },
+    {
+      "path": "05_SOC_AMSET补算/06_SOC_无SOC对比/旧版_9x9x1/Pb2Bi2Te5_temperature_comparison.png",
+      "bytes": 399672,
+      "sha256": "c06e04d65e2414a55692a49517c99a73b9225d34c94292ac26b07b16cb0632d9",
+      "reason": "被当前 9x9x2 数据替代；清理前整包备份位于工作区"
+    },
+    {
+      "path": "05_SOC_AMSET补算/06_SOC_无SOC对比/旧版_9x9x1/300K_正负1e19_汇总.csv.9x9x1",
+      "bytes": 3742,
+      "sha256": "dbf22561a1a3d0f5474e91cc194641dd5c57ca64fd278ded48168f4377434cb7",
+      "reason": "被当前 9x9x2 数据替代；清理前整包备份位于工作区"
+    },
+    {
+      "path": "05_SOC_AMSET补算/06_SOC_无SOC对比/旧版_9x9x1/Sn2Bi2Te5_temperature_comparison.png",
+      "bytes": 367122,
+      "sha256": "03e594291fe08ff9231955737ff0c643de88c153a98eda289a06e0ca2cea5623",
+      "reason": "被当前 9x9x2 数据替代；清理前整包备份位于工作区"
+    },
+    {
+      "path": "05_SOC_AMSET补算/06_SOC_无SOC对比/旧版_9x9x1/Sn2Sb2Te5_300K_doping_comparison.svg",
+      "bytes": 230126,
+      "sha256": "6d1caa934148ff2deebac5cf3b1b3c4a4aa1ad9c866320ecef36f33cb0a2975b",
+      "reason": "被当前 9x9x2 数据替代；清理前整包备份位于工作区"
+    },
+    {
+      "path": "05_SOC_AMSET补算/06_SOC_无SOC对比/旧版_9x9x1/Pb2Bi2Te5_300K_doping_comparison.svg",
+      "bytes": 226057,
+      "sha256": "c72b8a1b3cc3eb04bc1117189338c3c250030f0b830035789a1af220e0370af2",
+      "reason": "被当前 9x9x2 数据替代；清理前整包备份位于工作区"
+    },
+    {
+      "path": "05_SOC_AMSET补算/Sn2Bi2Te5/04_AMSET输运/settings.yaml.9x9x1",
+      "bytes": 1176,
+      "sha256": "ef229e5038c83a1e167b8e7f4ab0df7f2ef9ac69048dbf11b3841a4327a74c03",
+      "reason": "被当前 9x9x2 数据替代；清理前整包备份位于工作区"
+    },
+    {
+      "path": "05_SOC_AMSET补算/Sn2Bi2Te5/04_AMSET输运/transport.json.9x9x1",
+      "bytes": 305230,
+      "sha256": "14810a9fb52f6c31084357486d4ba6d355f205b6c694547a50ba954cdf4134d9",
+      "reason": "被当前 9x9x2 数据替代；清理前整包备份位于工作区"
+    },
+    {
+      "path": "05_SOC_AMSET补算/Pb2Sb2Te5/04_AMSET输运/settings.yaml.9x9x1",
+      "bytes": 1124,
+      "sha256": "b5e71fee59f8dffcec12f0cebf39f6ccce0e80f645d0f0eba28f12112cce30c4",
+      "reason": "被当前 9x9x2 数据替代；清理前整包备份位于工作区"
+    },
+    {
+      "path": "05_SOC_AMSET补算/Pb2Sb2Te5/04_AMSET输运/transport.json.9x9x1",
+      "bytes": 330136,
+      "sha256": "9c7fdd46ed8b651061f06fce1d2721e293ff3df89cefa82f7fb6cb257772629c",
+      "reason": "被当前 9x9x2 数据替代；清理前整包备份位于工作区"
+    },
+    {
+      "path": "05_SOC_AMSET补算/Sn2Sb2Te5/04_AMSET输运/settings.yaml.9x9x1",
+      "bytes": 1207,
+      "sha256": "4fe4783273dc775e8dadbd1f08a764830fe63adc141a0396920879ea6435ce3e",
+      "reason": "被当前 9x9x2 数据替代；清理前整包备份位于工作区"
+    },
+    {
+      "path": "05_SOC_AMSET补算/Sn2Sb2Te5/04_AMSET输运/transport.json.9x9x1",
+      "bytes": 325952,
+      "sha256": "e82a287713e78842ab45ed9ddf0fd8079a4f0eefed1ae02d06e70dc1fe641288",
+      "reason": "被当前 9x9x2 数据替代；清理前整包备份位于工作区"
+    },
+    {
+      "path": "05_SOC_AMSET补算/06_SOC_无SOC对比/源数据/说明.txt",
+      "bytes": 1308,
+      "sha256": "b2005ec0065e62c51f6cc7e1448a568ddaea72506438b323d241d99b713334b5",
+      "reason": "重复 transport/settings；基线保留 01_报告/源数据，SOC 保留各材料 04_AMSET输运"
+    },
+    {
+      "path": "05_SOC_AMSET补算/06_SOC_无SOC对比/源数据/SOC_AMSET_补算_结果汇总/Sn2Sb2Te5/04_AMSET输运/transport.json",
+      "bytes": 326032,
+      "sha256": "97087a81327b00cc0c6804bff3188a50c6421ccd444816b7b0060c1b5df6aa2b",
+      "reason": "重复 transport/settings；基线保留 01_报告/源数据，SOC 保留各材料 04_AMSET输运"
+    },
+    {
+      "path": "05_SOC_AMSET补算/06_SOC_无SOC对比/源数据/SOC_AMSET_补算_结果汇总/Sn2Sb2Te5/04_AMSET输运/settings.yaml",
+      "bytes": 1153,
+      "sha256": "0ec35d43738062b27a4894bd855be11bbeedd6279a2383d09244ded2492e4e28",
+      "reason": "重复 transport/settings；基线保留 01_报告/源数据，SOC 保留各材料 04_AMSET输运"
+    },
+    {
+      "path": "05_SOC_AMSET补算/06_SOC_无SOC对比/源数据/SOC_AMSET_补算_结果汇总/Sn2Bi2Te5/04_AMSET输运/transport.json",
+      "bytes": 305288,
+      "sha256": "6b2cf2591e67c7e3e26cdbd880a9229e5f0c9e056325130492e5aaf5cf16e323",
+      "reason": "重复 transport/settings；基线保留 01_报告/源数据，SOC 保留各材料 04_AMSET输运"
+    },
+    {
+      "path": "05_SOC_AMSET补算/06_SOC_无SOC对比/源数据/SOC_AMSET_补算_结果汇总/Sn2Bi2Te5/04_AMSET输运/settings.yaml",
+      "bytes": 1140,
+      "sha256": "8a53d8731ac8aaee20090e0445ef27056f242a870ccc7262dc39e724e9387e04",
+      "reason": "重复 transport/settings；基线保留 01_报告/源数据，SOC 保留各材料 04_AMSET输运"
+    },
+    {
+      "path": "05_SOC_AMSET补算/06_SOC_无SOC对比/源数据/SOC_AMSET_补算_结果汇总/Pb2Sb2Te5/04_AMSET输运/transport.json",
+      "bytes": 330032,
+      "sha256": "476726cd26602c8fdad8f72907b7c3a607021104c5ab757230f50b7a69e0979a",
+      "reason": "重复 transport/settings；基线保留 01_报告/源数据，SOC 保留各材料 04_AMSET输运"
+    },
+    {
+      "path": "05_SOC_AMSET补算/06_SOC_无SOC对比/源数据/SOC_AMSET_补算_结果汇总/Pb2Sb2Te5/04_AMSET输运/settings.yaml",
+      "bytes": 1121,
+      "sha256": "781a2810f9dbf261db7c56e845beb86e0702ecd2a8a5dc2af48d477c74263846",
+      "reason": "重复 transport/settings；基线保留 01_报告/源数据，SOC 保留各材料 04_AMSET输运"
+    },
+    {
+      "path": "05_SOC_AMSET补算/06_SOC_无SOC对比/源数据/SOC_AMSET_补算_结果汇总/Pb2Bi2Te5/04_AMSET输运/transport.json",
+      "bytes": 303878,
+      "sha256": "eb534fa9be15ff74e9bfd9179aad5d27abe1cb01f10f6958db6771e4275b45e5",
+      "reason": "重复 transport/settings；基线保留 01_报告/源数据，SOC 保留各材料 04_AMSET输运"
+    },
+    {
+      "path": "05_SOC_AMSET补算/06_SOC_无SOC对比/源数据/SOC_AMSET_补算_结果汇总/Pb2Bi2Te5/04_AMSET输运/settings.yaml",
+      "bytes": 1126,
+      "sha256": "882fc6c8c94aa37864c480af92f9667bc698c0c9b519cd8afad198eb5214ceaf",
+      "reason": "重复 transport/settings；基线保留 01_报告/源数据，SOC 保留各材料 04_AMSET输运"
+    },
+    {
+      "path": "05_SOC_AMSET补算/06_SOC_无SOC对比/源数据/AMSET_results/分类输运/00_合并原始结果/Sn2Sb2Te5/transport.json",
+      "bytes": 328312,
+      "sha256": "5ece14a7cb770de3402194d4d7f3cda216a9a285109d6a59189ad77a9c9cc1c7",
+      "reason": "重复 transport/settings；基线保留 01_报告/源数据，SOC 保留各材料 04_AMSET输运"
+    },
+    {
+      "path": "05_SOC_AMSET补算/06_SOC_无SOC对比/源数据/AMSET_results/分类输运/00_合并原始结果/Sn2Sb2Te5/settings.yaml",
+      "bytes": 1043,
+      "sha256": "2f04cccb54e34ba3c0091c0143208b77df17175076acb6b2adba931375ccdbf7",
+      "reason": "重复 transport/settings；基线保留 01_报告/源数据，SOC 保留各材料 04_AMSET输运"
+    },
+    {
+      "path": "05_SOC_AMSET补算/06_SOC_无SOC对比/源数据/AMSET_results/分类输运/00_合并原始结果/Sn2Bi2Te5/transport.json",
+      "bytes": 302736,
+      "sha256": "24ac5091f333826a4ca1abb17e165601bd6a3e92ba7596d3bcdbcbc6d4017987",
+      "reason": "重复 transport/settings；基线保留 01_报告/源数据，SOC 保留各材料 04_AMSET输运"
+    },
+    {
+      "path": "05_SOC_AMSET补算/06_SOC_无SOC对比/源数据/AMSET_results/分类输运/00_合并原始结果/Sn2Bi2Te5/settings.yaml",
+      "bytes": 1026,
+      "sha256": "49f18207f6b5c74c1665de697e00c7c4b75ea775ee95c334459a2cb589b9b63d",
+      "reason": "重复 transport/settings；基线保留 01_报告/源数据，SOC 保留各材料 04_AMSET输运"
+    },
+    {
+      "path": "05_SOC_AMSET补算/06_SOC_无SOC对比/源数据/AMSET_results/分类输运/00_合并原始结果/Pb2Sb2Te5/transport.json",
+      "bytes": 328419,
+      "sha256": "9ac1ba2f0b74bdb4ac607c0afdca6f7efc5b1a903fa134346c79c9506116a2ed",
+      "reason": "重复 transport/settings；基线保留 01_报告/源数据，SOC 保留各材料 04_AMSET输运"
+    },
+    {
+      "path": "05_SOC_AMSET补算/06_SOC_无SOC对比/源数据/AMSET_results/分类输运/00_合并原始结果/Pb2Sb2Te5/settings.yaml",
+      "bytes": 1007,
+      "sha256": "f340d6ff4f5aa7e69ef0201d872a159531081d2496b5670f1c01f2474c9fbfb4",
+      "reason": "重复 transport/settings；基线保留 01_报告/源数据，SOC 保留各材料 04_AMSET输运"
+    },
+    {
+      "path": "05_SOC_AMSET补算/06_SOC_无SOC对比/源数据/AMSET_results/分类输运/00_合并原始结果/Pb2Bi2Te5/transport.json",
+      "bytes": 302084,
+      "sha256": "6c77faa6695d38fdcfd29aa3dc8354fb51656f4d22e5953ebb0fbc7b717737e4",
+      "reason": "重复 transport/settings；基线保留 01_报告/源数据，SOC 保留各材料 04_AMSET输运"
+    },
+    {
+      "path": "05_SOC_AMSET补算/06_SOC_无SOC对比/源数据/AMSET_results/分类输运/00_合并原始结果/Pb2Bi2Te5/settings.yaml",
+      "bytes": 1015,
+      "sha256": "28274f84b81f6d6c1b8bc71f4f883a0b2ce88eb6ffb3ba2825f3eecd019a2f14",
+      "reason": "重复 transport/settings；基线保留 01_报告/源数据，SOC 保留各材料 04_AMSET输运"
+    },
+    {
+      "path": "04_AMSET输运数据/AMSET_results_9x9x2.zip",
+      "bytes": 459680,
+      "sha256": "9d4add36166a247a39ffac34fa89f8cc8b901a083147a3b3310f3ec8d447573a",
+      "reason": "与主报告基线源数据逐字节重复，不再另存压缩包"
+    },
+    {
+      "path": "05_SOC_AMSET补算/00_HDF5输入核验.md",
+      "bytes": 1664,
+      "sha256": "a1a213183fbc3e6d124d8ba21bd9ca6f026f7d2e60eb9a72322cbc2ffbc78814",
+      "reason": "旧运行过程/旧清单；当前数据由新全包清单与审查记录追溯"
+    },
+    {
+      "path": "05_SOC_AMSET补算/00_计算与归档说明.md",
+      "bytes": 3675,
+      "sha256": "952b703f26f96eb36a31cc002c6af798fe5600043a3c909f48e4152c2423985e",
+      "reason": "旧运行过程/旧清单；当前数据由新全包清单与审查记录追溯"
+    },
+    {
+      "path": "05_SOC_AMSET补算/00_SOC输运推进记录.md",
+      "bytes": 1085,
+      "sha256": "e04666f584f0f6316752cdc07916e472e8b45b7e0ef9b634f90698891558b741",
+      "reason": "旧运行过程/旧清单；当前数据由新全包清单与审查记录追溯"
+    },
+    {
+      "path": "05_SOC_AMSET补算/00_SOC数据_SHA256.txt",
+      "bytes": 884,
+      "sha256": "1b8f664996afdc097de7aa97cbf0fe1f3a34f9b5947ddce788bea03968f6a530",
+      "reason": "旧运行过程/旧清单；当前数据由新全包清单与审查记录追溯"
+    },
+    {
+      "path": "05_SOC_AMSET补算/00_工作流配置/.tf_state_cache.json",
+      "bytes": 2523,
+      "sha256": "1776801281f155cd1c6618d741ad0287687c44714bd4cdc71765535693310762",
+      "reason": "旧运行过程/旧清单；当前数据由新全包清单与审查记录追溯"
+    },
+    {
+      "path": "05_SOC_AMSET补算/Pb2Bi2Te5/04_AMSET输运/queue.out",
+      "bytes": 91,
+      "sha256": "c9e3097c599367012adc4700a5562dea73f882c539e35753ab56d0e5a786be24",
+      "reason": "旧运行过程/旧清单；当前数据由新全包清单与审查记录追溯"
+    },
+    {
+      "path": "05_SOC_AMSET补算/Pb2Bi2Te5/04_AMSET输运/queue.err",
+      "bytes": 489,
+      "sha256": "3741feef3b24a4eac55632f2fc3d8ffc0899b876e6a8e2e012569105ca0749e7",
+      "reason": "旧运行过程/旧清单；当前数据由新全包清单与审查记录追溯"
+    },
+    {
+      "path": "05_SOC_AMSET补算/Pb2Bi2Te5/04_AMSET输运/amset.log",
+      "bytes": 6874965,
+      "sha256": "ef5e6889ee5bae34b0e6c8f2104eff401ac689147a9011b89aa6aa646f4a753b",
+      "reason": "旧运行过程/旧清单；当前数据由新全包清单与审查记录追溯"
+    },
+    {
+      "path": "05_SOC_AMSET补算/Sn2Bi2Te5/04_AMSET输运/queue.out",
+      "bytes": 91,
+      "sha256": "c9e3097c599367012adc4700a5562dea73f882c539e35753ab56d0e5a786be24",
+      "reason": "旧运行过程/旧清单；当前数据由新全包清单与审查记录追溯"
+    },
+    {
+      "path": "05_SOC_AMSET补算/Sn2Bi2Te5/04_AMSET输运/queue.err",
+      "bytes": 489,
+      "sha256": "3741feef3b24a4eac55632f2fc3d8ffc0899b876e6a8e2e012569105ca0749e7",
+      "reason": "旧运行过程/旧清单；当前数据由新全包清单与审查记录追溯"
+    },
+    {
+      "path": "05_SOC_AMSET补算/Sn2Bi2Te5/04_AMSET输运/amset.log",
+      "bytes": 5291304,
+      "sha256": "5d7bc84b9f705dbc855a92f0ccb10b7ebc463fc5f7a6b0c21d88196e98b0b26b",
+      "reason": "旧运行过程/旧清单；当前数据由新全包清单与审查记录追溯"
+    },
+    {
+      "path": "05_SOC_AMSET补算/Pb2Sb2Te5/04_AMSET输运/queue.out",
+      "bytes": 91,
+      "sha256": "c9e3097c599367012adc4700a5562dea73f882c539e35753ab56d0e5a786be24",
+      "reason": "旧运行过程/旧清单；当前数据由新全包清单与审查记录追溯"
+    },
+    {
+      "path": "05_SOC_AMSET补算/Pb2Sb2Te5/04_AMSET输运/queue.err",
+      "bytes": 489,
+      "sha256": "3741feef3b24a4eac55632f2fc3d8ffc0899b876e6a8e2e012569105ca0749e7",
+      "reason": "旧运行过程/旧清单；当前数据由新全包清单与审查记录追溯"
+    },
+    {
+      "path": "05_SOC_AMSET补算/Pb2Sb2Te5/04_AMSET输运/amset.log",
+      "bytes": 7093084,
+      "sha256": "7e29301b563f343201dc05bea76bdcfee8a13590d9b5f460a582bb1d22f3eae3",
+      "reason": "旧运行过程/旧清单；当前数据由新全包清单与审查记录追溯"
+    },
+    {
+      "path": "05_SOC_AMSET补算/Sn2Sb2Te5/04_AMSET输运/queue.out",
+      "bytes": 91,
+      "sha256": "c9e3097c599367012adc4700a5562dea73f882c539e35753ab56d0e5a786be24",
+      "reason": "旧运行过程/旧清单；当前数据由新全包清单与审查记录追溯"
+    },
+    {
+      "path": "05_SOC_AMSET补算/Sn2Sb2Te5/04_AMSET输运/queue.err",
+      "bytes": 489,
+      "sha256": "3741feef3b24a4eac55632f2fc3d8ffc0899b876e6a8e2e012569105ca0749e7",
+      "reason": "旧运行过程/旧清单；当前数据由新全包清单与审查记录追溯"
+    },
+    {
+      "path": "05_SOC_AMSET补算/Sn2Sb2Te5/04_AMSET输运/amset.log",
+      "bytes": 7087571,
+      "sha256": "309a51e4b4a3e89e01f309010401a452cc9294380ebeeeccefb25088bd7972f4",
+      "reason": "旧运行过程/旧清单；当前数据由新全包清单与审查记录追溯"
+    },
+    {
+      "path": "05_SOC_AMSET补算/00_工作流配置/soc_workflow.yaml",
+      "bytes": 3253,
+      "sha256": "194bb43263ab41db72cf16bcca3fca028f1f6109057e32ab909eed141c49bbc4",
+      "reason": "旧工作流状态，无关报告重现"
+    },
+    {
+      "path": "05_SOC_AMSET补算/Pb2Sb2Te5/04_AMSET输运/本次输入快照/settings.yaml",
+      "bytes": 1124,
+      "sha256": "b5e71fee59f8dffcec12f0cebf39f6ccce0e80f645d0f0eba28f12112cce30c4",
+      "reason": "历史输入快照，当前唯一 settings.yaml 保留在上一级"
+    },
+    {
+      "path": "05_SOC_AMSET补算/Pb2Bi2Te5/04_AMSET输运/本次输入快照/settings.yaml",
+      "bytes": 1197,
+      "sha256": "2846641d239c386da9bdf78d52dc33cd62bf74e4818d5806d7953923289f71a7",
+      "reason": "历史输入快照，当前唯一 settings.yaml 保留在上一级"
+    },
+    {
+      "path": "05_SOC_AMSET补算/Sn2Sb2Te5/04_AMSET输运/本次输入快照/settings.yaml",
+      "bytes": 1207,
+      "sha256": "4fe4783273dc775e8dadbd1f08a764830fe63adc141a0396920879ea6435ce3e",
+      "reason": "历史输入快照，当前唯一 settings.yaml 保留在上一级"
+    },
+    {
+      "path": "05_SOC_AMSET补算/Sn2Bi2Te5/04_AMSET输运/本次输入快照/settings.yaml",
+      "bytes": 1176,
+      "sha256": "ef229e5038c83a1e167b8e7f4ab0df7f2ef9ac69048dbf11b3841a4327a74c03",
+      "reason": "历史输入快照，当前唯一 settings.yaml 保留在上一级"
+    },
+    {
+      "path": "06_COGITO成键分析与COHP/审核与重绘/publish_report.py",
+      "bytes": 8714,
+      "sha256": "397bb503ec77a2e42fe9103da684cb3af1b3a63382c0be4b6aff3e70fdc293d8",
+      "reason": "旧审核记录/失效脚本已由 09_审查 与 10_脚本替代"
+    },
+    {
+      "path": "06_COGITO成键分析与COHP/审核与重绘/图像来源核验.json",
+      "bytes": 4513,
+      "sha256": "9bc1d13c212fa9a25f9ac7baf203cb6a3701ffb5865138ff0efdd628886f95a0",
+      "reason": "旧审核记录/失效脚本已由 09_审查 与 10_脚本替代"
+    },
+    {
+      "path": "06_COGITO成键分析与COHP/审核与重绘/清理记录.json",
+      "bytes": 6491,
+      "sha256": "34e0d5bf5896b3b6c7af36dc66e88745ba320916fcdc594dfabbdb2bedc6e20c",
+      "reason": "旧审核记录/失效脚本已由 09_审查 与 10_脚本替代"
+    },
+    {
+      "path": "06_COGITO成键分析与COHP/审核与重绘/redraw_cohp.py",
+      "bytes": 13704,
+      "sha256": "fbbeaba00719566dd1ec9e83be9e061317ca8bcb632a556af2bf52830811fbc2",
+      "reason": "旧审核记录/失效脚本已由 09_审查 与 10_脚本替代"
+    },
+    {
+      "path": "06_COGITO成键分析与COHP/审核与重绘/报告修改核验.json",
+      "bytes": 282,
+      "sha256": "d0b74513523b52a4dea8dfcbd44448fd559852d122d992a20dd851d9b158a519",
+      "reason": "旧审核记录/失效脚本已由 09_审查 与 10_脚本替代"
+    },
+    {
+      "path": "06_COGITO成键分析与COHP/审核与重绘/ICOHP绘图数据.json",
+      "bytes": 1511,
+      "sha256": "f14cb1248dbbfbe6305f17c7e75fa723b6566e159f233e51957d4ed0a4bb0b43",
+      "reason": "旧审核记录/失效脚本已由 09_审查 与 10_脚本替代"
+    },
+    {
+      "path": "06_COGITO成键分析与COHP/审核与重绘/revise_report.py",
+      "bytes": 4798,
+      "sha256": "aab8eef0a0f5dba0e95e7a595b88749eb832330a553f8ed7c78566801af40494",
+      "reason": "旧审核记录/失效脚本已由 09_审查 与 10_脚本替代"
+    },
+    {
+      "path": "06_COGITO成键分析与COHP/审核与重绘/README.md",
+      "bytes": 4698,
+      "sha256": "80026b94647feb44f1bba93f73074c59e9efe75193944c17b33fc809c478e388",
+      "reason": "旧审核记录/失效脚本已由 09_审查 与 10_脚本替代"
+    },
+    {
+      "path": "06_COGITO成键分析与COHP/审核与重绘/数据核验.json",
+      "bytes": 10388,
+      "sha256": "7a0eaf0bec4e3d7baca642be9f58880c9c85c371b453f3bcb7da2636073586b5",
+      "reason": "旧审核记录/失效脚本已由 09_审查 与 10_脚本替代"
+    },
+    {
+      "path": "02_图表/COGITO_onsite_s占据_审核重绘.png",
+      "bytes": 76247,
+      "sha256": "31718fada7745d531da45da8ca7e8a9a8a2207a2edd85f8a450c49da3a38b1ff",
+      "reason": "主报告未引用，且已有重绘/原图替代"
+    },
+    {
+      "path": "02_图表/ELF_四材料.png",
+      "bytes": 2035837,
+      "sha256": "ba9b9eff9c125b2044c876a669be8731b91ea903b144cdba090db984687bab91",
+      "reason": "主报告未引用，且已有重绘/原图替代"
+    },
+    {
+      "path": "02_图表/四材料带边轨道对照.png",
+      "bytes": 146755,
+      "sha256": "209437b17b264b79fa4db46966766807bba8ca305622d74bc0ecd82b779b173a",
+      "reason": "主报告未引用，且已有重绘/原图替代"
+    },
+    {
+      "path": "02_图表/ICOHP_短长键对比_审核重绘.png",
+      "bytes": 166391,
+      "sha256": "7ba19e7d908b07e28bfc7291e4f503131b320dc987d95b4d6cd0ab272a95f5c7",
+      "reason": "主报告未引用，且已有重绘/原图替代"
+    }
+  ]
+}

@@ -1,0 +1,51 @@
+{
+  "status": "源矩阵到汇总、ET原子电荷、ELF域求和算术一致",
+  "checks": {
+    "Pb2Sb2Te5": {
+      "matrix_pairs": 50,
+      "classes": 14,
+      "occupied_spinors": 68,
+      "symmetry_residual": 0.0,
+      "internal_sum_rule_relative_error": 0.0035065274952158242,
+      "orbit_sizes_match": false,
+      "max_class_estimator_std": 0.00022952367785972205,
+      "ET_charge_sum": 9.99999999995449e-06
+    },
+    "Pb2Bi2Te5": {
+      "matrix_pairs": 50,
+      "classes": 14,
+      "occupied_spinors": 88,
+      "symmetry_residual": 0.0,
+      "internal_sum_rule_relative_error": 0.0025494861562059645,
+      "orbit_sizes_match": false,
+      "max_class_estimator_std": 0.00011714316671340708,
+      "ET_charge_sum": 5.551115123125783e-17
+    },
+    "Sn2Sb2Te5": {
+      "matrix_pairs": 50,
+      "classes": 14,
+      "occupied_spinors": 68,
+      "symmetry_residual": 0.0,
+      "internal_sum_rule_relative_error": 0.0016219829620655604,
+      "orbit_sizes_match": false,
+      "max_class_estimator_std": 0.00016319352575216994,
+      "ET_charge_sum": 1.999999999996449e-05
+    },
+    "Sn2Bi2Te5": {
+      "matrix_pairs": 50,
+      "classes": 14,
+      "occupied_spinors": 88,
+      "symmetry_residual": 0.0,
+      "internal_sum_rule_relative_error": 0.0010599416133441194,
+      "orbit_sizes_match": false,
+      "max_class_estimator_std": 9.751612046815517e-05,
+      "ET_charge_sum": 9.999999999732445e-06
+    }
+  },
+  "not_validated": [
+    "不能将求和闭合用作文献 ES 的因子/自旋约定验证。",
+    "同 k 折叠矩阵的最近邻分摊不构成逐周期像离域积分。",
+    "未重跑 WAVECAR 积分、未验证 PAW 全电子重构、占据截断与网格收敛。",
+    "COGITO/DI/ET 几何与方法不完全相同，跨数据链只作定性比较。"
+  ]
+}

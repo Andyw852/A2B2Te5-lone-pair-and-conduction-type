@@ -1,0 +1,36 @@
+[
+  {
+    "check": "defect_rankings_and_display",
+    "vertices": 18,
+    "pass_check": true
+  },
+  {
+    "check": "defect_net_doping_matched_both_transport",
+    "rows": 4,
+    "pass_check": true
+  },
+  {
+    "check": "total_COHP_extracted_from_raw_HTML",
+    "material": "Pb2Sb2Te5",
+    "points": 330,
+    "pass_check": true
+  },
+  {
+    "check": "total_COHP_extracted_from_raw_HTML",
+    "material": "Pb2Bi2Te5",
+    "points": 435,
+    "pass_check": true
+  },
+  {
+    "check": "total_COHP_extracted_from_raw_HTML",
+    "material": "Sn2Sb2Te5",
+    "points": 405,
+    "pass_check": true
+  },
+  {
+    "check": "total_COHP_extracted_from_raw_HTML",
+    "material": "Sn2Bi2Te5",
+    "points": 435,
+    "pass_check": true
+  }
+]

@@ -1,0 +1,2245 @@
+{
+  "Pb2Sb2Te5": {
+    "material": "Pb2Sb2Te5",
+    "elf_grid": [
+      28,
+      28,
+      108
+    ],
+    "chg_grid": [
+      56,
+      56,
+      216
+    ],
+    "cell_volume_A3": 291.678,
+    "voxel_volume_A3": 0.003445,
+    "n_electrons_valence": 68.0,
+    "atoms": [
+      {
+        "i": 0,
+        "el": "Sb",
+        "frac": [
+          0.0,
+          0.0,
+          0.334153
+        ]
+      },
+      {
+        "i": 1,
+        "el": "Sb",
+        "frac": [
+          0.0,
+          0.0,
+          0.665847
+        ]
+      },
+      {
+        "i": 2,
+        "el": "Te",
+        "frac": [
+          0.666667,
+          0.333333,
+          0.57226
+        ]
+      },
+      {
+        "i": 3,
+        "el": "Te",
+        "frac": [
+          0.333333,
+          0.666667,
+          0.42774
+        ]
+      },
+      {
+        "i": 4,
+        "el": "Te",
+        "frac": [
+          0.666667,
+          0.333333,
+          0.224835
+        ]
+      },
+      {
+        "i": 5,
+        "el": "Te",
+        "frac": [
+          0.333333,
+          0.666667,
+          0.775165
+        ]
+      },
+      {
+        "i": 6,
+        "el": "Te",
+        "frac": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "i": 7,
+        "el": "Pb",
+        "frac": [
+          0.333333,
+          0.666667,
+          0.112811
+        ]
+      },
+      {
+        "i": 8,
+        "el": "Pb",
+        "frac": [
+          0.666667,
+          0.333333,
+          0.887189
+        ]
+      }
+    ],
+    "thresholds": {
+      "0.8": {
+        "n_domains": 7,
+        "total_electrons_in_domains": 15.74611,
+        "domains": [
+          {
+            "id": 1,
+            "n_voxels": 1998,
+            "volume_A3": 6.8827,
+            "electrons": 3.00098,
+            "centroid_frac": [
+              0.48482,
+              0.48482,
+              0.45808
+            ],
+            "nearest_atom_index": 3,
+            "nearest_atom_el": "Te",
+            "centroid_atom_distance_A": 1.376,
+            "nearest_atom_element_histogram": {
+              "Te": 1998
+            }
+          },
+          {
+            "id": 2,
+            "n_voxels": 1800,
+            "volume_A3": 6.2006,
+            "electrons": 2.7757,
+            "centroid_frac": [
+              0.68452,
+              0.35119,
+              0.22789
+            ],
+            "nearest_atom_index": 4,
+            "nearest_atom_el": "Te",
+            "centroid_atom_distance_A": 0.095,
+            "nearest_atom_element_histogram": {
+              "Te": 1800
+            }
+          },
+          {
+            "id": 7,
+            "n_voxels": 1800,
+            "volume_A3": 6.2006,
+            "electrons": 2.76907,
+            "centroid_frac": [
+              0.35119,
+              0.68452,
+              0.78137
+            ],
+            "nearest_atom_index": 5,
+            "nearest_atom_el": "Te",
+            "centroid_atom_distance_A": 0.134,
+            "nearest_atom_element_histogram": {
+              "Te": 1800
+            }
+          },
+          {
+            "id": 5,
+            "n_voxels": 1668,
+            "volume_A3": 5.7459,
+            "electrons": 2.51175,
+            "centroid_frac": [
+              0.68452,
+              0.35119,
+              0.56405
+            ],
+            "nearest_atom_index": 2,
+            "nearest_atom_el": "Te",
+            "centroid_atom_distance_A": 0.163,
+            "nearest_atom_element_histogram": {
+              "Te": 1668
+            }
+          },
+          {
+            "id": 4,
+            "n_voxels": 1668,
+            "volume_A3": 5.7459,
+            "electrons": 2.47435,
+            "centroid_frac": [
+              0.35119,
+              0.68452,
+              0.44521
+            ],
+            "nearest_atom_index": 3,
+            "nearest_atom_el": "Te",
+            "centroid_atom_distance_A": 0.315,
+            "nearest_atom_element_histogram": {
+              "Te": 1668
+            }
+          },
+          {
+            "id": 3,
+            "n_voxels": 1055,
+            "volume_A3": 3.6343,
+            "electrons": 1.10986,
+            "centroid_frac": [
+              0.46809,
+              0.47283,
+              0.3307
+            ],
+            "nearest_atom_index": 0,
+            "nearest_atom_el": "Sb",
+            "centroid_atom_distance_A": 2.069,
+            "nearest_atom_element_histogram": {
+              "Sb": 1055
+            }
+          },
+          {
+            "id": 6,
+            "n_voxels": 1055,
+            "volume_A3": 3.6343,
+            "electrons": 1.1044,
+            "centroid_frac": [
+              0.47283,
+              0.46809,
+              0.67855
+            ],
+            "nearest_atom_index": 1,
+            "nearest_atom_el": "Sb",
+            "centroid_atom_distance_A": 2.08,
+            "nearest_atom_element_histogram": {
+              "Sb": 1055
+            }
+          }
+        ]
+      },
+      "0.85": {
+        "n_domains": 17,
+        "total_electrons_in_domains": 3.84189,
+        "domains": [
+          {
+            "id": 10,
+            "n_voxels": 585,
+            "volume_A3": 2.0152,
+            "electrons": 0.95667,
+            "centroid_frac": [
+              0.68452,
+              0.35119,
+              0.542
+            ],
+            "nearest_atom_index": 2,
+            "nearest_atom_el": "Te",
+            "centroid_atom_distance_A": 0.533,
+            "nearest_atom_element_histogram": {
+              "Te": 585
+            }
+          },
+          {
+            "id": 9,
+            "n_voxels": 585,
+            "volume_A3": 2.0152,
+            "electrons": 0.91961,
+            "centroid_frac": [
+              0.35119,
+              0.68452,
+              0.46726
+            ],
+            "nearest_atom_index": 3,
+            "nearest_atom_el": "Te",
+            "centroid_atom_distance_A": 0.694,
+            "nearest_atom_element_histogram": {
+              "Te": 585
+            }
+          },
+          {
+            "id": 1,
+            "n_voxels": 330,
+            "volume_A3": 1.1368,
+            "electrons": 0.56581,
+            "centroid_frac": [
+              0.49665,
+              0.49665,
+              0.42281
+            ],
+            "nearest_atom_index": 3,
+            "nearest_atom_el": "Te",
+            "centroid_atom_distance_A": 1.272,
+            "nearest_atom_element_histogram": {
+              "Te": 330
+            }
+          },
+          {
+            "id": 11,
+            "n_voxels": 324,
+            "volume_A3": 1.1161,
+            "electrons": 0.37824,
+            "centroid_frac": [
+              0.45304,
+              0.46847,
+              0.69702
+            ],
+            "nearest_atom_index": 5,
+            "nearest_atom_el": "Te",
+            "centroid_atom_distance_A": 1.83,
+            "nearest_atom_element_histogram": {
+              "Sb": 324
+            }
+          },
+          {
+            "id": 8,
+            "n_voxels": 324,
+            "volume_A3": 1.1161,
+            "electrons": 0.35733,
+            "centroid_frac": [
+              0.46847,
+              0.45304,
+              0.31224
+            ],
+            "nearest_atom_index": 4,
+            "nearest_atom_el": "Te",
+            "centroid_atom_distance_A": 1.954,
+            "nearest_atom_element_histogram": {
+              "Sb": 324
+            }
+          },
+          {
+            "id": 2,
+            "n_voxels": 51,
+            "volume_A3": 0.1757,
+            "electrons": 0.09058,
+            "centroid_frac": [
+              0.57948,
+              0.14111,
+              0.20906
+            ],
+            "nearest_atom_index": 4,
+            "nearest_atom_el": "Te",
+            "centroid_atom_distance_A": 0.783,
+            "nearest_atom_element_histogram": {
+              "Te": 51
+            }
+          },
+          {
+            "id": 15,
+            "n_voxels": 51,
+            "volume_A3": 0.1757,
+            "electrons": 0.08898,
+            "centroid_frac": [
+              0.14111,
+              0.57948,
+              0.8002
+            ],
+            "nearest_atom_index": 5,
+            "nearest_atom_el": "Te",
+            "centroid_atom_distance_A": 0.853,
+            "nearest_atom_element_histogram": {
+              "Te": 51
+            }
+          },
+          {
+            "id": 3,
+            "n_voxels": 51,
+            "volume_A3": 0.1757,
+            "electrons": 0.08862,
+            "centroid_frac": [
+              0.57948,
+              0.45623,
+              0.20906
+            ],
+            "nearest_atom_index": 4,
+            "nearest_atom_el": "Te",
+            "centroid_atom_distance_A": 0.849,
+            "nearest_atom_element_histogram": {
+              "Te": 51
+            }
+          },
+          {
+            "id": 16,
+            "n_voxels": 51,
+            "volume_A3": 0.1757,
+            "electrons": 0.08668,
+            "centroid_frac": [
+              0.45623,
+              0.57948,
+              0.8002
+            ],
+            "nearest_atom_index": 5,
+            "nearest_atom_el": "Te",
+            "centroid_atom_distance_A": 0.914,
+            "nearest_atom_element_histogram": {
+              "Te": 51
+            }
+          },
+          {
+            "id": 4,
+            "n_voxels": 51,
+            "volume_A3": 0.1757,
+            "electrons": 0.08667,
+            "centroid_frac": [
+              0.89461,
+              0.45623,
+              0.20906
+            ],
+            "nearest_atom_index": 4,
+            "nearest_atom_el": "Te",
+            "centroid_atom_distance_A": 0.911,
+            "nearest_atom_element_histogram": {
+              "Te": 51
+            }
+          },
+          {
+            "id": 17,
+            "n_voxels": 51,
+            "volume_A3": 0.1757,
+            "electrons": 0.08439,
+            "centroid_frac": [
+              0.45623,
+              0.89461,
+              0.8002
+            ],
+            "nearest_atom_index": 5,
+            "nearest_atom_el": "Te",
+            "centroid_atom_distance_A": 0.972,
+            "nearest_atom_element_histogram": {
+              "Te": 51
+            }
+          },
+          {
+            "id": 12,
+            "n_voxels": 13,
+            "volume_A3": 0.0448,
+            "electrons": 0.02366,
+            "centroid_frac": [
+              0.24588,
+              0.4739,
+              0.7589
+            ],
+            "nearest_atom_index": 5,
+            "nearest_atom_el": "Te",
+            "centroid_atom_distance_A": 0.788,
+            "nearest_atom_element_histogram": {
+              "Te": 13
+            }
+          },
+          {
+            "id": 5,
+            "n_voxels": 13,
+            "volume_A3": 0.0448,
+            "electrons": 0.0234,
+            "centroid_frac": [
+              0.4739,
+              0.24588,
+              0.25036
+            ],
+            "nearest_atom_index": 4,
+            "nearest_atom_el": "Te",
+            "centroid_atom_distance_A": 0.859,
+            "nearest_atom_element_histogram": {
+              "Te": 13
+            }
+          },
+          {
+            "id": 13,
+            "n_voxels": 13,
+            "volume_A3": 0.0448,
+            "electrons": 0.02324,
+            "centroid_frac": [
+              0.24588,
+              0.78984,
+              0.7589
+            ],
+            "nearest_atom_index": 5,
+            "nearest_atom_el": "Te",
+            "centroid_atom_distance_A": 0.854,
+            "nearest_atom_element_histogram": {
+              "Te": 13
+            }
+          },
+          {
+            "id": 6,
+            "n_voxels": 13,
+            "volume_A3": 0.0448,
+            "electrons": 0.02286,
+            "centroid_frac": [
+              0.78984,
+              0.24588,
+              0.25036
+            ],
+            "nearest_atom_index": 4,
+            "nearest_atom_el": "Te",
+            "centroid_atom_distance_A": 0.92,
+            "nearest_atom_element_histogram": {
+              "Te": 13
+            }
+          },
+          {
+            "id": 14,
+            "n_voxels": 13,
+            "volume_A3": 0.0448,
+            "electrons": 0.02282,
+            "centroid_frac": [
+              0.56181,
+              0.78984,
+              0.7589
+            ],
+            "nearest_atom_index": 5,
+            "nearest_atom_el": "Te",
+            "centroid_atom_distance_A": 0.916,
+            "nearest_atom_element_histogram": {
+              "Te": 13
+            }
+          },
+          {
+            "id": 7,
+            "n_voxels": 13,
+            "volume_A3": 0.0448,
+            "electrons": 0.02233,
+            "centroid_frac": [
+              0.78984,
+              0.56181,
+              0.25036
+            ],
+            "nearest_atom_index": 4,
+            "nearest_atom_el": "Te",
+            "centroid_atom_distance_A": 0.978,
+            "nearest_atom_element_histogram": {
+              "Te": 13
+            }
+          }
+        ]
+      },
+      "0.9": {
+        "n_domains": 2,
+        "total_electrons_in_domains": 0.0208,
+        "domains": [
+          {
+            "id": 2,
+            "n_voxels": 6,
+            "volume_A3": 0.0207,
+            "electrons": 0.01086,
+            "centroid_frac": [
+              0.68452,
+              0.35119,
+              0.52315
+            ],
+            "nearest_atom_index": 2,
+            "nearest_atom_el": "Te",
+            "centroid_atom_distance_A": 0.86,
+            "nearest_atom_element_histogram": {
+              "Te": 6
+            }
+          },
+          {
+            "id": 1,
+            "n_voxels": 6,
+            "volume_A3": 0.0207,
+            "electrons": 0.00994,
+            "centroid_frac": [
+              0.35119,
+              0.68452,
+              0.48611
+            ],
+            "nearest_atom_index": 3,
+            "nearest_atom_el": "Te",
+            "centroid_atom_distance_A": 1.021,
+            "nearest_atom_element_histogram": {
+              "Te": 6
+            }
+          }
+        ]
+      }
+    }
+  },
+  "Pb2Bi2Te5": {
+    "material": "Pb2Bi2Te5",
+    "elf_grid": [
+      28,
+      28,
+      112
+    ],
+    "chg_grid": [
+      56,
+      56,
+      224
+    ],
+    "cell_volume_A3": 302.578,
+    "voxel_volume_A3": 0.003446,
+    "n_electrons_valence": 88.0,
+    "atoms": [
+      {
+        "i": 0,
+        "el": "Bi",
+        "frac": [
+          0.0,
+          0.0,
+          0.332378
+        ]
+      },
+      {
+        "i": 1,
+        "el": "Bi",
+        "frac": [
+          0.0,
+          0.0,
+          0.667622
+        ]
+      },
+      {
+        "i": 2,
+        "el": "Te",
+        "frac": [
+          0.666667,
+          0.333333,
+          0.571928
+        ]
+      },
+      {
+        "i": 3,
+        "el": "Te",
+        "frac": [
+          0.333333,
+          0.666667,
+          0.428072
+        ]
+      },
+      {
+        "i": 4,
+        "el": "Te",
+        "frac": [
+          0.666667,
+          0.333333,
+          0.219024
+        ]
+      },
+      {
+        "i": 5,
+        "el": "Te",
+        "frac": [
+          0.333333,
+          0.666667,
+          0.780976
+        ]
+      },
+      {
+        "i": 6,
+        "el": "Te",
+        "frac": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "i": 7,
+        "el": "Pb",
+        "frac": [
+          0.333333,
+          0.666667,
+          0.109936
+        ]
+      },
+      {
+        "i": 8,
+        "el": "Pb",
+        "frac": [
+          0.666667,
+          0.333333,
+          0.890064
+        ]
+      }
+    ],
+    "thresholds": {
+      "0.8": {
+        "n_domains": 7,
+        "total_electrons_in_domains": 14.09593,
+        "domains": [
+          {
+            "id": 1,
+            "n_voxels": 1980,
+            "volume_A3": 6.8229,
+            "electrons": 2.98427,
+            "centroid_frac": [
+              0.48402,
+              0.48402,
+              0.46204
+            ],
+            "nearest_atom_index": 3,
+            "nearest_atom_el": "Te",
+            "centroid_atom_distance_A": 1.421,
+            "nearest_atom_element_histogram": {
+              "Te": 1980
+            }
+          },
+          {
+            "id": 2,
+            "n_voxels": 1938,
+            "volume_A3": 6.6782,
+            "electrons": 2.93629,
+            "centroid_frac": [
+              0.68452,
+              0.35119,
+              0.22274
+            ],
+            "nearest_atom_index": 4,
+            "nearest_atom_el": "Te",
+            "centroid_atom_distance_A": 0.103,
+            "nearest_atom_element_histogram": {
+              "Te": 1938
+            }
+          },
+          {
+            "id": 7,
+            "n_voxels": 1938,
+            "volume_A3": 6.6782,
+            "electrons": 2.93509,
+            "centroid_frac": [
+              0.35119,
+              0.68452,
+              0.78618
+            ],
+            "nearest_atom_index": 5,
+            "nearest_atom_el": "Te",
+            "centroid_atom_distance_A": 0.121,
+            "nearest_atom_element_histogram": {
+              "Te": 1938
+            }
+          },
+          {
+            "id": 5,
+            "n_voxels": 1755,
+            "volume_A3": 6.0476,
+            "electrons": 2.6054,
+            "centroid_frac": [
+              0.68452,
+              0.35119,
+              0.56339
+            ],
+            "nearest_atom_index": 2,
+            "nearest_atom_el": "Te",
+            "centroid_atom_distance_A": 0.17,
+            "nearest_atom_element_histogram": {
+              "Te": 1755
+            }
+          },
+          {
+            "id": 4,
+            "n_voxels": 1755,
+            "volume_A3": 6.0476,
+            "electrons": 2.56366,
+            "centroid_frac": [
+              0.35119,
+              0.68452,
+              0.44554
+            ],
+            "nearest_atom_index": 3,
+            "nearest_atom_el": "Te",
+            "centroid_atom_distance_A": 0.317,
+            "nearest_atom_element_histogram": {
+              "Te": 1755
+            }
+          },
+          {
+            "id": 3,
+            "n_voxels": 1,
+            "volume_A3": 0.0034,
+            "electrons": 0.03594,
+            "centroid_frac": [
+              0.01786,
+              0.01786,
+              0.33482
+            ],
+            "nearest_atom_index": 0,
+            "nearest_atom_el": "Bi",
+            "centroid_atom_distance_A": 0.09,
+            "nearest_atom_element_histogram": {
+              "Bi": 1
+            }
+          },
+          {
+            "id": 6,
+            "n_voxels": 1,
+            "volume_A3": 0.0034,
+            "electrons": 0.03528,
+            "centroid_frac": [
+              0.01786,
+              0.01786,
+              0.67411
+            ],
+            "nearest_atom_index": 1,
+            "nearest_atom_el": "Bi",
+            "centroid_atom_distance_A": 0.139,
+            "nearest_atom_element_histogram": {
+              "Bi": 1
+            }
+          }
+        ]
+      },
+      "0.85": {
+        "n_domains": 7,
+        "total_electrons_in_domains": 3.70445,
+        "domains": [
+          {
+            "id": 5,
+            "n_voxels": 657,
+            "volume_A3": 2.264,
+            "electrons": 1.06766,
+            "centroid_frac": [
+              0.68452,
+              0.35119,
+              0.54393
+            ],
+            "nearest_atom_index": 2,
+            "nearest_atom_el": "Te",
+            "centroid_atom_distance_A": 0.498,
+            "nearest_atom_element_histogram": {
+              "Te": 657
+            }
+          },
+          {
+            "id": 4,
+            "n_voxels": 657,
+            "volume_A3": 2.264,
+            "electrons": 1.02686,
+            "centroid_frac": [
+              0.35119,
+              0.68452,
+              0.465
+            ],
+            "nearest_atom_index": 3,
+            "nearest_atom_el": "Te",
+            "centroid_atom_distance_A": 0.654,
+            "nearest_atom_element_histogram": {
+              "Te": 657
+            }
+          },
+          {
+            "id": 1,
+            "n_voxels": 312,
+            "volume_A3": 1.0751,
+            "electrons": 0.53411,
+            "centroid_frac": [
+              0.49542,
+              0.49542,
+              0.43716
+            ],
+            "nearest_atom_index": 3,
+            "nearest_atom_el": "Te",
+            "centroid_atom_distance_A": 1.297,
+            "nearest_atom_element_histogram": {
+              "Te": 312
+            }
+          },
+          {
+            "id": 2,
+            "n_voxels": 291,
+            "volume_A3": 1.0028,
+            "electrons": 0.50288,
+            "centroid_frac": [
+              0.68452,
+              0.35119,
+              0.2216
+            ],
+            "nearest_atom_index": 4,
+            "nearest_atom_el": "Te",
+            "centroid_atom_distance_A": 0.092,
+            "nearest_atom_element_histogram": {
+              "Te": 291
+            }
+          },
+          {
+            "id": 7,
+            "n_voxels": 291,
+            "volume_A3": 1.0028,
+            "electrons": 0.50172,
+            "centroid_frac": [
+              0.35119,
+              0.68452,
+              0.78733
+            ],
+            "nearest_atom_index": 5,
+            "nearest_atom_el": "Te",
+            "centroid_atom_distance_A": 0.137,
+            "nearest_atom_element_histogram": {
+              "Te": 291
+            }
+          },
+          {
+            "id": 3,
+            "n_voxels": 1,
+            "volume_A3": 0.0034,
+            "electrons": 0.03594,
+            "centroid_frac": [
+              0.01786,
+              0.01786,
+              0.33482
+            ],
+            "nearest_atom_index": 0,
+            "nearest_atom_el": "Bi",
+            "centroid_atom_distance_A": 0.09,
+            "nearest_atom_element_histogram": {
+              "Bi": 1
+            }
+          },
+          {
+            "id": 6,
+            "n_voxels": 1,
+            "volume_A3": 0.0034,
+            "electrons": 0.03528,
+            "centroid_frac": [
+              0.01786,
+              0.01786,
+              0.67411
+            ],
+            "nearest_atom_index": 1,
+            "nearest_atom_el": "Bi",
+            "centroid_atom_distance_A": 0.139,
+            "nearest_atom_element_histogram": {
+              "Bi": 1
+            }
+          }
+        ]
+      },
+      "0.9": {
+        "n_domains": 4,
+        "total_electrons_in_domains": 0.11171,
+        "domains": [
+          {
+            "id": 1,
+            "n_voxels": 1,
+            "volume_A3": 0.0034,
+            "electrons": 0.03594,
+            "centroid_frac": [
+              0.01786,
+              0.01786,
+              0.33482
+            ],
+            "nearest_atom_index": 0,
+            "nearest_atom_el": "Bi",
+            "centroid_atom_distance_A": 0.09,
+            "nearest_atom_element_histogram": {
+              "Bi": 1
+            }
+          },
+          {
+            "id": 4,
+            "n_voxels": 1,
+            "volume_A3": 0.0034,
+            "electrons": 0.03528,
+            "centroid_frac": [
+              0.01786,
+              0.01786,
+              0.67411
+            ],
+            "nearest_atom_index": 1,
+            "nearest_atom_el": "Bi",
+            "centroid_atom_distance_A": 0.139,
+            "nearest_atom_element_histogram": {
+              "Bi": 1
+            }
+          },
+          {
+            "id": 3,
+            "n_voxels": 12,
+            "volume_A3": 0.0414,
+            "electrons": 0.02125,
+            "centroid_frac": [
+              0.68452,
+              0.35119,
+              0.52232
+            ],
+            "nearest_atom_index": 2,
+            "nearest_atom_el": "Te",
+            "centroid_atom_distance_A": 0.875,
+            "nearest_atom_element_histogram": {
+              "Te": 12
+            }
+          },
+          {
+            "id": 2,
+            "n_voxels": 12,
+            "volume_A3": 0.0414,
+            "electrons": 0.01924,
+            "centroid_frac": [
+              0.35119,
+              0.68452,
+              0.48661
+            ],
+            "nearest_atom_index": 3,
+            "nearest_atom_el": "Te",
+            "centroid_atom_distance_A": 1.031,
+            "nearest_atom_element_histogram": {
+              "Te": 12
+            }
+          }
+        ]
+      }
+    }
+  },
+  "Sn2Sb2Te5": {
+    "material": "Sn2Sb2Te5",
+    "elf_grid": [
+      28,
+      28,
+      108
+    ],
+    "chg_grid": [
+      56,
+      56,
+      216
+    ],
+    "cell_volume_A3": 282.773,
+    "voxel_volume_A3": 0.00334,
+    "n_electrons_valence": 68.0,
+    "atoms": [
+      {
+        "i": 0,
+        "el": "Sb",
+        "frac": [
+          0.0,
+          0.0,
+          0.329692
+        ]
+      },
+      {
+        "i": 1,
+        "el": "Sb",
+        "frac": [
+          0.0,
+          0.0,
+          0.670308
+        ]
+      },
+      {
+        "i": 2,
+        "el": "Te",
+        "frac": [
+          0.666667,
+          0.333333,
+          0.57383
+        ]
+      },
+      {
+        "i": 3,
+        "el": "Te",
+        "frac": [
+          0.333333,
+          0.666667,
+          0.42617
+        ]
+      },
+      {
+        "i": 4,
+        "el": "Te",
+        "frac": [
+          0.666667,
+          0.333333,
+          0.217034
+        ]
+      },
+      {
+        "i": 5,
+        "el": "Te",
+        "frac": [
+          0.333333,
+          0.666667,
+          0.782966
+        ]
+      },
+      {
+        "i": 6,
+        "el": "Te",
+        "frac": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "i": 7,
+        "el": "Sn",
+        "frac": [
+          0.333333,
+          0.666667,
+          0.10956
+        ]
+      },
+      {
+        "i": 8,
+        "el": "Sn",
+        "frac": [
+          0.666667,
+          0.333333,
+          0.89044
+        ]
+      }
+    ],
+    "thresholds": {
+      "0.8": {
+        "n_domains": 7,
+        "total_electrons_in_domains": 15.19136,
+        "domains": [
+          {
+            "id": 1,
+            "n_voxels": 1788,
+            "volume_A3": 5.9713,
+            "electrons": 2.70235,
+            "centroid_frac": [
+              0.48262,
+              0.48262,
+              0.46101
+            ],
+            "nearest_atom_index": 3,
+            "nearest_atom_el": "Te",
+            "centroid_atom_distance_A": 1.395,
+            "nearest_atom_element_histogram": {
+              "Te": 1788
+            }
+          },
+          {
+            "id": 7,
+            "n_voxels": 1767,
+            "volume_A3": 5.9011,
+            "electrons": 2.67538,
+            "centroid_frac": [
+              0.35119,
+              0.68452,
+              0.78778
+            ],
+            "nearest_atom_index": 5,
+            "nearest_atom_el": "Te",
+            "centroid_atom_distance_A": 0.114,
+            "nearest_atom_element_histogram": {
+              "Te": 1767
+            }
+          },
+          {
+            "id": 2,
+            "n_voxels": 1767,
+            "volume_A3": 5.9011,
+            "electrons": 2.67471,
+            "centroid_frac": [
+              0.68452,
+              0.35119,
+              0.22148
+            ],
+            "nearest_atom_index": 4,
+            "nearest_atom_el": "Te",
+            "centroid_atom_distance_A": 0.109,
+            "nearest_atom_element_histogram": {
+              "Te": 1767
+            }
+          },
+          {
+            "id": 5,
+            "n_voxels": 1695,
+            "volume_A3": 5.6607,
+            "electrons": 2.47744,
+            "centroid_frac": [
+              0.68452,
+              0.35119,
+              0.56492
+            ],
+            "nearest_atom_index": 2,
+            "nearest_atom_el": "Te",
+            "centroid_atom_distance_A": 0.172,
+            "nearest_atom_element_histogram": {
+              "Te": 1695
+            }
+          },
+          {
+            "id": 4,
+            "n_voxels": 1695,
+            "volume_A3": 5.6607,
+            "electrons": 2.43925,
+            "centroid_frac": [
+              0.35119,
+              0.68452,
+              0.44434
+            ],
+            "nearest_atom_index": 3,
+            "nearest_atom_el": "Te",
+            "centroid_atom_distance_A": 0.322,
+            "nearest_atom_element_histogram": {
+              "Te": 1695
+            }
+          },
+          {
+            "id": 3,
+            "n_voxels": 1081,
+            "volume_A3": 3.6101,
+            "electrons": 1.11317,
+            "centroid_frac": [
+              0.46929,
+              0.47484,
+              0.32491
+            ],
+            "nearest_atom_index": 0,
+            "nearest_atom_el": "Sb",
+            "centroid_atom_distance_A": 2.057,
+            "nearest_atom_element_histogram": {
+              "Sb": 1081
+            }
+          },
+          {
+            "id": 6,
+            "n_voxels": 1081,
+            "volume_A3": 3.6101,
+            "electrons": 1.10906,
+            "centroid_frac": [
+              0.47484,
+              0.46929,
+              0.68435
+            ],
+            "nearest_atom_index": 1,
+            "nearest_atom_el": "Sb",
+            "centroid_atom_distance_A": 2.07,
+            "nearest_atom_element_histogram": {
+              "Sb": 1081
+            }
+          }
+        ]
+      },
+      "0.85": {
+        "n_domains": 22,
+        "total_electrons_in_domains": 3.1986,
+        "domains": [
+          {
+            "id": 12,
+            "n_voxels": 606,
+            "volume_A3": 2.0238,
+            "electrons": 0.96869,
+            "centroid_frac": [
+              0.68452,
+              0.35119,
+              0.5446
+            ],
+            "nearest_atom_index": 2,
+            "nearest_atom_el": "Te",
+            "centroid_atom_distance_A": 0.509,
+            "nearest_atom_element_histogram": {
+              "Te": 606
+            }
+          },
+          {
+            "id": 11,
+            "n_voxels": 606,
+            "volume_A3": 2.0238,
+            "electrons": 0.93541,
+            "centroid_frac": [
+              0.35119,
+              0.68452,
+              0.46466
+            ],
+            "nearest_atom_index": 3,
+            "nearest_atom_el": "Te",
+            "centroid_atom_distance_A": 0.667,
+            "nearest_atom_element_histogram": {
+              "Te": 606
+            }
+          },
+          {
+            "id": 13,
+            "n_voxels": 342,
+            "volume_A3": 1.1422,
+            "electrons": 0.3884,
+            "centroid_frac": [
+              0.44183,
+              0.48569,
+              0.70224
+            ],
+            "nearest_atom_index": 5,
+            "nearest_atom_el": "Te",
+            "centroid_atom_distance_A": 1.775,
+            "nearest_atom_element_histogram": {
+              "Sb": 342
+            }
+          },
+          {
+            "id": 10,
+            "n_voxels": 342,
+            "volume_A3": 1.1422,
+            "electrons": 0.36868,
+            "centroid_frac": [
+              0.48569,
+              0.44183,
+              0.30702
+            ],
+            "nearest_atom_index": 4,
+            "nearest_atom_el": "Te",
+            "centroid_atom_distance_A": 1.902,
+            "nearest_atom_element_histogram": {
+              "Sb": 342
+            }
+          },
+          {
+            "id": 4,
+            "n_voxels": 20,
+            "volume_A3": 0.0668,
+            "electrons": 0.03532,
+            "centroid_frac": [
+              0.58036,
+              0.14286,
+              0.19769
+            ],
+            "nearest_atom_index": 4,
+            "nearest_atom_el": "Te",
+            "centroid_atom_distance_A": 0.793,
+            "nearest_atom_element_histogram": {
+              "Te": 20
+            }
+          },
+          {
+            "id": 22,
+            "n_voxels": 20,
+            "volume_A3": 0.0668,
+            "electrons": 0.03521,
+            "centroid_frac": [
+              0.91429,
+              0.81071,
+              0.98009
+            ],
+            "nearest_atom_index": 6,
+            "nearest_atom_el": "Te",
+            "centroid_atom_distance_A": 0.793,
+            "nearest_atom_element_histogram": {
+              "Te": 20
+            }
+          },
+          {
+            "id": 17,
+            "n_voxels": 20,
+            "volume_A3": 0.0668,
+            "electrons": 0.03484,
+            "centroid_frac": [
+              0.14286,
+              0.58036,
+              0.81157
+            ],
+            "nearest_atom_index": 5,
+            "nearest_atom_el": "Te",
+            "centroid_atom_distance_A": 0.872,
+            "nearest_atom_element_histogram": {
+              "Te": 20
+            }
+          },
+          {
+            "id": 5,
+            "n_voxels": 20,
+            "volume_A3": 0.0668,
+            "electrons": 0.0348,
+            "centroid_frac": [
+              0.58036,
+              0.45536,
+              0.19769
+            ],
+            "nearest_atom_index": 4,
+            "nearest_atom_el": "Te",
+            "centroid_atom_distance_A": 0.857,
+            "nearest_atom_element_histogram": {
+              "Te": 20
+            }
+          },
+          {
+            "id": 3,
+            "n_voxels": 20,
+            "volume_A3": 0.0668,
+            "electrons": 0.03472,
+            "centroid_frac": [
+              0.81071,
+              0.91429,
+              0.02917
+            ],
+            "nearest_atom_index": 6,
+            "nearest_atom_el": "Te",
+            "centroid_atom_distance_A": 0.874,
+            "nearest_atom_element_histogram": {
+              "Te": 20
+            }
+          },
+          {
+            "id": 21,
+            "n_voxels": 20,
+            "volume_A3": 0.0668,
+            "electrons": 0.03466,
+            "centroid_frac": [
+              0.91429,
+              0.12143,
+              0.98009
+            ],
+            "nearest_atom_index": 6,
+            "nearest_atom_el": "Te",
+            "centroid_atom_distance_A": 0.857,
+            "nearest_atom_element_histogram": {
+              "Te": 20
+            }
+          },
+          {
+            "id": 6,
+            "n_voxels": 20,
+            "volume_A3": 0.0668,
+            "electrons": 0.03428,
+            "centroid_frac": [
+              0.89286,
+              0.45536,
+              0.19769
+            ],
+            "nearest_atom_index": 4,
+            "nearest_atom_el": "Te",
+            "centroid_atom_distance_A": 0.917,
+            "nearest_atom_element_histogram": {
+              "Te": 20
+            }
+          },
+          {
+            "id": 18,
+            "n_voxels": 20,
+            "volume_A3": 0.0668,
+            "electrons": 0.03414,
+            "centroid_frac": [
+              0.45536,
+              0.58036,
+              0.81157
+            ],
+            "nearest_atom_index": 5,
+            "nearest_atom_el": "Te",
+            "centroid_atom_distance_A": 0.931,
+            "nearest_atom_element_histogram": {
+              "Te": 20
+            }
+          },
+          {
+            "id": 20,
+            "n_voxels": 20,
+            "volume_A3": 0.0668,
+            "electrons": 0.0341,
+            "centroid_frac": [
+              0.225,
+              0.12143,
+              0.98009
+            ],
+            "nearest_atom_index": 6,
+            "nearest_atom_el": "Te",
+            "centroid_atom_distance_A": 0.916,
+            "nearest_atom_element_histogram": {
+              "Te": 20
+            }
+          },
+          {
+            "id": 2,
+            "n_voxels": 20,
+            "volume_A3": 0.0668,
+            "electrons": 0.03397,
+            "centroid_frac": [
+              0.12143,
+              0.91429,
+              0.02917
+            ],
+            "nearest_atom_index": 6,
+            "nearest_atom_el": "Te",
+            "centroid_atom_distance_A": 0.932,
+            "nearest_atom_element_histogram": {
+              "Te": 20
+            }
+          },
+          {
+            "id": 19,
+            "n_voxels": 20,
+            "volume_A3": 0.0668,
+            "electrons": 0.03343,
+            "centroid_frac": [
+              0.45536,
+              0.89286,
+              0.81157
+            ],
+            "nearest_atom_index": 5,
+            "nearest_atom_el": "Te",
+            "centroid_atom_distance_A": 0.986,
+            "nearest_atom_element_histogram": {
+              "Te": 20
+            }
+          },
+          {
+            "id": 1,
+            "n_voxels": 20,
+            "volume_A3": 0.0668,
+            "electrons": 0.03322,
+            "centroid_frac": [
+              0.12143,
+              0.225,
+              0.02917
+            ],
+            "nearest_atom_index": 6,
+            "nearest_atom_el": "Te",
+            "centroid_atom_distance_A": 0.987,
+            "nearest_atom_element_histogram": {
+              "Te": 20
+            }
+          },
+          {
+            "id": 14,
+            "n_voxels": 12,
+            "volume_A3": 0.0401,
+            "electrons": 0.02125,
+            "centroid_frac": [
+              0.25,
+              0.48214,
+              0.76235
+            ],
+            "nearest_atom_index": 5,
+            "nearest_atom_el": "Te",
+            "centroid_atom_distance_A": 0.782,
+            "nearest_atom_element_histogram": {
+              "Te": 12
+            }
+          },
+          {
+            "id": 7,
+            "n_voxels": 12,
+            "volume_A3": 0.0401,
+            "electrons": 0.02102,
+            "centroid_frac": [
+              0.48214,
+              0.25,
+              0.24691
+            ],
+            "nearest_atom_index": 4,
+            "nearest_atom_el": "Te",
+            "centroid_atom_distance_A": 0.866,
+            "nearest_atom_element_histogram": {
+              "Te": 12
+            }
+          },
+          {
+            "id": 15,
+            "n_voxels": 12,
+            "volume_A3": 0.0401,
+            "electrons": 0.02097,
+            "centroid_frac": [
+              0.25,
+              0.78571,
+              0.76235
+            ],
+            "nearest_atom_index": 5,
+            "nearest_atom_el": "Te",
+            "centroid_atom_distance_A": 0.845,
+            "nearest_atom_element_histogram": {
+              "Te": 12
+            }
+          },
+          {
+            "id": 16,
+            "n_voxels": 12,
+            "volume_A3": 0.0401,
+            "electrons": 0.02069,
+            "centroid_frac": [
+              0.55357,
+              0.78571,
+              0.76235
+            ],
+            "nearest_atom_index": 5,
+            "nearest_atom_el": "Te",
+            "centroid_atom_distance_A": 0.904,
+            "nearest_atom_element_histogram": {
+              "Te": 12
+            }
+          },
+          {
+            "id": 8,
+            "n_voxels": 12,
+            "volume_A3": 0.0401,
+            "electrons": 0.02061,
+            "centroid_frac": [
+              0.78571,
+              0.25,
+              0.24691
+            ],
+            "nearest_atom_index": 4,
+            "nearest_atom_el": "Te",
+            "centroid_atom_distance_A": 0.924,
+            "nearest_atom_element_histogram": {
+              "Te": 12
+            }
+          },
+          {
+            "id": 9,
+            "n_voxels": 12,
+            "volume_A3": 0.0401,
+            "electrons": 0.02019,
+            "centroid_frac": [
+              0.78571,
+              0.55357,
+              0.24691
+            ],
+            "nearest_atom_index": 4,
+            "nearest_atom_el": "Te",
+            "centroid_atom_distance_A": 0.978,
+            "nearest_atom_element_histogram": {
+              "Te": 12
+            }
+          }
+        ]
+      },
+      "0.9": {
+        "n_domains": 0,
+        "total_electrons_in_domains": 0,
+        "domains": []
+      }
+    }
+  },
+  "Sn2Bi2Te5": {
+    "material": "Sn2Bi2Te5",
+    "elf_grid": [
+      28,
+      28,
+      112
+    ],
+    "chg_grid": [
+      56,
+      56,
+      224
+    ],
+    "cell_volume_A3": 292.836,
+    "voxel_volume_A3": 0.003335,
+    "n_electrons_valence": 88.0,
+    "atoms": [
+      {
+        "i": 0,
+        "el": "Bi",
+        "frac": [
+          0.0,
+          0.0,
+          0.328561
+        ]
+      },
+      {
+        "i": 1,
+        "el": "Bi",
+        "frac": [
+          0.0,
+          0.0,
+          0.671439
+        ]
+      },
+      {
+        "i": 2,
+        "el": "Te",
+        "frac": [
+          0.666667,
+          0.333333,
+          0.572837
+        ]
+      },
+      {
+        "i": 3,
+        "el": "Te",
+        "frac": [
+          0.333333,
+          0.666667,
+          0.427163
+        ]
+      },
+      {
+        "i": 4,
+        "el": "Te",
+        "frac": [
+          0.666667,
+          0.333333,
+          0.211669
+        ]
+      },
+      {
+        "i": 5,
+        "el": "Te",
+        "frac": [
+          0.333333,
+          0.666667,
+          0.788331
+        ]
+      },
+      {
+        "i": 6,
+        "el": "Te",
+        "frac": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "i": 7,
+        "el": "Sn",
+        "frac": [
+          0.333333,
+          0.666667,
+          0.106695
+        ]
+      },
+      {
+        "i": 8,
+        "el": "Sn",
+        "frac": [
+          0.666667,
+          0.333333,
+          0.893305
+        ]
+      }
+    ],
+    "thresholds": {
+      "0.8": {
+        "n_domains": 7,
+        "total_electrons_in_domains": 13.68975,
+        "domains": [
+          {
+            "id": 7,
+            "n_voxels": 1911,
+            "volume_A3": 6.3731,
+            "electrons": 2.84017,
+            "centroid_frac": [
+              0.35119,
+              0.68452,
+              0.79214
+            ],
+            "nearest_atom_index": 5,
+            "nearest_atom_el": "Te",
+            "centroid_atom_distance_A": 0.103,
+            "nearest_atom_element_histogram": {
+              "Te": 1911
+            }
+          },
+          {
+            "id": 2,
+            "n_voxels": 1911,
+            "volume_A3": 6.3731,
+            "electrons": 2.8374,
+            "centroid_frac": [
+              0.68452,
+              0.35119,
+              0.21679
+            ],
+            "nearest_atom_index": 4,
+            "nearest_atom_el": "Te",
+            "centroid_atom_distance_A": 0.119,
+            "nearest_atom_element_histogram": {
+              "Te": 1911
+            }
+          },
+          {
+            "id": 1,
+            "n_voxels": 1860,
+            "volume_A3": 6.203,
+            "electrons": 2.78201,
+            "centroid_frac": [
+              0.48291,
+              0.48291,
+              0.46253
+            ],
+            "nearest_atom_index": 3,
+            "nearest_atom_el": "Te",
+            "centroid_atom_distance_A": 1.416,
+            "nearest_atom_element_histogram": {
+              "Te": 1860
+            }
+          },
+          {
+            "id": 5,
+            "n_voxels": 1803,
+            "volume_A3": 6.0129,
+            "electrons": 2.60049,
+            "centroid_frac": [
+              0.68452,
+              0.35119,
+              0.56465
+            ],
+            "nearest_atom_index": 2,
+            "nearest_atom_el": "Te",
+            "centroid_atom_distance_A": 0.163,
+            "nearest_atom_element_histogram": {
+              "Te": 1803
+            }
+          },
+          {
+            "id": 4,
+            "n_voxels": 1803,
+            "volume_A3": 6.0129,
+            "electrons": 2.56062,
+            "centroid_frac": [
+              0.35119,
+              0.68452,
+              0.44428
+            ],
+            "nearest_atom_index": 3,
+            "nearest_atom_el": "Te",
+            "centroid_atom_distance_A": 0.307,
+            "nearest_atom_element_histogram": {
+              "Te": 1803
+            }
+          },
+          {
+            "id": 6,
+            "n_voxels": 1,
+            "volume_A3": 0.0033,
+            "electrons": 0.03478,
+            "centroid_frac": [
+              0.01786,
+              0.01786,
+              0.67411
+            ],
+            "nearest_atom_index": 1,
+            "nearest_atom_el": "Bi",
+            "centroid_atom_distance_A": 0.091,
+            "nearest_atom_element_histogram": {
+              "Bi": 1
+            }
+          },
+          {
+            "id": 3,
+            "n_voxels": 1,
+            "volume_A3": 0.0033,
+            "electrons": 0.03428,
+            "centroid_frac": [
+              0.01786,
+              0.01786,
+              0.33482
+            ],
+            "nearest_atom_index": 0,
+            "nearest_atom_el": "Bi",
+            "centroid_atom_distance_A": 0.134,
+            "nearest_atom_element_histogram": {
+              "Bi": 1
+            }
+          }
+        ]
+      },
+      "0.85": {
+        "n_domains": 22,
+        "total_electrons_in_domains": 2.87517,
+        "domains": [
+          {
+            "id": 12,
+            "n_voxels": 666,
+            "volume_A3": 2.2211,
+            "electrons": 1.05804,
+            "centroid_frac": [
+              0.68452,
+              0.35119,
+              0.54569
+            ],
+            "nearest_atom_index": 2,
+            "nearest_atom_el": "Te",
+            "centroid_atom_distance_A": 0.478,
+            "nearest_atom_element_histogram": {
+              "Te": 666
+            }
+          },
+          {
+            "id": 11,
+            "n_voxels": 666,
+            "volume_A3": 2.2211,
+            "electrons": 1.02054,
+            "centroid_frac": [
+              0.35119,
+              0.68452,
+              0.46324
+            ],
+            "nearest_atom_index": 3,
+            "nearest_atom_el": "Te",
+            "centroid_atom_distance_A": 0.631,
+            "nearest_atom_element_histogram": {
+              "Te": 666
+            }
+          },
+          {
+            "id": 14,
+            "n_voxels": 35,
+            "volume_A3": 0.1167,
+            "electrons": 0.06082,
+            "centroid_frac": [
+              0.24949,
+              0.48112,
+              0.76977
+            ],
+            "nearest_atom_index": 5,
+            "nearest_atom_el": "Te",
+            "centroid_atom_distance_A": 0.78,
+            "nearest_atom_element_histogram": {
+              "Te": 35
+            }
+          },
+          {
+            "id": 7,
+            "n_voxels": 35,
+            "volume_A3": 0.1167,
+            "electrons": 0.05981,
+            "centroid_frac": [
+              0.48112,
+              0.24949,
+              0.23916
+            ],
+            "nearest_atom_index": 4,
+            "nearest_atom_el": "Te",
+            "centroid_atom_distance_A": 0.856,
+            "nearest_atom_element_histogram": {
+              "Te": 35
+            }
+          },
+          {
+            "id": 15,
+            "n_voxels": 35,
+            "volume_A3": 0.1167,
+            "electrons": 0.05968,
+            "centroid_frac": [
+              0.24949,
+              0.78622,
+              0.76977
+            ],
+            "nearest_atom_index": 5,
+            "nearest_atom_el": "Te",
+            "centroid_atom_distance_A": 0.845,
+            "nearest_atom_element_histogram": {
+              "Te": 35
+            }
+          },
+          {
+            "id": 16,
+            "n_voxels": 35,
+            "volume_A3": 0.1167,
+            "electrons": 0.05854,
+            "centroid_frac": [
+              0.55459,
+              0.78622,
+              0.76977
+            ],
+            "nearest_atom_index": 5,
+            "nearest_atom_el": "Te",
+            "centroid_atom_distance_A": 0.906,
+            "nearest_atom_element_histogram": {
+              "Te": 35
+            }
+          },
+          {
+            "id": 8,
+            "n_voxels": 35,
+            "volume_A3": 0.1167,
+            "electrons": 0.05839,
+            "centroid_frac": [
+              0.78622,
+              0.24949,
+              0.23916
+            ],
+            "nearest_atom_index": 4,
+            "nearest_atom_el": "Te",
+            "centroid_atom_distance_A": 0.916,
+            "nearest_atom_element_histogram": {
+              "Te": 35
+            }
+          },
+          {
+            "id": 9,
+            "n_voxels": 35,
+            "volume_A3": 0.1167,
+            "electrons": 0.05697,
+            "centroid_frac": [
+              0.78622,
+              0.55459,
+              0.23916
+            ],
+            "nearest_atom_index": 4,
+            "nearest_atom_el": "Te",
+            "centroid_atom_distance_A": 0.972,
+            "nearest_atom_element_histogram": {
+              "Te": 35
+            }
+          },
+          {
+            "id": 4,
+            "n_voxels": 20,
+            "volume_A3": 0.0667,
+            "electrons": 0.03534,
+            "centroid_frac": [
+              0.57857,
+              0.13929,
+              0.19598
+            ],
+            "nearest_atom_index": 4,
+            "nearest_atom_el": "Te",
+            "centroid_atom_distance_A": 0.791,
+            "nearest_atom_element_histogram": {
+              "Te": 20
+            }
+          },
+          {
+            "id": 17,
+            "n_voxels": 20,
+            "volume_A3": 0.0667,
+            "electrons": 0.03496,
+            "centroid_frac": [
+              0.13929,
+              0.57857,
+              0.81295
+            ],
+            "nearest_atom_index": 5,
+            "nearest_atom_el": "Te",
+            "centroid_atom_distance_A": 0.857,
+            "nearest_atom_element_histogram": {
+              "Te": 20
+            }
+          },
+          {
+            "id": 13,
+            "n_voxels": 1,
+            "volume_A3": 0.0033,
+            "electrons": 0.03478,
+            "centroid_frac": [
+              0.01786,
+              0.01786,
+              0.67411
+            ],
+            "nearest_atom_index": 1,
+            "nearest_atom_el": "Bi",
+            "centroid_atom_distance_A": 0.091,
+            "nearest_atom_element_histogram": {
+              "Bi": 1
+            }
+          },
+          {
+            "id": 5,
+            "n_voxels": 20,
+            "volume_A3": 0.0667,
+            "electrons": 0.03475,
+            "centroid_frac": [
+              0.57857,
+              0.45714,
+              0.19598
+            ],
+            "nearest_atom_index": 4,
+            "nearest_atom_el": "Te",
+            "centroid_atom_distance_A": 0.858,
+            "nearest_atom_element_histogram": {
+              "Te": 20
+            }
+          },
+          {
+            "id": 10,
+            "n_voxels": 1,
+            "volume_A3": 0.0033,
+            "electrons": 0.03428,
+            "centroid_frac": [
+              0.01786,
+              0.01786,
+              0.33482
+            ],
+            "nearest_atom_index": 0,
+            "nearest_atom_el": "Bi",
+            "centroid_atom_distance_A": 0.134,
+            "nearest_atom_element_histogram": {
+              "Bi": 1
+            }
+          },
+          {
+            "id": 18,
+            "n_voxels": 20,
+            "volume_A3": 0.0667,
+            "electrons": 0.03422,
+            "centroid_frac": [
+              0.45714,
+              0.57857,
+              0.81295
+            ],
+            "nearest_atom_index": 5,
+            "nearest_atom_el": "Te",
+            "centroid_atom_distance_A": 0.919,
+            "nearest_atom_element_histogram": {
+              "Te": 20
+            }
+          },
+          {
+            "id": 6,
+            "n_voxels": 20,
+            "volume_A3": 0.0667,
+            "electrons": 0.03416,
+            "centroid_frac": [
+              0.89643,
+              0.45714,
+              0.19598
+            ],
+            "nearest_atom_index": 4,
+            "nearest_atom_el": "Te",
+            "centroid_atom_distance_A": 0.92,
+            "nearest_atom_element_histogram": {
+              "Te": 20
+            }
+          },
+          {
+            "id": 19,
+            "n_voxels": 20,
+            "volume_A3": 0.0667,
+            "electrons": 0.03347,
+            "centroid_frac": [
+              0.45714,
+              0.89643,
+              0.81295
+            ],
+            "nearest_atom_index": 5,
+            "nearest_atom_el": "Te",
+            "centroid_atom_distance_A": 0.978,
+            "nearest_atom_element_histogram": {
+              "Te": 20
+            }
+          },
+          {
+            "id": 22,
+            "n_voxels": 16,
+            "volume_A3": 0.0534,
+            "electrons": 0.02837,
+            "centroid_frac": [
+              0.91964,
+              0.82143,
+              0.97824
+            ],
+            "nearest_atom_index": 6,
+            "nearest_atom_el": "Te",
+            "centroid_atom_distance_A": 0.781,
+            "nearest_atom_element_histogram": {
+              "Te": 16
+            }
+          },
+          {
+            "id": 21,
+            "n_voxels": 16,
+            "volume_A3": 0.0534,
+            "electrons": 0.02802,
+            "centroid_frac": [
+              0.91964,
+              0.11607,
+              0.97824
+            ],
+            "nearest_atom_index": 6,
+            "nearest_atom_el": "Te",
+            "centroid_atom_distance_A": 0.844,
+            "nearest_atom_element_histogram": {
+              "Te": 16
+            }
+          },
+          {
+            "id": 3,
+            "n_voxels": 16,
+            "volume_A3": 0.0534,
+            "electrons": 0.02798,
+            "centroid_frac": [
+              0.82143,
+              0.91964,
+              0.03069
+            ],
+            "nearest_atom_index": 6,
+            "nearest_atom_el": "Te",
+            "centroid_atom_distance_A": 0.867,
+            "nearest_atom_element_histogram": {
+              "Te": 16
+            }
+          },
+          {
+            "id": 20,
+            "n_voxels": 16,
+            "volume_A3": 0.0534,
+            "electrons": 0.02766,
+            "centroid_frac": [
+              0.21429,
+              0.11607,
+              0.97824
+            ],
+            "nearest_atom_index": 6,
+            "nearest_atom_el": "Te",
+            "centroid_atom_distance_A": 0.903,
+            "nearest_atom_element_histogram": {
+              "Te": 16
+            }
+          },
+          {
+            "id": 2,
+            "n_voxels": 16,
+            "volume_A3": 0.0534,
+            "electrons": 0.02746,
+            "centroid_frac": [
+              0.11607,
+              0.91964,
+              0.03069
+            ],
+            "nearest_atom_index": 6,
+            "nearest_atom_el": "Te",
+            "centroid_atom_distance_A": 0.924,
+            "nearest_atom_element_histogram": {
+              "Te": 16
+            }
+          },
+          {
+            "id": 1,
+            "n_voxels": 16,
+            "volume_A3": 0.0534,
+            "electrons": 0.02693,
+            "centroid_frac": [
+              0.11607,
+              0.21429,
+              0.03069
+            ],
+            "nearest_atom_index": 6,
+            "nearest_atom_el": "Te",
+            "centroid_atom_distance_A": 0.978,
+            "nearest_atom_element_histogram": {
+              "Te": 16
+            }
+          }
+        ]
+      },
+      "0.9": {
+        "n_domains": 2,
+        "total_electrons_in_domains": 0.06906,
+        "domains": [
+          {
+            "id": 2,
+            "n_voxels": 1,
+            "volume_A3": 0.0033,
+            "electrons": 0.03478,
+            "centroid_frac": [
+              0.01786,
+              0.01786,
+              0.67411
+            ],
+            "nearest_atom_index": 1,
+            "nearest_atom_el": "Bi",
+            "centroid_atom_distance_A": 0.091,
+            "nearest_atom_element_histogram": {
+              "Bi": 1
+            }
+          },
+          {
+            "id": 1,
+            "n_voxels": 1,
+            "volume_A3": 0.0033,
+            "electrons": 0.03428,
+            "centroid_frac": [
+              0.01786,
+              0.01786,
+              0.33482
+            ],
+            "nearest_atom_index": 0,
+            "nearest_atom_el": "Bi",
+            "centroid_atom_distance_A": 0.134,
+            "nearest_atom_element_histogram": {
+              "Bi": 1
+            }
+          }
+        ]
+      }
+    }
+  }
+}

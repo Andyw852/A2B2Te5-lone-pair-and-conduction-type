@@ -1,0 +1,6 @@
+/public/home/wangchao/miniconda3/envs/atomate2_p_a/lib/python3.11/site-packages/COGITO_dft/COGITOpost.py:5873: ComplexWarning: Casting complex values to real discards the imaginary part
+  energy_diff[key] = self.atomic_energies[key][orbs1[spec_orbs1]][:,None] - self.atomic_energies[key][orbs2[spec_orbs2]][None,:]
+/public/home/wangchao/miniconda3/envs/atomate2_p_a/lib/python3.11/site-packages/COGITO_dft/COGITOpost.py:5874: ComplexWarning: Casting complex values to real discards the imaginary part
+  orborb_bondoc[key] = sum_bond_occup[key][spec_orbs1, :][:, spec_orbs2]
+/public/home/wangchao/miniconda3/envs/atomate2_p_a/lib/python3.11/site-packages/COGITO_dft/COGITOpost.py:5939: ComplexWarning: Casting complex values to real discards the imaginary part
+  intra_bond_occup[key] = sum_bond_occup[key]

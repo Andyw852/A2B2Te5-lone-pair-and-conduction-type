@@ -1,0 +1,370 @@
+{
+  "Pb2Sb2Te5": {
+    "gap_Te_indices": [
+      2,
+      3
+    ],
+    "gap_Te_distance_A": 3.576,
+    "gap_Te_q_ET": [
+      -0.29921,
+      -0.3036
+    ],
+    "gap_Te_mean_abs_ET": 0.3014,
+    "per_element_mean_q_ET": {
+      "Sb": 0.5399,
+      "Te": -0.4701,
+      "Pb": 0.6354
+    },
+    "TET_cell_half_abs_sum": 2.3506,
+    "atoms": [
+      {
+        "index": 0,
+        "element": "Sb",
+        "zval": 5.0,
+        "N_basin_valence": 4.46008,
+        "q_ET": 0.53992,
+        "basin_volume_A3": 26.5753
+      },
+      {
+        "index": 1,
+        "element": "Sb",
+        "zval": 5.0,
+        "N_basin_valence": 4.46009,
+        "q_ET": 0.53991,
+        "basin_volume_A3": 26.5757
+      },
+      {
+        "index": 2,
+        "element": "Te",
+        "zval": 6.0,
+        "N_basin_valence": 6.29921,
+        "q_ET": -0.29921,
+        "basin_volume_A3": 36.3025
+      },
+      {
+        "index": 3,
+        "element": "Te",
+        "zval": 6.0,
+        "N_basin_valence": 6.3036,
+        "q_ET": -0.3036,
+        "basin_volume_A3": 36.3787
+      },
+      {
+        "index": 4,
+        "element": "Te",
+        "zval": 6.0,
+        "N_basin_valence": 6.54445,
+        "q_ET": -0.54445,
+        "basin_volume_A3": 36.1449
+      },
+      {
+        "index": 5,
+        "element": "Te",
+        "zval": 6.0,
+        "N_basin_valence": 6.54445,
+        "q_ET": -0.54445,
+        "basin_volume_A3": 36.1449
+      },
+      {
+        "index": 6,
+        "element": "Te",
+        "zval": 6.0,
+        "N_basin_valence": 6.65885,
+        "q_ET": -0.65885,
+        "basin_volume_A3": 37.9694
+      },
+      {
+        "index": 7,
+        "element": "Pb",
+        "zval": 14.0,
+        "N_basin_valence": 13.36463,
+        "q_ET": 0.63537,
+        "basin_volume_A3": 27.793
+      },
+      {
+        "index": 8,
+        "element": "Pb",
+        "zval": 14.0,
+        "N_basin_valence": 13.36463,
+        "q_ET": 0.63537,
+        "basin_volume_A3": 27.793
+      }
+    ]
+  },
+  "Pb2Bi2Te5": {
+    "gap_Te_indices": [
+      2,
+      3
+    ],
+    "gap_Te_distance_A": 3.608,
+    "gap_Te_q_ET": [
+      -0.38237,
+      -0.38392
+    ],
+    "gap_Te_mean_abs_ET": 0.3831,
+    "per_element_mean_q_ET": {
+      "Bi": 0.6885,
+      "Te": -0.541,
+      "Pb": 0.664
+    },
+    "TET_cell_half_abs_sum": 2.7048,
+    "atoms": [
+      {
+        "index": 0,
+        "element": "Bi",
+        "zval": 15.0,
+        "N_basin_valence": 14.31153,
+        "q_ET": 0.68847,
+        "basin_volume_A3": 28.206
+      },
+      {
+        "index": 1,
+        "element": "Bi",
+        "zval": 15.0,
+        "N_basin_valence": 14.31154,
+        "q_ET": 0.68846,
+        "basin_volume_A3": 28.2064
+      },
+      {
+        "index": 2,
+        "element": "Te",
+        "zval": 6.0,
+        "N_basin_valence": 6.38237,
+        "q_ET": -0.38237,
+        "basin_volume_A3": 38.047
+      },
+      {
+        "index": 3,
+        "element": "Te",
+        "zval": 6.0,
+        "N_basin_valence": 6.38392,
+        "q_ET": -0.38392,
+        "basin_volume_A3": 38.0742
+      },
+      {
+        "index": 4,
+        "element": "Te",
+        "zval": 6.0,
+        "N_basin_valence": 6.63455,
+        "q_ET": -0.63455,
+        "basin_volume_A3": 37.9027
+      },
+      {
+        "index": 5,
+        "element": "Te",
+        "zval": 6.0,
+        "N_basin_valence": 6.63455,
+        "q_ET": -0.63455,
+        "basin_volume_A3": 37.9027
+      },
+      {
+        "index": 6,
+        "element": "Te",
+        "zval": 6.0,
+        "N_basin_valence": 6.66946,
+        "q_ET": -0.66946,
+        "basin_volume_A3": 38.626
+      },
+      {
+        "index": 7,
+        "element": "Pb",
+        "zval": 14.0,
+        "N_basin_valence": 13.33604,
+        "q_ET": 0.66396,
+        "basin_volume_A3": 27.8063
+      },
+      {
+        "index": 8,
+        "element": "Pb",
+        "zval": 14.0,
+        "N_basin_valence": 13.33604,
+        "q_ET": 0.66396,
+        "basin_volume_A3": 27.8063
+      }
+    ]
+  },
+  "Sn2Sb2Te5": {
+    "gap_Te_indices": [
+      2,
+      3
+    ],
+    "gap_Te_distance_A": 3.576,
+    "gap_Te_q_ET": [
+      -0.28815,
+      -0.28941
+    ],
+    "gap_Te_mean_abs_ET": 0.2888,
+    "per_element_mean_q_ET": {
+      "Sb": 0.5113,
+      "Te": -0.4571,
+      "Sn": 0.6314
+    },
+    "TET_cell_half_abs_sum": 2.2853,
+    "atoms": [
+      {
+        "index": 0,
+        "element": "Sb",
+        "zval": 5.0,
+        "N_basin_valence": 4.48873,
+        "q_ET": 0.51127,
+        "basin_volume_A3": 26.6477
+      },
+      {
+        "index": 1,
+        "element": "Sb",
+        "zval": 5.0,
+        "N_basin_valence": 4.48875,
+        "q_ET": 0.51125,
+        "basin_volume_A3": 26.6486
+      },
+      {
+        "index": 2,
+        "element": "Te",
+        "zval": 6.0,
+        "N_basin_valence": 6.28815,
+        "q_ET": -0.28815,
+        "basin_volume_A3": 36.0726
+      },
+      {
+        "index": 3,
+        "element": "Te",
+        "zval": 6.0,
+        "N_basin_valence": 6.28941,
+        "q_ET": -0.28941,
+        "basin_volume_A3": 36.096
+      },
+      {
+        "index": 4,
+        "element": "Te",
+        "zval": 6.0,
+        "N_basin_valence": 6.53746,
+        "q_ET": -0.53746,
+        "basin_volume_A3": 35.0553
+      },
+      {
+        "index": 5,
+        "element": "Te",
+        "zval": 6.0,
+        "N_basin_valence": 6.53746,
+        "q_ET": -0.53746,
+        "basin_volume_A3": 35.0553
+      },
+      {
+        "index": 6,
+        "element": "Te",
+        "zval": 6.0,
+        "N_basin_valence": 6.63284,
+        "q_ET": -0.63284,
+        "basin_volume_A3": 36.2008
+      },
+      {
+        "index": 7,
+        "element": "Sn",
+        "zval": 14.0,
+        "N_basin_valence": 13.36859,
+        "q_ET": 0.63141,
+        "basin_volume_A3": 25.4985
+      },
+      {
+        "index": 8,
+        "element": "Sn",
+        "zval": 14.0,
+        "N_basin_valence": 13.36859,
+        "q_ET": 0.63141,
+        "basin_volume_A3": 25.4985
+      }
+    ]
+  },
+  "Sn2Bi2Te5": {
+    "gap_Te_indices": [
+      2,
+      3
+    ],
+    "gap_Te_distance_A": 3.59,
+    "gap_Te_q_ET": [
+      -0.36936,
+      -0.37092
+    ],
+    "gap_Te_mean_abs_ET": 0.3701,
+    "per_element_mean_q_ET": {
+      "Bi": 0.6544,
+      "Te": -0.5212,
+      "Sn": 0.6486
+    },
+    "TET_cell_half_abs_sum": 2.6061,
+    "atoms": [
+      {
+        "index": 0,
+        "element": "Bi",
+        "zval": 15.0,
+        "N_basin_valence": 14.34562,
+        "q_ET": 0.65438,
+        "basin_volume_A3": 28.2363
+      },
+      {
+        "index": 1,
+        "element": "Bi",
+        "zval": 15.0,
+        "N_basin_valence": 14.34562,
+        "q_ET": 0.65438,
+        "basin_volume_A3": 28.2363
+      },
+      {
+        "index": 2,
+        "element": "Te",
+        "zval": 6.0,
+        "N_basin_valence": 6.36936,
+        "q_ET": -0.36936,
+        "basin_volume_A3": 37.5333
+      },
+      {
+        "index": 3,
+        "element": "Te",
+        "zval": 6.0,
+        "N_basin_valence": 6.37092,
+        "q_ET": -0.37092,
+        "basin_volume_A3": 37.56
+      },
+      {
+        "index": 4,
+        "element": "Te",
+        "zval": 6.0,
+        "N_basin_valence": 6.61292,
+        "q_ET": -0.61292,
+        "basin_volume_A3": 36.7309
+      },
+      {
+        "index": 5,
+        "element": "Te",
+        "zval": 6.0,
+        "N_basin_valence": 6.61292,
+        "q_ET": -0.61292,
+        "basin_volume_A3": 36.7309
+      },
+      {
+        "index": 6,
+        "element": "Te",
+        "zval": 6.0,
+        "N_basin_valence": 6.63993,
+        "q_ET": -0.63993,
+        "basin_volume_A3": 36.6087
+      },
+      {
+        "index": 7,
+        "element": "Sn",
+        "zval": 14.0,
+        "N_basin_valence": 13.35135,
+        "q_ET": 0.64865,
+        "basin_volume_A3": 25.6
+      },
+      {
+        "index": 8,
+        "element": "Sn",
+        "zval": 14.0,
+        "N_basin_valence": 13.35135,
+        "q_ET": 0.64865,
+        "basin_volume_A3": 25.6
+      }
+    ]
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "step": "step2_summary",
+  "status": "done",
+  "quality": {
+    "charge_spilling_percent": 0.26,
+    "max_band_spill_percent": 1.38,
+    "max_charge_spill_percent": 2.78,
+    "avg_orbital_mixing_percent": 0.44,
+    "max_orbital_mixing_percent": 0.65
+  },
+  "n_bonds": 90,
+  "onsite_occup": {
+    "Bi": {
+      "n": 2,
+      "s": 2.201686,
+      "p": 1.775574,
+      "d": 10.002136
+    },
+    "Te": {
+      "n": 5,
+      "s": 1.9883507999999999,
+      "p": 3.9438537999999994,
+      "d": 0.0
+    },
+    "Pb": {
+      "n": 2,
+      "s": 2.1564,
+      "p": 0.976847,
+      "d": 10.013398
+    }
+  },
+  "short_long": [
+    {
+      "pair": "Te-Bi",
+      "ratio": 2.4862935465448315,
+      "delta_icohp": -1.041
+    },
+    {
+      "pair": "Te-Pb",
+      "ratio": 0.8857287108717604,
+      "delta_icohp": 0.13579999999999992
+    },
+    {
+      "pair": "Te-Te",
+      "ratio": 0.10869565217391305,
+      "delta_icohp": 0.0040999999999999995
+    }
+  ]
+}

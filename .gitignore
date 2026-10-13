@@ -1,0 +1,10 @@
+# 排除 9.4 GB 原始 VASP 计算输出（GitHub 单文件硬上限 100 MB，无法接收）
+A2B2Te5_SOC_dense/
+
+# Python 缓存
+__pycache__/
+*.pyc
+
+# AutoZT 临时/失败标记
+*.autozt_gen_failed
+.tf_*

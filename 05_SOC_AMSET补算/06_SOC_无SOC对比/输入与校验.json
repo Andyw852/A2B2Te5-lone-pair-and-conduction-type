@@ -1,0 +1,134 @@
+[
+  {
+    "material": "Pb2Bi2Te5",
+    "inputs": [
+      {
+        "path": "01_报告/源数据/AMSET_results/分类输运/00_合并原始结果/Pb2Bi2Te5/transport.json",
+        "sha256": "6c77faa6695d38fdcfd29aa3dc8354fb51656f4d22e5953ebb0fbc7b717737e4"
+      },
+      {
+        "path": "05_SOC_AMSET补算/Pb2Bi2Te5/04_AMSET输运/transport.json",
+        "sha256": "eb534fa9be15ff74e9bfd9179aad5d27abe1cb01f10f6958db6771e4275b45e5"
+      }
+    ],
+    "settings_differences": {
+      "wavefunction_coefficients": [
+        null,
+        "wavefunction.h5"
+      ],
+      "cache_wavefunction": [
+        null,
+        false
+      ],
+      "nworkers": [
+        null,
+        24
+      ],
+      "soc": [
+        null,
+        true
+      ]
+    },
+    "points": 204,
+    "finite_and_shapes_verified": true
+  },
+  {
+    "material": "Pb2Sb2Te5",
+    "inputs": [
+      {
+        "path": "01_报告/源数据/AMSET_results/分类输运/00_合并原始结果/Pb2Sb2Te5/transport.json",
+        "sha256": "9ac1ba2f0b74bdb4ac607c0afdca6f7efc5b1a903fa134346c79c9506116a2ed"
+      },
+      {
+        "path": "05_SOC_AMSET补算/Pb2Sb2Te5/04_AMSET输运/transport.json",
+        "sha256": "476726cd26602c8fdad8f72907b7c3a607021104c5ab757230f50b7a69e0979a"
+      }
+    ],
+    "settings_differences": {
+      "wavefunction_coefficients": [
+        null,
+        "wavefunction.h5"
+      ],
+      "cache_wavefunction": [
+        null,
+        false
+      ],
+      "nworkers": [
+        null,
+        24
+      ],
+      "soc": [
+        null,
+        true
+      ]
+    },
+    "points": 221,
+    "finite_and_shapes_verified": true
+  },
+  {
+    "material": "Sn2Bi2Te5",
+    "inputs": [
+      {
+        "path": "01_报告/源数据/AMSET_results/分类输运/00_合并原始结果/Sn2Bi2Te5/transport.json",
+        "sha256": "24ac5091f333826a4ca1abb17e165601bd6a3e92ba7596d3bcdbcbc6d4017987"
+      },
+      {
+        "path": "05_SOC_AMSET补算/Sn2Bi2Te5/04_AMSET输运/transport.json",
+        "sha256": "6b2cf2591e67c7e3e26cdbd880a9229e5f0c9e056325130492e5aaf5cf16e323"
+      }
+    ],
+    "settings_differences": {
+      "wavefunction_coefficients": [
+        null,
+        "wavefunction.h5"
+      ],
+      "cache_wavefunction": [
+        null,
+        false
+      ],
+      "nworkers": [
+        null,
+        24
+      ],
+      "soc": [
+        null,
+        true
+      ]
+    },
+    "points": 204,
+    "finite_and_shapes_verified": true
+  },
+  {
+    "material": "Sn2Sb2Te5",
+    "inputs": [
+      {
+        "path": "01_报告/源数据/AMSET_results/分类输运/00_合并原始结果/Sn2Sb2Te5/transport.json",
+        "sha256": "5ece14a7cb770de3402194d4d7f3cda216a9a285109d6a59189ad77a9c9cc1c7"
+      },
+      {
+        "path": "05_SOC_AMSET补算/Sn2Sb2Te5/04_AMSET输运/transport.json",
+        "sha256": "97087a81327b00cc0c6804bff3188a50c6421ccd444816b7b0060c1b5df6aa2b"
+      }
+    ],
+    "settings_differences": {
+      "wavefunction_coefficients": [
+        null,
+        "wavefunction.h5"
+      ],
+      "cache_wavefunction": [
+        null,
+        false
+      ],
+      "nworkers": [
+        null,
+        24
+      ],
+      "soc": [
+        null,
+        true
+      ]
+    },
+    "points": 221,
+    "finite_and_shapes_verified": true
+  }
+]

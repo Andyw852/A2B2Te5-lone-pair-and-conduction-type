@@ -1,0 +1,50 @@
+[
+  {
+    "material": "Pb2Bi2Te5",
+    "path": "AMSET_results/分类输运/00_合并原始结果/Pb2Bi2Te5/transport.json",
+    "role": "无SOC输运结果（AMSET）",
+    "sha256": "6c77faa6695d38fdcfd29aa3dc8354fb51656f4d22e5953ebb0fbc7b717737e4"
+  },
+  {
+    "material": "Pb2Bi2Te5",
+    "path": "AMSET_results/分类输运/00_合并原始结果/Pb2Bi2Te5/settings.yaml",
+    "role": "该次运行设置",
+    "sha256": "28274f84b81f6d6c1b8bc71f4f883a0b2ce88eb6ffb3ba2825f3eecd019a2f14"
+  },
+  {
+    "material": "Pb2Sb2Te5",
+    "path": "AMSET_results/分类输运/00_合并原始结果/Pb2Sb2Te5/transport.json",
+    "role": "无SOC输运结果（AMSET）",
+    "sha256": "9ac1ba2f0b74bdb4ac607c0afdca6f7efc5b1a903fa134346c79c9506116a2ed"
+  },
+  {
+    "material": "Pb2Sb2Te5",
+    "path": "AMSET_results/分类输运/00_合并原始结果/Pb2Sb2Te5/settings.yaml",
+    "role": "该次运行设置",
+    "sha256": "f340d6ff4f5aa7e69ef0201d872a159531081d2496b5670f1c01f2474c9fbfb4"
+  },
+  {
+    "material": "Sn2Bi2Te5",
+    "path": "AMSET_results/分类输运/00_合并原始结果/Sn2Bi2Te5/transport.json",
+    "role": "无SOC输运结果（AMSET）",
+    "sha256": "24ac5091f333826a4ca1abb17e165601bd6a3e92ba7596d3bcdbcbc6d4017987"
+  },
+  {
+    "material": "Sn2Bi2Te5",
+    "path": "AMSET_results/分类输运/00_合并原始结果/Sn2Bi2Te5/settings.yaml",
+    "role": "该次运行设置",
+    "sha256": "49f18207f6b5c74c1665de697e00c7c4b75ea775ee95c334459a2cb589b9b63d"
+  },
+  {
+    "material": "Sn2Sb2Te5",
+    "path": "AMSET_results/分类输运/00_合并原始结果/Sn2Sb2Te5/transport.json",
+    "role": "无SOC输运结果（AMSET）",
+    "sha256": "5ece14a7cb770de3402194d4d7f3cda216a9a285109d6a59189ad77a9c9cc1c7"
+  },
+  {
+    "material": "Sn2Sb2Te5",
+    "path": "AMSET_results/分类输运/00_合并原始结果/Sn2Sb2Te5/settings.yaml",
+    "role": "该次运行设置",
+    "sha256": "2f04cccb54e34ba3c0091c0143208b77df17175076acb6b2adba931375ccdbf7"
+  }
+]

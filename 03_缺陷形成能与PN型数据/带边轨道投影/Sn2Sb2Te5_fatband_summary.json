@@ -1,0 +1,140 @@
+{
+  "step": "step4_fatband_plot",
+  "step4_dir": "/public/home/wangchao/joint_research_project/huang/Sn2Sb2Te5/POSCAR_B/band/step4_HSE_band",
+  "out_dir": "/public/home/wangchao/joint_research_project/huang/Sn2Sb2Te5/POSCAR_B/band/step4_fatband_plot",
+  "checked_at": "2026-07-28T21:46:25",
+  "status": "ok",
+  "soc": true,
+  "nelect": 68,
+  "n_path_kpts": 204,
+  "band_source": "vasprun.xml (kpoints_opt)",
+  "proj_source": "PROCAR_OPT",
+  "orbitals_parsed": [
+    "s",
+    "py",
+    "pz",
+    "px",
+    "dxy",
+    "dyz",
+    "dz2",
+    "dxz",
+    "x2-y2"
+  ],
+  "projection_groups": [
+    "Sb-s",
+    "Sb-p",
+    "Sb-d",
+    "Te-s",
+    "Te-p",
+    "Te-d",
+    "Sn-s",
+    "Sn-p",
+    "Sn-d"
+  ],
+  "group_colors": {
+    "Sb-s": "#1f5fbf",
+    "Sb-p": "#e07b39",
+    "Sb-d": "#8e44ad",
+    "Te-s": "#17b4c4",
+    "Te-p": "#3a923a",
+    "Te-d": "#d4a017",
+    "Sn-s": "#2c7fb8",
+    "Sn-p": "#c0392b",
+    "Sn-d": "#16a085"
+  },
+  "gap_eV": 0.1359,
+  "gap_type": "direct",
+  "min_direct_gap_eV": 0.1359,
+  "min_direct_gap_k_frac": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "vbm": {
+    "E_eV": 6.7227,
+    "k_frac": [
+      0.0,
+      0.0,
+      0.0
+    ]
+  },
+  "cbm": {
+    "E_eV": 6.8586,
+    "k_frac": [
+      0.0,
+      0.0,
+      0.0
+    ]
+  },
+  "efermi_scf_eV": 6.7906,
+  "energy_zero": "VBM",
+  "plot_title": "step4_HSE_band   $E_g$ = 0.136 eV (direct)",
+  "extrema_marked": false,
+  "edge_labels": [
+    {
+      "E_eV": -12.3959,
+      "label": "Te s"
+    },
+    {
+      "E_eV": -10.9566,
+      "label": "Sb s"
+    },
+    {
+      "E_eV": -8.4332,
+      "label": "Sn s"
+    },
+    {
+      "E_eV": -3.7916,
+      "label": "Te p"
+    },
+    {
+      "E_eV": 0.8806,
+      "label": "Sb p"
+    },
+    {
+      "E_eV": 1.8706,
+      "label": "Sn p"
+    },
+    {
+      "E_eV": 2.8606,
+      "label": "Sb p"
+    },
+    {
+      "E_eV": 4.4813,
+      "label": "Te p"
+    }
+  ],
+  "inputs_copied": [
+    "EIGENVAL",
+    "vasprun.xml",
+    "PROCAR",
+    "PROCAR_OPT",
+    "POSCAR",
+    "INCAR",
+    "KPOINTS",
+    "KPOINTS_OPT",
+    "kpath.json",
+    "workflow_method.txt"
+  ],
+  "files": {
+    "dat": "/public/home/wangchao/joint_research_project/huang/Sn2Sb2Te5/POSCAR_B/band/step4_fatband_plot/fatband.dat",
+    "klabels": "/public/home/wangchao/joint_research_project/huang/Sn2Sb2Te5/POSCAR_B/band/step4_fatband_plot/fatband_klabels.txt",
+    "png": "/public/home/wangchao/joint_research_project/huang/Sn2Sb2Te5/POSCAR_B/band/step4_fatband_plot/fatband.png",
+    "summary": "/public/home/wangchao/joint_research_project/huang/Sn2Sb2Te5/POSCAR_B/band/step4_fatband_plot/fatband_summary.json"
+  },
+  "labels_found": [
+    "Γ",
+    "M",
+    "K",
+    "Γ",
+    "A",
+    "L",
+    "H",
+    "A|L",
+    "M|H",
+    "K"
+  ],
+  "kpath_source": "kpath.json (seekpath)",
+  "kpath_method": "seekpath",
+  "kpath_note": "seekpath / HPKOT (Hinuma et al.) | 空间群 P-3m1 (#164) | det M = +1"
+}

@@ -1,0 +1,30 @@
+{
+  "source": "/public/home/wangchao/ke_work/Sn2Bi2Te5/ke-dft-cpu",
+  "method": "PBE-D3(BJ)+SOC transport on existing non-SOC optimized geometry; HSE+SOC scissor; reused SOC dielectric and existing elastic parameters",
+  "files": [
+    {
+      "source": "/public/home/wangchao/ke_work/Sn2Bi2Te5/ke-dft-cpu/step1_opt/CONTCAR",
+      "sha256": "50e9a5e0e5cc23843496bfea196841382da50a2f2154c6dd9234a695bfbf6ad7"
+    },
+    {
+      "source": "/public/home/wangchao/ke_work/Sn2Bi2Te5/ke-dft-cpu/step1_opt/INCAR",
+      "sha256": "337075cf883f70a740b7151a53ffab012d75a199e76b1b30c0ef4c600b124391"
+    },
+    {
+      "source": "/public/home/wangchao/ke_work/Sn2Bi2Te5/ke-dft-cpu/step1_opt/workflow_method.txt",
+      "sha256": "499f448dd72e5a3319a831f0513e394bb84e381988f2ff97e4c6fdb6b457e771"
+    },
+    {
+      "source": "/public/home/wangchao/ke_work/Sn2Bi2Te5/ke-dft-cpu/step3_uniform/POTCAR",
+      "sha256": "b747260942d7a17d4968c808aa0758ef6a3502fc2761ab0efa5cf4358076082b"
+    },
+    {
+      "source": "/public/home/wangchao/ke_work/Sn2Bi2Te5/ke-dft-cpu/step3_uniform/KPOINTS",
+      "sha256": "e8147b64759d312e7bcf94bd6e920c140f9ff5f39aa45fe1760e9c73296baccd"
+    },
+    {
+      "source": "/public/home/wangchao/ke_work/Sn2Bi2Te5/ke-dft-cpu/step8_amset/settings.yaml",
+      "sha256": "563aaa95b0c2aad95a5876ab094e6fce5398835c770451be1a3f29cb55e0a5c9"
+    }
+  ]
+}

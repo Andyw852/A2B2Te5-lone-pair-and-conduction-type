@@ -1,0 +1,30 @@
+SYSTEM = Pb2Bi2Te5_B PBE ELF+Bader on PBE-D3 geometry
+
+ISTART = 0
+ICHARG = 2
+
+PREC   = Accurate
+ENCUT  = 370
+GGA    = PE
+EDIFF  = 1E-6
+NELM   = 150
+NELMIN = 6
+ALGO   = Normal
+
+ISMEAR = -5
+
+ISPIN  = 1
+ISYM   = 2
+
+IBRION = -1
+NSW    = 0
+
+LREAL  = .FALSE.
+LASPH  = .TRUE.
+
+LCHARG = .TRUE.
+LAECHG = .TRUE.
+LELF   = .TRUE.
+LWAVE  = .TRUE.
+
+NPAR   = 1

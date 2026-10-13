@@ -1,0 +1,71 @@
+[
+  {
+    "pair": "Te-Bi",
+    "short": {
+      "atom1": "Te",
+      "atom2": "Bi",
+      "dist_ang": 3.08,
+      "icohp_ev_per_bond": -1.7414,
+      "icoop_elec_per_bond": 0.2634,
+      "count_per_cell": 6.0,
+      "icohp_ev_per_cell": -10.4484
+    },
+    "long": {
+      "atom1": "Te",
+      "atom2": "Bi",
+      "dist_ang": 3.25,
+      "icohp_ev_per_bond": -0.7004,
+      "icoop_elec_per_bond": 0.126,
+      "count_per_cell": 6.0,
+      "icohp_ev_per_cell": -4.2026
+    },
+    "ratio": 2.4862935465448315,
+    "delta_icohp": -1.041
+  },
+  {
+    "pair": "Te-Pb",
+    "short": {
+      "atom1": "Te",
+      "atom2": "Pb",
+      "dist_ang": 3.21,
+      "icohp_ev_per_bond": -1.0526,
+      "icoop_elec_per_bond": 0.1768,
+      "count_per_cell": 6.0,
+      "icohp_ev_per_cell": -6.3156
+    },
+    "long": {
+      "atom1": "Te",
+      "atom2": "Pb",
+      "dist_ang": 3.22,
+      "icohp_ev_per_bond": -1.1884,
+      "icoop_elec_per_bond": 0.1829,
+      "count_per_cell": 6.0,
+      "icohp_ev_per_cell": -7.1303
+    },
+    "ratio": 0.8857287108717604,
+    "delta_icohp": 0.13579999999999992
+  },
+  {
+    "pair": "Te-Te",
+    "short": {
+      "atom1": "Te",
+      "atom2": "Te",
+      "dist_ang": 5.74,
+      "icohp_ev_per_bond": -0.0005,
+      "icoop_elec_per_bond": 0.0,
+      "count_per_cell": 3.0,
+      "icohp_ev_per_cell": -0.0015
+    },
+    "long": {
+      "atom1": "Te",
+      "atom2": "Te",
+      "dist_ang": 6.32,
+      "icohp_ev_per_bond": -0.0046,
+      "icoop_elec_per_bond": 0.0005,
+      "count_per_cell": 6.0,
+      "icohp_ev_per_cell": -0.0279
+    },
+    "ratio": 0.10869565217391305,
+    "delta_icohp": 0.0040999999999999995
+  }
+]

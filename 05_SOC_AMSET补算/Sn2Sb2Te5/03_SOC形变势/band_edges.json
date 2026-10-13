@@ -1,0 +1,86 @@
+{
+  "electron": {
+    "edge_energy_eV": 6.9787,
+    "n_hits": 2,
+    "E1_xx_eV": 3.9422,
+    "E1_yy_eV": 3.9467,
+    "E1_iso_eV": 3.9444,
+    "spread_xx": 0.0,
+    "spread_yy": 0.0,
+    "hits": [
+      {
+        "spin": "up",
+        "band_global": 68,
+        "band_h5": 12,
+        "k_h5": 130,
+        "k_frac": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "E1_xx_eV": 3.9422,
+        "E1_yy_eV": 3.9467,
+        "E1_iso_eV": 3.9444
+      },
+      {
+        "spin": "up",
+        "band_global": 69,
+        "band_h5": 13,
+        "k_h5": 130,
+        "k_frac": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "E1_xx_eV": 3.9422,
+        "E1_yy_eV": 3.9467,
+        "E1_iso_eV": 3.9444
+      }
+    ]
+  },
+  "hole": {
+    "edge_energy_eV": 6.7624,
+    "n_hits": 2,
+    "E1_xx_eV": 1.3822,
+    "E1_yy_eV": 5.3067,
+    "E1_iso_eV": 3.3444,
+    "spread_xx": 0.0,
+    "spread_yy": 0.0,
+    "hits": [
+      {
+        "spin": "up",
+        "band_global": 66,
+        "band_h5": 10,
+        "k_h5": 178,
+        "k_frac": [
+          0.166667,
+          0.0,
+          0.0
+        ],
+        "E1_xx_eV": 1.3822,
+        "E1_yy_eV": 5.3067,
+        "E1_iso_eV": 3.3444
+      },
+      {
+        "spin": "up",
+        "band_global": 67,
+        "band_h5": 11,
+        "k_h5": 178,
+        "k_frac": [
+          0.166667,
+          0.0,
+          0.0
+        ],
+        "E1_xx_eV": 1.3822,
+        "E1_yy_eV": 5.3067,
+        "E1_iso_eV": 3.3444
+      }
+    ]
+  },
+  "vac_align": {
+    "status": "skipped",
+    "reason": "dim=3d：真空对齐仅 2D 有意义"
+  },
+  "skill_rev": "2026-08-29-ionrelax-nstep",
+  "read_paths": {}
+}
