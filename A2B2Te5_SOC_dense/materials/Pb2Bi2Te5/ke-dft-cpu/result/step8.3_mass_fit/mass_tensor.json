@@ -1,0 +1,225 @@
+{
+  "material": "Pb2Bi2Te5",
+  "soc": true,
+  "status": "done",
+  "input_files": {
+    "step8.2_mass/mass_metadata.json": "6b79d802d0f8643bffe6293cbe925ac1c61bfc701a4913703dc32e13caf20461",
+    "step8.2_mass/EIGENVAL": "acefa2cadcb04d07abc0f5d3cb614f3b5f363776feb470d1597716978e72f683"
+  },
+  "grid": 5,
+  "step_cartesian_Ainv": 0.005,
+  "band_tracking": "fixed band index selected from dense EIGENVAL; inspect PROCAR near crossings",
+  "reports": {
+    "electron": {
+      "intercept_eV": 6.097467193142857,
+      "gradient_eV_A": [
+        1.9200000000649253e-05,
+        0.027484799999997707,
+        -0.05927999999999961
+      ],
+      "hessian_eV_A2": [
+        [
+          75.1931428571439,
+          0.000720000000101978,
+          0.0010399999998706084
+        ],
+        [
+          0.000720000000101978,
+          75.20640000000184,
+          0.13416000000013886
+        ],
+        [
+          0.0010399999998706084,
+          0.13416000000013886,
+          8.807771428570218
+        ]
+      ],
+      "hessian_eigenvalues_eV_A2": [
+        8.807500339975618,
+        75.19310443878533,
+        75.20670950695504
+      ],
+      "principal_axes_cartesian_columns": [
+        [
+          -1.5644092148187103e-05,
+          -0.9985864902868906,
+          -0.053150928230576926
+        ],
+        [
+          -0.0020205111162210354,
+          0.0531508513079459,
+          -0.998584450379671
+        ],
+        [
+          0.9999979586429623,
+          9.177009416786301e-05,
+          -0.0020184866009486
+        ]
+      ],
+      "rmse_eV": 0.00040526405029532955,
+      "max_absolute_residual_eV": 0.0008346091428572677,
+      "energy_span_eV": 0.009526000000000145,
+      "scaled_design_condition_number": 5.711412876046573,
+      "n_points": 125,
+      "n_parameters": 10,
+      "degrees_of_freedom": 115,
+      "carrier": "electron",
+      "model": "E(q)=E0+g.q+0.5*q.T*H*q; q in Cartesian Angstrom^-1",
+      "mass_conversion_hbar2_over_me_eV_A2": 7.619964,
+      "principal_masses_me": [
+        0.8651676078188031,
+        0.10133860088465173,
+        0.10132026849672654
+      ],
+      "all_curvatures_have_required_sign": true,
+      "axis_order": "Ascending eigenvalues of the ELECTRON ENERGY Hessian; columns of principal_axes_cartesian_columns correspond to masses in the same order.",
+      "gradient_norm_eV_A": 0.06534166358212674,
+      "quadratic_stationary_shift_Ainv": [
+        -3.448962702955484e-07,
+        -0.00037747484614225054,
+        0.006736169627608227
+      ],
+      "quadratic_stationary_point_inside_sample_box": true,
+      "relative_rmse_to_energy_span": 0.042542940404715866,
+      "inner_window_diagnostic": {
+        "available": true,
+        "n_points": 27,
+        "hessian_eigenvalues_eV_A2": [
+          8.684396532823891,
+          75.93782552394475,
+          75.96444460987951
+        ],
+        "relative_eigenvalue_changes_vs_full": [
+          0.01397715610557308,
+          0.009904114090218252,
+          0.010075365720586359
+        ],
+        "rmse_eV": 6.684602929407059e-05
+      },
+      "thresholds": {
+        "gradient_eV_A": 0.001,
+        "absolute_rmse_eV": 0.0001,
+        "relative_rmse": 0.01,
+        "relative_inner_window_curvature_change": 0.1
+      },
+      "warnings": [
+        "NONZERO_GRADIENT: the selected center is not stationary within the configured gradient threshold; refine the extremum.",
+        "NONPARABOLIC_OR_NOISY: quadratic residual exceeds both configured absolute and relative thresholds; inspect band tracking, numerical noise and nonparabolicity."
+      ],
+      "scope": "Local curvature for one user-tracked band only. No automatic band tracking, global-extremum proof, valley degeneracy, DOS mass, scattering or material validation.",
+      "band_index_1based": 89,
+      "edge_energy_eV": 6.097265,
+      "center_fractional": [
+        1.262379e-15,
+        1.262379e-15,
+        0.3333333
+      ],
+      "metadata": "/public/home/wangchao/ke_soc_dense_20261008/Pb2Bi2Te5/ke-dft-cpu/step8.3_mass_fit/electron_metadata.json",
+      "energies": "/public/home/wangchao/ke_soc_dense_20261008/Pb2Bi2Te5/ke-dft-cpu/step8.3_mass_fit/electron_band.csv"
+    },
+    "hole": {
+      "intercept_eV": 5.953925299428572,
+      "gradient_eV_A": [
+        -1.734723475976807e-16,
+        -2.3266344130415592e-17,
+        -4.934431754250745e-17
+      ],
+      "hessian_eV_A2": [
+        [
+          -67.74217142857306,
+          -0.0031999999998772615,
+          0.001120000000297835
+        ],
+        [
+          -0.0031999999998772615,
+          -67.76182857142561,
+          0.60447999999923
+        ],
+        [
+          0.001120000000297835,
+          0.60447999999923,
+          -40.22125714285453
+        ]
+      ],
+      "hessian_eigenvalues_eV_A2": [
+        -67.77540248745173,
+        -67.74185872299452,
+        -40.207995932407016
+      ],
+      "principal_axes_cartesian_columns": [
+        [
+          -0.09655831835642656,
+          -0.9953273279194154,
+          3.811791690414185e-05
+        ],
+        [
+          -0.9950878177492134,
+          0.09653592304631445,
+          0.021932864124519336
+        ],
+        [
+          0.02183405879097043,
+          -0.0020798698018542976,
+          0.9997594450758241
+        ]
+      ],
+      "rmse_eV": 6.806730967830902e-05,
+      "max_absolute_residual_eV": 0.0001907234285711823,
+      "energy_span_eV": 0.008990999999999971,
+      "scaled_design_condition_number": 5.711412876046573,
+      "n_points": 125,
+      "n_parameters": 10,
+      "degrees_of_freedom": 115,
+      "carrier": "hole",
+      "model": "E(q)=E0+g.q+0.5*q.T*H*q; q in Cartesian Angstrom^-1",
+      "mass_conversion_hbar2_over_me_eV_A2": 7.619964,
+      "principal_masses_me": [
+        0.11242963848736713,
+        0.11248531031838155,
+        0.18951364830044734
+      ],
+      "all_curvatures_have_required_sign": true,
+      "axis_order": "Ascending eigenvalues of the ELECTRON ENERGY Hessian; columns of principal_axes_cartesian_columns correspond to masses in the same order.",
+      "gradient_norm_eV_A": 1.818483979142552e-16,
+      "quadratic_stationary_shift_Ainv": [
+        -2.5607769945824064e-18,
+        -3.5422597872243573e-19,
+        -1.2322167841828578e-18
+      ],
+      "quadratic_stationary_point_inside_sample_box": true,
+      "relative_rmse_to_energy_span": 0.007570605013714741,
+      "inner_window_diagnostic": {
+        "available": true,
+        "n_points": 27,
+        "hessian_eigenvalues_eV_A2": [
+          -70.1625915030813,
+          -70.13333333333884,
+          -41.33074183024387
+        ],
+        "relative_eigenvalue_changes_vs_full": [
+          0.035222055908433,
+          0.035302760441271265,
+          0.027923448354011143
+        ],
+        "rmse_eV": 6.763190130451761e-06
+      },
+      "thresholds": {
+        "gradient_eV_A": 0.001,
+        "absolute_rmse_eV": 0.0001,
+        "relative_rmse": 0.01,
+        "relative_inner_window_curvature_change": 0.1
+      },
+      "warnings": [],
+      "scope": "Local curvature for one user-tracked band only. No automatic band tracking, global-extremum proof, valley degeneracy, DOS mass, scattering or material validation.",
+      "band_index_1based": 87,
+      "edge_energy_eV": 5.953825,
+      "center_fractional": [
+        1.262379e-15,
+        1.262379e-15,
+        0.5
+      ],
+      "metadata": "/public/home/wangchao/ke_soc_dense_20261008/Pb2Bi2Te5/ke-dft-cpu/step8.3_mass_fit/hole_metadata.json",
+      "energies": "/public/home/wangchao/ke_soc_dense_20261008/Pb2Bi2Te5/ke-dft-cpu/step8.3_mass_fit/hole_band.csv"
+    }
+  }
+}

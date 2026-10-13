@@ -1,0 +1,73 @@
+task_types:
+  ke-dft-cpu:
+    local_root: /mnt/d/tf_data/work_AutoZT/A2B2Te5_SOC_dense/materials
+    work_dir: /public/home/wangchao/ke_soc_dense_20261008
+    hpc: jzzn
+    skill_subdir: true
+    skill_dir: /home/wangchao/software/AutoZT/skill/ke-dft-cpu
+    steps:
+      - seq: 0
+        name: step0_seed
+        label: S0_import
+        check: plot
+        run: gen
+        done_marker: seed_manifest.json
+        gen: gen_soc_seed_dense.py
+        gen_need: []
+        push_paths: [POTCAR]
+        fetch_all: true
+        needs: []
+      - seq: 3
+        name: step3_uniform
+        label: S3_uniform_dense_soc
+        src: step3_uniform
+        check: wavecar
+        gen: "gen_dense_soc.py --material {mat}"
+        gen_need: []
+        push_paths: [POTCAR]
+        needs: [step0_seed]
+        fetch_files: [INCAR, POSCAR, POTCAR, KPOINTS, submit.sh, OUTCAR,
+                      CONTCAR, vasprun.xml, EIGENVAL, PROCAR, CHGCAR,
+                      queue.out, queue.err, workflow_method.txt]
+      - seq: 8.1
+        name: step8.1_boltztrap
+        label: S8.1_bt2_soc
+        src: step8.1_boltztrap
+        check: plot
+        run: gen
+        done_marker: boltztrap_crta.json
+        strict_done_marker: true
+        gen: "run_bt2_soc.py --material {mat}"
+        gen_need: [gen_step11_boltztrap.py, ke_common.py]
+        fetch_all: true
+        needs: [step3_uniform]
+      - seq: 8.2
+        name: step8.2_mass
+        label: S8.2_mass_soc
+        src: step8.2_mass
+        check: outcar
+        gen: "gen_mass_soc.py --material {mat}"
+        gen_need: []
+        needs: [step3_uniform]
+        fetch_files: [INCAR, POSCAR, POTCAR, KPOINTS, submit.sh, OUTCAR,
+                      CONTCAR, vasprun.xml, EIGENVAL, PROCAR, queue.out,
+                      queue.err]
+      - seq: 8.3
+        name: step8.3_mass_fit
+        label: S8.3_mass_fit
+        src: step8.3_mass_fit
+        check: plot
+        run: gen
+        done_marker: mass_tensor.json
+        strict_done_marker: true
+        gen: "fit_mass_soc.py --material {mat}"
+        gen_need: [fit_effective_mass.py]
+        fetch_all: true
+        needs: [step8.2_mass]
+    optional_steps: {}
+    bandgap_steps: false
+    bandgap_hse: false
+    dpt: false
+    boltztrap_crta: false
+    output_compare: false
+    max_jobs: 8

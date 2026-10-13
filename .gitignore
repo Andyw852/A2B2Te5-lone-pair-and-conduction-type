@@ -1,5 +1,12 @@
-# 排除 9.4 GB 原始 VASP 计算输出（GitHub 单文件硬上限 100 MB，无法接收）
-A2B2Te5_SOC_dense/
+# 排除 8 个超过 GitHub 100 MB 单文件硬上限的原始 VASP 输出（合计约 9.4 GB）
+A2B2Te5_SOC_dense/materials/Sn2Bi2Te5/ke-dft-cpu/result/step3_uniform/vasprun.xml
+A2B2Te5_SOC_dense/materials/Pb2Bi2Te5/ke-dft-cpu/result/step3_uniform/vasprun.xml
+A2B2Te5_SOC_dense/materials/Sn2Sb2Te5/ke-dft-cpu/result/step3_uniform/vasprun.xml
+A2B2Te5_SOC_dense/materials/Pb2Sb2Te5/ke-dft-cpu/result/step3_uniform/vasprun.xml
+A2B2Te5_SOC_dense/materials/Pb2Bi2Te5/ke-dft-cpu/result/step8.2_mass/vasprun.xml
+A2B2Te5_SOC_dense/materials/Sn2Bi2Te5/ke-dft-cpu/result/step8.2_mass/vasprun.xml
+A2B2Te5_SOC_dense/materials/Sn2Sb2Te5/ke-dft-cpu/result/step8.2_mass/vasprun.xml
+A2B2Te5_SOC_dense/materials/Pb2Sb2Te5/ke-dft-cpu/result/step8.2_mass/vasprun.xml
 
 # Python 缓存
 __pycache__/

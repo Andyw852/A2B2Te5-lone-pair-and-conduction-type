@@ -1,0 +1,12 @@
+{
+ "schema": "autozt-origin/1",
+ "material": "A2B2Te5_SOC_dense/Sn2Bi2Te5",
+ "material_dir": "/mnt/d/tf_data/work_AutoZT/A2B2Te5_SOC_dense/materials/Sn2Bi2Te5",
+ "skill": "ke-dft-cpu",
+ "step": "step0_seed",
+ "label": "S0_import",
+ "poscar_sha256": "50e9a5e0e5cc23843496bfea196841382da50a2f2154c6dd9234a695bfbf6ad7",
+ "host": "jzzn",
+ "remote_dir": "/public/home/wangchao/ke_soc_dense_20261008/Sn2Bi2Te5/ke-dft-cpu/step0_seed",
+ "fetched_at": "2026-10-10T14:56:01"
+}

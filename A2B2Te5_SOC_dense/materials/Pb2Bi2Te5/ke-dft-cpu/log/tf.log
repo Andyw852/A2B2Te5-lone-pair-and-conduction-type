@@ -1,0 +1,18 @@
+2026-10-08 07:52:51  init S0_import（只生成输入）
+2026-10-08 07:58:19  fetch 1 个步骤 → /mnt/d/tf_data/work_AutoZT/A2B2Te5_SOC_dense/materials/Pb2Bi2Te5/ke-dft-cpu/result
+2026-10-08 07:58:22  start S3_uniform_dense_soc jobid=3970864
+2026-10-08 08:10:00  fetch 1 个步骤 → /mnt/d/tf_data/work_AutoZT/A2B2Te5_SOC_dense/materials/Pb2Bi2Te5/ke-dft-cpu/result
+2026-10-08 18:06:23  fetch 1 个步骤 → /mnt/d/tf_data/work_AutoZT/A2B2Te5_SOC_dense/materials/Pb2Bi2Te5/ke-dft-cpu/result
+2026-10-08 20:42:15  fetch 1 个步骤 → /mnt/d/tf_data/work_AutoZT/A2B2Te5_SOC_dense/materials/Pb2Bi2Te5/ke-dft-cpu/result
+2026-10-08 20:42:19  start S8.2_mass_soc jobid=3987679
+2026-10-08 23:48:46  fetch 1 个步骤 → /mnt/d/tf_data/work_AutoZT/A2B2Te5_SOC_dense/materials/Pb2Bi2Te5/ke-dft-cpu/result
+2026-10-08 23:49:10  fetch 1 个步骤 → /mnt/d/tf_data/work_AutoZT/A2B2Te5_SOC_dense/materials/Pb2Bi2Te5/ke-dft-cpu/result
+2026-10-09 01:08:13  plot S8.1_bt2_soc（生成 /public/home/wangchao/ke_soc_dense_20261008/Pb2Bi2Te5/ke-dft-cpu/step8.1_boltztrap）
+2026-10-09 01:08:19  fetch 1 个步骤 → /mnt/d/tf_data/work_AutoZT/A2B2Te5_SOC_dense/materials/Pb2Bi2Te5/ke-dft-cpu/result
+2026-10-09 03:10:06  plot S8.1_bt2_soc（生成 /public/home/wangchao/ke_soc_dense_20261008/Pb2Bi2Te5/ke-dft-cpu/step8.1_boltztrap）
+2026-10-09 03:10:15  fetch 1 个步骤 → /mnt/d/tf_data/work_AutoZT/A2B2Te5_SOC_dense/materials/Pb2Bi2Te5/ke-dft-cpu/result
+2026-10-09 03:45:40  fetch 1 个步骤 → /mnt/d/tf_data/work_AutoZT/A2B2Te5_SOC_dense/materials/Pb2Bi2Te5/ke-dft-cpu/result
+2026-10-10 14:54:40  fetch 4 个步骤 → /mnt/d/tf_data/work_AutoZT/A2B2Te5_SOC_dense/materials/Pb2Bi2Te5/ke-dft-cpu/result
+2026-10-10 15:37:10  plot S8.3_mass_fit（生成 /public/home/wangchao/ke_soc_dense_20261008/Pb2Bi2Te5/ke-dft-cpu/step8.3_mass_fit）
+2026-10-10 15:37:14  fetch 1 个步骤 → /mnt/d/tf_data/work_AutoZT/A2B2Te5_SOC_dense/materials/Pb2Bi2Te5/ke-dft-cpu/result
+2026-10-10 16:10:13  fetch 1 个步骤 → /mnt/d/tf_data/work_AutoZT/A2B2Te5_SOC_dense/materials/Pb2Bi2Te5/ke-dft-cpu/result

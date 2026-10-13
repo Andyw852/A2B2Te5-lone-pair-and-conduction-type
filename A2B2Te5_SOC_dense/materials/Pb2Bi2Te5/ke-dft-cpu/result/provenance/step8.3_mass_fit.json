@@ -1,0 +1,58 @@
+{
+  "schema": 1,
+  "kind": "gen",
+  "ts": "2026-10-10T15:37:02",
+  "tf_version": "1.2.0",
+  "skill": {
+    "key": "ke-dft-cpu",
+    "version": null,
+    "manifest": null,
+    "desc": "电子热导率(DFT/CPU)"
+  },
+  "step": "step8.3_mass_fit",
+  "material": {
+    "name": "Pb2Bi2Te5",
+    "path": "/public/home/wangchao/ke_soc_dense_20261008/Pb2Bi2Te5/ke-dft-cpu",
+    "local": "/mnt/d/tf_data/work_AutoZT/A2B2Te5_SOC_dense/materials/Pb2Bi2Te5"
+  },
+  "hpc": "jzzn",
+  "host": "jzzn",
+  "step_dir": "/public/home/wangchao/ke_soc_dense_20261008/Pb2Bi2Te5/ke-dft-cpu",
+  "generator": {
+    "script": "fit_mass_soc.py",
+    "sha256": "8811489881f40baa917c9938ecd3b858dd5cc417c8284cfbd342b12d7822f80f",
+    "args": "--material Pb2Bi2Te5"
+  },
+  "inputs": {
+    "POSCAR": {
+      "sha256": "7e4535e41f242546bc3e604852ea30213ef487cca99d4f64c53b5a4946de4bfd",
+      "source": "/mnt/d/tf_data/work_AutoZT/A2B2Te5_SOC_dense/materials/Pb2Bi2Te5/POSCAR",
+      "origin": "project",
+      "sync": "push-if-diff+verify"
+    },
+    "fit_effective_mass.py": {
+      "sha256": "88b2cb09fba60538d2d0fd48f0c58df859d1d5713beecafaf9e05b28c755f548",
+      "src_sha256": "88b2cb09fba60538d2d0fd48f0c58df859d1d5713beecafaf9e05b28c755f548",
+      "rendered": false,
+      "source": "/mnt/d/tf_data/work_AutoZT/A2B2Te5_SOC_dense/materials/Pb2Bi2Te5/project_setting/templates/step8.3_mass_fit/fit_effective_mass.py",
+      "origin": "project"
+    },
+    "fit_mass_soc.py": {
+      "sha256": "8811489881f40baa917c9938ecd3b858dd5cc417c8284cfbd342b12d7822f80f",
+      "source": "/mnt/d/tf_data/work_AutoZT/A2B2Te5_SOC_dense/materials/Pb2Bi2Te5/project_setting/templates/step8.3_mass_fit/fit_mass_soc.py",
+      "origin": "skill",
+      "args": "--material Pb2Bi2Te5"
+    }
+  },
+  "step_conf": {
+    "name": "step.conf",
+    "sha256": "9d15f5743b5c7fa13649633745063d4aaafc1a3477396545b5967dcba80514e1",
+    "chars": 966,
+    "text": "# ===== 本文件由 tf 自动合成，勿手改 —— 要改请改下面列出的上游 =====\n# 步骤 step8.3_mass_fit   材料 Pb2Bi2Te5\n# 来源（越靠下优先级越高）：\n#   [1] /home/wangchao/software/AutoZT/skill/ke-dft-cpu/step.conf   (skill 默认)\n#   [cluster:jzzn] <setting/jzzn.yaml>   (集群默认)\n\n[params]\nBANDGAP        = hse                                                      # <- [1]\nFUNC           = pbesol                                                   # <- [1]\nCONDA_SH       = /public/home/wangchao/miniconda3/etc/profile.d/conda.sh  # <- [cluster:jzzn]\nCONDA_ENV      = /public/home/wangchao/venvs/mace_cpu                     # <- [cluster:jzzn]\nMACE_MODEL_DIR = /public/home/wangchao/software/mace/mlff_models          # <- [cluster:jzzn]\nAMSET_ENV      = amset051                                                 # <- [cluster:jzzn]\nPOTCAR_DIR     = /public/home/wangchao/software/vasp_pseudopotentials     # <- [cluster:jzzn]\nREFERENCES_DIR = /public/home/wangchao/convex_hull_refs                   # <- [cluster:jzzn]\n"
+  },
+  "run": {
+    "actor": "wangchao",
+    "cwd": "/home/wangchao/software/AutoZT",
+    "argv": "bin/autozt"
+  }
+}

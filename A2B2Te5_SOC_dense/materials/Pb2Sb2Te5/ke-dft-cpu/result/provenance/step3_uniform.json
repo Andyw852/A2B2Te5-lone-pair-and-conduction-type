@@ -1,0 +1,56 @@
+{
+  "schema": 1,
+  "kind": "gen",
+  "ts": "2026-10-08T07:59:51",
+  "tf_version": "1.2.0",
+  "skill": {
+    "key": "ke-dft-cpu",
+    "version": null,
+    "manifest": null,
+    "desc": "电子热导率(DFT/CPU)"
+  },
+  "step": "step3_uniform",
+  "material": {
+    "name": "Pb2Sb2Te5",
+    "path": "/public/home/wangchao/ke_soc_dense_20261008/Pb2Sb2Te5/ke-dft-cpu",
+    "local": "/mnt/d/tf_data/work_AutoZT/A2B2Te5_SOC_dense/materials/Pb2Sb2Te5"
+  },
+  "hpc": "jzzn",
+  "host": "jzzn",
+  "step_dir": "/public/home/wangchao/ke_soc_dense_20261008/Pb2Sb2Te5/ke-dft-cpu",
+  "generator": {
+    "script": "gen_dense_soc.py",
+    "sha256": "220017084515a02cd1d4332558d4fb3e13c5b1ab49fefa5aadf02304d9b98780",
+    "args": "--material Pb2Sb2Te5"
+  },
+  "inputs": {
+    "POSCAR": {
+      "sha256": "17b215b44d580f579e567bf51ba9ff85787fc185b27bac59effa342473424b35",
+      "source": "/mnt/d/tf_data/work_AutoZT/A2B2Te5_SOC_dense/materials/Pb2Sb2Te5/POSCAR",
+      "origin": "project",
+      "sync": "push-if-diff+verify"
+    },
+    "POTCAR": {
+      "sha256": "0757924e21929a9cbeddaf83954060990f7d7b81fdd633f70672f6851bbf49b6",
+      "source": "/mnt/d/tf_data/work_AutoZT/A2B2Te5_SOC_dense/materials/Pb2Sb2Te5/POTCAR",
+      "origin": "push_paths"
+    },
+    "gen_dense_soc.py": {
+      "sha256": "220017084515a02cd1d4332558d4fb3e13c5b1ab49fefa5aadf02304d9b98780",
+      "source": "/mnt/d/tf_data/work_AutoZT/A2B2Te5_SOC_dense/materials/Pb2Sb2Te5/ke-dft-cpu/templates/step3_uniform/gen_dense_soc.py",
+      "origin": "skill",
+      "args": "--material Pb2Sb2Te5"
+    }
+  },
+  "step_conf": {
+    "name": "step.conf",
+    "sha256": "4a6352c654de9e99e937f9f299b9101f7956ac6744f80add318d11540070dc89",
+    "chars": 963,
+    "text": "# ===== 本文件由 tf 自动合成，勿手改 —— 要改请改下面列出的上游 =====\n# 步骤 step3_uniform   材料 Pb2Sb2Te5\n# 来源（越靠下优先级越高）：\n#   [1] /home/wangchao/software/AutoZT/skill/ke-dft-cpu/step.conf   (skill 默认)\n#   [cluster:jzzn] <setting/jzzn.yaml>   (集群默认)\n\n[params]\nBANDGAP        = hse                                                      # <- [1]\nFUNC           = pbesol                                                   # <- [1]\nCONDA_SH       = /public/home/wangchao/miniconda3/etc/profile.d/conda.sh  # <- [cluster:jzzn]\nCONDA_ENV      = /public/home/wangchao/venvs/mace_cpu                     # <- [cluster:jzzn]\nMACE_MODEL_DIR = /public/home/wangchao/software/mace/mlff_models          # <- [cluster:jzzn]\nAMSET_ENV      = amset051                                                 # <- [cluster:jzzn]\nPOTCAR_DIR     = /public/home/wangchao/software/vasp_pseudopotentials     # <- [cluster:jzzn]\nREFERENCES_DIR = /public/home/wangchao/convex_hull_refs                   # <- [cluster:jzzn]\n"
+  },
+  "run": {
+    "actor": "wangchao",
+    "cwd": "/home/wangchao/software/AutoZT",
+    "argv": "./bin/autozt"
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "method": "isolated dense SOC grid from verified perfect-cell geometry",
+  "material": "ke-dft-cpu",
+  "poscar_sha256": "7e4535e41f242546bc3e604852ea30213ef487cca99d4f64c53b5a4946de4bfd",
+  "potcar_sha256": "cf6da00e6f9e5e364faf6e96cb1dba2c8eab11d55d833652878e5ac565ba2b3f"
+}

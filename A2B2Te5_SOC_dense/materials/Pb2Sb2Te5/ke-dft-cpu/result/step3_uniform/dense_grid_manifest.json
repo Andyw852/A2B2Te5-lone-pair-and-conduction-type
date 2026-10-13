@@ -1,0 +1,12 @@
+{
+  "material": "Pb2Sb2Te5",
+  "mesh": [
+    28,
+    28,
+    7
+  ],
+  "soc": true,
+  "lcharg": true,
+  "encut_eV": 360,
+  "nbands": 120
+}

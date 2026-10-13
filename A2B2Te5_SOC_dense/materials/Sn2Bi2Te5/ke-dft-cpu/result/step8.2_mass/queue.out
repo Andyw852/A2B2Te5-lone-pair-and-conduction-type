@@ -1,0 +1,35 @@
+ running   24 mpi-ranks, on    1 nodes
+ distrk:  each k-point on   12 cores,    2 groups
+ distr:  one band on    4 cores,    3 groups
+ vasp.6.4.3 19Mar24 (build Jul 15 2026 22:17:24) complex                         
+ POSCAR found type information on POSCAR BiTeSn
+ POSCAR found :  3 types and       9 ions
+ scaLAPACK will be used
+ LDA part: xc-table for (Slater+PW92), standard interpolation
+ WARNING: stress and forces are not correct
+ POSCAR, INCAR and KPOINTS ok, starting setup
+ FFT: planning ... GRIDC
+ FFT: planning ... GRID_SOFT
+ FFT: planning ... GRID
+ WAVECAR not read
+ reading imaginary part of occupancies ...
+ charge-density read from file: Sn2Bi2Te5                               
+ reading imaginary part of occupancies ...
+ magnetization density read from file 1
+ reading imaginary part of occupancies ...
+ magnetization density read from file 2
+ reading imaginary part of occupancies ...
+ magnetization density read from file 3
+ entering main loop
+       N       E                     dE             d eps       ncg     rms          rms(c)
+DAV:   1     0.798742627677E+03    0.79874E+03   -0.30645E+04 72009   0.107E+03
+DAV:   2     0.116553277000E+03   -0.68219E+03   -0.63721E+03 72846   0.293E+02
+DAV:   3    -0.493037744404E+01   -0.12148E+03   -0.11333E+03 83673   0.139E+02
+DAV:   4    -0.136853739144E+02   -0.87550E+01   -0.85016E+01 86220   0.393E+01
+DAV:   5    -0.140374760648E+02   -0.35210E+00   -0.35170E+00 94545   0.744E+00
+DAV:   6    -0.140496836700E+02   -0.12208E-01   -0.12207E-01106155   0.132E+00
+DAV:   7    -0.140499254235E+02   -0.24175E-03   -0.24175E-03108261   0.168E-01
+DAV:   8    -0.140499303957E+02   -0.49721E-05   -0.49715E-05106614   0.267E-02
+DAV:   9    -0.140499305799E+02   -0.18423E-06   -0.18523E-06107055   0.489E-03
+DAV:  10    -0.140499305857E+02   -0.57930E-08   -0.46879E-08 93069   0.838E-04
+   1 F= -.17913565E+02 E0= -.17913565E+02  d E =-.407493E-10  mag=    -0.0000    -0.0000     0.0000

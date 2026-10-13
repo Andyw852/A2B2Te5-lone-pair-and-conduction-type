@@ -1,0 +1,65 @@
+{
+  "schema": 1,
+  "kind": "gen",
+  "ts": "2026-10-09T03:18:41",
+  "tf_version": "1.2.0",
+  "skill": {
+    "key": "ke-dft-cpu",
+    "version": null,
+    "manifest": null,
+    "desc": "电子热导率(DFT/CPU)"
+  },
+  "step": "step8.1_boltztrap",
+  "material": {
+    "name": "Pb2Sb2Te5",
+    "path": "/public/home/wangchao/ke_soc_dense_20261008/Pb2Sb2Te5/ke-dft-cpu",
+    "local": "/mnt/d/tf_data/work_AutoZT/A2B2Te5_SOC_dense/materials/Pb2Sb2Te5"
+  },
+  "hpc": "jzzn",
+  "host": "jzzn",
+  "step_dir": "/public/home/wangchao/ke_soc_dense_20261008/Pb2Sb2Te5/ke-dft-cpu",
+  "generator": {
+    "script": "run_bt2_soc.py",
+    "sha256": "25f8ebfd754596193e77b42d8ce98d1e5a4cc8043a37957a2e6c18c6d4cbb2be",
+    "args": "--material Pb2Sb2Te5"
+  },
+  "inputs": {
+    "POSCAR": {
+      "sha256": "17b215b44d580f579e567bf51ba9ff85787fc185b27bac59effa342473424b35",
+      "source": "/mnt/d/tf_data/work_AutoZT/A2B2Te5_SOC_dense/materials/Pb2Sb2Te5/POSCAR",
+      "origin": "project",
+      "sync": "push-if-diff+verify"
+    },
+    "gen_step11_boltztrap.py": {
+      "sha256": "2621fdfcfaabd627fad9b7e959d4bb3c2309bbd67b1c52e040e769df3cbb79d1",
+      "src_sha256": "2621fdfcfaabd627fad9b7e959d4bb3c2309bbd67b1c52e040e769df3cbb79d1",
+      "rendered": false,
+      "source": "/home/wangchao/software/AutoZT/skill/ke-dft-cpu/step8.1_boltztrap/gen_step11_boltztrap.py",
+      "origin": "skill"
+    },
+    "ke_common.py": {
+      "sha256": "1e99320690882b9d6cee24ca6b08a533e602b1baba1bc3eb7dafde29a4bfb532",
+      "src_sha256": "1e99320690882b9d6cee24ca6b08a533e602b1baba1bc3eb7dafde29a4bfb532",
+      "rendered": false,
+      "source": "/home/wangchao/software/AutoZT/skill/ke-dft-cpu/./ke_common.py",
+      "origin": "skill"
+    },
+    "run_bt2_soc.py": {
+      "sha256": "25f8ebfd754596193e77b42d8ce98d1e5a4cc8043a37957a2e6c18c6d4cbb2be",
+      "source": "/mnt/d/tf_data/work_AutoZT/A2B2Te5_SOC_dense/materials/Pb2Sb2Te5/ke-dft-cpu/templates/step8.1_boltztrap/run_bt2_soc.py",
+      "origin": "skill",
+      "args": "--material Pb2Sb2Te5"
+    }
+  },
+  "step_conf": {
+    "name": "step.conf",
+    "sha256": "5b810311c619d1a6dce4fbf7f22a620dd94ab849da3b8a4691b27b94a76860e7",
+    "chars": 967,
+    "text": "# ===== 本文件由 tf 自动合成，勿手改 —— 要改请改下面列出的上游 =====\n# 步骤 step8.1_boltztrap   材料 Pb2Sb2Te5\n# 来源（越靠下优先级越高）：\n#   [1] /home/wangchao/software/AutoZT/skill/ke-dft-cpu/step.conf   (skill 默认)\n#   [cluster:jzzn] <setting/jzzn.yaml>   (集群默认)\n\n[params]\nBANDGAP        = hse                                                      # <- [1]\nFUNC           = pbesol                                                   # <- [1]\nCONDA_SH       = /public/home/wangchao/miniconda3/etc/profile.d/conda.sh  # <- [cluster:jzzn]\nCONDA_ENV      = /public/home/wangchao/venvs/mace_cpu                     # <- [cluster:jzzn]\nMACE_MODEL_DIR = /public/home/wangchao/software/mace/mlff_models          # <- [cluster:jzzn]\nAMSET_ENV      = amset051                                                 # <- [cluster:jzzn]\nPOTCAR_DIR     = /public/home/wangchao/software/vasp_pseudopotentials     # <- [cluster:jzzn]\nREFERENCES_DIR = /public/home/wangchao/convex_hull_refs                   # <- [cluster:jzzn]\n"
+  },
+  "run": {
+    "actor": "wangchao",
+    "cwd": "/home/wangchao/software/AutoZT",
+    "argv": "/home/wangchao/software/AutoZT/bin/autozt"
+  }
+}
