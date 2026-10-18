@@ -1,0 +1,18 @@
+task_id,批次,材料,任务,依赖,产出,估算,status
+P0.1,P0,四材料,集群读 PROCAR 算带边 s 占比（DOS 加权+电导加权），只回传 CSV,无,s_projection_dense.csv,约 1 h,READY
+P1.1a,P1,Pb2Sb2Te5,amset wave（-e 选带 ±1 eV）on 28x28x7 WAVECAR,无,wavefunction.h5（约 9 GB，集群）,2-3 h,READY
+P1.1b,P1,Sn2Sb2Te5,同上,无,wavefunction.h5,2-3 h,READY
+P1.3a,P1,Pb2Sb2Te5,AMSET 试点：旧 deformation.h5 + factor 1/3 扫描，看 k-point mesh 与内存,P1.1a,试点 transport.json + 实测墙钟 + 收敛曲线,8-20 h,BLOCKED
+P1.3b,P1,Sn2Sb2Te5,同上,P1.1b,同上,8-20 h,BLOCKED
+P1.4,P1,四材料,AMSET 扩至 PbBi/SnBi（用试点定下的 factor）,P1.3a P1.3b,四材料 transport.json,试点 x2,BLOCKED
+P1.5,P1,PbSb+SnSb,ODP（有条件：密网格后 2 倍差异仍在才做；先筛 dE/du 大的模）,P1.4,dp_optical_3d.json + 分项迁移率含 ODP,4-8 h,CONDITIONAL
+P2.1,P2,Pb2Sb2Te5,受控畸变 λ=0：SOC 自洽 + 28x28 非自洽 + COGITO + BoltzTraP2,无,E(λ)、ICOHP、S、带边,2-4 h,READY
+P2.2,P2,Pb2Bi2Te5,同上,P2.1 口径,同上,2-4 h,READY
+P2.3,P2,Pb2Sb2Te5,λ=0.5 / Bonly / 约束弛豫对照,P2.1,P2.1 结果决定,2-4 h x3,DECIDE_AFTER_P2.1
+P3.1,P3,四材料,D/V/O 超胞 PROCAR 的 IPR 对比（有/无序宿主）,P0.1 的脚本,无序散射定性证据,2-4 h,READY
+P3.2,P3,Pb2Sb2Te5,D/V/O 母胞弛豫 + 12 类缺陷能量（13_ 的 B0-B4）,独立立项,形成能/分布,数百 h,NOT_IN_SCOPE
+X.1,不做,-,离网格系数验证（86466b2 已用现有数据回答）,-,-,-,DROPPED
+X.2,不做,-,m*_c 与 POP 耦合复核（14_ 已做）,-,-,-,DROPPED
+X.3,不做,-,完美晶胞 IPR（布洛赫态本离域；IPR 留给 D/V/O）,-,-,-,DROPPED
+X.4,不做,-,16x16x4 形变势（本版延后；AMSET 对形变势是插值的，旧 h5 不会卡住）,-,-,-,DEFERRED
+X.5,不做,-,EPW / 压电散射,-,-,-,REJECTED
