@@ -35,6 +35,27 @@ def mass_c(D,m,n_target,T=300.):
  sv=np.exp(np.interp(np.log(abs(n_target)),np.log(nn),np.log(ss)))
  return abs(n_target)*1e6*E**2/sv/ME
 
+def coarse_kz_check(D):
+ """How far the true dense-grid band edge lies from the best state on the kz=0 and kz=1/2 planes, the only kz values of the 12x12x2 AMSET input.
+ A two-plane kz sampling can only place extrema on those planes, so this is a lower bound on the edge error (in-plane 28x28 is kept)."""
+ sys.path.insert(0,str(Path(__file__).resolve().parent));import seebeck_mass as sm
+ out=[]
+ for m in M:
+  u=D/'A2B2Te5_SOC_dense/materials'/m/'ke-dft-cpu/result/step3_uniform'
+  nel,K,E=sm.read_eigenval(u/'EIGENVAL');mesh=np.array(json.loads((u/'dense_grid_manifest.json').read_text())['mesh']);idx=sm.grid(K,mesh)
+  for edge,b,s in (('VBM',nel-1,1),('CBM',nel,-1)):
+   G=np.empty(tuple(mesh));G[idx[:,0],idx[:,1],idx[:,2]]=E[:,b];nz=mesh[2]
+   if nz%2==0:half=G[:,:,nz//2]
+   else:
+    # Odd kz mesh has no kz=1/2 plane: trigonometric interpolation of each (kx,ky) column.
+    c=np.fft.fft(G,axis=2)/nz;half=(c*np.exp(1j*np.pi*np.fft.fftfreq(nz,1/nz))).sum(-1).real
+   true=(s*G).max();best=max((s*G[:,:,0]).max(),(s*half).max());ijk=np.unravel_index(np.argmax(s*G),G.shape)
+   out.append({'material':m,'edge':edge,'true_edge_k_frac':str(np.round(np.array(ijk)/mesh,3).tolist()),'kz_1/2_plane':'exact' if nz%2==0 else 'trig-interpolated',
+               'edge_error_meV':round(1000*(true-best),1),'edge_error_over_kT300':round((true-best)/0.025852,2)})
+ with open(D/OUT/'粗网格kz带边误差.csv','w',newline='',encoding='utf-8-sig') as f:
+  w=csv.DictWriter(f,fieldnames=list(out[0]));w.writeheader();w.writerows(out)
+ return out
+
 def main(D):
  O=D/OUT;O.mkdir(exist_ok=True)
  rows,params=[],[]
@@ -101,4 +122,6 @@ def main(D):
   if r['T_K']==300 and np.isclose(abs(r['doping_cm3']),1e19,rtol=1e-3) or (r['T_K']==300 and np.isclose(abs(r['doping_cm3']),1e20,rtol=1e-3)):
    print(r['material'],r['carrier'],f"{r['doping_cm3']:.0e}",*(f"{k}={r[f'mu_{k}_inplane']:.0f}" for k in ['overall']+MECH),f"zz/in={r['mu_overall_zz']/r['mu_overall_inplane']:.2f}")
 
-if __name__=='__main__':main(Path(sys.argv[1]).resolve())
+if __name__=='__main__':
+ main(Path(sys.argv[1]).resolve())
+ for r in coarse_kz_check(Path(sys.argv[1]).resolve()):print(r)
