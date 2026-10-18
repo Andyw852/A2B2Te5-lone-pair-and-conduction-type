@@ -1,0 +1,24 @@
+# 统一静态能：所有形成能只取 static/OUTCAR 的 energy(sigma->0)；母胞与缺陷同一组参数。
+SYSTEM  = {name} static
+GGA     = PE
+IVDW    = 12
+PREC    = Accurate
+ENCUT   = 360
+LASPH   = .TRUE.
+LREAL   = .FALSE.
+ALGO    = Normal
+EDIFF   = 1E-6
+NELM    = 200
+ISMEAR  = 0
+SIGMA   = 0.05
+ISPIN   = {ispin}
+ISYM    = 0
+IBRION  = -1
+NSW     = 0
+LORBIT  = 11
+NEDOS   = 3001
+LWAVE   = .FALSE.
+LCHARG  = .FALSE.
+NCORE   = 4
+KPAR    = 2
+{nelect}

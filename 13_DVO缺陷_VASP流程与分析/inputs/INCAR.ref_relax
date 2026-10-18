@@ -1,0 +1,23 @@
+# 化学势参考相（Pb、Sb、Te、PbTe、Sb2Te3、有序 9 原子 Pb2Sb2Te5）。与缺陷同泛函/同 ENCUT/同 D3。
+SYSTEM   = {name} reference relax
+GGA      = PE
+IVDW     = 12
+PREC     = Accurate
+ENCUT    = 360
+LASPH    = .TRUE.
+LREAL    = .FALSE.
+ALGO     = Normal
+EDIFF    = 1E-7
+NELM     = 200
+ISMEAR   = 0
+SIGMA    = 0.05
+ISPIN    = 1
+IBRION   = 2
+ISIF     = 3
+NSW      = 200
+EDIFFG   = -0.005
+KSPACING = 0.15
+KGAMMA   = .TRUE.
+LWAVE    = .FALSE.
+LCHARG   = .FALSE.
+NCORE    = 4

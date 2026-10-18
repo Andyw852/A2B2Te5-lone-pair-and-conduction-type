@@ -1,0 +1,23 @@
+# D/V/O 母胞弛豫：体积+形状+原子（文献：母胞先优化到理论密度）。PBE-D3(BJ)，无 SOC 预筛。
+SYSTEM  = {name} parent relax
+GGA     = PE
+IVDW    = 12
+PREC    = Accurate
+ENCUT   = 360
+LASPH   = .TRUE.
+LREAL   = Auto
+ALGO    = Normal
+EDIFF   = 1E-6
+NELM    = 200
+ISMEAR  = 0
+SIGMA   = 0.05
+ISPIN   = 1
+ISYM    = 0
+IBRION  = 2
+ISIF    = 3
+NSW     = 300
+EDIFFG  = -0.02
+LWAVE   = .FALSE.
+LCHARG  = .FALSE.
+NCORE   = 4
+KPAR    = 2

@@ -1,0 +1,525 @@
+{
+ "materials": {
+  "Pb2Sb2Te5": {
+   "material": "Pb2Sb2Te5",
+   "VBM_eV": 6.270955,
+   "CBM_scissored_eV": 6.336378,
+   "midgap_eV": 6.303655,
+   "gap_dft_eV": 0.21912299999999973,
+   "gap_target_eV": 0.0654,
+   "mesh": [
+    28,
+    28,
+    7
+   ],
+   "nk": 5488,
+   "valleys": {
+    "VBM": {
+     "pockets_26meV": 14,
+     "pockets_52meV": 14,
+     "pockets_100meV": 14,
+     "Nv_eff_300K": 12.01,
+     "stars": [
+      {
+       "dE_meV": 0.0,
+       "mult": 2,
+       "k_frac": [
+        0.0,
+        0.0,
+        0.1429
+       ]
+      },
+      {
+       "dE_meV": 4.7,
+       "mult": 12,
+       "k_frac": [
+        0.0,
+        0.1786,
+        0.0
+       ]
+      }
+     ]
+    },
+    "CBM": {
+     "pockets_26meV": 2,
+     "pockets_52meV": 2,
+     "pockets_100meV": 2,
+     "Nv_eff_300K": 2.0,
+     "stars": [
+      {
+       "dE_meV": 0.0,
+       "mult": 2,
+       "k_frac": [
+        0.0,
+        0.0,
+        0.1429
+       ]
+      }
+     ]
+    }
+   },
+   "neutral_point": {
+    "300": {
+     "bt2_c0_minus_midgap_meV": 23.2,
+     "grid_neutral_minus_midgap_meV": 24.9,
+     "bt2_c_at_midgap_cm3": 7.635751476125635e+18
+    },
+    "500": {
+     "bt2_c0_minus_midgap_meV": 34.9,
+     "grid_neutral_minus_midgap_meV": 36.2,
+     "bt2_c_at_midgap_cm3": 2.495356173635872e+19
+    },
+    "700": {
+     "bt2_c0_minus_midgap_meV": 42.9,
+     "grid_neutral_minus_midgap_meV": 43.4,
+     "bt2_c_at_midgap_cm3": 5.076056390885086e+19
+    }
+   },
+   "dense_procar": null
+  },
+  "Pb2Bi2Te5": {
+   "material": "Pb2Bi2Te5",
+   "VBM_eV": 5.953825,
+   "CBM_scissored_eV": 6.067865,
+   "midgap_eV": 6.010875,
+   "gap_dft_eV": 0.14344,
+   "gap_target_eV": 0.1141,
+   "mesh": [
+    28,
+    28,
+    6
+   ],
+   "nk": 4704,
+   "valleys": {
+    "VBM": {
+     "pockets_26meV": 13,
+     "pockets_52meV": 13,
+     "pockets_100meV": 13,
+     "Nv_eff_300K": 6.45,
+     "stars": [
+      {
+       "dE_meV": 0.0,
+       "mult": 1,
+       "k_frac": [
+        0.0,
+        0.0,
+        0.5
+       ]
+      },
+      {
+       "dE_meV": 20.4,
+       "mult": 12,
+       "k_frac": [
+        0.0,
+        0.1071,
+        -0.1667
+       ]
+      }
+     ]
+    },
+    "CBM": {
+     "pockets_26meV": 2,
+     "pockets_52meV": 2,
+     "pockets_100meV": 2,
+     "Nv_eff_300K": 2.0,
+     "stars": [
+      {
+       "dE_meV": 0.0,
+       "mult": 2,
+       "k_frac": [
+        0.0,
+        0.0,
+        0.3333
+       ]
+      }
+     ]
+    }
+   },
+   "neutral_point": {
+    "300": {
+     "bt2_c0_minus_midgap_meV": 14.6,
+     "grid_neutral_minus_midgap_meV": 16.4,
+     "bt2_c_at_midgap_cm3": 1.4527192062241004e+18
+    },
+    "500": {
+     "bt2_c0_minus_midgap_meV": 28.5,
+     "grid_neutral_minus_midgap_meV": 29.8,
+     "bt2_c_at_midgap_cm3": 1.0433126278709082e+19
+    },
+    "700": {
+     "bt2_c0_minus_midgap_meV": 42.9,
+     "grid_neutral_minus_midgap_meV": 43.1,
+     "bt2_c_at_midgap_cm3": 3.19347100632301e+19
+    }
+   },
+   "dense_procar": null
+  },
+  "Sn2Sb2Te5": {
+   "material": "Sn2Sb2Te5",
+   "VBM_eV": 6.782223,
+   "CBM_scissored_eV": 6.917431,
+   "midgap_eV": 6.849823,
+   "gap_dft_eV": 0.1478079999999995,
+   "gap_target_eV": 0.1352,
+   "mesh": [
+    28,
+    28,
+    7
+   ],
+   "nk": 5488,
+   "valleys": {
+    "VBM": {
+     "pockets_26meV": 18,
+     "pockets_52meV": 18,
+     "pockets_100meV": 20,
+     "Nv_eff_300K": 11.83,
+     "stars": [
+      {
+       "dE_meV": 0.0,
+       "mult": 6,
+       "k_frac": [
+        0.0,
+        0.3571,
+        0.4286
+       ]
+      },
+      {
+       "dE_meV": 19.8,
+       "mult": 12,
+       "k_frac": [
+        0.0,
+        0.2143,
+        0.1429
+       ]
+      },
+      {
+       "dE_meV": 53.4,
+       "mult": 2,
+       "k_frac": [
+        0.0,
+        0.0,
+        0.1429
+       ]
+      }
+     ]
+    },
+    "CBM": {
+     "pockets_26meV": 6,
+     "pockets_52meV": 6,
+     "pockets_100meV": 6,
+     "Nv_eff_300K": 4.87,
+     "stars": [
+      {
+       "dE_meV": 0.0,
+       "mult": 4,
+       "k_frac": [
+        0.0,
+        0.0357,
+        0.2857
+       ]
+      },
+      {
+       "dE_meV": 21.6,
+       "mult": 2,
+       "k_frac": [
+        0.0714,
+        -0.0714,
+        -0.4286
+       ]
+      }
+     ]
+    }
+   },
+   "neutral_point": {
+    "300": {
+     "bt2_c0_minus_midgap_meV": 0.1,
+     "grid_neutral_minus_midgap_meV": 3.6,
+     "bt2_c_at_midgap_cm3": 1.3189970521676352e+16
+    },
+    "500": {
+     "bt2_c0_minus_midgap_meV": 3.2,
+     "grid_neutral_minus_midgap_meV": 6.2,
+     "bt2_c_at_midgap_cm3": 1.280180000348173e+18
+    },
+    "700": {
+     "bt2_c0_minus_midgap_meV": 6.0,
+     "grid_neutral_minus_midgap_meV": 7.5,
+     "bt2_c_at_midgap_cm3": 4.847846918246009e+18
+    }
+   },
+   "dense_procar": null
+  },
+  "Sn2Bi2Te5": {
+   "material": "Sn2Bi2Te5",
+   "VBM_eV": 6.477778,
+   "CBM_scissored_eV": 6.614449,
+   "midgap_eV": 6.546078,
+   "gap_dft_eV": 0.08847100000000019,
+   "gap_target_eV": 0.1366,
+   "mesh": [
+    28,
+    28,
+    6
+   ],
+   "nk": 4704,
+   "valleys": {
+    "VBM": {
+     "pockets_26meV": 6,
+     "pockets_52meV": 12,
+     "pockets_100meV": 12,
+     "Nv_eff_300K": 7.77,
+     "stars": [
+      {
+       "dE_meV": 0.0,
+       "mult": 6,
+       "k_frac": [
+        0.0,
+        0.2143,
+        0.1667
+       ]
+      },
+      {
+       "dE_meV": 31.6,
+       "mult": 6,
+       "k_frac": [
+        0.0,
+        0.3214,
+        0.3333
+       ]
+      }
+     ]
+    },
+    "CBM": {
+     "pockets_26meV": 4,
+     "pockets_52meV": 4,
+     "pockets_100meV": 4,
+     "Nv_eff_300K": 4.0,
+     "stars": [
+      {
+       "dE_meV": 0.0,
+       "mult": 4,
+       "k_frac": [
+        0.0357,
+        -0.0357,
+        0.3333
+       ]
+      }
+     ]
+    }
+   },
+   "neutral_point": {
+    "300": {
+     "bt2_c0_minus_midgap_meV": -5.5,
+     "grid_neutral_minus_midgap_meV": -1.6,
+     "bt2_c_at_midgap_cm3": -7.357221012022847e+17
+    },
+    "500": {
+     "bt2_c0_minus_midgap_meV": 0.4,
+     "grid_neutral_minus_midgap_meV": 2.7,
+     "bt2_c_at_midgap_cm3": 2.1394014997216154e+17
+    },
+    "700": {
+     "bt2_c0_minus_midgap_meV": 11.2,
+     "grid_neutral_minus_midgap_meV": 12.1,
+     "bt2_c_at_midgap_cm3": 1.0571752450215625e+19
+    }
+   },
+   "dense_procar": null
+  }
+ },
+ "correlations_n4": {
+  "hole:A_s_50meV~m_S_CRTA_in_plane@3e+19": {
+   "n": 4,
+   "pearson": -0.446,
+   "spearman": -0.4
+  },
+  "hole:A_s_50meV~m_S_CRTA_in_plane@1e+20": {
+   "n": 4,
+   "pearson": 0.521,
+   "spearman": 0.4
+  },
+  "hole:A_s_50meV~m_DOS@3e+19": {
+   "n": 4,
+   "pearson": -0.141,
+   "spearman": 0.0
+  },
+  "hole:A_s_50meV~m_DOS@1e+20": {
+   "n": 4,
+   "pearson": -0.128,
+   "spearman": 0.0
+  },
+  "hole:A_s_50meV~absS_in_plane@3e+19": {
+   "n": 4,
+   "pearson": -0.445,
+   "spearman": -0.4
+  },
+  "hole:A_s_50meV~absS_in_plane@1e+20": {
+   "n": 4,
+   "pearson": 0.519,
+   "spearman": 0.4
+  },
+  "hole:cation_s_50meV~m_S_CRTA_in_plane@3e+19": {
+   "n": 4,
+   "pearson": -0.308,
+   "spearman": 0.2
+  },
+  "hole:cation_s_50meV~m_S_CRTA_in_plane@1e+20": {
+   "n": 4,
+   "pearson": 0.683,
+   "spearman": 0.8
+  },
+  "hole:cation_s_50meV~m_DOS@3e+19": {
+   "n": 4,
+   "pearson": 0.119,
+   "spearman": 0.4
+  },
+  "hole:cation_s_50meV~m_DOS@1e+20": {
+   "n": 4,
+   "pearson": 0.147,
+   "spearman": 0.4
+  },
+  "hole:cation_s_50meV~absS_in_plane@3e+19": {
+   "n": 4,
+   "pearson": -0.305,
+   "spearman": 0.2
+  },
+  "hole:cation_s_50meV~absS_in_plane@1e+20": {
+   "n": 4,
+   "pearson": 0.681,
+   "spearman": 0.8
+  },
+  "hole:total_s_50meV~m_S_CRTA_in_plane@3e+19": {
+   "n": 4,
+   "pearson": -0.4,
+   "spearman": 0.2
+  },
+  "hole:total_s_50meV~m_S_CRTA_in_plane@1e+20": {
+   "n": 4,
+   "pearson": 0.609,
+   "spearman": 0.8
+  },
+  "hole:total_s_50meV~m_DOS@3e+19": {
+   "n": 4,
+   "pearson": 0.156,
+   "spearman": 0.4
+  },
+  "hole:total_s_50meV~m_DOS@1e+20": {
+   "n": 4,
+   "pearson": 0.172,
+   "spearman": 0.4
+  },
+  "hole:total_s_50meV~absS_in_plane@3e+19": {
+   "n": 4,
+   "pearson": -0.398,
+   "spearman": 0.2
+  },
+  "hole:total_s_50meV~absS_in_plane@1e+20": {
+   "n": 4,
+   "pearson": 0.607,
+   "spearman": 0.8
+  },
+  "electron:A_s_50meV~m_S_CRTA_in_plane@3e+19": {
+   "n": 4,
+   "pearson": 0.994,
+   "spearman": 1.0
+  },
+  "electron:A_s_50meV~m_S_CRTA_in_plane@1e+20": {
+   "n": 4,
+   "pearson": 0.519,
+   "spearman": 0.6
+  },
+  "electron:A_s_50meV~m_DOS@3e+19": {
+   "n": 4,
+   "pearson": 0.989,
+   "spearman": 0.8
+  },
+  "electron:A_s_50meV~m_DOS@1e+20": {
+   "n": 4,
+   "pearson": 0.978,
+   "spearman": 0.8
+  },
+  "electron:A_s_50meV~absS_in_plane@3e+19": {
+   "n": 4,
+   "pearson": 0.995,
+   "spearman": 1.0
+  },
+  "electron:A_s_50meV~absS_in_plane@1e+20": {
+   "n": 4,
+   "pearson": 0.518,
+   "spearman": 0.6
+  },
+  "electron:cation_s_50meV~m_S_CRTA_in_plane@3e+19": {
+   "n": 4,
+   "pearson": 0.979,
+   "spearman": 1.0
+  },
+  "electron:cation_s_50meV~m_S_CRTA_in_plane@1e+20": {
+   "n": 4,
+   "pearson": 0.477,
+   "spearman": 0.6
+  },
+  "electron:cation_s_50meV~m_DOS@3e+19": {
+   "n": 4,
+   "pearson": 0.973,
+   "spearman": 0.8
+  },
+  "electron:cation_s_50meV~m_DOS@1e+20": {
+   "n": 4,
+   "pearson": 0.965,
+   "spearman": 0.8
+  },
+  "electron:cation_s_50meV~absS_in_plane@3e+19": {
+   "n": 4,
+   "pearson": 0.983,
+   "spearman": 1.0
+  },
+  "electron:cation_s_50meV~absS_in_plane@1e+20": {
+   "n": 4,
+   "pearson": 0.475,
+   "spearman": 0.6
+  },
+  "electron:total_s_50meV~m_S_CRTA_in_plane@3e+19": {
+   "n": 4,
+   "pearson": 0.978,
+   "spearman": 0.8
+  },
+  "electron:total_s_50meV~m_S_CRTA_in_plane@1e+20": {
+   "n": 4,
+   "pearson": 0.675,
+   "spearman": 0.8
+  },
+  "electron:total_s_50meV~m_DOS@3e+19": {
+   "n": 4,
+   "pearson": 0.982,
+   "spearman": 1.0
+  },
+  "electron:total_s_50meV~m_DOS@1e+20": {
+   "n": 4,
+   "pearson": 0.97,
+   "spearman": 1.0
+  },
+  "electron:total_s_50meV~absS_in_plane@3e+19": {
+   "n": 4,
+   "pearson": 0.974,
+   "spearman": 0.8
+  },
+  "electron:total_s_50meV~absS_in_plane@1e+20": {
+   "n": 4,
+   "pearson": 0.675,
+   "spearman": 0.8
+  }
+ },
+ "experiment": [],
+ "notes": [
+  "mu alignment: BoltzTraP2 mu_rel is measured from the scissored mid-gap (VBM + target_gap/2), not from the OUTCAR Fermi level",
+  "m_S_CRTA: SPB inversion of BoltzTraP2 S(n) with energy-independent tau (same assumption as the input); m_S_APS: tau~E^-1/2, the convention for experimental Seebeck mass",
+  "in_plane: (S_xx+S_yy)/2, the direction for layered films; scalar: trace/3 as stored in the JSON",
+  "m_DOS: parabolic mass reproducing BoltzTraP2 n(mu) at the reduced Fermi level measured from the EIGENVAL band edge (scissored CBM)",
+  "audit_grade: A/B/C grade of the same fixed-concentration point in 11_续算审计_DeepSeek (3e19 is not graded there)",
+  "minority_over_majority_grid: Fermi occupation on the raw 28x28xNz grid at the same mu; the raw grid overweights light pockets, so it is an upper-bound bipolar indicator",
+  "neutral_point: offset of c(mu)=0 from mid-gap in BoltzTraP2 and on the raw grid; a non-zero offset follows from unequal VB/CB DOS",
+  "valleys: local extrema of six edge bands on the full grid within 100 meV; Kramers partners and plateaus merged; stars grouped within 2 meV; grid-resolution energies, ring-like maxima split into grid points",
+  "s fractions (07): HSE+SOC path PROCAR inner windows (VBM-50 meV..VBM, CBM..CBM+50 meV), a different Hamiltonian and different edge k than the PBE+SOC grid; s_*_dos/sigma columns appear only when the dense PROCAR is supplied",
+  "four materials only: correlation coefficients are descriptive, not statistical evidence"
+ ]
+}

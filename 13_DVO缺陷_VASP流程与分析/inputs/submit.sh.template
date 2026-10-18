@@ -1,0 +1,33 @@
+#!/bin/bash
+#SBATCH --partition={partition}
+#SBATCH --job-name={jobname}
+#SBATCH --nodes={nodes}
+#SBATCH --ntasks-per-node={ntasks}
+#SBATCH --output=queue.out
+#SBATCH --error=queue.err
+#SBATCH --qos=regular
+# 由 dvo_workflow.py 生成：relax（不收敛则以 CONTCAR 续算，至多 {restarts} 轮）→ static。
+cd $SLURM_SUBMIT_DIR
+module purge
+module load aocc/aocc-compiler-4.1.0 aocl/4.1.0 openmpi/4.1.5-aocc
+ulimit -s unlimited
+export OMP_NUM_THREADS=1
+export OMPI_MCA_btl=^openib
+export UCX_TLS=sm,self
+VASP={vasp}
+set -e
+mkdir -p relax static
+for f in POSCAR INCAR.relax KPOINTS POTCAR; do [ -f $f ] && [ ! -f relax/$f ] && cp $f relax/; done; true
+cd relax
+[ -f INCAR ] || cp INCAR.relax INCAR
+for i in $(seq 1 {restarts}); do
+  if [ -f OUTCAR ] && grep -q "reached required accuracy" OUTCAR; then break; fi
+  if [ -s CONTCAR ]; then cp CONTCAR POSCAR; fi
+  mpirun -np $SLURM_NTASKS $VASP > vasp.out.$i 2>&1
+done
+grep -q "reached required accuracy" OUTCAR || { echo RELAX_NOT_CONVERGED > ../STATUS; exit 1; }
+cd ../static
+cp ../relax/CONTCAR POSCAR; cp ../INCAR.static INCAR; cp ../POTCAR .
+[ -f ../KPOINTS ] && cp ../KPOINTS . || true
+mpirun -np $SLURM_NTASKS $VASP > vasp.out 2>&1
+grep -q "General timing" OUTCAR && echo DONE > ../STATUS || echo STATIC_FAILED > ../STATUS
