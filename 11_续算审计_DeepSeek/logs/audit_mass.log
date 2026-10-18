@@ -1,0 +1,7 @@
+[Pb2Bi2Te5] dense gap 0.143440 eV; hole A_reliable_local_curvature; electron C_not_at_band_edge_mesh_boundary
+[Pb2Sb2Te5] dense gap 0.219123 eV; hole C_not_at_band_edge_mesh_boundary; electron C_not_at_band_edge_mesh_boundary
+[Sn2Bi2Te5] dense gap 0.088471 eV; hole C_not_at_band_edge_mesh_boundary; electron C_not_at_band_edge_mesh_boundary
+[Sn2Sb2Te5] dense gap 0.147808 eV; hole C_not_at_band_edge_mesh_boundary; electron D_invalid_curvature
+wrote /mnt/d/joint_research_project/huang/孤对电子与导电类型_综合分析_20260918/11_续算审计_DeepSeek/csv/mass_fit_recheck.csv
+wrote /mnt/d/joint_research_project/huang/孤对电子与导电类型_综合分析_20260918/11_续算审计_DeepSeek/csv/mass_fit_variants.csv
+wrote /mnt/d/joint_research_project/huang/孤对电子与导电类型_综合分析_20260918/11_续算审计_DeepSeek/csv/mass_point_diagnostics.csv

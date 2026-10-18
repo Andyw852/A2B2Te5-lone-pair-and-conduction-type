@@ -1,0 +1,16 @@
+{
+  "parent_id": "D_seed2718",
+  "family": "D",
+  "random_seed": 2718,
+  "status": "UNRELAXED_NOT_RUN",
+  "fingerprint_sha256": "4b3a72f832e1dd32886d6068b5cba70ad68979248fc43c6c0294560fa2d33123",
+  "poscar": "parents\\D_seed2718\\POSCAR",
+  "atom_count": 144,
+  "species_counts": {
+    "Pb": 32,
+    "Sb": 32,
+    "Te": 80
+  },
+  "ghost_vacancy_count": 16,
+  "minimum_periodic_pair_distance_A": 3.0999999999999988
+}

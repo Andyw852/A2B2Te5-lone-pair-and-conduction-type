@@ -1,0 +1,16 @@
+{
+  "parent_id": "V_seed2718",
+  "family": "V",
+  "random_seed": 2718,
+  "status": "UNRELAXED_NOT_RUN",
+  "fingerprint_sha256": "57be6d06529ec2b65eef17c1df29fef4de2b9c2098b99cf19a9709268514fa7e",
+  "poscar": "parents\\V_seed2718\\POSCAR",
+  "atom_count": 144,
+  "species_counts": {
+    "Pb": 32,
+    "Sb": 32,
+    "Te": 80
+  },
+  "ghost_vacancy_count": 16,
+  "minimum_periodic_pair_distance_A": 3.0999999999999988
+}

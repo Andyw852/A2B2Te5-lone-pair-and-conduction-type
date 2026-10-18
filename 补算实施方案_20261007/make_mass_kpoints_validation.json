@@ -1,0 +1,13 @@
+{
+  "validation": "PASS",
+  "checks": [
+    "skew-cell Cartesian/reciprocal conversion including 2pi",
+    "125 unique samples and centered Cartesian offsets",
+    "recover synthetic anisotropic quadratic Hessian with cross terms",
+    "positive, negative-volume, three-component POSCAR scales",
+    "CLI output parsing",
+    "existing-output protection"
+  ],
+  "max_synthetic_Hessian_error_eV_A2": 2.652100761224574e-12,
+  "note": "Synthetic geometry and energies only; no DFT calculation or material mass determined."
+}

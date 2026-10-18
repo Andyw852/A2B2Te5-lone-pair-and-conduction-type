@@ -1,0 +1,14 @@
+{
+  "status": "PASS",
+  "command": "python -m unittest -v test_effective_mass",
+  "tests_passed": 6,
+  "tests": [
+    "rotated anisotropic electron masses and reconstructed Hessian",
+    "hole mass sign and rejection of wrong electron curvature",
+    "off-center extremum gradient and stationary displacement",
+    "quartic nonparabolicity detected by inner/full window comparison",
+    "path-only rank-deficient sampling rejection",
+    "CLI shuffled CSV index mapping, missing data rejection and overwrite protection"
+  ],
+  "scope": "Synthetic mathematical and CLI validation only; no VASP run or material effective mass computed."
+}

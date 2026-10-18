@@ -1,0 +1,72 @@
+﻿category,item,value,evidence
+inventory,Pb2Bi2Te5_mesh,28x28x6 / nk=4704,step3 KPOINTS/EIGENVAL
+inventory,Pb2Bi2Te5_nelect,88,EIGENVAL/OUTCAR/POTCAR
+inventory,Pb2Bi2Te5_gap_eV,0.143500,BT2 JSON scissor.dft_gap
+inventory,Pb2Sb2Te5_mesh,28x28x7 / nk=5488,step3 KPOINTS/EIGENVAL
+inventory,Pb2Sb2Te5_nelect,68,EIGENVAL/OUTCAR/POTCAR
+inventory,Pb2Sb2Te5_gap_eV,0.219100,BT2 JSON scissor.dft_gap
+inventory,Sn2Bi2Te5_mesh,28x28x6 / nk=4704,step3 KPOINTS/EIGENVAL
+inventory,Sn2Bi2Te5_nelect,88,EIGENVAL/OUTCAR/POTCAR
+inventory,Sn2Bi2Te5_gap_eV,0.088400,BT2 JSON scissor.dft_gap
+inventory,Sn2Sb2Te5_mesh,28x28x7 / nk=5488,step3 KPOINTS/EIGENVAL
+inventory,Sn2Sb2Te5_nelect,68,EIGENVAL/OUTCAR/POTCAR
+inventory,Sn2Sb2Te5_gap_eV,0.147800,BT2 JSON scissor.dft_gap
+mass,Pb2Bi2Te5_electron_reliability,C_not_at_band_edge_mesh_boundary,independent 125-point quadratic fit
+mass,Pb2Bi2Te5_electron_extremum_on_boundary,True,energy minimum/maximum over the 5x5x5 mesh
+mass,Pb2Bi2Te5_electron_masses_me,0.8651676078187982/0.1013386008846518/0.1013202684967265,electron-energy Hessian ascending order
+mass,Pb2Bi2Te5_hole_reliability,A_reliable_local_curvature,independent 125-point quadratic fit
+mass,Pb2Bi2Te5_hole_extremum_on_boundary,False,energy minimum/maximum over the 5x5x5 mesh
+mass,Pb2Bi2Te5_hole_masses_me,0.1124296384873671/0.1124853103183816/0.1895136483004473,electron-energy Hessian ascending order
+mass,Pb2Sb2Te5_electron_reliability,C_not_at_band_edge_mesh_boundary,independent 125-point quadratic fit
+mass,Pb2Sb2Te5_electron_extremum_on_boundary,True,energy minimum/maximum over the 5x5x5 mesh
+mass,Pb2Sb2Te5_electron_masses_me,1.3032772370555328/0.1150710662603633/0.1150489986324286,electron-energy Hessian ascending order
+mass,Pb2Sb2Te5_hole_reliability,C_not_at_band_edge_mesh_boundary,independent 125-point quadratic fit
+mass,Pb2Sb2Te5_hole_extremum_on_boundary,True,energy minimum/maximum over the 5x5x5 mesh
+mass,Pb2Sb2Te5_hole_masses_me,0.1362482607194663/0.136284220646965/3.7471041673206895,electron-energy Hessian ascending order
+mass,Sn2Bi2Te5_electron_reliability,C_not_at_band_edge_mesh_boundary,independent 125-point quadratic fit
+mass,Sn2Bi2Te5_electron_extremum_on_boundary,True,energy minimum/maximum over the 5x5x5 mesh
+mass,Sn2Bi2Te5_electron_masses_me,4.546302642206473/0.2682051312208002/0.0772709736506323,electron-energy Hessian ascending order
+mass,Sn2Bi2Te5_hole_reliability,C_not_at_band_edge_mesh_boundary,independent 125-point quadratic fit
+mass,Sn2Bi2Te5_hole_extremum_on_boundary,True,energy minimum/maximum over the 5x5x5 mesh
+mass,Sn2Bi2Te5_hole_masses_me,0.0353427631228377/0.0858309956172249/2517.487014725743,electron-energy Hessian ascending order
+mass,Sn2Sb2Te5_electron_reliability,D_invalid_curvature,independent 125-point quadratic fit
+mass,Sn2Sb2Te5_electron_extremum_on_boundary,True,energy minimum/maximum over the 5x5x5 mesh
+mass,Sn2Sb2Te5_electron_masses_me,nan/0.2375022709709265/0.0478367345585705,electron-energy Hessian ascending order
+mass,Sn2Sb2Te5_hole_reliability,C_not_at_band_edge_mesh_boundary,independent 125-point quadratic fit
+mass,Sn2Sb2Te5_hole_extremum_on_boundary,True,energy minimum/maximum over the 5x5x5 mesh
+mass,Sn2Sb2Te5_hole_masses_me,0.04507804625747/0.0548986316640586/0.2449040342433672,electron-energy Hessian ascending order
+bt2,Pb2Bi2Te5_target_gap_eV,0.1141,BT2 JSON
+bt2,Pb2Bi2Te5_HSE_gap_eV,0.114062,07 HSE path
+bt2,Pb2Bi2Te5_c_at_mu0,"[1.4527192062241004e+18, 1.0433126278709082e+19, 3.19347100632301e+19]",BT2 JSON carrier_conc at mu=0
+bt2,Pb2Sb2Te5_target_gap_eV,0.0654,BT2 JSON
+bt2,Pb2Sb2Te5_HSE_gap_eV,0.065771,07 HSE path
+bt2,Pb2Sb2Te5_c_at_mu0,"[7.635751476125635e+18, 2.495356173635872e+19, 5.076056390885086e+19]",BT2 JSON carrier_conc at mu=0
+bt2,Sn2Bi2Te5_target_gap_eV,0.1366,BT2 JSON
+bt2,Sn2Bi2Te5_HSE_gap_eV,0.136395,07 HSE path
+bt2,Sn2Bi2Te5_c_at_mu0,"[-7.357221012022847e+17, 2.1394014997216154e+17, 1.0571752450215625e+19]",BT2 JSON carrier_conc at mu=0
+bt2,Sn2Sb2Te5_target_gap_eV,0.1352,BT2 JSON
+bt2,Sn2Sb2Te5_HSE_gap_eV,0.135907,07 HSE path
+bt2,Sn2Sb2Te5_c_at_mu0,"[1.3189970521676352e+16, 1.280180000348173e+18, 4.847846918246009e+18]",BT2 JSON carrier_conc at mu=0
+bt2_reliability,rows_A,32,bt2_reliable_S_sigma.csv
+bt2_reliability,rows_B,6,bt2_marginal_S_sigma.csv
+bt2_reliability,rows_C,34,bt2_unreliable_S_sigma.csv
+s_projection,Pb2Bi2Te5_VBM_50meV_below,True,states in 入选态清单.csv
+s_projection,Pb2Bi2Te5_A_site_s_pct,2.564,带边能窗统计.csv
+s_projection,Pb2Bi2Te5_total_s_pct,16.754,带边能窗统计.csv
+s_projection,Pb2Sb2Te5_VBM_50meV_below,True,states in 入选态清单.csv
+s_projection,Pb2Sb2Te5_A_site_s_pct,7.342,带边能窗统计.csv
+s_projection,Pb2Sb2Te5_total_s_pct,23.327,带边能窗统计.csv
+s_projection,Sn2Bi2Te5_VBM_50meV_below,True,states in 入选态清单.csv
+s_projection,Sn2Bi2Te5_A_site_s_pct,23.064,带边能窗统计.csv
+s_projection,Sn2Bi2Te5_total_s_pct,30.562,带边能窗统计.csv
+s_projection,Sn2Sb2Te5_VBM_50meV_below,True,states in 入选态清单.csv
+s_projection,Sn2Sb2Te5_A_site_s_pct,3.627,带边能窗统计.csv
+s_projection,Sn2Sb2Te5_total_s_pct,16.111,带边能窗统计.csv
+dvo,parents,9,manifest.json
+dvo,defects,234,manifest.json
+dvo,jobs_status,"{""NOT_RUN"": 243}",jobs.csv
+dvo,DVO_has_actual_energies,False,validation/交付核验/no energy files
+dvo,old_81atom_is_DVO,False,step1_bulk POSCAR 81 atoms
+dvo,old_72atom_is_DVO,False,zip bulk POSCAR 72 atoms
+hash,checks,28/36 match,hash_check.csv
+hash,mismatches,8,generator-version mismatches only

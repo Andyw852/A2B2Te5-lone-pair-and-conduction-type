@@ -1,0 +1,18 @@
+{
+  "source_pdf": "C:\\Users\\wangchao\\xwechat_files\\wxid_tibqshcbqiwy22_309a\\msg\\file\\2026-09\\Pb2Sb2Te5退火温度对P-N型转变的影响.pdf",
+  "sha256": "25f718242daa846d75704f3e1019ae2ca7649886ef70ce943f23086bb3a216a5",
+  "doi": "10.1002/adma.202106868",
+  "read_pages": 11,
+  "computational_pages": [
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+  ],
+  "supplementary_pdf_obtained": false,
+  "user_scope": "No experimental data; theoretical exploration only",
+  "date": "2026-10-07",
+  "DFT_executed_this_turn": false
+}

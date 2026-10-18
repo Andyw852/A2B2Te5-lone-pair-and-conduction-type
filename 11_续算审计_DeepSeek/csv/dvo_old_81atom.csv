@@ -1,0 +1,5 @@
+﻿material,path,bulk_species,bulk_counts,bulk_natoms,supercell,step4_status,step4_n_defects,is_DVO,note
+Pb2Bi2Te5,/mnt/d/tf_data/Pb2Bi2Te5/defect-dft-cpu/result,Bi Te Pb,18 45 18,81,3x3x1 (81 atoms),partial,80,False,old 81-atom AutoZT defect project; not D/V/O; partial step4; do not use as D/V/O energy
+Pb2Sb2Te5,/mnt/d/tf_data/Pb2Sb2Te5/defect-dft-cpu/result,Sb Te Pb,18 45 18,81,3x3x1 (81 atoms),partial,80,False,old 81-atom AutoZT defect project; not D/V/O; partial step4; do not use as D/V/O energy
+Sn2Bi2Te5,/mnt/d/tf_data/Sn2Bi2Te5/defect-dft-cpu/result,Bi Te Sn,18 45 18,81,3x3x1 (81 atoms),partial,80,False,old 81-atom AutoZT defect project; not D/V/O; partial step4; do not use as D/V/O energy
+Sn2Sb2Te5,/mnt/d/tf_data/Sn2Sb2Te5/defect-dft-cpu/result,Sb Te Sn,18 45 18,81,3x3x1 (81 atoms),partial,80,False,old 81-atom AutoZT defect project; not D/V/O; partial step4; do not use as D/V/O energy

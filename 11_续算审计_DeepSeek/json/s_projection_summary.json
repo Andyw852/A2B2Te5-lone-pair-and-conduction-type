@@ -1,0 +1,297 @@
+{
+  "generated_by": "audit_s_projection.py",
+  "materials": {
+    "Pb2Bi2Te5": {
+      "HSE_VBM_eV": 5.5972354,
+      "HSE_CBM_eV": 5.71129698,
+      "HSE_gap_eV": 0.11406158000000044,
+      "HSE_VBM_k": [
+        0.0,
+        0.0,
+        0.14285714
+      ],
+      "HSE_CBM_k": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "PBE_dense_VBM_eV": 5.953825,
+      "PBE_dense_CBM_eV": 6.097265,
+      "PBE_dense_gap_eV": 0.14344,
+      "PBE_dense_VBM_k": [
+        1.262379e-15,
+        1.262379e-15,
+        0.5
+      ],
+      "PBE_dense_CBM_k": [
+        1.262379e-15,
+        1.262379e-15,
+        0.3333333
+      ],
+      "edge_shift": {
+        "VBM": {
+          "hse_k": [
+            0.0,
+            0.0,
+            0.14285714
+          ],
+          "pbe_k": [
+            1.262379e-15,
+            1.262379e-15,
+            0.5
+          ],
+          "wrapped_fractional_distance": 0.35714286,
+          "delta_k": [
+            -1.262379e-15,
+            -1.262379e-15,
+            -0.35714286
+          ],
+          "hse_E_eV": 5.5972354,
+          "pbe_E_eV": 5.953825
+        },
+        "CBM": {
+          "hse_k": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pbe_k": [
+            1.262379e-15,
+            1.262379e-15,
+            0.3333333
+          ],
+          "wrapped_fractional_distance": 0.3333333,
+          "delta_k": [
+            -1.262379e-15,
+            -1.262379e-15,
+            -0.3333333
+          ],
+          "hse_E_eV": 5.71129698,
+          "pbe_E_eV": 6.097265
+        }
+      },
+      "poscar_same_as_dense": false,
+      "structure_lattice_max_abs_diff_A": 0.02442811534093714,
+      "source_procar_hash_match": true
+    },
+    "Pb2Sb2Te5": {
+      "HSE_VBM_eV": 6.24706179,
+      "HSE_CBM_eV": 6.312833124999999,
+      "HSE_gap_eV": 0.0657713349999991,
+      "HSE_VBM_k": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "HSE_CBM_k": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "PBE_dense_VBM_eV": 6.270955,
+      "PBE_dense_CBM_eV": 6.490078,
+      "PBE_dense_gap_eV": 0.21912299999999973,
+      "PBE_dense_VBM_k": [
+        1.262379e-15,
+        1.262379e-15,
+        0.1428571
+      ],
+      "PBE_dense_CBM_k": [
+        1.262379e-15,
+        1.262379e-15,
+        0.1428571
+      ],
+      "edge_shift": {
+        "VBM": {
+          "hse_k": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pbe_k": [
+            1.262379e-15,
+            1.262379e-15,
+            0.1428571
+          ],
+          "wrapped_fractional_distance": 0.1428571,
+          "delta_k": [
+            -1.262379e-15,
+            -1.262379e-15,
+            -0.1428571
+          ],
+          "hse_E_eV": 6.24706179,
+          "pbe_E_eV": 6.270955
+        },
+        "CBM": {
+          "hse_k": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pbe_k": [
+            1.262379e-15,
+            1.262379e-15,
+            0.1428571
+          ],
+          "wrapped_fractional_distance": 0.1428571,
+          "delta_k": [
+            -1.262379e-15,
+            -1.262379e-15,
+            -0.1428571
+          ],
+          "hse_E_eV": 6.312833124999999,
+          "pbe_E_eV": 6.490078
+        }
+      },
+      "poscar_same_as_dense": true,
+      "structure_lattice_max_abs_diff_A": 0.0,
+      "source_procar_hash_match": true
+    },
+    "Sn2Bi2Te5": {
+      "HSE_VBM_eV": 6.28620559,
+      "HSE_CBM_eV": 6.42260029,
+      "HSE_gap_eV": 0.1363947000000003,
+      "HSE_VBM_k": [
+        0.33333333,
+        0.0,
+        0.5
+      ],
+      "HSE_CBM_k": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "PBE_dense_VBM_eV": 6.477778,
+      "PBE_dense_CBM_eV": 6.566249,
+      "PBE_dense_gap_eV": 0.08847100000000019,
+      "PBE_dense_VBM_k": [
+        -0.2142857,
+        1.303552e-15,
+        0.1666667
+      ],
+      "PBE_dense_CBM_k": [
+        0.03571429,
+        -0.03571429,
+        0.3333333
+      ],
+      "edge_shift": {
+        "VBM": {
+          "hse_k": [
+            0.33333333,
+            0.0,
+            0.5
+          ],
+          "pbe_k": [
+            -0.2142857,
+            1.303552e-15,
+            0.1666667
+          ],
+          "wrapped_fractional_distance": 0.5619249335160622,
+          "delta_k": [
+            -0.45238097,
+            -1.303552e-15,
+            0.3333333
+          ],
+          "hse_E_eV": 6.28620559,
+          "pbe_E_eV": 6.477778
+        },
+        "CBM": {
+          "hse_k": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pbe_k": [
+            0.03571429,
+            -0.03571429,
+            0.3333333
+          ],
+          "wrapped_fractional_distance": 0.3371381169629121,
+          "delta_k": [
+            -0.03571429,
+            0.03571429,
+            -0.3333333
+          ],
+          "hse_E_eV": 6.42260029,
+          "pbe_E_eV": 6.566249
+        }
+      },
+      "poscar_same_as_dense": true,
+      "structure_lattice_max_abs_diff_A": 0.0,
+      "source_procar_hash_match": true
+    },
+    "Sn2Sb2Te5": {
+      "HSE_VBM_eV": 6.72273131,
+      "HSE_CBM_eV": 6.85863855,
+      "HSE_gap_eV": 0.13590723999999987,
+      "HSE_VBM_k": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "HSE_CBM_k": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "PBE_dense_VBM_eV": 6.782223,
+      "PBE_dense_CBM_eV": 6.930031,
+      "PBE_dense_gap_eV": 0.1478079999999995,
+      "PBE_dense_VBM_k": [
+        -0.3571429,
+        1.249001e-15,
+        0.4285714
+      ],
+      "PBE_dense_CBM_k": [
+        -0.03571429,
+        1.259409e-15,
+        0.2857143
+      ],
+      "edge_shift": {
+        "VBM": {
+          "hse_k": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pbe_k": [
+            -0.3571429,
+            1.249001e-15,
+            0.4285714
+          ],
+          "wrapped_fractional_distance": 0.5578749823377726,
+          "delta_k": [
+            0.3571429,
+            -1.249001e-15,
+            -0.4285714
+          ],
+          "hse_E_eV": 6.72273131,
+          "pbe_E_eV": 6.782223
+        },
+        "CBM": {
+          "hse_k": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pbe_k": [
+            -0.03571429,
+            1.259409e-15,
+            0.2857143
+          ],
+          "wrapped_fractional_distance": 0.2879377914319239,
+          "delta_k": [
+            0.03571429,
+            -1.259409e-15,
+            -0.2857143
+          ],
+          "hse_E_eV": 6.85863855,
+          "pbe_E_eV": 6.930031
+        }
+      },
+      "poscar_same_as_dense": true,
+      "structure_lattice_max_abs_diff_A": 0.0,
+      "source_procar_hash_match": true
+    }
+  }
+}

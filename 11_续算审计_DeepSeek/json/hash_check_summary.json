@@ -1,0 +1,297 @@
+{
+  "generated_by": "make_manifest.py",
+  "n_checks": 36,
+  "n_match": 28,
+  "n_mismatch": 8,
+  "checks": [
+    {
+      "material": "Pb2Bi2Te5",
+      "check": "bt2_step3_vasprun_sha256",
+      "expected": "691ccfce655b44224b47d3cd820aba0fbbe0a2c6da4363804a953e7b1249bf27",
+      "actual": "691ccfce655b44224b47d3cd820aba0fbbe0a2c6da4363804a953e7b1249bf27",
+      "match": true,
+      "path": "/mnt/d/joint_research_project/huang/孤对电子与导电类型_综合分析_20260918/A2B2Te5_SOC_dense/materials/Pb2Bi2Te5/ke-dft-cpu/result/step3_uniform/vasprun.xml"
+    },
+    {
+      "material": "Pb2Bi2Te5",
+      "check": "bt2_step3_KPOINTS_sha256",
+      "expected": "892399c61cb3bfaf17e83bf1873e87dab4c3c6b485a28333c0a0683029cdbb1a",
+      "actual": "892399c61cb3bfaf17e83bf1873e87dab4c3c6b485a28333c0a0683029cdbb1a",
+      "match": true,
+      "path": "/mnt/d/joint_research_project/huang/孤对电子与导电类型_综合分析_20260918/A2B2Te5_SOC_dense/materials/Pb2Bi2Te5/ke-dft-cpu/result/step3_uniform/KPOINTS"
+    },
+    {
+      "material": "Pb2Bi2Te5",
+      "check": "mass_tensor_mass_metadata.json",
+      "expected": "6b79d802d0f8643bffe6293cbe925ac1c61bfc701a4913703dc32e13caf20461",
+      "actual": "6b79d802d0f8643bffe6293cbe925ac1c61bfc701a4913703dc32e13caf20461",
+      "match": true,
+      "path": "/mnt/d/joint_research_project/huang/孤对电子与导电类型_综合分析_20260918/A2B2Te5_SOC_dense/materials/Pb2Bi2Te5/ke-dft-cpu/result/step8.2_mass/mass_metadata.json"
+    },
+    {
+      "material": "Pb2Bi2Te5",
+      "check": "mass_tensor_EIGENVAL",
+      "expected": "acefa2cadcb04d07abc0f5d3cb614f3b5f363776feb470d1597716978e72f683",
+      "actual": "acefa2cadcb04d07abc0f5d3cb614f3b5f363776feb470d1597716978e72f683",
+      "match": true,
+      "path": "/mnt/d/joint_research_project/huang/孤对电子与导电类型_综合分析_20260918/A2B2Te5_SOC_dense/materials/Pb2Bi2Te5/ke-dft-cpu/result/step8.2_mass/EIGENVAL"
+    },
+    {
+      "material": "Pb2Bi2Te5",
+      "check": "provenance_step8.1_gen_step11_boltztrap",
+      "expected": "2621fdfcfaabd627fad9b7e959d4bb3c2309bbd67b1c52e040e769df3cbb79d1",
+      "actual": "d4cd3dba10e02a27b35f1bc62622606e0504bbe8a7f884e453477e66f15fa476",
+      "match": false,
+      "path": "/mnt/d/joint_research_project/huang/孤对电子与导电类型_综合分析_20260918/A2B2Te5_SOC_dense/project_setting/templates/step8.1_boltztrap/gen_step11_boltztrap.py"
+    },
+    {
+      "material": "Pb2Bi2Te5",
+      "check": "provenance_step8.1_ke_common",
+      "expected": "1e99320690882b9d6cee24ca6b08a533e602b1baba1bc3eb7dafde29a4bfb532",
+      "actual": "3098460bb18697a0ce172f94bb157224e496c60f4dfd65c475e4d777c6e716fa",
+      "match": false,
+      "path": "/mnt/d/joint_research_project/huang/孤对电子与导电类型_综合分析_20260918/A2B2Te5_SOC_dense/project_setting/templates/step8.1_boltztrap/ke_common.py"
+    },
+    {
+      "material": "Pb2Bi2Te5",
+      "check": "provenance_step8.1_run_bt2_soc",
+      "expected": "25f8ebfd754596193e77b42d8ce98d1e5a4cc8043a37957a2e6c18c6d4cbb2be",
+      "actual": "25f8ebfd754596193e77b42d8ce98d1e5a4cc8043a37957a2e6c18c6d4cbb2be",
+      "match": true,
+      "path": "/mnt/d/joint_research_project/huang/孤对电子与导电类型_综合分析_20260918/A2B2Te5_SOC_dense/project_setting/templates/step8.1_boltztrap/run_bt2_soc.py"
+    },
+    {
+      "material": "Pb2Bi2Te5",
+      "check": "provenance_step8.3_fit_effective_mass",
+      "expected": "88b2cb09fba60538d2d0fd48f0c58df859d1d5713beecafaf9e05b28c755f548",
+      "actual": "88b2cb09fba60538d2d0fd48f0c58df859d1d5713beecafaf9e05b28c755f548",
+      "match": true,
+      "path": "/mnt/d/joint_research_project/huang/孤对电子与导电类型_综合分析_20260918/A2B2Te5_SOC_dense/project_setting/templates/step8.3_mass_fit/fit_effective_mass.py"
+    },
+    {
+      "material": "Pb2Bi2Te5",
+      "check": "provenance_step8.3_fit_mass_soc",
+      "expected": "8811489881f40baa917c9938ecd3b858dd5cc417c8284cfbd342b12d7822f80f",
+      "actual": "8811489881f40baa917c9938ecd3b858dd5cc417c8284cfbd342b12d7822f80f",
+      "match": true,
+      "path": "/mnt/d/joint_research_project/huang/孤对电子与导电类型_综合分析_20260918/A2B2Te5_SOC_dense/project_setting/templates/step8.3_mass_fit/fit_mass_soc.py"
+    },
+    {
+      "material": "Pb2Sb2Te5",
+      "check": "bt2_step3_vasprun_sha256",
+      "expected": "b221582fae938df923e48f3cdda24636831f102056b746fd016f41c79fdeeee4",
+      "actual": "b221582fae938df923e48f3cdda24636831f102056b746fd016f41c79fdeeee4",
+      "match": true,
+      "path": "/mnt/d/joint_research_project/huang/孤对电子与导电类型_综合分析_20260918/A2B2Te5_SOC_dense/materials/Pb2Sb2Te5/ke-dft-cpu/result/step3_uniform/vasprun.xml"
+    },
+    {
+      "material": "Pb2Sb2Te5",
+      "check": "bt2_step3_KPOINTS_sha256",
+      "expected": "ef6aebf6dd7d31e341aba41d9ec4ae62e981e9d056a4dd6fda068189acd3df51",
+      "actual": "ef6aebf6dd7d31e341aba41d9ec4ae62e981e9d056a4dd6fda068189acd3df51",
+      "match": true,
+      "path": "/mnt/d/joint_research_project/huang/孤对电子与导电类型_综合分析_20260918/A2B2Te5_SOC_dense/materials/Pb2Sb2Te5/ke-dft-cpu/result/step3_uniform/KPOINTS"
+    },
+    {
+      "material": "Pb2Sb2Te5",
+      "check": "mass_tensor_mass_metadata.json",
+      "expected": "d7cdfa21826474fbaddadf49ffea4ffee3b768131955d909e09749931eef379d",
+      "actual": "d7cdfa21826474fbaddadf49ffea4ffee3b768131955d909e09749931eef379d",
+      "match": true,
+      "path": "/mnt/d/joint_research_project/huang/孤对电子与导电类型_综合分析_20260918/A2B2Te5_SOC_dense/materials/Pb2Sb2Te5/ke-dft-cpu/result/step8.2_mass/mass_metadata.json"
+    },
+    {
+      "material": "Pb2Sb2Te5",
+      "check": "mass_tensor_EIGENVAL",
+      "expected": "64001c583b537d5085c7c595bf8bb005f8e41728c5e3cd38e62fc7850ef7765d",
+      "actual": "64001c583b537d5085c7c595bf8bb005f8e41728c5e3cd38e62fc7850ef7765d",
+      "match": true,
+      "path": "/mnt/d/joint_research_project/huang/孤对电子与导电类型_综合分析_20260918/A2B2Te5_SOC_dense/materials/Pb2Sb2Te5/ke-dft-cpu/result/step8.2_mass/EIGENVAL"
+    },
+    {
+      "material": "Pb2Sb2Te5",
+      "check": "provenance_step8.1_gen_step11_boltztrap",
+      "expected": "2621fdfcfaabd627fad9b7e959d4bb3c2309bbd67b1c52e040e769df3cbb79d1",
+      "actual": "d4cd3dba10e02a27b35f1bc62622606e0504bbe8a7f884e453477e66f15fa476",
+      "match": false,
+      "path": "/mnt/d/joint_research_project/huang/孤对电子与导电类型_综合分析_20260918/A2B2Te5_SOC_dense/project_setting/templates/step8.1_boltztrap/gen_step11_boltztrap.py"
+    },
+    {
+      "material": "Pb2Sb2Te5",
+      "check": "provenance_step8.1_ke_common",
+      "expected": "1e99320690882b9d6cee24ca6b08a533e602b1baba1bc3eb7dafde29a4bfb532",
+      "actual": "3098460bb18697a0ce172f94bb157224e496c60f4dfd65c475e4d777c6e716fa",
+      "match": false,
+      "path": "/mnt/d/joint_research_project/huang/孤对电子与导电类型_综合分析_20260918/A2B2Te5_SOC_dense/project_setting/templates/step8.1_boltztrap/ke_common.py"
+    },
+    {
+      "material": "Pb2Sb2Te5",
+      "check": "provenance_step8.1_run_bt2_soc",
+      "expected": "25f8ebfd754596193e77b42d8ce98d1e5a4cc8043a37957a2e6c18c6d4cbb2be",
+      "actual": "25f8ebfd754596193e77b42d8ce98d1e5a4cc8043a37957a2e6c18c6d4cbb2be",
+      "match": true,
+      "path": "/mnt/d/joint_research_project/huang/孤对电子与导电类型_综合分析_20260918/A2B2Te5_SOC_dense/project_setting/templates/step8.1_boltztrap/run_bt2_soc.py"
+    },
+    {
+      "material": "Pb2Sb2Te5",
+      "check": "provenance_step8.3_fit_effective_mass",
+      "expected": "88b2cb09fba60538d2d0fd48f0c58df859d1d5713beecafaf9e05b28c755f548",
+      "actual": "88b2cb09fba60538d2d0fd48f0c58df859d1d5713beecafaf9e05b28c755f548",
+      "match": true,
+      "path": "/mnt/d/joint_research_project/huang/孤对电子与导电类型_综合分析_20260918/A2B2Te5_SOC_dense/project_setting/templates/step8.3_mass_fit/fit_effective_mass.py"
+    },
+    {
+      "material": "Pb2Sb2Te5",
+      "check": "provenance_step8.3_fit_mass_soc",
+      "expected": "8811489881f40baa917c9938ecd3b858dd5cc417c8284cfbd342b12d7822f80f",
+      "actual": "8811489881f40baa917c9938ecd3b858dd5cc417c8284cfbd342b12d7822f80f",
+      "match": true,
+      "path": "/mnt/d/joint_research_project/huang/孤对电子与导电类型_综合分析_20260918/A2B2Te5_SOC_dense/project_setting/templates/step8.3_mass_fit/fit_mass_soc.py"
+    },
+    {
+      "material": "Sn2Bi2Te5",
+      "check": "bt2_step3_vasprun_sha256",
+      "expected": "50fb45909de52332d6ed21dc2b93cbd32660fbc1a49aea1c1d8c21fb4a371b8d",
+      "actual": "50fb45909de52332d6ed21dc2b93cbd32660fbc1a49aea1c1d8c21fb4a371b8d",
+      "match": true,
+      "path": "/mnt/d/joint_research_project/huang/孤对电子与导电类型_综合分析_20260918/A2B2Te5_SOC_dense/materials/Sn2Bi2Te5/ke-dft-cpu/result/step3_uniform/vasprun.xml"
+    },
+    {
+      "material": "Sn2Bi2Te5",
+      "check": "bt2_step3_KPOINTS_sha256",
+      "expected": "892399c61cb3bfaf17e83bf1873e87dab4c3c6b485a28333c0a0683029cdbb1a",
+      "actual": "892399c61cb3bfaf17e83bf1873e87dab4c3c6b485a28333c0a0683029cdbb1a",
+      "match": true,
+      "path": "/mnt/d/joint_research_project/huang/孤对电子与导电类型_综合分析_20260918/A2B2Te5_SOC_dense/materials/Sn2Bi2Te5/ke-dft-cpu/result/step3_uniform/KPOINTS"
+    },
+    {
+      "material": "Sn2Bi2Te5",
+      "check": "mass_tensor_mass_metadata.json",
+      "expected": "55857897eedf736623f594201c9550fba2788e69f103c6d27d80e1442f9fcd38",
+      "actual": "55857897eedf736623f594201c9550fba2788e69f103c6d27d80e1442f9fcd38",
+      "match": true,
+      "path": "/mnt/d/joint_research_project/huang/孤对电子与导电类型_综合分析_20260918/A2B2Te5_SOC_dense/materials/Sn2Bi2Te5/ke-dft-cpu/result/step8.2_mass/mass_metadata.json"
+    },
+    {
+      "material": "Sn2Bi2Te5",
+      "check": "mass_tensor_EIGENVAL",
+      "expected": "17ebd9fa6857de040f6d9044937dde47f1a844e494c6f22e146e825e56beba47",
+      "actual": "17ebd9fa6857de040f6d9044937dde47f1a844e494c6f22e146e825e56beba47",
+      "match": true,
+      "path": "/mnt/d/joint_research_project/huang/孤对电子与导电类型_综合分析_20260918/A2B2Te5_SOC_dense/materials/Sn2Bi2Te5/ke-dft-cpu/result/step8.2_mass/EIGENVAL"
+    },
+    {
+      "material": "Sn2Bi2Te5",
+      "check": "provenance_step8.1_gen_step11_boltztrap",
+      "expected": "101ae5c1eaed57f883665caca28725188b5afceb03fc5537bcfb7f9bf0aa1c45",
+      "actual": "d4cd3dba10e02a27b35f1bc62622606e0504bbe8a7f884e453477e66f15fa476",
+      "match": false,
+      "path": "/mnt/d/joint_research_project/huang/孤对电子与导电类型_综合分析_20260918/A2B2Te5_SOC_dense/project_setting/templates/step8.1_boltztrap/gen_step11_boltztrap.py"
+    },
+    {
+      "material": "Sn2Bi2Te5",
+      "check": "provenance_step8.1_ke_common",
+      "expected": "98871913a616efc3c87780a931d63f4cca50f880a4467dc6bdfcfd2c7b121311",
+      "actual": "3098460bb18697a0ce172f94bb157224e496c60f4dfd65c475e4d777c6e716fa",
+      "match": false,
+      "path": "/mnt/d/joint_research_project/huang/孤对电子与导电类型_综合分析_20260918/A2B2Te5_SOC_dense/project_setting/templates/step8.1_boltztrap/ke_common.py"
+    },
+    {
+      "material": "Sn2Bi2Te5",
+      "check": "provenance_step8.1_run_bt2_soc",
+      "expected": "25f8ebfd754596193e77b42d8ce98d1e5a4cc8043a37957a2e6c18c6d4cbb2be",
+      "actual": "25f8ebfd754596193e77b42d8ce98d1e5a4cc8043a37957a2e6c18c6d4cbb2be",
+      "match": true,
+      "path": "/mnt/d/joint_research_project/huang/孤对电子与导电类型_综合分析_20260918/A2B2Te5_SOC_dense/project_setting/templates/step8.1_boltztrap/run_bt2_soc.py"
+    },
+    {
+      "material": "Sn2Bi2Te5",
+      "check": "provenance_step8.3_fit_effective_mass",
+      "expected": "88b2cb09fba60538d2d0fd48f0c58df859d1d5713beecafaf9e05b28c755f548",
+      "actual": "88b2cb09fba60538d2d0fd48f0c58df859d1d5713beecafaf9e05b28c755f548",
+      "match": true,
+      "path": "/mnt/d/joint_research_project/huang/孤对电子与导电类型_综合分析_20260918/A2B2Te5_SOC_dense/project_setting/templates/step8.3_mass_fit/fit_effective_mass.py"
+    },
+    {
+      "material": "Sn2Bi2Te5",
+      "check": "provenance_step8.3_fit_mass_soc",
+      "expected": "8811489881f40baa917c9938ecd3b858dd5cc417c8284cfbd342b12d7822f80f",
+      "actual": "8811489881f40baa917c9938ecd3b858dd5cc417c8284cfbd342b12d7822f80f",
+      "match": true,
+      "path": "/mnt/d/joint_research_project/huang/孤对电子与导电类型_综合分析_20260918/A2B2Te5_SOC_dense/project_setting/templates/step8.3_mass_fit/fit_mass_soc.py"
+    },
+    {
+      "material": "Sn2Sb2Te5",
+      "check": "bt2_step3_vasprun_sha256",
+      "expected": "2a4ccfabc343c67a9fa2091c4b1d73e8ee3cb314996860be0468aea2831682da",
+      "actual": "2a4ccfabc343c67a9fa2091c4b1d73e8ee3cb314996860be0468aea2831682da",
+      "match": true,
+      "path": "/mnt/d/joint_research_project/huang/孤对电子与导电类型_综合分析_20260918/A2B2Te5_SOC_dense/materials/Sn2Sb2Te5/ke-dft-cpu/result/step3_uniform/vasprun.xml"
+    },
+    {
+      "material": "Sn2Sb2Te5",
+      "check": "bt2_step3_KPOINTS_sha256",
+      "expected": "ef6aebf6dd7d31e341aba41d9ec4ae62e981e9d056a4dd6fda068189acd3df51",
+      "actual": "ef6aebf6dd7d31e341aba41d9ec4ae62e981e9d056a4dd6fda068189acd3df51",
+      "match": true,
+      "path": "/mnt/d/joint_research_project/huang/孤对电子与导电类型_综合分析_20260918/A2B2Te5_SOC_dense/materials/Sn2Sb2Te5/ke-dft-cpu/result/step3_uniform/KPOINTS"
+    },
+    {
+      "material": "Sn2Sb2Te5",
+      "check": "mass_tensor_mass_metadata.json",
+      "expected": "58ef79667a3e8379da0faf9843b6487371ff5cbb9d454a67273673ae3b2d61b0",
+      "actual": "58ef79667a3e8379da0faf9843b6487371ff5cbb9d454a67273673ae3b2d61b0",
+      "match": true,
+      "path": "/mnt/d/joint_research_project/huang/孤对电子与导电类型_综合分析_20260918/A2B2Te5_SOC_dense/materials/Sn2Sb2Te5/ke-dft-cpu/result/step8.2_mass/mass_metadata.json"
+    },
+    {
+      "material": "Sn2Sb2Te5",
+      "check": "mass_tensor_EIGENVAL",
+      "expected": "465d368b11cb1ac66923240a953b82c5c6998437e45988cc5eb3f03e2c24c514",
+      "actual": "465d368b11cb1ac66923240a953b82c5c6998437e45988cc5eb3f03e2c24c514",
+      "match": true,
+      "path": "/mnt/d/joint_research_project/huang/孤对电子与导电类型_综合分析_20260918/A2B2Te5_SOC_dense/materials/Sn2Sb2Te5/ke-dft-cpu/result/step8.2_mass/EIGENVAL"
+    },
+    {
+      "material": "Sn2Sb2Te5",
+      "check": "provenance_step8.1_gen_step11_boltztrap",
+      "expected": "101ae5c1eaed57f883665caca28725188b5afceb03fc5537bcfb7f9bf0aa1c45",
+      "actual": "d4cd3dba10e02a27b35f1bc62622606e0504bbe8a7f884e453477e66f15fa476",
+      "match": false,
+      "path": "/mnt/d/joint_research_project/huang/孤对电子与导电类型_综合分析_20260918/A2B2Te5_SOC_dense/project_setting/templates/step8.1_boltztrap/gen_step11_boltztrap.py"
+    },
+    {
+      "material": "Sn2Sb2Te5",
+      "check": "provenance_step8.1_ke_common",
+      "expected": "98871913a616efc3c87780a931d63f4cca50f880a4467dc6bdfcfd2c7b121311",
+      "actual": "3098460bb18697a0ce172f94bb157224e496c60f4dfd65c475e4d777c6e716fa",
+      "match": false,
+      "path": "/mnt/d/joint_research_project/huang/孤对电子与导电类型_综合分析_20260918/A2B2Te5_SOC_dense/project_setting/templates/step8.1_boltztrap/ke_common.py"
+    },
+    {
+      "material": "Sn2Sb2Te5",
+      "check": "provenance_step8.1_run_bt2_soc",
+      "expected": "25f8ebfd754596193e77b42d8ce98d1e5a4cc8043a37957a2e6c18c6d4cbb2be",
+      "actual": "25f8ebfd754596193e77b42d8ce98d1e5a4cc8043a37957a2e6c18c6d4cbb2be",
+      "match": true,
+      "path": "/mnt/d/joint_research_project/huang/孤对电子与导电类型_综合分析_20260918/A2B2Te5_SOC_dense/project_setting/templates/step8.1_boltztrap/run_bt2_soc.py"
+    },
+    {
+      "material": "Sn2Sb2Te5",
+      "check": "provenance_step8.3_fit_effective_mass",
+      "expected": "88b2cb09fba60538d2d0fd48f0c58df859d1d5713beecafaf9e05b28c755f548",
+      "actual": "88b2cb09fba60538d2d0fd48f0c58df859d1d5713beecafaf9e05b28c755f548",
+      "match": true,
+      "path": "/mnt/d/joint_research_project/huang/孤对电子与导电类型_综合分析_20260918/A2B2Te5_SOC_dense/project_setting/templates/step8.3_mass_fit/fit_effective_mass.py"
+    },
+    {
+      "material": "Sn2Sb2Te5",
+      "check": "provenance_step8.3_fit_mass_soc",
+      "expected": "8811489881f40baa917c9938ecd3b858dd5cc417c8284cfbd342b12d7822f80f",
+      "actual": "8811489881f40baa917c9938ecd3b858dd5cc417c8284cfbd342b12d7822f80f",
+      "match": true,
+      "path": "/mnt/d/joint_research_project/huang/孤对电子与导电类型_综合分析_20260918/A2B2Te5_SOC_dense/project_setting/templates/step8.3_mass_fit/fit_mass_soc.py"
+    }
+  ],
+  "note": "step3 vasprun hashes were computed once into logs/step3_vasprun_sha256.txt; all four match the BT2 JSON."
+}

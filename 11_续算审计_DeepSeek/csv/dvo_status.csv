@@ -1,0 +1,9 @@
+﻿item,count,status,evidence,completed,has_energy
+DVO_parent_geometries,9,geometry_only,parents/*/POSCAR exist; no parent CONTCAR/OUTCAR,True,False
+DVO_defect_geometries,234,geometry_only,defects/*/*/POSCAR + defect.json; no OUTCAR/vasprun,True,False
+DVO_jobs,243,"{""NOT_RUN"": 243}",jobs.csv; all rows NOT_RUN,False,False
+DVO_DFT_calculations,0,0,validation.json df_t_calculations_performed=0; 交付核验 new_DFT_executed=false,False,False
+DVO_energy_files,0,none,no OUTCAR/vasprun/OSZICAR/CONTCAR/.h5/energy files anywhere in package,False,False
+DVO_actual_material_energies,0,absent,交付核验 actual_new_material_masses_or_defect_energies_available=false,False,False
+DVO_validation,243,PASS_GEOMETRY_AND_BOOKKEEPING_ONLY,geometry/bookkeeping only; df_t_calculations_performed=0,True,False
+DVO_independent_audit,243,PASS_INDEPENDENT_GEOMETRY_AND_SOFTWARE_AUDIT,"No physical relaxation, energies, stability, or electronic predictions verified.",True,False

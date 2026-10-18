@@ -1,0 +1,9 @@
+﻿material,carrier,n_points,n_selected_is_edge_band,selected_band_is_edge_band_all_points,edge_band_ids_1based,degenerate_partner_gap_min_eV,degenerate_partner_gap_max_eV,n_points_with_other_band_within_50meV,near_band_examples
+Pb2Bi2Te5,electron,125,125,True,[89],0.0,1.000000000139778e-06,0,[]
+Pb2Bi2Te5,hole,125,125,True,[88],0.0,1.000000000139778e-06,0,[]
+Pb2Sb2Te5,electron,125,125,True,[69],0.0,1.000000000139778e-06,0,[]
+Pb2Sb2Te5,hole,125,125,True,[68],0.0,1.000000000139778e-06,0,[]
+Sn2Bi2Te5,electron,125,125,True,[89],0.0,1.000000000139778e-06,0,[]
+Sn2Bi2Te5,hole,125,125,True,[88],0.0,1.000000000139778e-06,0,[]
+Sn2Sb2Te5,electron,125,125,True,[69],0.0,0.0,0,[]
+Sn2Sb2Te5,hole,125,125,True,[68],0.0,0.0,0,[]

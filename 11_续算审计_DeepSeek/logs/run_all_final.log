@@ -1,0 +1,42 @@
+inventory rows: 4
+Pb2Bi2Te5 natoms 9 mesh 28x28x6 nelect 88 mass_hash_ok True gen_match {"step3_gen_dense_soc": true, "step8.1_gen_step11_boltztrap": false, "step8.1_ke_common": false, "step8.1_run_bt2_soc": true, "step8.3_fit_effective_mass": true, "step8.3_fit_mass_soc": true}
+Pb2Sb2Te5 natoms 9 mesh 28x28x7 nelect 68 mass_hash_ok True gen_match {"step3_gen_dense_soc": true, "step8.1_gen_step11_boltztrap": false, "step8.1_ke_common": false, "step8.1_run_bt2_soc": true, "step8.3_fit_effective_mass": true, "step8.3_fit_mass_soc": true}
+Sn2Bi2Te5 natoms 9 mesh 28x28x6 nelect 88 mass_hash_ok True gen_match {"step3_gen_dense_soc": true, "step8.1_gen_step11_boltztrap": false, "step8.1_ke_common": false, "step8.1_run_bt2_soc": true, "step8.3_fit_effective_mass": true, "step8.3_fit_mass_soc": true}
+Sn2Sb2Te5 natoms 9 mesh 28x28x7 nelect 68 mass_hash_ok True gen_match {"step3_gen_dense_soc": true, "step8.1_gen_step11_boltztrap": false, "step8.1_ke_common": false, "step8.1_run_bt2_soc": true, "step8.3_fit_effective_mass": true, "step8.3_fit_mass_soc": true}
+[Pb2Bi2Te5] dense gap 0.143440 eV; hole A_reliable_local_curvature; electron C_not_at_band_edge_mesh_boundary
+[Pb2Sb2Te5] dense gap 0.219123 eV; hole C_not_at_band_edge_mesh_boundary; electron C_not_at_band_edge_mesh_boundary
+[Sn2Bi2Te5] dense gap 0.088471 eV; hole C_not_at_band_edge_mesh_boundary; electron C_not_at_band_edge_mesh_boundary
+[Sn2Sb2Te5] dense gap 0.147808 eV; hole C_not_at_band_edge_mesh_boundary; electron D_invalid_curvature
+wrote /mnt/d/joint_research_project/huang/孤对电子与导电类型_综合分析_20260918/11_续算审计_DeepSeek/csv/mass_fit_recheck.csv
+wrote /mnt/d/joint_research_project/huang/孤对电子与导电类型_综合分析_20260918/11_续算审计_DeepSeek/csv/mass_fit_variants.csv
+wrote /mnt/d/joint_research_project/huang/孤对电子与导电类型_综合分析_20260918/11_续算审计_DeepSeek/csv/mass_point_diagnostics.csv
+[Pb2Bi2Te5] HSE gap 0.114062 eV; PBE dense gap 0.143440 eV; POSCAR same=False
+[Pb2Sb2Te5] HSE gap 0.065771 eV; PBE dense gap 0.219123 eV; POSCAR same=True
+[Sn2Bi2Te5] HSE gap 0.136395 eV; PBE dense gap 0.088471 eV; POSCAR same=True
+[Sn2Sb2Te5] HSE gap 0.135907 eV; PBE dense gap 0.147808 eV; POSCAR same=True
+wrote /mnt/d/joint_research_project/huang/孤对电子与导电类型_综合分析_20260918/11_续算审计_DeepSeek/csv/s_projection_audit.csv
+wrote /mnt/d/joint_research_project/huang/孤对电子与导电类型_综合分析_20260918/11_续算审计_DeepSeek/csv/s_projection_source_check.csv
+[Pb2Bi2Te5] T=[300.0, 500.0, 700.0] dmu=0.00802 monotonic=True sign_ok=True target=0.1141 HSE=0.1141
+[Pb2Sb2Te5] T=[300.0, 500.0, 700.0] dmu=0.00802 monotonic=True sign_ok=True target=0.0654 HSE=0.0658
+[Sn2Bi2Te5] T=[300.0, 500.0, 700.0] dmu=0.00802 monotonic=True sign_ok=True target=0.1366 HSE=0.1364
+[Sn2Sb2Te5] T=[300.0, 500.0, 700.0] dmu=0.00802 monotonic=True sign_ok=True target=0.1352 HSE=0.1359
+wrote /mnt/d/joint_research_project/huang/孤对电子与导电类型_综合分析_20260918/11_续算审计_DeepSeek/csv/bt2_interpolated_S_sigma.csv
+reliability counts: {'A_single_carrier_like': 32, 'C_bipolar_or_sign_unreliable': 34, 'B_marginal': 6}
+DVO parents/defects/jobs: 9 234 243
+jobs status: {'NOT_RUN': 243}
+energy-like files: 0
+old 81-atom: [('Pb2Bi2Te5', 81, 'partial'), ('Pb2Sb2Te5', 81, 'partial'), ('Sn2Bi2Te5', 81, 'partial'), ('Sn2Sb2Te5', 81, 'partial')]
+old 72-atom: [('Pb2Bi2Te5', 72, 'done'), ('Pb2Sb2Te5', 72, 'done'), ('Sn2Bi2Te5', 72, 'done'), ('Sn2Sb2Te5', 72, 'done')]
+wrote /mnt/d/joint_research_project/huang/孤对电子与导电类型_综合分析_20260918/11_续算审计_DeepSeek/csv/dvo_status.csv
+wrote /mnt/d/joint_research_project/huang/孤对电子与导电类型_综合分析_20260918/11_续算审计_DeepSeek/csv/key_results_summary.csv rows 71
+hash checks: 36 match 28 mismatch 8
+audit output files hashed: 51
+MISMATCH Pb2Bi2Te5 provenance_step8.1_gen_step11_boltztrap 2621fdfcfaabd627fad9b7e959d4bb3c2309bbd67b1c52e040e769df3cbb79d1 d4cd3dba10e02a27b35f1bc62622606e0504bbe8a7f884e453477e66f15fa476
+MISMATCH Pb2Bi2Te5 provenance_step8.1_ke_common 1e99320690882b9d6cee24ca6b08a533e602b1baba1bc3eb7dafde29a4bfb532 3098460bb18697a0ce172f94bb157224e496c60f4dfd65c475e4d777c6e716fa
+MISMATCH Pb2Sb2Te5 provenance_step8.1_gen_step11_boltztrap 2621fdfcfaabd627fad9b7e959d4bb3c2309bbd67b1c52e040e769df3cbb79d1 d4cd3dba10e02a27b35f1bc62622606e0504bbe8a7f884e453477e66f15fa476
+MISMATCH Pb2Sb2Te5 provenance_step8.1_ke_common 1e99320690882b9d6cee24ca6b08a533e602b1baba1bc3eb7dafde29a4bfb532 3098460bb18697a0ce172f94bb157224e496c60f4dfd65c475e4d777c6e716fa
+MISMATCH Sn2Bi2Te5 provenance_step8.1_gen_step11_boltztrap 101ae5c1eaed57f883665caca28725188b5afceb03fc5537bcfb7f9bf0aa1c45 d4cd3dba10e02a27b35f1bc62622606e0504bbe8a7f884e453477e66f15fa476
+MISMATCH Sn2Bi2Te5 provenance_step8.1_ke_common 98871913a616efc3c87780a931d63f4cca50f880a4467dc6bdfcfd2c7b121311 3098460bb18697a0ce172f94bb157224e496c60f4dfd65c475e4d777c6e716fa
+MISMATCH Sn2Sb2Te5 provenance_step8.1_gen_step11_boltztrap 101ae5c1eaed57f883665caca28725188b5afceb03fc5537bcfb7f9bf0aa1c45 d4cd3dba10e02a27b35f1bc62622606e0504bbe8a7f884e453477e66f15fa476
+MISMATCH Sn2Sb2Te5 provenance_step8.1_ke_common 98871913a616efc3c87780a931d63f4cca50f880a4467dc6bdfcfd2c7b121311 3098460bb18697a0ce172f94bb157224e496c60f4dfd65c475e4d777c6e716fa
+[DONE] audit outputs in /mnt/d/joint_research_project/huang/孤对电子与导电类型_综合分析_20260918/11_续算审计_DeepSeek

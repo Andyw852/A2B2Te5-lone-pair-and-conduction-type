@@ -1,0 +1,3863 @@
+{
+  "status": "UNRELAXED_NOT_RUN",
+  "parent_id": "D_seed161803",
+  "lattice_vectors_A_rows": [
+    [
+      12.4,
+      -12.4,
+      0.0
+    ],
+    [
+      0.0,
+      12.4,
+      -12.4
+    ],
+    [
+      12.4,
+      9.3,
+      9.3
+    ]
+  ],
+  "sites": [
+    {
+      "site_id": "C_q00_0_0_0",
+      "sublattice": "cation",
+      "q_times_2_mod_10": 0,
+      "base_plane_index": 0,
+      "replica": [
+        0,
+        0,
+        0
+      ],
+      "fractional_coordinates": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "cartesian_coordinates_A": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "occupancy": "Vac",
+      "poscar_atom_index_1based": null,
+      "is_structural_ghost_vacancy": true
+    },
+    {
+      "site_id": "C_q00_0_1_0",
+      "sublattice": "cation",
+      "q_times_2_mod_10": 0,
+      "base_plane_index": 0,
+      "replica": [
+        0,
+        1,
+        0
+      ],
+      "fractional_coordinates": [
+        0.0,
+        0.25,
+        0.0
+      ],
+      "cartesian_coordinates_A": [
+        0.0,
+        3.1,
+        -3.1
+      ],
+      "occupancy": "Sb",
+      "poscar_atom_index_1based": 33,
+      "is_structural_ghost_vacancy": false
+    },
+    {
+      "site_id": "C_q00_0_2_0",
+      "sublattice": "cation",
+      "q_times_2_mod_10": 0,
+      "base_plane_index": 0,
+      "replica": [
+        0,
+        2,
+        0
+      ],
+      "fractional_coordinates": [
+        0.0,
+        0.5,
+        0.0
+      ],
+      "cartesian_coordinates_A": [
+        0.0,
+        6.2,
+        -6.2
+      ],
+      "occupancy": "Pb",
+      "poscar_atom_index_1based": 1,
+      "is_structural_ghost_vacancy": false
+    },
+    {
+      "site_id": "C_q00_0_3_0",
+      "sublattice": "cation",
+      "q_times_2_mod_10": 0,
+      "base_plane_index": 0,
+      "replica": [
+        0,
+        3,
+        0
+      ],
+      "fractional_coordinates": [
+        0.0,
+        0.75,
+        0.0
+      ],
+      "cartesian_coordinates_A": [
+        0.0,
+        9.3,
+        -9.3
+      ],
+      "occupancy": "Pb",
+      "poscar_atom_index_1based": 2,
+      "is_structural_ghost_vacancy": false
+    },
+    {
+      "site_id": "C_q00_1_0_0",
+      "sublattice": "cation",
+      "q_times_2_mod_10": 0,
+      "base_plane_index": 0,
+      "replica": [
+        1,
+        0,
+        0
+      ],
+      "fractional_coordinates": [
+        0.25,
+        0.0,
+        0.0
+      ],
+      "cartesian_coordinates_A": [
+        3.1,
+        -3.1,
+        0.0
+      ],
+      "occupancy": "Sb",
+      "poscar_atom_index_1based": 34,
+      "is_structural_ghost_vacancy": false
+    },
+    {
+      "site_id": "C_q00_1_1_0",
+      "sublattice": "cation",
+      "q_times_2_mod_10": 0,
+      "base_plane_index": 0,
+      "replica": [
+        1,
+        1,
+        0
+      ],
+      "fractional_coordinates": [
+        0.25,
+        0.25,
+        0.0
+      ],
+      "cartesian_coordinates_A": [
+        3.1,
+        0.0,
+        -3.1
+      ],
+      "occupancy": "Sb",
+      "poscar_atom_index_1based": 35,
+      "is_structural_ghost_vacancy": false
+    },
+    {
+      "site_id": "C_q00_1_2_0",
+      "sublattice": "cation",
+      "q_times_2_mod_10": 0,
+      "base_plane_index": 0,
+      "replica": [
+        1,
+        2,
+        0
+      ],
+      "fractional_coordinates": [
+        0.25,
+        0.5,
+        0.0
+      ],
+      "cartesian_coordinates_A": [
+        3.1,
+        3.1,
+        -6.2
+      ],
+      "occupancy": "Sb",
+      "poscar_atom_index_1based": 36,
+      "is_structural_ghost_vacancy": false
+    },
+    {
+      "site_id": "C_q00_1_3_0",
+      "sublattice": "cation",
+      "q_times_2_mod_10": 0,
+      "base_plane_index": 0,
+      "replica": [
+        1,
+        3,
+        0
+      ],
+      "fractional_coordinates": [
+        0.25,
+        0.75,
+        0.0
+      ],
+      "cartesian_coordinates_A": [
+        3.1,
+        6.200000000000001,
+        -9.3
+      ],
+      "occupancy": "Pb",
+      "poscar_atom_index_1based": 3,
+      "is_structural_ghost_vacancy": false
+    },
+    {
+      "site_id": "C_q00_2_0_0",
+      "sublattice": "cation",
+      "q_times_2_mod_10": 0,
+      "base_plane_index": 0,
+      "replica": [
+        2,
+        0,
+        0
+      ],
+      "fractional_coordinates": [
+        0.5,
+        0.0,
+        0.0
+      ],
+      "cartesian_coordinates_A": [
+        6.2,
+        -6.2,
+        0.0
+      ],
+      "occupancy": "Sb",
+      "poscar_atom_index_1based": 37,
+      "is_structural_ghost_vacancy": false
+    },
+    {
+      "site_id": "C_q00_2_1_0",
+      "sublattice": "cation",
+      "q_times_2_mod_10": 0,
+      "base_plane_index": 0,
+      "replica": [
+        2,
+        1,
+        0
+      ],
+      "fractional_coordinates": [
+        0.5,
+        0.25,
+        0.0
+      ],
+      "cartesian_coordinates_A": [
+        6.2,
+        -3.1,
+        -3.1
+      ],
+      "occupancy": "Pb",
+      "poscar_atom_index_1based": 4,
+      "is_structural_ghost_vacancy": false
+    },
+    {
+      "site_id": "C_q00_2_2_0",
+      "sublattice": "cation",
+      "q_times_2_mod_10": 0,
+      "base_plane_index": 0,
+      "replica": [
+        2,
+        2,
+        0
+      ],
+      "fractional_coordinates": [
+        0.5,
+        0.5,
+        0.0
+      ],
+      "cartesian_coordinates_A": [
+        6.2,
+        0.0,
+        -6.2
+      ],
+      "occupancy": "Pb",
+      "poscar_atom_index_1based": 5,
+      "is_structural_ghost_vacancy": false
+    },
+    {
+      "site_id": "C_q00_2_3_0",
+      "sublattice": "cation",
+      "q_times_2_mod_10": 0,
+      "base_plane_index": 0,
+      "replica": [
+        2,
+        3,
+        0
+      ],
+      "fractional_coordinates": [
+        0.5,
+        0.75,
+        0.0
+      ],
+      "cartesian_coordinates_A": [
+        6.2,
+        3.1000000000000005,
+        -9.3
+      ],
+      "occupancy": "Sb",
+      "poscar_atom_index_1based": 38,
+      "is_structural_ghost_vacancy": false
+    },
+    {
+      "site_id": "C_q00_3_0_0",
+      "sublattice": "cation",
+      "q_times_2_mod_10": 0,
+      "base_plane_index": 0,
+      "replica": [
+        3,
+        0,
+        0
+      ],
+      "fractional_coordinates": [
+        0.75,
+        0.0,
+        0.0
+      ],
+      "cartesian_coordinates_A": [
+        9.3,
+        -9.3,
+        0.0
+      ],
+      "occupancy": "Sb",
+      "poscar_atom_index_1based": 39,
+      "is_structural_ghost_vacancy": false
+    },
+    {
+      "site_id": "C_q00_3_1_0",
+      "sublattice": "cation",
+      "q_times_2_mod_10": 0,
+      "base_plane_index": 0,
+      "replica": [
+        3,
+        1,
+        0
+      ],
+      "fractional_coordinates": [
+        0.75,
+        0.25,
+        0.0
+      ],
+      "cartesian_coordinates_A": [
+        9.3,
+        -6.200000000000001,
+        -3.1
+      ],
+      "occupancy": "Pb",
+      "poscar_atom_index_1based": 6,
+      "is_structural_ghost_vacancy": false
+    },
+    {
+      "site_id": "C_q00_3_2_0",
+      "sublattice": "cation",
+      "q_times_2_mod_10": 0,
+      "base_plane_index": 0,
+      "replica": [
+        3,
+        2,
+        0
+      ],
+      "fractional_coordinates": [
+        0.75,
+        0.5,
+        0.0
+      ],
+      "cartesian_coordinates_A": [
+        9.3,
+        -3.1000000000000005,
+        -6.2
+      ],
+      "occupancy": "Vac",
+      "poscar_atom_index_1based": null,
+      "is_structural_ghost_vacancy": true
+    },
+    {
+      "site_id": "C_q00_3_3_0",
+      "sublattice": "cation",
+      "q_times_2_mod_10": 0,
+      "base_plane_index": 0,
+      "replica": [
+        3,
+        3,
+        0
+      ],
+      "fractional_coordinates": [
+        0.75,
+        0.75,
+        0.0
+      ],
+      "cartesian_coordinates_A": [
+        9.3,
+        0.0,
+        -9.3
+      ],
+      "occupancy": "Sb",
+      "poscar_atom_index_1based": 40,
+      "is_structural_ghost_vacancy": false
+    },
+    {
+      "site_id": "C_q02_0_0_0",
+      "sublattice": "cation",
+      "q_times_2_mod_10": 2,
+      "base_plane_index": 1,
+      "replica": [
+        0,
+        0,
+        0
+      ],
+      "fractional_coordinates": [
+        0.05,
+        0.15,
+        0.2
+      ],
+      "cartesian_coordinates_A": [
+        3.0999999999999996,
+        3.0999999999999996,
+        4.440892098500626e-16
+      ],
+      "occupancy": "Pb",
+      "poscar_atom_index_1based": 7,
+      "is_structural_ghost_vacancy": false
+    },
+    {
+      "site_id": "C_q02_0_1_0",
+      "sublattice": "cation",
+      "q_times_2_mod_10": 2,
+      "base_plane_index": 1,
+      "replica": [
+        0,
+        1,
+        0
+      ],
+      "fractional_coordinates": [
+        0.05,
+        0.4,
+        0.2
+      ],
+      "cartesian_coordinates_A": [
+        3.0999999999999996,
+        6.2,
+        -3.0999999999999996
+      ],
+      "occupancy": "Sb",
+      "poscar_atom_index_1based": 41,
+      "is_structural_ghost_vacancy": false
+    },
+    {
+      "site_id": "C_q02_0_2_0",
+      "sublattice": "cation",
+      "q_times_2_mod_10": 2,
+      "base_plane_index": 1,
+      "replica": [
+        0,
+        2,
+        0
+      ],
+      "fractional_coordinates": [
+        0.05,
+        0.65,
+        0.2
+      ],
+      "cartesian_coordinates_A": [
+        3.0999999999999996,
+        9.299999999999999,
+        -6.199999999999998
+      ],
+      "occupancy": "Pb",
+      "poscar_atom_index_1based": 8,
+      "is_structural_ghost_vacancy": false
+    },
+    {
+      "site_id": "C_q02_0_3_0",
+      "sublattice": "cation",
+      "q_times_2_mod_10": 2,
+      "base_plane_index": 1,
+      "replica": [
+        0,
+        3,
+        0
+      ],
+      "fractional_coordinates": [
+        0.05,
+        0.9,
+        0.2
+      ],
+      "cartesian_coordinates_A": [
+        3.0999999999999996,
+        12.399999999999999,
+        -9.299999999999999
+      ],
+      "occupancy": "Sb",
+      "poscar_atom_index_1based": 42,
+      "is_structural_ghost_vacancy": false
+    },
+    {
+      "site_id": "C_q02_1_0_0",
+      "sublattice": "cation",
+      "q_times_2_mod_10": 2,
+      "base_plane_index": 1,
+      "replica": [
+        1,
+        0,
+        0
+      ],
+      "fractional_coordinates": [
+        0.3,
+        0.15,
+        0.2
+      ],
+      "cartesian_coordinates_A": [
+        6.199999999999999,
+        0.0,
+        4.440892098500626e-16
+      ],
+      "occupancy": "Vac",
+      "poscar_atom_index_1based": null,
+      "is_structural_ghost_vacancy": true
+    },
+    {
+      "site_id": "C_q02_1_1_0",
+      "sublattice": "cation",
+      "q_times_2_mod_10": 2,
+      "base_plane_index": 1,
+      "replica": [
+        1,
+        1,
+        0
+      ],
+      "fractional_coordinates": [
+        0.3,
+        0.4,
+        0.2
+      ],
+      "cartesian_coordinates_A": [
+        6.199999999999999,
+        3.1000000000000005,
+        -3.0999999999999996
+      ],
+      "occupancy": "Sb",
+      "poscar_atom_index_1based": 43,
+      "is_structural_ghost_vacancy": false
+    },
+    {
+      "site_id": "C_q02_1_2_0",
+      "sublattice": "cation",
+      "q_times_2_mod_10": 2,
+      "base_plane_index": 1,
+      "replica": [
+        1,
+        2,
+        0
+      ],
+      "fractional_coordinates": [
+        0.3,
+        0.65,
+        0.2
+      ],
+      "cartesian_coordinates_A": [
+        6.199999999999999,
+        6.199999999999999,
+        -6.199999999999998
+      ],
+      "occupancy": "Pb",
+      "poscar_atom_index_1based": 9,
+      "is_structural_ghost_vacancy": false
+    },
+    {
+      "site_id": "C_q02_1_3_0",
+      "sublattice": "cation",
+      "q_times_2_mod_10": 2,
+      "base_plane_index": 1,
+      "replica": [
+        1,
+        3,
+        0
+      ],
+      "fractional_coordinates": [
+        0.3,
+        0.9,
+        0.2
+      ],
+      "cartesian_coordinates_A": [
+        6.199999999999999,
+        9.299999999999999,
+        -9.299999999999999
+      ],
+      "occupancy": "Pb",
+      "poscar_atom_index_1based": 10,
+      "is_structural_ghost_vacancy": false
+    },
+    {
+      "site_id": "C_q02_2_0_0",
+      "sublattice": "cation",
+      "q_times_2_mod_10": 2,
+      "base_plane_index": 1,
+      "replica": [
+        2,
+        0,
+        0
+      ],
+      "fractional_coordinates": [
+        0.55,
+        0.15,
+        0.2
+      ],
+      "cartesian_coordinates_A": [
+        9.3,
+        -3.1000000000000014,
+        4.440892098500626e-16
+      ],
+      "occupancy": "Pb",
+      "poscar_atom_index_1based": 11,
+      "is_structural_ghost_vacancy": false
+    },
+    {
+      "site_id": "C_q02_2_1_0",
+      "sublattice": "cation",
+      "q_times_2_mod_10": 2,
+      "base_plane_index": 1,
+      "replica": [
+        2,
+        1,
+        0
+      ],
+      "fractional_coordinates": [
+        0.55,
+        0.4,
+        0.2
+      ],
+      "cartesian_coordinates_A": [
+        9.3,
+        -1.1102230246251565e-15,
+        -3.0999999999999996
+      ],
+      "occupancy": "Sb",
+      "poscar_atom_index_1based": 44,
+      "is_structural_ghost_vacancy": false
+    },
+    {
+      "site_id": "C_q02_2_2_0",
+      "sublattice": "cation",
+      "q_times_2_mod_10": 2,
+      "base_plane_index": 1,
+      "replica": [
+        2,
+        2,
+        0
+      ],
+      "fractional_coordinates": [
+        0.55,
+        0.65,
+        0.2
+      ],
+      "cartesian_coordinates_A": [
+        9.3,
+        3.099999999999998,
+        -6.199999999999998
+      ],
+      "occupancy": "Pb",
+      "poscar_atom_index_1based": 12,
+      "is_structural_ghost_vacancy": false
+    },
+    {
+      "site_id": "C_q02_2_3_0",
+      "sublattice": "cation",
+      "q_times_2_mod_10": 2,
+      "base_plane_index": 1,
+      "replica": [
+        2,
+        3,
+        0
+      ],
+      "fractional_coordinates": [
+        0.55,
+        0.9,
+        0.2
+      ],
+      "cartesian_coordinates_A": [
+        9.3,
+        6.1999999999999975,
+        -9.299999999999999
+      ],
+      "occupancy": "Sb",
+      "poscar_atom_index_1based": 45,
+      "is_structural_ghost_vacancy": false
+    },
+    {
+      "site_id": "C_q02_3_0_0",
+      "sublattice": "cation",
+      "q_times_2_mod_10": 2,
+      "base_plane_index": 1,
+      "replica": [
+        3,
+        0,
+        0
+      ],
+      "fractional_coordinates": [
+        0.8,
+        0.15,
+        0.2
+      ],
+      "cartesian_coordinates_A": [
+        12.400000000000002,
+        -6.200000000000002,
+        4.440892098500626e-16
+      ],
+      "occupancy": "Pb",
+      "poscar_atom_index_1based": 13,
+      "is_structural_ghost_vacancy": false
+    },
+    {
+      "site_id": "C_q02_3_1_0",
+      "sublattice": "cation",
+      "q_times_2_mod_10": 2,
+      "base_plane_index": 1,
+      "replica": [
+        3,
+        1,
+        0
+      ],
+      "fractional_coordinates": [
+        0.8,
+        0.4,
+        0.2
+      ],
+      "cartesian_coordinates_A": [
+        12.400000000000002,
+        -3.1000000000000014,
+        -3.0999999999999996
+      ],
+      "occupancy": "Pb",
+      "poscar_atom_index_1based": 14,
+      "is_structural_ghost_vacancy": false
+    },
+    {
+      "site_id": "C_q02_3_2_0",
+      "sublattice": "cation",
+      "q_times_2_mod_10": 2,
+      "base_plane_index": 1,
+      "replica": [
+        3,
+        2,
+        0
+      ],
+      "fractional_coordinates": [
+        0.8,
+        0.65,
+        0.2
+      ],
+      "cartesian_coordinates_A": [
+        12.400000000000002,
+        -2.886579864025407e-15,
+        -6.199999999999998
+      ],
+      "occupancy": "Sb",
+      "poscar_atom_index_1based": 46,
+      "is_structural_ghost_vacancy": false
+    },
+    {
+      "site_id": "C_q02_3_3_0",
+      "sublattice": "cation",
+      "q_times_2_mod_10": 2,
+      "base_plane_index": 1,
+      "replica": [
+        3,
+        3,
+        0
+      ],
+      "fractional_coordinates": [
+        0.8,
+        0.9,
+        0.2
+      ],
+      "cartesian_coordinates_A": [
+        12.400000000000002,
+        3.099999999999997,
+        -9.299999999999999
+      ],
+      "occupancy": "Sb",
+      "poscar_atom_index_1based": 47,
+      "is_structural_ghost_vacancy": false
+    },
+    {
+      "site_id": "C_q04_0_0_0",
+      "sublattice": "cation",
+      "q_times_2_mod_10": 4,
+      "base_plane_index": 2,
+      "replica": [
+        0,
+        0,
+        0
+      ],
+      "fractional_coordinates": [
+        0.1,
+        0.05,
+        0.4
+      ],
+      "cartesian_coordinates_A": [
+        6.199999999999999,
+        3.0999999999999996,
+        3.100000000000001
+      ],
+      "occupancy": "Sb",
+      "poscar_atom_index_1based": 48,
+      "is_structural_ghost_vacancy": false
+    },
+    {
+      "site_id": "C_q04_0_1_0",
+      "sublattice": "cation",
+      "q_times_2_mod_10": 4,
+      "base_plane_index": 2,
+      "replica": [
+        0,
+        1,
+        0
+      ],
+      "fractional_coordinates": [
+        0.1,
+        0.3,
+        0.4
+      ],
+      "cartesian_coordinates_A": [
+        6.199999999999999,
+        6.199999999999999,
+        8.881784197001252e-16
+      ],
+      "occupancy": "Vac",
+      "poscar_atom_index_1based": null,
+      "is_structural_ghost_vacancy": true
+    },
+    {
+      "site_id": "C_q04_0_2_0",
+      "sublattice": "cation",
+      "q_times_2_mod_10": 4,
+      "base_plane_index": 2,
+      "replica": [
+        0,
+        2,
+        0
+      ],
+      "fractional_coordinates": [
+        0.1,
+        0.55,
+        0.4
+      ],
+      "cartesian_coordinates_A": [
+        6.199999999999999,
+        9.3,
+        -3.099999999999999
+      ],
+      "occupancy": "Pb",
+      "poscar_atom_index_1based": 15,
+      "is_structural_ghost_vacancy": false
+    },
+    {
+      "site_id": "C_q04_0_3_0",
+      "sublattice": "cation",
+      "q_times_2_mod_10": 4,
+      "base_plane_index": 2,
+      "replica": [
+        0,
+        3,
+        0
+      ],
+      "fractional_coordinates": [
+        0.1,
+        0.8,
+        0.4
+      ],
+      "cartesian_coordinates_A": [
+        6.199999999999999,
+        12.4,
+        -6.199999999999999
+      ],
+      "occupancy": "Sb",
+      "poscar_atom_index_1based": 49,
+      "is_structural_ghost_vacancy": false
+    },
+    {
+      "site_id": "C_q04_1_0_0",
+      "sublattice": "cation",
+      "q_times_2_mod_10": 4,
+      "base_plane_index": 2,
+      "replica": [
+        1,
+        0,
+        0
+      ],
+      "fractional_coordinates": [
+        0.35,
+        0.05,
+        0.4
+      ],
+      "cartesian_coordinates_A": [
+        9.3,
+        -4.440892098500626e-16,
+        3.100000000000001
+      ],
+      "occupancy": "Vac",
+      "poscar_atom_index_1based": null,
+      "is_structural_ghost_vacancy": true
+    },
+    {
+      "site_id": "C_q04_1_1_0",
+      "sublattice": "cation",
+      "q_times_2_mod_10": 4,
+      "base_plane_index": 2,
+      "replica": [
+        1,
+        1,
+        0
+      ],
+      "fractional_coordinates": [
+        0.35,
+        0.3,
+        0.4
+      ],
+      "cartesian_coordinates_A": [
+        9.3,
+        3.0999999999999996,
+        8.881784197001252e-16
+      ],
+      "occupancy": "Vac",
+      "poscar_atom_index_1based": null,
+      "is_structural_ghost_vacancy": true
+    },
+    {
+      "site_id": "C_q04_1_2_0",
+      "sublattice": "cation",
+      "q_times_2_mod_10": 4,
+      "base_plane_index": 2,
+      "replica": [
+        1,
+        2,
+        0
+      ],
+      "fractional_coordinates": [
+        0.35,
+        0.55,
+        0.4
+      ],
+      "cartesian_coordinates_A": [
+        9.3,
+        6.199999999999999,
+        -3.099999999999999
+      ],
+      "occupancy": "Pb",
+      "poscar_atom_index_1based": 16,
+      "is_structural_ghost_vacancy": false
+    },
+    {
+      "site_id": "C_q04_1_3_0",
+      "sublattice": "cation",
+      "q_times_2_mod_10": 4,
+      "base_plane_index": 2,
+      "replica": [
+        1,
+        3,
+        0
+      ],
+      "fractional_coordinates": [
+        0.35,
+        0.8,
+        0.4
+      ],
+      "cartesian_coordinates_A": [
+        9.3,
+        9.3,
+        -6.199999999999999
+      ],
+      "occupancy": "Pb",
+      "poscar_atom_index_1based": 17,
+      "is_structural_ghost_vacancy": false
+    },
+    {
+      "site_id": "C_q04_2_0_0",
+      "sublattice": "cation",
+      "q_times_2_mod_10": 4,
+      "base_plane_index": 2,
+      "replica": [
+        2,
+        0,
+        0
+      ],
+      "fractional_coordinates": [
+        0.6,
+        0.05,
+        0.4
+      ],
+      "cartesian_coordinates_A": [
+        12.399999999999999,
+        -3.1,
+        3.100000000000001
+      ],
+      "occupancy": "Sb",
+      "poscar_atom_index_1based": 50,
+      "is_structural_ghost_vacancy": false
+    },
+    {
+      "site_id": "C_q04_2_1_0",
+      "sublattice": "cation",
+      "q_times_2_mod_10": 4,
+      "base_plane_index": 2,
+      "replica": [
+        2,
+        1,
+        0
+      ],
+      "fractional_coordinates": [
+        0.6,
+        0.3,
+        0.4
+      ],
+      "cartesian_coordinates_A": [
+        12.399999999999999,
+        0.0,
+        8.881784197001252e-16
+      ],
+      "occupancy": "Sb",
+      "poscar_atom_index_1based": 51,
+      "is_structural_ghost_vacancy": false
+    },
+    {
+      "site_id": "C_q04_2_2_0",
+      "sublattice": "cation",
+      "q_times_2_mod_10": 4,
+      "base_plane_index": 2,
+      "replica": [
+        2,
+        2,
+        0
+      ],
+      "fractional_coordinates": [
+        0.6,
+        0.55,
+        0.4
+      ],
+      "cartesian_coordinates_A": [
+        12.399999999999999,
+        3.1,
+        -3.099999999999999
+      ],
+      "occupancy": "Sb",
+      "poscar_atom_index_1based": 52,
+      "is_structural_ghost_vacancy": false
+    },
+    {
+      "site_id": "C_q04_2_3_0",
+      "sublattice": "cation",
+      "q_times_2_mod_10": 4,
+      "base_plane_index": 2,
+      "replica": [
+        2,
+        3,
+        0
+      ],
+      "fractional_coordinates": [
+        0.6,
+        0.8,
+        0.4
+      ],
+      "cartesian_coordinates_A": [
+        12.399999999999999,
+        6.200000000000001,
+        -6.199999999999999
+      ],
+      "occupancy": "Pb",
+      "poscar_atom_index_1based": 18,
+      "is_structural_ghost_vacancy": false
+    },
+    {
+      "site_id": "C_q04_3_0_0",
+      "sublattice": "cation",
+      "q_times_2_mod_10": 4,
+      "base_plane_index": 2,
+      "replica": [
+        3,
+        0,
+        0
+      ],
+      "fractional_coordinates": [
+        0.85,
+        0.05,
+        0.4
+      ],
+      "cartesian_coordinates_A": [
+        15.5,
+        -6.199999999999999,
+        3.100000000000001
+      ],
+      "occupancy": "Pb",
+      "poscar_atom_index_1based": 19,
+      "is_structural_ghost_vacancy": false
+    },
+    {
+      "site_id": "C_q04_3_1_0",
+      "sublattice": "cation",
+      "q_times_2_mod_10": 4,
+      "base_plane_index": 2,
+      "replica": [
+        3,
+        1,
+        0
+      ],
+      "fractional_coordinates": [
+        0.85,
+        0.3,
+        0.4
+      ],
+      "cartesian_coordinates_A": [
+        15.5,
+        -3.1,
+        8.881784197001252e-16
+      ],
+      "occupancy": "Pb",
+      "poscar_atom_index_1based": 20,
+      "is_structural_ghost_vacancy": false
+    },
+    {
+      "site_id": "C_q04_3_2_0",
+      "sublattice": "cation",
+      "q_times_2_mod_10": 4,
+      "base_plane_index": 2,
+      "replica": [
+        3,
+        2,
+        0
+      ],
+      "fractional_coordinates": [
+        0.85,
+        0.55,
+        0.4
+      ],
+      "cartesian_coordinates_A": [
+        15.5,
+        4.440892098500626e-16,
+        -3.099999999999999
+      ],
+      "occupancy": "Pb",
+      "poscar_atom_index_1based": 21,
+      "is_structural_ghost_vacancy": false
+    },
+    {
+      "site_id": "C_q04_3_3_0",
+      "sublattice": "cation",
+      "q_times_2_mod_10": 4,
+      "base_plane_index": 2,
+      "replica": [
+        3,
+        3,
+        0
+      ],
+      "fractional_coordinates": [
+        0.85,
+        0.8,
+        0.4
+      ],
+      "cartesian_coordinates_A": [
+        15.5,
+        3.100000000000001,
+        -6.199999999999999
+      ],
+      "occupancy": "Sb",
+      "poscar_atom_index_1based": 53,
+      "is_structural_ghost_vacancy": false
+    },
+    {
+      "site_id": "C_q06_0_0_0",
+      "sublattice": "cation",
+      "q_times_2_mod_10": 6,
+      "base_plane_index": 3,
+      "replica": [
+        0,
+        0,
+        0
+      ],
+      "fractional_coordinates": [
+        0.15,
+        0.2,
+        0.6
+      ],
+      "cartesian_coordinates_A": [
+        9.299999999999999,
+        6.199999999999999,
+        3.1000000000000014
+      ],
+      "occupancy": "Sb",
+      "poscar_atom_index_1based": 54,
+      "is_structural_ghost_vacancy": false
+    },
+    {
+      "site_id": "C_q06_0_1_0",
+      "sublattice": "cation",
+      "q_times_2_mod_10": 6,
+      "base_plane_index": 3,
+      "replica": [
+        0,
+        1,
+        0
+      ],
+      "fractional_coordinates": [
+        0.15,
+        0.45,
+        0.6
+      ],
+      "cartesian_coordinates_A": [
+        9.299999999999999,
+        9.3,
+        8.881784197001252e-16
+      ],
+      "occupancy": "Vac",
+      "poscar_atom_index_1based": null,
+      "is_structural_ghost_vacancy": true
+    },
+    {
+      "site_id": "C_q06_0_2_0",
+      "sublattice": "cation",
+      "q_times_2_mod_10": 6,
+      "base_plane_index": 3,
+      "replica": [
+        0,
+        2,
+        0
+      ],
+      "fractional_coordinates": [
+        0.15,
+        0.7,
+        0.6
+      ],
+      "cartesian_coordinates_A": [
+        9.299999999999999,
+        12.4,
+        -3.0999999999999996
+      ],
+      "occupancy": "Vac",
+      "poscar_atom_index_1based": null,
+      "is_structural_ghost_vacancy": true
+    },
+    {
+      "site_id": "C_q06_0_3_0",
+      "sublattice": "cation",
+      "q_times_2_mod_10": 6,
+      "base_plane_index": 3,
+      "replica": [
+        0,
+        3,
+        0
+      ],
+      "fractional_coordinates": [
+        0.15,
+        0.95,
+        0.6
+      ],
+      "cartesian_coordinates_A": [
+        9.299999999999999,
+        15.5,
+        -6.199999999999999
+      ],
+      "occupancy": "Pb",
+      "poscar_atom_index_1based": 22,
+      "is_structural_ghost_vacancy": false
+    },
+    {
+      "site_id": "C_q06_1_0_0",
+      "sublattice": "cation",
+      "q_times_2_mod_10": 6,
+      "base_plane_index": 3,
+      "replica": [
+        1,
+        0,
+        0
+      ],
+      "fractional_coordinates": [
+        0.4,
+        0.2,
+        0.6
+      ],
+      "cartesian_coordinates_A": [
+        12.399999999999999,
+        3.0999999999999996,
+        3.1000000000000014
+      ],
+      "occupancy": "Pb",
+      "poscar_atom_index_1based": 23,
+      "is_structural_ghost_vacancy": false
+    },
+    {
+      "site_id": "C_q06_1_1_0",
+      "sublattice": "cation",
+      "q_times_2_mod_10": 6,
+      "base_plane_index": 3,
+      "replica": [
+        1,
+        1,
+        0
+      ],
+      "fractional_coordinates": [
+        0.4,
+        0.45,
+        0.6
+      ],
+      "cartesian_coordinates_A": [
+        12.399999999999999,
+        6.2,
+        8.881784197001252e-16
+      ],
+      "occupancy": "Vac",
+      "poscar_atom_index_1based": null,
+      "is_structural_ghost_vacancy": true
+    },
+    {
+      "site_id": "C_q06_1_2_0",
+      "sublattice": "cation",
+      "q_times_2_mod_10": 6,
+      "base_plane_index": 3,
+      "replica": [
+        1,
+        2,
+        0
+      ],
+      "fractional_coordinates": [
+        0.4,
+        0.7,
+        0.6
+      ],
+      "cartesian_coordinates_A": [
+        12.399999999999999,
+        9.3,
+        -3.0999999999999996
+      ],
+      "occupancy": "Pb",
+      "poscar_atom_index_1based": 24,
+      "is_structural_ghost_vacancy": false
+    },
+    {
+      "site_id": "C_q06_1_3_0",
+      "sublattice": "cation",
+      "q_times_2_mod_10": 6,
+      "base_plane_index": 3,
+      "replica": [
+        1,
+        3,
+        0
+      ],
+      "fractional_coordinates": [
+        0.4,
+        0.95,
+        0.6
+      ],
+      "cartesian_coordinates_A": [
+        12.399999999999999,
+        12.4,
+        -6.199999999999999
+      ],
+      "occupancy": "Pb",
+      "poscar_atom_index_1based": 25,
+      "is_structural_ghost_vacancy": false
+    },
+    {
+      "site_id": "C_q06_2_0_0",
+      "sublattice": "cation",
+      "q_times_2_mod_10": 6,
+      "base_plane_index": 3,
+      "replica": [
+        2,
+        0,
+        0
+      ],
+      "fractional_coordinates": [
+        0.65,
+        0.2,
+        0.6
+      ],
+      "cartesian_coordinates_A": [
+        15.499999999999998,
+        0.0,
+        3.1000000000000014
+      ],
+      "occupancy": "Vac",
+      "poscar_atom_index_1based": null,
+      "is_structural_ghost_vacancy": true
+    },
+    {
+      "site_id": "C_q06_2_1_0",
+      "sublattice": "cation",
+      "q_times_2_mod_10": 6,
+      "base_plane_index": 3,
+      "replica": [
+        2,
+        1,
+        0
+      ],
+      "fractional_coordinates": [
+        0.65,
+        0.45,
+        0.6
+      ],
+      "cartesian_coordinates_A": [
+        15.499999999999998,
+        3.1000000000000005,
+        8.881784197001252e-16
+      ],
+      "occupancy": "Vac",
+      "poscar_atom_index_1based": null,
+      "is_structural_ghost_vacancy": true
+    },
+    {
+      "site_id": "C_q06_2_2_0",
+      "sublattice": "cation",
+      "q_times_2_mod_10": 6,
+      "base_plane_index": 3,
+      "replica": [
+        2,
+        2,
+        0
+      ],
+      "fractional_coordinates": [
+        0.65,
+        0.7,
+        0.6
+      ],
+      "cartesian_coordinates_A": [
+        15.499999999999998,
+        6.200000000000001,
+        -3.0999999999999996
+      ],
+      "occupancy": "Sb",
+      "poscar_atom_index_1based": 55,
+      "is_structural_ghost_vacancy": false
+    },
+    {
+      "site_id": "C_q06_2_3_0",
+      "sublattice": "cation",
+      "q_times_2_mod_10": 6,
+      "base_plane_index": 3,
+      "replica": [
+        2,
+        3,
+        0
+      ],
+      "fractional_coordinates": [
+        0.65,
+        0.95,
+        0.6
+      ],
+      "cartesian_coordinates_A": [
+        15.499999999999998,
+        9.3,
+        -6.199999999999999
+      ],
+      "occupancy": "Sb",
+      "poscar_atom_index_1based": 56,
+      "is_structural_ghost_vacancy": false
+    },
+    {
+      "site_id": "C_q06_3_0_0",
+      "sublattice": "cation",
+      "q_times_2_mod_10": 6,
+      "base_plane_index": 3,
+      "replica": [
+        3,
+        0,
+        0
+      ],
+      "fractional_coordinates": [
+        0.9,
+        0.2,
+        0.6
+      ],
+      "cartesian_coordinates_A": [
+        18.599999999999998,
+        -3.0999999999999996,
+        3.1000000000000014
+      ],
+      "occupancy": "Vac",
+      "poscar_atom_index_1based": null,
+      "is_structural_ghost_vacancy": true
+    },
+    {
+      "site_id": "C_q06_3_1_0",
+      "sublattice": "cation",
+      "q_times_2_mod_10": 6,
+      "base_plane_index": 3,
+      "replica": [
+        3,
+        1,
+        0
+      ],
+      "fractional_coordinates": [
+        0.9,
+        0.45,
+        0.6
+      ],
+      "cartesian_coordinates_A": [
+        18.599999999999998,
+        8.881784197001252e-16,
+        8.881784197001252e-16
+      ],
+      "occupancy": "Pb",
+      "poscar_atom_index_1based": 26,
+      "is_structural_ghost_vacancy": false
+    },
+    {
+      "site_id": "C_q06_3_2_0",
+      "sublattice": "cation",
+      "q_times_2_mod_10": 6,
+      "base_plane_index": 3,
+      "replica": [
+        3,
+        2,
+        0
+      ],
+      "fractional_coordinates": [
+        0.9,
+        0.7,
+        0.6
+      ],
+      "cartesian_coordinates_A": [
+        18.599999999999998,
+        3.1000000000000014,
+        -3.0999999999999996
+      ],
+      "occupancy": "Sb",
+      "poscar_atom_index_1based": 57,
+      "is_structural_ghost_vacancy": false
+    },
+    {
+      "site_id": "C_q06_3_3_0",
+      "sublattice": "cation",
+      "q_times_2_mod_10": 6,
+      "base_plane_index": 3,
+      "replica": [
+        3,
+        3,
+        0
+      ],
+      "fractional_coordinates": [
+        0.9,
+        0.95,
+        0.6
+      ],
+      "cartesian_coordinates_A": [
+        18.599999999999998,
+        6.200000000000001,
+        -6.199999999999999
+      ],
+      "occupancy": "Pb",
+      "poscar_atom_index_1based": 27,
+      "is_structural_ghost_vacancy": false
+    },
+    {
+      "site_id": "C_q08_0_0_0",
+      "sublattice": "cation",
+      "q_times_2_mod_10": 8,
+      "base_plane_index": 4,
+      "replica": [
+        0,
+        0,
+        0
+      ],
+      "fractional_coordinates": [
+        0.2,
+        0.1,
+        0.8
+      ],
+      "cartesian_coordinates_A": [
+        12.399999999999999,
+        6.199999999999999,
+        6.200000000000002
+      ],
+      "occupancy": "Pb",
+      "poscar_atom_index_1based": 28,
+      "is_structural_ghost_vacancy": false
+    },
+    {
+      "site_id": "C_q08_0_1_0",
+      "sublattice": "cation",
+      "q_times_2_mod_10": 8,
+      "base_plane_index": 4,
+      "replica": [
+        0,
+        1,
+        0
+      ],
+      "fractional_coordinates": [
+        0.2,
+        0.35,
+        0.8
+      ],
+      "cartesian_coordinates_A": [
+        12.399999999999999,
+        9.299999999999999,
+        3.1000000000000023
+      ],
+      "occupancy": "Sb",
+      "poscar_atom_index_1based": 58,
+      "is_structural_ghost_vacancy": false
+    },
+    {
+      "site_id": "C_q08_0_2_0",
+      "sublattice": "cation",
+      "q_times_2_mod_10": 8,
+      "base_plane_index": 4,
+      "replica": [
+        0,
+        2,
+        0
+      ],
+      "fractional_coordinates": [
+        0.2,
+        0.6,
+        0.8
+      ],
+      "cartesian_coordinates_A": [
+        12.399999999999999,
+        12.399999999999999,
+        1.7763568394002505e-15
+      ],
+      "occupancy": "Sb",
+      "poscar_atom_index_1based": 59,
+      "is_structural_ghost_vacancy": false
+    },
+    {
+      "site_id": "C_q08_0_3_0",
+      "sublattice": "cation",
+      "q_times_2_mod_10": 8,
+      "base_plane_index": 4,
+      "replica": [
+        0,
+        3,
+        0
+      ],
+      "fractional_coordinates": [
+        0.2,
+        0.85,
+        0.8
+      ],
+      "cartesian_coordinates_A": [
+        12.399999999999999,
+        15.5,
+        -3.0999999999999988
+      ],
+      "occupancy": "Pb",
+      "poscar_atom_index_1based": 29,
+      "is_structural_ghost_vacancy": false
+    },
+    {
+      "site_id": "C_q08_1_0_0",
+      "sublattice": "cation",
+      "q_times_2_mod_10": 8,
+      "base_plane_index": 4,
+      "replica": [
+        1,
+        0,
+        0
+      ],
+      "fractional_coordinates": [
+        0.45,
+        0.1,
+        0.8
+      ],
+      "cartesian_coordinates_A": [
+        15.5,
+        3.0999999999999996,
+        6.200000000000002
+      ],
+      "occupancy": "Vac",
+      "poscar_atom_index_1based": null,
+      "is_structural_ghost_vacancy": true
+    },
+    {
+      "site_id": "C_q08_1_1_0",
+      "sublattice": "cation",
+      "q_times_2_mod_10": 8,
+      "base_plane_index": 4,
+      "replica": [
+        1,
+        1,
+        0
+      ],
+      "fractional_coordinates": [
+        0.45,
+        0.35,
+        0.8
+      ],
+      "cartesian_coordinates_A": [
+        15.5,
+        6.199999999999999,
+        3.1000000000000023
+      ],
+      "occupancy": "Vac",
+      "poscar_atom_index_1based": null,
+      "is_structural_ghost_vacancy": true
+    },
+    {
+      "site_id": "C_q08_1_2_0",
+      "sublattice": "cation",
+      "q_times_2_mod_10": 8,
+      "base_plane_index": 4,
+      "replica": [
+        1,
+        2,
+        0
+      ],
+      "fractional_coordinates": [
+        0.45,
+        0.6,
+        0.8
+      ],
+      "cartesian_coordinates_A": [
+        15.5,
+        9.3,
+        1.7763568394002505e-15
+      ],
+      "occupancy": "Sb",
+      "poscar_atom_index_1based": 60,
+      "is_structural_ghost_vacancy": false
+    },
+    {
+      "site_id": "C_q08_1_3_0",
+      "sublattice": "cation",
+      "q_times_2_mod_10": 8,
+      "base_plane_index": 4,
+      "replica": [
+        1,
+        3,
+        0
+      ],
+      "fractional_coordinates": [
+        0.45,
+        0.85,
+        0.8
+      ],
+      "cartesian_coordinates_A": [
+        15.5,
+        12.4,
+        -3.0999999999999988
+      ],
+      "occupancy": "Pb",
+      "poscar_atom_index_1based": 30,
+      "is_structural_ghost_vacancy": false
+    },
+    {
+      "site_id": "C_q08_2_0_0",
+      "sublattice": "cation",
+      "q_times_2_mod_10": 8,
+      "base_plane_index": 4,
+      "replica": [
+        2,
+        0,
+        0
+      ],
+      "fractional_coordinates": [
+        0.7,
+        0.1,
+        0.8
+      ],
+      "cartesian_coordinates_A": [
+        18.6,
+        -8.881784197001252e-16,
+        6.200000000000002
+      ],
+      "occupancy": "Vac",
+      "poscar_atom_index_1based": null,
+      "is_structural_ghost_vacancy": true
+    },
+    {
+      "site_id": "C_q08_2_1_0",
+      "sublattice": "cation",
+      "q_times_2_mod_10": 8,
+      "base_plane_index": 4,
+      "replica": [
+        2,
+        1,
+        0
+      ],
+      "fractional_coordinates": [
+        0.7,
+        0.35,
+        0.8
+      ],
+      "cartesian_coordinates_A": [
+        18.6,
+        3.0999999999999988,
+        3.1000000000000023
+      ],
+      "occupancy": "Pb",
+      "poscar_atom_index_1based": 31,
+      "is_structural_ghost_vacancy": false
+    },
+    {
+      "site_id": "C_q08_2_2_0",
+      "sublattice": "cation",
+      "q_times_2_mod_10": 8,
+      "base_plane_index": 4,
+      "replica": [
+        2,
+        2,
+        0
+      ],
+      "fractional_coordinates": [
+        0.7,
+        0.6,
+        0.8
+      ],
+      "cartesian_coordinates_A": [
+        18.6,
+        6.199999999999999,
+        1.7763568394002505e-15
+      ],
+      "occupancy": "Sb",
+      "poscar_atom_index_1based": 61,
+      "is_structural_ghost_vacancy": false
+    },
+    {
+      "site_id": "C_q08_2_3_0",
+      "sublattice": "cation",
+      "q_times_2_mod_10": 8,
+      "base_plane_index": 4,
+      "replica": [
+        2,
+        3,
+        0
+      ],
+      "fractional_coordinates": [
+        0.7,
+        0.85,
+        0.8
+      ],
+      "cartesian_coordinates_A": [
+        18.6,
+        9.3,
+        -3.0999999999999988
+      ],
+      "occupancy": "Pb",
+      "poscar_atom_index_1based": 32,
+      "is_structural_ghost_vacancy": false
+    },
+    {
+      "site_id": "C_q08_3_0_0",
+      "sublattice": "cation",
+      "q_times_2_mod_10": 8,
+      "base_plane_index": 4,
+      "replica": [
+        3,
+        0,
+        0
+      ],
+      "fractional_coordinates": [
+        0.95,
+        0.1,
+        0.8
+      ],
+      "cartesian_coordinates_A": [
+        21.7,
+        -3.1000000000000005,
+        6.200000000000002
+      ],
+      "occupancy": "Sb",
+      "poscar_atom_index_1based": 62,
+      "is_structural_ghost_vacancy": false
+    },
+    {
+      "site_id": "C_q08_3_1_0",
+      "sublattice": "cation",
+      "q_times_2_mod_10": 8,
+      "base_plane_index": 4,
+      "replica": [
+        3,
+        1,
+        0
+      ],
+      "fractional_coordinates": [
+        0.95,
+        0.35,
+        0.8
+      ],
+      "cartesian_coordinates_A": [
+        21.7,
+        -8.881784197001252e-16,
+        3.1000000000000023
+      ],
+      "occupancy": "Sb",
+      "poscar_atom_index_1based": 63,
+      "is_structural_ghost_vacancy": false
+    },
+    {
+      "site_id": "C_q08_3_2_0",
+      "sublattice": "cation",
+      "q_times_2_mod_10": 8,
+      "base_plane_index": 4,
+      "replica": [
+        3,
+        2,
+        0
+      ],
+      "fractional_coordinates": [
+        0.95,
+        0.6,
+        0.8
+      ],
+      "cartesian_coordinates_A": [
+        21.7,
+        3.0999999999999996,
+        1.7763568394002505e-15
+      ],
+      "occupancy": "Sb",
+      "poscar_atom_index_1based": 64,
+      "is_structural_ghost_vacancy": false
+    },
+    {
+      "site_id": "C_q08_3_3_0",
+      "sublattice": "cation",
+      "q_times_2_mod_10": 8,
+      "base_plane_index": 4,
+      "replica": [
+        3,
+        3,
+        0
+      ],
+      "fractional_coordinates": [
+        0.95,
+        0.85,
+        0.8
+      ],
+      "cartesian_coordinates_A": [
+        21.7,
+        6.2,
+        -3.0999999999999988
+      ],
+      "occupancy": "Vac",
+      "poscar_atom_index_1based": null,
+      "is_structural_ghost_vacancy": true
+    },
+    {
+      "site_id": "T_q01_0_0_0",
+      "sublattice": "anion",
+      "q_times_2_mod_10": 1,
+      "base_plane_index": 0,
+      "replica": [
+        0,
+        0,
+        0
+      ],
+      "fractional_coordinates": [
+        0.15,
+        0.075,
+        0.1
+      ],
+      "cartesian_coordinates_A": [
+        3.0999999999999996,
+        0.0,
+        2.220446049250313e-16
+      ],
+      "occupancy": "Te",
+      "poscar_atom_index_1based": 65,
+      "is_structural_ghost_vacancy": false
+    },
+    {
+      "site_id": "T_q01_0_1_0",
+      "sublattice": "anion",
+      "q_times_2_mod_10": 1,
+      "base_plane_index": 0,
+      "replica": [
+        0,
+        1,
+        0
+      ],
+      "fractional_coordinates": [
+        0.15,
+        0.325,
+        0.1
+      ],
+      "cartesian_coordinates_A": [
+        3.0999999999999996,
+        3.0999999999999996,
+        -3.099999999999999
+      ],
+      "occupancy": "Te",
+      "poscar_atom_index_1based": 66,
+      "is_structural_ghost_vacancy": false
+    },
+    {
+      "site_id": "T_q01_0_2_0",
+      "sublattice": "anion",
+      "q_times_2_mod_10": 1,
+      "base_plane_index": 0,
+      "replica": [
+        0,
+        2,
+        0
+      ],
+      "fractional_coordinates": [
+        0.15,
+        0.575,
+        0.1
+      ],
+      "cartesian_coordinates_A": [
+        3.0999999999999996,
+        6.199999999999999,
+        -6.2
+      ],
+      "occupancy": "Te",
+      "poscar_atom_index_1based": 67,
+      "is_structural_ghost_vacancy": false
+    },
+    {
+      "site_id": "T_q01_0_3_0",
+      "sublattice": "anion",
+      "q_times_2_mod_10": 1,
+      "base_plane_index": 0,
+      "replica": [
+        0,
+        3,
+        0
+      ],
+      "fractional_coordinates": [
+        0.15,
+        0.825,
+        0.1
+      ],
+      "cartesian_coordinates_A": [
+        3.0999999999999996,
+        9.3,
+        -9.3
+      ],
+      "occupancy": "Te",
+      "poscar_atom_index_1based": 68,
+      "is_structural_ghost_vacancy": false
+    },
+    {
+      "site_id": "T_q01_1_0_0",
+      "sublattice": "anion",
+      "q_times_2_mod_10": 1,
+      "base_plane_index": 0,
+      "replica": [
+        1,
+        0,
+        0
+      ],
+      "fractional_coordinates": [
+        0.4,
+        0.075,
+        0.1
+      ],
+      "cartesian_coordinates_A": [
+        6.200000000000001,
+        -3.100000000000001,
+        2.220446049250313e-16
+      ],
+      "occupancy": "Te",
+      "poscar_atom_index_1based": 69,
+      "is_structural_ghost_vacancy": false
+    },
+    {
+      "site_id": "T_q01_1_1_0",
+      "sublattice": "anion",
+      "q_times_2_mod_10": 1,
+      "base_plane_index": 0,
+      "replica": [
+        1,
+        1,
+        0
+      ],
+      "fractional_coordinates": [
+        0.4,
+        0.325,
+        0.1
+      ],
+      "cartesian_coordinates_A": [
+        6.200000000000001,
+        -1.4432899320127035e-15,
+        -3.099999999999999
+      ],
+      "occupancy": "Te",
+      "poscar_atom_index_1based": 70,
+      "is_structural_ghost_vacancy": false
+    },
+    {
+      "site_id": "T_q01_1_2_0",
+      "sublattice": "anion",
+      "q_times_2_mod_10": 1,
+      "base_plane_index": 0,
+      "replica": [
+        1,
+        2,
+        0
+      ],
+      "fractional_coordinates": [
+        0.4,
+        0.575,
+        0.1
+      ],
+      "cartesian_coordinates_A": [
+        6.200000000000001,
+        3.099999999999999,
+        -6.2
+      ],
+      "occupancy": "Te",
+      "poscar_atom_index_1based": 71,
+      "is_structural_ghost_vacancy": false
+    },
+    {
+      "site_id": "T_q01_1_3_0",
+      "sublattice": "anion",
+      "q_times_2_mod_10": 1,
+      "base_plane_index": 0,
+      "replica": [
+        1,
+        3,
+        0
+      ],
+      "fractional_coordinates": [
+        0.4,
+        0.825,
+        0.1
+      ],
+      "cartesian_coordinates_A": [
+        6.200000000000001,
+        6.199999999999999,
+        -9.3
+      ],
+      "occupancy": "Te",
+      "poscar_atom_index_1based": 72,
+      "is_structural_ghost_vacancy": false
+    },
+    {
+      "site_id": "T_q01_2_0_0",
+      "sublattice": "anion",
+      "q_times_2_mod_10": 1,
+      "base_plane_index": 0,
+      "replica": [
+        2,
+        0,
+        0
+      ],
+      "fractional_coordinates": [
+        0.65,
+        0.075,
+        0.1
+      ],
+      "cartesian_coordinates_A": [
+        9.3,
+        -6.200000000000001,
+        2.220446049250313e-16
+      ],
+      "occupancy": "Te",
+      "poscar_atom_index_1based": 73,
+      "is_structural_ghost_vacancy": false
+    },
+    {
+      "site_id": "T_q01_2_1_0",
+      "sublattice": "anion",
+      "q_times_2_mod_10": 1,
+      "base_plane_index": 0,
+      "replica": [
+        2,
+        1,
+        0
+      ],
+      "fractional_coordinates": [
+        0.65,
+        0.325,
+        0.1
+      ],
+      "cartesian_coordinates_A": [
+        9.3,
+        -3.100000000000001,
+        -3.099999999999999
+      ],
+      "occupancy": "Te",
+      "poscar_atom_index_1based": 74,
+      "is_structural_ghost_vacancy": false
+    },
+    {
+      "site_id": "T_q01_2_2_0",
+      "sublattice": "anion",
+      "q_times_2_mod_10": 1,
+      "base_plane_index": 0,
+      "replica": [
+        2,
+        2,
+        0
+      ],
+      "fractional_coordinates": [
+        0.65,
+        0.575,
+        0.1
+      ],
+      "cartesian_coordinates_A": [
+        9.3,
+        -5.551115123125783e-16,
+        -6.2
+      ],
+      "occupancy": "Te",
+      "poscar_atom_index_1based": 75,
+      "is_structural_ghost_vacancy": false
+    },
+    {
+      "site_id": "T_q01_2_3_0",
+      "sublattice": "anion",
+      "q_times_2_mod_10": 1,
+      "base_plane_index": 0,
+      "replica": [
+        2,
+        3,
+        0
+      ],
+      "fractional_coordinates": [
+        0.65,
+        0.825,
+        0.1
+      ],
+      "cartesian_coordinates_A": [
+        9.3,
+        3.1,
+        -9.3
+      ],
+      "occupancy": "Te",
+      "poscar_atom_index_1based": 76,
+      "is_structural_ghost_vacancy": false
+    },
+    {
+      "site_id": "T_q01_3_0_0",
+      "sublattice": "anion",
+      "q_times_2_mod_10": 1,
+      "base_plane_index": 0,
+      "replica": [
+        3,
+        0,
+        0
+      ],
+      "fractional_coordinates": [
+        0.9,
+        0.075,
+        0.1
+      ],
+      "cartesian_coordinates_A": [
+        12.4,
+        -9.3,
+        2.220446049250313e-16
+      ],
+      "occupancy": "Te",
+      "poscar_atom_index_1based": 77,
+      "is_structural_ghost_vacancy": false
+    },
+    {
+      "site_id": "T_q01_3_1_0",
+      "sublattice": "anion",
+      "q_times_2_mod_10": 1,
+      "base_plane_index": 0,
+      "replica": [
+        3,
+        1,
+        0
+      ],
+      "fractional_coordinates": [
+        0.9,
+        0.325,
+        0.1
+      ],
+      "cartesian_coordinates_A": [
+        12.4,
+        -6.200000000000001,
+        -3.099999999999999
+      ],
+      "occupancy": "Te",
+      "poscar_atom_index_1based": 78,
+      "is_structural_ghost_vacancy": false
+    },
+    {
+      "site_id": "T_q01_3_2_0",
+      "sublattice": "anion",
+      "q_times_2_mod_10": 1,
+      "base_plane_index": 0,
+      "replica": [
+        3,
+        2,
+        0
+      ],
+      "fractional_coordinates": [
+        0.9,
+        0.575,
+        0.1
+      ],
+      "cartesian_coordinates_A": [
+        12.4,
+        -3.1,
+        -6.2
+      ],
+      "occupancy": "Te",
+      "poscar_atom_index_1based": 79,
+      "is_structural_ghost_vacancy": false
+    },
+    {
+      "site_id": "T_q01_3_3_0",
+      "sublattice": "anion",
+      "q_times_2_mod_10": 1,
+      "base_plane_index": 0,
+      "replica": [
+        3,
+        3,
+        0
+      ],
+      "fractional_coordinates": [
+        0.9,
+        0.825,
+        0.1
+      ],
+      "cartesian_coordinates_A": [
+        12.4,
+        3.3306690738754696e-16,
+        -9.3
+      ],
+      "occupancy": "Te",
+      "poscar_atom_index_1based": 80,
+      "is_structural_ghost_vacancy": false
+    },
+    {
+      "site_id": "T_q03_0_0_0",
+      "sublattice": "anion",
+      "q_times_2_mod_10": 3,
+      "base_plane_index": 1,
+      "replica": [
+        0,
+        0,
+        0
+      ],
+      "fractional_coordinates": [
+        0.2,
+        0.225,
+        0.3
+      ],
+      "cartesian_coordinates_A": [
+        6.199999999999999,
+        3.1,
+        4.440892098500626e-16
+      ],
+      "occupancy": "Te",
+      "poscar_atom_index_1based": 81,
+      "is_structural_ghost_vacancy": false
+    },
+    {
+      "site_id": "T_q03_0_1_0",
+      "sublattice": "anion",
+      "q_times_2_mod_10": 3,
+      "base_plane_index": 1,
+      "replica": [
+        0,
+        1,
+        0
+      ],
+      "fractional_coordinates": [
+        0.2,
+        0.475,
+        0.3
+      ],
+      "cartesian_coordinates_A": [
+        6.199999999999999,
+        6.2,
+        -3.0999999999999996
+      ],
+      "occupancy": "Te",
+      "poscar_atom_index_1based": 82,
+      "is_structural_ghost_vacancy": false
+    },
+    {
+      "site_id": "T_q03_0_2_0",
+      "sublattice": "anion",
+      "q_times_2_mod_10": 3,
+      "base_plane_index": 1,
+      "replica": [
+        0,
+        2,
+        0
+      ],
+      "fractional_coordinates": [
+        0.2,
+        0.725,
+        0.3
+      ],
+      "cartesian_coordinates_A": [
+        6.199999999999999,
+        9.3,
+        -6.2
+      ],
+      "occupancy": "Te",
+      "poscar_atom_index_1based": 83,
+      "is_structural_ghost_vacancy": false
+    },
+    {
+      "site_id": "T_q03_0_3_0",
+      "sublattice": "anion",
+      "q_times_2_mod_10": 3,
+      "base_plane_index": 1,
+      "replica": [
+        0,
+        3,
+        0
+      ],
+      "fractional_coordinates": [
+        0.2,
+        0.975,
+        0.3
+      ],
+      "cartesian_coordinates_A": [
+        6.199999999999999,
+        12.399999999999999,
+        -9.3
+      ],
+      "occupancy": "Te",
+      "poscar_atom_index_1based": 84,
+      "is_structural_ghost_vacancy": false
+    },
+    {
+      "site_id": "T_q03_1_0_0",
+      "sublattice": "anion",
+      "q_times_2_mod_10": 3,
+      "base_plane_index": 1,
+      "replica": [
+        1,
+        0,
+        0
+      ],
+      "fractional_coordinates": [
+        0.45,
+        0.225,
+        0.3
+      ],
+      "cartesian_coordinates_A": [
+        9.299999999999999,
+        4.440892098500626e-16,
+        4.440892098500626e-16
+      ],
+      "occupancy": "Te",
+      "poscar_atom_index_1based": 85,
+      "is_structural_ghost_vacancy": false
+    },
+    {
+      "site_id": "T_q03_1_1_0",
+      "sublattice": "anion",
+      "q_times_2_mod_10": 3,
+      "base_plane_index": 1,
+      "replica": [
+        1,
+        1,
+        0
+      ],
+      "fractional_coordinates": [
+        0.45,
+        0.475,
+        0.3
+      ],
+      "cartesian_coordinates_A": [
+        9.299999999999999,
+        3.1000000000000005,
+        -3.0999999999999996
+      ],
+      "occupancy": "Te",
+      "poscar_atom_index_1based": 86,
+      "is_structural_ghost_vacancy": false
+    },
+    {
+      "site_id": "T_q03_1_2_0",
+      "sublattice": "anion",
+      "q_times_2_mod_10": 3,
+      "base_plane_index": 1,
+      "replica": [
+        1,
+        2,
+        0
+      ],
+      "fractional_coordinates": [
+        0.45,
+        0.725,
+        0.3
+      ],
+      "cartesian_coordinates_A": [
+        9.299999999999999,
+        6.200000000000001,
+        -6.2
+      ],
+      "occupancy": "Te",
+      "poscar_atom_index_1based": 87,
+      "is_structural_ghost_vacancy": false
+    },
+    {
+      "site_id": "T_q03_1_3_0",
+      "sublattice": "anion",
+      "q_times_2_mod_10": 3,
+      "base_plane_index": 1,
+      "replica": [
+        1,
+        3,
+        0
+      ],
+      "fractional_coordinates": [
+        0.45,
+        0.975,
+        0.3
+      ],
+      "cartesian_coordinates_A": [
+        9.299999999999999,
+        9.3,
+        -9.3
+      ],
+      "occupancy": "Te",
+      "poscar_atom_index_1based": 88,
+      "is_structural_ghost_vacancy": false
+    },
+    {
+      "site_id": "T_q03_2_0_0",
+      "sublattice": "anion",
+      "q_times_2_mod_10": 3,
+      "base_plane_index": 1,
+      "replica": [
+        2,
+        0,
+        0
+      ],
+      "fractional_coordinates": [
+        0.7,
+        0.225,
+        0.3
+      ],
+      "cartesian_coordinates_A": [
+        12.399999999999999,
+        -3.1000000000000005,
+        4.440892098500626e-16
+      ],
+      "occupancy": "Te",
+      "poscar_atom_index_1based": 89,
+      "is_structural_ghost_vacancy": false
+    },
+    {
+      "site_id": "T_q03_2_1_0",
+      "sublattice": "anion",
+      "q_times_2_mod_10": 3,
+      "base_plane_index": 1,
+      "replica": [
+        2,
+        1,
+        0
+      ],
+      "fractional_coordinates": [
+        0.7,
+        0.475,
+        0.3
+      ],
+      "cartesian_coordinates_A": [
+        12.399999999999999,
+        0.0,
+        -3.0999999999999996
+      ],
+      "occupancy": "Te",
+      "poscar_atom_index_1based": 90,
+      "is_structural_ghost_vacancy": false
+    },
+    {
+      "site_id": "T_q03_2_2_0",
+      "sublattice": "anion",
+      "q_times_2_mod_10": 3,
+      "base_plane_index": 1,
+      "replica": [
+        2,
+        2,
+        0
+      ],
+      "fractional_coordinates": [
+        0.7,
+        0.725,
+        0.3
+      ],
+      "cartesian_coordinates_A": [
+        12.399999999999999,
+        3.1000000000000005,
+        -6.2
+      ],
+      "occupancy": "Te",
+      "poscar_atom_index_1based": 91,
+      "is_structural_ghost_vacancy": false
+    },
+    {
+      "site_id": "T_q03_2_3_0",
+      "sublattice": "anion",
+      "q_times_2_mod_10": 3,
+      "base_plane_index": 1,
+      "replica": [
+        2,
+        3,
+        0
+      ],
+      "fractional_coordinates": [
+        0.7,
+        0.975,
+        0.3
+      ],
+      "cartesian_coordinates_A": [
+        12.399999999999999,
+        6.2,
+        -9.3
+      ],
+      "occupancy": "Te",
+      "poscar_atom_index_1based": 92,
+      "is_structural_ghost_vacancy": false
+    },
+    {
+      "site_id": "T_q03_3_0_0",
+      "sublattice": "anion",
+      "q_times_2_mod_10": 3,
+      "base_plane_index": 1,
+      "replica": [
+        3,
+        0,
+        0
+      ],
+      "fractional_coordinates": [
+        0.95,
+        0.225,
+        0.3
+      ],
+      "cartesian_coordinates_A": [
+        15.5,
+        -6.2,
+        4.440892098500626e-16
+      ],
+      "occupancy": "Te",
+      "poscar_atom_index_1based": 93,
+      "is_structural_ghost_vacancy": false
+    },
+    {
+      "site_id": "T_q03_3_1_0",
+      "sublattice": "anion",
+      "q_times_2_mod_10": 3,
+      "base_plane_index": 1,
+      "replica": [
+        3,
+        1,
+        0
+      ],
+      "fractional_coordinates": [
+        0.95,
+        0.475,
+        0.3
+      ],
+      "cartesian_coordinates_A": [
+        15.5,
+        -3.0999999999999996,
+        -3.0999999999999996
+      ],
+      "occupancy": "Te",
+      "poscar_atom_index_1based": 94,
+      "is_structural_ghost_vacancy": false
+    },
+    {
+      "site_id": "T_q03_3_2_0",
+      "sublattice": "anion",
+      "q_times_2_mod_10": 3,
+      "base_plane_index": 1,
+      "replica": [
+        3,
+        2,
+        0
+      ],
+      "fractional_coordinates": [
+        0.95,
+        0.725,
+        0.3
+      ],
+      "cartesian_coordinates_A": [
+        15.5,
+        8.881784197001252e-16,
+        -6.2
+      ],
+      "occupancy": "Te",
+      "poscar_atom_index_1based": 95,
+      "is_structural_ghost_vacancy": false
+    },
+    {
+      "site_id": "T_q03_3_3_0",
+      "sublattice": "anion",
+      "q_times_2_mod_10": 3,
+      "base_plane_index": 1,
+      "replica": [
+        3,
+        3,
+        0
+      ],
+      "fractional_coordinates": [
+        0.95,
+        0.975,
+        0.3
+      ],
+      "cartesian_coordinates_A": [
+        15.5,
+        3.1000000000000005,
+        -9.3
+      ],
+      "occupancy": "Te",
+      "poscar_atom_index_1based": 96,
+      "is_structural_ghost_vacancy": false
+    },
+    {
+      "site_id": "T_q05_0_0_0",
+      "sublattice": "anion",
+      "q_times_2_mod_10": 5,
+      "base_plane_index": 2,
+      "replica": [
+        0,
+        0,
+        0
+      ],
+      "fractional_coordinates": [
+        0.0,
+        0.125,
+        0.5
+      ],
+      "cartesian_coordinates_A": [
+        6.199999999999999,
+        6.199999999999998,
+        3.1000000000000005
+      ],
+      "occupancy": "Te",
+      "poscar_atom_index_1based": 97,
+      "is_structural_ghost_vacancy": false
+    },
+    {
+      "site_id": "T_q05_0_1_0",
+      "sublattice": "anion",
+      "q_times_2_mod_10": 5,
+      "base_plane_index": 2,
+      "replica": [
+        0,
+        1,
+        0
+      ],
+      "fractional_coordinates": [
+        0.0,
+        0.375,
+        0.5
+      ],
+      "cartesian_coordinates_A": [
+        6.199999999999999,
+        9.299999999999997,
+        8.881784197001252e-16
+      ],
+      "occupancy": "Te",
+      "poscar_atom_index_1based": 98,
+      "is_structural_ghost_vacancy": false
+    },
+    {
+      "site_id": "T_q05_0_2_0",
+      "sublattice": "anion",
+      "q_times_2_mod_10": 5,
+      "base_plane_index": 2,
+      "replica": [
+        0,
+        2,
+        0
+      ],
+      "fractional_coordinates": [
+        0.0,
+        0.625,
+        0.5
+      ],
+      "cartesian_coordinates_A": [
+        6.199999999999999,
+        12.399999999999999,
+        -3.0999999999999996
+      ],
+      "occupancy": "Te",
+      "poscar_atom_index_1based": 99,
+      "is_structural_ghost_vacancy": false
+    },
+    {
+      "site_id": "T_q05_0_3_0",
+      "sublattice": "anion",
+      "q_times_2_mod_10": 5,
+      "base_plane_index": 2,
+      "replica": [
+        0,
+        3,
+        0
+      ],
+      "fractional_coordinates": [
+        0.0,
+        0.875,
+        0.5
+      ],
+      "cartesian_coordinates_A": [
+        6.199999999999999,
+        15.5,
+        -6.2
+      ],
+      "occupancy": "Te",
+      "poscar_atom_index_1based": 100,
+      "is_structural_ghost_vacancy": false
+    },
+    {
+      "site_id": "T_q05_1_0_0",
+      "sublattice": "anion",
+      "q_times_2_mod_10": 5,
+      "base_plane_index": 2,
+      "replica": [
+        1,
+        0,
+        0
+      ],
+      "fractional_coordinates": [
+        0.25,
+        0.125,
+        0.5
+      ],
+      "cartesian_coordinates_A": [
+        9.299999999999999,
+        3.099999999999998,
+        3.1000000000000005
+      ],
+      "occupancy": "Te",
+      "poscar_atom_index_1based": 101,
+      "is_structural_ghost_vacancy": false
+    },
+    {
+      "site_id": "T_q05_1_1_0",
+      "sublattice": "anion",
+      "q_times_2_mod_10": 5,
+      "base_plane_index": 2,
+      "replica": [
+        1,
+        1,
+        0
+      ],
+      "fractional_coordinates": [
+        0.25,
+        0.375,
+        0.5
+      ],
+      "cartesian_coordinates_A": [
+        9.299999999999999,
+        6.1999999999999975,
+        8.881784197001252e-16
+      ],
+      "occupancy": "Te",
+      "poscar_atom_index_1based": 102,
+      "is_structural_ghost_vacancy": false
+    },
+    {
+      "site_id": "T_q05_1_2_0",
+      "sublattice": "anion",
+      "q_times_2_mod_10": 5,
+      "base_plane_index": 2,
+      "replica": [
+        1,
+        2,
+        0
+      ],
+      "fractional_coordinates": [
+        0.25,
+        0.625,
+        0.5
+      ],
+      "cartesian_coordinates_A": [
+        9.299999999999999,
+        9.299999999999997,
+        -3.0999999999999996
+      ],
+      "occupancy": "Te",
+      "poscar_atom_index_1based": 103,
+      "is_structural_ghost_vacancy": false
+    },
+    {
+      "site_id": "T_q05_1_3_0",
+      "sublattice": "anion",
+      "q_times_2_mod_10": 5,
+      "base_plane_index": 2,
+      "replica": [
+        1,
+        3,
+        0
+      ],
+      "fractional_coordinates": [
+        0.25,
+        0.875,
+        0.5
+      ],
+      "cartesian_coordinates_A": [
+        9.299999999999999,
+        12.399999999999999,
+        -6.2
+      ],
+      "occupancy": "Te",
+      "poscar_atom_index_1based": 104,
+      "is_structural_ghost_vacancy": false
+    },
+    {
+      "site_id": "T_q05_2_0_0",
+      "sublattice": "anion",
+      "q_times_2_mod_10": 5,
+      "base_plane_index": 2,
+      "replica": [
+        2,
+        0,
+        0
+      ],
+      "fractional_coordinates": [
+        0.5,
+        0.125,
+        0.5
+      ],
+      "cartesian_coordinates_A": [
+        12.399999999999999,
+        -1.7763568394002505e-15,
+        3.1000000000000005
+      ],
+      "occupancy": "Te",
+      "poscar_atom_index_1based": 105,
+      "is_structural_ghost_vacancy": false
+    },
+    {
+      "site_id": "T_q05_2_1_0",
+      "sublattice": "anion",
+      "q_times_2_mod_10": 5,
+      "base_plane_index": 2,
+      "replica": [
+        2,
+        1,
+        0
+      ],
+      "fractional_coordinates": [
+        0.5,
+        0.375,
+        0.5
+      ],
+      "cartesian_coordinates_A": [
+        12.399999999999999,
+        3.099999999999998,
+        8.881784197001252e-16
+      ],
+      "occupancy": "Te",
+      "poscar_atom_index_1based": 106,
+      "is_structural_ghost_vacancy": false
+    },
+    {
+      "site_id": "T_q05_2_2_0",
+      "sublattice": "anion",
+      "q_times_2_mod_10": 5,
+      "base_plane_index": 2,
+      "replica": [
+        2,
+        2,
+        0
+      ],
+      "fractional_coordinates": [
+        0.5,
+        0.625,
+        0.5
+      ],
+      "cartesian_coordinates_A": [
+        12.399999999999999,
+        6.199999999999998,
+        -3.0999999999999996
+      ],
+      "occupancy": "Te",
+      "poscar_atom_index_1based": 107,
+      "is_structural_ghost_vacancy": false
+    },
+    {
+      "site_id": "T_q05_2_3_0",
+      "sublattice": "anion",
+      "q_times_2_mod_10": 5,
+      "base_plane_index": 2,
+      "replica": [
+        2,
+        3,
+        0
+      ],
+      "fractional_coordinates": [
+        0.5,
+        0.875,
+        0.5
+      ],
+      "cartesian_coordinates_A": [
+        12.399999999999999,
+        9.299999999999999,
+        -6.2
+      ],
+      "occupancy": "Te",
+      "poscar_atom_index_1based": 108,
+      "is_structural_ghost_vacancy": false
+    },
+    {
+      "site_id": "T_q05_3_0_0",
+      "sublattice": "anion",
+      "q_times_2_mod_10": 5,
+      "base_plane_index": 2,
+      "replica": [
+        3,
+        0,
+        0
+      ],
+      "fractional_coordinates": [
+        0.75,
+        0.125,
+        0.5
+      ],
+      "cartesian_coordinates_A": [
+        15.5,
+        -3.1000000000000023,
+        3.1000000000000005
+      ],
+      "occupancy": "Te",
+      "poscar_atom_index_1based": 109,
+      "is_structural_ghost_vacancy": false
+    },
+    {
+      "site_id": "T_q05_3_1_0",
+      "sublattice": "anion",
+      "q_times_2_mod_10": 5,
+      "base_plane_index": 2,
+      "replica": [
+        3,
+        1,
+        0
+      ],
+      "fractional_coordinates": [
+        0.75,
+        0.375,
+        0.5
+      ],
+      "cartesian_coordinates_A": [
+        15.5,
+        -2.6645352591003757e-15,
+        8.881784197001252e-16
+      ],
+      "occupancy": "Te",
+      "poscar_atom_index_1based": 110,
+      "is_structural_ghost_vacancy": false
+    },
+    {
+      "site_id": "T_q05_3_2_0",
+      "sublattice": "anion",
+      "q_times_2_mod_10": 5,
+      "base_plane_index": 2,
+      "replica": [
+        3,
+        2,
+        0
+      ],
+      "fractional_coordinates": [
+        0.75,
+        0.625,
+        0.5
+      ],
+      "cartesian_coordinates_A": [
+        15.5,
+        3.099999999999998,
+        -3.0999999999999996
+      ],
+      "occupancy": "Te",
+      "poscar_atom_index_1based": 111,
+      "is_structural_ghost_vacancy": false
+    },
+    {
+      "site_id": "T_q05_3_3_0",
+      "sublattice": "anion",
+      "q_times_2_mod_10": 5,
+      "base_plane_index": 2,
+      "replica": [
+        3,
+        3,
+        0
+      ],
+      "fractional_coordinates": [
+        0.75,
+        0.875,
+        0.5
+      ],
+      "cartesian_coordinates_A": [
+        15.5,
+        6.199999999999998,
+        -6.2
+      ],
+      "occupancy": "Te",
+      "poscar_atom_index_1based": 112,
+      "is_structural_ghost_vacancy": false
+    },
+    {
+      "site_id": "T_q07_0_0_0",
+      "sublattice": "anion",
+      "q_times_2_mod_10": 7,
+      "base_plane_index": 3,
+      "replica": [
+        0,
+        0,
+        0
+      ],
+      "fractional_coordinates": [
+        0.05,
+        0.025,
+        0.7
+      ],
+      "cartesian_coordinates_A": [
+        9.3,
+        6.199999999999998,
+        6.200000000000001
+      ],
+      "occupancy": "Te",
+      "poscar_atom_index_1based": 113,
+      "is_structural_ghost_vacancy": false
+    },
+    {
+      "site_id": "T_q07_0_1_0",
+      "sublattice": "anion",
+      "q_times_2_mod_10": 7,
+      "base_plane_index": 3,
+      "replica": [
+        0,
+        1,
+        0
+      ],
+      "fractional_coordinates": [
+        0.05,
+        0.275,
+        0.7
+      ],
+      "cartesian_coordinates_A": [
+        9.3,
+        9.299999999999997,
+        3.100000000000001
+      ],
+      "occupancy": "Te",
+      "poscar_atom_index_1based": 114,
+      "is_structural_ghost_vacancy": false
+    },
+    {
+      "site_id": "T_q07_0_2_0",
+      "sublattice": "anion",
+      "q_times_2_mod_10": 7,
+      "base_plane_index": 3,
+      "replica": [
+        0,
+        2,
+        0
+      ],
+      "fractional_coordinates": [
+        0.05,
+        0.525,
+        0.7
+      ],
+      "cartesian_coordinates_A": [
+        9.3,
+        12.399999999999999,
+        8.881784197001252e-16
+      ],
+      "occupancy": "Te",
+      "poscar_atom_index_1based": 115,
+      "is_structural_ghost_vacancy": false
+    },
+    {
+      "site_id": "T_q07_0_3_0",
+      "sublattice": "anion",
+      "q_times_2_mod_10": 7,
+      "base_plane_index": 3,
+      "replica": [
+        0,
+        3,
+        0
+      ],
+      "fractional_coordinates": [
+        0.05,
+        0.775,
+        0.7
+      ],
+      "cartesian_coordinates_A": [
+        9.3,
+        15.499999999999998,
+        -3.0999999999999996
+      ],
+      "occupancy": "Te",
+      "poscar_atom_index_1based": 116,
+      "is_structural_ghost_vacancy": false
+    },
+    {
+      "site_id": "T_q07_1_0_0",
+      "sublattice": "anion",
+      "q_times_2_mod_10": 7,
+      "base_plane_index": 3,
+      "replica": [
+        1,
+        0,
+        0
+      ],
+      "fractional_coordinates": [
+        0.3,
+        0.025,
+        0.7
+      ],
+      "cartesian_coordinates_A": [
+        12.4,
+        3.099999999999998,
+        6.200000000000001
+      ],
+      "occupancy": "Te",
+      "poscar_atom_index_1based": 117,
+      "is_structural_ghost_vacancy": false
+    },
+    {
+      "site_id": "T_q07_1_1_0",
+      "sublattice": "anion",
+      "q_times_2_mod_10": 7,
+      "base_plane_index": 3,
+      "replica": [
+        1,
+        1,
+        0
+      ],
+      "fractional_coordinates": [
+        0.3,
+        0.275,
+        0.7
+      ],
+      "cartesian_coordinates_A": [
+        12.4,
+        6.1999999999999975,
+        3.100000000000001
+      ],
+      "occupancy": "Te",
+      "poscar_atom_index_1based": 118,
+      "is_structural_ghost_vacancy": false
+    },
+    {
+      "site_id": "T_q07_1_2_0",
+      "sublattice": "anion",
+      "q_times_2_mod_10": 7,
+      "base_plane_index": 3,
+      "replica": [
+        1,
+        2,
+        0
+      ],
+      "fractional_coordinates": [
+        0.3,
+        0.525,
+        0.7
+      ],
+      "cartesian_coordinates_A": [
+        12.4,
+        9.299999999999997,
+        8.881784197001252e-16
+      ],
+      "occupancy": "Te",
+      "poscar_atom_index_1based": 119,
+      "is_structural_ghost_vacancy": false
+    },
+    {
+      "site_id": "T_q07_1_3_0",
+      "sublattice": "anion",
+      "q_times_2_mod_10": 7,
+      "base_plane_index": 3,
+      "replica": [
+        1,
+        3,
+        0
+      ],
+      "fractional_coordinates": [
+        0.3,
+        0.775,
+        0.7
+      ],
+      "cartesian_coordinates_A": [
+        12.4,
+        12.399999999999999,
+        -3.0999999999999996
+      ],
+      "occupancy": "Te",
+      "poscar_atom_index_1based": 120,
+      "is_structural_ghost_vacancy": false
+    },
+    {
+      "site_id": "T_q07_2_0_0",
+      "sublattice": "anion",
+      "q_times_2_mod_10": 7,
+      "base_plane_index": 3,
+      "replica": [
+        2,
+        0,
+        0
+      ],
+      "fractional_coordinates": [
+        0.55,
+        0.025,
+        0.7
+      ],
+      "cartesian_coordinates_A": [
+        15.5,
+        -2.6645352591003757e-15,
+        6.200000000000001
+      ],
+      "occupancy": "Te",
+      "poscar_atom_index_1based": 121,
+      "is_structural_ghost_vacancy": false
+    },
+    {
+      "site_id": "T_q07_2_1_0",
+      "sublattice": "anion",
+      "q_times_2_mod_10": 7,
+      "base_plane_index": 3,
+      "replica": [
+        2,
+        1,
+        0
+      ],
+      "fractional_coordinates": [
+        0.55,
+        0.275,
+        0.7
+      ],
+      "cartesian_coordinates_A": [
+        15.5,
+        3.0999999999999974,
+        3.100000000000001
+      ],
+      "occupancy": "Te",
+      "poscar_atom_index_1based": 122,
+      "is_structural_ghost_vacancy": false
+    },
+    {
+      "site_id": "T_q07_2_2_0",
+      "sublattice": "anion",
+      "q_times_2_mod_10": 7,
+      "base_plane_index": 3,
+      "replica": [
+        2,
+        2,
+        0
+      ],
+      "fractional_coordinates": [
+        0.55,
+        0.525,
+        0.7
+      ],
+      "cartesian_coordinates_A": [
+        15.5,
+        6.1999999999999975,
+        8.881784197001252e-16
+      ],
+      "occupancy": "Te",
+      "poscar_atom_index_1based": 123,
+      "is_structural_ghost_vacancy": false
+    },
+    {
+      "site_id": "T_q07_2_3_0",
+      "sublattice": "anion",
+      "q_times_2_mod_10": 7,
+      "base_plane_index": 3,
+      "replica": [
+        2,
+        3,
+        0
+      ],
+      "fractional_coordinates": [
+        0.55,
+        0.775,
+        0.7
+      ],
+      "cartesian_coordinates_A": [
+        15.5,
+        9.299999999999997,
+        -3.0999999999999996
+      ],
+      "occupancy": "Te",
+      "poscar_atom_index_1based": 124,
+      "is_structural_ghost_vacancy": false
+    },
+    {
+      "site_id": "T_q07_3_0_0",
+      "sublattice": "anion",
+      "q_times_2_mod_10": 7,
+      "base_plane_index": 3,
+      "replica": [
+        3,
+        0,
+        0
+      ],
+      "fractional_coordinates": [
+        0.8,
+        0.025,
+        0.7
+      ],
+      "cartesian_coordinates_A": [
+        18.6,
+        -3.100000000000003,
+        6.200000000000001
+      ],
+      "occupancy": "Te",
+      "poscar_atom_index_1based": 125,
+      "is_structural_ghost_vacancy": false
+    },
+    {
+      "site_id": "T_q07_3_1_0",
+      "sublattice": "anion",
+      "q_times_2_mod_10": 7,
+      "base_plane_index": 3,
+      "replica": [
+        3,
+        1,
+        0
+      ],
+      "fractional_coordinates": [
+        0.8,
+        0.275,
+        0.7
+      ],
+      "cartesian_coordinates_A": [
+        18.6,
+        -3.552713678800501e-15,
+        3.100000000000001
+      ],
+      "occupancy": "Te",
+      "poscar_atom_index_1based": 126,
+      "is_structural_ghost_vacancy": false
+    },
+    {
+      "site_id": "T_q07_3_2_0",
+      "sublattice": "anion",
+      "q_times_2_mod_10": 7,
+      "base_plane_index": 3,
+      "replica": [
+        3,
+        2,
+        0
+      ],
+      "fractional_coordinates": [
+        0.8,
+        0.525,
+        0.7
+      ],
+      "cartesian_coordinates_A": [
+        18.6,
+        3.099999999999997,
+        8.881784197001252e-16
+      ],
+      "occupancy": "Te",
+      "poscar_atom_index_1based": 127,
+      "is_structural_ghost_vacancy": false
+    },
+    {
+      "site_id": "T_q07_3_3_0",
+      "sublattice": "anion",
+      "q_times_2_mod_10": 7,
+      "base_plane_index": 3,
+      "replica": [
+        3,
+        3,
+        0
+      ],
+      "fractional_coordinates": [
+        0.8,
+        0.775,
+        0.7
+      ],
+      "cartesian_coordinates_A": [
+        18.6,
+        6.1999999999999975,
+        -3.0999999999999996
+      ],
+      "occupancy": "Te",
+      "poscar_atom_index_1based": 128,
+      "is_structural_ghost_vacancy": false
+    },
+    {
+      "site_id": "T_q09_0_0_0",
+      "sublattice": "anion",
+      "q_times_2_mod_10": 9,
+      "base_plane_index": 4,
+      "replica": [
+        0,
+        0,
+        0
+      ],
+      "fractional_coordinates": [
+        0.1,
+        0.175,
+        0.9
+      ],
+      "cartesian_coordinates_A": [
+        12.399999999999997,
+        9.299999999999999,
+        6.200000000000001
+      ],
+      "occupancy": "Te",
+      "poscar_atom_index_1based": 129,
+      "is_structural_ghost_vacancy": false
+    },
+    {
+      "site_id": "T_q09_0_1_0",
+      "sublattice": "anion",
+      "q_times_2_mod_10": 9,
+      "base_plane_index": 4,
+      "replica": [
+        0,
+        1,
+        0
+      ],
+      "fractional_coordinates": [
+        0.1,
+        0.425,
+        0.9
+      ],
+      "cartesian_coordinates_A": [
+        12.399999999999997,
+        12.399999999999999,
+        3.1000000000000014
+      ],
+      "occupancy": "Te",
+      "poscar_atom_index_1based": 130,
+      "is_structural_ghost_vacancy": false
+    },
+    {
+      "site_id": "T_q09_0_2_0",
+      "sublattice": "anion",
+      "q_times_2_mod_10": 9,
+      "base_plane_index": 4,
+      "replica": [
+        0,
+        2,
+        0
+      ],
+      "fractional_coordinates": [
+        0.1,
+        0.675,
+        0.9
+      ],
+      "cartesian_coordinates_A": [
+        12.399999999999997,
+        15.499999999999998,
+        1.7763568394002505e-15
+      ],
+      "occupancy": "Te",
+      "poscar_atom_index_1based": 131,
+      "is_structural_ghost_vacancy": false
+    },
+    {
+      "site_id": "T_q09_0_3_0",
+      "sublattice": "anion",
+      "q_times_2_mod_10": 9,
+      "base_plane_index": 4,
+      "replica": [
+        0,
+        3,
+        0
+      ],
+      "fractional_coordinates": [
+        0.1,
+        0.925,
+        0.9
+      ],
+      "cartesian_coordinates_A": [
+        12.399999999999997,
+        18.6,
+        -3.0999999999999996
+      ],
+      "occupancy": "Te",
+      "poscar_atom_index_1based": 132,
+      "is_structural_ghost_vacancy": false
+    },
+    {
+      "site_id": "T_q09_1_0_0",
+      "sublattice": "anion",
+      "q_times_2_mod_10": 9,
+      "base_plane_index": 4,
+      "replica": [
+        1,
+        0,
+        0
+      ],
+      "fractional_coordinates": [
+        0.35,
+        0.175,
+        0.9
+      ],
+      "cartesian_coordinates_A": [
+        15.499999999999996,
+        6.199999999999999,
+        6.200000000000001
+      ],
+      "occupancy": "Te",
+      "poscar_atom_index_1based": 133,
+      "is_structural_ghost_vacancy": false
+    },
+    {
+      "site_id": "T_q09_1_1_0",
+      "sublattice": "anion",
+      "q_times_2_mod_10": 9,
+      "base_plane_index": 4,
+      "replica": [
+        1,
+        1,
+        0
+      ],
+      "fractional_coordinates": [
+        0.35,
+        0.425,
+        0.9
+      ],
+      "cartesian_coordinates_A": [
+        15.499999999999996,
+        9.299999999999999,
+        3.1000000000000014
+      ],
+      "occupancy": "Te",
+      "poscar_atom_index_1based": 134,
+      "is_structural_ghost_vacancy": false
+    },
+    {
+      "site_id": "T_q09_1_2_0",
+      "sublattice": "anion",
+      "q_times_2_mod_10": 9,
+      "base_plane_index": 4,
+      "replica": [
+        1,
+        2,
+        0
+      ],
+      "fractional_coordinates": [
+        0.35,
+        0.675,
+        0.9
+      ],
+      "cartesian_coordinates_A": [
+        15.499999999999996,
+        12.399999999999999,
+        1.7763568394002505e-15
+      ],
+      "occupancy": "Te",
+      "poscar_atom_index_1based": 135,
+      "is_structural_ghost_vacancy": false
+    },
+    {
+      "site_id": "T_q09_1_3_0",
+      "sublattice": "anion",
+      "q_times_2_mod_10": 9,
+      "base_plane_index": 4,
+      "replica": [
+        1,
+        3,
+        0
+      ],
+      "fractional_coordinates": [
+        0.35,
+        0.925,
+        0.9
+      ],
+      "cartesian_coordinates_A": [
+        15.499999999999996,
+        15.5,
+        -3.0999999999999996
+      ],
+      "occupancy": "Te",
+      "poscar_atom_index_1based": 136,
+      "is_structural_ghost_vacancy": false
+    },
+    {
+      "site_id": "T_q09_2_0_0",
+      "sublattice": "anion",
+      "q_times_2_mod_10": 9,
+      "base_plane_index": 4,
+      "replica": [
+        2,
+        0,
+        0
+      ],
+      "fractional_coordinates": [
+        0.6,
+        0.175,
+        0.9
+      ],
+      "cartesian_coordinates_A": [
+        18.599999999999998,
+        3.099999999999998,
+        6.200000000000001
+      ],
+      "occupancy": "Te",
+      "poscar_atom_index_1based": 137,
+      "is_structural_ghost_vacancy": false
+    },
+    {
+      "site_id": "T_q09_2_1_0",
+      "sublattice": "anion",
+      "q_times_2_mod_10": 9,
+      "base_plane_index": 4,
+      "replica": [
+        2,
+        1,
+        0
+      ],
+      "fractional_coordinates": [
+        0.6,
+        0.425,
+        0.9
+      ],
+      "cartesian_coordinates_A": [
+        18.599999999999998,
+        6.199999999999998,
+        3.1000000000000014
+      ],
+      "occupancy": "Te",
+      "poscar_atom_index_1based": 138,
+      "is_structural_ghost_vacancy": false
+    },
+    {
+      "site_id": "T_q09_2_2_0",
+      "sublattice": "anion",
+      "q_times_2_mod_10": 9,
+      "base_plane_index": 4,
+      "replica": [
+        2,
+        2,
+        0
+      ],
+      "fractional_coordinates": [
+        0.6,
+        0.675,
+        0.9
+      ],
+      "cartesian_coordinates_A": [
+        18.599999999999998,
+        9.299999999999997,
+        1.7763568394002505e-15
+      ],
+      "occupancy": "Te",
+      "poscar_atom_index_1based": 139,
+      "is_structural_ghost_vacancy": false
+    },
+    {
+      "site_id": "T_q09_2_3_0",
+      "sublattice": "anion",
+      "q_times_2_mod_10": 9,
+      "base_plane_index": 4,
+      "replica": [
+        2,
+        3,
+        0
+      ],
+      "fractional_coordinates": [
+        0.6,
+        0.925,
+        0.9
+      ],
+      "cartesian_coordinates_A": [
+        18.599999999999998,
+        12.399999999999999,
+        -3.0999999999999996
+      ],
+      "occupancy": "Te",
+      "poscar_atom_index_1based": 140,
+      "is_structural_ghost_vacancy": false
+    },
+    {
+      "site_id": "T_q09_3_0_0",
+      "sublattice": "anion",
+      "q_times_2_mod_10": 9,
+      "base_plane_index": 4,
+      "replica": [
+        3,
+        0,
+        0
+      ],
+      "fractional_coordinates": [
+        0.85,
+        0.175,
+        0.9
+      ],
+      "cartesian_coordinates_A": [
+        21.699999999999996,
+        -1.7763568394002505e-15,
+        6.200000000000001
+      ],
+      "occupancy": "Te",
+      "poscar_atom_index_1based": 141,
+      "is_structural_ghost_vacancy": false
+    },
+    {
+      "site_id": "T_q09_3_1_0",
+      "sublattice": "anion",
+      "q_times_2_mod_10": 9,
+      "base_plane_index": 4,
+      "replica": [
+        3,
+        1,
+        0
+      ],
+      "fractional_coordinates": [
+        0.85,
+        0.425,
+        0.9
+      ],
+      "cartesian_coordinates_A": [
+        21.699999999999996,
+        3.099999999999998,
+        3.1000000000000014
+      ],
+      "occupancy": "Te",
+      "poscar_atom_index_1based": 142,
+      "is_structural_ghost_vacancy": false
+    },
+    {
+      "site_id": "T_q09_3_2_0",
+      "sublattice": "anion",
+      "q_times_2_mod_10": 9,
+      "base_plane_index": 4,
+      "replica": [
+        3,
+        2,
+        0
+      ],
+      "fractional_coordinates": [
+        0.85,
+        0.675,
+        0.9
+      ],
+      "cartesian_coordinates_A": [
+        21.699999999999996,
+        6.1999999999999975,
+        1.7763568394002505e-15
+      ],
+      "occupancy": "Te",
+      "poscar_atom_index_1based": 143,
+      "is_structural_ghost_vacancy": false
+    },
+    {
+      "site_id": "T_q09_3_3_0",
+      "sublattice": "anion",
+      "q_times_2_mod_10": 9,
+      "base_plane_index": 4,
+      "replica": [
+        3,
+        3,
+        0
+      ],
+      "fractional_coordinates": [
+        0.85,
+        0.925,
+        0.9
+      ],
+      "cartesian_coordinates_A": [
+        21.699999999999996,
+        9.299999999999999,
+        -3.0999999999999996
+      ],
+      "occupancy": "Te",
+      "poscar_atom_index_1based": 144,
+      "is_structural_ghost_vacancy": false
+    }
+  ]
+}

@@ -1,0 +1,5 @@
+inventory rows: 4
+Pb2Bi2Te5 natoms 9 mesh 28x28x6 nelect 88 mass_hash_ok True gen_match {"step3_gen_dense_soc": true, "step8.1_gen_step11_boltztrap": false, "step8.1_ke_common": false, "step8.1_run_bt2_soc": true, "step8.3_fit_effective_mass": true, "step8.3_fit_mass_soc": true}
+Pb2Sb2Te5 natoms 9 mesh 28x28x7 nelect 68 mass_hash_ok True gen_match {"step3_gen_dense_soc": true, "step8.1_gen_step11_boltztrap": false, "step8.1_ke_common": false, "step8.1_run_bt2_soc": true, "step8.3_fit_effective_mass": true, "step8.3_fit_mass_soc": true}
+Sn2Bi2Te5 natoms 9 mesh 28x28x6 nelect 88 mass_hash_ok True gen_match {"step3_gen_dense_soc": true, "step8.1_gen_step11_boltztrap": false, "step8.1_ke_common": false, "step8.1_run_bt2_soc": true, "step8.3_fit_effective_mass": true, "step8.3_fit_mass_soc": true}
+Sn2Sb2Te5 natoms 9 mesh 28x28x7 nelect 68 mass_hash_ok True gen_match {"step3_gen_dense_soc": true, "step8.1_gen_step11_boltztrap": false, "step8.1_ke_common": false, "step8.1_run_bt2_soc": true, "step8.3_fit_effective_mass": true, "step8.3_fit_mass_soc": true}

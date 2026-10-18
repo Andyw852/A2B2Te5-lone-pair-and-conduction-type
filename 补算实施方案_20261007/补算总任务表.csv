@@ -1,0 +1,13 @@
+﻿task_id,material,task,dependency,output,status
+A0,四材料,恢复原SOC均匀网格vasprun/mesh/wavefunction,计算端原始输出,能带来源与设置清单,PENDING
+A1,四材料有序小胞,SOC三维均匀能带与DOS,原始输入与收敛测试,全局带边及候选谷,NOT_RUN
+A2,四材料有序小胞,每相关谷5x5x5局部采样及三步长验证,已验证候选谷,质量张量/方向/残差/敏感性,NOT_RUN
+A3,四材料有序小胞,同方法s/p投影与DOS及速度分析,三维能带波函数,mDOS/Nv/谷间能差/s特征,NOT_RUN
+A4,四材料有序小胞,常数tau与完整散射固定浓度对照,一致能带与散射输入,S-n与sigma/tau；散射验证后给迁移率/电导/PF,PARTIAL_EXISTING_DATA
+A5,四材料及固定组分对照,复核已有ELF/成键与局部结构，补同方法投影及受控畸变,来源一致与SOC工具能力核查,孤对活性相关证据与因果检验,PARTIAL_EXISTING_DATA
+B0,Pb2Sb2Te5,D4 V4 O1母胞弛豫,生成初始模型并数值收敛,9个已弛豫且身份明确的母胞,NOT_RUN
+B1,Pb2Sb2Te5,12类中性缺陷预筛,从已弛豫母胞重新生成缺陷,逐母胞逐位点形成能/DOS,NOT_RUN
+B2,Pb2Sb2Te5,关键类型扩大构型位点与尺寸SOC验证,预筛结果,缺陷分布及稳健排序,NOT_RUN
+B3,Pb2Bi2Te5,对应有序度反应对照,PbSb主问题和全部候选排查方法,组分依赖的有序化响应,REQUIRED_IF_EXPLAINING_PbSb_VS_PbBi
+B4,全带隙内可能竞争的合理缺陷电荷态,带电态与电荷中性,带隙/修正/浓度模型适用；不能只按中性能排序剔除候选,条件依赖n/p,NOT_RUN
+C,理论拓展,有限温自由能与迁移势垒,只有需要退火温度时间轴时,有序度温度关系与动力学,NOT_IN_CURRENT_SCOPE

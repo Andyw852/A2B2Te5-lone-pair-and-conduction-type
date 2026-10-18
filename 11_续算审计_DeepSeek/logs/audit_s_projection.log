@@ -1,0 +1,6 @@
+[Pb2Bi2Te5] HSE gap 0.114062 eV; PBE dense gap 0.143440 eV; POSCAR same=False
+[Pb2Sb2Te5] HSE gap 0.065771 eV; PBE dense gap 0.219123 eV; POSCAR same=True
+[Sn2Bi2Te5] HSE gap 0.136395 eV; PBE dense gap 0.088471 eV; POSCAR same=True
+[Sn2Sb2Te5] HSE gap 0.135907 eV; PBE dense gap 0.147808 eV; POSCAR same=True
+wrote /mnt/d/joint_research_project/huang/孤对电子与导电类型_综合分析_20260918/11_续算审计_DeepSeek/csv/s_projection_audit.csv
+wrote /mnt/d/joint_research_project/huang/孤对电子与导电类型_综合分析_20260918/11_续算审计_DeepSeek/csv/s_projection_source_check.csv

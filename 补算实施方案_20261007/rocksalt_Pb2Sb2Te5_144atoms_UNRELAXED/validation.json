@@ -1,0 +1,20 @@
+{
+  "result": "PASS_GEOMETRY_AND_BOOKKEEPING_ONLY",
+  "df_t_calculations_performed": 0,
+  "checks": {
+    "parent_exact_stoichiometry": true,
+    "fcc_cell_volume_and_plane_labels": true,
+    "unique_parent_fingerprints": true,
+    "ordered_vacancy_plane_in_O_and_V": true,
+    "one_site_change_per_candidate": true,
+    "candidate_composition_deltas": true,
+    "serialized_poscar_atom_counts": true,
+    "no_coincident_sites": true,
+    "all_jobs_NOT_RUN": true
+  },
+  "serialized_poscar_files_checked": 243,
+  "minimum_distance_full_parent_lattice_A": 3.0999999999999988,
+  "expected_rocksalt_nearest_neighbor_A": 3.1,
+  "minimum_occupied_distance_A": 3.0999999999999988,
+  "note": "Checks only verify constructed geometries, not physical stability or electronic properties."
+}

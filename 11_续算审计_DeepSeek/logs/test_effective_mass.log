@@ -1,0 +1,11 @@
+test_cli_mapping_output_and_rejection (test_effective_mass.EffectiveMassTests.test_cli_mapping_output_and_rejection) ... ok
+test_detect_off_center_extremum (test_effective_mass.EffectiveMassTests.test_detect_off_center_extremum) ... ok
+test_holes_do_not_take_absolute_electron_curvature_blindly (test_effective_mass.EffectiveMassTests.test_holes_do_not_take_absolute_electron_curvature_blindly) ... ok
+test_nonparabolic_window_diagnostic (test_effective_mass.EffectiveMassTests.test_nonparabolic_window_diagnostic) ... ok
+test_reject_path_only_sampling (test_effective_mass.EffectiveMassTests.test_reject_path_only_sampling) ... ok
+test_rotated_anisotropic_electrons (test_effective_mass.EffectiveMassTests.test_rotated_anisotropic_electrons) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.390s
+
+OK

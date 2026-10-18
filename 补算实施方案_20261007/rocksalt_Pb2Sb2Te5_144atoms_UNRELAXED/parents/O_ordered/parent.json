@@ -1,0 +1,16 @@
+{
+  "parent_id": "O_ordered",
+  "family": "O",
+  "random_seed": null,
+  "status": "UNRELAXED_NOT_RUN",
+  "fingerprint_sha256": "8bfc7f53b3739a05bfb669c3f74f8949763850ae5253a7b2519269ed4c358bd1",
+  "poscar": "parents\\O_ordered\\POSCAR",
+  "atom_count": 144,
+  "species_counts": {
+    "Pb": 32,
+    "Sb": 32,
+    "Te": 80
+  },
+  "ghost_vacancy_count": 16,
+  "minimum_periodic_pair_distance_A": 3.0999999999999988
+}

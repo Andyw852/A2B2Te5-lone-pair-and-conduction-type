@@ -1,0 +1,242 @@
+{
+  "generated_by": "audit_dvo.py",
+  "dvo_root": "/mnt/d/joint_research_project/huang/补算实施方案_20261007/rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED",
+  "package_status": "ALL_UNRELAXED_NO_DFT_PERFORMED",
+  "parents": 9,
+  "defects": 234,
+  "jobs": 243,
+  "jobs_status_counts": {
+    "NOT_RUN": 243
+  },
+  "jobs_stage_counts": {
+    "REGENERATE_FROM_RELAXED_PARENT_THEN_NEUTRAL_SCREEN": 234,
+    "PARENT_RELAX_REQUIRED": 9
+  },
+  "jobs_parent_counts": {
+    "V_seed1729": 28,
+    "D_seed1729": 28,
+    "V_seed2718": 28,
+    "V_seed31415": 28,
+    "V_seed161803": 28,
+    "D_seed31415": 28,
+    "D_seed2718": 28,
+    "D_seed161803": 28,
+    "O_ordered": 19
+  },
+  "jobs_charge_state_counts": {
+    "0.0": 234
+  },
+  "jobs_defect_type_counts": {
+    "V_Te": 35,
+    "Sb_Pb": 33,
+    "Pb_on_Vac": 33,
+    "Pb_Sb": 33,
+    "Sb_on_Vac": 33,
+    "Pb_Te": 11,
+    "Sb_Te": 11,
+    "V_Pb": 9,
+    "Te_on_Vac": 9,
+    "V_Sb": 9,
+    "Te_Pb": 9,
+    "Te_Sb": 9
+  },
+  "file_extensions": {
+    ".json": 255,
+    ".csv": 1,
+    ".txt": 1,
+    "<none>": 243
+  },
+  "n_files": 500,
+  "energy_like_files": [],
+  "validation": {
+    "result": "PASS_GEOMETRY_AND_BOOKKEEPING_ONLY",
+    "df_t_calculations_performed": 0,
+    "checks": {
+      "parent_exact_stoichiometry": true,
+      "fcc_cell_volume_and_plane_labels": true,
+      "unique_parent_fingerprints": true,
+      "ordered_vacancy_plane_in_O_and_V": true,
+      "one_site_change_per_candidate": true,
+      "candidate_composition_deltas": true,
+      "serialized_poscar_atom_counts": true,
+      "no_coincident_sites": true,
+      "all_jobs_NOT_RUN": true
+    },
+    "serialized_poscar_files_checked": 243,
+    "minimum_distance_full_parent_lattice_A": 3.0999999999999988,
+    "expected_rocksalt_nearest_neighbor_A": 3.1,
+    "minimum_occupied_distance_A": 3.0999999999999988,
+    "note": "Checks only verify constructed geometries, not physical stability or electronic properties."
+  },
+  "delivery": {
+    "date": "2026-10-07",
+    "new_DFT_executed": false,
+    "actual_new_material_masses_or_defect_energies_available": false,
+    "completion_scope": "Requested paper-based implementation analysis, supplementary-computation design, model/input preparation, tested postprocessing tools, and reuse of existing SOC outputs.",
+    "review_scope": "Independent paper/physics/code audit; six synthetic mass tests rerun; no new DFT."
+  },
+  "independent_audit_scope": "No physical relaxation, energies, stability, or electronic predictions verified.",
+  "review_table_rows": 14,
+  "old_81atom_projects": [
+    {
+      "material": "Pb2Bi2Te5",
+      "path": "/mnt/d/tf_data/Pb2Bi2Te5/defect-dft-cpu/result",
+      "bulk_species": "Bi Te Pb",
+      "bulk_counts": "18 45 18",
+      "bulk_natoms": 81,
+      "supercell": "3x3x1 (81 atoms)",
+      "step4_status": "partial",
+      "step4_n_defects": 80,
+      "is_DVO": false,
+      "note": "old 81-atom AutoZT defect project; not D/V/O; partial step4; do not use as D/V/O energy"
+    },
+    {
+      "material": "Pb2Sb2Te5",
+      "path": "/mnt/d/tf_data/Pb2Sb2Te5/defect-dft-cpu/result",
+      "bulk_species": "Sb Te Pb",
+      "bulk_counts": "18 45 18",
+      "bulk_natoms": 81,
+      "supercell": "3x3x1 (81 atoms)",
+      "step4_status": "partial",
+      "step4_n_defects": 80,
+      "is_DVO": false,
+      "note": "old 81-atom AutoZT defect project; not D/V/O; partial step4; do not use as D/V/O energy"
+    },
+    {
+      "material": "Sn2Bi2Te5",
+      "path": "/mnt/d/tf_data/Sn2Bi2Te5/defect-dft-cpu/result",
+      "bulk_species": "Bi Te Sn",
+      "bulk_counts": "18 45 18",
+      "bulk_natoms": 81,
+      "supercell": "3x3x1 (81 atoms)",
+      "step4_status": "partial",
+      "step4_n_defects": 80,
+      "is_DVO": false,
+      "note": "old 81-atom AutoZT defect project; not D/V/O; partial step4; do not use as D/V/O energy"
+    },
+    {
+      "material": "Sn2Sb2Te5",
+      "path": "/mnt/d/tf_data/Sn2Sb2Te5/defect-dft-cpu/result",
+      "bulk_species": "Sb Te Sn",
+      "bulk_counts": "18 45 18",
+      "bulk_natoms": 81,
+      "supercell": "3x3x1 (81 atoms)",
+      "step4_status": "partial",
+      "step4_n_defects": 80,
+      "is_DVO": false,
+      "note": "old 81-atom AutoZT defect project; not D/V/O; partial step4; do not use as D/V/O energy"
+    }
+  ],
+  "old_72atom_zips": [
+    {
+      "material": "Pb2Bi2Te5",
+      "zip": "/mnt/d/joint_research_project/huang/孤对电子与导电类型_综合分析_20260918/03_缺陷形成能与PN型数据/Pb2Bi2Te5.zip",
+      "bulk_member": "结构_旧超胞参考/bulk/POSCAR",
+      "bulk_species": "Bi Te Pb",
+      "bulk_counts": "16 40 16",
+      "bulk_natoms": 72,
+      "supercell": "2x2x2 (72 atoms)",
+      "formation_status": "done",
+      "E_gap": 0.1141,
+      "dominant_defect": "Bi_Te(q=+0, E_f=-1.034 eV)",
+      "carrier_type": "p 型",
+      "n_defects": 22,
+      "is_DVO": false,
+      "note": "old 2x2x2 72-atom dataset; has old formation energies but is not the 144-atom D/V/O model"
+    },
+    {
+      "material": "Pb2Sb2Te5",
+      "zip": "/mnt/d/joint_research_project/huang/孤对电子与导电类型_综合分析_20260918/03_缺陷形成能与PN型数据/Pb2Sb2Te5.zip",
+      "bulk_member": "结构_旧超胞参考/bulk/POSCAR",
+      "bulk_species": "Sb Te Pb",
+      "bulk_counts": "16 40 16",
+      "bulk_natoms": 72,
+      "supercell": "2x2x2 (72 atoms)",
+      "formation_status": "done",
+      "E_gap": 0.0654,
+      "dominant_defect": "Pb_Sb(q=+0, E_f=0.073 eV)",
+      "carrier_type": "p 型",
+      "n_defects": 22,
+      "is_DVO": false,
+      "note": "old 2x2x2 72-atom dataset; has old formation energies but is not the 144-atom D/V/O model"
+    },
+    {
+      "material": "Sn2Bi2Te5",
+      "zip": "/mnt/d/joint_research_project/huang/孤对电子与导电类型_综合分析_20260918/03_缺陷形成能与PN型数据/Sn2Bi2Te5.zip",
+      "bulk_member": "结构_旧超胞参考/bulk/POSCAR",
+      "bulk_species": "Bi Te Sn",
+      "bulk_counts": "16 40 16",
+      "bulk_natoms": 72,
+      "supercell": "2x2x2 (72 atoms)",
+      "formation_status": "done",
+      "E_gap": 0.1366,
+      "dominant_defect": "Bi_Te(q=+0, E_f=-0.715 eV)",
+      "carrier_type": "p 型",
+      "n_defects": 22,
+      "is_DVO": false,
+      "note": "old 2x2x2 72-atom dataset; has old formation energies but is not the 144-atom D/V/O model"
+    },
+    {
+      "material": "Sn2Sb2Te5",
+      "zip": "/mnt/d/joint_research_project/huang/孤对电子与导电类型_综合分析_20260918/03_缺陷形成能与PN型数据/Sn2Sb2Te5.zip",
+      "bulk_member": "结构_旧超胞参考/bulk/POSCAR",
+      "bulk_species": "Sb Te Sn",
+      "bulk_counts": "16 40 16",
+      "bulk_natoms": 72,
+      "supercell": "2x2x2 (72 atoms)",
+      "formation_status": "done",
+      "E_gap": 0.1352,
+      "dominant_defect": "Sn_Sb(q=+0, E_f=-0.125 eV)",
+      "carrier_type": "p 型",
+      "n_defects": 22,
+      "is_DVO": false,
+      "note": "old 2x2x2 72-atom dataset; has old formation energies but is not the 144-atom D/V/O model"
+    }
+  ],
+  "conclusion": {
+    "DVO_has_actual_energies": false,
+    "reason": "243 geometry/job entries are all NOT_RUN; validation and delivery both state zero DFT; no energy/output files exist.",
+    "old_81atom_is_DVO": false,
+    "old_72atom_is_DVO": false
+  },
+  "minimal_priority_list": [
+    {
+      "priority": 1,
+      "status": "missing",
+      "task": "Relax the 9 Pb2Sb2Te5 D/V/O parent cells (PBE-D3, consistent ENCUT/k-mesh; SOC decision recorded) and verify they remain the intended rocksalt/ordered occupation."
+    },
+    {
+      "priority": 2,
+      "status": "missing",
+      "task": "Regenerate the 12 neutral defect types from each relaxed parent (not the unrelaxed POSCARs), run static energies, and compute neutral formation energies with a common chemical-potential convention."
+    },
+    {
+      "priority": 3,
+      "status": "missing",
+      "task": "For the competitive defects (Sb_Pb, Pb_Sb, Pb_on_Vac, Sb_on_Vac, V_Te, V_Pb, V_Sb), add relevant charge states across the gap, finite-size corrections, and a charge-neutrality solution."
+    },
+    {
+      "priority": 4,
+      "status": "missing",
+      "task": "Repeat the same D/V/O protocol for Pb2Bi2Te5 to test the Bi/Sb contrast; do not infer the contrast from the old 81-atom project."
+    },
+    {
+      "priority": 5,
+      "status": "missing",
+      "task": "Only after 1-4: connect defect-limited n/p and mobility to transport; static 0 K formation energies alone do not give an annealing temperature or a P/N switch."
+    }
+  ],
+  "completed_but_not_energies": [
+    "9 parent geometries and 234 single-site defect geometries",
+    "243-row job table, all NOT_RUN",
+    "geometry/bookkeeping validation PASS; independent mutation audit PASS",
+    "6 synthetic tests of the effective-mass fitting tool (not real material masses)"
+  ],
+  "needs_fix": [
+    "All 9 parent cells are unrelaxed (a=6.2 A artificial starting guess).",
+    "All 234 defect cells are built from the unrelaxed parent and must be regenerated from relaxed CONTCAR.",
+    "No POTCAR/INCAR/KPOINTS/submit script in the D/V/O package.",
+    "O-site equivalence after relaxation must be re-checked; D/V random cells are not SQS.",
+    "The old 81-atom step4 summaries are status=partial; the old 72-atom zips are a different cell and dataset."
+  ]
+}

@@ -1,0 +1,49 @@
+{
+  "defect_id": "Sb_on_Vac__s03",
+  "defect_type": "Sb_on_Vac",
+  "parent_id": "D_seed31415",
+  "parent_fingerprint_sha256": "e7ef98e370445592aa8a7d9c8831f40c8c6b0ce3a74ea6efdd83224e1f9cab9e",
+  "status": "UNRELAXED_NOT_RUN",
+  "intended_charge_state": 0,
+  "charge_note": "Geometry only. POSCAR does not set electronic charge. Charged screening remains required.",
+  "source_occupancy": "Vac",
+  "target_occupancy": "Sb",
+  "composition_change_vs_parent": {
+    "Pb": 0,
+    "Sb": 1,
+    "Te": 0
+  },
+  "changed_site": {
+    "site_id": "C_q02_3_1_0",
+    "sublattice": "cation",
+    "q_times_2_mod_10": 2,
+    "base_plane_index": 1,
+    "replica": [
+      3,
+      1,
+      0
+    ],
+    "fractional_coordinates": [
+      0.8,
+      0.4,
+      0.2
+    ],
+    "cartesian_coordinates_A": [
+      12.400000000000002,
+      -3.1000000000000014,
+      -3.0999999999999996
+    ]
+  },
+  "site_class": "sampled_site_not_symmetry_reduced",
+  "sampling_priority": "mechanism_focused",
+  "fingerprint_sha256": "a3b417f8b24cf64deb1551cfbf4433fa42f5f0d1f838ccdb3bfa74b4b09df191",
+  "poscar": "defects\\D_seed31415\\Sb_on_Vac__s03\\POSCAR",
+  "atom_count": 145,
+  "species_counts": {
+    "Pb": 32,
+    "Sb": 33,
+    "Te": 80
+  },
+  "ghost_vacancy_count": 15,
+  "minimum_periodic_pair_distance_A": 3.0999999999999988
+}

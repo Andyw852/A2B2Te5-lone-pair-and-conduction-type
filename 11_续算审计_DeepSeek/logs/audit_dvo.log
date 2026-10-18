@@ -1,0 +1,6 @@
+DVO parents/defects/jobs: 9 234 243
+jobs status: {'NOT_RUN': 243}
+energy-like files: 0
+old 81-atom: [('Pb2Bi2Te5', 81, 'partial'), ('Pb2Sb2Te5', 81, 'partial'), ('Sn2Bi2Te5', 81, 'partial'), ('Sn2Sb2Te5', 81, 'partial')]
+old 72-atom: [('Pb2Bi2Te5', 72, 'done'), ('Pb2Sb2Te5', 72, 'done'), ('Sn2Bi2Te5', 72, 'done'), ('Sn2Sb2Te5', 72, 'done')]
+wrote /mnt/d/joint_research_project/huang/孤对电子与导电类型_综合分析_20260918/11_续算审计_DeepSeek/csv/dvo_status.csv

@@ -1,0 +1,81 @@
+局部有效质量补算工具说明（2026-10-07）
+
+用途
+  make_mass_kpoints.py：围绕人工给定的候选带边中心生成三维局部采样点。
+  fit_effective_mass.py：根据计算得到的一条人工跟踪能带的能量拟合局部曲率质量。
+  工具只需 Python 和 numpy；没有运行 VASP，也没有产生任何材料有效质量结果。
+
+一、先确认候选中心
+  从与本次拟合相同结构、泛函、SOC 设置的三维均匀能带中定位候选 VBM/CBM。
+  高对称路径的极值只是候选，不能据此宣称已找到全布里渊区极值。
+  kx ky kz 使用 POSCAR 对应倒格基矢的分数坐标；不是笛卡尔坐标。
+
+二、生成局部网格
+  python make_mass_kpoints.py --poscar "实际POSCAR路径" --center kx ky kz --step 0.005 --grid 5 --output "新输出目录"
+
+  用实际的三个中心坐标替换 kx ky kz。grid=5 生成 125 点；step 单位 Å^-1，
+  指真实笛卡尔 x/y/z 方向间距，含正确的 2π 和非正交晶格换算。
+  输出 KPOINTS_OPT 与 mass_kpoints_metadata.json。默认拒绝覆盖已有同名输出。
+  不折回第一布里渊区，以保留连续的局部坐标；周期等价性仍成立。
+
+三、运行电子结构计算并提取能量
+  KPOINTS_OPT 适用于 VASP >= 6.3，必须另外保留用于自洽的均匀主 KPOINTS。
+  保持结构、赝势、SOC、泛函及收敛条件一致。设置 LORBIT=11 可输出 PROCAR_OPT。
+  不要把 125 点局部网格当作完整输运或态密度积分网格。
+  从对应 KPOINTS_OPT 的计算输出读取能量；核对点坐标及顺序后填写 CSV。
+  每个文件只包括一条已经人工核实/跟踪的能带。交叉、简并或轨道成分互换附近
+  不能盲用固定带序号拼接一条不连续曲线。工具不会自动判断能带跟踪是否正确。
+
+  CSV 格式（第二行开始必须填实际算得的能量，单位 eV）：
+  kpoint_index_1based,energy_eV
+  1,<第1个局部k点的真实能量>
+  2,<第2个局部k点的真实能量>
+  ...
+
+  索引从 1 开始，必须与 metadata 的全部点一一对应。CSV 可以打乱行序，
+  工具按索引匹配；拒绝缺点、多点、重复索引和非有限数值。
+  不能输入沿主 KPOINTS 的能量，也不能把不同能带的能量混入同一个文件。
+
+四、拟合
+  导带电子：
+  python fit_effective_mass.py --metadata "新输出目录/mass_kpoints_metadata.json" --energies "electron_band.csv" --carrier electron --output "electron_mass.json"
+
+  价带空穴：
+  python fit_effective_mass.py --metadata "新输出目录/mass_kpoints_metadata.json" --energies "hole_band.csv" --carrier hole --output "hole_mass.json"
+
+  拟合 E(q)=E0+g·q+1/2 q^T H q，保留全部交叉项。
+  电子质量 m*/me = 7.619964/H_i；空穴使用 -H_i，H_i 单位 eV·Å²。
+  H 的本征矢是笛卡尔方向，输出矩阵的“列”分别对应三个主轴。
+  principal_masses_me 与同位置的本征值、主轴列相对应。输出顺序按原始
+  电子能量 Hessian 本征值升序排列，不保证质量由小到大。
+  错误曲率符号或近零曲率对应质量为 null，不会自动取绝对值掩盖问题。
+  这里的质量是局部曲率质量，不是 DOS 质量、Seebeck 质量或多谷电导质量。
+
+五、检查诊断，再报告数值
+  输出包括 Hessian、主轴、质量、残余梯度、拟合残差、二次模型极值偏移和
+  中心小窗口与全窗口的曲率差异。梯度显著或二次极值在采样区域外时需重定位。
+  曲率符号不符合 VBM/CBM、残差较大、窗口依赖明显时，检查交叉、非抛物性、
+  数值噪声与中心位置；不要直接引用产生警告的质量。
+
+  默认诊断阈值：梯度范数 0.001 eV·Å；RMSE 同时超过 0.0001 eV 与能量跨度的
+  1% 时警告；内外窗口任一 Hessian 本征值相对差异超过 10% 时警告。
+  这些是可调的诊断阈值，不是对材料普遍适用的物理精度承诺。
+  用 --gradient-threshold、--residual-threshold、--relative-residual-threshold、
+  --curvature-change-threshold 可修改；详细选项见 --help。
+
+  建议另外使用 step=0.0025、0.005、0.01 Å^-1 进行独立采样比较；同时收敛主
+  自洽网格和能量精度。内外窗口比较不能替代原始 DFT 收敛测试。
+  只在局部抛物近似适用、轨道连续、中心确认和数值收敛后报告质量。
+
+六、已有验证
+  在本目录运行：python -m unittest -v test_effective_mass
+  检查旋转各向异性抛物带的已知质量、空穴符号、偏移极值、非抛物窗口诊断、
+  路径采样欠定问题以及 CSV 点序/缺失和命令行输出保护。
+  所有测试能量都是合成数据，不代表 Pb/Sn/Sb/Bi/Te 中任何真实计算结果。
+
+官方文件格式参考
+  https://vasp.at/wiki/KPOINTS_OPT
+  https://vasp.at/wiki/POSCAR
+
+复核补充：默认残差阈值不能作为材料质量已收敛的标准。对最平坦方向检查实际能量跨度，
+收敛本征能和自洽网格，比较不同步长的质量稳定性；详见复核意见_20261007.txt。

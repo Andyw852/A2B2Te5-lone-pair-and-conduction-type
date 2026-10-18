@@ -1,0 +1,6 @@
+[Pb2Bi2Te5] T=[300.0, 500.0, 700.0] dmu=0.00802 monotonic=True sign_ok=True target=0.1141 HSE=0.1141
+[Pb2Sb2Te5] T=[300.0, 500.0, 700.0] dmu=0.00802 monotonic=True sign_ok=True target=0.0654 HSE=0.0658
+[Sn2Bi2Te5] T=[300.0, 500.0, 700.0] dmu=0.00802 monotonic=True sign_ok=True target=0.1366 HSE=0.1364
+[Sn2Sb2Te5] T=[300.0, 500.0, 700.0] dmu=0.00802 monotonic=True sign_ok=True target=0.1352 HSE=0.1359
+wrote /mnt/d/joint_research_project/huang/孤对电子与导电类型_综合分析_20260918/11_续算审计_DeepSeek/csv/bt2_interpolated_S_sigma.csv
+reliability counts: {'A_single_carrier_like': 32, 'C_bipolar_or_sign_unreliable': 34, 'B_marginal': 6}

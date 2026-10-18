@@ -1,0 +1,94 @@
+{
+  "result": "PASS_INDEPENDENT_GEOMETRY_AND_SOFTWARE_AUDIT",
+  "scientific_scope": "No physical relaxation, energies, stability, or electronic predictions verified.",
+  "all_serialized_poscars_verified_against_parent_and_mutation": 243,
+  "all_twelve_defect_types_present_in_every_parent": true,
+  "ordered_inversion_occupancy_verified": true,
+  "shortest_tested_periodic_translation_A": 17.53624817342638,
+  "vacancies_per_cation_plane": {
+    "O_ordered": [
+      0,
+      0,
+      0,
+      0,
+      16
+    ],
+    "V_seed1729": [
+      0,
+      0,
+      0,
+      0,
+      16
+    ],
+    "V_seed2718": [
+      0,
+      0,
+      0,
+      0,
+      16
+    ],
+    "V_seed31415": [
+      0,
+      0,
+      0,
+      0,
+      16
+    ],
+    "V_seed161803": [
+      0,
+      0,
+      0,
+      0,
+      16
+    ],
+    "D_seed1729": [
+      5,
+      2,
+      4,
+      0,
+      5
+    ],
+    "D_seed2718": [
+      2,
+      3,
+      6,
+      1,
+      4
+    ],
+    "D_seed31415": [
+      5,
+      5,
+      1,
+      3,
+      2
+    ],
+    "D_seed161803": [
+      2,
+      1,
+      3,
+      6,
+      4
+    ]
+  },
+  "regenerator_software_checks": {
+    "identity": {
+      "result": "PASS",
+      "candidate_count": 18,
+      "max_nonaffine_displacement_A": 0.0
+    },
+    "affine_cell_change": {
+      "result": "PASS",
+      "candidate_count": 18,
+      "max_nonaffine_displacement_A": 0.0
+    },
+    "periodic_boundary_translation": {
+      "result": "PASS",
+      "candidate_count": 18,
+      "max_nonaffine_displacement_A": 1.0521748904055837
+    },
+    "large_displacement_refused": {
+      "result": "PASS"
+    }
+  },
+  "synthetic_check_note": "Geometry perturbations were in-memory software fixtures; no fabricated CONTCAR saved."
+}

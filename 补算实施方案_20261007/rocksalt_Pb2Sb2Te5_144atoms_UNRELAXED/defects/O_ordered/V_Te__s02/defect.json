@@ -1,0 +1,49 @@
+{
+  "defect_id": "V_Te__s02",
+  "defect_type": "V_Te",
+  "parent_id": "O_ordered",
+  "parent_fingerprint_sha256": "8bfc7f53b3739a05bfb669c3f74f8949763850ae5253a7b2519269ed4c358bd1",
+  "status": "UNRELAXED_NOT_RUN",
+  "intended_charge_state": 0,
+  "charge_note": "Geometry only. POSCAR does not set electronic charge. Charged screening remains required.",
+  "source_occupancy": "Te",
+  "target_occupancy": "Vac",
+  "composition_change_vs_parent": {
+    "Pb": 0,
+    "Sb": 0,
+    "Te": -1
+  },
+  "changed_site": {
+    "site_id": "T_q07_0_0_0",
+    "sublattice": "anion",
+    "q_times_2_mod_10": 7,
+    "base_plane_index": 3,
+    "replica": [
+      0,
+      0,
+      0
+    ],
+    "fractional_coordinates": [
+      0.05,
+      0.025,
+      0.7
+    ],
+    "cartesian_coordinates_A": [
+      9.3,
+      6.199999999999998,
+      6.200000000000001
+    ]
+  },
+  "site_class": "Te_between_B_Vac",
+  "sampling_priority": "mechanism_focused",
+  "fingerprint_sha256": "14cf5d21b9c422e084125fc0b033783ec539fc6943d4948f363547275767cc3b",
+  "poscar": "defects\\O_ordered\\V_Te__s02\\POSCAR",
+  "atom_count": 143,
+  "species_counts": {
+    "Pb": 32,
+    "Sb": 32,
+    "Te": 79
+  },
+  "ghost_vacancy_count": 17,
+  "minimum_periodic_pair_distance_A": 3.0999999999999988
+}

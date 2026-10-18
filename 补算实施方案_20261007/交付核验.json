@@ -1,0 +1,2135 @@
+{
+  "date": "2026-10-07",
+  "completion_scope": "Requested paper-based implementation analysis, supplementary-computation design, model/input preparation, tested postprocessing tools, and reuse of existing SOC outputs.",
+  "paper_protocol_read": true,
+  "html_links_verified": true,
+  "initial_parent_count": 9,
+  "initial_defect_candidate_count": 234,
+  "all12_types_each_parent": true,
+  "geometry_audit_count": 243,
+  "mass_synthetic_tests_passed": 6,
+  "new_DFT_executed": false,
+  "actual_new_material_masses_or_defect_energies_available": false,
+  "source_files_unchanged_by_this_work": true,
+  "files": [
+    {
+      "path": "fit_effective_mass.py",
+      "sha256": "88b2cb09fba60538d2d0fd48f0c58df859d1d5713beecafaf9e05b28c755f548"
+    },
+    {
+      "path": "fit_effective_mass_validation.json",
+      "sha256": "2a3c2cfe92bc9c96becb1e93ad2994d0e485d5c1ed162d927bdf7a3460726a6c"
+    },
+    {
+      "path": "make_mass_kpoints.py",
+      "sha256": "acbded3de4d0829048b891bae06884db7ac37c2d381cc730e9cd54a6dc0ee183"
+    },
+    {
+      "path": "make_mass_kpoints_validation.json",
+      "sha256": "8bff53c690dec6d087325535d56189ad7760226890f70d3bc97ba7aa7aa291f3"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed161803/Pb_on_Vac__s01/defect.json",
+      "sha256": "8e288ef01b687cb0829906d9d1e82f1508e65c3cfe5e5acd6c589aa22e63c441"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed161803/Pb_on_Vac__s01/POSCAR",
+      "sha256": "d5b0e78115be5656f10b79e45cc25b457c0bbcc9a0622d69e85cfcf7211fcaab"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed161803/Pb_on_Vac__s02/defect.json",
+      "sha256": "736686410673f1f80db39f5b858121cc66d9677ea1f1f7b88e035568a6fb6453"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed161803/Pb_on_Vac__s02/POSCAR",
+      "sha256": "87fecb8c1fc5f58d1e874516f16890158c8be950bdabe33ef68e2cc86a3c9b5a"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed161803/Pb_on_Vac__s03/defect.json",
+      "sha256": "b9950bc7e30885258ba13ccf51835003ca73d3ac551320dfc43536832f336beb"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed161803/Pb_on_Vac__s03/POSCAR",
+      "sha256": "60e7ec0ba993529fb5b3220a57e0c00042986ed1c0cf800d399892f9cf19733f"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed161803/Pb_on_Vac__s04/defect.json",
+      "sha256": "40099c272c53770869ed12d250b013bfd1060987346f9faf62ca928a9ea363d9"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed161803/Pb_on_Vac__s04/POSCAR",
+      "sha256": "e43dfdf13b6f8d2536f9a22935d5e3a73067d06ff35881872f943c589fceb9ab"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed161803/Pb_Sb__s01/defect.json",
+      "sha256": "47375f46248f42387bb796eb0f5d70db2506017d3be93be159bbff2dcecad43b"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed161803/Pb_Sb__s01/POSCAR",
+      "sha256": "9054d3c65c0add47f43b464f4daba9d8a6a3da6cd400a796e204baf96f054c15"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed161803/Pb_Sb__s02/defect.json",
+      "sha256": "1fa3bd9e642676d303dc731afbc822c5a04c6799695c963876a7a0b91db00e07"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed161803/Pb_Sb__s02/POSCAR",
+      "sha256": "a49e31daa93e7ef5ef5445a21d219302c511b91aa5fe2ace2aeccba44477a9f2"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed161803/Pb_Sb__s03/defect.json",
+      "sha256": "6247d54d926ac034bf70818403b97e3be12ea00ee5c3a67ca14af71b7c339d8a"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed161803/Pb_Sb__s03/POSCAR",
+      "sha256": "e8cb82dd3d887a51ff69b166db6992eed8b6aaa43c205cb6c56975ff8aa3b809"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed161803/Pb_Sb__s04/defect.json",
+      "sha256": "33b0ad59c92a1685ce554f8070d0b474afe841da648d4825248f26146add45d2"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed161803/Pb_Sb__s04/POSCAR",
+      "sha256": "0f35f2c095566b8a55be201714eddd1c07b6c28449c62aac61556b1c4764631d"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed161803/Pb_Te__s01/defect.json",
+      "sha256": "57cc1097a6f4eb84b48eea2c53bf230a3c6ad609bdb8585e61d1435ca7450bff"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed161803/Pb_Te__s01/POSCAR",
+      "sha256": "bce219da9ebee2c3972b03574de9a9213e59c09b55141815faefeb0cd08b4aeb"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed161803/Sb_on_Vac__s01/defect.json",
+      "sha256": "9d96a6f7553db3469b4852f6bc18a30a9396c5cde3ee200328aa672c5d3021c0"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed161803/Sb_on_Vac__s01/POSCAR",
+      "sha256": "71f9eaf2855d44512dd7ae524d2966a1331a1157c9a2761467f1d74e3064b373"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed161803/Sb_on_Vac__s02/defect.json",
+      "sha256": "6740d2a6221e7031761dd654feb6c8cf8a5f94cc8dd7a93145ce7fdbd2e6dd34"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed161803/Sb_on_Vac__s02/POSCAR",
+      "sha256": "e62f5ce2e5c90da3390c1c604a1a01cb7e1c963ce2f2ba65bcab602ecef86225"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed161803/Sb_on_Vac__s03/defect.json",
+      "sha256": "c40734ef70d2af9743860fc66650135a05784fbbf5a22cdbbf5db214b38f8ad4"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed161803/Sb_on_Vac__s03/POSCAR",
+      "sha256": "abb1786c1e05540bd6bbb48de7580daaafe39e5af3d6f0c9df35942d385603d0"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed161803/Sb_on_Vac__s04/defect.json",
+      "sha256": "1c3710f3991bc123a4ffcba8cf6628c3dfff144be1de71cd215428ad5b3aaa10"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed161803/Sb_on_Vac__s04/POSCAR",
+      "sha256": "1669b4cd6f03bc86dd92c98ccfc933fa203aa50895de3a450a80c482379d73e1"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed161803/Sb_Pb__s01/defect.json",
+      "sha256": "4bd3f14ca9e35566cf266737d125989f3e598ce53b97c6eaf6cc8b8784ad3ac3"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed161803/Sb_Pb__s01/POSCAR",
+      "sha256": "7714a5cd3173c0a7ba3457d3af7a84c943bce0e7fbe645e29a89e9082463c3de"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed161803/Sb_Pb__s02/defect.json",
+      "sha256": "fa33391e5655a0458712ff8b56b8691f8a09fb5ce18f212c2598f4ec2a2bdbae"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed161803/Sb_Pb__s02/POSCAR",
+      "sha256": "49f9a74df7b4271cae2d376ecbf291386a61a4b13c1a49f05dc3b892246157fe"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed161803/Sb_Pb__s03/defect.json",
+      "sha256": "94e4bd79b719d9787fed4cbe5538d8335c0234cfa53bafc158dd7748d472ae8f"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed161803/Sb_Pb__s03/POSCAR",
+      "sha256": "f456752d95d9c442894da25e871048a7070ab6c8bc27352c9341d3cd5c1e2ac4"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed161803/Sb_Pb__s04/defect.json",
+      "sha256": "9d9670d8705f66cfbd5888dea6759cc1a0a7e5734207924382e071f59d807fc2"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed161803/Sb_Pb__s04/POSCAR",
+      "sha256": "9e3773a5514851383eb18f8aa3a9d9008c84d119cd54bbf54af7eb951e7dd3a0"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed161803/Sb_Te__s01/defect.json",
+      "sha256": "62df5fa50690164f36f16905042e7ed9e5490c007d9228e34725593e704267ae"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed161803/Sb_Te__s01/POSCAR",
+      "sha256": "26da65417b8487f03cf8a8bb09999dc014c66ef295075fbe56ffed7f119de102"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed161803/Te_on_Vac__s01/defect.json",
+      "sha256": "069ccc6ac478a74246c448cb2d580b70058e304475533fbd0f9135af492991df"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed161803/Te_on_Vac__s01/POSCAR",
+      "sha256": "df0e7d87994764bb35762f9ca48d81bf70ed04696148776049db56c030c51ac4"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed161803/Te_Pb__s01/defect.json",
+      "sha256": "0e69edb6f777fb166c59957bfdb09757d4e1eca197cefb63d98c27eddc0f5e97"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed161803/Te_Pb__s01/POSCAR",
+      "sha256": "84eec1a492a3da0dfb8ade277e777f2ec4fdd0f70f9eb35b233ad1db6915750c"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed161803/Te_Sb__s01/defect.json",
+      "sha256": "1e5a3a133b88dce8eb3748e5de3824d27ab6a5e2d7fe79fd09440f01f59aff79"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed161803/Te_Sb__s01/POSCAR",
+      "sha256": "58a5e8d7af824079cfdb37df2c3908d4bd5a3bec30257d0824b9d7b60f9f6844"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed161803/V_Pb__s01/defect.json",
+      "sha256": "85bfdaa493a63a4a236986e21d54c20b9960b9391f542862dc2b0ac216afeb53"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed161803/V_Pb__s01/POSCAR",
+      "sha256": "b8fb5498fd2ba9e04244bacb47c8a3c68c39b715dc85d1770f6b8a02f98e51df"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed161803/V_Sb__s01/defect.json",
+      "sha256": "17f977450b948864000514a03e6ec5ad03adb389704ce0e139427eff1e265d45"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed161803/V_Sb__s01/POSCAR",
+      "sha256": "70b8e15efddb22d8260d37b2fcd2e01b501f19fcfe3d09ad80cb062659cb8270"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed161803/V_Te__s01/defect.json",
+      "sha256": "bdf28bee1fd6f51836aa787d380df0b491c4890952fc4c02aa472de07cb735c7"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed161803/V_Te__s01/POSCAR",
+      "sha256": "7f1035d80fe6cddf5dfc4c52f50fdbb0a236ee7caa6d6d393f9e7834325bbd4c"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed161803/V_Te__s02/defect.json",
+      "sha256": "2a4cacd76c823acd8d4dc22d0ac521f1902deba7d38da1dad1813fe919c26953"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed161803/V_Te__s02/POSCAR",
+      "sha256": "d57cc3b38de45044d1563629e5045455fb8cb3b5eaec20f29a9c359264113f47"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed161803/V_Te__s03/defect.json",
+      "sha256": "00426730fd7e2960bd8ed0bcc5cf59a34b46a7588712b22c74a6c5eb1aca6ea0"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed161803/V_Te__s03/POSCAR",
+      "sha256": "499d57236a8c1c1c9ccaa2ea5f6050370be8816ff127f9aaa0f76311baa770f4"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed161803/V_Te__s04/defect.json",
+      "sha256": "0bc9114c6e3362a3f5c2a6888575363ce9e2d8ede2a5defab7cba281454ad872"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed161803/V_Te__s04/POSCAR",
+      "sha256": "387a0c3a85a38419a8fc0be272b73daa4bae3911a7bd2b2863ee39b19bc16e3e"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed1729/Pb_on_Vac__s01/defect.json",
+      "sha256": "a27368a4840bf99215597f2bb21d9ff24accfcb93544c86953adc78b803cd3fb"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed1729/Pb_on_Vac__s01/POSCAR",
+      "sha256": "c0a36683e9fd3044d1b6c08cddf604012bf9d25280529930c8b3c328e41339ec"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed1729/Pb_on_Vac__s02/defect.json",
+      "sha256": "a94eb5cd1570f31f6babc093d111b7fa7ebc6393f0c63c5d24cce30b375a422a"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed1729/Pb_on_Vac__s02/POSCAR",
+      "sha256": "c2db3a8f3a6cf64fb9bc1e00905eb18d109992391b58be7e70a224b8d167ee1a"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed1729/Pb_on_Vac__s03/defect.json",
+      "sha256": "cecd5516211d268071e15b86e00b280d7d6464b8b11c74121322261885619fe9"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed1729/Pb_on_Vac__s03/POSCAR",
+      "sha256": "17313cb2132f98e1219e0f5b917babc844c3b542e91c2a4f47bca299f795bbf1"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed1729/Pb_on_Vac__s04/defect.json",
+      "sha256": "852408ecbd48750ce9cf6f2f329f5ff32c57c5320c38f712bf0f2e01b372a75a"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed1729/Pb_on_Vac__s04/POSCAR",
+      "sha256": "2a82b466610fb52c6724d3db8178a0055cf59b401048c866229dcdc04d5b25f3"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed1729/Pb_Sb__s01/defect.json",
+      "sha256": "d8cd31b5094fd6fe2f9b8da84a4413ff724b10a0cc3f0146e23a42b75b48a8b7"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed1729/Pb_Sb__s01/POSCAR",
+      "sha256": "28f05dc8c847b2880715c3399bf4feaef343212f03d0668867c9df11dddb3f7c"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed1729/Pb_Sb__s02/defect.json",
+      "sha256": "32e5e8613ae442ea3f678018726a4936ab63dbd2ab56b8093321992adc5f6878"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed1729/Pb_Sb__s02/POSCAR",
+      "sha256": "ddb00760bd9dee3a8ec237f5fccc9f2a889e12cc5391379817d370856bbcaf58"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed1729/Pb_Sb__s03/defect.json",
+      "sha256": "9a3c8bf4b46d587162473b086641329cc8175ed17fddb0858fd1bc9b2caeb292"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed1729/Pb_Sb__s03/POSCAR",
+      "sha256": "c929ba224eb4ca26c4abad71a3b3c2df0fd2780ff606a074302c64c7d8b0ccba"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed1729/Pb_Sb__s04/defect.json",
+      "sha256": "d79613394940daee311fb2426ed566acce048a6d667ac6b377660503aacfc052"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed1729/Pb_Sb__s04/POSCAR",
+      "sha256": "c68a6126bb5c5ef3f9145c8d22f27b7f5940a357031ca20959bc89cd533ce350"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed1729/Pb_Te__s01/defect.json",
+      "sha256": "6a6b242eb56b855bacd841a23fa5e8791758b008224f6452ea3f11ec88abcc2f"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed1729/Pb_Te__s01/POSCAR",
+      "sha256": "5fda487bdff77b2b3fec47cbda6dc2d9b0d191fc160a1fe547eebab0222f5fbb"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed1729/Sb_on_Vac__s01/defect.json",
+      "sha256": "89f30e994f67e87b93f956f8de879273537fb4eac2ded1c1f1105fe19bede7bc"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed1729/Sb_on_Vac__s01/POSCAR",
+      "sha256": "232953608b4d7a882f0074d6d930c4c9db497e991ce8e3189112b5a00e121b0e"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed1729/Sb_on_Vac__s02/defect.json",
+      "sha256": "63dca5dee7237e4435d6c333781f7f8c6ec57c1cad2347319aa95aec5173686f"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed1729/Sb_on_Vac__s02/POSCAR",
+      "sha256": "6fc21b5336f2f0c7dd96fea2d8328dd1c4719dfdf0d680a918aef11e8514bee7"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed1729/Sb_on_Vac__s03/defect.json",
+      "sha256": "1fd00d08d9dc6d8c213682b7c3c61c5672bcba3b54de1d37e0947b13c6228c34"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed1729/Sb_on_Vac__s03/POSCAR",
+      "sha256": "6839e621c6360076777b304cb4c6f0ea36f3d9a612812998df2226bf84c0ca30"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed1729/Sb_on_Vac__s04/defect.json",
+      "sha256": "5cda5ed8334d0f07292b0972a0865a387930fa11aa23bc719aab7227dbae6afc"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed1729/Sb_on_Vac__s04/POSCAR",
+      "sha256": "c74be1d72d3b3bf8e70c1401a5d62853e797ae4cf6847bd27bed443216360dc2"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed1729/Sb_Pb__s01/defect.json",
+      "sha256": "b41c56e7b42341680cc5da340d39d8a959809613671fdfd44ae0e60d8d5f2b49"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed1729/Sb_Pb__s01/POSCAR",
+      "sha256": "7a03c4c9fe783d29ace03d5e0d000073639d471033516deb912f76d81504a30a"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed1729/Sb_Pb__s02/defect.json",
+      "sha256": "31f3df4e656297b6ec8802ab1d652854fedbe00b3122558ec614ea90b1113002"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed1729/Sb_Pb__s02/POSCAR",
+      "sha256": "d4c4c6c657e015dc3dab9c1e93fa06eed843fdf289eae5e74990d02365c3f1f2"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed1729/Sb_Pb__s03/defect.json",
+      "sha256": "0c4035be076930bd02a8a3bca352a31556c8961d15340091ba25b5c6de778cfa"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed1729/Sb_Pb__s03/POSCAR",
+      "sha256": "0252f133f67c3693fc72cd9555b7555c6526217bd016f053c31688f681424783"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed1729/Sb_Pb__s04/defect.json",
+      "sha256": "92a52f7a715d6a98c39eeb57896f42ea24bc96c480f5fd8187329630aa7b8184"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed1729/Sb_Pb__s04/POSCAR",
+      "sha256": "02710c2b7aae62c951053ae49cbcbfdee330a4b6590488bfa736e6113c62ce2f"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed1729/Sb_Te__s01/defect.json",
+      "sha256": "b9e8708d18ee67e5738944c481711c6c0141c3af03236c06ce0bdbbd4f75e8d9"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed1729/Sb_Te__s01/POSCAR",
+      "sha256": "59651328aa261bb5c9115d0238806528aa25e2856caca8e0476d705da8b01168"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed1729/Te_on_Vac__s01/defect.json",
+      "sha256": "c2b1f7e8dc1e038721198bbefa9d5de8d23f2a3b9568f9b4d80619745a6552fb"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed1729/Te_on_Vac__s01/POSCAR",
+      "sha256": "5895095be094f187486c607b6a2bb4ed861e41659a270ee369bdc421da224b45"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed1729/Te_Pb__s01/defect.json",
+      "sha256": "b7c73fe3c0767926eb6ff7bad4fd3e052b6657c79d6a2bca5efeaf8b3614e668"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed1729/Te_Pb__s01/POSCAR",
+      "sha256": "d0222ce4e96a4be651b973bc2d16e90e23d462ee1e7174f4feef3d1d67533cf0"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed1729/Te_Sb__s01/defect.json",
+      "sha256": "f0e07ba6f05366e347fbd1a4d19ca463add3f441406deb2cca5eec4fcc417c75"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed1729/Te_Sb__s01/POSCAR",
+      "sha256": "f449d9b5a4de46f65cf15be3f8cc66b5e10f191786c40841731be9305819ff6f"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed1729/V_Pb__s01/defect.json",
+      "sha256": "13b3f6d0a54375354227b05581c085fac16f941a31acd59d8e5484dcd5869dc5"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed1729/V_Pb__s01/POSCAR",
+      "sha256": "a09cbbef9a61bff65276d37e1d44920811109a4e5a5a18bfb0014a4d8e780415"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed1729/V_Sb__s01/defect.json",
+      "sha256": "505d90a223bda0e990fa7db057b990512eb1a79a3cd47a08d1ff9cd5d531140a"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed1729/V_Sb__s01/POSCAR",
+      "sha256": "f8c23e1fec35e64fc05cbe9157d3e61cbc653805102cf34a33d36aad8ae642a4"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed1729/V_Te__s01/defect.json",
+      "sha256": "eea39172dd66f044294f0c35172a4783932f72c83e16fdcb7cf4218b51ec931e"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed1729/V_Te__s01/POSCAR",
+      "sha256": "6f94baca7345bfb03be7acf2ab629e16c21c16d301acb29c3d4b81795a40393e"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed1729/V_Te__s02/defect.json",
+      "sha256": "6ab626157c18d53c8d8e02c991ca7e8442ef623082e0079b610a69d6c30a6f93"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed1729/V_Te__s02/POSCAR",
+      "sha256": "0da53e708d6d055bb7f1ab09e1983f71979baa2617fc73f405a828a6c5bef84d"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed1729/V_Te__s03/defect.json",
+      "sha256": "53ff2f4e8a2947b62a84e1dd0bef09a19c5b98be6ed18ac8724be2562be34c1b"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed1729/V_Te__s03/POSCAR",
+      "sha256": "457c331b976b88fb8858f52de4070b69a69f2a3cd18e8303cc397b14a0a197f8"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed1729/V_Te__s04/defect.json",
+      "sha256": "8bf4ab3d1fdd6314c2d70ae7cb1681c4249a967c51a8bf8e0a1f40060ed6276f"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed1729/V_Te__s04/POSCAR",
+      "sha256": "7f6dcbf8b5886afaa0a6f072e99ac7cc2b46a74ffd8623c8d212a59c4b9f9258"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed2718/Pb_on_Vac__s01/defect.json",
+      "sha256": "8e66a3ed049c53fa6f11f224d84f95cc487a09bef088a63e261974b8ee0f6817"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed2718/Pb_on_Vac__s01/POSCAR",
+      "sha256": "b38c5d997b43456747fbecc224dd4f6990ab98fde8a97bde90ead738bd473a6c"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed2718/Pb_on_Vac__s02/defect.json",
+      "sha256": "0378eeacd31372e10cc40d30b1b8c2a92092a192e9b954e89d9ad7f24de37c1c"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed2718/Pb_on_Vac__s02/POSCAR",
+      "sha256": "01d8796ffdf36c993bc60944cdb5100f1e91b9b257e89cf7b1f58b1ed2409fa8"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed2718/Pb_on_Vac__s03/defect.json",
+      "sha256": "19e821cf7eb2fa71e8383756cbc6438a826663e72b611392683a54b6d8e5dc77"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed2718/Pb_on_Vac__s03/POSCAR",
+      "sha256": "38db32210b2fa1b719a827b696888f0366ab0b8207e5a5e726bafdd1b1b88230"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed2718/Pb_on_Vac__s04/defect.json",
+      "sha256": "3b325efe772966daa1113611ae9434731d12e9c12238bec12f5aad15210e52dd"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed2718/Pb_on_Vac__s04/POSCAR",
+      "sha256": "d10f1f395a85b00c09e544ea8802ab55b6768dd9543562b649b4290c9a62bae6"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed2718/Pb_Sb__s01/defect.json",
+      "sha256": "19369dd3ecfd3d946e22916d2d920e7a9e7e8e90cc20846966055a21eb92ef84"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed2718/Pb_Sb__s01/POSCAR",
+      "sha256": "1f23ed694bd0d4922b576faccd8e79ff3e13dfe1a620a3b089e64bdd77708fd6"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed2718/Pb_Sb__s02/defect.json",
+      "sha256": "e1c27d8d79627a895e1c205fa3eb50fe3a6f160b13298da53621fbd43fb4e582"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed2718/Pb_Sb__s02/POSCAR",
+      "sha256": "b29945ddfeb591678090252c17e10956373f2d9ef5a235fb7aa5886361cdb6e4"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed2718/Pb_Sb__s03/defect.json",
+      "sha256": "6d15baf67da98ba738b1bfa0c822c30161412d2fc7e9013f973311cfc8435cde"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed2718/Pb_Sb__s03/POSCAR",
+      "sha256": "a62495c728d1f6cc7ceff07da6a81f6430d74d578ffe537ec639521045d04214"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed2718/Pb_Sb__s04/defect.json",
+      "sha256": "599c6931b00201dee08c791b83c320896a47e525e5344702769d0192dee2ae7d"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed2718/Pb_Sb__s04/POSCAR",
+      "sha256": "24695d6421d785133d76cc2e86e6d4bb111e6a010e959a6aed913ef64470dc60"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed2718/Pb_Te__s01/defect.json",
+      "sha256": "e19f9c6fd2ba2a9d9894ce03c72503cb8b969ffd531fda7e661913cda5a90e95"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed2718/Pb_Te__s01/POSCAR",
+      "sha256": "98f481ad64d6d2b7b92d5cabfcec9824a9020836644704597c9a0f8d8fafc933"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed2718/Sb_on_Vac__s01/defect.json",
+      "sha256": "daad643e46cd1feb5d0b479401000cbcfb6f35b927f51be3ca4796407bdfe1c4"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed2718/Sb_on_Vac__s01/POSCAR",
+      "sha256": "90fc9ed7c657c181f2c4ad310eb3c932533d00ddea03f1d17225980d57da9fa4"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed2718/Sb_on_Vac__s02/defect.json",
+      "sha256": "e5325e18f59fd6bc5d4f6e4ba93f14deca8138432cebb4fc85cb643cc4db57a2"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed2718/Sb_on_Vac__s02/POSCAR",
+      "sha256": "7b094c82aa65d9712842e127c76f18de05d8907a3d4d830ba710a209a4b010ec"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed2718/Sb_on_Vac__s03/defect.json",
+      "sha256": "161d2eb92a41e65d7ddc041952acf730c7b7eb1edd005bc9a62d0161c9132a76"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed2718/Sb_on_Vac__s03/POSCAR",
+      "sha256": "24a139fd99f8925109c228a4dbe418708e3273e89a233ea86a863a6b845f8272"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed2718/Sb_on_Vac__s04/defect.json",
+      "sha256": "385c7d7e4ab72659965cccad55e4a2d3cd3d02850950f33ce0a36eccfbd4ce39"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed2718/Sb_on_Vac__s04/POSCAR",
+      "sha256": "bc84ab9990f135a398466f6d4d1f4d5bb10ddcd163721dcb9f10c9659db972e7"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed2718/Sb_Pb__s01/defect.json",
+      "sha256": "7359be52cc730b4b3bc262a1192f3619ede37d801023754ec967ee9bfc99f5e2"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed2718/Sb_Pb__s01/POSCAR",
+      "sha256": "3c567c14c2c52fc1ea81bf7dccbd3a83aac6fb1fe1a3ca9ddea129fdf63a9e06"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed2718/Sb_Pb__s02/defect.json",
+      "sha256": "a5b8cb579e698ad80d6d93434b80b327439cd612dc9a42ef6563445a4eca0d73"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed2718/Sb_Pb__s02/POSCAR",
+      "sha256": "d0d7604a21357a292769c7a3893d0f0f7821d08061129cef6633de0531e62721"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed2718/Sb_Pb__s03/defect.json",
+      "sha256": "432e9a128e6ffe7e25adec94b09702dd9738c5e0eef8c227f53fb50b5fc6b7f1"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed2718/Sb_Pb__s03/POSCAR",
+      "sha256": "2be6c5c503ec60926d1552674bb585653a5f949cf97a5a59393d54275eeb302e"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed2718/Sb_Pb__s04/defect.json",
+      "sha256": "ab36ba8cf2e81a82a6d917f1bc6dbbaa0cb577e23699a26c5874b108bb7bce59"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed2718/Sb_Pb__s04/POSCAR",
+      "sha256": "c12b4990f3f59a8adeed04bac254751d7df2d2e62c1c284c8085554fc29926e4"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed2718/Sb_Te__s01/defect.json",
+      "sha256": "6e886908f39b0abee277e242a799f30fb9f257798ee1bd55cf930622e8a7ab60"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed2718/Sb_Te__s01/POSCAR",
+      "sha256": "2eec891f50f09948421753a00dc28ea736e410e33b2f19283e97f0bcd8fc66a8"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed2718/Te_on_Vac__s01/defect.json",
+      "sha256": "98a1052c37d1805525572f3e68846e03ad6e2f34102953a09b9c6da39c98dd74"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed2718/Te_on_Vac__s01/POSCAR",
+      "sha256": "0637691365d94ca86fe9bd3e662f0ccd8fba61ed2d355b53fda6ba30b7ed44a0"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed2718/Te_Pb__s01/defect.json",
+      "sha256": "4e3f42f472fe3c5830bcd1c0b26ed25d52aaf865f0966b16655b73137184c921"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed2718/Te_Pb__s01/POSCAR",
+      "sha256": "02bf76310a010b15865d0ee19a93fbe928208630bf822bde28b03afc57c35c7b"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed2718/Te_Sb__s01/defect.json",
+      "sha256": "b247b91ecb7ffbdec9135504ce4732ac9cd095ce59dadba17db2edfcac40477f"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed2718/Te_Sb__s01/POSCAR",
+      "sha256": "3c9769775832478ab6c7181ffdc5265266541333717c2f2d5169bda42834264e"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed2718/V_Pb__s01/defect.json",
+      "sha256": "ec78691b75d59a068f17fbdc732917c5ecda41f4d64be7f914b9ca637543ddaf"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed2718/V_Pb__s01/POSCAR",
+      "sha256": "47c3fda9b191f174042ec22378f8486298da8105b7517e3fab0de04d24dc4385"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed2718/V_Sb__s01/defect.json",
+      "sha256": "8bb5238dcdc57e7a0cddf3cadb8bd9d4eee39e5b86e3b005e5e0f3b6b86490fe"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed2718/V_Sb__s01/POSCAR",
+      "sha256": "6b2544921e7c4e60e9cd0f32f76fd1e0320db971f2dcaa41b395121e33b80c01"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed2718/V_Te__s01/defect.json",
+      "sha256": "2ad35fce1b253354c9802f48d2cbbd5c521b0204dfc5891435170e6855448d78"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed2718/V_Te__s01/POSCAR",
+      "sha256": "df9469d140aa9af3df400c1ee4ae095cbce2d0d41817de166093965bf6392599"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed2718/V_Te__s02/defect.json",
+      "sha256": "2c88bef3341fa50d56954d4c41f3388174c2b3fab4e9dafdf91e5a0d9c0a22b4"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed2718/V_Te__s02/POSCAR",
+      "sha256": "83705c0b81ef1dd853605f5ae342d4bc0adb26a21b8fb1a7bbf388ad595d35e3"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed2718/V_Te__s03/defect.json",
+      "sha256": "3f7f3c971feeaade0d246765d2cc4a874dba38e042e6a3f0911bb63061c52428"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed2718/V_Te__s03/POSCAR",
+      "sha256": "ed548c75069cb81c9a8f6186f850ee217b7b850ecfaede5253a5039926813cff"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed2718/V_Te__s04/defect.json",
+      "sha256": "d1358b4f2d28146b73ba87f72b2eed7b07251872974f1cd5a00f685276891fd0"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed2718/V_Te__s04/POSCAR",
+      "sha256": "7401b94744f1ae39533d1d211c477286d5e1a52f66ba46a12999a100d595c21a"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed31415/Pb_on_Vac__s01/defect.json",
+      "sha256": "4e83e1ffa950e240fa60eba03f15464c8099b8afd394968959dcb6ff7aaffd1b"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed31415/Pb_on_Vac__s01/POSCAR",
+      "sha256": "0984088e9700e59d6b37f89416eed79723207dcd89bc2a3259ec5e79698d157a"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed31415/Pb_on_Vac__s02/defect.json",
+      "sha256": "b31dae115ba8186b6ebff5d07465ad7da587f8f8af3024862fd9883f44f6882a"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed31415/Pb_on_Vac__s02/POSCAR",
+      "sha256": "be470e8752741761909676e25340de105a442a64e6d0c3f837d912eb8792f1c0"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed31415/Pb_on_Vac__s03/defect.json",
+      "sha256": "b385a3b3ed2e61d31d20015957bb77ce731ad724a08b7ab77b7887ebd82befa5"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed31415/Pb_on_Vac__s03/POSCAR",
+      "sha256": "ac53dfd5f6bcc8f4db48ccc325d9eb36f6195021f9c80e948160db2cdfb6ad4c"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed31415/Pb_on_Vac__s04/defect.json",
+      "sha256": "1e60ccc43a05ffb8195f17de9932098b14643939db7edf057a0ab4440d4282d3"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed31415/Pb_on_Vac__s04/POSCAR",
+      "sha256": "5d4cfc7d179aeb476f543c270a80c63ce13494c265e42e9e303c140be162b7be"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed31415/Pb_Sb__s01/defect.json",
+      "sha256": "9464cd5cbade0e975cd49311ed632e95b4ba6b7715be30b70c04843ccc41fa93"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed31415/Pb_Sb__s01/POSCAR",
+      "sha256": "47994d033a5c3e682fb27ee0fb04de593076a6f21c774a85a13d95eda21f96d5"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed31415/Pb_Sb__s02/defect.json",
+      "sha256": "8bdeefeeaa243fd12867e9042d3caea8eeaaf4a2bcc5ab57c60affe1781b4e1c"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed31415/Pb_Sb__s02/POSCAR",
+      "sha256": "896e338939d3afe8cf8dded8738bbfbff06791bdd98522e2bbd0abf76d2e4332"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed31415/Pb_Sb__s03/defect.json",
+      "sha256": "5c15316cb6b4eb879c530c89be008f74facb145e84b93ac6e246e50e24d2b87b"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed31415/Pb_Sb__s03/POSCAR",
+      "sha256": "e3701b68eae7886e457da9b9d9e465235ded73b9e272f14c6b6540b7d783b4d3"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed31415/Pb_Sb__s04/defect.json",
+      "sha256": "b97056ebc9d360c548d825934804fea171791bf3bfe257119fbe6af51b724b28"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed31415/Pb_Sb__s04/POSCAR",
+      "sha256": "effa68fe45911e3e1aee7e7012e9cc6b5680afd56cd9530d6d85eea730b8b6da"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed31415/Pb_Te__s01/defect.json",
+      "sha256": "386161bebb62af8c0fcdb50f60cd19877b30a6e469ce1ef51e7054056c347e93"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed31415/Pb_Te__s01/POSCAR",
+      "sha256": "0636b2a6875261234c48b87b910558fd919fe9fee8a3a63f80cbe3302ac3ec13"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed31415/Sb_on_Vac__s01/defect.json",
+      "sha256": "6b0f91d9750deb434a05b807f504250d69930b7232e2eac96b3a309140c6836f"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed31415/Sb_on_Vac__s01/POSCAR",
+      "sha256": "0f9faae1551053715c8863a1d6b153cda589d85aa4cbe43add9ba30cc2534cb8"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed31415/Sb_on_Vac__s02/defect.json",
+      "sha256": "59fd86b128efb21d23a7c3cd1318d1f976fa6a09e1310d392c77794a68e8d97c"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed31415/Sb_on_Vac__s02/POSCAR",
+      "sha256": "ba6768c2767d1baf2a2241c3b2b2c2829b1723c42b3e8f9f64afff41aa8be626"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed31415/Sb_on_Vac__s03/defect.json",
+      "sha256": "d39c8034ae4c79701d61ddf40eea581238691348301056b3271f402a1583546f"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed31415/Sb_on_Vac__s03/POSCAR",
+      "sha256": "43cdb8be8424b426a1096fe8dcb4c169d302307e0040d4452cbf71c23c5a0fb1"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed31415/Sb_on_Vac__s04/defect.json",
+      "sha256": "615b645096aacd14776d2919c5655587569f75a50926b4bfeb64640546ecc4b3"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed31415/Sb_on_Vac__s04/POSCAR",
+      "sha256": "bbf377418ae530010e098ee598716ab76d35494d59f8a121f430aea00a9bfb71"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed31415/Sb_Pb__s01/defect.json",
+      "sha256": "a47c97bf6a1a73f9be7846a00cf14b9672b25810acf2bc1133a710df2e6aac7c"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed31415/Sb_Pb__s01/POSCAR",
+      "sha256": "5b7807b6f2e8f4c2caee9e0b473b6217d7ae2fd82f067c100057ea771a52720b"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed31415/Sb_Pb__s02/defect.json",
+      "sha256": "5e5c42208e1376be9177607dd42d37741f17fa9d0add5e2cae1c55739b8502fb"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed31415/Sb_Pb__s02/POSCAR",
+      "sha256": "d33ef8fc31509b65a85499b4980dc1a09e448d4c03ea5cba3ef9c5dc36db184d"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed31415/Sb_Pb__s03/defect.json",
+      "sha256": "7ac265043a04ade9339890a4f8eb3cd1bc4d4f8afa38a8828eba027d7adf59b8"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed31415/Sb_Pb__s03/POSCAR",
+      "sha256": "3fea9084f0a2e6ef889e029dc26bac2a54d10af9d205ef654599fb93dd65d0bf"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed31415/Sb_Pb__s04/defect.json",
+      "sha256": "018286dd17b8d23b8a90718c5eaf25c449fc85323f3f7d42751a8795cf051c50"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed31415/Sb_Pb__s04/POSCAR",
+      "sha256": "ee5943ff0c16b1d0047195f994b16e634a4791626f3304984c3f1439449e77c3"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed31415/Sb_Te__s01/defect.json",
+      "sha256": "e90dde1eb2d798ef22f286c51e2ae795e62a4a5cd27e20ac3d9eea55b80180e4"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed31415/Sb_Te__s01/POSCAR",
+      "sha256": "0d5055ad0917c3620e9de4053d31526169ef4e5ed72c68123d1050d3463d9219"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed31415/Te_on_Vac__s01/defect.json",
+      "sha256": "dfae633cc052f58f86e75df901dbe841e1a977e7065494226c7960edc2193146"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed31415/Te_on_Vac__s01/POSCAR",
+      "sha256": "f2c708021e1b3ea5a78f1479940ea0c7884cdb749aab810ec88aee092a7a6bbc"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed31415/Te_Pb__s01/defect.json",
+      "sha256": "a597f627a102c560be766489b42d0591fd70eefbf987e909588f632cb6805c03"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed31415/Te_Pb__s01/POSCAR",
+      "sha256": "84cd1d1b25e7afcad37d0cbe37317ff7b6b730c470f94b1198ac2868e61f3991"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed31415/Te_Sb__s01/defect.json",
+      "sha256": "8aa5ad1cb600ad52ec8d9808d7b290b83b14119e9c313e150cdb57410ca7e90f"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed31415/Te_Sb__s01/POSCAR",
+      "sha256": "83a9ad08208bd8be18cde44a8985f43f828ec2b92e009f05192f77016388b08a"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed31415/V_Pb__s01/defect.json",
+      "sha256": "f661e8814c99474df0655e3e0bdffea4246b255d57cd6a9237171738e9185e32"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed31415/V_Pb__s01/POSCAR",
+      "sha256": "349103c4f92bc1ce43c15b8cc62baee4059b65178da4da1275c82aef8dca564a"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed31415/V_Sb__s01/defect.json",
+      "sha256": "9c112521cd5d44bbf972f66ea9f07a8a0a827a60e1f89c01c72b4e7b873b1966"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed31415/V_Sb__s01/POSCAR",
+      "sha256": "7ec3d26aac28b9784d853c802b492f9a4be3be05fee91c1482d974dc55b89dfb"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed31415/V_Te__s01/defect.json",
+      "sha256": "105320fa2ea3f9c2548040ec6e10dd4d9a162836c933f4c84bd1850c40bceeb0"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed31415/V_Te__s01/POSCAR",
+      "sha256": "e9a1b4c57f4bc1ef1d49b03bf11e80455f9567eca2a60118f6955395308345cb"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed31415/V_Te__s02/defect.json",
+      "sha256": "a40b05c3b3bd0ceba76c33a3edc53d3c224dcd73861862d505b1d1e974888b85"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed31415/V_Te__s02/POSCAR",
+      "sha256": "94753bcce8796ae9b35e51f48f314d45dc3c50c63a4650f25b63407c8c8625ca"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed31415/V_Te__s03/defect.json",
+      "sha256": "148c2369bb6016ddfe96e37243269d4528bc5326cb3d19ff458aaeee38a9f2e2"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed31415/V_Te__s03/POSCAR",
+      "sha256": "21199b352f4aff646d6af7a323f2ef8195e529f4553b086debb43f5f08493be8"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed31415/V_Te__s04/defect.json",
+      "sha256": "ad4e1d194ecc2182a67d366ffad242d8be3c244969f32f4cdc231b8782edd230"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/D_seed31415/V_Te__s04/POSCAR",
+      "sha256": "7902b13fed344c71334a9ead7431d89efbd4c6c7967632db0612144211601e28"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/O_ordered/Pb_on_Vac__s01/defect.json",
+      "sha256": "fff936064261ae09795bda3d499a76a027d1db9d2321d1269ec0a01ad0e79369"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/O_ordered/Pb_on_Vac__s01/POSCAR",
+      "sha256": "cc742fcea80ee3f70f183f8fd79fd8303a794478e43db3d2ed16622597453a39"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/O_ordered/Pb_Sb__s01/defect.json",
+      "sha256": "e264112f46129d26a531639a8f1308ada833c92d5ca08fe90df9baa00909ea95"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/O_ordered/Pb_Sb__s01/POSCAR",
+      "sha256": "08e33d870edf48ae5bc7500c8bedd4b3f07b3a41e95d661328e8ce0a010deb2d"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/O_ordered/Pb_Te__s01/defect.json",
+      "sha256": "6f72c7dc71207b0f1ce1d8b0298110780da6d85e80df6b2fb9edfeceb54cfecb"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/O_ordered/Pb_Te__s01/POSCAR",
+      "sha256": "a18bc9544ce9587b80f8790628bd987b432adff4be8cbd34e0d7503321a02cdb"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/O_ordered/Pb_Te__s02/defect.json",
+      "sha256": "d2457c9f9ac7d71540fa41a939fa6a748e2d18ed362e2a3770b1658a2ed339ea"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/O_ordered/Pb_Te__s02/POSCAR",
+      "sha256": "c6a9b0049b1bf58c3167f831a19eabb740db5a9292afe5cecf26bae51700437c"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/O_ordered/Pb_Te__s03/defect.json",
+      "sha256": "408b818a249200ddfe55c2b57101d7f8b8fdfb5729efbb975bfa7f863d9eeadb"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/O_ordered/Pb_Te__s03/POSCAR",
+      "sha256": "2250d35f13656ec1fcf607390d472250325ba2abbfc601b1070ed5d746a93a58"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/O_ordered/Sb_on_Vac__s01/defect.json",
+      "sha256": "ddec417aa688ef28bb6f65409eaa332c5f100b9bbd7412cc502a45ea362e9d4f"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/O_ordered/Sb_on_Vac__s01/POSCAR",
+      "sha256": "0f0facd9764b884e47ffefc00ea8bd7b662a25ed90d3f6fb29094f73643d51ea"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/O_ordered/Sb_Pb__s01/defect.json",
+      "sha256": "f9a8d3df6def8568ec06eda6b8f0262554a21484f66a947dd6180c40b3be5d62"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/O_ordered/Sb_Pb__s01/POSCAR",
+      "sha256": "be355286b02fee3016b43504b07407ca9a7730a8d9756ed11e95138023adc29e"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/O_ordered/Sb_Te__s01/defect.json",
+      "sha256": "fa05475b2069ea7ccf8c7238161f170274c09afbf913e873271983db5bbb4319"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/O_ordered/Sb_Te__s01/POSCAR",
+      "sha256": "65d8a8d8a965c64436fcf873007808a6f3c81b8c5382f503aa32f33ba9736e1c"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/O_ordered/Sb_Te__s02/defect.json",
+      "sha256": "fca1aa9c38a5a7bdc1fd8d6799c0acee46f673a11b042b2e5199f48f14a3ed68"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/O_ordered/Sb_Te__s02/POSCAR",
+      "sha256": "50ce85546d48faf9650ffd81066aa880cee5b7751f624696bde984e05eab97ab"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/O_ordered/Sb_Te__s03/defect.json",
+      "sha256": "552ac50240184664ac70bd49c1474d04d83db5af5ae9ebb1d33c7113d1e4e5e9"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/O_ordered/Sb_Te__s03/POSCAR",
+      "sha256": "7f8737dab291aa3b729bf6b4fc70382ecc49f9e9e2d0ff9b74e8537b82200004"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/O_ordered/Te_on_Vac__s01/defect.json",
+      "sha256": "367084f7cef55b7df7c410b2cd729ce95199ab87f4ced17a6be9f10af72a3c3d"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/O_ordered/Te_on_Vac__s01/POSCAR",
+      "sha256": "aed59a50ed23bef1a0aa71089597ab40141889e2013cd6e2ce54f0aea12b9c00"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/O_ordered/Te_Pb__s01/defect.json",
+      "sha256": "31f93b8fe52183b28081345ff5d26a03f549bd9daebc5618f96da6e4f36b100c"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/O_ordered/Te_Pb__s01/POSCAR",
+      "sha256": "91f673452aa5be8245496ec7fa9fd14803d6ae8d74e30f4311eb43181c165c61"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/O_ordered/Te_Sb__s01/defect.json",
+      "sha256": "90a18ca649029709c662031356574e9e29bbc5cc810d87a45bb23dc9b462a88e"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/O_ordered/Te_Sb__s01/POSCAR",
+      "sha256": "dc096460fc51089c92bf3f3c804ad5ff25bf547bbf1f32a5d726f4bac80e5648"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/O_ordered/V_Pb__s01/defect.json",
+      "sha256": "1d457f5b47328e38a70777896787fc24c3872846f9418bcafa033828c201bfcf"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/O_ordered/V_Pb__s01/POSCAR",
+      "sha256": "f2fbd7b47cd3c55e6f21ce3d5c29a7e249a141870f771f31f1d196e35632cfe9"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/O_ordered/V_Sb__s01/defect.json",
+      "sha256": "7ae78c223772256757c0e62deda84e9839bf8c982195a3d9f6f7f69a7727e2de"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/O_ordered/V_Sb__s01/POSCAR",
+      "sha256": "350d657ac55d08b745e9bbacf8268a00a97f4964bb37c99c69628a9fde6dcfef"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/O_ordered/V_Te__s01/defect.json",
+      "sha256": "74f248d24d9732b7d4050eddc6199867c0eb2530036d8b1f5de6f59be01e4b13"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/O_ordered/V_Te__s01/POSCAR",
+      "sha256": "605e2e36203d0f5751ab3917a9e108ea08213dbb701b0d31637a84d1cd674d06"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/O_ordered/V_Te__s02/defect.json",
+      "sha256": "0f43dfcb56b5c34e07e2dece3be7131aa3262b5911ba1460a7f8a840b7d4a1e3"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/O_ordered/V_Te__s02/POSCAR",
+      "sha256": "e1e84502b4f55e0e670fde187a73afe075163b26cd4f4dd8aea7bdf320c98cd2"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/O_ordered/V_Te__s03/defect.json",
+      "sha256": "526e0c6fdfcd79e3e6bd34b63ea400d0e076fff75c4d7d7668b16418032535b9"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/O_ordered/V_Te__s03/POSCAR",
+      "sha256": "112d4fa52a1898a52bfe08c3c7edddf044a2a44f973aaa81edbc404108343ddc"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed161803/Pb_on_Vac__s01/defect.json",
+      "sha256": "f97be0314a1e62b0dbf05159480cbc2bdb22ab6e1920fbed5f35e9bc330d3ace"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed161803/Pb_on_Vac__s01/POSCAR",
+      "sha256": "02614f8a2cecfc1bc0b37b04c195e430e614072ffc3b49c0ed1637fe100a084e"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed161803/Pb_on_Vac__s02/defect.json",
+      "sha256": "5136cd44f66b4e00c7d85e49c089d181cb07afbc18e9e945c8757d254e21b766"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed161803/Pb_on_Vac__s02/POSCAR",
+      "sha256": "215d425eabe92c264ed93ae20dde5b507c371745646b46e28158b4c63a3c609b"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed161803/Pb_on_Vac__s03/defect.json",
+      "sha256": "de0ca068076078485c976fe1cc249bcc38c28d87e9e45ac358d670312bfa1579"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed161803/Pb_on_Vac__s03/POSCAR",
+      "sha256": "b7569fb8bff8c144534ae7bee455520c7c510ebddcde3427bbe29d0ced1c717e"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed161803/Pb_on_Vac__s04/defect.json",
+      "sha256": "de78fa66e4fd1029ce02c6774ffb4d5014e38f9df5534db45ba0785f36607f82"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed161803/Pb_on_Vac__s04/POSCAR",
+      "sha256": "65f06ec52ad0ccfd9ed270cba0baf3060f40e6039c52dce9d3da49916fc97fe6"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed161803/Pb_Sb__s01/defect.json",
+      "sha256": "f876573aa8f60782c9cc125ee32b57a12a4b3057fe7a6c48666f7b4550abbd83"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed161803/Pb_Sb__s01/POSCAR",
+      "sha256": "6675a0e1159cafa0050a57aea885acd7cd3004dd2129cd7902df51930ee3e276"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed161803/Pb_Sb__s02/defect.json",
+      "sha256": "f3c2565f48598902aa63f87d1f8d88e1cdb34a8464bfedb056dee635be891173"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed161803/Pb_Sb__s02/POSCAR",
+      "sha256": "f23bf089fe10e4eed678f0714c34d910690e07a70db142444492d979b6d9e513"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed161803/Pb_Sb__s03/defect.json",
+      "sha256": "a4852e8bff0d850adfbe34add2b49cedf044eddfa3414783560ddff39ae3d62c"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed161803/Pb_Sb__s03/POSCAR",
+      "sha256": "f6bec8709b8f60753bef4e6e15c864d6f73d50ee8ab0a0ea9c6616238c9293d0"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed161803/Pb_Sb__s04/defect.json",
+      "sha256": "0be16241d143e5357e1ae8d4a63bb03ec575398ae3bd60c852e95f4a416ff129"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed161803/Pb_Sb__s04/POSCAR",
+      "sha256": "5a5758202b436bfa64cee83522b41118533687a4b8d98cc7f84f86fe0801e906"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed161803/Pb_Te__s01/defect.json",
+      "sha256": "973721c02e7ee73c70c29d1178f9c321dda3f2055d647e828f6c73952a0b0d7c"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed161803/Pb_Te__s01/POSCAR",
+      "sha256": "545a2f7ba5f567191c47709f1808445668984e403eb06c22d4e6a52ee09c43e5"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed161803/Sb_on_Vac__s01/defect.json",
+      "sha256": "56ff8ee40b1907d038c14e672511aa28ff1448e1dc966bc6b25570768790684d"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed161803/Sb_on_Vac__s01/POSCAR",
+      "sha256": "40363f8bd306cef70d7e4a47432884123528ee6d88c0724e7ff90927207f521f"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed161803/Sb_on_Vac__s02/defect.json",
+      "sha256": "9086ccd20622c6776eea1a84047696107eb1f8849eea32b6e7368e0cc92adc7b"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed161803/Sb_on_Vac__s02/POSCAR",
+      "sha256": "5f54ebc91a510deba67167ce5991d3278e39f09b3ffbf6bce447355c55dd0b6f"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed161803/Sb_on_Vac__s03/defect.json",
+      "sha256": "ace7f876d26ee6f3db9071a7475167333d638ea8d26e17a58b66f637ca2601e9"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed161803/Sb_on_Vac__s03/POSCAR",
+      "sha256": "07632af8a60e39e04ecda868b8bc3e6591cc019342c1ce55dbe8efcf775417b8"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed161803/Sb_on_Vac__s04/defect.json",
+      "sha256": "6e138c216f63a95d7a6d2cbcf45274534f220b50a6c83048920867162f9b2762"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed161803/Sb_on_Vac__s04/POSCAR",
+      "sha256": "4193b29bddf7300513cc342c32d5babd22d91e502bc764e39a3b051f2876bbcb"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed161803/Sb_Pb__s01/defect.json",
+      "sha256": "cdbc50f2080896ffc337ae625e6c535401828347d0da951d550147a6a6e447b6"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed161803/Sb_Pb__s01/POSCAR",
+      "sha256": "4353efb38b864ea45bb66c920dec93f3a923862204914800072860f904d779d1"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed161803/Sb_Pb__s02/defect.json",
+      "sha256": "9da06477e6e7cddcb9e62063edb5ac0f53bad12124d1528b0e9268aa3e90af73"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed161803/Sb_Pb__s02/POSCAR",
+      "sha256": "f56473d2d6a675eabe2539bd23bb74551708c2e51a13331a966108b524b6b108"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed161803/Sb_Pb__s03/defect.json",
+      "sha256": "ed5c5d15f2e8ee3e1dadf99a28ef5ae5c489011994470f8cb84334b2971cdae5"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed161803/Sb_Pb__s03/POSCAR",
+      "sha256": "8b349aa71653d4e3232995f0bc4c7a0409f3de10cbed1aa2fe48f00ff1a781b6"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed161803/Sb_Pb__s04/defect.json",
+      "sha256": "9bfc1024ee3ba88c0cea982c797cb88d7cd16b7c563bdc3575520409b3319678"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed161803/Sb_Pb__s04/POSCAR",
+      "sha256": "917685713fdc75fe7bf064547418a82d34cf40688b42028b9ac60059eda7d978"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed161803/Sb_Te__s01/defect.json",
+      "sha256": "93c3f71c0302db4495b1cb243214c31bb073db5f0fd3c2b8ff2fad96e1eea27b"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed161803/Sb_Te__s01/POSCAR",
+      "sha256": "01301576fb0b8e0b3cff5b67fcf6a90b5bcc49c5b245bd8ea9489bae13fecf82"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed161803/Te_on_Vac__s01/defect.json",
+      "sha256": "e3ccb1092b7a33bdd79991f368b738c41d075c292c476660aa9014a25dbbc333"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed161803/Te_on_Vac__s01/POSCAR",
+      "sha256": "98c53e21dd6fb82b9b799e144b18f80aae86cef6e45fdfc4f227c7769341b4f9"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed161803/Te_Pb__s01/defect.json",
+      "sha256": "038baaddb015be4eced880f72e86ea5da4fccd51368099987ad5a85cee4c992a"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed161803/Te_Pb__s01/POSCAR",
+      "sha256": "a470c9407bce6e1b2d7ff8c489b8745ce69a975f61b09751a06abe7ce7180bc9"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed161803/Te_Sb__s01/defect.json",
+      "sha256": "425da6ac33ae8f514032568633319a402997420a5029f6e320e171e1df7a0c76"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed161803/Te_Sb__s01/POSCAR",
+      "sha256": "977c4f5d367e0a25ca57d0bc5239f73b06342a00ce2327c885059bde57aec5ca"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed161803/V_Pb__s01/defect.json",
+      "sha256": "4b8dc8591dc45df7eccb9814a6527837243b1b6c69a4657195367bc5f0b77374"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed161803/V_Pb__s01/POSCAR",
+      "sha256": "3cd2ff9ba24360311bf89b86ddd5f1a1d10a32a2786c45c2dfe7848a715de84c"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed161803/V_Sb__s01/defect.json",
+      "sha256": "e07ba80bd108f833edf426dbc94068c011a05ddd983024e49a7cf98a8128dbf8"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed161803/V_Sb__s01/POSCAR",
+      "sha256": "8592d7db75c4b09bfc4efde4051ea2f3d408d1bbc1e0faaaa70b830a2192d93d"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed161803/V_Te__s01/defect.json",
+      "sha256": "b9548f41000ea9140de98a0cf8a9052399b0d6b7ebb58790ae259fbb897bdfd8"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed161803/V_Te__s01/POSCAR",
+      "sha256": "81f7ebeff5e8063a849c716da63bbd5507e99c6edb162943d871c82836698c39"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed161803/V_Te__s02/defect.json",
+      "sha256": "8fd23b5f5da963732c59e75c72afa021dcc324aba943e73056258db82ac72d38"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed161803/V_Te__s02/POSCAR",
+      "sha256": "3909def05b854442f42e4273a8053720ff0c604f0f79e94fe004229c1d6821d0"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed161803/V_Te__s03/defect.json",
+      "sha256": "f35dd9913147387e124847faace9c1cf851fc83ef1e74d750e7333a1d61d8e7d"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed161803/V_Te__s03/POSCAR",
+      "sha256": "b1cd54038a2bc62fdbcafd476d04ec86ec7c7b092ba21167cde28dfa97572cba"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed161803/V_Te__s04/defect.json",
+      "sha256": "d753da330ddba48e01a57750f7879f5fe3380f2c269b25dff0e4b506efd8028b"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed161803/V_Te__s04/POSCAR",
+      "sha256": "79b07bb53d8fff7c1cbb609263cdf57b559a73ac47edc80e9c40ae95887b4684"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed1729/Pb_on_Vac__s01/defect.json",
+      "sha256": "8b7f22188dda7c141c8c1d42d904b2a66fb928624fd85ef5622beb3906912f48"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed1729/Pb_on_Vac__s01/POSCAR",
+      "sha256": "e9cbd76f91e9eb72b8ceb41bf956ec1b973c5694789c25b5408d8f0e6019be9f"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed1729/Pb_on_Vac__s02/defect.json",
+      "sha256": "cc9970bdb2033eda1d9e4e0909ada006c10892591e3d4abb1df3eb9d41240c94"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed1729/Pb_on_Vac__s02/POSCAR",
+      "sha256": "701ef9e957dd2213518214a4339999b0659d52b0122f08e7e3ec38b81c708403"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed1729/Pb_on_Vac__s03/defect.json",
+      "sha256": "1b9533f36fffba12da394714e55df377d3da8fe46d48507d9729c2c31f47b1ab"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed1729/Pb_on_Vac__s03/POSCAR",
+      "sha256": "04a3af76d4240928d5801ed0fe1e6308525eee545f5e70498e22e1bf3bcfecb9"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed1729/Pb_on_Vac__s04/defect.json",
+      "sha256": "f64d5a64c989b39a6f7f372529c54fc7aafdd8246046efe78ac2edc0c7248087"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed1729/Pb_on_Vac__s04/POSCAR",
+      "sha256": "ed5c56ad2ee1fd68d37f657f4977db53ff7ebb457477228ae2d5e9ed95459fc6"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed1729/Pb_Sb__s01/defect.json",
+      "sha256": "8434ca557b529e5a7f0a46a8d8d7278232a457a39f1d05a9c7d8cf8aea9aaa9b"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed1729/Pb_Sb__s01/POSCAR",
+      "sha256": "e40892d017845d30ca5c6b39b23a342490c18de2524c1b8708d590efcbae0ba4"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed1729/Pb_Sb__s02/defect.json",
+      "sha256": "7cacca2e7cd8b9787c32f781604adebf636b93531590fcdd603c51a35f865fc8"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed1729/Pb_Sb__s02/POSCAR",
+      "sha256": "92b4ad6a2fcf1e8389485f3e189b205d66982f02d45324dc28934c0b8a50087b"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed1729/Pb_Sb__s03/defect.json",
+      "sha256": "339982990aedcde37586281744800b45059fe58a64bdd8bbe1381137247ce915"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed1729/Pb_Sb__s03/POSCAR",
+      "sha256": "3f4606915ff1d33e32aac8bda97b36fb5e48edff2ff99680f268fc88524d2494"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed1729/Pb_Sb__s04/defect.json",
+      "sha256": "be71f9b98312cd086dc9a49949e166e512023350c3785c5c2ff336cb7df779cf"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed1729/Pb_Sb__s04/POSCAR",
+      "sha256": "dd74ac6ee28eef83031b91528832511b4a3715b4aa1a9ff46eff0854edddc5b0"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed1729/Pb_Te__s01/defect.json",
+      "sha256": "6080025bfe377974075e0ffee6cd896f76c564f880c1fc56e1bc1d8e536bdcee"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed1729/Pb_Te__s01/POSCAR",
+      "sha256": "b1a4844418957964d82710d2f178554786a4e699803691c19f943b113dc014cc"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed1729/Sb_on_Vac__s01/defect.json",
+      "sha256": "2bca343fb211c078987b1f0ba6a84b2716f687a7d13b1882508fbcaaf8d015e5"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed1729/Sb_on_Vac__s01/POSCAR",
+      "sha256": "80ba87676542c2fcb8ad293059e1e9e36c247d9b07b64201fd64fde70980b974"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed1729/Sb_on_Vac__s02/defect.json",
+      "sha256": "cdf509b2aca0186128e035d042add81874c402b219dca06b628eb6f3000d9a35"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed1729/Sb_on_Vac__s02/POSCAR",
+      "sha256": "811c682a1197146ec3eaaf27317c16b86d0ac927ed4505f4121d831c0ef8bbdc"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed1729/Sb_on_Vac__s03/defect.json",
+      "sha256": "a3d1ab72e38ffd76c03568ae3edc6a977b6d984317fd15b774859fc26570982d"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed1729/Sb_on_Vac__s03/POSCAR",
+      "sha256": "eba3d03f6ac39ddbdd963f3b07f52f571479b8b22733e910bacfc48739ce652c"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed1729/Sb_on_Vac__s04/defect.json",
+      "sha256": "8805f1a3cc7518069efa392b9d51985795d6f3ed6c539c982e06d562a3519d93"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed1729/Sb_on_Vac__s04/POSCAR",
+      "sha256": "4840f1f022cf3bdc3c1d6a332d717692aa4d48e6971eca45f6ecbcdd37e41b69"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed1729/Sb_Pb__s01/defect.json",
+      "sha256": "2bf5d8f464ecfcb74bd6836317cc825df81dad842bdc71ef095c77098aae54e9"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed1729/Sb_Pb__s01/POSCAR",
+      "sha256": "aec328514cec6362dd30a7c50013e1154785fc29dbcf459ed0e924a15ba1f76f"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed1729/Sb_Pb__s02/defect.json",
+      "sha256": "85388e6e5fed71df6c7135999f81ded242f295c3346747b1ddeb7cc672a7aa2c"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed1729/Sb_Pb__s02/POSCAR",
+      "sha256": "5440a17185b3d60d9336f57fc6e73a30b445d87d5b416c35297e4839b623b4a3"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed1729/Sb_Pb__s03/defect.json",
+      "sha256": "e93acdc33cdbceac39da251444dcf64a93fb648398df5c781f93be49cef2f3e3"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed1729/Sb_Pb__s03/POSCAR",
+      "sha256": "f384f86ee24706a9ff913c3ecae84b9df5aae4af56ac951e7ca21349ada6f4c6"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed1729/Sb_Pb__s04/defect.json",
+      "sha256": "53291233ab3d007487212eaf7f2c4ca20499530b71a552b589fac3b9c59a5ae4"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed1729/Sb_Pb__s04/POSCAR",
+      "sha256": "b8bf5b15d13c83350000ed8343601150ea857540afe519fde9aa5596861cf65b"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed1729/Sb_Te__s01/defect.json",
+      "sha256": "39cbafc07e53046954cf36991c1777e058f848b0496d9c3b94f75146d71348af"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed1729/Sb_Te__s01/POSCAR",
+      "sha256": "3546f228bb68173e7cd64c090e321fa7fa11a6854f68ccc7b89f250156b780d4"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed1729/Te_on_Vac__s01/defect.json",
+      "sha256": "24ed14dd9f1b7bfe4558cba5b7ab09215b863fa853f62ff9bcf49f669718d4da"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed1729/Te_on_Vac__s01/POSCAR",
+      "sha256": "bdebf9dd620178d5aaae35434648bd1d50ea00390a102562fcf9f490e73d4abb"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed1729/Te_Pb__s01/defect.json",
+      "sha256": "afd768c32721ac86ab91fb623df13b0ae3ebb29edb4726b8c1654f9b6e863fcb"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed1729/Te_Pb__s01/POSCAR",
+      "sha256": "1f079354a9bb140c6ca8082d89587e1870c66e85a3a0487fb8823cd88c2b1c1e"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed1729/Te_Sb__s01/defect.json",
+      "sha256": "412e5f956d9a5543d74a4cfd6e5589625b41e2ac3fe639d573aa34d48a2b794f"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed1729/Te_Sb__s01/POSCAR",
+      "sha256": "730f8f12f3067cb05d728a6b6b08b3e43c93c68ed03615859b0f002ea9ef76f8"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed1729/V_Pb__s01/defect.json",
+      "sha256": "9043fca267451a9df6787ac71e8eb46c8ca1e294ccab264c31c37005f5ff86ed"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed1729/V_Pb__s01/POSCAR",
+      "sha256": "2e232e2b5c33df52724b8530762467a47d0256843d5eda6617e149a90fe3eff5"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed1729/V_Sb__s01/defect.json",
+      "sha256": "e133527047a23748fbc384acbdfbac6d3b649201d1d752171a8e620430d9a2d7"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed1729/V_Sb__s01/POSCAR",
+      "sha256": "2604e7ec9d922dbefa8cb86fd76a1d62ae09a14f5f880aa8fe80cff5436d23c1"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed1729/V_Te__s01/defect.json",
+      "sha256": "b256cb76aef4b3854d3bc1d3b896f155f6f64f82b86c5f19c26b2aeafe77b7d7"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed1729/V_Te__s01/POSCAR",
+      "sha256": "7ac1c23889fd52e7031b35541c2cc2cf223406d522b86e6c6348a1957b2b8bc8"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed1729/V_Te__s02/defect.json",
+      "sha256": "971c0092af866b627d672230be1cedc3331a1e9432a960686c500788d26df10d"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed1729/V_Te__s02/POSCAR",
+      "sha256": "fc5a25c66645edbb2543b58249191db1966f27f968627c0c442e77fb07edea62"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed1729/V_Te__s03/defect.json",
+      "sha256": "6bcf563bdd044fb72f7c1950c32c37212289e8756ca257c58149aff983598bb0"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed1729/V_Te__s03/POSCAR",
+      "sha256": "5d62b71588279fc1bf3ff140efed4eaeb973ee27aa757f393e99448fcc724472"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed1729/V_Te__s04/defect.json",
+      "sha256": "b723be68ff5f80191fb7e69750ee5cee26b965df2b1c460d8b30146954ee8fe2"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed1729/V_Te__s04/POSCAR",
+      "sha256": "34d574561296b5d069ebe8a737e98f9974d6f240a984cd18bb2f75bd2cce1685"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed2718/Pb_on_Vac__s01/defect.json",
+      "sha256": "d0f7d2f677a45be6827cc5aea858861fcc9a12b70ca161e336ded9498850b547"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed2718/Pb_on_Vac__s01/POSCAR",
+      "sha256": "e09d247e41e7da650868d10fd82d8ade3a386d57487a1c40bf0723fce1135b4e"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed2718/Pb_on_Vac__s02/defect.json",
+      "sha256": "3b3b55c8eb6d3593c09421c0e08c4d3ad51a796f1c939e2bb6fedf60afd91338"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed2718/Pb_on_Vac__s02/POSCAR",
+      "sha256": "f1bd4121615cb8d7e0d0354cd0b79360ed58ed7a2aca30525725fa4f2986cc0f"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed2718/Pb_on_Vac__s03/defect.json",
+      "sha256": "346ec4596008616b09acd92587be248bc9f2d1483b6457a1d543d8611a52858d"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed2718/Pb_on_Vac__s03/POSCAR",
+      "sha256": "8081eb9ad94d3eede56fd894d40adf702e720b34eb448bba6dcb30f74b17f540"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed2718/Pb_on_Vac__s04/defect.json",
+      "sha256": "5dcb5ab16f46e2004825a5e0503a4f6bf1347426b17ea2358491ba066e1d726d"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed2718/Pb_on_Vac__s04/POSCAR",
+      "sha256": "20e8656a3e0ca44c0daf782849c257bdad8617d651b54e69156781d452fda530"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed2718/Pb_Sb__s01/defect.json",
+      "sha256": "d5270ca787e11ec6c6f6f1b954b0da61569d3c9ee1ef0d41d359333e5dab7ea1"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed2718/Pb_Sb__s01/POSCAR",
+      "sha256": "9bb9119c99d5eb7dc61e136cfb0e14b6165fe82636c90bf349e3252c06d7f9fa"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed2718/Pb_Sb__s02/defect.json",
+      "sha256": "f14e9651d22315ef18a2bbe53e85795f24ade75b6cbe0a7cc1023303eda3c685"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed2718/Pb_Sb__s02/POSCAR",
+      "sha256": "0eff12a44250e2cff2d920ee8f2d94046c44637c3e9ec8343ef6a55ff1126ca3"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed2718/Pb_Sb__s03/defect.json",
+      "sha256": "92d1767d3d388155e32a1468de2df5df4e264dcace610e34aca11b4a12d15a2d"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed2718/Pb_Sb__s03/POSCAR",
+      "sha256": "5c89c69226bcaa9bb3d32731c466f07c9ea73e1cf30b608fd0cc6bac157e54c3"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed2718/Pb_Sb__s04/defect.json",
+      "sha256": "07bda5e36c83d82dcebc349f4570e6835cb1c85504ca8e59c90b667837851aa7"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed2718/Pb_Sb__s04/POSCAR",
+      "sha256": "0f1f2f7fc7533b0f0ebd31a72031c28d7868b93c9cf83eb8bf61ec2ed6bf82d2"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed2718/Pb_Te__s01/defect.json",
+      "sha256": "836476e5d2cb4cd3baaca6bc5c7e67e06920a849480b97fdf1a0ac23524956fd"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed2718/Pb_Te__s01/POSCAR",
+      "sha256": "7c603e572b7fb0990c84e081f92dc87a1ee325915ac342eda1d4bfb4f030d7cc"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed2718/Sb_on_Vac__s01/defect.json",
+      "sha256": "1d9a66ba66d6e0a8e15acace0b1c11010af8b69916171a4ac3ed5d772992e5d5"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed2718/Sb_on_Vac__s01/POSCAR",
+      "sha256": "cbde7f7cd3609a73f2074db25e316966179cf74711d6d96821588dea849d0efd"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed2718/Sb_on_Vac__s02/defect.json",
+      "sha256": "09026f22d27cb3765162cc2c814ba64349f0fc98f598f9bd288d5bfad6247f1f"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed2718/Sb_on_Vac__s02/POSCAR",
+      "sha256": "9873b3898254719fd26ffcd90c67b38782b54f29d1138592a6bcde8bc68ddc6b"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed2718/Sb_on_Vac__s03/defect.json",
+      "sha256": "e1df3572ade57b0021ee59d3a492e010c98561c76404fd11e79e946fee69f29d"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed2718/Sb_on_Vac__s03/POSCAR",
+      "sha256": "884ff3fa6cba51246853550e311de4f2b5695f43e73444a6a21927b9d6bc8a31"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed2718/Sb_on_Vac__s04/defect.json",
+      "sha256": "0a047ad22f8a222f48fee6ebb5d1a3e237e7b353302ce8f13166a0035409c634"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed2718/Sb_on_Vac__s04/POSCAR",
+      "sha256": "6577afb5ed1121620313ed2d1636d8f8c6574f89ad25166b5a7c1894d8fa237a"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed2718/Sb_Pb__s01/defect.json",
+      "sha256": "aa90caf999ad2f5ae1ce133e5ab44911239d8381e602475c5ea93b52e62b4b7e"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed2718/Sb_Pb__s01/POSCAR",
+      "sha256": "8afa74b604cfe555c74721aa4325cdbe7799d351277659de05ba2904cbb93112"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed2718/Sb_Pb__s02/defect.json",
+      "sha256": "975b35d8a326983dfaf5f97ca6d8e944f88000c9e3dfbe61dce1f8644571a343"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed2718/Sb_Pb__s02/POSCAR",
+      "sha256": "6b2cc7768dac8096463d5aff7e6a0d788420fe239457774969c22f8ecc3452b1"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed2718/Sb_Pb__s03/defect.json",
+      "sha256": "b22362890898c0d7ed282da41abf6bb90f0e87f0e33a4e80d087241e9d9657ea"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed2718/Sb_Pb__s03/POSCAR",
+      "sha256": "ccbf2a6b2a32fa68159cb476c6c6b6a14e35d8e81d2948358bdebab2d133a76c"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed2718/Sb_Pb__s04/defect.json",
+      "sha256": "60ba8afcf560cfa82011fb417831ee44b1dba64ee4d84dec297224285a76b737"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed2718/Sb_Pb__s04/POSCAR",
+      "sha256": "45bd76fd6752ffa4fd15426ddb88193fb0315cee80d195211bdb7b01bb09e0a4"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed2718/Sb_Te__s01/defect.json",
+      "sha256": "a29b0aeffae8153f57b8e4ad85387a904f92a2a9638cd39c43865b394a7479b6"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed2718/Sb_Te__s01/POSCAR",
+      "sha256": "e788daff2b96b3ac9f699de533b2dfce9a3a9e979233eccdd62e9584dc749594"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed2718/Te_on_Vac__s01/defect.json",
+      "sha256": "e78df9b4358274521f678636b7155f04d7de8009642b507233c546112626b1a9"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed2718/Te_on_Vac__s01/POSCAR",
+      "sha256": "f2a94451e747769bac1f363378b511da4b040ed1e73909eac59d97d0d0878f09"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed2718/Te_Pb__s01/defect.json",
+      "sha256": "981df5a585863f89d3cfa9d98ca41a23981544496bb39a9939b306435475eb92"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed2718/Te_Pb__s01/POSCAR",
+      "sha256": "30cba9aaaf76cac049776358482bc1af5c7d7ab0a8e2d4f61aca94cbb256ac17"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed2718/Te_Sb__s01/defect.json",
+      "sha256": "daead66877e09c818ba392fba90b2d57e63abd043ab4fa200dea780fadc38ba9"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed2718/Te_Sb__s01/POSCAR",
+      "sha256": "bb28c6073963a2e6a3c0390ca426c768458fc2b3bf0dbdf1e131bb3927736f51"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed2718/V_Pb__s01/defect.json",
+      "sha256": "f78527ceae5dfa5e374631a235a62490530c0610992f3d03bf6f39f006bcb04b"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed2718/V_Pb__s01/POSCAR",
+      "sha256": "bc163e32254ec0cff6bb071fbbc0a60f3b28deec3fdfa69085f5fae1c4534214"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed2718/V_Sb__s01/defect.json",
+      "sha256": "f514a3c537a36678afcec4ee1c7ff251d6a286bec8c6f0909d20dfa808de8649"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed2718/V_Sb__s01/POSCAR",
+      "sha256": "d2f8ac1090d71ff4a22c82572942aa59d42693144e0291b9d58b666a88b85461"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed2718/V_Te__s01/defect.json",
+      "sha256": "9b00b82d18789480b62eabeaaa4c43aa1a161154e1840c665d4f9eea13a01ce9"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed2718/V_Te__s01/POSCAR",
+      "sha256": "1c054cefc5a60965698d8de384da554bb9f239b55805bce28fb6a8bc560c935f"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed2718/V_Te__s02/defect.json",
+      "sha256": "51cd949ed9125403c2cb23aeb38fdcf4f73144ceda801d390ff6b44eab5b3fa5"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed2718/V_Te__s02/POSCAR",
+      "sha256": "6a64601e48717cca1395f3fa0ca2243623c4ead9459d13e378b09d381a7272c5"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed2718/V_Te__s03/defect.json",
+      "sha256": "48fca9da917062774e9d861f9688e73c68df92cf0dfbb982748d4b7aafc8068e"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed2718/V_Te__s03/POSCAR",
+      "sha256": "f8b9c7325b51cfb9c0227781da94b9bd1103e893b3f2cf926e6f7c073627df04"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed2718/V_Te__s04/defect.json",
+      "sha256": "ef32c46544231529cedd9d4067ed05343c093e910e98c00391c844349e3832be"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed2718/V_Te__s04/POSCAR",
+      "sha256": "46963605a045c85595576176379899b37717a679e562da568c5606b7dbeeebd2"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed31415/Pb_on_Vac__s01/defect.json",
+      "sha256": "e695ca72d2d830391b46848cec390209dc71b30bf48799ca54fa2567c60c354c"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed31415/Pb_on_Vac__s01/POSCAR",
+      "sha256": "c168b228a51f244f89dfaa6c1de0d40d1dfffa05d697bcec0276bc2a77b4bc79"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed31415/Pb_on_Vac__s02/defect.json",
+      "sha256": "51269d125f942b94fde8dfd7363a269d68e747bda6e8c62f620ed2d90d3d2c55"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed31415/Pb_on_Vac__s02/POSCAR",
+      "sha256": "5a153943af4f9ce647883b233e974b1d83e9bafb43b988e975cd31650ae92355"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed31415/Pb_on_Vac__s03/defect.json",
+      "sha256": "875af0d98084a4893f984a94ad527897eb56ed21a7a18a6e3eed7647770a78ca"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed31415/Pb_on_Vac__s03/POSCAR",
+      "sha256": "4b624ee94a2c5b78392815761afa254fbcfe6c95d46b834ee259dfde64f0b6e5"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed31415/Pb_on_Vac__s04/defect.json",
+      "sha256": "dc16c5f696a196eb4faf307e2aefca40ba363333f5ecc748776154d338da2da6"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed31415/Pb_on_Vac__s04/POSCAR",
+      "sha256": "5a262a3a70850dc71299b683101054f2f2933e67e53b8b688a274a349b6c6c4f"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed31415/Pb_Sb__s01/defect.json",
+      "sha256": "f777d59a06a1c4443d5a8535ad8087c1233aeffe92df4edc8fccb530f2cdfae3"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed31415/Pb_Sb__s01/POSCAR",
+      "sha256": "83d2d8b1bdd222b9a1029435b5ee460c8f086247fb284d4431137f56331e9370"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed31415/Pb_Sb__s02/defect.json",
+      "sha256": "9837731f8dad425124954df177f895c113926414b363bfadd7dab274832e5f9e"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed31415/Pb_Sb__s02/POSCAR",
+      "sha256": "598ae0a2317a350f29e79f99cf6b804b835a60015cec5e0277119d16c5ca3d05"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed31415/Pb_Sb__s03/defect.json",
+      "sha256": "54cec3b63a12058691e354d80d1aaa3444e80fd24258825a7fa22cfe7cb183c2"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed31415/Pb_Sb__s03/POSCAR",
+      "sha256": "ccd5cc72be22257f4ebad87363fecd50f25aab1138eba05ec5aaf83e27c1ce5d"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed31415/Pb_Sb__s04/defect.json",
+      "sha256": "1aa069ff8bc4a3ab22d2db53a2d378f95408f06d81f11cce833d28c6a6e4c397"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed31415/Pb_Sb__s04/POSCAR",
+      "sha256": "8644398c59f5c8f1f975c421e928372feb4df338a9cb8f6acb986a162033d2f4"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed31415/Pb_Te__s01/defect.json",
+      "sha256": "2bb2fb03f895c43aa47195745d5924eae808ca4c6f83b250fdbcdd7fac46a1fc"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed31415/Pb_Te__s01/POSCAR",
+      "sha256": "b1be06fcc81ee75fe68bf270b16b54215f430d6a8600e96ff6541bc6c6951de8"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed31415/Sb_on_Vac__s01/defect.json",
+      "sha256": "0e9a48a030d0ac9bdc9d2c1a1b65db968a0610ce2bef4622246e481aa714c0e0"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed31415/Sb_on_Vac__s01/POSCAR",
+      "sha256": "a5c8e2e10699ed1778a4e6763ef27a2187f7302a10451c2aeaee68da386f4425"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed31415/Sb_on_Vac__s02/defect.json",
+      "sha256": "f087bb58576b85ed85efcc700e92e0fad01ccf2d2169b9c98876806ef318ef7e"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed31415/Sb_on_Vac__s02/POSCAR",
+      "sha256": "98aa25799cf2bd27713d6cd351581d735e22b493f176ef12db2ce8bb3c3f66aa"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed31415/Sb_on_Vac__s03/defect.json",
+      "sha256": "eb6da640cca9f13fded90e45b80aa6a64890ccda6ffd7c5fa7222839486779df"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed31415/Sb_on_Vac__s03/POSCAR",
+      "sha256": "46bef225969f2e3352c2ca58103abcd1e42d8b195e2533c1d7c349401393e2ab"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed31415/Sb_on_Vac__s04/defect.json",
+      "sha256": "bfb0b2d5975a9fd3552e50cdde08bec1ed1969b3a607562fc48663a846a396ec"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed31415/Sb_on_Vac__s04/POSCAR",
+      "sha256": "d2fc2fe03fd9bcabb0095fc97e879279ed7ef9fd5048611f96dc00f450f0178f"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed31415/Sb_Pb__s01/defect.json",
+      "sha256": "b4a45aadde69fc08f19b2042b33fe3e739f571769b8920902f17e8d966e68aeb"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed31415/Sb_Pb__s01/POSCAR",
+      "sha256": "8a7b3d35f1d5a3e96ad5930620bd91f6bcb370df0dbbf782b8060f3a69710a14"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed31415/Sb_Pb__s02/defect.json",
+      "sha256": "898ec032b9cc9d87146219ec357dc14af7b6357da476f1c77355a3a24e0eb177"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed31415/Sb_Pb__s02/POSCAR",
+      "sha256": "9c38a118edda9597e91c319da12eddaae73fb4d68492b02f625bc1b30f358616"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed31415/Sb_Pb__s03/defect.json",
+      "sha256": "f87f42a13f6d4528193ea2c3303f9c261f7c7fb469a30cd3bf41e3f3da307be6"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed31415/Sb_Pb__s03/POSCAR",
+      "sha256": "d492f280ef52a96d80d08a4d277a89d262df52441271b6be4ebc86cf38cf0d95"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed31415/Sb_Pb__s04/defect.json",
+      "sha256": "9808514bc94ade0f83a8c45c4b6aa67a46e3e801c506e0068dcbe33747b97c3a"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed31415/Sb_Pb__s04/POSCAR",
+      "sha256": "764573419ff26db8c88db79dd4b835eeb4aa2a8b71dff292b173d3c085f76562"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed31415/Sb_Te__s01/defect.json",
+      "sha256": "55e5d6fc34d8838eae91b58f11167a3d00ef8a4ceb23c8f29c68cdc7f437a990"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed31415/Sb_Te__s01/POSCAR",
+      "sha256": "390cb3fa459c3077aafc44952f8991e3575c4c6379520b0fe521f7569b692a33"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed31415/Te_on_Vac__s01/defect.json",
+      "sha256": "0973e4f2da3fe56c0192fc214e754ed6cd16e67d665bfd523fb14f0f7ab725b9"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed31415/Te_on_Vac__s01/POSCAR",
+      "sha256": "6947adbb10d0ddc1b3560909b7983829f358c42e09804acbb0ad18ca5947df90"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed31415/Te_Pb__s01/defect.json",
+      "sha256": "5d0ffcad0eaa226963b581833dc5ceed2a399bfaef9fdf787cd601f21ee614c2"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed31415/Te_Pb__s01/POSCAR",
+      "sha256": "77ac4328b1be107bd403eed0ff841b0875fdbf6f01ee0aedd6928a272f334aef"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed31415/Te_Sb__s01/defect.json",
+      "sha256": "a6fcb2da068a074be5d200c23fd96c596f473801cb353b018aa5591ceebb204b"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed31415/Te_Sb__s01/POSCAR",
+      "sha256": "d9226e5ca8c87d7ccb56ed99fdde1e77d8fa6019320a427fbfe72e4648850e98"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed31415/V_Pb__s01/defect.json",
+      "sha256": "d802c86397fe5e40e11e3b99d5d6f196709821f61b144b0cd1b087489bcc5d41"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed31415/V_Pb__s01/POSCAR",
+      "sha256": "5b3a6429d67793e9def2a27b9d0f7c5ae3cb7eb23a4f75dc1558460ede1dff7f"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed31415/V_Sb__s01/defect.json",
+      "sha256": "0e7ddc558f522de5036325310e32618310c78b78d4a58b02b1805695c36cecf1"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed31415/V_Sb__s01/POSCAR",
+      "sha256": "89cef4658a620f6c4a523f7c910b8113c489b7c5a71f4e3d02d1cbe2c6d7c734"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed31415/V_Te__s01/defect.json",
+      "sha256": "33348c932785ee5e6311515ae3002fba5271e604d3eba49cc6a0afb8d53162d6"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed31415/V_Te__s01/POSCAR",
+      "sha256": "f9991f5400f485aacdc8ad6ebaaab1ffdf9c63e8cc28eb6ae8a3f2600f00bbbc"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed31415/V_Te__s02/defect.json",
+      "sha256": "b3211689d5345038e79e547d7d8f5e2b7bb556b641cab3ee08857fec86b6812c"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed31415/V_Te__s02/POSCAR",
+      "sha256": "e78c6d175b76609b822f58652f13f3fe5713b8ff73fe4467e22a86eba31628fd"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed31415/V_Te__s03/defect.json",
+      "sha256": "ee40654286847dae839b77ea4edd2248835df285d92c93cf768de9718a6c88c6"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed31415/V_Te__s03/POSCAR",
+      "sha256": "9c78be441e6c3d396746c9462594f90a28972b8de92781942aaf8a7865a6fb90"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed31415/V_Te__s04/defect.json",
+      "sha256": "e1a2f5e9ffcb2521ee57f62d35811e08ba53d2eedc5575a18bce31abb39582cd"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/defects/V_seed31415/V_Te__s04/POSCAR",
+      "sha256": "ba3cc3db42aa7d5034bdf2138487e37071d07c34f05b586cf32bf823da1a3693"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/independent_audit.json",
+      "sha256": "8e771012793cbc77ccd606a53abb5ec20ace13fc86f062b076127baab4b24fe6"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/jobs.csv",
+      "sha256": "a17810deb65fa418ac24a8927aacec93dec33ffdd7b9ed188d3ac2b6952b49bd"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/manifest.json",
+      "sha256": "c13cbb06c5351a8cb628335f63223aa154f9bdf4af305d5fbdc79f8b0c5e859a"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/parents/D_seed161803/parent.json",
+      "sha256": "f62af3aa3c30f3d9595207fb44412a899481b6c4b0244cf354182aa37f8f3310"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/parents/D_seed161803/POSCAR",
+      "sha256": "217b8e81fac07c61f680ee872d8cee05df13de08842640af6282008bc7ca78e4"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/parents/D_seed161803/site_map.json",
+      "sha256": "84114ee23906de8b48389183c836fc0bf5c57a1c63d9f4e1846de03ce1232ac7"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/parents/D_seed1729/parent.json",
+      "sha256": "d2148f78ba78bf3f1b4a148c81e0059cb60bb0acf5cf82bc97bf64edb50eaaa6"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/parents/D_seed1729/POSCAR",
+      "sha256": "1b9da3a599d03918aaa42d06c9b7a86d365723a6c36271eac55707fef350fcfd"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/parents/D_seed1729/site_map.json",
+      "sha256": "cca5fd22b2d75df1aae06564face3910737ba8e25e0c60cd61b6641d42194313"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/parents/D_seed2718/parent.json",
+      "sha256": "6d21f1239b4324856fab96ed886d51f537632fbbdc2a34fd7fa25ab354e4cbe0"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/parents/D_seed2718/POSCAR",
+      "sha256": "278b35041fa49533ad51544394d0598f64e20990262458742936c659965dfe13"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/parents/D_seed2718/site_map.json",
+      "sha256": "458f0fc77fea44bf1aae2bf292d72d33671c07348310b6184ff2adabb17bce3b"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/parents/D_seed31415/parent.json",
+      "sha256": "59a50c82c80e91bbe9324bfdc0e0d95e9a4fedb12ac0a0922bf269fd0846679a"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/parents/D_seed31415/POSCAR",
+      "sha256": "726874f67f910725adecce4a9397abfc10d38c8a83312fa257d5f87c15711699"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/parents/D_seed31415/site_map.json",
+      "sha256": "807ed0fadb2ef5b7b214bc1088b97b05170cda43b3ce402f5580e95d48cee488"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/parents/O_ordered/parent.json",
+      "sha256": "7af3ec7921affd24970e387ba6ea92184d92d8af763e39593c2916bd6c205b45"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/parents/O_ordered/POSCAR",
+      "sha256": "8f753e77ad7b1563eb222c2ce84ca2c19915d2532056d1a296a27ff6072a74be"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/parents/O_ordered/site_map.json",
+      "sha256": "be456e689fef01160c8c4f7f75ca00138970efbe98201fc8b965eaff0d02fdf1"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/parents/V_seed161803/parent.json",
+      "sha256": "55fe2254d77a94492bb2817a6d3ae3dac69e5d80fba41cc6b62c2500ff899965"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/parents/V_seed161803/POSCAR",
+      "sha256": "774206b7a15d43e301271f12e1bca061802aa361f94c7e24f89da983b122b1e3"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/parents/V_seed161803/site_map.json",
+      "sha256": "56e782e22f49e5f5cfd0e301754da467c5400e0e03232c7d99afed409a771c51"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/parents/V_seed1729/parent.json",
+      "sha256": "23b6c72fdddad05213e5ff30bb42205bc84942095b28197c51c4870089adfd4e"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/parents/V_seed1729/POSCAR",
+      "sha256": "5c779c65b04e67aa190442f401372677972d0d32786189f071f710bc2d9911f2"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/parents/V_seed1729/site_map.json",
+      "sha256": "3d08c9b87e347ed38ce4c916bb38014813d6651fb2461d38d261569924e8b046"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/parents/V_seed2718/parent.json",
+      "sha256": "a4d07e009db9d4695f47b06bce13954c9835289fc3e7a912285b15b238a18230"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/parents/V_seed2718/POSCAR",
+      "sha256": "4d7e4b4e077c4adbee1e4b4c6f24c63fd4f44507b6d2ad68348f5a90c3b7b8df"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/parents/V_seed2718/site_map.json",
+      "sha256": "a197fb845688c554bdb3ce35abda97c2211a999c2ef95994ff38ae2ce75d91ba"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/parents/V_seed31415/parent.json",
+      "sha256": "0a725d66e7f3d1dd30e8184ceebf39dd048b1385f765056de3623f9a04ed58c0"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/parents/V_seed31415/POSCAR",
+      "sha256": "803cfc889c868291e7899e374fd97a98413fb9ef29b5a71c75845e15d281a62c"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/parents/V_seed31415/site_map.json",
+      "sha256": "a7ff340d3b2a768f5fd27c4d3e1104a5c12441fcfb8c2a678817ceecdaa70bac"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/README_模型说明.txt",
+      "sha256": "f1293e700568dc84f91a6d0a947fbff24d18da20fca66e08ac13202a513558d9"
+    },
+    {
+      "path": "rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/validation.json",
+      "sha256": "6cf2327744373a4dd3ff65fd50e49817a93dbe944bd959a1582fff411e3410d9"
+    },
+    {
+      "path": "scripts/audit_models.py",
+      "sha256": "524da58d02fa27e5438dd6a3240e59879656455e47b970f4187ee0a94b282323"
+    },
+    {
+      "path": "scripts/build_rocksalt_models.py",
+      "sha256": "a2d9c171f5b91359915d25b27a61eefcb20d956d1fc6f047ad009e0dec1677fa"
+    },
+    {
+      "path": "scripts/regenerate_defects_from_relaxed_parent.py",
+      "sha256": "af6eb9f6b04a2f1665a71e47f611a08b904dbdc8c4d7c25cdcbab36c3fc23f83"
+    },
+    {
+      "path": "test_effective_mass.py",
+      "sha256": "82017222ddfbaf8cac820972ea898ca165be4ffda6023e561f50c2e27df796a8"
+    },
+    {
+      "path": "复核_所需数据与可得结果.csv",
+      "sha256": "10ce04bb1c25de7c19a9ff2a2e7c29c48b178c864dff1d6101faf7aeb170b2c2"
+    },
+    {
+      "path": "复核意见_20261007.txt",
+      "sha256": "99e583b8f594150eb14bac35771438460edc611fe622cafcf352165d055fe1ea"
+    },
+    {
+      "path": "开始阅读.txt",
+      "sha256": "f7edc0668470feba37b903911d86e9372e6e4f6b9ca80339af75a6896af3f2c6"
+    },
+    {
+      "path": "文献依据.json",
+      "sha256": "c331dc1e260bac8428f2925708a5870419cc4030807fad1213723760c4811be1"
+    },
+    {
+      "path": "有效质量工具_使用说明.txt",
+      "sha256": "027f427a3afaf583cca155dbfac6bcfd904df9c96a21c49990ccacc9ea78ebe2"
+    },
+    {
+      "path": "现有SOC输运_浓度对照/300K_正负1e19_独立核验.csv",
+      "sha256": "06bc1e0cc2bb0cf6dafd1f0e0122ae26d8a08cc3afbb81377768f0265fd1e666"
+    },
+    {
+      "path": "现有SOC输运_浓度对照/300K_正负1e19_重新提取.csv",
+      "sha256": "5bf69ee9b216aefd8f66d90884467313e694c2c98ea6db1538c8357e8e55cde5"
+    },
+    {
+      "path": "现有SOC输运_浓度对照/build_soc_concentration_plots.py",
+      "sha256": "bf855ddb8ab2d1b54c0a0ecac8f5c76fed24b4715a836f3aa7e72cab6ed17b18"
+    },
+    {
+      "path": "现有SOC输运_浓度对照/SOC_四材料_300_500_700K_净浓度对照.csv",
+      "sha256": "ec0ba5afee075febd687ba335bf29ad926447ea4a140728679214a18e36d0563"
+    },
+    {
+      "path": "现有SOC输运_浓度对照/净输入与Seebeck符号不同_筛查.csv",
+      "sha256": "dfff5ba54d71a8ac7f30ef7705c0d763baf255e47c4db8235ddd678428ff9c86"
+    },
+    {
+      "path": "现有SOC输运_浓度对照/图1_Seebeck_净浓度_三温度.pdf",
+      "sha256": "9b85197436d76ba1fa7194bc743a8b2c1a901bd65330026152cf802d42e83ccd"
+    },
+    {
+      "path": "现有SOC输运_浓度对照/图1_Seebeck_净浓度_三温度.png",
+      "sha256": "8935130cfe251cebe8391fbc841df91e3e7381ef65b34a5f004c5a6ed891ffcb"
+    },
+    {
+      "path": "现有SOC输运_浓度对照/图2_功率因子_净浓度_三温度.pdf",
+      "sha256": "b18db9492da9a374233f8ed9ecc11b5cbf0c54dd954354762ecec62f3ac2e13f"
+    },
+    {
+      "path": "现有SOC输运_浓度对照/图2_功率因子_净浓度_三温度.png",
+      "sha256": "fe3b78e169c38ea3a122e7790850ad23b4ef5cb32d9f53828105f9ab12821a78"
+    },
+    {
+      "path": "现有SOC输运_浓度对照/核验摘要.json",
+      "sha256": "3e2c9b1ca8fbd085469cce16b12ff3c56dad27f95eb23c9bede89509fbb464e4"
+    },
+    {
+      "path": "现有SOC输运_浓度对照/结果解释与口径.txt",
+      "sha256": "7bec624de0875e11060c6881766cb7c7f8274110da44d5ed1a765d85c6074be5"
+    },
+    {
+      "path": "补算实施方案_有效质量与有序化缺陷.html",
+      "sha256": "e6d3db554b053c38f5ad7a3b33264631f4e3da7a7dcfb45241eb34ec35a817ef"
+    },
+    {
+      "path": "补算总任务表.csv",
+      "sha256": "822af82680df30bfd34013290da510f6d6be465a19e6e930f80db3550cd19091"
+    }
+  ],
+  "review_date": "2026-10-07",
+  "review_scope": "Independent paper/physics/code audit; six synthetic mass tests rerun; no new DFT.",
+  "review_clarifications": [
+    "charged-state candidates not pruned solely by neutral energy",
+    "absolute transport requires scattering",
+    "lone-pair evidence and SOC bonding-tool compatibility",
+    "relaxed symmetry must be rechecked",
+    "mass fit residual threshold is not convergence"
+  ],
+  "publication_copy": {
+    "date": "2026-10-18",
+    "changes": "Added historical-status banner and repository-relative links; adapted plot input path. Scientific result files and model geometry unchanged.",
+    "current_data_status_reference": "../11_续算审计_DeepSeek/审计报告_20261017.md",
+    "new_DFT_executed_for_publication": false
+  }
+}

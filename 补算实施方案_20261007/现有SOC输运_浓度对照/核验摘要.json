@@ -1,0 +1,15 @@
+{
+  "source_sha256": {
+    "D:\\joint_research_project\\huang\\孤对电子与导电类型_综合分析_20260918\\05_SOC_AMSET补算\\Pb2Sb2Te5\\04_AMSET输运\\transport.json": "476726cd26602c8fdad8f72907b7c3a607021104c5ab757230f50b7a69e0979a",
+    "D:\\joint_research_project\\huang\\孤对电子与导电类型_综合分析_20260918\\05_SOC_AMSET补算\\Pb2Bi2Te5\\04_AMSET输运\\transport.json": "eb534fa9be15ff74e9bfd9179aad5d27abe1cb01f10f6958db6771e4275b45e5",
+    "D:\\joint_research_project\\huang\\孤对电子与导电类型_综合分析_20260918\\05_SOC_AMSET补算\\Sn2Sb2Te5\\04_AMSET输运\\transport.json": "97087a81327b00cc0c6804bff3188a50c6421ccd444816b7b0060c1b5df6aa2b",
+    "D:\\joint_research_project\\huang\\孤对电子与导电类型_综合分析_20260918\\05_SOC_AMSET补算\\Sn2Bi2Te5\\04_AMSET输运\\transport.json": "6b2cf2591e67c7e3e26cdbd880a9229e5f0c9e056325130492e5aaf5cf16e323"
+  },
+  "rows_extracted": 96,
+  "reference_comparisons": 40,
+  "all_reference_comparisons_passed": true,
+  "max_absolute_reference_difference": 0.0,
+  "max_offdiagonal_to_diagonal_ratio_selected_tensors": 1.3258728867813903e-09,
+  "net_input_and_seebeck_sign_mismatch_rows": 28,
+  "no_new_dft_or_transport_calculation": true
+}

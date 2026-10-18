@@ -1,0 +1,2579 @@
+{
+  "materials": {
+    "Pb2Bi2Te5": {
+      "electron": {
+        "carrier": "electron",
+        "band_index_1based": 89,
+        "center_fractional": [
+          1.262379e-15,
+          1.262379e-15,
+          0.3333333
+        ],
+        "center_energy_eV": 6.097452,
+        "metadata_edge_energy_eV": 6.097265,
+        "center_minus_metadata_edge_eV": 0.00018699999999949313,
+        "principal_masses_me": [
+          0.8651676078187982,
+          0.10133860088465188,
+          0.10132026849672655
+        ],
+        "hessian_eigenvalues_eV_A2": [
+          8.807500339975668,
+          75.19310443878521,
+          75.20670950695502
+        ],
+        "hessian_eV_A2": [
+          [
+            75.19314285714385,
+            0.000720000000512238,
+            0.0010400000001800896
+          ],
+          [
+            0.000720000000512238,
+            75.2064000000018,
+            0.13416000000034134
+          ],
+          [
+            0.0010400000001800896,
+            0.13416000000034134,
+            8.807771428570266
+          ]
+        ],
+        "gradient_eV_A": [
+          1.920000000047578e-05,
+          0.027484799999997925,
+          -0.05927999999999958
+        ],
+        "gradient_norm_eV_A": 0.06534166358212681,
+        "rmse_eV": 0.0004052640502953327,
+        "max_abs_residual_eV": 0.0008346091428572677,
+        "energy_span_eV": 0.009526000000000145,
+        "relative_rmse_to_span": 0.0425429404047162,
+        "quadratic_stationary_shift_Ainv": [
+          -3.448962703189063e-07,
+          -0.0003774748461422717,
+          0.006736169627608197
+        ],
+        "quadratic_stationary_inside_box": true,
+        "curvature_sign_ok": true,
+        "n_points": 125,
+        "condition_number": 5.711412876046573,
+        "csv_vs_eigenval_max_abs_eV": 0.0,
+        "quadratic_stationary_energy_eV": 6.097672040624256,
+        "sampled_extremum": {
+          "index": 64,
+          "energy_eV": 6.097034,
+          "q_Ainv": [
+            0.0,
+            0.0,
+            0.01
+          ],
+          "on_boundary": true,
+          "max_abs_q_Ainv": 0.01,
+          "distance_from_center_Ainv": 0.01
+        },
+        "center_is_sampled_extremum": false,
+        "energy_gain_center_to_extremum_meV": 0.4179999999998074,
+        "actual_extremum_at_boundary": true,
+        "actual_extremum_distance_from_center_Ainv": 0.01,
+        "quadratic_stationary_vs_actual_distance_Ainv": 0.0032855861087743208,
+        "quadratic_stationary_energy_minus_actual_meV": 0.6380406242563197,
+        "old_vs_new": {
+          "mass_abs_diff_me": [
+            4.884981308350689e-15,
+            1.5265566588595902e-16,
+            1.3877787807814457e-17
+          ],
+          "mass_rel_diff": [
+            5.646283175888163e-15,
+            1.5063920811351888e-15,
+            1.36969512751171e-16
+          ],
+          "old_masses_me": [
+            0.8651676078188031,
+            0.10133860088465173,
+            0.10132026849672654
+          ],
+          "old_gradient_norm": 0.06534166358212674,
+          "old_rmse_eV": 0.00040526405029532955,
+          "old_stationary_shift": [
+            -3.448962702955484e-07,
+            -0.00037747484614225054,
+            0.006736169627608227
+          ],
+          "old_inside_box": true,
+          "old_warnings": [
+            "NONZERO_GRADIENT: the selected center is not stationary within the configured gradient threshold; refine the extremum.",
+            "NONPARABOLIC_OR_NOISY: quadratic residual exceeds both configured absolute and relative thresholds; inspect band tracking, numerical noise and nonparabolicity."
+          ]
+        },
+        "inner_window_relative_eigenvalue_change": [
+          0.013977156105548597,
+          0.009904114090218078,
+          0.010075365720585226
+        ],
+        "reliability": "C_not_at_band_edge_mesh_boundary",
+        "reliability_reasons": [
+          "sampled_extremum_on_mesh_boundary",
+          "center_not_sampled_extremum",
+          "gradient_above_1e-3_eV_A",
+          "relative_rmse_above_1pct"
+        ],
+        "variants": {
+          "full_linear": {
+            "available": true,
+            "n_points": 125,
+            "linear_term": true,
+            "fractional_fit": false,
+            "principal_masses_me": [
+              0.8651676078187982,
+              0.10133860088465188,
+              0.10132026849672655
+            ],
+            "hessian_eigenvalues_eV_A2": [
+              8.807500339975668,
+              75.19310443878521,
+              75.20670950695502
+            ],
+            "gradient_norm_eV_A": 0.06534166358212681,
+            "gradient_eV_A": [
+              1.920000000047578e-05,
+              0.027484799999997925,
+              -0.05927999999999958
+            ],
+            "rmse_eV": 0.0004052640502953327,
+            "max_abs_residual_eV": 0.0008346091428572677,
+            "energy_span_eV": 0.009526000000000145,
+            "condition_number": 5.711412876046573,
+            "stationary_shift_Ainv": [
+              -3.448962703189063e-07,
+              -0.0003774748461422717,
+              0.006736169627608197
+            ],
+            "stationary_inside_box": true,
+            "curvature_sign_ok": true
+          },
+          "inner_central_3x3x3": {
+            "available": true,
+            "n_points": 27,
+            "linear_term": true,
+            "fractional_fit": false,
+            "principal_masses_me": [
+              0.8774316063527325,
+              0.10034477478680612,
+              0.10030961246584301
+            ],
+            "hessian_eigenvalues_eV_A2": [
+              8.684396532824156,
+              75.93782552394462,
+              75.96444460987941
+            ],
+            "gradient_norm_eV_A": 0.07906719754989228,
+            "gradient_eV_A": [
+              2.2222222225299487e-05,
+              0.01106666666668388,
+              -0.0782888888888777
+            ],
+            "rmse_eV": 6.684602929407059e-05,
+            "max_abs_residual_eV": 0.00012478703703777683,
+            "energy_span_eV": 0.002813999999999872,
+            "condition_number": 5.717659779663263,
+            "stationary_shift_Ainv": [
+              -6.881510255498897e-07,
+              -0.00015246119130137896,
+              0.009015836436192193
+            ],
+            "stationary_inside_box": true,
+            "curvature_sign_ok": true
+          },
+          "outer_shell": {
+            "available": true,
+            "n_points": 98,
+            "linear_term": true,
+            "fractional_fit": false,
+            "principal_masses_me": [
+              0.8726644478790638,
+              0.10146174125293064,
+              0.10144241357063996
+            ],
+            "hessian_eigenvalues_eV_A2": [
+              8.731837327073046,
+              75.1018453448817,
+              75.11615439525991
+            ],
+            "gradient_norm_eV_A": 0.0645638953398143,
+            "gradient_eV_A": [
+              1.8965517241745222e-05,
+              0.028758620689651408,
+              -0.0578051724137936
+            ],
+            "rmse_eV": 0.00045289660776771213,
+            "max_abs_residual_eV": 0.0008113678456425077,
+            "energy_span_eV": 0.009526000000000145,
+            "condition_number": 7.931519538577168,
+            "stationary_shift_Ainv": [
+              -3.354322398289523e-07,
+              -0.00039485933266791867,
+              0.006625988245014941
+            ],
+            "stationary_inside_box": true,
+            "curvature_sign_ok": true
+          },
+          "full_no_linear": {
+            "available": true,
+            "n_points": 125,
+            "linear_term": false,
+            "fractional_fit": false,
+            "principal_masses_me": [
+              0.8651676078187968,
+              0.10133860088465177,
+              0.10132026849672665
+            ],
+            "hessian_eigenvalues_eV_A2": [
+              8.807500339975682,
+              75.1931044387853,
+              75.20670950695495
+            ],
+            "gradient_norm_eV_A": 0.0,
+            "gradient_eV_A": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "rmse_eV": 0.0006145857144823192,
+            "max_abs_residual_eV": 0.001222110857142411,
+            "energy_span_eV": 0.009526000000000145,
+            "condition_number": 5.711412876046573,
+            "stationary_shift_Ainv": null,
+            "stationary_inside_box": null,
+            "curvature_sign_ok": true
+          },
+          "full_linear_fractional_coords": {
+            "available": true,
+            "n_points": 125,
+            "linear_term": true,
+            "fractional_fit": true,
+            "principal_masses_me": [
+              0.8651676078187867,
+              0.10133860088465188,
+              0.10132026849672651
+            ],
+            "hessian_eigenvalues_eV_A2": [
+              8.807500339975785,
+              75.19310443878521,
+              75.20670950695505
+            ],
+            "gradient_norm_eV_A": 0.06534166358213077,
+            "gradient_eV_A": [
+              1.9200000002072384e-05,
+              0.027484799999996378,
+              -0.05928000000000466
+            ],
+            "rmse_eV": 0.0004052640502953209,
+            "max_abs_residual_eV": 0.0008346091428572677,
+            "energy_span_eV": 0.009526000000000145,
+            "condition_number": 122.95073171503785,
+            "stationary_shift_Ainv": [
+              -3.448962703127513e-07,
+              -0.0003774748461422328,
+              0.006736169627608675
+            ],
+            "stationary_inside_box": true,
+            "curvature_sign_ok": true
+          },
+          "axis_1d_curvature": {
+            "available": true,
+            "curvature_eV_A2": {
+              "x": 75.64571428556674,
+              "y": 75.62285714277185,
+              "z": 8.577142857129784
+            },
+            "note": "diagonal d2E/dq_i2 through the centre; compare to H_ii"
+          }
+        }
+      },
+      "hole": {
+        "carrier": "hole",
+        "band_index_1based": 87,
+        "center_fractional": [
+          1.262379e-15,
+          1.262379e-15,
+          0.5
+        ],
+        "center_energy_eV": 5.954009,
+        "metadata_edge_energy_eV": 5.953825,
+        "center_minus_metadata_edge_eV": 0.00018399999999996197,
+        "principal_masses_me": [
+          0.11242963848736717,
+          0.11248531031838162,
+          0.1895136483004473
+        ],
+        "hessian_eigenvalues_eV_A2": [
+          67.7754024874517,
+          67.74185872299448,
+          40.20799593240702
+        ],
+        "hessian_eV_A2": [
+          [
+            -67.74217142857304,
+            -0.003200000000047132,
+            0.0011200000001705072
+          ],
+          [
+            -0.003200000000047132,
+            -67.7618285714256,
+            0.6044799999991467
+          ],
+          [
+            0.0011200000001705072,
+            0.6044799999991467,
+            -40.22125714285453
+          ]
+        ],
+        "gradient_eV_A": [
+          0.0,
+          -1.3168656137896604e-16,
+          -1.513482783677431e-17
+        ],
+        "gradient_norm_eV_A": 1.3255343624917835e-16,
+        "rmse_eV": 6.806730967830902e-05,
+        "max_abs_residual_eV": 0.0001907234285711823,
+        "energy_span_eV": 0.008990999999999971,
+        "relative_rmse_to_span": 0.007570605013714741,
+        "quadratic_stationary_shift_Ainv": [
+          8.526677680391837e-23,
+          -1.9469915660953877e-18,
+          -4.055503572454856e-19
+        ],
+        "quadratic_stationary_inside_box": true,
+        "curvature_sign_ok": true,
+        "n_points": 125,
+        "condition_number": 5.711412876046573,
+        "csv_vs_eigenval_max_abs_eV": 0.0,
+        "quadratic_stationary_energy_eV": 5.953925299428572,
+        "sampled_extremum": {
+          "index": 62,
+          "energy_eV": 5.954009,
+          "q_Ainv": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "on_boundary": false,
+          "max_abs_q_Ainv": 0.0,
+          "distance_from_center_Ainv": 0.0
+        },
+        "center_is_sampled_extremum": true,
+        "energy_gain_center_to_extremum_meV": 0.0,
+        "actual_extremum_at_boundary": false,
+        "actual_extremum_distance_from_center_Ainv": 0.0,
+        "quadratic_stationary_vs_actual_distance_Ainv": 1.988780344326375e-18,
+        "quadratic_stationary_energy_minus_actual_meV": -0.08370057142847998,
+        "old_vs_new": {
+          "mass_abs_diff_me": [
+            4.163336342344337e-17,
+            6.938893903907228e-17,
+            2.7755575615628914e-17
+          ],
+          "mass_rel_diff": [
+            3.7030594408716683e-16,
+            6.168711171500693e-16,
+            1.4645686927849301e-16
+          ],
+          "old_masses_me": [
+            0.11242963848736713,
+            0.11248531031838155,
+            0.18951364830044734
+          ],
+          "old_gradient_norm": 1.818483979142552e-16,
+          "old_rmse_eV": 6.806730967830902e-05,
+          "old_stationary_shift": [
+            -2.5607769945824064e-18,
+            -3.5422597872243573e-19,
+            -1.2322167841828578e-18
+          ],
+          "old_inside_box": true,
+          "old_warnings": []
+        },
+        "inner_window_relative_eigenvalue_change": [
+          0.03522205590843322,
+          0.03530276044127192,
+          0.027923448354011313
+        ],
+        "reliability": "A_reliable_local_curvature",
+        "reliability_reasons": [],
+        "variants": {
+          "full_linear": {
+            "available": true,
+            "n_points": 125,
+            "linear_term": true,
+            "fractional_fit": false,
+            "principal_masses_me": [
+              0.11242963848736717,
+              0.11248531031838162,
+              0.1895136483004473
+            ],
+            "hessian_eigenvalues_eV_A2": [
+              67.7754024874517,
+              67.74185872299448,
+              40.20799593240702
+            ],
+            "gradient_norm_eV_A": 1.3255343624917835e-16,
+            "gradient_eV_A": [
+              0.0,
+              -1.3168656137896604e-16,
+              -1.513482783677431e-17
+            ],
+            "rmse_eV": 6.806730967830902e-05,
+            "max_abs_residual_eV": 0.0001907234285711823,
+            "energy_span_eV": 0.008990999999999971,
+            "condition_number": 5.711412876046573,
+            "stationary_shift_Ainv": [
+              8.526677680391837e-23,
+              -1.9469915660953877e-18,
+              -4.055503572454856e-19
+            ],
+            "stationary_inside_box": true,
+            "curvature_sign_ok": true
+          },
+          "inner_central_3x3x3": {
+            "available": true,
+            "n_points": 27,
+            "linear_term": true,
+            "fractional_fit": false,
+            "principal_masses_me": [
+              0.10860436931930256,
+              0.10864967680607512,
+              0.18436552702821488
+            ],
+            "hessian_eigenvalues_eV_A2": [
+              70.16259150308129,
+              70.13333333333884,
+              41.33074183024389
+            ],
+            "gradient_norm_eV_A": 4.524370885202316e-17,
+            "gradient_eV_A": [
+              0.0,
+              3.812918507022103e-17,
+              -2.4354844211521304e-17
+            ],
+            "rmse_eV": 6.763190130451761e-06,
+            "max_abs_residual_eV": 1.594444444474874e-05,
+            "energy_span_eV": 0.0022900000000003473,
+            "condition_number": 5.717659779663263,
+            "stationary_shift_Ainv": [
+              -1.781953029801147e-34,
+              5.411788346302086e-19,
+              -5.85651338630591e-19
+            ],
+            "stationary_inside_box": true,
+            "curvature_sign_ok": true
+          },
+          "outer_shell": {
+            "available": true,
+            "n_points": 98,
+            "linear_term": true,
+            "fractional_fit": false,
+            "principal_masses_me": [
+              0.11357475857840622,
+              0.11363203565950801,
+              0.1926844962270229
+            ],
+            "hessian_eigenvalues_eV_A2": [
+              67.09205544768616,
+              67.05823719318725,
+              39.546326503726995
+            ],
+            "gradient_norm_eV_A": 1.7517443917851423e-16,
+            "gradient_eV_A": [
+              -1.734723475976807e-16,
+              -2.168404344971009e-17,
+              -1.1100946812209716e-17
+            ],
+            "rmse_eV": 7.192343262263926e-05,
+            "max_abs_residual_eV": 0.00018138188964478275,
+            "energy_span_eV": 0.006909000000000276,
+            "condition_number": 7.931519538577168,
+            "stationary_shift_Ainv": [
+              -2.5868673555080494e-18,
+              -3.257487543781317e-19,
+              -2.857302432008938e-19
+            ],
+            "stationary_inside_box": true,
+            "curvature_sign_ok": true
+          },
+          "full_no_linear": {
+            "available": true,
+            "n_points": 125,
+            "linear_term": false,
+            "fractional_fit": false,
+            "principal_masses_me": [
+              0.11242963848736738,
+              0.11248531031838163,
+              0.1895136483004474
+            ],
+            "hessian_eigenvalues_eV_A2": [
+              67.77540248745157,
+              67.74185872299446,
+              40.207995932407
+            ],
+            "gradient_norm_eV_A": 0.0,
+            "gradient_eV_A": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "rmse_eV": 6.806730967830902e-05,
+            "max_abs_residual_eV": 0.0001907234285711823,
+            "energy_span_eV": 0.008990999999999971,
+            "condition_number": 5.711412876046573,
+            "stationary_shift_Ainv": null,
+            "stationary_inside_box": null,
+            "curvature_sign_ok": true
+          },
+          "full_linear_fractional_coords": {
+            "available": true,
+            "n_points": 125,
+            "linear_term": true,
+            "fractional_fit": true,
+            "principal_masses_me": [
+              0.11242963848736724,
+              0.11248531031838163,
+              0.18951364830044715
+            ],
+            "hessian_eigenvalues_eV_A2": [
+              67.77540248745166,
+              67.74185872299446,
+              40.20799593240706
+            ],
+            "gradient_norm_eV_A": 1.515470017106318e-15,
+            "gradient_eV_A": [
+              -9.667975795149922e-16,
+              6.065129368435662e-16,
+              9.970425619970133e-16
+            ],
+            "rmse_eV": 6.80673096783064e-05,
+            "max_abs_residual_eV": 0.0001907234285711823,
+            "energy_span_eV": 0.008990999999999971,
+            "condition_number": 122.95073171503785,
+            "stationary_shift_Ainv": [
+              -1.4271745315385788e-17,
+              9.173691752852975e-18,
+              2.4926418566982147e-17
+            ],
+            "stationary_inside_box": true,
+            "curvature_sign_ok": true
+          },
+          "axis_1d_curvature": {
+            "available": true,
+            "curvature_eV_A2": {
+              "x": -69.69142857151878,
+              "y": -69.66857142864573,
+              "z": -41.61142857143231
+            },
+            "note": "diagonal d2E/dq_i2 through the centre; compare to H_ii"
+          }
+        }
+      },
+      "local_mesh": {
+        "kpoints_check": {
+          "n_kpoints": 250,
+          "n_metadata": 250,
+          "max_abs_eigenval_kpoints_vs_KPOINTS": 3.66408330343404e-08,
+          "max_abs_kpoint_fraction_error": 4.996003610813204e-16,
+          "max_abs_q_from_fraction_error_Ainv": 6.938893903907228e-16,
+          "max_abs_q_from_grid_index_error_Ainv": 0.0,
+          "center_kpoint_indices_0based": [
+            62,
+            187
+          ],
+          "max_abs_center_fraction_error": 2.623789999999999e-16,
+          "reciprocal_rows_Ainv": [
+            [
+              1.408822749578201,
+              0.8133841937228699,
+              0.0
+            ],
+            [
+              0.0,
+              1.6267683874457397,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.3577014682625012
+            ]
+          ],
+          "inverse_reciprocal_rows": [
+            [
+              0.7098125014657792,
+              -0.3549062507328896,
+              0.0
+            ],
+            [
+              0.0,
+              0.6147156581829967,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              2.795627328166695
+            ]
+          ]
+        },
+        "n_local_kpoints": 250,
+        "n_local_bands": 144,
+        "mass_metadata_grid": 5,
+        "mass_metadata_step_Ainv": 0.005,
+        "mass_tensor_input_hashes": {
+          "step8.2_mass/mass_metadata.json": "6b79d802d0f8643bffe6293cbe925ac1c61bfc701a4913703dc32e13caf20461",
+          "step8.2_mass/EIGENVAL": "acefa2cadcb04d07abc0f5d3cb614f3b5f363776feb470d1597716978e72f683"
+        }
+      }
+    },
+    "Pb2Sb2Te5": {
+      "electron": {
+        "carrier": "electron",
+        "band_index_1based": 69,
+        "center_fractional": [
+          1.262379e-15,
+          1.262379e-15,
+          0.1428571
+        ],
+        "center_energy_eV": 6.489848,
+        "metadata_edge_energy_eV": 6.490078,
+        "center_minus_metadata_edge_eV": -0.00022999999999928633,
+        "principal_masses_me": [
+          1.3032772370555328,
+          0.11507106626036337,
+          0.1150489986324286
+        ],
+        "hessian_eigenvalues_eV_A2": [
+          5.846771341771937,
+          66.21963494071423,
+          66.23233657465471
+        ],
+        "hessian_eV_A2": [
+          [
+            66.21988571428645,
+            0.0017600000001285424,
+            0.0010400000005964232
+          ],
+          [
+            0.0017600000001285424,
+            66.2292571428551,
+            0.41327999999941484
+          ],
+          [
+            0.0010400000005964232,
+            0.41327999999941484,
+            5.849599999999348
+          ]
+        ],
+        "gradient_eV_A": [
+          2.880000000097388e-05,
+          0.026624799999998647,
+          -0.160340799999998
+        ],
+        "gradient_norm_eV_A": 0.1625363127092506,
+        "rmse_eV": 0.00038254789028157894,
+        "max_abs_residual_eV": 0.0008064777142857693,
+        "energy_span_eV": 0.010467999999999478,
+        "relative_rmse_to_span": 0.03654450614077169,
+        "quadratic_stationary_shift_Ainv": [
+          -8.508030855542782e-07,
+          -0.0005733081635820566,
+          0.027451062924421496
+        ],
+        "quadratic_stationary_inside_box": false,
+        "curvature_sign_ok": true,
+        "n_points": 125,
+        "condition_number": 5.711412876046573,
+        "csv_vs_eigenval_max_abs_eV": 0.0,
+        "quadratic_stationary_energy_eV": 6.492067958243496,
+        "sampled_extremum": {
+          "index": 64,
+          "energy_eV": 6.48857,
+          "q_Ainv": [
+            0.0,
+            0.0,
+            0.01
+          ],
+          "on_boundary": true,
+          "max_abs_q_Ainv": 0.01,
+          "distance_from_center_Ainv": 0.01
+        },
+        "center_is_sampled_extremum": false,
+        "energy_gain_center_to_extremum_meV": 1.2780000000001124,
+        "actual_extremum_at_boundary": true,
+        "actual_extremum_distance_from_center_Ainv": 0.01,
+        "quadratic_stationary_vs_actual_distance_Ainv": 0.01746047766146202,
+        "quadratic_stationary_energy_minus_actual_meV": 3.4979582434955248,
+        "old_vs_new": {
+          "mass_abs_diff_me": [
+            1.3766765505351941e-14,
+            2.7755575615628914e-16,
+            1.8041124150158794e-16
+          ],
+          "mass_rel_diff": [
+            1.056319032814147e-14,
+            2.4120377535068883e-15,
+            1.5681252652879312e-15
+          ],
+          "old_masses_me": [
+            1.3032772370555465,
+            0.11507106626036309,
+            0.11504899863242878
+          ],
+          "old_gradient_norm": 0.1625363127092505,
+          "old_rmse_eV": 0.0003825478902815671,
+          "old_stationary_shift": [
+            -8.50803085438164e-07,
+            -0.0005733081635819709,
+            0.027451062924421763
+          ],
+          "old_inside_box": false,
+          "old_warnings": [
+            "NONZERO_GRADIENT: the selected center is not stationary within the configured gradient threshold; refine the extremum.",
+            "STATIONARY_POINT_OUTSIDE_MESH: the quadratic stationary point is outside the sampled Cartesian box; recenter and resample.",
+            "NONPARABOLIC_OR_NOISY: quadratic residual exceeds both configured absolute and relative thresholds; inspect band tracking, numerical noise and nonparabolicity."
+          ]
+        },
+        "inner_window_relative_eigenvalue_change": [
+          0.05044368662855699,
+          0.0026101939389407713,
+          0.0025185837268534316
+        ],
+        "reliability": "C_not_at_band_edge_mesh_boundary",
+        "reliability_reasons": [
+          "sampled_extremum_on_mesh_boundary",
+          "center_not_sampled_extremum",
+          "quadratic_stationary_point_outside_mesh",
+          "gradient_above_1e-3_eV_A",
+          "relative_rmse_above_1pct"
+        ],
+        "variants": {
+          "full_linear": {
+            "available": true,
+            "n_points": 125,
+            "linear_term": true,
+            "fractional_fit": false,
+            "principal_masses_me": [
+              1.3032772370555328,
+              0.11507106626036337,
+              0.1150489986324286
+            ],
+            "hessian_eigenvalues_eV_A2": [
+              5.846771341771937,
+              66.21963494071423,
+              66.23233657465471
+            ],
+            "gradient_norm_eV_A": 0.1625363127092506,
+            "gradient_eV_A": [
+              2.880000000097388e-05,
+              0.026624799999998647,
+              -0.160340799999998
+            ],
+            "rmse_eV": 0.00038254789028157894,
+            "max_abs_residual_eV": 0.0008064777142857693,
+            "energy_span_eV": 0.010467999999999478,
+            "condition_number": 5.711412876046573,
+            "stationary_shift_Ainv": [
+              -8.508030855542782e-07,
+              -0.0005733081635820566,
+              0.027451062924421496
+            ],
+            "stationary_inside_box": false,
+            "curvature_sign_ok": true
+          },
+          "inner_central_3x3x3": {
+            "available": true,
+            "n_points": 27,
+            "linear_term": true,
+            "fractional_fit": false,
+            "principal_masses_me": [
+              1.2406921509885558,
+              0.11477149041172748,
+              0.11475996604944222
+            ],
+            "hessian_eigenvalues_eV_A2": [
+              6.141704043125109,
+              66.39248103047535,
+              66.39914825974311
+            ],
+            "gradient_norm_eV_A": 0.16562135232414532,
+            "gradient_eV_A": [
+              1.111111111251964e-05,
+              0.010833333333347647,
+              -0.1652666666666647
+            ],
+            "rmse_eV": 6.315368988388796e-05,
+            "max_abs_residual_eV": 0.00011767592592626386,
+            "energy_span_eV": 0.0034119999999999706,
+            "condition_number": 5.717659779663263,
+            "stationary_shift_Ainv": [
+              -1.5302991826341865e-06,
+              -0.00023477536780258814,
+              0.026913410613953345
+            ],
+            "stationary_inside_box": false,
+            "curvature_sign_ok": true
+          },
+          "outer_shell": {
+            "available": true,
+            "n_points": 98,
+            "linear_term": true,
+            "fractional_fit": false,
+            "principal_masses_me": [
+              1.3355560731669416,
+              0.11531350148287936,
+              0.11529080942798223
+            ],
+            "hessian_eigenvalues_eV_A2": [
+              5.7054616822872415,
+              66.08041471302768,
+              66.09342095702695
+            ],
+            "gradient_norm_eV_A": 0.16236497080131154,
+            "gradient_eV_A": [
+              3.017241379434793e-05,
+              0.02784999999999711,
+              -0.15995862068965322
+            ],
+            "rmse_eV": 0.00042915803998216126,
+            "max_abs_residual_eV": 0.0008155043672175566,
+            "energy_span_eV": 0.010467999999999478,
+            "condition_number": 7.931519538577168,
+            "stationary_shift_Ainv": [
+              -8.572569402257979e-07,
+              -0.0005993672031176816,
+              0.02806577063658189
+            ],
+            "stationary_inside_box": false,
+            "curvature_sign_ok": true
+          },
+          "full_no_linear": {
+            "available": true,
+            "n_points": 125,
+            "linear_term": false,
+            "fractional_fit": false,
+            "principal_masses_me": [
+              1.3032772370555359,
+              0.11507106626036312,
+              0.11504899863242869
+            ],
+            "hessian_eigenvalues_eV_A2": [
+              5.846771341771923,
+              66.21963494071437,
+              66.23233657465465
+            ],
+            "gradient_norm_eV_A": 0.0,
+            "gradient_eV_A": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "rmse_eV": 0.0012112991107958689,
+            "max_abs_residual_eV": 0.002502244571428669,
+            "energy_span_eV": 0.010467999999999478,
+            "condition_number": 5.711412876046573,
+            "stationary_shift_Ainv": null,
+            "stationary_inside_box": null,
+            "curvature_sign_ok": true
+          },
+          "full_linear_fractional_coords": {
+            "available": true,
+            "n_points": 125,
+            "linear_term": true,
+            "fractional_fit": true,
+            "principal_masses_me": [
+              1.3032772370555277,
+              0.11507106626036362,
+              0.11504899863242869
+            ],
+            "hessian_eigenvalues_eV_A2": [
+              5.8467713417719605,
+              66.21963494071409,
+              66.23233657465465
+            ],
+            "gradient_norm_eV_A": 0.16253631270924865,
+            "gradient_eV_A": [
+              2.880000000094873e-05,
+              0.026624799999999036,
+              -0.16034079999999598
+            ],
+            "rmse_eV": 0.000382547890281562,
+            "max_abs_residual_eV": 0.0008064777142857693,
+            "energy_span_eV": 0.010467999999999478,
+            "condition_number": 124.76025110564422,
+            "stationary_shift_Ainv": [
+              -8.508030854275215e-07,
+              -0.0005733081635819772,
+              0.027451062924421052
+            ],
+            "stationary_inside_box": false,
+            "curvature_sign_ok": true
+          },
+          "axis_1d_curvature": {
+            "available": true,
+            "curvature_eV_A2": {
+              "x": 66.47999999995939,
+              "y": 66.47999999995939,
+              "z": 6.337142857049786
+            },
+            "note": "diagonal d2E/dq_i2 through the centre; compare to H_ii"
+          }
+        }
+      },
+      "hole": {
+        "carrier": "hole",
+        "band_index_1based": 67,
+        "center_fractional": [
+          1.262379e-15,
+          1.262379e-15,
+          0.1428571
+        ],
+        "center_energy_eV": 6.270889,
+        "metadata_edge_energy_eV": 6.270955,
+        "center_minus_metadata_edge_eV": -6.599999999945538e-05,
+        "principal_masses_me": [
+          0.13624826071946636,
+          0.13628422064696505,
+          3.7471041673206895
+        ],
+        "hessian_eigenvalues_eV_A2": [
+          55.92705521349312,
+          55.91229831176858,
+          2.033560760454797
+        ],
+        "hessian_eV_A2": [
+          [
+            -55.91245714285732,
+            -0.0015200000005519392,
+            -0.00040000000033155875
+          ],
+          [
+            -0.0015200000005519392,
+            -55.92434285714426,
+            -0.3709600000003754
+          ],
+          [
+            -0.00040000000033155875,
+            -0.3709600000003754,
+            -2.0361142857149406
+          ]
+        ],
+        "gradient_eV_A": [
+          -1.3600000001775386e-05,
+          -0.024090399999999595,
+          0.14319039999999525
+        ],
+        "gradient_norm_eV_A": 0.145202748628525,
+        "rmse_eV": 0.0003476325381942818,
+        "max_abs_residual_eV": 0.0007249680000001035,
+        "energy_span_eV": 0.009036999999999296,
+        "relative_rmse_to_span": 0.03846769261860229,
+        "quadratic_stationary_shift_Ainv": [
+          -7.230968744917855e-07,
+          -0.0008983386054232201,
+          0.07048899415187133
+        ],
+        "quadratic_stationary_inside_box": false,
+        "curvature_sign_ok": true,
+        "n_points": 125,
+        "condition_number": 5.711412876046573,
+        "csv_vs_eigenval_max_abs_eV": 0.0,
+        "quadratic_stationary_energy_eV": 6.265822592549954,
+        "sampled_extremum": {
+          "index": 64,
+          "energy_eV": 6.272116,
+          "q_Ainv": [
+            0.0,
+            0.0,
+            0.01
+          ],
+          "on_boundary": true,
+          "max_abs_q_Ainv": 0.01,
+          "distance_from_center_Ainv": 0.01
+        },
+        "center_is_sampled_extremum": false,
+        "energy_gain_center_to_extremum_meV": 1.226999999999201,
+        "actual_extremum_at_boundary": true,
+        "actual_extremum_distance_from_center_Ainv": 0.01,
+        "quadratic_stationary_vs_actual_distance_Ainv": 0.06049566452464166,
+        "quadratic_stationary_energy_minus_actual_meV": -6.293407450045585,
+        "old_vs_new": {
+          "mass_abs_diff_me": [
+            1.6653345369377348e-16,
+            2.220446049250313e-16,
+            9.903189379656396e-14
+          ],
+          "mass_rel_diff": [
+            1.2222794831609924e-15,
+            1.6292759636511601e-15,
+            2.6428914002509632e-14
+          ],
+          "old_masses_me": [
+            0.13624826071946652,
+            0.13628422064696483,
+            3.7471041673207885
+          ],
+          "old_gradient_norm": 0.14520274862852506,
+          "old_rmse_eV": 0.000347632538194291,
+          "old_stationary_shift": [
+            -7.23096874168751e-07,
+            -0.000898338605422998,
+            0.0704889941518732
+          ],
+          "old_inside_box": false,
+          "old_warnings": [
+            "NONZERO_GRADIENT: the selected center is not stationary within the configured gradient threshold; refine the extremum.",
+            "STATIONARY_POINT_OUTSIDE_MESH: the quadratic stationary point is outside the sampled Cartesian box; recenter and resample.",
+            "NONPARABOLIC_OR_NOISY: quadratic residual exceeds both configured absolute and relative thresholds; inspect band tracking, numerical noise and nonparabolicity.",
+            "WINDOW_DEPENDENT_CURVATURE: inner and full meshes give different Hessian eigenvalues; check nonparabolicity / noise and repeat sampling at smaller steps."
+          ]
+        },
+        "inner_window_relative_eigenvalue_change": [
+          0.0002925289968701339,
+          0.00028290556570959724,
+          0.15157691271403895
+        ],
+        "reliability": "C_not_at_band_edge_mesh_boundary",
+        "reliability_reasons": [
+          "sampled_extremum_on_mesh_boundary",
+          "center_not_sampled_extremum",
+          "quadratic_stationary_point_outside_mesh",
+          "gradient_above_1e-3_eV_A",
+          "relative_rmse_above_1pct",
+          "inner_window_change_above_10pct"
+        ],
+        "variants": {
+          "full_linear": {
+            "available": true,
+            "n_points": 125,
+            "linear_term": true,
+            "fractional_fit": false,
+            "principal_masses_me": [
+              0.13624826071946636,
+              0.13628422064696505,
+              3.7471041673206895
+            ],
+            "hessian_eigenvalues_eV_A2": [
+              55.92705521349312,
+              55.91229831176858,
+              2.033560760454797
+            ],
+            "gradient_norm_eV_A": 0.145202748628525,
+            "gradient_eV_A": [
+              -1.3600000001775386e-05,
+              -0.024090399999999595,
+              0.14319039999999525
+            ],
+            "rmse_eV": 0.0003476325381942818,
+            "max_abs_residual_eV": 0.0007249680000001035,
+            "energy_span_eV": 0.009036999999999296,
+            "condition_number": 5.711412876046573,
+            "stationary_shift_Ainv": [
+              -7.230968744917855e-07,
+              -0.0008983386054232201,
+              0.07048899415187133
+            ],
+            "stationary_inside_box": false,
+            "curvature_sign_ok": true
+          },
+          "inner_central_3x3x3": {
+            "available": true,
+            "n_points": 27,
+            "linear_term": true,
+            "fractional_fit": false,
+            "principal_masses_me": [
+              0.1362084158082247,
+              0.13624567598692447,
+              3.2538896238285173
+            ],
+            "hessian_eigenvalues_eV_A2": [
+              55.94341549885262,
+              55.928116212152595,
+              2.3418016223409484
+            ],
+            "gradient_norm_eV_A": 0.1415577210718716,
+            "gradient_eV_A": [
+              -2.222222222525612e-05,
+              -0.00989999999999234,
+              0.1412111111111119
+            ],
+            "rmse_eV": 5.7760117196468014e-05,
+            "max_abs_residual_eV": 0.00011045370370421637,
+            "energy_span_eV": 0.002894999999999648,
+            "condition_number": 5.717659779663263,
+            "stationary_shift_Ainv": [
+              -7.566164657883197e-06,
+              -0.0003386822475035777,
+              0.0603110851516847
+            ],
+            "stationary_inside_box": false,
+            "curvature_sign_ok": true
+          },
+          "outer_shell": {
+            "available": true,
+            "n_points": 98,
+            "linear_term": true,
+            "fractional_fit": false,
+            "principal_masses_me": [
+              0.13652174771601014,
+              0.13655792628373947,
+              3.9762751808167516
+            ],
+            "hessian_eigenvalues_eV_A2": [
+              55.81501941984291,
+              55.800232233808764,
+              1.9163573076536449
+            ],
+            "gradient_norm_eV_A": 0.14554070979961578,
+            "gradient_eV_A": [
+              -1.2931034484593013e-05,
+              -0.0251913793103448,
+              0.14334396551723638
+            ],
+            "rmse_eV": 0.0003901098675767281,
+            "max_abs_residual_eV": 0.0007381014696568045,
+            "energy_span_eV": 0.009036999999999296,
+            "condition_number": 7.931519538577168,
+            "stationary_shift_Ainv": [
+              -5.3645534409291e-07,
+              -0.000956380411442551,
+              0.07488535403287162
+            ],
+            "stationary_inside_box": false,
+            "curvature_sign_ok": true
+          },
+          "full_no_linear": {
+            "available": true,
+            "n_points": 125,
+            "linear_term": false,
+            "fractional_fit": false,
+            "principal_masses_me": [
+              0.13624826071946647,
+              0.1362842206469649,
+              3.747104167320775
+            ],
+            "hessian_eigenvalues_eV_A2": [
+              55.92705521349308,
+              55.91229831176864,
+              2.0335607604547508
+            ],
+            "gradient_norm_eV_A": 0.0,
+            "gradient_eV_A": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "rmse_eV": 0.00108399275462307,
+            "max_abs_residual_eV": 0.002317574857142901,
+            "energy_span_eV": 0.009036999999999296,
+            "condition_number": 5.711412876046573,
+            "stationary_shift_Ainv": null,
+            "stationary_inside_box": null,
+            "curvature_sign_ok": true
+          },
+          "full_linear_fractional_coords": {
+            "available": true,
+            "n_points": 125,
+            "linear_term": true,
+            "fractional_fit": true,
+            "principal_masses_me": [
+              0.13624826071946627,
+              0.13628422064696524,
+              3.747104167320696
+            ],
+            "hessian_eigenvalues_eV_A2": [
+              55.92705521349315,
+              55.9122983117685,
+              2.0335607604547934
+            ],
+            "gradient_norm_eV_A": 0.14520274862852553,
+            "gradient_eV_A": [
+              -1.3600000001923365e-05,
+              -0.02409039999999965,
+              0.14319039999999578
+            ],
+            "rmse_eV": 0.0003476325381942768,
+            "max_abs_residual_eV": 0.0007249680000001035,
+            "energy_span_eV": 0.009036999999999296,
+            "condition_number": 124.76025110564422,
+            "stationary_shift_Ainv": [
+              -7.23096874147238e-07,
+              -0.0008983386054229897,
+              0.07048899415187164
+            ],
+            "stationary_inside_box": false,
+            "curvature_sign_ok": true
+          },
+          "axis_1d_curvature": {
+            "available": true,
+            "curvature_eV_A2": {
+              "x": -56.091428571512836,
+              "y": -56.08000000002043,
+              "z": -2.542857142976236
+            },
+            "note": "diagonal d2E/dq_i2 through the centre; compare to H_ii"
+          }
+        }
+      },
+      "local_mesh": {
+        "kpoints_check": {
+          "n_kpoints": 250,
+          "n_metadata": 250,
+          "max_abs_eigenval_kpoints_vs_KPOINTS": 2.4044840007952928e-09,
+          "max_abs_kpoint_fraction_error": 4.744468706796567e-16,
+          "max_abs_q_from_fraction_error_Ainv": 1.0512424264419451e-15,
+          "max_abs_q_from_grid_index_error_Ainv": 0.0,
+          "center_kpoint_indices_0based": [
+            62,
+            187
+          ],
+          "max_abs_center_fraction_error": 2.623789999999999e-16,
+          "reciprocal_rows_Ainv": [
+            [
+              1.429637968136299,
+              0.8254018657603628,
+              -1.0735790779759928e-17
+            ],
+            [
+              -3.756138928174469e-17,
+              1.6508037315207256,
+              -3.7869598897393247e-17
+            ],
+            [
+              -2.154154850404545e-34,
+              9.467399724348312e-18,
+              0.3603422121563974
+            ]
+          ],
+          "inverse_reciprocal_rows": [
+            [
+              0.6994777854869212,
+              -0.3497388927434606,
+              -1.591549430918953e-17
+            ],
+            [
+              1.591549430918953e-17,
+              0.605765531604897,
+              6.366197723675814e-17
+            ],
+            [
+              5.675865241748787e-51,
+              -1.5915494309189534e-17,
+              2.7751397595516103
+            ]
+          ]
+        },
+        "n_local_kpoints": 250,
+        "n_local_bands": 120,
+        "mass_metadata_grid": 5,
+        "mass_metadata_step_Ainv": 0.005,
+        "mass_tensor_input_hashes": {
+          "step8.2_mass/mass_metadata.json": "d7cdfa21826474fbaddadf49ffea4ffee3b768131955d909e09749931eef379d",
+          "step8.2_mass/EIGENVAL": "64001c583b537d5085c7c595bf8bb005f8e41728c5e3cd38e62fc7850ef7765d"
+        }
+      }
+    },
+    "Sn2Bi2Te5": {
+      "electron": {
+        "carrier": "electron",
+        "band_index_1based": 89,
+        "center_fractional": [
+          0.03571429,
+          -0.03571429,
+          0.3333333
+        ],
+        "center_energy_eV": 6.566398,
+        "metadata_edge_energy_eV": 6.566249,
+        "center_minus_metadata_edge_eV": 0.0001490000000003988,
+        "principal_masses_me": [
+          4.546302642206473,
+          0.26820513122080025,
+          0.07727097365063237
+        ],
+        "hessian_eigenvalues_eV_A2": [
+          1.6760793549594792,
+          28.41095532108539,
+          98.61353675252467
+        ],
+        "hessian_eV_A2": [
+          [
+            38.44205714285514,
+            34.09872000000116,
+            -10.886959999998917
+          ],
+          [
+            34.09872000000116,
+            79.28777142857123,
+            6.611519999999941
+          ],
+          [
+            -10.886959999998917,
+            6.611519999999941,
+            10.970742857143145
+          ]
+        ],
+        "gradient_eV_A": [
+          -0.23551999999999965,
+          0.14208799999999844,
+          0.07415919999999054
+        ],
+        "gradient_norm_eV_A": 0.2848828831092489,
+        "rmse_eV": 0.0002275117856513953,
+        "max_abs_residual_eV": 0.0005630857142859824,
+        "energy_span_eV": 0.01392799999999994,
+        "relative_rmse_to_span": 0.01633484963034149,
+        "quadratic_stationary_shift_Ainv": [
+          0.03773917736887571,
+          -0.02167050550839565,
+          0.043750974868048326
+        ],
+        "quadratic_stationary_inside_box": false,
+        "curvature_sign_ok": true,
+        "n_points": 125,
+        "condition_number": 5.711412876046573,
+        "csv_vs_eigenval_max_abs_eV": 0.0,
+        "quadratic_stationary_energy_eV": 6.570833037986866,
+        "sampled_extremum": {
+          "index": 109,
+          "energy_eV": 6.564084,
+          "q_Ainv": [
+            0.01,
+            -0.005,
+            0.01
+          ],
+          "on_boundary": true,
+          "max_abs_q_Ainv": 0.01,
+          "distance_from_center_Ainv": 0.015
+        },
+        "center_is_sampled_extremum": false,
+        "energy_gain_center_to_extremum_meV": 2.3140000000001493,
+        "actual_extremum_at_boundary": true,
+        "actual_extremum_distance_from_center_Ainv": 0.015,
+        "quadratic_stationary_vs_actual_distance_Ainv": 0.046759983100414244,
+        "quadratic_stationary_energy_minus_actual_meV": 6.749037986865325,
+        "old_vs_new": {
+          "mass_abs_diff_me": [
+            1.474376176702208e-13,
+            2.4980018054066022e-15,
+            1.5265566588595902e-16
+          ],
+          "mass_rel_diff": [
+            3.24302250143788e-14,
+            9.31377335711791e-15,
+            1.9755887453439604e-15
+          ],
+          "old_masses_me": [
+            4.54630264220662,
+            0.26820513122079775,
+            0.07727097365063253
+          ],
+          "old_gradient_norm": 0.2848828831092489,
+          "old_rmse_eV": 0.00022751178565139785,
+          "old_stationary_shift": [
+            0.037739177368876074,
+            -0.021670505508395648,
+            0.043750974868049346
+          ],
+          "old_inside_box": false,
+          "old_warnings": [
+            "NONZERO_GRADIENT: the selected center is not stationary within the configured gradient threshold; refine the extremum.",
+            "STATIONARY_POINT_OUTSIDE_MESH: the quadratic stationary point is outside the sampled Cartesian box; recenter and resample.",
+            "NONPARABOLIC_OR_NOISY: quadratic residual exceeds both configured absolute and relative thresholds; inspect band tracking, numerical noise and nonparabolicity.",
+            "WINDOW_DEPENDENT_CURVATURE: inner and full meshes give different Hessian eigenvalues; check nonparabolicity / noise and repeat sampling at smaller steps."
+          ]
+        },
+        "inner_window_relative_eigenvalue_change": [
+          0.26644434490905916,
+          0.0010899255259498011,
+          0.05344407846515809
+        ],
+        "reliability": "C_not_at_band_edge_mesh_boundary",
+        "reliability_reasons": [
+          "sampled_extremum_on_mesh_boundary",
+          "center_not_sampled_extremum",
+          "quadratic_stationary_point_outside_mesh",
+          "gradient_above_1e-3_eV_A",
+          "relative_rmse_above_1pct",
+          "inner_window_change_above_10pct"
+        ],
+        "variants": {
+          "full_linear": {
+            "available": true,
+            "n_points": 125,
+            "linear_term": true,
+            "fractional_fit": false,
+            "principal_masses_me": [
+              4.546302642206473,
+              0.26820513122080025,
+              0.07727097365063237
+            ],
+            "hessian_eigenvalues_eV_A2": [
+              1.6760793549594792,
+              28.41095532108539,
+              98.61353675252467
+            ],
+            "gradient_norm_eV_A": 0.2848828831092489,
+            "gradient_eV_A": [
+              -0.23551999999999965,
+              0.14208799999999844,
+              0.07415919999999054
+            ],
+            "rmse_eV": 0.0002275117856513953,
+            "max_abs_residual_eV": 0.0005630857142859824,
+            "energy_span_eV": 0.01392799999999994,
+            "condition_number": 5.711412876046573,
+            "stationary_shift_Ainv": [
+              0.03773917736887571,
+              -0.02167050550839565,
+              0.043750974868048326
+            ],
+            "stationary_inside_box": false,
+            "curvature_sign_ok": true
+          },
+          "inner_central_3x3x3": {
+            "available": true,
+            "n_points": 27,
+            "linear_term": true,
+            "fractional_fit": false,
+            "principal_masses_me": [
+              6.197624693715783,
+              0.26849777379812356,
+              0.07335080734728155
+            ],
+            "hessian_eigenvalues_eV_A2": [
+              1.2294974892117023,
+              28.37998949566432,
+              103.88384634845335
+            ],
+            "gradient_norm_eV_A": 0.33793531377511465,
+            "gradient_eV_A": [
+              -0.2843444444444287,
+              0.1669555555555625,
+              0.07398888888885868
+            ],
+            "rmse_eV": 2.900101105084078e-05,
+            "max_abs_residual_eV": 5.372222222188583e-05,
+            "energy_span_eV": 0.005418000000000589,
+            "condition_number": 5.717659779663263,
+            "stationary_shift_Ainv": [
+              0.07024593277280904,
+              -0.040420071967561644,
+              0.08616868344637656
+            ],
+            "stationary_inside_box": false,
+            "curvature_sign_ok": true
+          },
+          "outer_shell": {
+            "available": true,
+            "n_points": 98,
+            "linear_term": true,
+            "fractional_fit": false,
+            "principal_masses_me": [
+              7.203291640011751,
+              0.2742392901590875,
+              0.0778586884137781
+            ],
+            "hessian_eigenvalues_eV_A2": [
+              1.057844716111976,
+              27.78582162891256,
+              97.86915442890441
+            ],
+            "gradient_norm_eV_A": 0.2807946897663477,
+            "gradient_eV_A": [
+              -0.23173189655172483,
+              0.1401586206896527,
+              0.07417241379309551
+            ],
+            "rmse_eV": 0.0002226096499114753,
+            "max_abs_residual_eV": 0.0005335501644063712,
+            "energy_span_eV": 0.01392799999999994,
+            "condition_number": 7.931519538577168,
+            "stationary_shift_Ainv": [
+              0.05464167155466781,
+              -0.03136463599299392,
+              0.07044138040400255
+            ],
+            "stationary_inside_box": false,
+            "curvature_sign_ok": true
+          },
+          "full_no_linear": {
+            "available": true,
+            "n_points": 125,
+            "linear_term": false,
+            "fractional_fit": false,
+            "principal_masses_me": [
+              4.546302642206699,
+              0.26820513122079787,
+              0.0772709736506325
+            ],
+            "hessian_eigenvalues_eV_A2": [
+              1.6760793549593958,
+              28.410955321085645,
+              98.6135367525245
+            ],
+            "gradient_norm_eV_A": 0.0,
+            "gradient_eV_A": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "rmse_eV": 0.0020272332048982887,
+            "max_abs_residual_eV": 0.004067413714285983,
+            "energy_span_eV": 0.01392799999999994,
+            "condition_number": 5.711412876046573,
+            "stationary_shift_Ainv": null,
+            "stationary_inside_box": null,
+            "curvature_sign_ok": true
+          },
+          "full_linear_fractional_coords": {
+            "available": true,
+            "n_points": 125,
+            "linear_term": true,
+            "fractional_fit": true,
+            "principal_masses_me": [
+              4.546302642206669,
+              0.26820513122079803,
+              0.07727097365063244
+            ],
+            "hessian_eigenvalues_eV_A2": [
+              1.6760793549594069,
+              28.410955321085627,
+              98.61353675252458
+            ],
+            "gradient_norm_eV_A": 0.28488288310924853,
+            "gradient_eV_A": [
+              -0.23551999999999892,
+              0.14208799999999638,
+              0.07415919999999522
+            ],
+            "rmse_eV": 0.00022751178565139535,
+            "max_abs_residual_eV": 0.0005630857142859824,
+            "energy_span_eV": 0.01392799999999994,
+            "condition_number": 122.48798397269407,
+            "stationary_shift_Ainv": [
+              0.037739177368874985,
+              -0.021670505508394992,
+              0.04375097486804745
+            ],
+            "stationary_inside_box": false,
+            "curvature_sign_ok": true
+          },
+          "axis_1d_curvature": {
+            "available": true,
+            "curvature_eV_A2": {
+              "x": 40.382857142766966,
+              "y": 81.61142857137214,
+              "z": 11.725714285614755
+            },
+            "note": "diagonal d2E/dq_i2 through the centre; compare to H_ii"
+          }
+        }
+      },
+      "hole": {
+        "carrier": "hole",
+        "band_index_1based": 87,
+        "center_fractional": [
+          -0.2142857,
+          1.303552e-15,
+          0.1666667
+        ],
+        "center_energy_eV": 6.477768,
+        "metadata_edge_energy_eV": 6.477778,
+        "center_minus_metadata_edge_eV": -9.999999999621423e-06,
+        "principal_masses_me": [
+          0.03534276312283777,
+          0.08583099561722494,
+          2517.487014725743
+        ],
+        "hessian_eigenvalues_eV_A2": [
+          215.6018184972113,
+          88.77869754630683,
+          0.003026813626218495
+        ],
+        "hessian_eV_A2": [
+          [
+            -65.94125714285619,
+            85.48136000000044,
+            -30.09464000000036
+          ],
+          [
+            85.48136000000044,
+            -166.77371428571496,
+            -17.919200000000355
+          ],
+          [
+            -30.09464000000036,
+            -17.919200000000355,
+            -71.6685714285733
+          ]
+        ],
+        "gradient_eV_A": [
+          0.43434159999999833,
+          0.2523048000000028,
+          -0.18421119999999497
+        ],
+        "gradient_norm_eV_A": 0.5350178537198905,
+        "rmse_eV": 0.00019124823366508507,
+        "max_abs_residual_eV": 0.000914212571428763,
+        "energy_span_eV": 0.03232999999999997,
+        "relative_rmse_to_span": 0.005915503670432578,
+        "quadratic_stationary_shift_Ainv": [
+          137.05619388369416,
+          78.54497356713416,
+          -77.1928895186348
+        ],
+        "quadratic_stationary_inside_box": false,
+        "curvature_sign_ok": true,
+        "n_points": 125,
+        "condition_number": 5.711412876046573,
+        "csv_vs_eigenval_max_abs_eV": 0.0,
+        "quadratic_stationary_energy_eV": -40.30560221037594,
+        "sampled_extremum": {
+          "index": 115,
+          "energy_eV": 6.484414,
+          "q_Ainv": [
+            0.01,
+            0.005,
+            -0.01
+          ],
+          "on_boundary": true,
+          "max_abs_q_Ainv": 0.01,
+          "distance_from_center_Ainv": 0.015
+        },
+        "center_is_sampled_extremum": false,
+        "energy_gain_center_to_extremum_meV": 6.64599999999993,
+        "actual_extremum_at_boundary": true,
+        "actual_extremum_distance_from_center_Ainv": 0.015,
+        "quadratic_stationary_vs_actual_distance_Ainv": 175.8049633553587,
+        "quadratic_stationary_energy_minus_actual_meV": -46790.016210375936,
+        "old_vs_new": {
+          "mass_abs_diff_me": [
+            8.326672684688674e-17,
+            5.134781488891349e-16,
+            1.85834778676508e-07
+          ],
+          "mass_rel_diff": [
+            2.3559767117665312e-15,
+            5.98243263050403e-15,
+            7.381757188398169e-11
+          ],
+          "old_masses_me": [
+            0.035342763122837684,
+            0.08583099561722546,
+            2517.487014539908
+          ],
+          "old_gradient_norm": 0.5350178537198902,
+          "old_rmse_eV": 0.00019124823366507902,
+          "old_stationary_shift": [
+            137.05619387538144,
+            78.5449735623704,
+            -77.1928895139526
+          ],
+          "old_inside_box": false,
+          "old_warnings": [
+            "NONZERO_GRADIENT: the selected center is not stationary within the configured gradient threshold; refine the extremum.",
+            "STATIONARY_POINT_OUTSIDE_MESH: the quadratic stationary point is outside the sampled Cartesian box; recenter and resample.",
+            "WINDOW_DEPENDENT_CURVATURE: inner and full meshes give different Hessian eigenvalues; check nonparabolicity / noise and repeat sampling at smaller steps."
+          ]
+        },
+        "inner_window_relative_eigenvalue_change": [
+          0.0528199433211301,
+          0.04216087329677087,
+          81.0733403229871
+        ],
+        "reliability": "C_not_at_band_edge_mesh_boundary",
+        "reliability_reasons": [
+          "sampled_extremum_on_mesh_boundary",
+          "center_not_sampled_extremum",
+          "quadratic_stationary_point_outside_mesh",
+          "gradient_above_1e-3_eV_A",
+          "inner_window_change_above_10pct"
+        ],
+        "variants": {
+          "full_linear": {
+            "available": true,
+            "n_points": 125,
+            "linear_term": true,
+            "fractional_fit": false,
+            "principal_masses_me": [
+              0.03534276312283777,
+              0.08583099561722494,
+              2517.487014725743
+            ],
+            "hessian_eigenvalues_eV_A2": [
+              215.6018184972113,
+              88.77869754630683,
+              0.003026813626218495
+            ],
+            "gradient_norm_eV_A": 0.5350178537198905,
+            "gradient_eV_A": [
+              0.43434159999999833,
+              0.2523048000000028,
+              -0.18421119999999497
+            ],
+            "rmse_eV": 0.00019124823366508507,
+            "max_abs_residual_eV": 0.000914212571428763,
+            "energy_span_eV": 0.03232999999999997,
+            "condition_number": 5.711412876046573,
+            "stationary_shift_Ainv": [
+              137.05619388369416,
+              78.54497356713416,
+              -77.1928895186348
+            ],
+            "stationary_inside_box": false,
+            "curvature_sign_ok": true
+          },
+          "inner_central_3x3x3": {
+            "available": true,
+            "n_points": 27,
+            "linear_term": true,
+            "fractional_fit": false,
+            "principal_masses_me": [
+              0.03356961781266101,
+              0.08235868167426709,
+              30.673626841780262
+            ],
+            "hessian_eigenvalues_eV_A2": [
+              226.98989433016658,
+              92.52168496500902,
+              0.24842070483888518
+            ],
+            "gradient_norm_eV_A": 0.5495076656134117,
+            "gradient_eV_A": [
+              0.44208888888889586,
+              0.2561333333333218,
+              -0.2022666666666655
+            ],
+            "rmse_eV": 3.0232818585475213e-05,
+            "max_abs_residual_eV": 7.068518518504874e-05,
+            "energy_span_eV": 0.011828999999999645,
+            "condition_number": 5.717659779663263,
+            "stationary_shift_Ainv": [
+              1.7164497163387278,
+              0.9875981568530661,
+              -0.9700910471139986
+            ],
+            "stationary_inside_box": false,
+            "curvature_sign_ok": true
+          },
+          "outer_shell": {
+            "available": true,
+            "n_points": 98,
+            "linear_term": true,
+            "fractional_fit": false,
+            "principal_masses_me": [
+              0.035701631768930236,
+              0.0878166573890847,
+              null
+            ],
+            "hessian_eigenvalues_eV_A2": [
+              213.43461411843265,
+              86.77128265357017,
+              -1.909012861615092
+            ],
+            "gradient_norm_eV_A": 0.5339085772656424,
+            "gradient_eV_A": [
+              0.4337405172413773,
+              0.2520077586206941,
+              -0.18281034482758093
+            ],
+            "rmse_eV": 0.0001901559867046964,
+            "max_abs_residual_eV": 0.0007873056106584286,
+            "energy_span_eV": 0.03232999999999997,
+            "condition_number": 7.931519538577168,
+            "stationary_shift_Ainv": [
+              -0.21657954444720864,
+              -0.12407384251989104,
+              0.12270181293718814
+            ],
+            "stationary_inside_box": false,
+            "curvature_sign_ok": false
+          },
+          "full_no_linear": {
+            "available": true,
+            "n_points": 125,
+            "linear_term": false,
+            "fractional_fit": false,
+            "principal_masses_me": [
+              0.03534276312283774,
+              0.08583099561722503,
+              2517.487014681604
+            ],
+            "hessian_eigenvalues_eV_A2": [
+              215.60181849721144,
+              88.77869754630674,
+              0.0030268136262715643
+            ],
+            "gradient_norm_eV_A": 0.0,
+            "gradient_eV_A": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "rmse_eV": 0.0037879784947689363,
+            "max_abs_residual_eV": 0.008723731428570858,
+            "energy_span_eV": 0.03232999999999997,
+            "condition_number": 5.711412876046573,
+            "stationary_shift_Ainv": null,
+            "stationary_inside_box": null,
+            "curvature_sign_ok": true
+          },
+          "full_linear_fractional_coords": {
+            "available": true,
+            "n_points": 125,
+            "linear_term": true,
+            "fractional_fit": true,
+            "principal_masses_me": [
+              0.03534276312283762,
+              0.08583099561722535,
+              2517.4870145740733
+            ],
+            "hessian_eigenvalues_eV_A2": [
+              215.60181849721218,
+              88.77869754630642,
+              0.0030268136264008498
+            ],
+            "gradient_norm_eV_A": 0.5350178537198869,
+            "gradient_eV_A": [
+              0.43434159999999206,
+              0.25230480000000893,
+              -0.18421119999999097
+            ],
+            "rmse_eV": 0.00019124823366505585,
+            "max_abs_residual_eV": 0.000914212571428763,
+            "energy_span_eV": 0.03232999999999997,
+            "condition_number": 122.48798397269407,
+            "stationary_shift_Ainv": [
+              137.05619387593111,
+              78.54497356268543,
+              -77.19288951426212
+            ],
+            "stationary_inside_box": false,
+            "curvature_sign_ok": true
+          },
+          "axis_1d_curvature": {
+            "available": true,
+            "curvature_eV_A2": {
+              "x": -71.22285714296541,
+              "y": -173.44000000004604,
+              "z": -75.4514285714951
+            },
+            "note": "diagonal d2E/dq_i2 through the centre; compare to H_ii"
+          }
+        }
+      },
+      "local_mesh": {
+        "kpoints_check": {
+          "n_kpoints": 250,
+          "n_metadata": 250,
+          "max_abs_eigenval_kpoints_vs_KPOINTS": 3.784994700994915e-08,
+          "max_abs_kpoint_fraction_error": 4.926614671774132e-16,
+          "max_abs_q_from_fraction_error_Ainv": 1.1544584732625651e-15,
+          "max_abs_q_from_grid_index_error_Ainv": 0.0,
+          "center_kpoint_indices_0based": [
+            62,
+            187
+          ],
+          "max_abs_center_fraction_error": 3.03552e-16,
+          "reciprocal_rows_Ainv": [
+            [
+              1.42337856738977,
+              0.8217879990544749,
+              -3.0612050828627316e-17
+            ],
+            [
+              -3.7233198373305025e-16,
+              1.6435759981089504,
+              -2.8414204464735415e-17
+            ],
+            [
+              -1.640494859625961e-17,
+              4.669761469830438e-33,
+              0.36207982312842135
+            ]
+          ],
+          "inverse_reciprocal_rows": [
+            [
+              0.7025537849946882,
+              -0.35127689249734395,
+              3.1830988618379086e-17
+            ],
+            [
+              1.5915494309189536e-16,
+              0.6084294253205024,
+              4.774648292756859e-17
+            ],
+            [
+              3.183098861837907e-17,
+              -1.5915494309189534e-17,
+              2.7618219412500187
+            ]
+          ]
+        },
+        "n_local_kpoints": 250,
+        "n_local_bands": 144,
+        "mass_metadata_grid": 5,
+        "mass_metadata_step_Ainv": 0.005,
+        "mass_tensor_input_hashes": {
+          "step8.2_mass/mass_metadata.json": "55857897eedf736623f594201c9550fba2788e69f103c6d27d80e1442f9fcd38",
+          "step8.2_mass/EIGENVAL": "17ebd9fa6857de040f6d9044937dde47f1a844e494c6f22e146e825e56beba47"
+        }
+      }
+    },
+    "Sn2Sb2Te5": {
+      "electron": {
+        "carrier": "electron",
+        "band_index_1based": 69,
+        "center_fractional": [
+          -0.03571429,
+          1.259409e-15,
+          0.2857143
+        ],
+        "center_energy_eV": 6.930022,
+        "metadata_edge_energy_eV": 6.930031,
+        "center_minus_metadata_edge_eV": -8.999999999481645e-06,
+        "principal_masses_me": [
+          null,
+          0.2375022709709265,
+          0.04783673455857058
+        ],
+        "hessian_eigenvalues_eV_A2": [
+          -11.289551784777638,
+          32.083752163080526,
+          159.2910567645505
+        ],
+        "hessian_eV_A2": [
+          [
+            38.76959999999859,
+            -68.4386399999992,
+            16.26583999999972
+          ],
+          [
+            -68.4386399999992,
+            120.42559999999885,
+            9.793120000000812
+          ],
+          [
+            16.26583999999972,
+            9.793120000000812,
+            20.890057142855888
+          ]
+        ],
+        "gradient_eV_A": [
+          0.1602776000000035,
+          0.09344479999999555,
+          -0.02527200000000186
+        ],
+        "gradient_norm_eV_A": 0.18724185881581176,
+        "rmse_eV": 0.00020078540968056642,
+        "max_abs_residual_eV": 0.0006831885714282393,
+        "energy_span_eV": 0.020477000000000523,
+        "relative_rmse_to_span": 0.00980541142162237,
+        "quadratic_stationary_shift_Ainv": [
+          0.010447022429902976,
+          0.005951152995627163,
+          -0.00971457135602673
+        ],
+        "quadratic_stationary_inside_box": false,
+        "curvature_sign_ok": false,
+        "n_points": 125,
+        "condition_number": 5.711412876046573,
+        "csv_vs_eigenval_max_abs_eV": 0.0,
+        "quadratic_stationary_energy_eV": 6.928940003255946,
+        "sampled_extremum": {
+          "index": 9,
+          "energy_eV": 6.926327,
+          "q_Ainv": [
+            -0.01,
+            -0.005,
+            0.01
+          ],
+          "on_boundary": true,
+          "max_abs_q_Ainv": 0.01,
+          "distance_from_center_Ainv": 0.015
+        },
+        "center_is_sampled_extremum": false,
+        "energy_gain_center_to_extremum_meV": 3.695000000000448,
+        "actual_extremum_at_boundary": true,
+        "actual_extremum_distance_from_center_Ainv": 0.015,
+        "quadratic_stationary_vs_actual_distance_Ainv": 0.030441300923818266,
+        "quadratic_stationary_energy_minus_actual_meV": 2.6130032559459337,
+        "old_vs_new": {
+          "mass_abs_diff_me": [
+            null,
+            2.525757381022231e-15,
+            4.85722573273506e-17
+          ],
+          "mass_rel_diff": [
+            null,
+            1.06346662315975e-14,
+            1.015375689322595e-15
+          ],
+          "old_masses_me": [
+            null,
+            0.23750227097092902,
+            0.04783673455857053
+          ],
+          "old_gradient_norm": 0.18724185881581168,
+          "old_rmse_eV": 0.00020078540968055436,
+          "old_stationary_shift": [
+            0.010447022429903153,
+            0.0059511529956272746,
+            -0.009714571356026698
+          ],
+          "old_inside_box": false,
+          "old_warnings": [
+            "WRONG_CURVATURE_SIGN: the fitted point is not a strict minimum for electrons / maximum for holes; do not report a physical mass tensor.",
+            "NONZERO_GRADIENT: the selected center is not stationary within the configured gradient threshold; refine the extremum.",
+            "STATIONARY_POINT_OUTSIDE_MESH: the quadratic stationary point is outside the sampled Cartesian box; recenter and resample.",
+            "WINDOW_DEPENDENT_CURVATURE: inner and full meshes give different Hessian eigenvalues; check nonparabolicity / noise and repeat sampling at smaller steps."
+          ]
+        },
+        "inner_window_relative_eigenvalue_change": [
+          0.10581660437222912,
+          0.05061297335831487,
+          0.0665794490528445
+        ],
+        "reliability": "D_invalid_curvature",
+        "reliability_reasons": [
+          "wrong_curvature_sign_at_center",
+          "sampled_extremum_on_mesh_boundary",
+          "center_not_sampled_extremum",
+          "quadratic_stationary_point_outside_mesh",
+          "gradient_above_1e-3_eV_A",
+          "inner_window_change_above_10pct"
+        ],
+        "variants": {
+          "full_linear": {
+            "available": true,
+            "n_points": 125,
+            "linear_term": true,
+            "fractional_fit": false,
+            "principal_masses_me": [
+              null,
+              0.2375022709709265,
+              0.04783673455857058
+            ],
+            "hessian_eigenvalues_eV_A2": [
+              -11.289551784777638,
+              32.083752163080526,
+              159.2910567645505
+            ],
+            "gradient_norm_eV_A": 0.18724185881581176,
+            "gradient_eV_A": [
+              0.1602776000000035,
+              0.09344479999999555,
+              -0.02527200000000186
+            ],
+            "rmse_eV": 0.00020078540968056642,
+            "max_abs_residual_eV": 0.0006831885714282393,
+            "energy_span_eV": 0.020477000000000523,
+            "condition_number": 5.711412876046573,
+            "stationary_shift_Ainv": [
+              0.010447022429902976,
+              0.005951152995627163,
+              -0.00971457135602673
+            ],
+            "stationary_inside_box": false,
+            "curvature_sign_ok": false
+          },
+          "inner_central_3x3x3": {
+            "available": true,
+            "n_points": 27,
+            "linear_term": true,
+            "fractional_fit": false,
+            "principal_masses_me": [
+              null,
+              0.22606066838461322,
+              0.04485060592631058
+            ],
+            "hessian_eigenvalues_eV_A2": [
+              -12.484173819527246,
+              33.7076062565453,
+              169.89656756297964
+            ],
+            "gradient_norm_eV_A": 0.20854847261991583,
+            "gradient_eV_A": [
+              0.17950000000001368,
+              0.10457777777776002,
+              -0.018322222222217313
+            ],
+            "rmse_eV": 3.1704293218820325e-05,
+            "max_abs_residual_eV": 6.810185185202045e-05,
+            "energy_span_eV": 0.0064109999999999445,
+            "condition_number": 5.717659779663263,
+            "stationary_shift_Ainv": [
+              0.010311309732577973,
+              0.0059146921315779396,
+              -0.009778705005990195
+            ],
+            "stationary_inside_box": false,
+            "curvature_sign_ok": false
+          },
+          "outer_shell": {
+            "available": true,
+            "n_points": 98,
+            "linear_term": true,
+            "fractional_fit": false,
+            "principal_masses_me": [
+              null,
+              0.24680817027654597,
+              0.048261423505739295
+            ],
+            "hessian_eigenvalues_eV_A2": [
+              -12.422889715568406,
+              30.874034645862455,
+              157.88933368477677
+            ],
+            "gradient_norm_eV_A": 0.18560852848926185,
+            "gradient_eV_A": [
+              0.15878620689655423,
+              0.09258103448275512,
+              -0.02581120689655391
+            ],
+            "rmse_eV": 0.00020874016266223054,
+            "max_abs_residual_eV": 0.0007071415775072865,
+            "energy_span_eV": 0.020477000000000523,
+            "condition_number": 7.931519538577168,
+            "stationary_shift_Ainv": [
+              0.009303760235903753,
+              0.00529753737134537,
+              -0.009001520693881954
+            ],
+            "stationary_inside_box": true,
+            "curvature_sign_ok": false
+          },
+          "full_no_linear": {
+            "available": true,
+            "n_points": 125,
+            "linear_term": false,
+            "fractional_fit": false,
+            "principal_masses_me": [
+              null,
+              0.2375022709709272,
+              0.0478367345585706
+            ],
+            "hessian_eigenvalues_eV_A2": [
+              -11.289551784777588,
+              32.08375216308043,
+              159.29105676455043
+            ],
+            "gradient_norm_eV_A": 0.0,
+            "gradient_eV_A": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "rmse_eV": 0.0013391379560674826,
+            "max_abs_residual_eV": 0.0031484765714289153,
+            "energy_span_eV": 0.020477000000000523,
+            "condition_number": 5.711412876046573,
+            "stationary_shift_Ainv": null,
+            "stationary_inside_box": null,
+            "curvature_sign_ok": false
+          },
+          "full_linear_fractional_coords": {
+            "available": true,
+            "n_points": 125,
+            "linear_term": true,
+            "fractional_fit": true,
+            "principal_masses_me": [
+              null,
+              0.23750227097092946,
+              0.04783673455857058
+            ],
+            "hessian_eigenvalues_eV_A2": [
+              -11.289551784777622,
+              32.08375216308013,
+              159.2910567645505
+            ],
+            "gradient_norm_eV_A": 0.18724185881581215,
+            "gradient_eV_A": [
+              0.16027760000000382,
+              0.09344479999999553,
+              -0.025272000000002768
+            ],
+            "rmse_eV": 0.00020078540968054682,
+            "max_abs_residual_eV": 0.0006831885714282393,
+            "energy_span_eV": 0.020477000000000523,
+            "condition_number": 123.94995853976157,
+            "stationary_shift_Ainv": [
+              0.010447022429903165,
+              0.005951152995627309,
+              -0.009714571356026692
+            ],
+            "stationary_inside_box": false,
+            "curvature_sign_ok": false
+          },
+          "axis_1d_curvature": {
+            "available": true,
+            "curvature_eV_A2": {
+              "x": 42.19999999992413,
+              "y": 124.67428571423628,
+              "z": 22.988571428473104
+            },
+            "note": "diagonal d2E/dq_i2 through the centre; compare to H_ii"
+          }
+        }
+      },
+      "hole": {
+        "carrier": "hole",
+        "band_index_1based": 67,
+        "center_fractional": [
+          -0.3571429,
+          1.249001e-15,
+          0.4285714
+        ],
+        "center_energy_eV": 6.782211,
+        "metadata_edge_energy_eV": 6.782223,
+        "center_minus_metadata_edge_eV": -1.1999999999900979e-05,
+        "principal_masses_me": [
+          0.04507804625747009,
+          0.05489863166405866,
+          0.24490403424336724
+        ],
+        "hessian_eigenvalues_eV_A2": [
+          169.0393580164815,
+          138.8006179576363,
+          31.114081168739965
+        ],
+        "hessian_eV_A2": [
+          [
+            -65.55977142857411,
+            59.238399999999345,
+            6.682320000000797
+          ],
+          [
+            59.238399999999345,
+            -135.12479999999906,
+            3.5407200000005563
+          ],
+          [
+            6.682320000000797,
+            3.5407200000005563,
+            -138.26948571428463
+          ]
+        ],
+        "gradient_eV_A": [
+          0.41634400000000044,
+          0.23921200000000248,
+          -0.8617879999999977
+        ],
+        "gradient_norm_eV_A": 0.9865309241093244,
+        "rmse_eV": 0.0004397712846235217,
+        "max_abs_residual_eV": 0.0019367714285714044,
+        "energy_span_eV": 0.03774999999999995,
+        "relative_rmse_to_span": 0.011649570453603238,
+        "quadratic_stationary_shift_Ainv": [
+          0.012026625873204702,
+          0.006899291934578127,
+          -0.00547477104254642
+        ],
+        "quadratic_stationary_inside_box": false,
+        "curvature_sign_ok": true,
+        "n_points": 125,
+        "condition_number": 5.711412876046573,
+        "csv_vs_eigenval_max_abs_eV": 0.0,
+        "quadratic_stationary_energy_eV": 6.7762993219625605,
+        "sampled_extremum": {
+          "index": 116,
+          "energy_eV": 6.787844,
+          "q_Ainv": [
+            0.01,
+            0.005,
+            -0.005
+          ],
+          "on_boundary": true,
+          "max_abs_q_Ainv": 0.01,
+          "distance_from_center_Ainv": 0.012247448713915891
+        },
+        "center_is_sampled_extremum": false,
+        "energy_gain_center_to_extremum_meV": 5.632999999999555,
+        "actual_extremum_at_boundary": true,
+        "actual_extremum_distance_from_center_Ainv": 0.012247448713915891,
+        "quadratic_stationary_vs_actual_distance_Ainv": 0.0028177881087010173,
+        "quadratic_stationary_energy_minus_actual_meV": -11.544678037439304,
+        "old_vs_new": {
+          "mass_abs_diff_me": [
+            4.85722573273506e-17,
+            0.0,
+            7.216449660063518e-16
+          ],
+          "mass_rel_diff": [
+            1.077514696398393e-15,
+            0.0,
+            2.9466438486237235e-15
+          ],
+          "old_masses_me": [
+            0.04507804625747014,
+            0.05489863166405866,
+            0.24490403424336651
+          ],
+          "old_gradient_norm": 0.9865309241093241,
+          "old_rmse_eV": 0.00043977128462352916,
+          "old_stationary_shift": [
+            0.012026625873204681,
+            0.006899291934578096,
+            -0.0054747710425464445
+          ],
+          "old_inside_box": false,
+          "old_warnings": [
+            "NONZERO_GRADIENT: the selected center is not stationary within the configured gradient threshold; refine the extremum.",
+            "STATIONARY_POINT_OUTSIDE_MESH: the quadratic stationary point is outside the sampled Cartesian box; recenter and resample.",
+            "NONPARABOLIC_OR_NOISY: quadratic residual exceeds both configured absolute and relative thresholds; inspect band tracking, numerical noise and nonparabolicity."
+          ]
+        },
+        "inner_window_relative_eigenvalue_change": [
+          0.047491445939458955,
+          0.03675973673814517,
+          0.05000132064395632
+        ],
+        "reliability": "C_not_at_band_edge_mesh_boundary",
+        "reliability_reasons": [
+          "sampled_extremum_on_mesh_boundary",
+          "center_not_sampled_extremum",
+          "quadratic_stationary_point_outside_mesh",
+          "gradient_above_1e-3_eV_A",
+          "relative_rmse_above_1pct"
+        ],
+        "variants": {
+          "full_linear": {
+            "available": true,
+            "n_points": 125,
+            "linear_term": true,
+            "fractional_fit": false,
+            "principal_masses_me": [
+              0.04507804625747009,
+              0.05489863166405866,
+              0.24490403424336724
+            ],
+            "hessian_eigenvalues_eV_A2": [
+              169.0393580164815,
+              138.8006179576363,
+              31.114081168739965
+            ],
+            "gradient_norm_eV_A": 0.9865309241093244,
+            "gradient_eV_A": [
+              0.41634400000000044,
+              0.23921200000000248,
+              -0.8617879999999977
+            ],
+            "rmse_eV": 0.0004397712846235217,
+            "max_abs_residual_eV": 0.0019367714285714044,
+            "energy_span_eV": 0.03774999999999995,
+            "condition_number": 5.711412876046573,
+            "stationary_shift_Ainv": [
+              0.012026625873204702,
+              0.006899291934578127,
+              -0.00547477104254642
+            ],
+            "stationary_inside_box": false,
+            "curvature_sign_ok": true
+          },
+          "inner_central_3x3x3": {
+            "available": true,
+            "n_points": 27,
+            "linear_term": true,
+            "fractional_fit": false,
+            "principal_masses_me": [
+              0.04303428579986269,
+              0.05295212547198332,
+              0.23324164401352354
+            ],
+            "hessian_eigenvalues_eV_A2": [
+              177.06728154936206,
+              143.90289213285087,
+              32.669826317800215
+            ],
+            "gradient_norm_eV_A": 1.0303191010555903,
+            "gradient_eV_A": [
+              0.40913333333332264,
+              0.23566666666665625,
+              -0.9157666666666741
+            ],
+            "rmse_eV": 8.735278621335061e-05,
+            "max_abs_residual_eV": 0.00020463888888855308,
+            "energy_span_eV": 0.01608300000000007,
+            "condition_number": 5.717659779663263,
+            "stationary_shift_Ainv": [
+              0.011186128992431576,
+              0.006439399567934484,
+              -0.005697799474464379
+            ],
+            "stationary_inside_box": false,
+            "curvature_sign_ok": true
+          },
+          "outer_shell": {
+            "available": true,
+            "n_points": 98,
+            "linear_term": true,
+            "fractional_fit": false,
+            "principal_masses_me": [
+              0.045630943878236976,
+              0.05569274317028525,
+              0.26082418744916036
+            ],
+            "hessian_eigenvalues_eV_A2": [
+              166.99115451859484,
+              136.82148815513216,
+              29.214943884317773
+            ],
+            "gradient_norm_eV_A": 0.9831786721578115,
+            "gradient_eV_A": [
+              0.41690344827586406,
+              0.23948706896552022,
+              -0.8575999999999974
+            ],
+            "rmse_eV": 0.0004725402211279617,
+            "max_abs_residual_eV": 0.0017849788231698582,
+            "energy_span_eV": 0.03774999999999995,
+            "condition_number": 7.931519538577168,
+            "stationary_shift_Ainv": [
+              0.012814267829008267,
+              0.007348653229989414,
+              -0.005473520440893288
+            ],
+            "stationary_inside_box": false,
+            "curvature_sign_ok": true
+          },
+          "full_no_linear": {
+            "available": true,
+            "n_points": 125,
+            "linear_term": false,
+            "fractional_fit": false,
+            "principal_masses_me": [
+              0.04507804625747022,
+              0.05489863166405852,
+              0.24490403424336635
+            ],
+            "hessian_eigenvalues_eV_A2": [
+              169.039358016481,
+              138.80061795763663,
+              31.11408116874008
+            ],
+            "gradient_norm_eV_A": 0.0,
+            "gradient_eV_A": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "rmse_eV": 0.006989675385450981,
+            "max_abs_residual_eV": 0.01574999542857114,
+            "energy_span_eV": 0.03774999999999995,
+            "condition_number": 5.711412876046573,
+            "stationary_shift_Ainv": null,
+            "stationary_inside_box": null,
+            "curvature_sign_ok": true
+          },
+          "full_linear_fractional_coords": {
+            "available": true,
+            "n_points": 125,
+            "linear_term": true,
+            "fractional_fit": true,
+            "principal_masses_me": [
+              0.04507804625747022,
+              0.05489863166405864,
+              0.2449040342433663
+            ],
+            "hessian_eigenvalues_eV_A2": [
+              169.039358016481,
+              138.80061795763635,
+              31.114081168740086
+            ],
+            "gradient_norm_eV_A": 0.986530924109321,
+            "gradient_eV_A": [
+              0.4163440000000006,
+              0.23921200000000123,
+              -0.861787999999994
+            ],
+            "rmse_eV": 0.00043977128462351333,
+            "max_abs_residual_eV": 0.0019367714285714044,
+            "energy_span_eV": 0.03774999999999995,
+            "condition_number": 123.94995853976157,
+            "stationary_shift_Ainv": [
+              0.012026625873204674,
+              0.006899291934578124,
+              -0.005474771042546417
+            ],
+            "stationary_inside_box": false,
+            "curvature_sign_ok": true
+          },
+          "axis_1d_curvature": {
+            "available": true,
+            "curvature_eV_A2": {
+              "x": -69.93142857147463,
+              "y": -140.8685714286116,
+              "z": -143.37714285720708
+            },
+            "note": "diagonal d2E/dq_i2 through the centre; compare to H_ii"
+          }
+        }
+      },
+      "local_mesh": {
+        "kpoints_check": {
+          "n_kpoints": 250,
+          "n_metadata": 250,
+          "max_abs_eigenval_kpoints_vs_KPOINTS": 3.315458702024543e-08,
+          "max_abs_kpoint_fraction_error": 4.996003610813204e-16,
+          "max_abs_q_from_fraction_error_Ainv": 1.1995612836379621e-15,
+          "max_abs_q_from_grid_index_error_Ainv": 0.0,
+          "center_kpoint_indices_0based": [
+            62,
+            187
+          ],
+          "max_abs_center_fraction_error": 2.59409e-16,
+          "reciprocal_rows_Ainv": [
+            [
+              1.4429200795739106,
+              0.8330702963741448,
+              0.0
+            ],
+            [
+              0.0,
+              1.6661405927482895,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.36487783520003175
+            ]
+          ],
+          "inverse_reciprocal_rows": [
+            [
+              0.6930390769080549,
+              -0.34651953845402744,
+              0.0
+            ],
+            [
+              0.0,
+              0.6001894464083044,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              2.740643315458678
+            ]
+          ]
+        },
+        "n_local_kpoints": 250,
+        "n_local_bands": 120,
+        "mass_metadata_grid": 5,
+        "mass_metadata_step_Ainv": 0.005,
+        "mass_tensor_input_hashes": {
+          "step8.2_mass/mass_metadata.json": "58ef79667a3e8379da0faf9843b6487371ff5cbb9d454a67273673ae3b2d61b0",
+          "step8.2_mass/EIGENVAL": "465d368b11cb1ac66923240a953b82c5c6998437e45988cc5eb3f03e2c24c514"
+        }
+      }
+    }
+  },
+  "generated_by": "audit_mass.py"
+}

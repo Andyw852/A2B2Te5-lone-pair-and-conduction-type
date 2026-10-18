@@ -1,0 +1,211 @@
+{
+  "generated_by": "make_manifest.py",
+  "root": "/mnt/d/joint_research_project/huang/孤对电子与导电类型_综合分析_20260918/11_续算审计_DeepSeek",
+  "files": {
+    "README_审计说明.md": {
+      "size_bytes": 4197,
+      "sha256": "a8cf85e59ba842f90f8b86808c0d479be4442d9fd4bd1e52ed22c8a720195ddf"
+    },
+    "csv/band_edge_check.csv": {
+      "size_bytes": 3164,
+      "sha256": "a429075373a14314ffc689bd2188aed8fe6f29a4ff28abc725b0d8bb2a75afb1"
+    },
+    "csv/band_tracking.csv": {
+      "size_bytes": 730,
+      "sha256": "25503471bf1ffab630520f12aba485e2d4bc9b658cfa027779fee84711fa1e5d"
+    },
+    "csv/bt2_checks.csv": {
+      "size_bytes": 5135,
+      "sha256": "3012fcc6bbc3791c14a230708b4bafb1655d2ae3aa64db9359d7724a0df15374"
+    },
+    "csv/bt2_interpolated_S_sigma.csv": {
+      "size_bytes": 63958,
+      "sha256": "b20cfe44aa6cc6ebfd1845ca2b766f43bda2c48d6689089f6ef3dd79f2dd7c62"
+    },
+    "csv/bt2_interpolation_sensitivity.csv": {
+      "size_bytes": 18314,
+      "sha256": "75b6d75211e170edf294400f155c9540b33e76e4993f85081b987dda7a14729a"
+    },
+    "csv/bt2_marginal_S_sigma.csv": {
+      "size_bytes": 6199,
+      "sha256": "22509f946614c6fbd00797868605288480e788d826f0a7bc90f97561596816ee"
+    },
+    "csv/bt2_mu_grid_summary.csv": {
+      "size_bytes": 4350,
+      "sha256": "85e558f1014acf6207fb65efa576c76f4d985b1e64381062003b5342b3b70631"
+    },
+    "csv/bt2_reliable_S_sigma.csv": {
+      "size_bytes": 27591,
+      "sha256": "570d951308904bb74f9ee21e17d4754a72a719b299e73d58ec4a4ac3043678cd"
+    },
+    "csv/bt2_unreliable_S_sigma.csv": {
+      "size_bytes": 32244,
+      "sha256": "8368793899bd59e238f63cb333f9c617cb2634ce1856022daf753a183b1bf7ba"
+    },
+    "csv/dvo_old_72atom_zips.csv": {
+      "size_bytes": 1601,
+      "sha256": "107a98b972a1efa0673f1fbe631405052fcd8d6b7a6741d636690cc104faca91"
+    },
+    "csv/dvo_old_81atom.csv": {
+      "size_bytes": 910,
+      "sha256": "1f8466079eca6bc6cb1658fdd58781221a6e086395e1ae209b114a49075b5217"
+    },
+    "csv/dvo_old_defects.csv": {
+      "size_bytes": 2479,
+      "sha256": "69610059f164e1cbf7767dc284255a5e03a7877ea47c83fed371ee159cbd170b"
+    },
+    "csv/dvo_status.csv": {
+      "size_bytes": 973,
+      "sha256": "bfb2d3457b9125c66af2a65b5fbdc05487ad665e52f05a5099d6ce8659c69e41"
+    },
+    "csv/hash_check.csv": {
+      "size_bytes": 12390,
+      "sha256": "a1c020a40bb5114673a321fef4eb5642641034b63d6e2bbf1d93b297e1425776"
+    },
+    "csv/inventory.csv": {
+      "size_bytes": 12370,
+      "sha256": "431f0cb43b0655e5b2f5dd835c3c15f49608bc2ab22ba9df298f9aaea9b70089"
+    },
+    "csv/key_results_summary.csv": {
+      "size_bytes": 5583,
+      "sha256": "67f190fcac8f7c0d10071a09fa164c90268a1e255329892e4c19c1cd7428f8d3"
+    },
+    "csv/mass_fit_recheck.csv": {
+      "size_bytes": 9923,
+      "sha256": "601f17546e6362118f13071ed8e0da7feffa29fdbe0391c91237d583beb9e37f"
+    },
+    "csv/mass_fit_variants.csv": {
+      "size_bytes": 14641,
+      "sha256": "d53ec4a0b4fa70721468a31a94988962c5de7238067bfca9c85c5c3c8ad21037"
+    },
+    "csv/mass_point_diagnostics.csv": {
+      "size_bytes": 191858,
+      "sha256": "91708c4c0dd07e05ade02d1cfb4cd1608dfa43431d170fdaccbc34ad4dfc91fb"
+    },
+    "csv/mass_variant_summary.csv": {
+      "size_bytes": 3500,
+      "sha256": "ee33f3b652d34935346e329aaf1e5cf4a777a5de52b028f0caa16ddba1182044"
+    },
+    "csv/s_projection_audit.csv": {
+      "size_bytes": 9980,
+      "sha256": "2e45155f450ea912fa86fce9ea90bce58616e5cf2628225069a14460bacabf3d"
+    },
+    "csv/s_projection_source_check.csv": {
+      "size_bytes": 7267,
+      "sha256": "e9193ce46788315cc775d654f3c80f3a6b19bf16e56be2d2ef72efe4c4e6631b"
+    },
+    "json/bt2_audit_summary.json": {
+      "size_bytes": 10614,
+      "sha256": "9ca6ba7f3413cfa850c0414c63c0aa7ad5b8ac026b47a71049e090fd7889ddb2"
+    },
+    "json/dvo_audit_summary.json": {
+      "size_bytes": 9305,
+      "sha256": "6710cca7d12e808ae029504e3db0d263617c2a82e32de9fa67e353020edb454f"
+    },
+    "json/hash_check_summary.json": {
+      "size_bytes": 17003,
+      "sha256": "aa7c555684e597c16b4186b493908dfe01ec30e73b41aad3c847b6edc8e77101"
+    },
+    "json/inventory_summary.json": {
+      "size_bytes": 18479,
+      "sha256": "f2817123b755e7fa17a68de2c3fe08790c0aa04c0031947fc95ba8b11ffc6b97"
+    },
+    "json/mass_audit_summary.json": {
+      "size_bytes": 87437,
+      "sha256": "9ca52a59e6b47a09e50a4058b5f88c1065f9694fdc4f23476460f8e15a62b58f"
+    },
+    "json/s_projection_summary.json": {
+      "size_bytes": 6640,
+      "sha256": "b6dc8f657f4b741023ceeae88b4b9046ce1f2668596f8bd53381efbbcd35524c"
+    },
+    "json/source_manifest.json": {
+      "size_bytes": 33174,
+      "sha256": "44520e3b9dc244a13bae63f2a06c8def298637f148492b789c535d7f4f97b21f"
+    },
+    "logs/audit_bt2.log": {
+      "size_bytes": 657,
+      "sha256": "1d88e4404ffb8f8073ed150dd0e4c03f23877fefb342b24861653c34fe969dde"
+    },
+    "logs/audit_dvo.log": {
+      "size_bytes": 479,
+      "sha256": "fda37f2b883be33b54ff0be79a8eeb05d607231e2aa0d4f92ec2f99729303845"
+    },
+    "logs/audit_inventory.log": {
+      "size_bytes": 1066,
+      "sha256": "aafcfe9daaa09d4a2ba3628622ad1cb469bafca811bf3c6361d4d8d9b0651f90"
+    },
+    "logs/audit_mass.log": {
+      "size_bytes": 878,
+      "sha256": "b01a7cdd592fb8756ee2b37f50ea605998fbbd372d170381fd6f24609148f7b5"
+    },
+    "logs/audit_s_projection.log": {
+      "size_bytes": 604,
+      "sha256": "4a82638e1b3329d1accd45d1111a8f8bfb2d8585497271e4f2c62660ed266450"
+    },
+    "logs/make_key_summary.log": {
+      "size_bytes": 153,
+      "sha256": "0524cc6dad41b0b333897324e4125e7d21d0cb3f92f1fc0860c8a5e6ece181bc"
+    },
+    "logs/make_manifest.log": {
+      "size_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "logs/run_all_final.log": {
+      "size_bytes": 5506,
+      "sha256": "ecc2d17f9e00b2bfe8c61a209f25beb8ec07f12dff6348226d98b8c9def1e625"
+    },
+    "logs/step3_vasprun_sha256.txt": {
+      "size_bytes": 632,
+      "sha256": "4b35dc1c77496230008c4e531963dc3b2ff5cbb434a5e1d19822cdc564f51d87"
+    },
+    "logs/test_effective_mass.log": {
+      "size_bytes": 848,
+      "sha256": "eb3e4b5c737b2030d5f990a9bb3cca0ae07032d7bfc3987b4ca1c953036ec756"
+    },
+    "scripts/__pycache__/audit_common.cpython-311.pyc": {
+      "size_bytes": 24198,
+      "sha256": "0b50d79c3e9531248324a47282e8d598ebf20e6fd46846c0d8d285920e7c9bf4"
+    },
+    "scripts/audit_bt2.py": {
+      "size_bytes": 22823,
+      "sha256": "bec2fca099fa45e88b369e83d3f0a54a89c7a30e2949249fc55fe393a90a56e4"
+    },
+    "scripts/audit_common.py": {
+      "size_bytes": 11501,
+      "sha256": "0821207040a9ba27a646e93f9597f75fde725fa46f5fe9f84c5170cd4fd567ea"
+    },
+    "scripts/audit_dvo.py": {
+      "size_bytes": 12419,
+      "sha256": "7f6fa7403324037156bd1dcf62d48964e214d18f6b07d459ca4b14feb81da7f7"
+    },
+    "scripts/audit_inventory.py": {
+      "size_bytes": 12584,
+      "sha256": "e326fe9f0b12abdbb7f96eb3eb122b18bb387bb02a4853dd4c573cd7a0ae63a7"
+    },
+    "scripts/audit_mass.py": {
+      "size_bytes": 29430,
+      "sha256": "af0e0e8734c209adea5be85a54e454520d9726f072cf9fe33093947aad76dfed"
+    },
+    "scripts/audit_s_projection.py": {
+      "size_bytes": 11959,
+      "sha256": "0b3d5a1f312bd6f55c602381619b6e531bbf0b1b1e3723d0e9121926313b5257"
+    },
+    "scripts/make_key_summary.py": {
+      "size_bytes": 3536,
+      "sha256": "0f7d26bba8a08b98c9858bcdee578637363fae9b6d3aae5a90daf406dee721b4"
+    },
+    "scripts/make_manifest.py": {
+      "size_bytes": 6272,
+      "sha256": "0bfc77b19040c948f94a4dc25404590248af9fb7ae594dfcf682d648167170a1"
+    },
+    "scripts/run_all.sh": {
+      "size_bytes": 684,
+      "sha256": "f46bc67d310913cb8d6ec29411c82fc452f09e410b554fd59c27857fcdf7d995"
+    },
+    "审计报告_20261017.md": {
+      "size_bytes": 44457,
+      "sha256": "ed43c104cc9e6d58d47a64454b16a208e5b30f934940f2afba9f3f65aa8c6a84"
+    }
+  },
+  "n_files": 51
+}

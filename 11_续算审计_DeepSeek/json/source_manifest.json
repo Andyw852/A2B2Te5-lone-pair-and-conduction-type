@@ -1,0 +1,626 @@
+{
+  "generated_by": "11_续算审计_DeepSeek/scripts/audit_inventory.py",
+  "root": "/mnt/d/joint_research_project/huang/孤对电子与导电类型_综合分析_20260918",
+  "hash_algorithm": "sha256",
+  "files": {
+    "project/gen_dense_soc.py@A2B2Te5_SOC_dense/project_setting/templates/step3_uniform/gen_dense_soc.py": {
+      "path": "/mnt/d/joint_research_project/huang/孤对电子与导电类型_综合分析_20260918/A2B2Te5_SOC_dense/project_setting/templates/step3_uniform/gen_dense_soc.py",
+      "exists": true,
+      "size_bytes": 2745,
+      "sha256": "220017084515a02cd1d4332558d4fb3e13c5b1ab49fefa5aadf02304d9b98780"
+    },
+    "project/run_bt2_soc.py@A2B2Te5_SOC_dense/project_setting/templates/step8.1_boltztrap/run_bt2_soc.py": {
+      "path": "/mnt/d/joint_research_project/huang/孤对电子与导电类型_综合分析_20260918/A2B2Te5_SOC_dense/project_setting/templates/step8.1_boltztrap/run_bt2_soc.py",
+      "exists": true,
+      "size_bytes": 2743,
+      "sha256": "25f8ebfd754596193e77b42d8ce98d1e5a4cc8043a37957a2e6c18c6d4cbb2be"
+    },
+    "project/gen_step11_boltztrap.py@A2B2Te5_SOC_dense/project_setting/templates/step8.1_boltztrap/gen_step11_boltztrap.py": {
+      "path": "/mnt/d/joint_research_project/huang/孤对电子与导电类型_综合分析_20260918/A2B2Te5_SOC_dense/project_setting/templates/step8.1_boltztrap/gen_step11_boltztrap.py",
+      "exists": true,
+      "size_bytes": 41944,
+      "sha256": "d4cd3dba10e02a27b35f1bc62622606e0504bbe8a7f884e453477e66f15fa476"
+    },
+    "project/ke_common.py@A2B2Te5_SOC_dense/project_setting/templates/step8.1_boltztrap/ke_common.py": {
+      "path": "/mnt/d/joint_research_project/huang/孤对电子与导电类型_综合分析_20260918/A2B2Te5_SOC_dense/project_setting/templates/step8.1_boltztrap/ke_common.py",
+      "exists": true,
+      "size_bytes": 126742,
+      "sha256": "3098460bb18697a0ce172f94bb157224e496c60f4dfd65c475e4d777c6e716fa"
+    },
+    "project/gen_mass_soc.py@A2B2Te5_SOC_dense/project_setting/templates/step8.2_mass/gen_mass_soc.py": {
+      "path": "/mnt/d/joint_research_project/huang/孤对电子与导电类型_综合分析_20260918/A2B2Te5_SOC_dense/project_setting/templates/step8.2_mass/gen_mass_soc.py",
+      "exists": true,
+      "size_bytes": 6093,
+      "sha256": "feabdd86ee70a134b3381e761b10c242a886fb7b33fb30bba9a0f1d3dec961b4"
+    },
+    "project/fit_mass_soc.py@A2B2Te5_SOC_dense/project_setting/templates/step8.3_mass_fit/fit_mass_soc.py": {
+      "path": "/mnt/d/joint_research_project/huang/孤对电子与导电类型_综合分析_20260918/A2B2Te5_SOC_dense/project_setting/templates/step8.3_mass_fit/fit_mass_soc.py",
+      "exists": true,
+      "size_bytes": 3821,
+      "sha256": "8811489881f40baa917c9938ecd3b858dd5cc417c8284cfbd342b12d7822f80f"
+    },
+    "project/fit_effective_mass.py@A2B2Te5_SOC_dense/project_setting/templates/step8.3_mass_fit/fit_effective_mass.py": {
+      "path": "/mnt/d/joint_research_project/huang/孤对电子与导电类型_综合分析_20260918/A2B2Te5_SOC_dense/project_setting/templates/step8.3_mass_fit/fit_effective_mass.py",
+      "exists": true,
+      "size_bytes": 11949,
+      "sha256": "88b2cb09fba60538d2d0fd48f0c58df859d1d5713beecafaf9e05b28c755f548"
+    },
+    "project/tf_A2B2Te5_SOC_dense.yaml@A2B2Te5_SOC_dense/project_setting/tf_A2B2Te5_SOC_dense.yaml": {
+      "path": "/mnt/d/joint_research_project/huang/孤对电子与导电类型_综合分析_20260918/A2B2Te5_SOC_dense/project_setting/tf_A2B2Te5_SOC_dense.yaml",
+      "exists": true,
+      "size_bytes": 2291,
+      "sha256": "3c4d54d0bd098e119903cc14fae5af3deb94e9763a7de4f7cf3d35c8387f0850"
+    },
+    "project/A2B2Te5_综合研究记录_20261013.md@A2B2Te5_SOC_dense/reports/A2B2Te5_综合研究记录_20261013.md": {
+      "path": "/mnt/d/joint_research_project/huang/孤对电子与导电类型_综合分析_20260918/A2B2Te5_SOC_dense/reports/A2B2Te5_综合研究记录_20261013.md",
+      "exists": true,
+      "size_bytes": 23211,
+      "sha256": "a47e5ae569727c32b0cf5fcc657fdf24eb3f31540c4008c0a61163ef0b317861"
+    },
+    "historical/fit_effective_mass.py": {
+      "path": "/mnt/d/joint_research_project/huang/孤对电子与导电类型_综合分析_20260918/补算实施方案_20261007/fit_effective_mass.py",
+      "exists": false
+    },
+    "historical/fit_effective_mass_validation.json": {
+      "path": "/mnt/d/joint_research_project/huang/孤对电子与导电类型_综合分析_20260918/补算实施方案_20261007/fit_effective_mass_validation.json",
+      "exists": false
+    },
+    "Pb2Bi2Te5/step3_EIGENVAL": {
+      "path": "/mnt/d/joint_research_project/huang/孤对电子与导电类型_综合分析_20260918/A2B2Te5_SOC_dense/materials/Pb2Bi2Te5/ke-dft-cpu/result/step3_uniform/EIGENVAL",
+      "exists": true,
+      "size_bytes": 25359459,
+      "sha256": "135c46a9b781895a5a2ebc5b560553cb086d662cac67ebdb6b3436393ce4fbb1"
+    },
+    "Pb2Bi2Te5/step3_INCAR": {
+      "path": "/mnt/d/joint_research_project/huang/孤对电子与导电类型_综合分析_20260918/A2B2Te5_SOC_dense/materials/Pb2Bi2Te5/ke-dft-cpu/result/step3_uniform/INCAR",
+      "exists": true,
+      "size_bytes": 433,
+      "sha256": "b549ab1c220856e1eb57d0444a3e0c17b22fed829874dd3315007f1370841792"
+    },
+    "Pb2Bi2Te5/step3_KPOINTS": {
+      "path": "/mnt/d/joint_research_project/huang/孤对电子与导电类型_综合分析_20260918/A2B2Te5_SOC_dense/materials/Pb2Bi2Te5/ke-dft-cpu/result/step3_uniform/KPOINTS",
+      "exists": true,
+      "size_bytes": 47,
+      "sha256": "892399c61cb3bfaf17e83bf1873e87dab4c3c6b485a28333c0a0683029cdbb1a"
+    },
+    "Pb2Bi2Te5/step3_POSCAR": {
+      "path": "/mnt/d/joint_research_project/huang/孤对电子与导电类型_综合分析_20260918/A2B2Te5_SOC_dense/materials/Pb2Bi2Te5/ke-dft-cpu/result/step3_uniform/POSCAR",
+      "exists": true,
+      "size_bytes": 1306,
+      "sha256": "7e4535e41f242546bc3e604852ea30213ef487cca99d4f64c53b5a4946de4bfd"
+    },
+    "Pb2Bi2Te5/step3_POTCAR": {
+      "path": "/mnt/d/joint_research_project/huang/孤对电子与导电类型_综合分析_20260918/A2B2Te5_SOC_dense/materials/Pb2Bi2Te5/ke-dft-cpu/result/step3_uniform/POTCAR",
+      "exists": true,
+      "size_bytes": 687650,
+      "sha256": "cf6da00e6f9e5e364faf6e96cb1dba2c8eab11d55d833652878e5ac565ba2b3f"
+    },
+    "Pb2Bi2Te5/step3_OUTCAR": {
+      "path": "/mnt/d/joint_research_project/huang/孤对电子与导电类型_综合分析_20260918/A2B2Te5_SOC_dense/materials/Pb2Bi2Te5/ke-dft-cpu/result/step3_uniform/OUTCAR",
+      "exists": true,
+      "size_bytes": 24776627,
+      "sha256": "b8a8e0c3a4c12943456929ac57691ab695759793fb80596df0ec128a9a1e38d7"
+    },
+    "Pb2Bi2Te5/step8.1_boltztrap_crta": {
+      "path": "/mnt/d/joint_research_project/huang/孤对电子与导电类型_综合分析_20260918/A2B2Te5_SOC_dense/materials/Pb2Bi2Te5/ke-dft-cpu/result/step8.1_boltztrap/boltztrap_crta.json",
+      "exists": true,
+      "size_bytes": 519343,
+      "sha256": "2f7c9478b03bb3a114335488f3c602636624c71737cec54ce7891c7a7d934e12"
+    },
+    "Pb2Bi2Te5/step8.2_EIGENVAL": {
+      "path": "/mnt/d/joint_research_project/huang/孤对电子与导电类型_综合分析_20260918/A2B2Te5_SOC_dense/materials/Pb2Bi2Te5/ke-dft-cpu/result/step8.2_mass/EIGENVAL",
+      "exists": true,
+      "size_bytes": 1347945,
+      "sha256": "acefa2cadcb04d07abc0f5d3cb614f3b5f363776feb470d1597716978e72f683"
+    },
+    "Pb2Bi2Te5/step8.2_mass_metadata": {
+      "path": "/mnt/d/joint_research_project/huang/孤对电子与导电类型_综合分析_20260918/A2B2Te5_SOC_dense/materials/Pb2Bi2Te5/ke-dft-cpu/result/step8.2_mass/mass_metadata.json",
+      "exists": true,
+      "size_bytes": 81738,
+      "sha256": "6b79d802d0f8643bffe6293cbe925ac1c61bfc701a4913703dc32e13caf20461"
+    },
+    "Pb2Bi2Te5/step8.2_KPOINTS": {
+      "path": "/mnt/d/joint_research_project/huang/孤对电子与导电类型_综合分析_20260918/A2B2Te5_SOC_dense/materials/Pb2Bi2Te5/ke-dft-cpu/result/step8.2_mass/KPOINTS",
+      "exists": true,
+      "size_bytes": 15307,
+      "sha256": "986192bbefdb6b500a4ebfefddcb6002a84b15c540b92e413fb3adcc185640b1"
+    },
+    "Pb2Bi2Te5/step8.3_mass_tensor": {
+      "path": "/mnt/d/joint_research_project/huang/孤对电子与导电类型_综合分析_20260918/A2B2Te5_SOC_dense/materials/Pb2Bi2Te5/ke-dft-cpu/result/step8.3_mass_fit/mass_tensor.json",
+      "exists": true,
+      "size_bytes": 7553,
+      "sha256": "03f7f337c9b431a6dae093dd0a2cb8b9ca9ea44e23b4b31342273a7c723623aa"
+    },
+    "Pb2Bi2Te5/step8.3_electron_band": {
+      "path": "/mnt/d/joint_research_project/huang/孤对电子与导电类型_综合分析_20260918/A2B2Te5_SOC_dense/materials/Pb2Bi2Te5/ke-dft-cpu/result/step8.3_mass_fit/electron_band.csv",
+      "exists": true,
+      "size_bytes": 2423,
+      "sha256": "c37de1a95e7c8b59dec21dac3a40b76472f12ea53114bc68f3690981210e6ae8"
+    },
+    "Pb2Bi2Te5/step8.3_hole_band": {
+      "path": "/mnt/d/joint_research_project/huang/孤对电子与导电类型_综合分析_20260918/A2B2Te5_SOC_dense/materials/Pb2Bi2Te5/ke-dft-cpu/result/step8.3_mass_fit/hole_band.csv",
+      "exists": true,
+      "size_bytes": 2423,
+      "sha256": "b1bd7dde1792d70b29dcbe5924fc994fd50772a09c013120582cf09cca66935f"
+    },
+    "Pb2Sb2Te5/step3_EIGENVAL": {
+      "path": "/mnt/d/joint_research_project/huang/孤对电子与导电类型_综合分析_20260918/A2B2Te5_SOC_dense/materials/Pb2Sb2Te5/ke-dft-cpu/result/step3_uniform/EIGENVAL",
+      "exists": true,
+      "size_bytes": 24712659,
+      "sha256": "052e7f981db0711f4f53e40e627b436a8aa13b6b94246df6849c49c2588c2915"
+    },
+    "Pb2Sb2Te5/step3_INCAR": {
+      "path": "/mnt/d/joint_research_project/huang/孤对电子与导电类型_综合分析_20260918/A2B2Te5_SOC_dense/materials/Pb2Sb2Te5/ke-dft-cpu/result/step3_uniform/INCAR",
+      "exists": true,
+      "size_bytes": 433,
+      "sha256": "7434005e355d67c9b1e731b8ad2782480d16be4d5e97d1ddb2c3b2f7a9952b05"
+    },
+    "Pb2Sb2Te5/step3_KPOINTS": {
+      "path": "/mnt/d/joint_research_project/huang/孤对电子与导电类型_综合分析_20260918/A2B2Te5_SOC_dense/materials/Pb2Sb2Te5/ke-dft-cpu/result/step3_uniform/KPOINTS",
+      "exists": true,
+      "size_bytes": 47,
+      "sha256": "ef6aebf6dd7d31e341aba41d9ec4ae62e981e9d056a4dd6fda068189acd3df51"
+    },
+    "Pb2Sb2Te5/step3_POSCAR": {
+      "path": "/mnt/d/joint_research_project/huang/孤对电子与导电类型_综合分析_20260918/A2B2Te5_SOC_dense/materials/Pb2Sb2Te5/ke-dft-cpu/result/step3_uniform/POSCAR",
+      "exists": true,
+      "size_bytes": 1306,
+      "sha256": "17b215b44d580f579e567bf51ba9ff85787fc185b27bac59effa342473424b35"
+    },
+    "Pb2Sb2Te5/step3_POTCAR": {
+      "path": "/mnt/d/joint_research_project/huang/孤对电子与导电类型_综合分析_20260918/A2B2Te5_SOC_dense/materials/Pb2Sb2Te5/ke-dft-cpu/result/step3_uniform/POTCAR",
+      "exists": true,
+      "size_bytes": 666268,
+      "sha256": "0757924e21929a9cbeddaf83954060990f7d7b81fdd633f70672f6851bbf49b6"
+    },
+    "Pb2Sb2Te5/step3_OUTCAR": {
+      "path": "/mnt/d/joint_research_project/huang/孤对电子与导电类型_综合分析_20260918/A2B2Te5_SOC_dense/materials/Pb2Sb2Te5/ke-dft-cpu/result/step3_uniform/OUTCAR",
+      "exists": true,
+      "size_bytes": 24400493,
+      "sha256": "f3a1e247c4ac837f64e52b37986bfdf47e3f021bc9eed324fc783f6ad397a0cb"
+    },
+    "Pb2Sb2Te5/step8.1_boltztrap_crta": {
+      "path": "/mnt/d/joint_research_project/huang/孤对电子与导电类型_综合分析_20260918/A2B2Te5_SOC_dense/materials/Pb2Sb2Te5/ke-dft-cpu/result/step8.1_boltztrap/boltztrap_crta.json",
+      "exists": true,
+      "size_bytes": 519010,
+      "sha256": "27ae31fed77489ce8890d826d5ee0cf8ebe4e0028c81233389a2837bcdecde31"
+    },
+    "Pb2Sb2Te5/step8.2_EIGENVAL": {
+      "path": "/mnt/d/joint_research_project/huang/孤对电子与导电类型_综合分析_20260918/A2B2Te5_SOC_dense/materials/Pb2Sb2Te5/ke-dft-cpu/result/step8.2_mass/EIGENVAL",
+      "exists": true,
+      "size_bytes": 1125945,
+      "sha256": "64001c583b537d5085c7c595bf8bb005f8e41728c5e3cd38e62fc7850ef7765d"
+    },
+    "Pb2Sb2Te5/step8.2_mass_metadata": {
+      "path": "/mnt/d/joint_research_project/huang/孤对电子与导电类型_综合分析_20260918/A2B2Te5_SOC_dense/materials/Pb2Sb2Te5/ke-dft-cpu/result/step8.2_mass/mass_metadata.json",
+      "exists": true,
+      "size_bytes": 82589,
+      "sha256": "d7cdfa21826474fbaddadf49ffea4ffee3b768131955d909e09749931eef379d"
+    },
+    "Pb2Sb2Te5/step8.2_KPOINTS": {
+      "path": "/mnt/d/joint_research_project/huang/孤对电子与导电类型_综合分析_20260918/A2B2Te5_SOC_dense/materials/Pb2Sb2Te5/ke-dft-cpu/result/step8.2_mass/KPOINTS",
+      "exists": true,
+      "size_bytes": 15307,
+      "sha256": "b565aab70da612f41d74c541ccec843d292b50bbfe6b9593a32d547461e4523c"
+    },
+    "Pb2Sb2Te5/step8.3_mass_tensor": {
+      "path": "/mnt/d/joint_research_project/huang/孤对电子与导电类型_综合分析_20260918/A2B2Te5_SOC_dense/materials/Pb2Sb2Te5/ke-dft-cpu/result/step8.3_mass_fit/mass_tensor.json",
+      "exists": true,
+      "size_bytes": 8295,
+      "sha256": "78967e2f5546996cffd7c7bed82a667bd487513ebe9a2c94e0b735498f44c578"
+    },
+    "Pb2Sb2Te5/step8.3_electron_band": {
+      "path": "/mnt/d/joint_research_project/huang/孤对电子与导电类型_综合分析_20260918/A2B2Te5_SOC_dense/materials/Pb2Sb2Te5/ke-dft-cpu/result/step8.3_mass_fit/electron_band.csv",
+      "exists": true,
+      "size_bytes": 2423,
+      "sha256": "1f5389a4f977a14b9e8a7149521d36c896fd5d6f93d0754349b4aea9088cfe25"
+    },
+    "Pb2Sb2Te5/step8.3_hole_band": {
+      "path": "/mnt/d/joint_research_project/huang/孤对电子与导电类型_综合分析_20260918/A2B2Te5_SOC_dense/materials/Pb2Sb2Te5/ke-dft-cpu/result/step8.3_mass_fit/hole_band.csv",
+      "exists": true,
+      "size_bytes": 2423,
+      "sha256": "b296c1c1e0071c773df7f402963e7d19d13e8e581314d6e98f7201cb8c44cbf3"
+    },
+    "Sn2Bi2Te5/step3_EIGENVAL": {
+      "path": "/mnt/d/joint_research_project/huang/孤对电子与导电类型_综合分析_20260918/A2B2Te5_SOC_dense/materials/Sn2Bi2Te5/ke-dft-cpu/result/step3_uniform/EIGENVAL",
+      "exists": true,
+      "size_bytes": 25359459,
+      "sha256": "1fc9d7b28e9a758bc70ebcacbfc9f4e83a252c2755831746a0cd3503523ae138"
+    },
+    "Sn2Bi2Te5/step3_INCAR": {
+      "path": "/mnt/d/joint_research_project/huang/孤对电子与导电类型_综合分析_20260918/A2B2Te5_SOC_dense/materials/Sn2Bi2Te5/ke-dft-cpu/result/step3_uniform/INCAR",
+      "exists": true,
+      "size_bytes": 433,
+      "sha256": "ccde50654c6862c3f9021cd0a2b02d5d5dec0c5c3cd344494896af8325791e94"
+    },
+    "Sn2Bi2Te5/step3_KPOINTS": {
+      "path": "/mnt/d/joint_research_project/huang/孤对电子与导电类型_综合分析_20260918/A2B2Te5_SOC_dense/materials/Sn2Bi2Te5/ke-dft-cpu/result/step3_uniform/KPOINTS",
+      "exists": true,
+      "size_bytes": 47,
+      "sha256": "892399c61cb3bfaf17e83bf1873e87dab4c3c6b485a28333c0a0683029cdbb1a"
+    },
+    "Sn2Bi2Te5/step3_POSCAR": {
+      "path": "/mnt/d/joint_research_project/huang/孤对电子与导电类型_综合分析_20260918/A2B2Te5_SOC_dense/materials/Sn2Bi2Te5/ke-dft-cpu/result/step3_uniform/POSCAR",
+      "exists": true,
+      "size_bytes": 1306,
+      "sha256": "50e9a5e0e5cc23843496bfea196841382da50a2f2154c6dd9234a695bfbf6ad7"
+    },
+    "Sn2Bi2Te5/step3_POTCAR": {
+      "path": "/mnt/d/joint_research_project/huang/孤对电子与导电类型_综合分析_20260918/A2B2Te5_SOC_dense/materials/Sn2Bi2Te5/ke-dft-cpu/result/step3_uniform/POTCAR",
+      "exists": true,
+      "size_bytes": 688295,
+      "sha256": "b747260942d7a17d4968c808aa0758ef6a3502fc2761ab0efa5cf4358076082b"
+    },
+    "Sn2Bi2Te5/step3_OUTCAR": {
+      "path": "/mnt/d/joint_research_project/huang/孤对电子与导电类型_综合分析_20260918/A2B2Te5_SOC_dense/materials/Sn2Bi2Te5/ke-dft-cpu/result/step3_uniform/OUTCAR",
+      "exists": true,
+      "size_bytes": 24782704,
+      "sha256": "90672a32a8e8146c3ef2d2b6dfac29a612490aa1b1c778cc98e9dcf251072943"
+    },
+    "Sn2Bi2Te5/step8.1_boltztrap_crta": {
+      "path": "/mnt/d/joint_research_project/huang/孤对电子与导电类型_综合分析_20260918/A2B2Te5_SOC_dense/materials/Sn2Bi2Te5/ke-dft-cpu/result/step8.1_boltztrap/boltztrap_crta.json",
+      "exists": true,
+      "size_bytes": 647563,
+      "sha256": "2290fdacecd42ccfd3b7c71a2a21a3637200715402ffbcef50a1afd8ca584753"
+    },
+    "Sn2Bi2Te5/step8.2_EIGENVAL": {
+      "path": "/mnt/d/joint_research_project/huang/孤对电子与导电类型_综合分析_20260918/A2B2Te5_SOC_dense/materials/Sn2Bi2Te5/ke-dft-cpu/result/step8.2_mass/EIGENVAL",
+      "exists": true,
+      "size_bytes": 1347945,
+      "sha256": "17ebd9fa6857de040f6d9044937dde47f1a844e494c6f22e146e825e56beba47"
+    },
+    "Sn2Bi2Te5/step8.2_mass_metadata": {
+      "path": "/mnt/d/joint_research_project/huang/孤对电子与导电类型_综合分析_20260918/A2B2Te5_SOC_dense/materials/Sn2Bi2Te5/ke-dft-cpu/result/step8.2_mass/mass_metadata.json",
+      "exists": true,
+      "size_bytes": 81520,
+      "sha256": "55857897eedf736623f594201c9550fba2788e69f103c6d27d80e1442f9fcd38"
+    },
+    "Sn2Bi2Te5/step8.2_KPOINTS": {
+      "path": "/mnt/d/joint_research_project/huang/孤对电子与导电类型_综合分析_20260918/A2B2Te5_SOC_dense/materials/Sn2Bi2Te5/ke-dft-cpu/result/step8.2_mass/KPOINTS",
+      "exists": true,
+      "size_bytes": 15307,
+      "sha256": "cdbe38d76bb7c8486a8cee77c1b6c8a760a95d724fd3f0ed73ca47a2d33f2721"
+    },
+    "Sn2Bi2Te5/step8.3_mass_tensor": {
+      "path": "/mnt/d/joint_research_project/huang/孤对电子与导电类型_综合分析_20260918/A2B2Te5_SOC_dense/materials/Sn2Bi2Te5/ke-dft-cpu/result/step8.3_mass_fit/mass_tensor.json",
+      "exists": true,
+      "size_bytes": 8224,
+      "sha256": "d8708e570685d196be0776076ba400c43c95cbee912c10b9b2e99d8431d4c106"
+    },
+    "Sn2Bi2Te5/step8.3_electron_band": {
+      "path": "/mnt/d/joint_research_project/huang/孤对电子与导电类型_综合分析_20260918/A2B2Te5_SOC_dense/materials/Sn2Bi2Te5/ke-dft-cpu/result/step8.3_mass_fit/electron_band.csv",
+      "exists": true,
+      "size_bytes": 2423,
+      "sha256": "4f3f4c0a21d12144f42f11f4581cbbf071d9f3bdbe5d195a98631d1b2d769293"
+    },
+    "Sn2Bi2Te5/step8.3_hole_band": {
+      "path": "/mnt/d/joint_research_project/huang/孤对电子与导电类型_综合分析_20260918/A2B2Te5_SOC_dense/materials/Sn2Bi2Te5/ke-dft-cpu/result/step8.3_mass_fit/hole_band.csv",
+      "exists": true,
+      "size_bytes": 2423,
+      "sha256": "e029dd2f95169e9214b25a0a1e34259a6daab5a3228d6c514f849849158422fe"
+    },
+    "Sn2Sb2Te5/step3_EIGENVAL": {
+      "path": "/mnt/d/joint_research_project/huang/孤对电子与导电类型_综合分析_20260918/A2B2Te5_SOC_dense/materials/Sn2Sb2Te5/ke-dft-cpu/result/step3_uniform/EIGENVAL",
+      "exists": true,
+      "size_bytes": 24712659,
+      "sha256": "86dd47243873e5b203dd30cc295fcafd60369ea52cbb3cb91520fdd1519f3e80"
+    },
+    "Sn2Sb2Te5/step3_INCAR": {
+      "path": "/mnt/d/joint_research_project/huang/孤对电子与导电类型_综合分析_20260918/A2B2Te5_SOC_dense/materials/Sn2Sb2Te5/ke-dft-cpu/result/step3_uniform/INCAR",
+      "exists": true,
+      "size_bytes": 433,
+      "sha256": "ca4abc49ad4bb71f72bd3ac5f758b38c62fee59712d5199fcf21e9a44dc24db6"
+    },
+    "Sn2Sb2Te5/step3_KPOINTS": {
+      "path": "/mnt/d/joint_research_project/huang/孤对电子与导电类型_综合分析_20260918/A2B2Te5_SOC_dense/materials/Sn2Sb2Te5/ke-dft-cpu/result/step3_uniform/KPOINTS",
+      "exists": true,
+      "size_bytes": 47,
+      "sha256": "ef6aebf6dd7d31e341aba41d9ec4ae62e981e9d056a4dd6fda068189acd3df51"
+    },
+    "Sn2Sb2Te5/step3_POSCAR": {
+      "path": "/mnt/d/joint_research_project/huang/孤对电子与导电类型_综合分析_20260918/A2B2Te5_SOC_dense/materials/Sn2Sb2Te5/ke-dft-cpu/result/step3_uniform/POSCAR",
+      "exists": true,
+      "size_bytes": 1306,
+      "sha256": "dbb89c3f3378e820d5dd1286485372680d9b4f63c4099b9a50870bf6fc9f42dc"
+    },
+    "Sn2Sb2Te5/step3_POTCAR": {
+      "path": "/mnt/d/joint_research_project/huang/孤对电子与导电类型_综合分析_20260918/A2B2Te5_SOC_dense/materials/Sn2Sb2Te5/ke-dft-cpu/result/step3_uniform/POTCAR",
+      "exists": true,
+      "size_bytes": 666913,
+      "sha256": "eb742db71183e04ab5c9d59e52730493bf60cf7f1f28dc11638ff07fa7090ecf"
+    },
+    "Sn2Sb2Te5/step3_OUTCAR": {
+      "path": "/mnt/d/joint_research_project/huang/孤对电子与导电类型_综合分析_20260918/A2B2Te5_SOC_dense/materials/Sn2Sb2Te5/ke-dft-cpu/result/step3_uniform/OUTCAR",
+      "exists": true,
+      "size_bytes": 24410726,
+      "sha256": "c1b801a9214dead2307b20d29a587ffe2e6582dd8c2969872eafc3b47a763e7e"
+    },
+    "Sn2Sb2Te5/step8.1_boltztrap_crta": {
+      "path": "/mnt/d/joint_research_project/huang/孤对电子与导电类型_综合分析_20260918/A2B2Te5_SOC_dense/materials/Sn2Sb2Te5/ke-dft-cpu/result/step8.1_boltztrap/boltztrap_crta.json",
+      "exists": true,
+      "size_bytes": 646709,
+      "sha256": "4acf8cd610acbf5e41f17fc4594079cdc25565dda1a54c29fc38402a22191ffa"
+    },
+    "Sn2Sb2Te5/step8.2_EIGENVAL": {
+      "path": "/mnt/d/joint_research_project/huang/孤对电子与导电类型_综合分析_20260918/A2B2Te5_SOC_dense/materials/Sn2Sb2Te5/ke-dft-cpu/result/step8.2_mass/EIGENVAL",
+      "exists": true,
+      "size_bytes": 1125945,
+      "sha256": "465d368b11cb1ac66923240a953b82c5c6998437e45988cc5eb3f03e2c24c514"
+    },
+    "Sn2Sb2Te5/step8.2_mass_metadata": {
+      "path": "/mnt/d/joint_research_project/huang/孤对电子与导电类型_综合分析_20260918/A2B2Te5_SOC_dense/materials/Sn2Sb2Te5/ke-dft-cpu/result/step8.2_mass/mass_metadata.json",
+      "exists": true,
+      "size_bytes": 81594,
+      "sha256": "58ef79667a3e8379da0faf9843b6487371ff5cbb9d454a67273673ae3b2d61b0"
+    },
+    "Sn2Sb2Te5/step8.2_KPOINTS": {
+      "path": "/mnt/d/joint_research_project/huang/孤对电子与导电类型_综合分析_20260918/A2B2Te5_SOC_dense/materials/Sn2Sb2Te5/ke-dft-cpu/result/step8.2_mass/KPOINTS",
+      "exists": true,
+      "size_bytes": 15307,
+      "sha256": "41315d86cb93b27b0c63c7a155bafd18cd1d18a344252a3e8273b72961ba40a1"
+    },
+    "Sn2Sb2Te5/step8.3_mass_tensor": {
+      "path": "/mnt/d/joint_research_project/huang/孤对电子与导电类型_综合分析_20260918/A2B2Te5_SOC_dense/materials/Sn2Sb2Te5/ke-dft-cpu/result/step8.3_mass_fit/mass_tensor.json",
+      "exists": true,
+      "size_bytes": 8205,
+      "sha256": "d124afabf57a7f2327dd2c58032cb923edb46b5ddc0cc24a148a145589570b74"
+    },
+    "Sn2Sb2Te5/step8.3_electron_band": {
+      "path": "/mnt/d/joint_research_project/huang/孤对电子与导电类型_综合分析_20260918/A2B2Te5_SOC_dense/materials/Sn2Sb2Te5/ke-dft-cpu/result/step8.3_mass_fit/electron_band.csv",
+      "exists": true,
+      "size_bytes": 2423,
+      "sha256": "029cdf9214cda3a63d5651e3790b35cb6b511d1bff6f1225fb7bb22363d0e504"
+    },
+    "Sn2Sb2Te5/step8.3_hole_band": {
+      "path": "/mnt/d/joint_research_project/huang/孤对电子与导电类型_综合分析_20260918/A2B2Te5_SOC_dense/materials/Sn2Sb2Te5/ke-dft-cpu/result/step8.3_mass_fit/hole_band.csv",
+      "exists": true,
+      "size_bytes": 2423,
+      "sha256": "125fedb7ed28a61cb1f4373b16e14be847b239573df3a8e3a3eedf5ef076ce99"
+    },
+    "Pb2Bi2Te5/step3_uniform/vasprun.xml": {
+      "path": "/mnt/d/joint_research_project/huang/孤对电子与导电类型_综合分析_20260918/A2B2Te5_SOC_dense/materials/Pb2Bi2Te5/ke-dft-cpu/result/step3_uniform/vasprun.xml",
+      "exists": true,
+      "size_bytes": 2368003098,
+      "sha256": "691ccfce655b44224b47d3cd820aba0fbbe0a2c6da4363804a953e7b1249bf27"
+    },
+    "Pb2Sb2Te5/step3_uniform/vasprun.xml": {
+      "path": "/mnt/d/joint_research_project/huang/孤对电子与导电类型_综合分析_20260918/A2B2Te5_SOC_dense/materials/Pb2Sb2Te5/ke-dft-cpu/result/step3_uniform/vasprun.xml",
+      "exists": true,
+      "size_bytes": 2302837018,
+      "sha256": "b221582fae938df923e48f3cdda24636831f102056b746fd016f41c79fdeeee4"
+    },
+    "Sn2Bi2Te5/step3_uniform/vasprun.xml": {
+      "path": "/mnt/d/joint_research_project/huang/孤对电子与导电类型_综合分析_20260918/A2B2Te5_SOC_dense/materials/Sn2Bi2Te5/ke-dft-cpu/result/step3_uniform/vasprun.xml",
+      "exists": true,
+      "size_bytes": 2368003658,
+      "sha256": "50fb45909de52332d6ed21dc2b93cbd32660fbc1a49aea1c1d8c21fb4a371b8d"
+    },
+    "Sn2Sb2Te5/step3_uniform/vasprun.xml": {
+      "path": "/mnt/d/joint_research_project/huang/孤对电子与导电类型_综合分析_20260918/A2B2Te5_SOC_dense/materials/Sn2Sb2Te5/ke-dft-cpu/result/step3_uniform/vasprun.xml",
+      "exists": true,
+      "size_bytes": 2302838138,
+      "sha256": "2a4ccfabc343c67a9fa2091c4b1d73e8ee3cb314996860be0468aea2831682da"
+    }
+  },
+  "notes": [
+    "SHA256 of step3_uniform/vasprun.xml (multi-GB) is recorded in logs/step3_vasprun_sha256.txt and is not re-hashed in this JSON to keep the inventory fast."
+  ],
+  "inventory_rows": 4,
+  "audit_outputs": {
+    "README_审计说明.md": {
+      "size_bytes": 4197,
+      "sha256": "a8cf85e59ba842f90f8b86808c0d479be4442d9fd4bd1e52ed22c8a720195ddf"
+    },
+    "csv/band_edge_check.csv": {
+      "size_bytes": 3164,
+      "sha256": "a429075373a14314ffc689bd2188aed8fe6f29a4ff28abc725b0d8bb2a75afb1"
+    },
+    "csv/band_tracking.csv": {
+      "size_bytes": 730,
+      "sha256": "25503471bf1ffab630520f12aba485e2d4bc9b658cfa027779fee84711fa1e5d"
+    },
+    "csv/bt2_checks.csv": {
+      "size_bytes": 5135,
+      "sha256": "3012fcc6bbc3791c14a230708b4bafb1655d2ae3aa64db9359d7724a0df15374"
+    },
+    "csv/bt2_interpolated_S_sigma.csv": {
+      "size_bytes": 63958,
+      "sha256": "b20cfe44aa6cc6ebfd1845ca2b766f43bda2c48d6689089f6ef3dd79f2dd7c62"
+    },
+    "csv/bt2_interpolation_sensitivity.csv": {
+      "size_bytes": 18314,
+      "sha256": "75b6d75211e170edf294400f155c9540b33e76e4993f85081b987dda7a14729a"
+    },
+    "csv/bt2_marginal_S_sigma.csv": {
+      "size_bytes": 6199,
+      "sha256": "22509f946614c6fbd00797868605288480e788d826f0a7bc90f97561596816ee"
+    },
+    "csv/bt2_mu_grid_summary.csv": {
+      "size_bytes": 4350,
+      "sha256": "85e558f1014acf6207fb65efa576c76f4d985b1e64381062003b5342b3b70631"
+    },
+    "csv/bt2_reliable_S_sigma.csv": {
+      "size_bytes": 27591,
+      "sha256": "570d951308904bb74f9ee21e17d4754a72a719b299e73d58ec4a4ac3043678cd"
+    },
+    "csv/bt2_unreliable_S_sigma.csv": {
+      "size_bytes": 32244,
+      "sha256": "8368793899bd59e238f63cb333f9c617cb2634ce1856022daf753a183b1bf7ba"
+    },
+    "csv/dvo_old_72atom_zips.csv": {
+      "size_bytes": 1601,
+      "sha256": "107a98b972a1efa0673f1fbe631405052fcd8d6b7a6741d636690cc104faca91"
+    },
+    "csv/dvo_old_81atom.csv": {
+      "size_bytes": 910,
+      "sha256": "1f8466079eca6bc6cb1658fdd58781221a6e086395e1ae209b114a49075b5217"
+    },
+    "csv/dvo_old_defects.csv": {
+      "size_bytes": 2479,
+      "sha256": "69610059f164e1cbf7767dc284255a5e03a7877ea47c83fed371ee159cbd170b"
+    },
+    "csv/dvo_status.csv": {
+      "size_bytes": 973,
+      "sha256": "bfb2d3457b9125c66af2a65b5fbdc05487ad665e52f05a5099d6ce8659c69e41"
+    },
+    "csv/hash_check.csv": {
+      "size_bytes": 12390,
+      "sha256": "a1c020a40bb5114673a321fef4eb5642641034b63d6e2bbf1d93b297e1425776"
+    },
+    "csv/inventory.csv": {
+      "size_bytes": 12370,
+      "sha256": "431f0cb43b0655e5b2f5dd835c3c15f49608bc2ab22ba9df298f9aaea9b70089"
+    },
+    "csv/key_results_summary.csv": {
+      "size_bytes": 5583,
+      "sha256": "67f190fcac8f7c0d10071a09fa164c90268a1e255329892e4c19c1cd7428f8d3"
+    },
+    "csv/mass_fit_recheck.csv": {
+      "size_bytes": 9923,
+      "sha256": "601f17546e6362118f13071ed8e0da7feffa29fdbe0391c91237d583beb9e37f"
+    },
+    "csv/mass_fit_variants.csv": {
+      "size_bytes": 14641,
+      "sha256": "d53ec4a0b4fa70721468a31a94988962c5de7238067bfca9c85c5c3c8ad21037"
+    },
+    "csv/mass_point_diagnostics.csv": {
+      "size_bytes": 191858,
+      "sha256": "91708c4c0dd07e05ade02d1cfb4cd1608dfa43431d170fdaccbc34ad4dfc91fb"
+    },
+    "csv/mass_variant_summary.csv": {
+      "size_bytes": 3500,
+      "sha256": "ee33f3b652d34935346e329aaf1e5cf4a777a5de52b028f0caa16ddba1182044"
+    },
+    "csv/s_projection_audit.csv": {
+      "size_bytes": 9980,
+      "sha256": "2e45155f450ea912fa86fce9ea90bce58616e5cf2628225069a14460bacabf3d"
+    },
+    "csv/s_projection_source_check.csv": {
+      "size_bytes": 7267,
+      "sha256": "e9193ce46788315cc775d654f3c80f3a6b19bf16e56be2d2ef72efe4c4e6631b"
+    },
+    "json/bt2_audit_summary.json": {
+      "size_bytes": 10614,
+      "sha256": "9ca6ba7f3413cfa850c0414c63c0aa7ad5b8ac026b47a71049e090fd7889ddb2"
+    },
+    "json/dvo_audit_summary.json": {
+      "size_bytes": 9305,
+      "sha256": "6710cca7d12e808ae029504e3db0d263617c2a82e32de9fa67e353020edb454f"
+    },
+    "json/hash_check_summary.json": {
+      "size_bytes": 17003,
+      "sha256": "aa7c555684e597c16b4186b493908dfe01ec30e73b41aad3c847b6edc8e77101"
+    },
+    "json/inventory_summary.json": {
+      "size_bytes": 18479,
+      "sha256": "f2817123b755e7fa17a68de2c3fe08790c0aa04c0031947fc95ba8b11ffc6b97"
+    },
+    "json/mass_audit_summary.json": {
+      "size_bytes": 87437,
+      "sha256": "9ca52a59e6b47a09e50a4058b5f88c1065f9694fdc4f23476460f8e15a62b58f"
+    },
+    "json/s_projection_summary.json": {
+      "size_bytes": 6640,
+      "sha256": "b6dc8f657f4b741023ceeae88b4b9046ce1f2668596f8bd53381efbbcd35524c"
+    },
+    "json/source_manifest.json": {
+      "size_bytes": 33174,
+      "sha256": "44520e3b9dc244a13bae63f2a06c8def298637f148492b789c535d7f4f97b21f"
+    },
+    "logs/audit_bt2.log": {
+      "size_bytes": 657,
+      "sha256": "1d88e4404ffb8f8073ed150dd0e4c03f23877fefb342b24861653c34fe969dde"
+    },
+    "logs/audit_dvo.log": {
+      "size_bytes": 479,
+      "sha256": "fda37f2b883be33b54ff0be79a8eeb05d607231e2aa0d4f92ec2f99729303845"
+    },
+    "logs/audit_inventory.log": {
+      "size_bytes": 1066,
+      "sha256": "aafcfe9daaa09d4a2ba3628622ad1cb469bafca811bf3c6361d4d8d9b0651f90"
+    },
+    "logs/audit_mass.log": {
+      "size_bytes": 878,
+      "sha256": "b01a7cdd592fb8756ee2b37f50ea605998fbbd372d170381fd6f24609148f7b5"
+    },
+    "logs/audit_s_projection.log": {
+      "size_bytes": 604,
+      "sha256": "4a82638e1b3329d1accd45d1111a8f8bfb2d8585497271e4f2c62660ed266450"
+    },
+    "logs/make_key_summary.log": {
+      "size_bytes": 153,
+      "sha256": "0524cc6dad41b0b333897324e4125e7d21d0cb3f92f1fc0860c8a5e6ece181bc"
+    },
+    "logs/make_manifest.log": {
+      "size_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "logs/run_all_final.log": {
+      "size_bytes": 5506,
+      "sha256": "ecc2d17f9e00b2bfe8c61a209f25beb8ec07f12dff6348226d98b8c9def1e625"
+    },
+    "logs/step3_vasprun_sha256.txt": {
+      "size_bytes": 632,
+      "sha256": "4b35dc1c77496230008c4e531963dc3b2ff5cbb434a5e1d19822cdc564f51d87"
+    },
+    "logs/test_effective_mass.log": {
+      "size_bytes": 848,
+      "sha256": "eb3e4b5c737b2030d5f990a9bb3cca0ae07032d7bfc3987b4ca1c953036ec756"
+    },
+    "scripts/__pycache__/audit_common.cpython-311.pyc": {
+      "size_bytes": 24198,
+      "sha256": "0b50d79c3e9531248324a47282e8d598ebf20e6fd46846c0d8d285920e7c9bf4"
+    },
+    "scripts/audit_bt2.py": {
+      "size_bytes": 22823,
+      "sha256": "bec2fca099fa45e88b369e83d3f0a54a89c7a30e2949249fc55fe393a90a56e4"
+    },
+    "scripts/audit_common.py": {
+      "size_bytes": 11501,
+      "sha256": "0821207040a9ba27a646e93f9597f75fde725fa46f5fe9f84c5170cd4fd567ea"
+    },
+    "scripts/audit_dvo.py": {
+      "size_bytes": 12419,
+      "sha256": "7f6fa7403324037156bd1dcf62d48964e214d18f6b07d459ca4b14feb81da7f7"
+    },
+    "scripts/audit_inventory.py": {
+      "size_bytes": 12584,
+      "sha256": "e326fe9f0b12abdbb7f96eb3eb122b18bb387bb02a4853dd4c573cd7a0ae63a7"
+    },
+    "scripts/audit_mass.py": {
+      "size_bytes": 29430,
+      "sha256": "af0e0e8734c209adea5be85a54e454520d9726f072cf9fe33093947aad76dfed"
+    },
+    "scripts/audit_s_projection.py": {
+      "size_bytes": 11959,
+      "sha256": "0b3d5a1f312bd6f55c602381619b6e531bbf0b1b1e3723d0e9121926313b5257"
+    },
+    "scripts/make_key_summary.py": {
+      "size_bytes": 3536,
+      "sha256": "0f7d26bba8a08b98c9858bcdee578637363fae9b6d3aae5a90daf406dee721b4"
+    },
+    "scripts/make_manifest.py": {
+      "size_bytes": 6272,
+      "sha256": "0bfc77b19040c948f94a4dc25404590248af9fb7ae594dfcf682d648167170a1"
+    },
+    "scripts/run_all.sh": {
+      "size_bytes": 684,
+      "sha256": "f46bc67d310913cb8d6ec29411c82fc452f09e410b554fd59c27857fcdf7d995"
+    },
+    "审计报告_20261017.md": {
+      "size_bytes": 44457,
+      "sha256": "ed43c104cc9e6d58d47a64454b16a208e5b30f934940f2afba9f3f65aa8c6a84"
+    }
+  },
+  "hash_checks": {
+    "n_checks": 36,
+    "n_match": 28,
+    "n_mismatch": 8
+  },
+  "bt2_vasprun_hashes": {
+    "Pb2Bi2Te5": "691ccfce655b44224b47d3cd820aba0fbbe0a2c6da4363804a953e7b1249bf27",
+    "Pb2Sb2Te5": "b221582fae938df923e48f3cdda24636831f102056b746fd016f41c79fdeeee4",
+    "Sn2Bi2Te5": "50fb45909de52332d6ed21dc2b93cbd32660fbc1a49aea1c1d8c21fb4a371b8d",
+    "Sn2Sb2Te5": "2a4ccfabc343c67a9fa2091c4b1d73e8ee3cb314996860be0468aea2831682da"
+  }
+}

@@ -1,0 +1,230 @@
+{
+  "generator_version": "1.0",
+  "material": "Pb2Sb2Te5",
+  "status": "ALL_UNRELAXED_NO_DFT_PERFORMED",
+  "initial_cubic_a_A": 6.2,
+  "a_provenance": "synthetic user-independent starting guess; not experimental or optimized",
+  "repeat": [
+    4,
+    4,
+    1
+  ],
+  "lattice_vectors_A_rows": [
+    [
+      12.4,
+      -12.4,
+      0.0
+    ],
+    [
+      0.0,
+      12.4,
+      -12.4
+    ],
+    [
+      12.4,
+      9.3,
+      9.3
+    ]
+  ],
+  "base_cation_plane_sequence_q_mod_5": [
+    "Sb",
+    "Pb",
+    "Pb",
+    "Sb",
+    "Vac"
+  ],
+  "initial_lattice_parameter_is_same_for_all_families": true,
+  "random_seeds_per_disordered_family": [
+    1729,
+    2718,
+    31415,
+    161803
+  ],
+  "lattice_site_count_including_ghosts": 160,
+  "counts": {
+    "parents": 9,
+    "defects": 234,
+    "jobs": 243
+  },
+  "defect_counts_by_parent": {
+    "O_ordered": 18,
+    "V_seed1729": 27,
+    "V_seed2718": 27,
+    "V_seed31415": 27,
+    "V_seed161803": 27,
+    "D_seed1729": 27,
+    "D_seed2718": 27,
+    "D_seed31415": 27,
+    "D_seed161803": 27
+  },
+  "defect_counts_by_type": {
+    "Sb_Pb": 33,
+    "Pb_Sb": 33,
+    "Pb_on_Vac": 33,
+    "Sb_on_Vac": 33,
+    "V_Te": 35,
+    "V_Pb": 9,
+    "V_Sb": 9,
+    "Te_on_Vac": 9,
+    "Pb_Te": 11,
+    "Sb_Te": 11,
+    "Te_Pb": 9,
+    "Te_Sb": 9
+  },
+  "ordered_symmetry_reduction": "in-plane translations and inversion q -> 3-q; 1 Pb,1 B,1 Vac,3 Te classes",
+  "limitations": [
+    "O,V,D denote hypothetical occupational order; no assignment to measured annealing states",
+    "No atomic distortions, cell relaxation, energies, or finite-temperature entropy computed",
+    "D random cells are not optimized SQS structures",
+    "Finite-size and random-configuration convergence remain required",
+    "Twelve site-defect types do not exhaust interstitials or complexes",
+    "Candidate POSCARs must be regenerated from consistently relaxed parents before energy comparisons",
+    "Neutral geometry proposals do not establish charge states or p/n conduction"
+  ],
+  "parents": [
+    {
+      "parent_id": "O_ordered",
+      "family": "O",
+      "random_seed": null,
+      "status": "UNRELAXED_NOT_RUN",
+      "fingerprint_sha256": "8bfc7f53b3739a05bfb669c3f74f8949763850ae5253a7b2519269ed4c358bd1",
+      "poscar": "parents\\O_ordered\\POSCAR",
+      "atom_count": 144,
+      "species_counts": {
+        "Pb": 32,
+        "Sb": 32,
+        "Te": 80
+      },
+      "ghost_vacancy_count": 16,
+      "minimum_periodic_pair_distance_A": 3.0999999999999988
+    },
+    {
+      "parent_id": "V_seed1729",
+      "family": "V",
+      "random_seed": 1729,
+      "status": "UNRELAXED_NOT_RUN",
+      "fingerprint_sha256": "9e3d582ca532a7ac8b366cdc8f6d5657602dedd69f84969056c17d14c11ab7b0",
+      "poscar": "parents\\V_seed1729\\POSCAR",
+      "atom_count": 144,
+      "species_counts": {
+        "Pb": 32,
+        "Sb": 32,
+        "Te": 80
+      },
+      "ghost_vacancy_count": 16,
+      "minimum_periodic_pair_distance_A": 3.0999999999999988
+    },
+    {
+      "parent_id": "V_seed2718",
+      "family": "V",
+      "random_seed": 2718,
+      "status": "UNRELAXED_NOT_RUN",
+      "fingerprint_sha256": "57be6d06529ec2b65eef17c1df29fef4de2b9c2098b99cf19a9709268514fa7e",
+      "poscar": "parents\\V_seed2718\\POSCAR",
+      "atom_count": 144,
+      "species_counts": {
+        "Pb": 32,
+        "Sb": 32,
+        "Te": 80
+      },
+      "ghost_vacancy_count": 16,
+      "minimum_periodic_pair_distance_A": 3.0999999999999988
+    },
+    {
+      "parent_id": "V_seed31415",
+      "family": "V",
+      "random_seed": 31415,
+      "status": "UNRELAXED_NOT_RUN",
+      "fingerprint_sha256": "393aafea7d26b73791fbd65fa51ff6e8e4a1910750f6dc9ff8985ec1a6892fcc",
+      "poscar": "parents\\V_seed31415\\POSCAR",
+      "atom_count": 144,
+      "species_counts": {
+        "Pb": 32,
+        "Sb": 32,
+        "Te": 80
+      },
+      "ghost_vacancy_count": 16,
+      "minimum_periodic_pair_distance_A": 3.0999999999999988
+    },
+    {
+      "parent_id": "V_seed161803",
+      "family": "V",
+      "random_seed": 161803,
+      "status": "UNRELAXED_NOT_RUN",
+      "fingerprint_sha256": "21675a174d9be73563e89f0e6498716ba1e1cb768d32454eb00cd923624b0874",
+      "poscar": "parents\\V_seed161803\\POSCAR",
+      "atom_count": 144,
+      "species_counts": {
+        "Pb": 32,
+        "Sb": 32,
+        "Te": 80
+      },
+      "ghost_vacancy_count": 16,
+      "minimum_periodic_pair_distance_A": 3.0999999999999988
+    },
+    {
+      "parent_id": "D_seed1729",
+      "family": "D",
+      "random_seed": 1729,
+      "status": "UNRELAXED_NOT_RUN",
+      "fingerprint_sha256": "69f71df0883704cb0c93e4426e368df1dfeea62340f851d1eb5cce345e844af3",
+      "poscar": "parents\\D_seed1729\\POSCAR",
+      "atom_count": 144,
+      "species_counts": {
+        "Pb": 32,
+        "Sb": 32,
+        "Te": 80
+      },
+      "ghost_vacancy_count": 16,
+      "minimum_periodic_pair_distance_A": 3.0999999999999988
+    },
+    {
+      "parent_id": "D_seed2718",
+      "family": "D",
+      "random_seed": 2718,
+      "status": "UNRELAXED_NOT_RUN",
+      "fingerprint_sha256": "4b3a72f832e1dd32886d6068b5cba70ad68979248fc43c6c0294560fa2d33123",
+      "poscar": "parents\\D_seed2718\\POSCAR",
+      "atom_count": 144,
+      "species_counts": {
+        "Pb": 32,
+        "Sb": 32,
+        "Te": 80
+      },
+      "ghost_vacancy_count": 16,
+      "minimum_periodic_pair_distance_A": 3.0999999999999988
+    },
+    {
+      "parent_id": "D_seed31415",
+      "family": "D",
+      "random_seed": 31415,
+      "status": "UNRELAXED_NOT_RUN",
+      "fingerprint_sha256": "e7ef98e370445592aa8a7d9c8831f40c8c6b0ce3a74ea6efdd83224e1f9cab9e",
+      "poscar": "parents\\D_seed31415\\POSCAR",
+      "atom_count": 144,
+      "species_counts": {
+        "Pb": 32,
+        "Sb": 32,
+        "Te": 80
+      },
+      "ghost_vacancy_count": 16,
+      "minimum_periodic_pair_distance_A": 3.0999999999999988
+    },
+    {
+      "parent_id": "D_seed161803",
+      "family": "D",
+      "random_seed": 161803,
+      "status": "UNRELAXED_NOT_RUN",
+      "fingerprint_sha256": "1eb981aef3671029bfa7cc324c091a604cd469e70e85c1744bf3096623ec00f1",
+      "poscar": "parents\\D_seed161803\\POSCAR",
+      "atom_count": 144,
+      "species_counts": {
+        "Pb": 32,
+        "Sb": 32,
+        "Te": 80
+      },
+      "ghost_vacancy_count": 16,
+      "minimum_periodic_pair_distance_A": 3.0999999999999988
+    }
+  ]
+}

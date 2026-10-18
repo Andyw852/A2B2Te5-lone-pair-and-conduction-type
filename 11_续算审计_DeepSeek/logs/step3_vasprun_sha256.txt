@@ -1,0 +1,4 @@
+Pb2Bi2Te5 691ccfce655b44224b47d3cd820aba0fbbe0a2c6da4363804a953e7b1249bf27  A2B2Te5_SOC_dense/materials/Pb2Bi2Te5/ke-dft-cpu/result/step3_uniform/vasprun.xml
+Pb2Sb2Te5 b221582fae938df923e48f3cdda24636831f102056b746fd016f41c79fdeeee4  A2B2Te5_SOC_dense/materials/Pb2Sb2Te5/ke-dft-cpu/result/step3_uniform/vasprun.xml
+Sn2Bi2Te5 50fb45909de52332d6ed21dc2b93cbd32660fbc1a49aea1c1d8c21fb4a371b8d  A2B2Te5_SOC_dense/materials/Sn2Bi2Te5/ke-dft-cpu/result/step3_uniform/vasprun.xml
+Sn2Sb2Te5 2a4ccfabc343c67a9fa2091c4b1d73e8ee3cb314996860be0468aea2831682da  A2B2Te5_SOC_dense/materials/Sn2Sb2Te5/ke-dft-cpu/result/step3_uniform/vasprun.xml
