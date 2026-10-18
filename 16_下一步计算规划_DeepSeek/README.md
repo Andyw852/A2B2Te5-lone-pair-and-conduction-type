@@ -89,7 +89,7 @@ self.interpolation_mesh = 2 * np.max(np.abs(np.vstack(self._equivalences)), axis
 | P0.1 s 占比 + IPR | <1 h | **只留 s 占比，去掉 IPR**，~1 h | 9 原子完美晶胞的布洛赫态本就离域，IPR 无意义；IPR 移到 D/V/O 超胞（P3.1）。用现成 `seebeck_mass.py`，集群上读 PROCAR 后只回传 CSV |
 | P0.2 m\*_c / POP 复核 | 2–4 h | **删除** | 14_ 已用密网格 BoltzTraP2 的 σ/τ 算过 |
 | P1.0 离网格验证 | 4–8 h | **删除** | 已由 `86466b2` 回答 |
-| P1.1 `amset wave` | 8–24 h | **只做 PbSb + SnSb**，并选带，~2–6 h | 见 §5 |
+| P1.1 `amset wave` | 8–24 h | **只做 PbSb + SnSb**，并选带 | 见 §5 |
 | P1.2 形变势 16×16×4 | 28–32 h | **先不做** | 见 §6 |
 | P1.3/4 AMSET | 4–24 h + 3× | 试点 PbSb+SnSb（含 factor 扫描），再扩四材料 | scattering 主导，必须实测 |
 | P1.5 ODP | 16–32 h | **有条件**：密网格跑完 2 倍差异仍在才做；且只 PbSb+SnSb、先筛 dE/du 大的模 | 插件自研，首次用要合理性检查 |

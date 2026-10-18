@@ -1,7 +1,7 @@
 task_id,批次,材料,任务,依赖,产出,估算,status
 P0.1,P0,四材料,集群读 PROCAR 算带边 s 占比（DOS 加权+电导加权），只回传 CSV,无,s_projection_dense.csv,约 1 h,READY
-P1.1a,P1,Pb2Sb2Te5,amset wave（-e 选带 ±1 eV）on 28x28x7 WAVECAR,无,wavefunction.h5（约 9 GB，集群）,2-3 h,READY
-P1.1b,P1,Sn2Sb2Te5,同上,无,wavefunction.h5,2-3 h,READY
+P1.1a,P1,Pb2Sb2Te5,amset wave（-e 选带 ±1 eV）on 28x28x7 WAVECAR,无,wavefunction.h5（约 9 GB，集群）,待实测,READY
+P1.1b,P1,Sn2Sb2Te5,同上,无,wavefunction.h5,待实测,READY
 P1.3a,P1,Pb2Sb2Te5,AMSET 试点：旧 deformation.h5 + factor 1/3 扫描，看 k-point mesh 与内存,P1.1a,试点 transport.json + 实测墙钟 + 收敛曲线,8-20 h,BLOCKED
 P1.3b,P1,Sn2Sb2Te5,同上,P1.1b,同上,8-20 h,BLOCKED
 P1.4,P1,四材料,AMSET 扩至 PbBi/SnBi（用试点定下的 factor）,P1.3a P1.3b,四材料 transport.json,试点 x2,BLOCKED
