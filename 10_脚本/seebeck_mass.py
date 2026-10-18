@@ -4,6 +4,7 @@ Inputs reused as-is: step3_uniform EIGENVAL/OUTCAR (full 28x28x6/7 grid, ISYM=-1
 07_带边能窗 HSE+SOC path windows, 11_续算审计_DeepSeek A/B/C grades of the fixed-concentration points.
 BoltzTraP2 mu is measured from the scissored mid-gap: E - E_VBM = mu + target_gap/2 (see audit 4.2).
 Optional: step3_uniform/PROCAR[.gz] of the same dense run (LORBIT=11) -> DOS- and sigma-weighted s fractions on the transport Hamiltonian.
+Optional: --dense-s CSV, the s_* columns of an earlier run made with the dense PROCAR (e.g. 17_ on the cluster), merged by (material, T, carrier, n).
 Optional: 12_s占比与Seebeck有效质量/实验输入.csv (template written on first run) -> experimental m*_S and S_calc at the measured n_H.
 """
 from pathlib import Path
@@ -169,6 +170,20 @@ def windows(D):
   res[(m,r['edge'],float(r['window_meV']))]={'A_s':g(A+'-s'),'B_s':g(B+'-s'),'Te_s':g('Te-s'),'cation_s':g(A+'-s')+g(B+'-s'),'total_s':g(A+'-s')+g(B+'-s')+g('Te-s'),'Te_p':g('Te-p')}
  return res
 
+def merge_dense(rows,path):
+ """Copy s_* columns from a dense-PROCAR run into rows that lack them (same script, same (material, T, carrier, n) keys)."""
+ if not path or any('s_total_dos_pct' in r for r in rows):return
+ src={(r['material'],float(r['T_K']),r['carrier'],float(r['n_cm3'])):r for r in csv.DictReader(open(path,encoding='utf-8-sig'))}
+ for r in rows:
+  x=src.get((r['material'],float(r['T_K']),r['carrier'],float(r['n_cm3'])))
+  if x:r.update({k:float(v) for k,v in x.items() if k.startswith('s_') and v not in ('',None)})
+
+def s_at(rows,win,m,edge,carrier,lv):
+ """Edge s fractions: dense-grid DOS-weighted at (300 K, lv) when available, else the HSE path 50 meV window."""
+ r=[x for x in rows if x['material']==m and x['T_K']==300 and x['carrier']==carrier and x['n_cm3']==lv and 's_total_dos_pct' in x]
+ if r:return {'A_s':r[0]['s_A_dos_pct'],'B_s':r[0]['s_B_dos_pct'],'Te_s':r[0]['s_Te_dos_pct'],'cation_s':r[0]['s_cation_dos_pct'],'total_s':r[0]['s_total_dos_pct'],'source':'dense'}
+ return {**win[(m,edge,50.)],'source':'hse'}
+
 def experiment(D,O):
  p=O/'实验输入.csv'
  if not p.exists():
@@ -201,29 +216,32 @@ def plot(D,O,rows,info,win,exp):
  ax.axvspan(1e18,1e19,color='#c3c2b7',alpha=.18,lw=0);ax.text(1.1e18,12,'bipolar: audit grade C at 1e18',fontsize=7,color='#52514e')
  ax.set_xscale('log');ax.set_xlim(1e18,5e20);ax.set_ylim(0,420);ax.grid(alpha=.25,lw=.6);ax.set_xlabel('hole concentration p (cm$^{-3}$)');ax.set_ylabel('in-plane S (µV/K)')
  ax.set_title('a  Pisarenko, 300 K, BoltzTraP2 CRTA (SOC), in-plane\ndashed: single parabolic band, m* = 0.2 / 0.5 / 1 / 2 m$_e$',loc='left',fontsize=9);ax.legend(fontsize=8,frameon=False,loc='upper right')
- off={'hole':{'Pb2Sb2Te5':(10,-4),'Pb2Bi2Te5':(10,-4),'Sn2Sb2Te5':(-12,10),'Sn2Bi2Te5':(-10,12)},
+ off={'hole':{'Pb2Sb2Te5':(10,-4),'Pb2Bi2Te5':(-12,-6),'Sn2Sb2Te5':(10,10),'Sn2Bi2Te5':(-10,14)},
   'electron':{'Pb2Sb2Te5':(10,-26),'Pb2Bi2Te5':(-12,-26),'Sn2Sb2Te5':(-12,6),'Sn2Bi2Te5':(-12,0)}}
  for ax,edge,carrier,tag in [(axs[1],'VBM','hole','b'),(axs[2],'CBM','electron','c')]:
   top=0
   for m in M:
    r=[x for x in rows if x['material']==m and x['T_K']==300 and x['carrier']==carrier and x['n_cm3']==3e19]
    if not r or r[0]['m_S_CRTA_in_plane'] is None:continue
-   s=win[(m,edge,50.0)]['total_s'];r=r[0];mS=r['m_S_CRTA_in_plane'];hi=max(mS,r['m_DOS']);top=max(top,hi)
+   s=s_at(rows,win,m,edge,carrier,3e19)['total_s'];r=r[0];mS=r['m_S_CRTA_in_plane'];hi=max(mS,r['m_DOS']);top=max(top,hi)
    ax.plot([s,s],[r['m_DOS'],mS],color='#c3c2b7',lw=1,zorder=1)
    ax.plot(s,mS,MK[m],color=COL[m],ms=10,mec='white',mew=2,zorder=3);ax.plot(s,r['m_DOS'],MK[m],mfc='white',mec=COL[m],mew=2,ms=9,zorder=2)
    dx,dy=off[carrier][m]
    ax.annotate(f"{m}\nN$_{{v,eff}}$={info[m]['valleys'][edge]['Nv_eff_300K']:.1f}",(s,hi if dy>=0 else min(mS,r['m_DOS'])),xytext=(dx,dy),textcoords='offset points',fontsize=8,color='#0b0b0b',ha='left' if dx>0 else 'right',va='bottom' if dy>=0 else 'top')
-  ax.grid(alpha=.25,lw=.6);ax.set_xlabel(f'{edge} total s (A-s + B-s + Te-s), 50 meV inner window (%)\nHSE+SOC path PROCAR');ax.set_ylabel('effective mass (m$_e$)');ax.set_ylim(0,top*1.25)
-  ax.set_xlim(min(win[(m,edge,50.0)]['total_s'] for m in M)*0.6,max(win[(m,edge,50.0)]['total_s'] for m in M)*1.25)
+  xs=[s_at(rows,win,m,edge,carrier,3e19) for m in M];src=xs[0]['source']
+  ax.grid(alpha=.25,lw=.6);ax.set_ylabel('effective mass (m$_e$)');ax.set_ylim(0,top*1.25)
+  ax.set_xlabel(f'{edge} total s (A-s + B-s + Te-s, %)\n'+('PBE+SOC dense grid, $-\\partial f/\\partial E$ weighted at the same (n, T)' if src=='dense' else 'HSE+SOC path PROCAR, 50 meV inner window'))
+  ax.set_xlim(min(x['total_s'] for x in xs)*0.6,max(x['total_s'] for x in xs)*1.25)
   ax.set_title(f'{tag}  {carrier}s, 300 K, |n| = 3e19 cm$^{{-3}}$\nfilled: m*$_S$ from in-plane S (CRTA)   open: m*$_D$ from n(µ)',loc='left',fontsize=9)
  for ext in ('png','svg'):fig.savefig(O/f's占比_Seebeck有效质量.{ext}',dpi=180)
  plt.close(fig)
 
-def main(D):
+def main(D,dense=None):
  O=D/OUT;O.mkdir(exist_ok=True)
  info={};rows=[];grade=grades(D)
  for m in M:
   i,r=analyse(D,m,grade);info[m]=i;rows+=r
+ merge_dense(rows,dense)
  win=windows(D);exp=experiment(D,O);keys=list(dict.fromkeys(k for r in rows for k in r))
  with open(O/'有效质量_Seebeck.csv','w',newline='',encoding='utf-8-sig') as f:
   w=csv.DictWriter(f,fieldnames=keys);w.writeheader();w.writerows(rows)
@@ -233,6 +251,8 @@ def main(D):
    r={x['n_cm3']:x for x in rows if x['material']==m and x['T_K']==300 and x['carrier']==carrier};v=info[m]['valleys'][edge]
    t={'material':m,'edge':edge,**{f'{k}_{int(wd)}meV':round(win[(m,edge,wd)][k],2) for wd in (25.,50.,100.) for k in ('A_s','B_s','Te_s','total_s')},
       'pockets_26meV':v['pockets_26meV'],'pockets_52meV':v['pockets_52meV'],'Nv_eff_300K':v['Nv_eff_300K']}
+   sd=s_at(rows,win,m,edge,carrier,3e19)
+   if sd['source']=='dense':t.update({f'dense_{k}_3e19':round(sd[k],2) for k in ('A_s','B_s','Te_s','total_s')})
    for lv in LEVELS:
     x=r.get(lv,{});tag=f'{lv:.0e}'.replace('+','')
     t.update({f'grade_{tag}':x.get('audit_grade'),f'S_in_plane_{tag}':x.get('S_in_plane_uV_K'),f'mS_{tag}':x.get('m_S_CRTA_in_plane'),f'mD_{tag}':x.get('m_DOS'),f'mS_APS_{tag}':x.get('m_S_APS_in_plane')})
@@ -247,10 +267,10 @@ def main(D):
      xs,ys=[],[]
      for m in M:
       r=[x for x in rows if x['material']==m and x['T_K']==300 and x['carrier']==carrier and x['n_cm3']==lv]
-      if r and (q.startswith('abs') or r[0][q] is not None):xs.append(win[(m,edge,50.)][k]);ys.append(abs(r[0]['S_in_plane_uV_K']) if q.startswith('abs') else r[0][q])
+      if r and (q.startswith('abs') or r[0][q] is not None):sd=s_at(rows,win,m,edge,carrier,lv);src=sd['source'];xs.append(sd[k]);ys.append(abs(r[0]['S_in_plane_uV_K']) if q.startswith('abs') else r[0][q])
      if len(xs)>=3:
       rx,ry=np.argsort(np.argsort(xs)),np.argsort(np.argsort(ys))
-      corr[f'{carrier}:{k}_50meV~{q}@{lv:.0e}']={'n':len(xs),'pearson':round(float(np.corrcoef(xs,ys)[0,1]),3),'spearman':round(float(np.corrcoef(rx,ry)[0,1]),3)}
+      corr[f'{carrier}:{k}_{src}~{q}@{lv:.0e}']={'n':len(xs),'pearson':round(float(np.corrcoef(xs,ys)[0,1]),3),'spearman':round(float(np.corrcoef(rx,ry)[0,1]),3)}
  (O/'有效质量_能谷_汇总.json').write_text(json.dumps({'materials':info,'correlations_n4':corr,'experiment':exp,
   'notes':['mu alignment: BoltzTraP2 mu_rel is measured from the scissored mid-gap (VBM + target_gap/2), not from the OUTCAR Fermi level',
    'm_S_CRTA: SPB inversion of BoltzTraP2 S(n) with energy-independent tau (same assumption as the input); m_S_APS: tau~E^-1/2, the convention for experimental Seebeck mass',
@@ -260,11 +280,14 @@ def main(D):
    'minority_over_majority_grid: Fermi occupation on the raw 28x28xNz grid at the same mu; the raw grid overweights light pockets, so it is an upper-bound bipolar indicator',
    'neutral_point: offset of c(mu)=0 from mid-gap in BoltzTraP2 and on the raw grid; a non-zero offset follows from unequal VB/CB DOS',
    'valleys: local extrema of six edge bands on the full grid within 100 meV; Kramers partners and plateaus merged; stars grouped within 2 meV; grid-resolution energies, ring-like maxima split into grid points',
-   's fractions (07): HSE+SOC path PROCAR inner windows (VBM-50 meV..VBM, CBM..CBM+50 meV), a different Hamiltonian and different edge k than the PBE+SOC grid; s_*_dos/sigma columns appear only when the dense PROCAR is supplied',
+   's fractions: dense = PBE+SOC 28x28xNz PROCAR, -df/dE weighted at the same (n, T) (from the PROCAR or --dense-s); hse = 07 HSE+SOC path PROCAR inner windows, a different Hamiltonian and edge k; figure, table dense_* columns and correlations use dense when present',
    'four materials only: correlation coefficients are descriptive, not statistical evidence']},ensure_ascii=False,indent=1,default=float),encoding='utf-8')
  plot(D,O,rows,info,win,exp)
  for m in M:print(m,'neutral point',info[m]['neutral_point']['300'])
  for t in tab:print(t['material'],t['edge'],'s_total50=',t['total_s_50meV'],'Nv_eff=',t['Nv_eff_300K'],*(f"{k}={t[k]:.3g}" if isinstance(t[k],float) else f"{k}={t[k]}" for k in ('grade_3e19','S_in_plane_3e19','mS_3e19','mD_3e19','grade_1e20','S_in_plane_1e20','mS_1e20','mD_1e20')))
  print(json.dumps({k:v for k,v in corr.items() if 'total' in k},indent=0))
 
-if __name__=='__main__':main(Path(sys.argv[1]).resolve())
+if __name__=='__main__':
+ import argparse
+ ap=argparse.ArgumentParser();ap.add_argument('delivery');ap.add_argument('--dense-s',help='CSV with s_* columns from a dense-PROCAR run')
+ a=ap.parse_args();main(Path(a.delivery).resolve(),a.dense_s)

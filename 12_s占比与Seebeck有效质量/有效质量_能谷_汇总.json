@@ -328,185 +328,185 @@
   }
  },
  "correlations_n4": {
-  "hole:A_s_50meV~m_S_CRTA_in_plane@3e+19": {
+  "hole:A_s_dense~m_S_CRTA_in_plane@3e+19": {
    "n": 4,
-   "pearson": -0.446,
+   "pearson": -0.623,
+   "spearman": -0.6
+  },
+  "hole:A_s_dense~m_S_CRTA_in_plane@1e+20": {
+   "n": 4,
+   "pearson": -0.236,
+   "spearman": 0.4
+  },
+  "hole:A_s_dense~m_DOS@3e+19": {
+   "n": 4,
+   "pearson": -0.765,
+   "spearman": -0.8
+  },
+  "hole:A_s_dense~m_DOS@1e+20": {
+   "n": 4,
+   "pearson": -0.784,
+   "spearman": -0.8
+  },
+  "hole:A_s_dense~absS_in_plane@3e+19": {
+   "n": 4,
+   "pearson": -0.626,
+   "spearman": -0.6
+  },
+  "hole:A_s_dense~absS_in_plane@1e+20": {
+   "n": 4,
+   "pearson": -0.241,
+   "spearman": 0.4
+  },
+  "hole:cation_s_dense~m_S_CRTA_in_plane@3e+19": {
+   "n": 4,
+   "pearson": -0.865,
+   "spearman": -1.0
+  },
+  "hole:cation_s_dense~m_S_CRTA_in_plane@1e+20": {
+   "n": 4,
+   "pearson": -0.53,
    "spearman": -0.4
   },
-  "hole:A_s_50meV~m_S_CRTA_in_plane@1e+20": {
+  "hole:cation_s_dense~m_DOS@3e+19": {
    "n": 4,
-   "pearson": 0.521,
-   "spearman": 0.4
+   "pearson": -0.509,
+   "spearman": -0.8
   },
-  "hole:A_s_50meV~m_DOS@3e+19": {
+  "hole:cation_s_dense~m_DOS@1e+20": {
    "n": 4,
-   "pearson": -0.141,
-   "spearman": 0.0
+   "pearson": -0.542,
+   "spearman": -0.8
   },
-  "hole:A_s_50meV~m_DOS@1e+20": {
+  "hole:cation_s_dense~absS_in_plane@3e+19": {
    "n": 4,
-   "pearson": -0.128,
-   "spearman": 0.0
+   "pearson": -0.867,
+   "spearman": -1.0
   },
-  "hole:A_s_50meV~absS_in_plane@3e+19": {
+  "hole:cation_s_dense~absS_in_plane@1e+20": {
    "n": 4,
-   "pearson": -0.445,
+   "pearson": -0.533,
    "spearman": -0.4
   },
-  "hole:A_s_50meV~absS_in_plane@1e+20": {
+  "hole:total_s_dense~m_S_CRTA_in_plane@3e+19": {
    "n": 4,
-   "pearson": 0.519,
+   "pearson": -0.905,
+   "spearman": -1.0
+  },
+  "hole:total_s_dense~m_S_CRTA_in_plane@1e+20": {
+   "n": 4,
+   "pearson": -0.555,
+   "spearman": -0.4
+  },
+  "hole:total_s_dense~m_DOS@3e+19": {
+   "n": 4,
+   "pearson": -0.429,
+   "spearman": -0.8
+  },
+  "hole:total_s_dense~m_DOS@1e+20": {
+   "n": 4,
+   "pearson": -0.524,
+   "spearman": -0.8
+  },
+  "hole:total_s_dense~absS_in_plane@3e+19": {
+   "n": 4,
+   "pearson": -0.907,
+   "spearman": -1.0
+  },
+  "hole:total_s_dense~absS_in_plane@1e+20": {
+   "n": 4,
+   "pearson": -0.558,
+   "spearman": -0.4
+  },
+  "electron:A_s_dense~m_S_CRTA_in_plane@3e+19": {
+   "n": 4,
+   "pearson": 0.931,
+   "spearman": 1.0
+  },
+  "electron:A_s_dense~m_S_CRTA_in_plane@1e+20": {
+   "n": 4,
+   "pearson": 0.082,
+   "spearman": 0.0
+  },
+  "electron:A_s_dense~m_DOS@3e+19": {
+   "n": 4,
+   "pearson": 0.908,
+   "spearman": 0.8
+  },
+  "electron:A_s_dense~m_DOS@1e+20": {
+   "n": 4,
+   "pearson": 0.781,
    "spearman": 0.4
   },
-  "hole:cation_s_50meV~m_S_CRTA_in_plane@3e+19": {
+  "electron:A_s_dense~absS_in_plane@3e+19": {
    "n": 4,
-   "pearson": -0.308,
+   "pearson": 0.928,
+   "spearman": 1.0
+  },
+  "electron:A_s_dense~absS_in_plane@1e+20": {
+   "n": 4,
+   "pearson": 0.081,
+   "spearman": 0.0
+  },
+  "electron:cation_s_dense~m_S_CRTA_in_plane@3e+19": {
+   "n": 4,
+   "pearson": 0.687,
+   "spearman": 0.8
+  },
+  "electron:cation_s_dense~m_S_CRTA_in_plane@1e+20": {
+   "n": 4,
+   "pearson": -0.003,
+   "spearman": 0.0
+  },
+  "electron:cation_s_dense~m_DOS@3e+19": {
+   "n": 4,
+   "pearson": 0.632,
+   "spearman": 0.4
+  },
+  "electron:cation_s_dense~m_DOS@1e+20": {
+   "n": 4,
+   "pearson": 0.705,
+   "spearman": 0.4
+  },
+  "electron:cation_s_dense~absS_in_plane@3e+19": {
+   "n": 4,
+   "pearson": 0.666,
+   "spearman": 0.8
+  },
+  "electron:cation_s_dense~absS_in_plane@1e+20": {
+   "n": 4,
+   "pearson": -0.003,
+   "spearman": 0.0
+  },
+  "electron:total_s_dense~m_S_CRTA_in_plane@3e+19": {
+   "n": 4,
+   "pearson": -0.396,
+   "spearman": -0.8
+  },
+  "electron:total_s_dense~m_S_CRTA_in_plane@1e+20": {
+   "n": 4,
+   "pearson": 0.714,
+   "spearman": 0.4
+  },
+  "electron:total_s_dense~m_DOS@3e+19": {
+   "n": 4,
+   "pearson": -0.33,
+   "spearman": -0.4
+  },
+  "electron:total_s_dense~m_DOS@1e+20": {
+   "n": 4,
+   "pearson": -0.021,
    "spearman": 0.2
   },
-  "hole:cation_s_50meV~m_S_CRTA_in_plane@1e+20": {
+  "electron:total_s_dense~absS_in_plane@3e+19": {
    "n": 4,
-   "pearson": 0.683,
-   "spearman": 0.8
+   "pearson": -0.375,
+   "spearman": -0.8
   },
-  "hole:cation_s_50meV~m_DOS@3e+19": {
+  "electron:total_s_dense~absS_in_plane@1e+20": {
    "n": 4,
-   "pearson": 0.119,
+   "pearson": 0.715,
    "spearman": 0.4
-  },
-  "hole:cation_s_50meV~m_DOS@1e+20": {
-   "n": 4,
-   "pearson": 0.147,
-   "spearman": 0.4
-  },
-  "hole:cation_s_50meV~absS_in_plane@3e+19": {
-   "n": 4,
-   "pearson": -0.305,
-   "spearman": 0.2
-  },
-  "hole:cation_s_50meV~absS_in_plane@1e+20": {
-   "n": 4,
-   "pearson": 0.681,
-   "spearman": 0.8
-  },
-  "hole:total_s_50meV~m_S_CRTA_in_plane@3e+19": {
-   "n": 4,
-   "pearson": -0.4,
-   "spearman": 0.2
-  },
-  "hole:total_s_50meV~m_S_CRTA_in_plane@1e+20": {
-   "n": 4,
-   "pearson": 0.609,
-   "spearman": 0.8
-  },
-  "hole:total_s_50meV~m_DOS@3e+19": {
-   "n": 4,
-   "pearson": 0.156,
-   "spearman": 0.4
-  },
-  "hole:total_s_50meV~m_DOS@1e+20": {
-   "n": 4,
-   "pearson": 0.172,
-   "spearman": 0.4
-  },
-  "hole:total_s_50meV~absS_in_plane@3e+19": {
-   "n": 4,
-   "pearson": -0.398,
-   "spearman": 0.2
-  },
-  "hole:total_s_50meV~absS_in_plane@1e+20": {
-   "n": 4,
-   "pearson": 0.607,
-   "spearman": 0.8
-  },
-  "electron:A_s_50meV~m_S_CRTA_in_plane@3e+19": {
-   "n": 4,
-   "pearson": 0.994,
-   "spearman": 1.0
-  },
-  "electron:A_s_50meV~m_S_CRTA_in_plane@1e+20": {
-   "n": 4,
-   "pearson": 0.519,
-   "spearman": 0.6
-  },
-  "electron:A_s_50meV~m_DOS@3e+19": {
-   "n": 4,
-   "pearson": 0.989,
-   "spearman": 0.8
-  },
-  "electron:A_s_50meV~m_DOS@1e+20": {
-   "n": 4,
-   "pearson": 0.978,
-   "spearman": 0.8
-  },
-  "electron:A_s_50meV~absS_in_plane@3e+19": {
-   "n": 4,
-   "pearson": 0.995,
-   "spearman": 1.0
-  },
-  "electron:A_s_50meV~absS_in_plane@1e+20": {
-   "n": 4,
-   "pearson": 0.518,
-   "spearman": 0.6
-  },
-  "electron:cation_s_50meV~m_S_CRTA_in_plane@3e+19": {
-   "n": 4,
-   "pearson": 0.979,
-   "spearman": 1.0
-  },
-  "electron:cation_s_50meV~m_S_CRTA_in_plane@1e+20": {
-   "n": 4,
-   "pearson": 0.477,
-   "spearman": 0.6
-  },
-  "electron:cation_s_50meV~m_DOS@3e+19": {
-   "n": 4,
-   "pearson": 0.973,
-   "spearman": 0.8
-  },
-  "electron:cation_s_50meV~m_DOS@1e+20": {
-   "n": 4,
-   "pearson": 0.965,
-   "spearman": 0.8
-  },
-  "electron:cation_s_50meV~absS_in_plane@3e+19": {
-   "n": 4,
-   "pearson": 0.983,
-   "spearman": 1.0
-  },
-  "electron:cation_s_50meV~absS_in_plane@1e+20": {
-   "n": 4,
-   "pearson": 0.475,
-   "spearman": 0.6
-  },
-  "electron:total_s_50meV~m_S_CRTA_in_plane@3e+19": {
-   "n": 4,
-   "pearson": 0.978,
-   "spearman": 0.8
-  },
-  "electron:total_s_50meV~m_S_CRTA_in_plane@1e+20": {
-   "n": 4,
-   "pearson": 0.675,
-   "spearman": 0.8
-  },
-  "electron:total_s_50meV~m_DOS@3e+19": {
-   "n": 4,
-   "pearson": 0.982,
-   "spearman": 1.0
-  },
-  "electron:total_s_50meV~m_DOS@1e+20": {
-   "n": 4,
-   "pearson": 0.97,
-   "spearman": 1.0
-  },
-  "electron:total_s_50meV~absS_in_plane@3e+19": {
-   "n": 4,
-   "pearson": 0.974,
-   "spearman": 0.8
-  },
-  "electron:total_s_50meV~absS_in_plane@1e+20": {
-   "n": 4,
-   "pearson": 0.675,
-   "spearman": 0.8
   }
  },
  "experiment": [],
@@ -519,7 +519,7 @@
   "minority_over_majority_grid: Fermi occupation on the raw 28x28xNz grid at the same mu; the raw grid overweights light pockets, so it is an upper-bound bipolar indicator",
   "neutral_point: offset of c(mu)=0 from mid-gap in BoltzTraP2 and on the raw grid; a non-zero offset follows from unequal VB/CB DOS",
   "valleys: local extrema of six edge bands on the full grid within 100 meV; Kramers partners and plateaus merged; stars grouped within 2 meV; grid-resolution energies, ring-like maxima split into grid points",
-  "s fractions (07): HSE+SOC path PROCAR inner windows (VBM-50 meV..VBM, CBM..CBM+50 meV), a different Hamiltonian and different edge k than the PBE+SOC grid; s_*_dos/sigma columns appear only when the dense PROCAR is supplied",
+  "s fractions: dense = PBE+SOC 28x28xNz PROCAR, -df/dE weighted at the same (n, T) (from the PROCAR or --dense-s); hse = 07 HSE+SOC path PROCAR inner windows, a different Hamiltonian and edge k; figure, table dense_* columns and correlations use dense when present",
   "four materials only: correlation coefficients are descriptive, not statistical evidence"
  ]
 }
