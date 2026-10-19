@@ -11,7 +11,7 @@ python 10_脚本/scattering_mobility.py .
 | 机制 | 输入 | 来源 |
 |---|---|---|
 | ADP 声学形变势 | 逐带形变势 + 完整弹性张量 | `03_SOC形变势/deformation.h5`（PBE-D3+SOC 应变单点）；settings 中的 `elastic_constant` |
-| POP 极性光学声子 | ε∞、ε₀ + 单一等效 LO 频率（1.9–2.15 THz） | `08_介电复核` SOC DFPT；`pop_frequency` |
+| POP 极性光学声子 | ε∞、ε₀ + 单一等效 LO 频率（1.9–2.15 THz） | `08_介电复核` SOC DFPT；`pop_frequency`。DFPT 的力常数不含 D3，补上后 ε₀ 变化 <1%、POP 耦合变化 0.3%，见 [18_](../18_ZT参数与孤对电子/README.md) |
 | IMP 电离杂质 | ε₀ 屏蔽；`defect_charge`/`compensation_factor` 未设置，取 AMSET 默认值 | settings |
 
 总迁移率是在每个 k 态上先把三种散射率相加后得到的，所以不能用三列分项按 1/μ 相加的方式还原。
