@@ -150,3 +150,40 @@ Sn₂Sb₂Te₅ 已提交：作业 4227066（同一套脚本，带 `--qos=regula
 `AutoZT/skill/ke-dft-cpu/step5_dielect/gen_step8_dielect.py` 第 121 行附近注释
 "只影响总能，不影响 eps" 应改为"不影响 eps_inf / Z*；对 Gamma 点力常数（进而 eps_0 离子部分、
 omega_LO）的贡献在 DFPT 中被略去"。
+
+## 8 结论：各步骤泛函设置是否正确
+
+**答：正确。** 每一步都在其物理量该用的功能下计算，且结构是同一份。逐项判定如下。
+
+### 8.1 结构一致性（前提）
+
+五个关键步骤的 `POSCAR` md5 全为 `0b0e460ccc02`（Pb2Sb2Te5）：密网格 step3、DFPT 9x9x2、
+step6_elastic、step7_deform/undeformed、SOC 基线 step3。即**同一份 PBE-D3(BJ) 弛豫结构**，
+不存在“不同结构上用不同泛函”的情况。
+
+### 8.2 逐项判定
+
+| 步骤 | 物理量 | 泛函 / 设置 | 判定 | 依据 |
+|---|---|---|---|---|
+| 密网格 step3 | 能带、波函数 | PBE-D3(BJ)+SOC | **正确** | 输运基准；D3 对 PBE 本征值影响极小，且全套统一口径 |
+| step7_deform | 形变势 E1（ADP） | PBE-D3(BJ)+SOC | **正确** | 与能带同泛函；带号已核对重合（53-82 等） |
+| step6_elastic | 弹性常数 Cij | PBE-D3(BJ)，无 SOC | **正确** | 弹性是基态二阶导数，SOC 对 Cij 影响可忽略；有限差分 IBRION=6，与本项独立 |
+| step5_dielect | eps_inf、Z* | PBE+SOC（DFPT，无 D3） | **正确** | D3 是经典对势、不进入电子线性响应；VASP DFPT 不支持 vdW（KEEP_D3_IN_DFPT=False 为有意设计） |
+| step5_dielect | eps_0 离子部分、omega_LO | 同上（Gamma 力常数不含 D3） | **正确，含已知近似** | D3 二阶导会进力常数，影响预期仅百分之几；四材料 Gamma 无虚频，最低光学模与 18_ 一致 |
+| 设置项 | bandgap | 历史 HSE+SOC 剪刀 | **正确** | AMSET 标准做法：PBE 能带 + 剪刀到 HSE 带隙；须在报告写明带隙来源 |
+
+### 8.3 唯一需要写进局限的近似
+
+**eps_0 的离子部分与 omega_LO 未含 D3 对 Gamma 力常数的贡献。**
+
+- 这是有意的近似（DFPT 不支持 vdW），不是配置错误；
+- eps_inf 与 Z* 完全不受影响（纯电子响应）；
+- 量级预期：层内硬光学模受 D3 修正约几个 cm-1，远小于本次网格变化带来的 eps_inf 差异（9%-46%）；
+- 已核实：四材料 Gamma 均无虚频，“无 D3 力常数 + 带 D3 结构”未在层间模引入软化，eps_0 与 omega_LO 可用；
+- 真正量化需支持 D3 的有限差分声子（IBRION=5/6 + IVDW=12），属可选后续，非本轮必需。
+
+### 8.4 数值收敛参数（不属泛函一致性）
+
+各步 k 网格不同是数值收敛取舍，不是泛函混用，但需在方法里列出：
+能带 28x28x7；形变势 12x12x2；DFPT 9x9x2；弹性 ISYM=2 有限差分。
+ENCUT 全链统一 360 eV，**这一项是一致的**。
