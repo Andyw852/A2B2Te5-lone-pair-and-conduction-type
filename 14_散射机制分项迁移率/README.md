@@ -63,3 +63,11 @@ python 10_脚本/scattering_mobility.py .
    - 压电散射：结构有中心对称，压电张量为零，本来就不需要算。
 
 `散射输入参数.csv` 汇总了每种材料的 ε∞/ε₀、ω_LO、Cᵢⱼ、带边形变势 E1（取自 deformation.h5 的粗网格带边）以及密网格的 m\*_c。
+
+## 5 密网格重跑时的选带（2026-10-19）
+
+AMSET 的 `amset wave` 和 `amset run` 都按 `energy_cutoff` 选带，规则是：只要某条带在 [VBM − e, CBM + e] 内有能量就保留（用未加剪刀的 DFT 带边）。这条规则准确复现了密网格 wave 实测的选带（e = 1.0 eV 时 PbSb 59–78、SnSb 61–80）。
+
+用 [`10_脚本/amset_band_window.py`](../10_脚本/amset_band_window.py) 检查：在 **e = 1.5 eV（AMSET 默认值，也是旧计算所用的值）** 下，密网格选出的带与旧 `deformation.h5` 的带号**逐个重合**：PbSb 53–82、PbBi 67–100、SnSb 57–82、SnBi 73–102。而 e = 1.0 eV 时带数不同，所以 AMSET 报 “Deformation potential file does not contain the correct number of bands”。AMSET 只校验形变势的带**数**，不校验带号，所以重合的是带号这一点需要单独核对（脚本里已经做了）。
+
+结论：把 wave 用 `-e 1.5` 重跑（每个材料约半小时），`amset run` 用默认 `energy_cutoff`，就能直接沿用旧形变势，不需要重做 28–32 h 的形变势。这样新旧计算之间唯一的实质差别是 DFT 网格（12×12×2 → 28×28×7），另外 700–900 K 下能量窗口偏紧的问题也随之消失。形变势仍来自 12×12×2，但 ADP 只是次要散射，作为局限注明即可。
