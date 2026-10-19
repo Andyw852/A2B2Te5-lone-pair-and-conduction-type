@@ -114,3 +114,39 @@ Sn₂Sb₂Te₅ 已提交：作业 4227066（同一套脚本，带 `--qos=regula
 
 **残余局限**：形变势仍来自 12x12x2（ADP 的 k 分辨率没变）。ADP 弱于 POP 3-17 倍，
 先按局限注明；若密网格结果显示 ADP 变重要，再考虑在密网格上重做。
+
+## 7 各步骤泛函一致性审计（2026-10-19）
+
+| AMSET 输入 | 来源 | 泛函 |
+|---|---|---|
+| 能带 / 波函数 | 密网格 step3_uniform | PBE-D3(BJ) + SOC |
+| 形变势 ADP | step7_deform（18 个应变单点） | PBE-D3(BJ) + SOC |
+| 弹性常数 Cij | step6_elastic（IBRION=6, ISYM=2） | PBE-D3(BJ)，无 SOC |
+| 介电 eps_inf / eps_0 / Born Z* / omega_LO | step5_dielect SOC DFPT（9x9x2 / v2） | PBE + SOC（DFPT 不含 D3） |
+| POP 频率 | 同上 DFPT 的 Gamma 声子导出 | 同上 |
+| 带隙 | 历史 HSE+SOC 剪刀值 | HSE + SOC |
+
+**口径说明（更正此前"介电缺 D3、影响未量化"的误判）：**
+
+> 介电与 Born 有效电荷由 DFPT（PBE+SOC）在 PBE-D3(BJ) 弛豫结构上计算；D3 为经典对势、
+> 不参与电子响应，VASP 的 DFPT 亦不支持 vdW 修正（生成脚本 KEEP_D3_IN_DFPT=False 即按此设计），
+> 故 eps_inf、Z* 不受影响。Gamma 点力常数（eps_0 离子部分与 omega_LO）未含 D3 的贡献，
+> 对层内光学模影响预期为百分之几量级；**S5 无虚频**。
+
+**Gamma 虚频核查（只读，四材料 DFPT OUTCAR）**：
+
+| 材料 | 模态数 | 最小频率 / THz | 3 个近零模（声学） | 负频 | 最低光学模 / THz |
+|---|---:|---:|---|---:|---:|
+| Pb2Sb2Te5 | 27 | +0.0009 | 0.0009 / 0.0019 / 0.0068 | 0 | 0.888 |
+| Sn2Sb2Te5 | 27 | +0.0015 | 0.0015 / 0.0017 / 0.0121 | 0 | 0.940 |
+| Pb2Bi2Te5 | 27 | +0.0014 | 0.0014 / 0.0063 / 0.0173 | 0 | 0.747 |
+| Sn2Bi2Te5 | 27 | +0.0036 | 0.0036 / 0.0057 / 0.0235 | 0 | 0.783 |
+
+四材料均无虚频（无 f/i 标记），最小三个模即 Gamma 声学模（数值应严格为零）。
+最低光学模与 18_ 的 lowest_optical_THz 一致（0.888 / 0.747 / 0.940 / 0.783），
+说明"无 D3 力常数 + 带 D3 结构"没有在层间模上引入软化，eps_0 与 omega_LO 可用。
+
+**代码注释建议（未改，属共享技能代码，待批准）**：
+`AutoZT/skill/ke-dft-cpu/step5_dielect/gen_step8_dielect.py` 第 121 行附近注释
+"只影响总能，不影响 eps" 应改为"不影响 eps_inf / Z*；对 Gamma 点力常数（进而 eps_0 离子部分、
+omega_LO）的贡献在 DFPT 中被略去"。
