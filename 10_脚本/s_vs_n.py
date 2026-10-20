@@ -14,12 +14,17 @@ import seebeck_mass as sm
 LEVELS=[1e17,3e17,1e18,3e18,1e19,3e19,1e20]
 TEMPS=[300,500]
 
+def curve_from(mu,N,S,full=False):
+ """S as a function of net concentration n (holes > 0), interpolated in mu within 0.35 eV of the neutral point."""
+ i0=int(np.where(np.diff(np.sign(N))!=0)[0][0]);w=np.abs(mu-mu[i0])<0.35;mw,Nw,Sw=mu[w],N[w],S[w];o=np.argsort(Nw)
+ assert np.all(np.diff(Nw[o])>0) and np.all(np.diff(mw[o])<0),'n(mu) not monotonic in the window'
+ f=lambda n:float(np.interp(np.interp(n,Nw[o],mw[o]),mw,Sw))
+ return (f,(Nw.min(),Nw.max())) if full else f
+
 def curves(D,m,T):
  j=sm.bt2(D,m);ti=j['temperatures_K'].index(T);mu=np.array(j['mu_rel_efermi_eV'])
  N=np.array(j['carrier_conc_cm-3'][ti]);S=(np.array(j['seebeck_xx_V_per_K'][ti])+np.array(j['seebeck_yy_V_per_K'][ti]))/2*1e6
- i0=int(np.where(np.diff(np.sign(N))!=0)[0][0]);w=np.abs(mu-mu[i0])<0.35;mw,Nw,Sw=mu[w],N[w],S[w];o=np.argsort(Nw)
- assert np.all(np.diff(Nw[o])>0) and np.all(np.diff(mw[o])<0),(m,T,'n(mu) not monotonic in the window')
- return lambda n:float(np.interp(np.interp(n,Nw[o],mw[o]),mw,Sw)),(Nw.min(),Nw.max())
+ return curve_from(mu,N,S,full=True)
 
 def intrinsic(D,m,T):
  u=D/'A2B2Te5_SOC_dense/materials'/m/'ke-dft-cpu/result/step3_uniform';nel,K,E=sm.read_eigenval(u/'EIGENVAL')
