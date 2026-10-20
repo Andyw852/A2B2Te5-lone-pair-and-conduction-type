@@ -53,7 +53,7 @@ def main(D):
   w=np.array([2*np.pi*f*1e12 for f,_ in modes]);E=np.array([e.reshape(-1) for _,e in modes]);E/=np.linalg.norm(E,axis=1)[:,None]
   P0=np.sqrt(np.outer(mm,mm))*((E.T*np.sign(w)*w**2)@E)/EV_A2;P0=0.5*(P0+P0.T);Hd=d3_hessian(lat,sym,frac)
   fr=lambda name:np.array([list(map(float,l.split()[:3])) for l in (D/'15_受控畸变'/m/name).read_text().splitlines()[8:8+n]])
-  u=((((fr('POSCAR_lam0.00_Bonly')-fr('POSCAR_lam1.00'))+0.5)%1-0.5)@lat).reshape(-1)
+  B='Sb' if 'Sb' in sym else 'Bi';u=(((((fr('POSCAR_lam0.00')-fr('POSCAR_lam1.00'))+0.5)%1-0.5)@lat)*(np.array(sym)[:,None]==B)).reshape(-1)
   r={'material':m,'eps_inf_xx':ei[0,0],'eps_ion_xx_VASP':diel[m]['eps_ion'][0][0],'eps_ion_zz_VASP':diel[m]['eps_ion'][2][2],
      'pop_frequency_settings_THz':diel[m]['pop_frequency']}
   for tag,P in (('PBE',P0),('PBE+D3',P0+Hd)):

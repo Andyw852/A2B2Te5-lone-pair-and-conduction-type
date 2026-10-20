@@ -1,4 +1,0 @@
-﻿material,state,T_K,S_uV_K,n_H_cm3,direction,source
-# 每行一个实测点；S 带符号（空穴为正）；n_H 为霍尔浓度，空穴为正、电子为负
-# direction 写 in_plane（薄膜面内/层面方向，默认）或 scalar（多晶取向平均）；state 写 退火前/退火后 等；# 开头的行被忽略
-# 示例（删掉行首 # 生效）：Pb2Sb2Te5,退火后,300,180,2.0e19,in_plane,样品A

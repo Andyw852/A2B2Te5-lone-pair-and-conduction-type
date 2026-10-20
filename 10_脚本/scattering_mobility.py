@@ -1,7 +1,9 @@
 """Mechanism-resolved AMSET mobilities (ADP, IMP, POP) for the four materials, with the inputs that set each one.
 Run: python scattering_mobility.py DELIVERY
-Reads 05_SOC_AMSET补算/<m>/04_AMSET输运/{transport.json,settings.yaml}, 03_SOC形变势/band_edges.json and the
-step8.1 BoltzTraP2 JSON (conductivity mass m*_c = n e^2 / (sigma/tau), in-plane, same mid-gap mu reference as seebeck_mass.py).
+Mobilities: dense-grid AMSET (28x28x7 / 28x28x6 DFT input, interpolation_factor 1), one folder per material:
+  14_散射机制分项迁移率/密网格AMSET/<m>/transport.json   (materials without it are skipped; the 12x12x2 results are void)
+Inputs table: 05_SOC_AMSET补算/<m>/04_AMSET输运/settings.yaml (same eps, omega_LO, C_ij, gap as the dense runs),
+03_SOC形变势/band_edges.json and the step8.1 BoltzTraP2 JSON (m*_c = n e^2 / (sigma/tau), in-plane, mid-gap mu reference).
 """
 from pathlib import Path
 import json,csv,sys
@@ -17,14 +19,16 @@ COL={'ADP':'#2a78d6','IMP':'#eb6834','POP':'#1baf7a','overall':'#0b0b0b'}
 MK={'ADP':'o','IMP':'s','POP':'D','overall':'|'}
 LABEL={'ADP':'ADP  acoustic deformation potential','IMP':'IMP  ionized impurity','POP':'POP  polar optical phonon','overall':'total (all three, rates summed per state)'}
 OUT='14_散射机制分项迁移率'
-CAP='AMSET band structure and deformation potentials come from the 12x12x2 SOC grid (2 kz points, interpolation factor 10); compare materials qualitatively and see README.'
+CAP='AMSET on the 28x28x7 (Bi: 28x28x6) SOC bands, interpolation factor 1; deformation potentials from 12x12x2. Absolute mobilities may be 5-25% high (mesh convergence, see README).'
 E=1.602176634e-19;ME=9.1093837015e-31
 
 def inplane(a):return (a[0][0]+a[1][1])/2
-def amset(D,m):
+def inputs(D,m):
  base=D/'05_SOC_AMSET补算'/m
- t=json.loads((base/'04_AMSET输运/transport.json').read_text());s=yaml.safe_load((base/'04_AMSET输运/settings.yaml').read_text())
- return t,s,json.loads((base/'03_SOC形变势/band_edges.json').read_text())
+ return yaml.safe_load((base/'04_AMSET输运/settings.yaml').read_text()),json.loads((base/'03_SOC形变势/band_edges.json').read_text())
+def dense(D,m):
+ p=D/OUT/'密网格AMSET'/m/'transport.json'
+ return json.loads(p.read_text()) if p.exists() else None
 
 def mass_c(D,m,n_target,T=300.):
  j=json.loads((D/'A2B2Te5_SOC_dense/materials'/m/'ke-dft-cpu/result/step8.1_boltztrap/boltztrap_crta.json').read_text())
@@ -35,33 +39,13 @@ def mass_c(D,m,n_target,T=300.):
  sv=np.exp(np.interp(np.log(abs(n_target)),np.log(nn),np.log(ss)))
  return abs(n_target)*1e6*E**2/sv/ME
 
-def coarse_kz_check(D):
- """How far the true dense-grid band edge lies from the best state on the kz=0 and kz=1/2 planes, the only kz values of the 12x12x2 AMSET input.
- A two-plane kz sampling can only place extrema on those planes, so this is a lower bound on the edge error (in-plane 28x28 is kept)."""
- sys.path.insert(0,str(Path(__file__).resolve().parent));import seebeck_mass as sm
- out=[]
- for m in M:
-  u=D/'A2B2Te5_SOC_dense/materials'/m/'ke-dft-cpu/result/step3_uniform'
-  nel,K,E=sm.read_eigenval(u/'EIGENVAL');mesh=np.array(json.loads((u/'dense_grid_manifest.json').read_text())['mesh']);idx=sm.grid(K,mesh)
-  for edge,b,s in (('VBM',nel-1,1),('CBM',nel,-1)):
-   G=np.empty(tuple(mesh));G[idx[:,0],idx[:,1],idx[:,2]]=E[:,b];nz=mesh[2]
-   if nz%2==0:half=G[:,:,nz//2]
-   else:
-    # Odd kz mesh has no kz=1/2 plane: trigonometric interpolation of each (kx,ky) column.
-    c=np.fft.fft(G,axis=2)/nz;half=(c*np.exp(1j*np.pi*np.fft.fftfreq(nz,1/nz))).sum(-1).real
-   true=(s*G).max();best=max((s*G[:,:,0]).max(),(s*half).max());ijk=np.unravel_index(np.argmax(s*G),G.shape)
-   out.append({'material':m,'edge':edge,'true_edge_k_frac':str(np.round(np.array(ijk)/mesh,3).tolist()),'kz_1/2_plane':'exact' if nz%2==0 else 'trig-interpolated',
-               'edge_error_meV':round(1000*(true-best),1),'edge_error_over_kT300':round((true-best)/0.025852,2)})
- with open(D/OUT/'粗网格kz带边误差.csv','w',newline='',encoding='utf-8-sig') as f:
-  w=csv.DictWriter(f,fieldnames=list(out[0]));w.writeheader();w.writerows(out)
- return out
-
 def main(D):
  O=D/OUT;O.mkdir(exist_ok=True)
  rows,params=[],[]
  for m in M:
-  t,s,be=amset(D,m);dop=np.array(t['doping']);Ts=t['temperatures']
-  for di,d in enumerate(dop):
+  s,be=inputs(D,m);t=dense(D,m)
+  for di,d in (enumerate(np.array(t['doping'])) if t else ()):
+   Ts=t['temperatures']
    if not any(np.isclose(abs(d),10.**k,rtol=1e-6) for k in range(17,21)):continue
    for ti,T in enumerate(Ts):
     r={'material':m,'carrier':'p' if d>0 else 'n','doping_cm3':float(f'{d:.3e}'),'T_K':T}
@@ -77,24 +61,28 @@ def main(D):
   for lv in (1e19,1e20):
    for c,sg in (('hole',1),('electron',-1)):p[f'm_c_inplane_{c}_{lv:.0e}'.replace('+','')]=mass_c(D,m,sg*lv)
   params.append(p)
- with open(O/'分项迁移率_全温度全浓度.csv','w',newline='',encoding='utf-8-sig') as f:
-  w=csv.DictWriter(f,fieldnames=list(rows[0]));w.writeheader();w.writerows(rows)
  with open(O/'散射输入参数.csv','w',newline='',encoding='utf-8-sig') as f:
   w=csv.DictWriter(f,fieldnames=list(params[0]));w.writeheader();w.writerows(params)
+ for p in params:print({k:(round(v,4) if isinstance(v,float) else v) for k,v in p.items()})
+ if not rows:print('no dense-grid transport.json under',O/'密网格AMSET','- mobility table and figures not written');return
+ with open(O/'分项迁移率_全温度全浓度.csv','w',newline='',encoding='utf-8-sig') as f:
+  w=csv.DictWriter(f,fieldnames=list(rows[0]));w.writeheader();w.writerows(rows)
+ Md=[m for m in M if any(x['material']==m for x in rows)]
  plt.rcParams.update({'font.size':9,'axes.edgecolor':'#52514e','axes.labelcolor':'#0b0b0b','xtick.color':'#52514e','ytick.color':'#52514e'})
  # Figure 1: 300 K dot plot, rows = doping, columns = carrier; log mobility axis.
- fig,axs=plt.subplots(2,2,figsize=(12,6.4),layout='constrained',sharex=True)
+ fig,axs=plt.subplots(2,2,figsize=(12,6.4),layout='constrained',sharex=True,squeeze=False)
  for ri,lv in enumerate((1e19,1e20)):
   for ci,car in enumerate(('p','n')):
    ax=axs[ri,ci]
-   for yi,m in enumerate(M):
-    r=next(x for x in rows if x['material']==m and x['carrier']==car and np.isclose(abs(x['doping_cm3']),lv,rtol=1e-3) and x['T_K']==300)
-    y=len(M)-1-yi;vals=[r[f'mu_{k}_inplane'] for k in MECH+['overall']]
+   for yi,m in enumerate(Md):
+    r=next((x for x in rows if x['material']==m and x['carrier']==car and np.isclose(abs(x['doping_cm3']),lv,rtol=1e-3) and x['T_K']==300),None)
+    if r is None:continue
+    y=len(Md)-1-yi;vals=[r[f'mu_{k}_inplane'] for k in MECH+['overall']]
     ax.plot([min(vals),max(vals)],[y,y],color='#e1e0d9',lw=1,zorder=1)
     for k in MECH:ax.plot(r[f'mu_{k}_inplane'],y,MK[k],color=COL[k],ms=9,mec='white',mew=1.5,zorder=3,label=LABEL[k] if (ri,ci,yi)==(0,0,0) else None)
     ax.plot(r['mu_overall_inplane'],y,MK['overall'],color=COL['overall'],ms=16,mew=2.5,zorder=4,label=LABEL['overall'] if (ri,ci,yi)==(0,0,0) else None)
     ax.annotate(f"{r['mu_overall_inplane']:.0f}",(r['mu_overall_inplane'],y),xytext=(0,8),textcoords='offset points',ha='center',fontsize=8,color='#0b0b0b')
-   ax.set_yticks(range(len(M)));ax.set_yticklabels(M[::-1]);ax.set_xscale('log');ax.set_xlim(80,1.5e5);ax.set_ylim(-0.6,len(M)-0.4)
+   ax.set_yticks(range(len(Md)));ax.set_yticklabels(Md[::-1]);ax.set_xscale('log');ax.set_xlim(200,2e5);ax.set_ylim(-0.6,len(Md)-0.4)
    ax.grid(axis='x',which='major',alpha=.25,lw=.6)
    ax.set_title(f"{'holes (p)' if car=='p' else 'electrons (n)'}, |n| = {lv:.0e} cm$^{{-3}}$, 300 K".replace('e+',' × 10^').replace('1 × 10^19','10$^{19}$').replace('1 × 10^20','10$^{20}$'),loc='left',fontsize=9)
    if ri==1:ax.set_xlabel('in-plane mobility limited by each mechanism alone (cm$^2$ V$^{-1}$ s$^{-1}$, log scale)')
@@ -103,25 +91,22 @@ def main(D):
  for ext in ('png','svg'):fig.savefig(O/f'分项迁移率_四材料_300K.{ext}',dpi=180,bbox_inches='tight')
  plt.close(fig)
  # Figure 2: temperature dependence at |n| = 1e20 (single-carrier-like at all T per the audit), small multiples.
- fig,axs=plt.subplots(2,4,figsize=(14,6),layout='constrained',sharey=True)
+ fig,axs=plt.subplots(2,len(Md),figsize=(3.5*len(Md),6),layout='constrained',sharey=True,squeeze=False)
  for ri,car in enumerate(('p','n')):
-  for ci,m in enumerate(M):
+  for ci,m in enumerate(Md):
    ax=axs[ri,ci];rr=sorted([x for x in rows if x['material']==m and x['carrier']==car and np.isclose(abs(x['doping_cm3']),1e20,rtol=1e-3)],key=lambda x:x['T_K'])
    T=[x['T_K'] for x in rr]
    for k in MECH+['overall']:
     ax.plot(T,[x[f'mu_{k}_inplane'] for x in rr],color=COL[k],lw=2.4 if k=='overall' else 1.8,ls='-' if k!='overall' else '--',label=LABEL[k] if (ri,ci)==(0,0) else None)
-   ax.set_yscale('log');ax.set_ylim(30,2e5);ax.grid(alpha=.25,lw=.6);ax.set_title(f"{m}, {'holes' if car=='p' else 'electrons'}",loc='left',fontsize=9)
+   ax.set_yscale('log');ax.set_ylim(100,5e5);ax.grid(alpha=.25,lw=.6);ax.set_title(f"{m}, {'holes' if car=='p' else 'electrons'}",loc='left',fontsize=9)
    if ri==1:ax.set_xlabel('T (K)')
    if ci==0:ax.set_ylabel('in-plane mobility (cm$^2$ V$^{-1}$ s$^{-1}$)')
  fig.legend(*axs[0,0].get_legend_handles_labels(),loc='outside upper center',ncol=4,frameon=False,fontsize=8)
- fig.text(0.01,-0.01,'|n| = 1e20 cm^-3 (single-carrier-like at all T in the 10-17 audit). '+CAP,fontsize=8,color='#52514e',ha='left',va='top')
+ fig.text(0.01,-0.01,'|n| = 1e20 cm^-3 (single-carrier-like at all T). '+CAP,fontsize=8,color='#52514e',ha='left',va='top')
  for ext in ('png','svg'):fig.savefig(O/f'分项迁移率_温度依赖_1e20.{ext}',dpi=180,bbox_inches='tight')
  plt.close(fig)
- for p in params:print({k:(round(v,4) if isinstance(v,float) else v) for k,v in p.items()})
  for r in rows:
   if r['T_K']==300 and np.isclose(abs(r['doping_cm3']),1e19,rtol=1e-3) or (r['T_K']==300 and np.isclose(abs(r['doping_cm3']),1e20,rtol=1e-3)):
    print(r['material'],r['carrier'],f"{r['doping_cm3']:.0e}",*(f"{k}={r[f'mu_{k}_inplane']:.0f}" for k in ['overall']+MECH),f"zz/in={r['mu_overall_zz']/r['mu_overall_inplane']:.2f}")
 
-if __name__=='__main__':
- main(Path(sys.argv[1]).resolve())
- for r in coarse_kz_check(Path(sys.argv[1]).resolve()):print(r)
+if __name__=='__main__':main(Path(sys.argv[1]).resolve())

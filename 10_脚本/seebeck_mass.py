@@ -5,7 +5,6 @@ Inputs reused as-is: step3_uniform EIGENVAL/OUTCAR (full 28x28x6/7 grid, ISYM=-1
 BoltzTraP2 mu is measured from the scissored mid-gap: E - E_VBM = mu + target_gap/2 (see audit 4.2).
 Optional: step3_uniform/PROCAR[.gz] of the same dense run (LORBIT=11) -> DOS- and sigma-weighted s fractions on the transport Hamiltonian.
 Optional: --dense-s CSV, the s_* columns of an earlier run made with the dense PROCAR (e.g. 17_ on the cluster), merged by (material, T, carrier, n).
-Optional: 12_s占比与Seebeck有效质量/实验输入.csv (template written on first run) -> experimental m*_S and S_calc at the measured n_H.
 """
 from pathlib import Path
 import json,csv,sys,gzip,math
@@ -184,24 +183,7 @@ def s_at(rows,win,m,edge,carrier,lv):
  if r:return {'A_s':r[0]['s_A_dos_pct'],'B_s':r[0]['s_B_dos_pct'],'Te_s':r[0]['s_Te_dos_pct'],'cation_s':r[0]['s_cation_dos_pct'],'total_s':r[0]['s_total_dos_pct'],'source':'dense'}
  return {**win[(m,edge,50.)],'source':'hse'}
 
-def experiment(D,O):
- p=O/'实验输入.csv'
- if not p.exists():
-  p.write_text('material,state,T_K,S_uV_K,n_H_cm3,direction,source\n# 每行一个实测点；S 带符号（空穴为正）；n_H 为霍尔浓度，空穴为正、电子为负\n# direction 写 in_plane（薄膜面内/层面方向，默认）或 scalar（多晶取向平均）；state 写 退火前/退火后 等；# 开头的行被忽略\n# 示例（删掉行首 # 生效）：Pb2Sb2Te5,退火后,300,180,2.0e19,in_plane,样品A\n',encoding='utf-8-sig')
- out=[]
- for r in csv.DictReader(l for l in open(p,encoding='utf-8-sig') if l.strip() and not l.startswith('#')):
-  T=float(r['T_K']);S=float(r['S_uV_K'])*1e-6;n=float(r['n_H_cm3']);d=(r.get('direction') or 'in_plane').strip()
-  e={'material':r['material'],'state':r.get('state',''),'T_K':T,'S_uV_K':S*1e6,'n_H_cm3':n,'direction':d,'source':r.get('source','')}
-  e['m_S_APS']=S_mass(S,n,T,-0.5) if np.sign(S)==np.sign(n) else None
-  j=bt2(D,r['material']);ti=int(np.argmin(np.abs(np.array(j['temperatures_K'])-T)));N=np.array(j['carrier_conc_cm-3'][ti])
-  Sc=np.array(j['seebeck_V_per_K'][ti]) if d=='scalar' else (np.array(j['seebeck_xx_V_per_K'][ti])+np.array(j['seebeck_yy_V_per_K'][ti]))/2
-  sel=np.sign(N)==np.sign(n)
-  if sel.any() and np.abs(N[sel]).min()<=abs(n)<=np.abs(N[sel]).max():
-   o=np.argsort(np.abs(N[sel]));e['S_calc_at_nH_uV_K']=1e6*float(np.interp(np.log(abs(n)),np.log(np.abs(N[sel])[o]),Sc[sel][o]));e['T_calc_K']=j['temperatures_K'][ti]
-  out.append(e)
- return out
-
-def plot(D,O,rows,info,win,exp):
+def plot(D,O,rows,info,win):
  plt.rcParams.update({'font.size':9,'axes.edgecolor':'#52514e','axes.labelcolor':'#0b0b0b','xtick.color':'#52514e','ytick.color':'#52514e'})
  fig,axs=plt.subplots(1,3,figsize=(15,4.8),layout='constrained')
  ax=axs[0];nn=np.logspace(18,20.7,60)
@@ -211,8 +193,6 @@ def plot(D,O,rows,info,win,exp):
  for m in M:
   j=bt2(D,m);N=np.array(j['carrier_conc_cm-3'][0]);S=1e6*(np.array(j['seebeck_xx_V_per_K'][0])+np.array(j['seebeck_yy_V_per_K'][0]))/2;mu=np.array(j['mu_rel_efermi_eV'])+info[m]['midgap_eV']
   sel=(N>0)&(mu<=info[m]['VBM_eV']+0.3)&(mu>=info[m]['VBM_eV']-0.6);o=np.argsort(N[sel]);ax.plot(N[sel][o],S[sel][o],color=COL[m],lw=2,label=m,zorder=2)
-  for e in exp:
-   if e['material']==m and e['n_H_cm3']>0:ax.plot(e['n_H_cm3'],e['S_uV_K'],MK[m],color=COL[m],mec='white',mew=2,ms=9,zorder=3)
  ax.axvspan(1e18,1e19,color='#c3c2b7',alpha=.18,lw=0);ax.text(1.1e18,12,'bipolar: audit grade C at 1e18',fontsize=7,color='#52514e')
  ax.set_xscale('log');ax.set_xlim(1e18,5e20);ax.set_ylim(0,420);ax.grid(alpha=.25,lw=.6);ax.set_xlabel('hole concentration p (cm$^{-3}$)');ax.set_ylabel('in-plane S (µV/K)')
  ax.set_title('a  Pisarenko, 300 K, BoltzTraP2 CRTA (SOC), in-plane\ndashed: single parabolic band, m* = 0.2 / 0.5 / 1 / 2 m$_e$',loc='left',fontsize=9);ax.legend(fontsize=8,frameon=False,loc='upper right')
@@ -242,7 +222,7 @@ def main(D,dense=None):
  for m in M:
   i,r=analyse(D,m,grade);info[m]=i;rows+=r
  merge_dense(rows,dense)
- win=windows(D);exp=experiment(D,O);keys=list(dict.fromkeys(k for r in rows for k in r))
+ win=windows(D);keys=list(dict.fromkeys(k for r in rows for k in r))
  with open(O/'有效质量_Seebeck.csv','w',newline='',encoding='utf-8-sig') as f:
   w=csv.DictWriter(f,fieldnames=keys);w.writeheader();w.writerows(rows)
  tab=[]
@@ -271,7 +251,7 @@ def main(D,dense=None):
      if len(xs)>=3:
       rx,ry=np.argsort(np.argsort(xs)),np.argsort(np.argsort(ys))
       corr[f'{carrier}:{k}_{src}~{q}@{lv:.0e}']={'n':len(xs),'pearson':round(float(np.corrcoef(xs,ys)[0,1]),3),'spearman':round(float(np.corrcoef(rx,ry)[0,1]),3)}
- (O/'有效质量_能谷_汇总.json').write_text(json.dumps({'materials':info,'correlations_n4':corr,'experiment':exp,
+ (O/'有效质量_能谷_汇总.json').write_text(json.dumps({'materials':info,'correlations_n4':corr,
   'notes':['mu alignment: BoltzTraP2 mu_rel is measured from the scissored mid-gap (VBM + target_gap/2), not from the OUTCAR Fermi level',
    'm_S_CRTA: SPB inversion of BoltzTraP2 S(n) with energy-independent tau (same assumption as the input); m_S_APS: tau~E^-1/2, the convention for experimental Seebeck mass',
    'in_plane: (S_xx+S_yy)/2, the direction for layered films; scalar: trace/3 as stored in the JSON',
@@ -282,7 +262,7 @@ def main(D,dense=None):
    'valleys: local extrema of six edge bands on the full grid within 100 meV; Kramers partners and plateaus merged; stars grouped within 2 meV; grid-resolution energies, ring-like maxima split into grid points',
    's fractions: dense = PBE+SOC 28x28xNz PROCAR, -df/dE weighted at the same (n, T) (from the PROCAR or --dense-s); hse = 07 HSE+SOC path PROCAR inner windows, a different Hamiltonian and edge k; figure, table dense_* columns and correlations use dense when present',
    'four materials only: correlation coefficients are descriptive, not statistical evidence']},ensure_ascii=False,indent=1,default=float),encoding='utf-8')
- plot(D,O,rows,info,win,exp)
+ plot(D,O,rows,info,win)
  for m in M:print(m,'neutral point',info[m]['neutral_point']['300'])
  for t in tab:print(t['material'],t['edge'],'s_total50=',t['total_s_50meV'],'Nv_eff=',t['Nv_eff_300K'],*(f"{k}={t[k]:.3g}" if isinstance(t[k],float) else f"{k}={t[k]}" for k in ('grade_3e19','S_in_plane_3e19','mS_3e19','mD_3e19','grade_1e20','S_in_plane_1e20','mS_1e20','mD_1e20')))
  print(json.dumps({k:v for k,v in corr.items() if 'total' in k},indent=0))

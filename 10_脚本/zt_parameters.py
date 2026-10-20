@@ -2,7 +2,8 @@
 Run: python zt_parameters.py DELIVERY      (no new DFT)
 Lattice side : Born effective charges and Gamma phonons (08 SOC DFPT OUTCAR.gz), elastic tensor (05 AMSET settings)
                -> VRH moduli, sound velocities, Debye temperature, Cahill kappa_min, Poisson-ratio Grueneisen, Slack kappa_L (empirical).
-Electron side: in-plane S, m*_D, m*_S (12_), m*_c and AMSET mobilities (14_), Lorenz number (BoltzTraP2), AMSET PF, weighted mobility.
+Electron side: in-plane S, m*_D, m*_S (12_), m*_c (14_), Lorenz number (BoltzTraP2); mobility, PF and weighted mobility only
+               from the dense-grid AMSET in 14_散射机制分项迁移率/密网格AMSET (left empty until those runs are there).
 """
 from pathlib import Path
 import json,csv,sys,gzip,re
@@ -55,7 +56,8 @@ def interp_n(N,val,n):
 def main(D):
  O=D/OUT;O.mkdir(exist_ok=True);lat_rows,el_rows=[],[]
  mass_tab={(r['material'],r['carrier'],float(r['n_cm3'])):r for r in csv.DictReader(open(D/'12_s占比与Seebeck有效质量/有效质量_Seebeck.csv',encoding='utf-8-sig')) if float(r['T_K'])==300}
- mob={(r['material'],r['carrier'],abs(float(r['doping_cm3']))):r for r in csv.DictReader(open(D/'14_散射机制分项迁移率/分项迁移率_全温度全浓度.csv',encoding='utf-8-sig')) if float(r['T_K'])==300}
+ mp=D/'14_散射机制分项迁移率/分项迁移率_全温度全浓度.csv'
+ mob={(r['material'],r['carrier'],abs(float(r['doping_cm3']))):r for r in csv.DictReader(open(mp,encoding='utf-8-sig')) if float(r['T_K'])==300} if mp.exists() else {}
  par={r['material']:r for r in csv.DictReader(open(D/'14_散射机制分项迁移率/散射输入参数.csv',encoding='utf-8-sig'))}
  for m in M:
   src=D/'08_介电复核/源数据'/m;lat,sym=poscar(src/'POSCAR');n=len(sym)
@@ -72,22 +74,25 @@ def main(D):
   # Force constants rebuilt from the Gamma eigenpairs: Phi = M^1/2 (sum w^2 e e^T) M^1/2, in eV/A^2.
   w=np.array([2*np.pi*f*1e12*abs(f)/f for f,_ in modes]);E=np.array([e.reshape(-1) for _,e in modes]);E/=np.linalg.norm(E,axis=1)[:,None]
   mm=np.repeat([MASS[x]*AMU for x in sym],3);Phi=np.sqrt(np.outer(mm,mm))*((E.T*np.sign(w)*w**2)@E)/16.0218
-  # Re-centring displacements exactly as in the 15_ frozen scan (POSCARs identical to this DFPT cell): full = A+B, Bonly = B.
+  # Re-centring displacement exactly as in the 15_ frozen scan (POSCARs identical to this DFPT cell), split by site.
   fr=lambda name:np.array([list(map(float,l.split()[:3])) for l in (D/'15_受控畸变'/m/name).read_text().splitlines()[8:8+n]])
-  d=lambda name:(((fr(name)-fr('POSCAR_lam1.00'))+0.5)%1-0.5)@lat
-  for tag,u in (('B',d('POSCAR_lam0.00_Bonly')),('A',d('POSCAR_lam0.00')-d('POSCAR_lam0.00_Bonly'))):
+  u0=(((fr('POSCAR_lam0.00')-fr('POSCAR_lam1.00'))+0.5)%1-0.5)@lat;site=np.array(sym)[:,None]
+  for tag,u in (('B',u0*(site==B)),('A',u0*(site==A))):
    v=u.reshape(-1);r[f'{tag}_offcentre_A']=float(np.abs(u[:,2]).max())
    r[f'{tag}_offcentre_k_eV_A2']=float(v@Phi@v/(v@v));r[f'{tag}_harmonic_recentre_meV_per_cell']=1000*0.5*float(v@Phi@v)
   r.update(elastic(C,rho,lat,sym));r.update({k:float(par[m][k]) for k in ('eps_inf_xx','eps0_xx','omega_LO_THz')})
   lat_rows.append(r)
   j=json.loads((D/'A2B2Te5_SOC_dense/materials'/m/'ke-dft-cpu/result/step8.1_boltztrap/boltztrap_crta.json').read_text());ti=j['temperatures_K'].index(300)
   N=np.array(j['carrier_conc_cm-3'][ti]);Lz=np.array(j['lorenz_WOhm_per_K2'][ti])
-  t=json.loads((D/'05_SOC_AMSET补算'/m/'04_AMSET输运/transport.json').read_text());dop=np.array(t['doping']);tt=t['temperatures'].index(300)
+  tp=D/'14_散射机制分项迁移率/密网格AMSET'/m/'transport.json';t=json.loads(tp.read_text()) if tp.exists() else None
   for car,sg in (('hole',1),('electron',-1)):
    for lv in (1e19,1e20):
     x=mass_tab.get((m,car,lv));y=mob.get((m,'p' if sg>0 else 'n',lv))
-    di=int(np.argmin(np.abs(dop-sg*lv)));sig=np.array(t['conductivity'])[di,tt];see=np.array(t['seebeck'])[di,tt]
-    pf=np.mean([sig[a,a]*(see[a,a]*1e-6)**2 for a in (0,1)])*1e3
+    pf=None
+    if t and 300 in t['temperatures']:
+     dop=np.array(t['doping']);tt=t['temperatures'].index(300);di=int(np.argmin(np.abs(dop-sg*lv)))
+     if np.isclose(dop[di],sg*lv,rtol=1e-3):
+      sig=np.array(t['conductivity'])[di,tt];see=np.array(t['seebeck'])[di,tt];pf=np.mean([sig[a,a]*(see[a,a]*1e-6)**2 for a in (0,1)])*1e3
     mu=float(y['mu_overall_inplane']) if y else None;mD=float(x['m_DOS']) if x else None
     el_rows.append({'material':m,'carrier':car,'n_cm3':lv,'S_in_plane_uV_K':float(x['S_in_plane_uV_K']) if x else None,'m_DOS':mD,
      'm_S_CRTA_in_plane':float(x['m_S_CRTA_in_plane']) if x and x['m_S_CRTA_in_plane'] else None,

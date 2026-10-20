@@ -1,9 +1,0 @@
-﻿material,edge,true_edge_k_frac,kz_1/2_plane,edge_error_meV,edge_error_over_kT300
-Pb2Sb2Te5,VBM,"[0.0, 0.0, 0.143]",trig-interpolated,4.7,0.18
-Pb2Sb2Te5,CBM,"[0.0, 0.0, 0.143]",trig-interpolated,7.7,0.3
-Pb2Bi2Te5,VBM,"[0.0, 0.0, 0.5]",exact,0.0,0.0
-Pb2Bi2Te5,CBM,"[0.0, 0.0, 0.333]",exact,7.9,0.3
-Sn2Sb2Te5,VBM,"[0.0, 0.357, 0.429]",trig-interpolated,32.8,1.27
-Sn2Sb2Te5,CBM,"[0.0, 0.036, 0.286]",trig-interpolated,18.0,0.7
-Sn2Bi2Te5,VBM,"[0.0, 0.214, 0.167]",exact,35.5,1.37
-Sn2Bi2Te5,CBM,"[0.036, 0.964, 0.333]",exact,15.3,0.59

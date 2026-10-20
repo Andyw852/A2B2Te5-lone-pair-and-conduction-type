@@ -2,14 +2,15 @@
 Run: python controlled_distortion.py DELIVERY
 lambda = 1 is the relaxed PBE-D3 cell, lambda = 0 puts each cation at its octahedron centre (3+3 bonds equal);
 lattice and Te positions stay at the relaxed values (frozen scan), so only the off-centring changes.
-Writes 15_受控畸变/<material>/POSCAR_lam<value>[_Bonly] and a bond-length table; no DFT is run.
+Writes 15_受控畸变/<material>/POSCAR_lam<value> (0, 0.5, 1) and a bond-length table; no DFT is run.
+The A site is nearly centred (0.007-0.018 A), so lambda = 0 is in practice a B-site re-centring.
 """
 from pathlib import Path
 import csv,sys,itertools
 import numpy as np
 
 M=['Pb2Sb2Te5','Pb2Bi2Te5','Sn2Sb2Te5','Sn2Bi2Te5']
-LAMBDAS=[0.0,0.5,1.0,1.25]
+LAMBDAS=[0.0,0.5,1.0]
 OUT='15_受控畸变'
 
 def read(p):
@@ -40,19 +41,15 @@ def main(D):
   lat,sp,cn,sym,F0=read(D/'A2B2Te5_SOC_dense/materials'/m/'POSCAR');(O/m).mkdir(exist_ok=True)
   A='Pb' if m.startswith('Pb') else 'Sn';B='Sb' if 'Sb' in m else 'Bi'
   zc={i:octa_centre_z(lat,sym,F0,i) for i,s in enumerate(sym) if s in (A,B)}
-  for only_B in (False,True):
-   for lam in LAMBDAS:
-    if only_B and lam==1.0:continue
-    F=F0.copy()
-    for i,z in zc.items():
-     if only_B and sym[i]==A:continue
-     F[i,2]=z+lam*(F0[i,2]-z)
-    tag=f'lam{lam:.2f}'+('_Bonly' if only_B else '')
-    write(O/m/f'POSCAR_{tag}',f'{m} controlled distortion {tag} (lattice and Te frozen at relaxed PBE-D3)',lat,sp,cn,F)
-    for el in (A,B):
-     i=next(k for k,s in enumerate(sym) if s==el);s3,l3=bonds(lat,sym,F,i)
-     rows.append({'material':m,'structure':tag,'cation':el,'short_A':round(s3[0],4),'long_A':round(l3[0],4),'delta_A':round(l3[0]-s3[0],4),
-                  'offcentre_A':round((F[i,2]-zc[i])*lat[2,2],4)})
+  for lam in LAMBDAS:
+   F=F0.copy()
+   for i,z in zc.items():F[i,2]=z+lam*(F0[i,2]-z)
+   tag=f'lam{lam:.2f}'
+   write(O/m/f'POSCAR_{tag}',f'{m} controlled distortion {tag} (lattice and Te frozen at relaxed PBE-D3)',lat,sp,cn,F)
+   for el in (A,B):
+    i=next(k for k,s in enumerate(sym) if s==el);s3,l3=bonds(lat,sym,F,i)
+    rows.append({'material':m,'structure':tag,'cation':el,'short_A':round(s3[0],4),'long_A':round(l3[0],4),'delta_A':round(l3[0]-s3[0],4),
+                 'offcentre_A':round((F[i,2]-zc[i])*lat[2,2],4)})
  with open(O/'键长与偏心.csv','w',newline='',encoding='utf-8-sig') as f:
   w=csv.DictWriter(f,fieldnames=list(rows[0]));w.writeheader();w.writerows(rows)
  for r in rows:

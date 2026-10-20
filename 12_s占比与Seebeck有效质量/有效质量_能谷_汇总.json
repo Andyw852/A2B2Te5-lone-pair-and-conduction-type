@@ -509,7 +509,6 @@
    "spearman": 0.4
   }
  },
- "experiment": [],
  "notes": [
   "mu alignment: BoltzTraP2 mu_rel is measured from the scissored mid-gap (VBM + target_gap/2), not from the OUTCAR Fermi level",
   "m_S_CRTA: SPB inversion of BoltzTraP2 S(n) with energy-independent tau (same assumption as the input); m_S_APS: tau~E^-1/2, the convention for experimental Seebeck mass",
