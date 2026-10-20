@@ -1,7 +1,8 @@
 """Local BoltzTraP2 rerun from the dense EIGENVAL: band-gap (scissor) sensitivity and bipolar decomposition of kappa_e.
-Run: python bt2_local.py DELIVERY [material ...]      (needs `pip install BoltzTraP2 ase`; about 1-3 min per material)
-Same settings as the cluster step8.1 (all 120/144 bands, k-mesh multiplier 5, 4000 DOS bins, mu = mid-gap +-2 eV, 500 points,
-CRTA). The fit is linear in the band energies, so a rigid conduction-band shift after the fit equals a scissor before it:
+Run: python bt2_local.py DELIVERY MATERIAL      (needs `pip install BoltzTraP2 ase`; a few minutes per material)
+Same settings as the cluster step8.1 (k-mesh multiplier 5, 4000 DOS bins, mu = mid-gap +-2 eV, 500 points, CRTA), except that only
+bands with energies within 3 eV of the gap are fitted (the cluster fitted all 120/144; bands further away do not enter a +-2 eV
+mu window, and keeping them exhausts a 15 GB machine for the Bi compounds). One material per call keeps the memory low. The fit is linear in the band energies, so a rigid conduction-band shift after the fit equals a scissor before it:
 the bands are fitted once and every gap variant reuses them.
 Bipolar term: valence and conduction bands are integrated separately at the common mu;
 kappa_e = kappa_p + kappa_n + kappa_bp with kappa_bp = sigma_p sigma_n / (sigma_p + sigma_n) (S_p - S_n)^2 T (per direction).
@@ -23,8 +24,10 @@ class Data:
  def __init__(s,atoms,K,E):s.atoms,s.kpoints,s.ebands,s.mommat,s.magmom=atoms,K,E.T/HA,None,None
  def get_lattvec(s):return s.atoms.get_cell().T*U.Angstrom
 
-def fit(D,m):
+def fit(D,m,window=3.0):
  u=D/'A2B2Te5_SOC_dense/materials'/m/'ke-dft-cpu/result/step3_uniform';nel,K,E=sm.read_eigenval(u/'EIGENVAL')
+ vbm,cbm=E[:,:nel].max(),E[:,nel:].min();keep=np.where(((E>vbm-window)&(E<cbm+window)).any(0))[0]
+ assert keep[0]<nel<=keep[-1],'window must contain both edges';E=E[:,keep];nel-=int(keep[0])   # nel = valence bands kept
  d=Data(ase.io.read(u/'POSCAR',format='vasp'),K,E);eq=sphere.get_equivalences(d.atoms,None,len(K)*5)
  eb,vv,_=fite.getBTPbands(eq,fite.fitde3D(d,eq),d.get_lattvec())
  return nel,E[:,:nel].max(),E[:,nel:].min(),eb,vv,abs(np.linalg.det(d.get_lattvec()))
@@ -81,8 +84,11 @@ def main(D,mats):
     for lv in (1e19,1e20):row[f'L_{car}_{lv:.0e}_1e-8'.replace('+','')]=round(1e8*at(r,0,sg*lv,'kap')/(at(r,0,sg*lv,'sig')*300),3)
    sens.append(row);print(row)
  for name,data,out in (('剪刀敏感性_300K.csv',sens,sm.OUT),('双极热导分解.csv',bip,'18_ZT参数与孤对电子'),('本地BoltzTraP2复现核对.csv',check,sm.OUT)):
-  with open(D/out/name,'w',newline='',encoding='utf-8-sig') as fh:
-   w=csv.DictWriter(fh,fieldnames=list(data[0]));w.writeheader();w.writerows(data)
+  # Rows of materials not computed in this call are kept, so the four materials can be run one per call.
+  p=D/out/name;old=[r for r in csv.DictReader(open(p,encoding='utf-8-sig')) if r['material'] not in mats] if p.exists() else []
+  rows=sorted(old+data,key=lambda r:sm.M.index(r['material']))
+  with open(p,'w',newline='',encoding='utf-8-sig') as fh:
+   w=csv.DictWriter(fh,fieldnames=list(data[0]));w.writeheader();w.writerows(rows)
  print(check)
 
 if __name__=='__main__':main(Path(sys.argv[1]).resolve(),sys.argv[2:] or sm.M)
