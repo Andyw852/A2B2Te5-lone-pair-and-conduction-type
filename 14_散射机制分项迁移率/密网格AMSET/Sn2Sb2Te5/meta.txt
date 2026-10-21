@@ -1,0 +1,11 @@
+material: Sn2Sb2Te5
+cluster: hanhai25
+job_id: 297927
+state: COMPLETED (ExitCode 0:0)
+elapsed: 3h52m
+interp_mesh: see amset.log
+interpolation_factor: 1
+nworkers: 128
+doping: [-1e20, -1e19, -1e18, 1e18, 1e19, 1e20]
+temperatures: [300]
+note: 单温度 300 K x 6 浓度；与 SnBi 的 5 温度精简版按温度合并
