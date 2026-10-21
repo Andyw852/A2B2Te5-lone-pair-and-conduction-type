@@ -105,9 +105,12 @@ def main(D):
  for ext in ('png','svg'):fig.savefig(O/f'分项迁移率_四材料_300K.{ext}',dpi=180,bbox_inches='tight')
  plt.close(fig)
  # Figure 2: temperature dependence at |n| = 1e20 (single-carrier-like at all T per the audit), small multiples.
- fig,axs=plt.subplots(2,len(Md),figsize=(3.5*len(Md),6),layout='constrained',sharey=True,squeeze=False)
- for ri,car in enumerate(('p','n')):
-  for ci,m in enumerate(Md):
+ # Figure 2 only for materials with at least two temperatures (the Sb runs may cover 300 K only).
+ Mt=[m for m in Md if len({x['T_K'] for x in rows if x['material']==m})>1]
+ if not Mt:print('temperature figure skipped: no material has more than one temperature');Mt=None
+ fig,axs=plt.subplots(2,len(Mt or [0]),figsize=(3.5*len(Mt or [0])+1,6),layout='constrained',sharey=True,squeeze=False)
+ for ri,car in enumerate(('p','n') if Mt else ()):
+  for ci,m in enumerate(Mt):
    ax=axs[ri,ci];rr=sorted([x for x in rows if x['material']==m and x['carrier']==car and np.isclose(abs(x['doping_cm3']),1e20,rtol=1e-3)],key=lambda x:x['T_K'])
    T=[x['T_K'] for x in rr]
    for k in MECH+['overall']:
@@ -117,7 +120,8 @@ def main(D):
    if ci==0:ax.set_ylabel('in-plane mobility (cm$^2$ V$^{-1}$ s$^{-1}$)')
  fig.legend(*axs[0,0].get_legend_handles_labels(),loc='outside upper center',ncol=4,frameon=False,fontsize=8)
  fig.text(0.01,-0.01,'|n| = 1e20 cm^-3 (single-carrier-like at all T). '+CAP,fontsize=8,color='#52514e',ha='left',va='top')
- for ext in ('png','svg'):fig.savefig(O/f'分项迁移率_温度依赖_1e20.{ext}',dpi=180,bbox_inches='tight')
+ if Mt:
+  for ext in ('png','svg'):fig.savefig(O/f'分项迁移率_温度依赖_1e20.{ext}',dpi=180,bbox_inches='tight')
  plt.close(fig)
  for r in rows:
   if r['T_K']==300 and np.isclose(abs(r['doping_cm3']),1e19,rtol=1e-3) or (r['T_K']==300 and np.isclose(abs(r['doping_cm3']),1e20,rtol=1e-3)):
