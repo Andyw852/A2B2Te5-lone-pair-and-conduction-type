@@ -1,0 +1,11 @@
+material: Sn2Bi2Te5
+cluster: hanhai25
+job_id: 297160
+state: COMPLETED (ExitCode 0:0)
+elapsed_s: 83097 (23.08 h of 24 h walltime)
+interp_mesh: 83x83x19
+interpolation_factor: 1
+nworkers: 128
+doping: [-1e20, -1e19, -1e18, 1e18, 1e19, 1e20]
+temperatures: [300, 400, 500, 600, 700]
+note: 精简网格（6 浓度 x 5 温度），与 Sb 系 13x17 全表口径不同，不可逐点对比

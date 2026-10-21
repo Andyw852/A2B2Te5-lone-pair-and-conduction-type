@@ -1,0 +1,82 @@
+doping:
+- -1.0e+20
+- -1.0e+19
+- -1.0e+18
+- 1.0e+18
+- 1.0e+19
+- 1.0e+20
+temperatures:
+- 300
+- 400
+- 500
+- 600
+- 700
+scattering_type:
+- ADP
+- IMP
+- POP
+deformation_potential: deformation.h5
+interpolation_factor: 1
+pop_frequency: 1.95
+high_frequency_dielectric:
+- - 112.789944
+  - 2.2e-05
+  - -1.2e-05
+- - 2.2e-05
+  - 112.78992
+  - 1e-06
+- - -1.3e-05
+  - 0.000121
+  - 66.007215
+static_dielectric:
+- - 357.569022
+  - -0.00345
+  - 0.0033940000000000003
+- - -0.00345
+  - 357.546899
+  - 0.0043560000000000005
+- - 0.003393
+  - 0.004476
+  - 119.00823600000001
+bandgap: 0.1366
+elastic_constant:
+- - 81.222
+  - 18.318
+  - 30.068
+  - -21.116
+  - 0
+  - 0
+- - 18.318
+  - 81.222
+  - 30.068
+  - 21.116
+  - 0
+  - 0
+- - 30.068
+  - 30.068
+  - 57.342
+  - 0
+  - 0
+  - 0
+- - -21.116
+  - 21.116
+  - 0
+  - 42.543
+  - 0
+  - 0
+- - 0
+  - 0
+  - 0
+  - 0
+  - 42.543
+  - -21.116
+- - 0
+  - 0
+  - 0
+  - 0
+  - -21.116
+  - 31.452
+soc: true
+nworkers: 128
+cache_wavefunction: false
+wavefunction_coefficients: wavefunction.h5
