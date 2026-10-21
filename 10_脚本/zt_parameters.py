@@ -9,6 +9,8 @@ from pathlib import Path
 import json,csv,sys,gzip,re
 import numpy as np
 import yaml
+sys.path.insert(0,str(Path(__file__).resolve().parent))
+import scattering_mobility as smob
 
 M=['Pb2Sb2Te5','Pb2Bi2Te5','Sn2Sb2Te5','Sn2Bi2Te5']
 MASS={'Pb':207.2,'Sn':118.71,'Sb':121.76,'Bi':208.98,'Te':127.6}
@@ -84,7 +86,7 @@ def main(D):
   lat_rows.append(r)
   j=json.loads((D/'A2B2Te5_SOC_dense/materials'/m/'ke-dft-cpu/result/step8.1_boltztrap/boltztrap_crta.json').read_text());ti=j['temperatures_K'].index(300)
   N=np.array(j['carrier_conc_cm-3'][ti]);Lz=np.array(j['lorenz_WOhm_per_K2'][ti])
-  tp=D/'14_散射机制分项迁移率/密网格AMSET'/m/'transport.json';t=json.loads(tp.read_text()) if tp.exists() else None
+  t=smob.dense(D,m)
   for car,sg in (('hole',1),('electron',-1)):
    for lv in (1e19,1e20):
     x=mass_tab.get((m,car,lv));y=mob.get((m,'p' if sg>0 else 'n',lv))

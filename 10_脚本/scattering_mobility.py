@@ -1,7 +1,7 @@
 """Mechanism-resolved AMSET mobilities (ADP, IMP, POP) for the four materials, with the inputs that set each one.
 Run: python scattering_mobility.py DELIVERY
 Mobilities: dense-grid AMSET (28x28x7 / 28x28x6 DFT input, interpolation_factor 1), one folder per material:
-  14_散射机制分项迁移率/密网格AMSET/<m>/transport.json   (materials without it are skipped; the 12x12x2 results are void)
+  14_散射机制分项迁移率/密网格AMSET/<m>/transport*.json  (jobs split by temperature are merged; materials without files are skipped)
 Inputs table: 05_SOC_AMSET补算/<m>/04_AMSET输运/settings.yaml (same eps, omega_LO, C_ij, gap as the dense runs),
 03_SOC形变势/band_edges.json and the step8.1 BoltzTraP2 JSON (m*_c = n e^2 / (sigma/tau), in-plane, mid-gap mu reference).
 """
@@ -26,9 +26,23 @@ def inplane(a):return (a[0][0]+a[1][1])/2
 def inputs(D,m):
  base=D/'05_SOC_AMSET补算'/m
  return yaml.safe_load((base/'04_AMSET输运/settings.yaml').read_text()),json.loads((base/'03_SOC形变势/band_edges.json').read_text())
+def merge_T(parts):
+ """Join AMSET transport files that share the doping list but cover different temperatures (jobs split by temperature)."""
+ dop=parts[0]['doping'];T=np.concatenate([np.array(p['temperatures'],float) for p in parts]);o=np.argsort(T)
+ assert all(np.allclose(p['doping'],dop) for p in parts),'doping lists differ between transport files'
+ assert len(set(T))==len(T),'a temperature appears in more than one transport file'
+ def cat(vals):
+  if isinstance(vals[0],dict):return {k:cat([v[k] for v in vals]) for k in vals[0]}
+  a=[np.array(v) for v in vals]
+  if a[0].ndim>=2 and a[0].shape[0]==len(dop) and all(x.shape[1]==len(p['temperatures']) for x,p in zip(a,parts)):
+   return np.concatenate(a,axis=1)[:,o].tolist()
+  return vals[0]
+ out={k:cat([p[k] for p in parts]) for k in parts[0] if k not in ('doping','temperatures')}
+ out.update(doping=dop,temperatures=T[o].tolist());return out
 def dense(D,m):
- p=D/OUT/'密网格AMSET'/m/'transport.json'
- return json.loads(p.read_text()) if p.exists() else None
+ """Dense-grid AMSET result of one material: every transport*.json in its folder, merged over temperature."""
+ files=sorted((D/OUT/'密网格AMSET'/m).glob('transport*.json'))
+ return merge_T([json.loads(f.read_text()) for f in files]) if files else None
 
 def mass_c(D,m,n_target,T=300.):
  j=json.loads((D/'A2B2Te5_SOC_dense/materials'/m/'ke-dft-cpu/result/step8.1_boltztrap/boltztrap_crta.json').read_text())
