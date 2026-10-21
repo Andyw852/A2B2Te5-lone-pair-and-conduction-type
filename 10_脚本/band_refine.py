@@ -3,10 +3,13 @@
 """
 band_refine.py —— 精细化能带图（解决“能带收敛/简并看不清”）
 
-输入：band_and_elf/huang/<材料>/step4_band_plot/{band.dat, band_klabels.txt, band_summary.json}
+输入：<材料>/{band.dat, band_klabels.txt, band_summary.json, KPOINTS[_OPT]}
       （HSE + SOC，Γ-M-K-Γ-A-L-H-A|L-M|H-K 路径，~200 点，能量已相对 VBM）
+      * clone 下来的仓库：默认读 12_能带绘图_20261021/源数据/<材料>/，输出到 12_能带绘图_20261021/复现输出/
+      * 原工作区：band_and_elf/huang/<材料>/step4_band_plot/，输出到 band_refine_20261021/
+      用 --data-root / --out 可显式指定。
 
-输出（默认写到 band_refine_20261021/figures）：
+输出（图在 <out>/figures，摘要在 <out>）：
   bands_<材料>.png/pdf   双面板：全貌 + 带边放大（±kT 窗口、简并说明、收敛标记）
   bands_4mats_near_edge.png/pdf   四材料带边对比（同一能量窗）
   bands_degeneracy_convergence.png/pdf  简并/收敛诊断（高对称点能级 + 态数-窗口曲线）
@@ -20,7 +23,7 @@ band_refine.py —— 精细化能带图（解决“能带收敛/简并看不清
   3. 诊断图：各高对称点的前 4 对价带能级阶梯（看简并与分裂）+ 距 VBM 的态数随窗口 ΔE 的曲线
      （带收敛程度的单调刻画）。
 """
-import json, os, sys
+import argparse, json, os, sys
 import numpy as np
 import matplotlib
 matplotlib.use('Agg')
@@ -28,9 +31,15 @@ import matplotlib.pyplot as plt
 from matplotlib.lines import Line2D
 from matplotlib.patches import Rectangle
 
+HERE = os.path.dirname(os.path.abspath(__file__))
+REPO_PKG = os.path.normpath(os.path.join(HERE, '..', '12_能带绘图_20261021'))
 BASE = '/home/wangchao/work_wc/Pb2Sb2Te5-Sb孤对电子特性分析-POSCAR_B-band_and_elf'
-SRC = os.path.join(BASE, 'band_and_elf', 'huang')
-OUT = os.path.join(BASE, 'band_refine_20261021')
+if os.path.isdir(os.path.join(REPO_PKG, '源数据')):          # 仓库内：读打包好的源数据
+    SRC = os.path.join(REPO_PKG, '源数据')
+    OUT = os.path.join(REPO_PKG, '复现输出')
+else:                                                          # 原工作区
+    SRC = os.path.join(BASE, 'band_and_elf', 'huang')
+    OUT = os.path.join(BASE, 'band_refine_20261021')
 FIG = os.path.join(OUT, 'figures')
 MATS = ['Pb2Sb2Te5', 'Pb2Bi2Te5', 'Sn2Sb2Te5', 'Sn2Bi2Te5']
 KT = 0.025852          # 300 K 的 kT (eV)
@@ -48,8 +57,14 @@ C_CON = ['#1f618d', '#2874a6', '#148f77', '#117864', '#5b2c6f', '#7b241c']
 C_DEEP = '#aab7c4'
 
 
+def band_dir(m):
+    """原工作区：<SRC>/<材料>/step4_band_plot；仓库打包：文件直接在 <SRC>/<材料>/ 下。"""
+    d = os.path.join(SRC, m)
+    return os.path.join(d, 'step4_band_plot') if os.path.isdir(os.path.join(d, 'step4_band_plot')) else d
+
+
 def load(m):
-    d = os.path.join(SRC, m, 'step4_band_plot')
+    d = band_dir(m)
     raw = np.loadtxt(os.path.join(d, 'band.dat'))
     k, E = raw[:, 0], raw[:, 1:]
     labels = []
@@ -79,7 +94,7 @@ def read_path_kpoints(m, n_expect=None):
                 out.append(v)
         return out
     for fn in ('KPOINTS_OPT', 'KPOINTS'):
-        fp = os.path.join(SRC, m, 'step4_band_plot', fn)
+        fp = os.path.join(band_dir(m), fn)
         if not os.path.exists(fp):
             continue
         rows = four_col(fp)
@@ -378,7 +393,14 @@ def fig_diag(rs, path):
     plt.close(fig)
 
 
-def main():
+def main(argv=None):
+    global SRC, OUT, FIG
+    ap = argparse.ArgumentParser(description='HSE+SOC 精细化能带图 + 简并/带收敛诊断')
+    ap.add_argument('--data-root', default=SRC, help='含 <材料>/band.dat… 的目录（默认 %(default)s）')
+    ap.add_argument('--out', default=OUT, help='输出目录；图写到 <out>/figures（默认 %(default)s）')
+    a = ap.parse_args(argv)
+    SRC, OUT = a.data_root, a.out
+    FIG = os.path.join(OUT, 'figures')
     os.makedirs(FIG, exist_ok=True)
     rs = []
     for m in MATS:

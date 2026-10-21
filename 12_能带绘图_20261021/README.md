@@ -57,17 +57,38 @@
 
 ## 4. 复现
 
+在仓库根目录直接运行即可（脚本自动读 `12_能带绘图_20261021/源数据/`，输出到 `12_能带绘图_20261021/复现输出/`，该目录已在 `.gitignore` 中）：
+
 ```bash
-# 依赖：numpy, matplotlib（本项目用 tmp/raty_venv）
-python 10_脚本/band_refine.py        # 出 bands_<材料>.png/pdf + 4 材料对比 + 简并/收敛诊断 + band_summary_refined.*
-python 10_脚本/orbital_fatband.py    # 出 orbital_fatband_4mats.png/pdf（颜色/线宽 = 元素-轨道参与度）
+pip install -r 10_脚本/requirements.txt              # numpy, matplotlib
+python 10_脚本/band_refine.py        # bands_<材料>.png/pdf、4 材料对比、简并/收敛诊断 + band_summary_refined.*
+python 10_脚本/orbital_fatband.py    # orbital_fatband_4mats.png/pdf（颜色 = 元素-轨道，层厚 = 参与份额）
 ```
 
-两个脚本都从 `band_and_elf/huang/<材料>/step4_band_plot`（能带）与 `step4_fatband_plot`（投影）读取，
-读取口径与 `源数据/` 里打包的完全一致；`export_plot_source_data.py` 可重新生成本目录的打包内容。
+常用选项：
+
+| 命令 | 作用 |
+|---|---|
+| `orbital_fatband.py --materials Sn2Bi2Te5` | 只画单材料 → `orbital_fatband_Sn2Bi2Te5.png/pdf` |
+| `orbital_fatband.py --procar-root 07_带边能窗/源数据` | 不用 npz，从原始 `PROCAR(.gz)` 重新解析投影，并与 `投影_解析.npz` 逐元素比对 |
+| `--data-root <dir> --out <dir>`（两个脚本都有） | 指定输入/输出目录；`<dir>/<材料>/step4_band_plot` 结构（原工作区）也能识别 |
+
+复现核对（2026-10-21）：
+- `band_refine.py` 生成的 `band_summary_refined.{csv,md,json}` 与 `摘要/` 中的文件**逐字节相同**；
+- `--procar-root 07_带边能窗/源数据` 重新解析的份额与 `投影_解析.npz` 最大差 3×10⁻⁸（float32 精度）；
+  能窗（VBM±3.2 eV）内 PROCAR 能量与 `band.dat` 逐点偏差 ≤ 9 meV（能窗外最高几条空带偏差大，不参与作图）。
+
+`export_plot_source_data.py` 从原工作区 `band_and_elf/huang/<材料>/` 重新生成本目录的打包内容（需要原始 PROCAR，仓库外运行）。
+
+### 轨道 fat-band 的读法
+
+每条能带画成总线宽固定的一根“线缆”，由内到外依次是 **A-s、B-s、Te-s、A-p、B-p、Te-p** 六层，
+每层厚度 ∝ 该元素-轨道在该 (k, 带) 的份额（份额 < 1% 的层不画）。颜色：Te 蓝、A(Pb/Sn) 红、B(Sb/Bi) 绿；s 浅色、p 深色。
+因为逐层累积线宽、内层后画，小份额层（如 Sn₂Bi₂Te₅ 价带顶约 25% 的 Sn-s）不会被大份额的 Te-p 层盖住。
+路径断点 A|L、M|H 处不连线。
 
 ## 5. 与本仓库其它目录的关系
 
 - `07_带边能窗/`：带边能窗统计（1/25/50/100 meV 窗口内的轨道占比、入选态清单）与原始 PROCAR gzip；
   本轮绘图复用了同一批投影，但按“元素 × s/p”6 类重新解析并保留全部路径点，用于画 fat-band。
-- `02_图表/`：本轮的 `bands_*.png/pdf`、`orbital_fatband_4mats.png/pdf` 若定稿也放这里。
+- `02_图表/`：本轮的 `bands_*.png/pdf`、`orbital_fatband_4mats.png/pdf` 若定稿也放这里（目前在 `图表_预览/`）。

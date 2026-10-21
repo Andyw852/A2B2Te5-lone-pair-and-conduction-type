@@ -38,9 +38,10 @@ def main():
     os.makedirs(os.path.join(STAGE, '校验'))
     manifest = {}
 
-    # 复用 orbital_fatband.py 的解析函数（同一套口径）
+    # 复用同目录 orbital_fatband.py 的解析函数（同一套口径）
     import importlib.util
-    spec = importlib.util.spec_from_file_location('of', os.path.join(PROJ, 'orbital_fatband.py'))
+    spec = importlib.util.spec_from_file_location(
+        'of', os.path.join(os.path.dirname(os.path.abspath(__file__)), 'orbital_fatband.py'))
     of = importlib.util.module_from_spec(spec); spec.loader.exec_module(of)
 
     for m in MATS:
@@ -69,7 +70,7 @@ def main():
         if os.path.exists(inc_b):
             shutil.copy2(inc_b, os.path.join(out, 'INCAR_band'))
         # 2) 解析投影 + 能量（与绘图所用完全一致）
-        r = of.load_material(m)
+        r = of.load_material(m, SRC)              # 显式读原工作区的 PROCAR
         np.savez_compressed(
             os.path.join(out, '投影_解析.npz'),
             kdist=r['kdist'].astype(np.float32),
