@@ -16,6 +16,8 @@ orbital_fatband.py —— 轨道分辨能带（fat-band，文献常用的气泡�
   所有气泡按面积从大到小统一排序后绘制，小份额（如 Sn-s 孤对）始终压在大气泡上面，不会被遮住。
   SOC + 反演对称 ⇒ Kramers 二重简并：每对只画一组气泡（能量、份额取两条的平均），细线仍画全部能带。
   路径断点（A|L、M|H）处不连线。
+  Bi 系（零权重 HSE 路径方案）默认剔除落在 SCF 网格上的路径点（见 mesh_dup_points），能量零点、带隙按剩余点重算；
+  --keep-dup-kpts 保留它们。
 
 输出：每个材料一张 orbital_fatband_<材料>.png/pdf
 
@@ -33,6 +35,8 @@ orbital_fatband.py —— 轨道分辨能带（fat-band，文献常用的气泡�
   python 10_脚本/orbital_fatband.py --emin -2 --emax 2              # 改能窗
 """
 import argparse, gzip, json, os, re, sys
+from fractions import Fraction
+from math import lcm
 import numpy as np
 import matplotlib
 matplotlib.use('Agg')
@@ -61,6 +65,7 @@ S_MAX = 46.0           # 份额 = 1 时的气泡面积 (pt²)
 W_MIN = 0.03           # 份额低于此值不画气泡
 K_STEP = 2             # 每隔几个 k 点画一个气泡（细线仍用全部点）
 EWIN = (-3.0, 3.0)     # 能窗 (eV, 相对 VBM)
+KEEP_DUP = False       # True: 不剔除落在 SCF 网格上的零权重路径点
 
 plt.rcParams.update({'font.size': 11, 'font.family': 'DejaVu Sans', 'pdf.fonttype': 42,
                      'axes.linewidth': 0.9, 'xtick.direction': 'in', 'ytick.direction': 'in',
@@ -79,6 +84,32 @@ def mat_dirs(root, m):
     if os.path.isdir(os.path.join(d, 'step4_band_plot')):
         return os.path.join(d, 'step4_band_plot'), os.path.join(d, 'step4_fatband_plot')
     return d, d
+
+
+def mesh_dup_points(d, nk):
+    """零权重 HSE 路径方案（Bi 系）：KPOINTS = 带权重的 SCF 网格 + nk 个零权重路径点。
+    落在 SCF 网格上的路径点，Fock 项 q→0 的处理与其它路径点不同，价带被整体抬高 0.03–0.47 eV
+    （能带上的单点尖峰）。返回 (这些路径点的序号 = band.dat 行号, 路径点分数坐标)；
+    KPOINTS_OPT 方案（Sb 系）返回 ([], None)。"""
+    p = os.path.join(d, 'KPOINTS')
+    if not os.path.exists(p):
+        return [], None
+    rows = []
+    for line in open(p).read().splitlines()[3:]:
+        q = line.split()
+        try:
+            rows.append([float(x) for x in q[:4]])
+        except ValueError:
+            continue
+    rows = np.array([r for r in rows if len(r) == 4])
+    if rows.ndim != 2:
+        return [], None
+    path, grid = rows[rows[:, 3] == 0, :3], rows[rows[:, 3] > 0, :3]
+    if len(path) != nk or not len(grid):
+        return [], None
+    N = np.array([lcm(*(Fraction(x).limit_denominator(48).denominator for x in grid[:, i])) for i in range(3)])
+    on = np.all(np.abs(path * N - np.round(path * N)) < 1e-4, axis=1)
+    return [int(i) for i in np.where(on)[0]], path
 
 
 def find_procar(d):
@@ -211,7 +242,21 @@ def load_material(m, data_root=None, procar_root=None):
             labels.append((p[0], float(p[1])))
     sm = json.load(open(os.path.join(bdir, 'band_summary.json')))
     nv = int(sm['nelect'])
-    return dict(m=m, kdist=kdist, E=Edat, Wc=Wc, frac=frac, tot=tot,
+    # 剔除落在 SCF 网格上的路径点（Bi 系），能量零点移到剩余点的 VBM，带隙重算
+    seg = np.concatenate([[0], np.cumsum(np.diff(kdist) < 1e-6)])   # 路径段号，断点处不连线
+    drop, path = ([], None) if KEEP_DUP else mesh_dup_points(bdir, len(kdist))
+    if drop:
+        keep = np.setdiff1d(np.arange(len(kdist)), drop)
+        kdist, Edat, Wc, frac, tot, seg, path = (x[keep] for x in (kdist, Edat, Wc, frac, tot, seg, path))
+        vb, cb = Edat[:, nv - 1], Edat[:, nv]
+        iv, ic = int(np.argmax(vb)), int(np.argmin(cb))
+        Edat = Edat - vb[iv]
+        sm = dict(sm, gap_eV=float(cb[ic] - vb[iv]),
+                  gap_type='direct' if np.allclose(np.mod(path[iv] + 1e-9, 1), np.mod(path[ic] + 1e-9, 1), atol=1e-4)
+                  else 'indirect')
+        print('     剔除 %d 个落在 SCF 网格上的路径点；VBM 移到 k=%.3f %s（原零点下 %.3f eV），带隙 %.3f eV (%s)' % (
+            len(drop), kdist[iv], np.round(path[iv], 3), vb[iv], sm['gap_eV'], sm['gap_type']))
+    return dict(m=m, kdist=kdist, E=Edat, Wc=Wc, frac=frac, tot=tot, seg=seg, dropped=drop,
                 labels=labels, sm=sm, nv=nv, elements=elements, cats=cats)
 
 
@@ -239,7 +284,7 @@ def plot_material(r, path):
     nk, nb = E.shape
     fig, ax = plt.subplots(figsize=(5.4, 4.6), layout='constrained')
     # 细线：全部能带；路径断点（相邻两点 k 距离相同）处不连线
-    jj = np.where(np.diff(k) > 1e-6)[0]
+    jj = np.where(np.diff(r['seg']) == 0)[0]
     bands = [b for b in range(nb) if E[:, b].max() >= EWIN[0] - 0.5 and E[:, b].min() <= EWIN[1] + 0.5]
     Eb = E[:, bands]
     kb = np.broadcast_to(k[:, None], Eb.shape)
@@ -281,7 +326,7 @@ def plot_material(r, path):
     ax.set_xticks(xt, names)
     ax.tick_params(axis='x', length=0, labelsize=10, pad=5)
     ax.axhline(0, color='0.25', lw=0.7, ls='--', zorder=0)
-    ax.set_xlim(k[0], k[-1]); ax.set_ylim(*EWIN)
+    ax.set_xlim(xt[0], xt[-1]); ax.set_ylim(*EWIN)
     ax.set_ylabel('E $-$ E$_{\\rm VBM}$ (eV)')
     ax.set_title(re.sub(r'(\d)', r'$_\1$', m), loc='left', fontsize=12, fontweight='bold')
     ax.set_title('HSE+SOC, %s gap %.3f eV' % (sm['gap_type'], sm['gap_eV']), loc='right', fontsize=9.5,
@@ -295,7 +340,10 @@ def plot_material(r, path):
                for g in GROUPS]
     fig.legend(handles=handles, loc='outside lower center', ncol=5, frameon=False, fontsize=10,
                handletextpad=0.2, columnspacing=1.1,
-               title='marker area ∝ share of each element-orbital (Kramers pairs drawn once)', title_fontsize=8.5)
+               title='marker area ∝ share of each element-orbital (Kramers pairs drawn once)'
+                     + ('\n%d path k-points lying on the SCF k-mesh removed (HSE zero-weight artifact)' % len(r['dropped'])
+                        if r['dropped'] else ''),
+               title_fontsize=8.5)
     for ext in ('png', 'pdf'):
         fig.savefig(path + '.' + ext, dpi=300)
     plt.close(fig)
@@ -303,7 +351,7 @@ def plot_material(r, path):
 
 
 def main(argv=None):
-    global EWIN
+    global EWIN, KEEP_DUP
     ap = argparse.ArgumentParser(description='HSE+SOC 轨道分辨 fat-band（气泡面积 ∝ 元素-轨道份额），每个材料一张图')
     ap.add_argument('--data-root', default=SRC,
                     help='含 <材料>/band.dat… 的目录（默认 %(default)s）')
@@ -314,8 +362,10 @@ def main(argv=None):
                     help='要画的材料（默认四个：%s）' % ' '.join(MATS))
     ap.add_argument('--emin', type=float, default=EWIN[0], help='能窗下限 (eV，相对 VBM，默认 %(default)s)')
     ap.add_argument('--emax', type=float, default=EWIN[1], help='能窗上限 (eV，相对 VBM，默认 %(default)s)')
+    ap.add_argument('--keep-dup-kpts', action='store_true',
+                    help='不剔除 Bi 系落在 SCF 网格上的零权重路径点')
     a = ap.parse_args(argv)
-    EWIN = (a.emin, a.emax)
+    EWIN, KEEP_DUP = (a.emin, a.emax), a.keep_dup_kpts
     os.makedirs(a.out, exist_ok=True)
     for m in MATS:
         if m in a.materials:
