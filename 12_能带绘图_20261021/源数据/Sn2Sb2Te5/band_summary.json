@@ -1,0 +1,70 @@
+{
+  "step": "step4_band_plot",
+  "step4_dir": "/public/home/wangchao/joint_research_project/huang/Sn2Sb2Te5/POSCAR_B/band/step4_HSE_band",
+  "out_dir": "/public/home/wangchao/joint_research_project/huang/Sn2Sb2Te5/POSCAR_B/band/step4_band_plot",
+  "checked_at": "2026-07-16T14:18:28",
+  "status": "ok",
+  "soc": true,
+  "nelect": 68,
+  "n_path_kpts": 204,
+  "band_source": "vasprun.xml (kpoints_opt)",
+  "gap_eV": 0.1352,
+  "gap_type": "direct",
+  "min_direct_gap_eV": 0.1352,
+  "min_direct_gap_k_frac": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "vbm": {
+    "E_eV": 6.7222,
+    "k_frac": [
+      0.0,
+      0.0,
+      0.0
+    ]
+  },
+  "cbm": {
+    "E_eV": 6.8574,
+    "k_frac": [
+      0.0,
+      0.0,
+      0.0
+    ]
+  },
+  "efermi_scf_eV": 6.7905,
+  "energy_zero": "VBM",
+  "plot_title": "step4_HSE_band   $E_g$ = 0.135 eV (direct)",
+  "extrema_marked": true,
+  "inputs_copied": [
+    "EIGENVAL",
+    "vasprun.xml",
+    "POSCAR",
+    "INCAR",
+    "KPOINTS",
+    "KPOINTS_OPT",
+    "kpath.json",
+    "workflow_method.txt"
+  ],
+  "files": {
+    "dat": "/public/home/wangchao/joint_research_project/huang/Sn2Sb2Te5/POSCAR_B/band/step4_band_plot/band.dat",
+    "klabels": "/public/home/wangchao/joint_research_project/huang/Sn2Sb2Te5/POSCAR_B/band/step4_band_plot/band_klabels.txt",
+    "png": "/public/home/wangchao/joint_research_project/huang/Sn2Sb2Te5/POSCAR_B/band/step4_band_plot/band.png",
+    "summary": "/public/home/wangchao/joint_research_project/huang/Sn2Sb2Te5/POSCAR_B/band/step4_band_plot/band_summary.json"
+  },
+  "labels_found": [
+    "Γ",
+    "M",
+    "K",
+    "Γ",
+    "A",
+    "L",
+    "H",
+    "A|L",
+    "M|H",
+    "K"
+  ],
+  "kpath_source": "kpath.json (seekpath)",
+  "kpath_method": "seekpath",
+  "kpath_note": "seekpath / HPKOT (Hinuma et al.) | 空间群 P-3m1 (#164) | det M = +1"
+}
