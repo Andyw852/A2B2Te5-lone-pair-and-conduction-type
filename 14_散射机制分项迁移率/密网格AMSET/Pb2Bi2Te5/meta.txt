@@ -1,0 +1,10 @@
+material: Pb2Bi2Te5
+cluster: hanhai25
+job_id: 297928
+state: COMPLETED (ExitCode 0:0)
+elapsed: 3h40m
+interpolation_factor: 1
+nworkers: 128
+doping: [-1e20, -1e19, -1e18, 1e18, 1e19, 1e20]
+temperatures: [300]
+note: 单温度 300 K x 6 浓度，与其它三个材料同口径
