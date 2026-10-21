@@ -1,19 +1,23 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-orbital_fatband.py —— 一张图：四材料 HSE+SOC 能带，用【颜色+线宽】表示不同元素轨道的参与程度
+orbital_fatband.py —— 轨道分辨能带（fat-band，文献常用的气泡画法）：每个材料单独一张图
 
 数据：step4_fatband_plot/{PROCAR_OPT 或 PROCAR}（路径 k 点的 lm 投影）+ step4_band_plot/band.dat（能量）
       PROCAR 的 SOC 每带 4 个块：第 1 块是“电荷”投影（后 3 块是自旋分量，不用于轨道成分）。
       每个块的 9 条 ion 行 = 每个离子的 s/py/pz/px/dxy/dyz/dz2/dxz/x2-y2 权重。
 
-画法（分层 fat-band，“线缆”式）：
-  每条能带画成总线宽固定的一根“线缆”，由内到外依次是 A-s, B-s, Te-s, A-p, B-p, Te-p 六层，
-  每层的厚度 ∝ 该“元素-轨道”在该 (k, band) 的份额 —— 于是“哪条带、在哪些 k、被哪个元素的哪个轨道占据”
-  直接可见，且小份额（如 Sn-s 孤对）不会被大份额的层盖住（逐层累积线宽，外层先画、内层后画）。
-  颜色：Te 蓝、A 阳离子红、B 阳离子绿；s 用浅色、p 用深色。路径断点（A|L、M|H）处不连线。
+画法：
+  能带画成细灰线；在每个 (k, 能带) 上按 5 个“元素-轨道”类别画气泡，气泡面积 ∝ 该类别份额：
+      A-s 红、A-p 琥珀（圆点）；B-s 绿、B-p 青（菱形）；Te（s+p 合并）蓝（圆点）
+  —— A=Pb/Sn，B=Sb/Bi；Te-s 在 VBM±3 eV 内平均仅 2–9%，并入 Te。
+  配色取自经色觉校验的分类色板（全两两对比：正常视觉 ΔE ≥ 15.6）；红-绿、红-青两对对色弱者偏近，
+  因此 A/B 再用圆点/菱形区分（二次编码）。
+  所有气泡按面积从大到小统一排序后绘制，小份额（如 Sn-s 孤对）始终压在大气泡上面，不会被遮住。
+  SOC + 反演对称 ⇒ Kramers 二重简并：每对只画一组气泡（能量、份额取两条的平均），细线仍画全部能带。
+  路径断点（A|L、M|H）处不连线。
 
-输出：一个文件 orbital_fatband_4mats.png/pdf（2×2 面板 + 共享图例）
+输出：每个材料一张 orbital_fatband_<材料>.png/pdf
 
 数据位置（自动识别两种目录结构）：
   * clone 下来的仓库：默认读 12_能带绘图_20261021/源数据/<材料>/（band.dat + 投影_解析.npz），
@@ -23,9 +27,10 @@ orbital_fatband.py —— 一张图：四材料 HSE+SOC 能带，用【颜色+�
 
 用法：
   python 10_脚本/orbital_fatband.py
-  python 10_脚本/orbital_fatband.py --materials Sn2Bi2Te5          # 只画单材料
+  python 10_脚本/orbital_fatband.py --materials Sn2Bi2Te5          # 只画指定材料
   python 10_脚本/orbital_fatband.py --procar-root 07_带边能窗/源数据   # 从原始 PROCAR 复算
   python 10_脚本/orbital_fatband.py --data-root <root> --out <dir>
+  python 10_脚本/orbital_fatband.py --emin -2 --emax 2              # 改能窗
 """
 import argparse, gzip, json, os, re, sys
 import numpy as np
@@ -34,6 +39,7 @@ matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 from matplotlib.collections import LineCollection
 from matplotlib.lines import Line2D
+from matplotlib.markers import MarkerStyle
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 REPO_PKG = os.path.normpath(os.path.join(HERE, '..', '12_能带绘图_20261021'))
@@ -46,16 +52,19 @@ else:                                                          # 原工作区
     OUT = os.path.join(BASE, 'band_refine_20261021')
 MATS = ['Pb2Sb2Te5', 'Pb2Bi2Te5', 'Sn2Sb2Te5', 'Sn2Bi2Te5']
 EROLE = {'Pb': 'A', 'Sn': 'A', 'Sb': 'B', 'Bi': 'B', 'Te': 'Te'}
-COL = {('A', 's'): '#e6a0a0', ('A', 'p'): '#c0392b',
-       ('B', 's'): '#a3d9a5', ('B', 'p'): '#1e8449',
-       ('Te', 's'): '#9ecae1', ('Te', 'p'): '#1f4e9c'}
-LAYERS = [('A', 's'), ('B', 's'), ('Te', 's'), ('A', 'p'), ('B', 'p'), ('Te', 'p')]   # 由内到外
-LW_TOT = 4.0           # 每条带的总线宽 (pt)
-W_MIN = 0.01           # 份额低于此值的层不画
-EWIN = (-3.2, 3.2)     # 能窗 (eV, 相对 VBM)
+GROUPS = [('A', 's'), ('A', 'p'), ('B', 's'), ('B', 'p'), ('Te', 'sp')]      # 图例顺序
+COL = {('A', 's'): '#e34948', ('A', 'p'): '#eda100',        # 红 / 琥珀
+       ('B', 's'): '#008300', ('B', 'p'): '#1baf7a',        # 绿 / 青
+       ('Te', 'sp'): '#2a78d6'}                             # 蓝
+MARK = {'A': 'o', 'B': 'D', 'Te': 'o'}
+S_MAX = 46.0           # 份额 = 1 时的气泡面积 (pt²)
+W_MIN = 0.03           # 份额低于此值不画气泡
+K_STEP = 2             # 每隔几个 k 点画一个气泡（细线仍用全部点）
+EWIN = (-3.0, 3.0)     # 能窗 (eV, 相对 VBM)
 
-plt.rcParams.update({'font.size': 10.5, 'font.family': 'DejaVu Sans', 'pdf.fonttype': 42,
-                     'axes.spines.top': False, 'axes.spines.right': False, 'axes.linewidth': 0.8})
+plt.rcParams.update({'font.size': 11, 'font.family': 'DejaVu Sans', 'pdf.fonttype': 42,
+                     'axes.linewidth': 0.9, 'xtick.direction': 'in', 'ytick.direction': 'in',
+                     'ytick.right': True, 'ytick.minor.visible': True})
 
 
 def read_poscar_elements(path):
@@ -164,9 +173,9 @@ def load_material(m, data_root=None, procar_root=None):
         if Edat.shape[0] != E.shape[0]:
             raise RuntimeError('%s: band.dat 行数 %d 与 PROCAR 路径点数 %d 不一致' % (m, Edat.shape[0], E.shape[0]))
         # 用 band.dat 的能量（相对 VBM），投影按同一 (k, band) 索引对齐
-        # 校验：扣掉 E_VBM 后能窗内逐点一致（能窗外最高几条空带在投影计算里未收敛，偏差大但不画）
+        # 校验：扣掉 E_VBM 后作图能窗（±3.2 eV）内逐点一致（能窗外最高几条空带在投影计算里未收敛，偏差大但不画）
         de = np.abs(E - np.median(E - Edat) - Edat)
-        inw = (Edat >= EWIN[0]) & (Edat <= EWIN[1])
+        inw = np.abs(Edat) <= 3.2
         print('  %s: %d k × %d bands, 投影-能量对齐偏差 能窗内 %.4f eV（全部 %.3f eV）  [%s]' % (
             m, E.shape[0], E.shape[1], de[inw].max(), de.max(), os.path.relpath(p_procar)))
         if de[inw].max() > 0.05:
@@ -206,44 +215,96 @@ def load_material(m, data_root=None, procar_root=None):
                 labels=labels, sm=sm, nv=nv, elements=elements, cats=cats)
 
 
-def panel(ax, r):
-    m = r['m']; k = r['kdist']; E = r['E']; frac = r['frac']
-    sm = r['sm']
+def elem_name(r, role):
+    return [e for e in r['elements'] if EROLE[e] == role][0]
+
+
+def group_frac(r):
+    """(nk, nb, 5)：按 GROUPS 归并的份额（Te-s + Te-p → Te）。"""
+    cats = [c[1:] for c in r['cats']]
+    out = []
+    for role, orb in GROUPS:
+        idx = [i for i, (ro, ob) in enumerate(cats) if ro == role and ob in orb]
+        out.append(r['frac'][:, :, idx].sum(axis=-1))
+    return np.stack(out, axis=-1)
+
+
+def marker_path(m):
+    ms = MarkerStyle(m)
+    return ms.get_path().transformed(ms.get_transform())
+
+
+def plot_material(r, path):
+    m = r['m']; k = r['kdist']; E = r['E']; sm = r['sm']
     nk, nb = E.shape
-    # 线段：路径断点（A|L、M|H，相邻两点 k 距离相同）处不连线；只取与能窗相交的带
+    fig, ax = plt.subplots(figsize=(5.4, 4.6), layout='constrained')
+    # 细线：全部能带；路径断点（相邻两点 k 距离相同）处不连线
     jj = np.where(np.diff(k) > 1e-6)[0]
-    bands = [b for b in range(nb) if E[:, b].max() >= EWIN[0] and E[:, b].min() <= EWIN[1]]
+    bands = [b for b in range(nb) if E[:, b].max() >= EWIN[0] - 0.5 and E[:, b].min() <= EWIN[1] + 0.5]
     Eb = E[:, bands]
     kb = np.broadcast_to(k[:, None], Eb.shape)
     seg = np.stack([np.stack([kb[jj], Eb[jj]], -1), np.stack([kb[jj + 1], Eb[jj + 1]], -1)], axis=2).reshape(-1, 2, 2)
-    w = 0.5 * (frac[jj][:, bands] + frac[jj + 1][:, bands]).reshape(len(seg), -1)   # (nseg, ncat)
-    # 背景：细灰线（只在投影缺失时露出来）
-    ax.add_collection(LineCollection(seg, colors='0.8', linewidths=0.4, zorder=1))
-    # 分层：第 i 层线宽 = LW_TOT × (第 0..i 层份额之和)，外层先画、内层后画
-    ci = [[c[1:] for c in r['cats']].index(lay) for lay in LAYERS]
-    cum = np.cumsum(w[:, ci], axis=1)
-    for i in range(len(LAYERS) - 1, -1, -1):
-        keep = w[:, ci[i]] >= W_MIN
-        if keep.any():
-            ax.add_collection(LineCollection(seg[keep], colors=COL[LAYERS[i]], linewidths=LW_TOT * cum[keep, i],
-                                             capstyle='round', joinstyle='round', zorder=2 + len(LAYERS) - i))
-    # 高对称点
-    xs = [x for _, x in r['labels']]
-    for x in xs:
-        ax.axvline(x, color='0.55', lw=0.6, zorder=0)
-    ax.set_xticks(xs, [n for n, _ in r['labels']])
-    ax.tick_params(axis='x', length=0, labelsize=9)
-    ax.axhline(0, color='0.3', lw=0.6, ls='--', zorder=0)
+    ax.add_collection(LineCollection(seg, colors='0.45', linewidths=0.55, zorder=1))
+    # 气泡：每个 Kramers 对一组（能量、份额取平均），每隔 K_STEP 个 k 点
+    G = group_frac(r)
+    npair = nb // 2
+    Ep = 0.5 * (E[:, 0:2 * npair:2] + E[:, 1:2 * npair:2])
+    Gp = 0.5 * (G[:, 0:2 * npair:2] + G[:, 1:2 * npair:2])
+    ik = np.arange(0, nk, K_STEP)
+    xs, ys, ss, cs, ps = [], [], [], [], []
+    for g, (role, orb) in enumerate(GROUPS):
+        w = Gp[ik, :, g]
+        y = Ep[ik]
+        sel = (w >= W_MIN) & (y >= EWIN[0] - 0.2) & (y <= EWIN[1] + 0.2)
+        ii, bb = np.nonzero(sel)
+        xs.append(k[ik][ii]); ys.append(y[ii, bb]); ss.append(S_MAX * w[ii, bb])
+        cs += [COL[(role, orb)]] * len(ii); ps += [MARK[role]] * len(ii)
+    xs, ys, ss = map(np.concatenate, (xs, ys, ss))
+    order = np.argsort(-ss, kind='stable')          # 大气泡先画，小气泡压在上面
+    cs = [cs[i] for i in order]
+    edge = [tuple(0.62 * np.array(matplotlib.colors.to_rgb(c))) for c in cs]
+    paths = {mk: marker_path(mk) for mk in set(MARK.values())}
+    sc = ax.scatter(xs[order], ys[order], s=ss[order], c=cs, edgecolors=edge, linewidths=0.35,
+                    alpha=0.9, zorder=2)
+    sc.set_paths([paths[ps[i]] for i in order])
+    # 高对称点、VBM
+    xt = [x for _, x in r['labels']]
+    names = [n for n, _ in r['labels']]
+    # 末段 A|L、M|H… 间距很短：相邻标签按字符数估计会重叠时，后一个下移一行
+    span = k[-1] - k[0]
+    for i in range(1, len(xt)):
+        if not names[i - 1].startswith('\n') and \
+                xt[i] - xt[i - 1] < 0.02 * span * (len(names[i - 1]) + len(names[i])) / 2:
+            names[i] = '\n' + names[i]
+    for x in xt:
+        ax.axvline(x, color='0.6', lw=0.6, zorder=0)
+    ax.set_xticks(xt, names)
+    ax.tick_params(axis='x', length=0, labelsize=10, pad=5)
+    ax.axhline(0, color='0.25', lw=0.7, ls='--', zorder=0)
     ax.set_xlim(k[0], k[-1]); ax.set_ylim(*EWIN)
-    ax.set_ylabel('E - E$_{VBM}$ (eV)', fontsize=9.5)
-    ax.set_title('%s   %s gap %.3f eV   (A=%s, B=%s)' % (
-        re.sub(r'(\d)', r'$_\1$', m), sm['gap_type'], sm['gap_eV'],
-        [e for e in r['elements'] if EROLE[e] == 'A'][0],
-        [e for e in r['elements'] if EROLE[e] == 'B'][0]), loc='left', fontsize=10.5)
+    ax.set_ylabel('E $-$ E$_{\\rm VBM}$ (eV)')
+    ax.set_title(re.sub(r'(\d)', r'$_\1$', m), loc='left', fontsize=12, fontweight='bold')
+    ax.set_title('HSE+SOC, %s gap %.3f eV' % (sm['gap_type'], sm['gap_eV']), loc='right', fontsize=9.5,
+                 color='0.3')
+    # 图例：真实元素名；标记大小固定（面积 ∝ 份额见说明）
+    A, B = elem_name(r, 'A'), elem_name(r, 'B')
+    lab = {('A', 's'): A + '-s', ('A', 'p'): A + '-p', ('B', 's'): B + '-s', ('B', 'p'): B + '-p',
+           ('Te', 'sp'): 'Te (s+p)'}
+    handles = [Line2D([], [], ls='none', marker=MARK[g[0]], ms=8, mfc=COL[g],
+                      mec=tuple(0.62 * np.array(matplotlib.colors.to_rgb(COL[g]))), mew=0.6, label=lab[g])
+               for g in GROUPS]
+    fig.legend(handles=handles, loc='outside lower center', ncol=5, frameon=False, fontsize=10,
+               handletextpad=0.2, columnspacing=1.1,
+               title='marker area ∝ share of each element-orbital (Kramers pairs drawn once)', title_fontsize=8.5)
+    for ext in ('png', 'pdf'):
+        fig.savefig(path + '.' + ext, dpi=300)
+    plt.close(fig)
+    print('written', path + '.png')
 
 
 def main(argv=None):
-    ap = argparse.ArgumentParser(description='四材料 HSE+SOC 轨道分辨 fat-band（颜色=元素-轨道，线宽∝参与度）')
+    global EWIN
+    ap = argparse.ArgumentParser(description='HSE+SOC 轨道分辨 fat-band（气泡面积 ∝ 元素-轨道份额），每个材料一张图')
     ap.add_argument('--data-root', default=SRC,
                     help='含 <材料>/band.dat… 的目录（默认 %(default)s）')
     ap.add_argument('--procar-root', default=None,
@@ -251,30 +312,14 @@ def main(argv=None):
     ap.add_argument('--out', default=OUT, help='输出目录（默认 %(default)s）')
     ap.add_argument('--materials', nargs='+', default=MATS, choices=MATS, metavar='MAT',
                     help='要画的材料（默认四个：%s）' % ' '.join(MATS))
+    ap.add_argument('--emin', type=float, default=EWIN[0], help='能窗下限 (eV，相对 VBM，默认 %(default)s)')
+    ap.add_argument('--emax', type=float, default=EWIN[1], help='能窗上限 (eV，相对 VBM，默认 %(default)s)')
     a = ap.parse_args(argv)
+    EWIN = (a.emin, a.emax)
     os.makedirs(a.out, exist_ok=True)
-    mats = [m for m in MATS if m in a.materials]
-    rs = [load_material(m, a.data_root, a.procar_root) for m in mats]
-    nrow, ncol = {1: (1, 1), 2: (1, 2)}.get(len(rs), (2, 2))
-    fig, axs = plt.subplots(nrow, ncol, figsize=(6.6 * ncol, 5.1 * nrow + 0.4 * (nrow == 1)),
-                            layout='constrained', squeeze=False)
-    for ax, r in zip(axs.flat, rs):
-        panel(ax, r)
-    for ax in list(axs.flat)[len(rs):]:
-        ax.set_visible(False)
-    # 共享图例（按由内到外的层序）
-    name = {'A': 'A-%s (Pb/Sn)', 'B': 'B-%s (Sb/Bi)', 'Te': 'Te-%s'}
-    handles = [Line2D([], [], color=COL[lay], lw=6.0, label=name[lay[0]] % lay[1]) for lay in LAYERS]
-    fig.legend(handles=handles, loc='outside lower center', ncol=6 if ncol > 1 else 3, frameon=False,
-               fontsize=10.5, title_fontsize=9.5,
-               title='each band = stacked layers (inner → outer as listed); layer thickness ∝ share of that element-orbital')
-    fig.suptitle('HSE+SOC bands of A$_2$B$_2$Te$_5$: color = element-orbital, layer thickness = its share',
-                 fontsize=13.5 if ncol > 1 else 11)
-    stem = 'orbital_fatband_4mats' if mats == MATS else 'orbital_fatband_' + '_'.join(mats)
-    for ext in ('png', 'pdf'):
-        fig.savefig(os.path.join(a.out, stem + '.' + ext), dpi=300, bbox_inches='tight')
-    plt.close(fig)
-    print('written', os.path.join(a.out, stem + '.png'))
+    for m in MATS:
+        if m in a.materials:
+            plot_material(load_material(m, a.data_root, a.procar_root), os.path.join(a.out, 'orbital_fatband_' + m))
 
 
 if __name__ == '__main__':

@@ -62,14 +62,15 @@
 ```bash
 pip install -r 10_脚本/requirements.txt              # numpy, matplotlib
 python 10_脚本/band_refine.py        # bands_<材料>.png/pdf、4 材料对比、简并/收敛诊断 + band_summary_refined.*
-python 10_脚本/orbital_fatband.py    # orbital_fatband_4mats.png/pdf（颜色 = 元素-轨道，层厚 = 参与份额）
+python 10_脚本/orbital_fatband.py    # 每个材料一张 orbital_fatband_<材料>.png/pdf（气泡颜色 = 元素-轨道，面积 = 份额）
 ```
 
 常用选项：
 
 | 命令 | 作用 |
 |---|---|
-| `orbital_fatband.py --materials Sn2Bi2Te5` | 只画单材料 → `orbital_fatband_Sn2Bi2Te5.png/pdf` |
+| `orbital_fatband.py --materials Sn2Bi2Te5` | 只画指定材料 |
+| `orbital_fatband.py --emin -2 --emax 2` | 改能窗（默认 VBM −3…+3 eV） |
 | `orbital_fatband.py --procar-root 07_带边能窗/源数据` | 不用 npz，从原始 `PROCAR(.gz)` 重新解析投影，并与 `投影_解析.npz` 逐元素比对 |
 | `--data-root <dir> --out <dir>`（两个脚本都有） | 指定输入/输出目录；`<dir>/<材料>/step4_band_plot` 结构（原工作区）也能识别 |
 
@@ -82,13 +83,31 @@ python 10_脚本/orbital_fatband.py    # orbital_fatband_4mats.png/pdf（颜色 
 
 ### 轨道 fat-band 的读法
 
-每条能带画成总线宽固定的一根“线缆”，由内到外依次是 **A-s、B-s、Te-s、A-p、B-p、Te-p** 六层，
-每层厚度 ∝ 该元素-轨道在该 (k, 带) 的份额（份额 < 1% 的层不画）。颜色：Te 蓝、A(Pb/Sn) 红、B(Sb/Bi) 绿；s 浅色、p 深色。
-因为逐层累积线宽、内层后画，小份额层（如 Sn₂Bi₂Te₅ 价带顶约 25% 的 Sn-s）不会被大份额的 Te-p 层盖住。
-路径断点 A|L、M|H 处不连线。
+每个材料一张图（文献常用的气泡式 fat-band）：能带为细灰线，每个 (k, 能带) 上按 5 类画气泡，**气泡面积 ∝ 该元素-轨道的份额**：
+
+| 类别 | 颜色 | 标记 |
+|---|---|---|
+| A-s（Pb-s / Sn-s） | 红 `#e34948` | 圆点 |
+| A-p（Pb-p / Sn-p） | 琥珀 `#eda100` | 圆点 |
+| B-s（Sb-s / Bi-s） | 绿 `#008300` | 菱形 |
+| B-p（Sb-p / Bi-p） | 青 `#1baf7a` | 菱形 |
+| Te（s+p） | 蓝 `#2a78d6` | 圆点 |
+
+- Te-s 在 VBM±3 eV 内平均只占 2–9%，并入 Te；份额 < 3% 的气泡不画；气泡每隔 1 个 k 点画一个。
+- 五色取自经色觉校验的分类色板（全两两对比正常视觉 ΔE ≥ 15.6）；红–绿、红–青两对对红绿色弱者偏近，故 A/B 再用圆点/菱形区分。
+- 全部气泡按面积从大到小排序后绘制，小份额（如 Sn₂Bi₂Te₅ 价带顶约 25% 的 Sn-s）压在大的 Te 气泡上面，不会被遮住。
+- Kramers 简并对只画一组气泡（能量、份额取两条平均；能窗内两条份额差 ≤ 0.03），细线仍画全部能带；路径断点 A|L、M|H 处不连线。
+
+### 已知数据问题：Bi 系能带的单点尖峰
+
+Bi 系（Pb₂Bi₂Te₅、Sn₂Bi₂Te₅）用“均匀网格 + 零权重路径点”的 HSE 方案，`KPOINTS` 里有 14 / 18 个路径点与带权重的网格点**重复**
+（同一 k 既带权重又以零权重出现一次）。这些点上的能量出现单点尖峰（图中细灰线上的竖直毛刺），这是该方案的已知陷阱，不是物理特征。
+其中 **Sn₂Bi₂Te₅ 的 VBM 正落在这样一个点上**（k 序号 119，(1/3, 0, 1/2)：本点 0.000 eV，两侧邻点 −0.336 / −0.382 eV）。
+剔除重复点后粗估：Sn₂Bi₂Te₅ 价带顶约在 A 附近、低 0.059 eV，带隙约 0.196 eV（仍为间接）；Pb₂Bi₂Te₅ 基本不变（0.115 eV）。
+`band_summary.json` / `摘要/` 中的数值仍是原始数据结果，未改动；如需定量结论，建议用 `KPOINTS_OPT`（同 Sb 系）重算 Bi 系路径。
 
 ## 5. 与本仓库其它目录的关系
 
 - `07_带边能窗/`：带边能窗统计（1/25/50/100 meV 窗口内的轨道占比、入选态清单）与原始 PROCAR gzip；
   本轮绘图复用了同一批投影，但按“元素 × s/p”6 类重新解析并保留全部路径点，用于画 fat-band。
-- `02_图表/`：本轮的 `bands_*.png/pdf`、`orbital_fatband_4mats.png/pdf` 若定稿也放这里（目前在 `图表_预览/`）。
+- `02_图表/`：本轮的 `bands_*.png/pdf`、`orbital_fatband_<材料>.png/pdf` 若定稿也放这里（目前在 `图表_预览/`）。
