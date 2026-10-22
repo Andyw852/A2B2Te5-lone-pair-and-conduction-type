@@ -50,7 +50,7 @@
 
 | 编号 | 内容 | 在哪里算 | 状态 | 回答什么 / 判读 |
 |---|---|---|---|---|
-| **1-0** | **能带基准（最优先）**：① PbSb 先做，PBE+SOC 和 HSE+SOC 在 Γ 中心 12×12×2 上自洽（输出 WAVECAR），求 8 个 TRIM 点的宇称（irvsp 等外部工具，不改 AutoZT），判断哪种泛函在 Γ 点能带反转；② 找能在带边附近复现 HSE 的密网格能带：先试 mBJ+SOC（`METAGGA=MBJ`），在 07_ 的 HSE 路径上与 HSE 对比 Γ–A 色散、Γ 点带隙和带边位置，带边 150 meV 内偏差不超过约 30 meV 才算可用；不行就直接用 HSE+SOC 的 KPOINTS_OPT 算密网格不可约 k 点；③ 用选定的能带重做 BoltzTraP2（本地）；若选 mBJ，再重做 wave 和 AMSET（形变势、弹性沿用），ε∞ 用同一泛函的 `LCALCEPS` 复核 | jzzn | 未开始 | 现有能带结论哪些成立。PbBi 的 HSE 要换成当前结构重算 |
+| **1-0** | **能带基准（最优先）**：① PbSb 先做，PBE+SOC 和 HSE+SOC 在 Γ 中心 12×12×2 上自洽（输出 WAVECAR），求 8 个 TRIM 点的宇称（irvsp 等外部工具，不改 AutoZT），判断哪种泛函在 Γ 点能带反转；② 找能在带边附近复现 HSE 的密网格能带：先试 mBJ+SOC（`METAGGA=MBJ`），在 07_ 的 HSE 路径上与 HSE 对比 Γ–A 色散、Γ 点带隙和带边位置，带边 150 meV 内偏差不超过约 30 meV 才算可用；不行就直接用 HSE+SOC 的 KPOINTS_OPT 算密网格不可约 k 点；③ 用选定的能带重做 BoltzTraP2（本地）；若选 mBJ，再重做 wave 和 AMSET（形变势、弹性沿用），ε∞ 用同一泛函的 `LCALCEPS` 复核 | jzzn | 未开始 | 现有能带结论哪些成立。**Bi 系旧 HSE 路径用的是零权重 k 点，网格点之间的价带偏低 0.1–0.5 eV（12_ 第 3.2 节），HSE 带隙不可靠**；PbBi、SnBi 都要在当前结构上用 KPOINTS_OPT 重算 |
 | 1-1 | AMSET：PbSb、SnSb，与 Bi 系相同的精简网格（300–700 K × ±1e18、±1e19、±1e20，factor 1），按温度拆为 300–500 K、600–700 K 两个作业 | hanhai | ✅ 300 K × 6 浓度已入库（400–700 K 未算） | μ、PF、κₑ；结果放进 `14_/密网格AMSET/<材料>/` |
 | 1-2 | Bi 系精简版 AMSET：300–700 K × ±1e18、±1e19、±1e20 | hanhai | ✅ SnBi 300–700 K、PbBi 300 K 已入库 | 补全 2×2：迁移率的 A 位、B 位效应 |
 | 1-3 | 低浓度 S(n)、带隙敏感性、双极项分解 | 本地 BoltzTraP2（`s_vs_n.py`、`bt2_local.py`） | ✅ 12_ 第 3 节、18_ 第 3.1 节 | 高浓度结论稳健；低浓度和 κₑ 的结论取决于带隙 |

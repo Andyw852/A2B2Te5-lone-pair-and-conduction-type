@@ -1,0 +1,94 @@
+{
+ "Pb2Sb2Te5": {
+  "HSE_gap_path_eV": 0.0658,
+  "HSE_VBM_k": [
+   0.0,
+   0.0,
+   0.0
+  ],
+  "HSE_CBM_k": [
+   0.0,
+   0.0,
+   0.0
+  ],
+  "PBE_gap_dense_eV": 0.2191,
+  "PBE_gap_after_scissor_eV": 0.0654,
+  "HSE_Gamma_VB_CB_eV": [
+   0.0,
+   0.066
+  ],
+  "HSE_A_VB_CB_eV": [
+   -0.21,
+   0.37
+  ]
+ },
+ "Pb2Bi2Te5": {
+  "HSE_gap_path_eV": 0.1141,
+  "HSE_VBM_k": [
+   0.0,
+   0.0,
+   0.143
+  ],
+  "HSE_CBM_k": [
+   0.0,
+   0.0,
+   0.0
+  ],
+  "PBE_gap_dense_eV": 0.1434,
+  "PBE_gap_after_scissor_eV": 0.114,
+  "HSE_Gamma_VB_CB_eV": [
+   -0.007,
+   0.114
+  ],
+  "HSE_A_VB_CB_eV": [
+   -0.028,
+   0.31
+  ]
+ },
+ "Sn2Sb2Te5": {
+  "HSE_gap_path_eV": 0.1359,
+  "HSE_VBM_k": [
+   0.0,
+   0.0,
+   0.0
+  ],
+  "HSE_CBM_k": [
+   0.0,
+   0.0,
+   0.0
+  ],
+  "PBE_gap_dense_eV": 0.1478,
+  "PBE_gap_after_scissor_eV": 0.1352,
+  "HSE_Gamma_VB_CB_eV": [
+   0.0,
+   0.136
+  ],
+  "HSE_A_VB_CB_eV": [
+   -0.258,
+   0.287
+  ]
+ },
+ "Sn2Bi2Te5": {
+  "HSE_gap_path_eV": 0.1364,
+  "HSE_VBM_k": [
+   0.333,
+   0.0,
+   0.5
+  ],
+  "HSE_CBM_k": [
+   0.0,
+   0.0,
+   0.0
+  ],
+  "PBE_gap_dense_eV": 0.0885,
+  "PBE_gap_after_scissor_eV": 0.1367,
+  "HSE_Gamma_VB_CB_eV": [
+   -0.08,
+   0.136
+  ],
+  "HSE_A_VB_CB_eV": [
+   -0.148,
+   0.333
+  ]
+ }
+}
