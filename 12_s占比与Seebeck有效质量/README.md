@@ -120,7 +120,7 @@ python 10_脚本/edge_s_by_k.py analyze .                                       
 
 ![HSE 与 PBE 线状能带](能带线图_HSE与PBE.png)
 
-线状能带图由 [`10_脚本/band_lines.py`](../10_脚本/band_lines.py) 生成。左栏是 HSE 全路径；右栏是 Γ–A 附近的放大图，对比 HSE 与输运实际使用的 PBE+剪刀能带。能带按电子数分配（SOC 下每条带 1 个电子），所以带隙为正就是半导体；四种材料都是窄带隙半导体，不是金属。
+线状能带图由 [`10_脚本/band_lines.py`](../10_脚本/band_lines.py) 生成。能量零点取本征费米能级，即未掺杂时的带隙中点；掺杂会使 E_F 移向带边，输运计算中是扫描 E_F 的。左栏是 HSE 全路径；右栏是 Γ–A 附近的放大图，对比 HSE 与输运实际使用的 PBE+剪刀能带，两者各自以带隙中点为零。能带按电子数分配（SOC 下每条带 1 个电子），所以带隙为正就是半导体；四种材料都是窄带隙半导体，不是金属。
 
 **HSE 设置本身没有问题**：HSE06（AEXX 0.25、HFSCREEN 0.2）+ SOC，PREC=Accurate，ENCUT 与 PBE 相同，Γ 中心 12×12×2 自洽网格（包含全部 8 个 TRIM 点），能带用 KPOINTS_OPT 算；PbSb、SnSb、SnBi 与 PBE 是同一个结构。小问题有三个：`PRECFOCK=Fast`；PbBi 用的是略有不同的晶胞；带隙是路径上的最小值，而 Sn 系的 PBE 带边不在路径上，所以 Sn 系真实的 HSE 带隙可能更小。
 

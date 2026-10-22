@@ -1,8 +1,9 @@
 """Plain line band structures: the old HSE06+SOC path (07_) and the PBE-D3+SOC dense grid with the rigid scissor used for transport.
 Run: python band_lines.py DELIVERY      (one BoltzTraP2 fit per material for the PBE lines, about 3 min and a few GB each)
 Bands are assigned by electron count (SOC: one electron per band), not by a Fermi level, so the gap is max(VB) < min(CB) over every k.
-Left: HSE along the whole path, E - E_VBM. Right: zoom around Gamma-A, HSE against PBE + scissor (the band structure the transport used),
-both aligned at their own VBM. PBE lines are BoltzTraP2 interpolations of the 28x28x7 (Bi: 28x28x6) grid evaluated on the HSE path.
+Energy zero: the intrinsic Fermi level, taken at mid-gap (undoped, T -> 0); doping moves E_F toward a band edge, and the transport scans it.
+Left: HSE along the whole path. Right: zoom around Gamma-A, HSE against PBE + scissor (the band structure the transport used),
+each with its own mid-gap at zero. PBE lines are BoltzTraP2 interpolations of the 28x28x7 (Bi: 28x28x6) grid evaluated on the HSE path.
 The Bi compounds' HSE path used zero-weight k-points in the SCF; there the top valence band at k off the 12x12x2 SCF grid lies 0.1-0.5 eV
 below the on-grid values (spikes at every grid point), so only the on-grid points (dots) are trusted. The Sb compounds used KPOINTS_OPT: smooth.
 """
@@ -62,9 +63,10 @@ def main(D):
   summary[m]={'HSE_gap_path_eV':round(float(hg),4),'HSE_VBM_k':K[Eh[:,nel-1].argmax()].round(3).tolist(),'HSE_CBM_k':K[Eh[:,nel].argmin()].round(3).tolist(),
               'PBE_gap_dense_eV':round(float(pg),4),'PBE_gap_after_scissor_eV':round(float(pgs),4),
               'HSE_Gamma_VB_CB_eV':[round(float(Eh[ig[0],nel-1]),3),round(float(Eh[ig[0],nel]),3)],'HSE_A_VB_CB_eV':[round(float(Eh[ia[0],nel-1]),3),round(float(Eh[ia[0],nel]),3)]}
+  Eh=Eh-hg/2;ep=ep-pgs/2                                                        # plot with E_F at mid-gap; the summary above is relative to the VBM
   segs=np.split(np.arange(len(K)),brk)
   for col,ax in enumerate(axs[row]):
-   ax.axhspan(0,hg,color=GAP_C,lw=0,zorder=0)
+   ax.axhspan(-hg/2,hg/2,color=GAP_C,lw=0,zorder=0)
    for s in segs:
     for b in range(Eh.shape[1]):ax.plot(x[s],Eh[s,b],color=HSE_C,lw=1.1,zorder=3,alpha=0.55 if zw else 1)
     if col==1:
@@ -76,18 +78,18 @@ def main(D):
    ax.axhline(0,color=INK2,lw=0.8,ls=(0,(2,2)),zorder=1)
    seen={};[seen.setdefault(round(xv,4),t) for xv,t in lab]
    ax.set_xticks(list(seen));ax.set_xticklabels(list(seen.values()))
-   ax.tick_params(length=0,axis='x');ax.set_ylabel('E − E_VBM (eV)')
+   ax.tick_params(length=0,axis='x');ax.set_ylabel('E − E_F (eV)')
   ax0,ax1=axs[row];ax0.set_xlim(x[0],x[-1]);ax0.set_ylim(-1.5,1.5)
   ax0.set_title(f'{m}   HSE06+SOC   E_g = {1000*hg:.0f} meV (path)',loc='left',fontsize=11,color=INK)
   if zw:ax0.text(0.995,0.97,'zero-weight path: dots = SCF-grid k (trusted),\nlines between them biased low in the VB',transform=ax0.transAxes,ha='right',va='top',fontsize=8.5,color=INK2,zorder=5,bbox=dict(facecolor='#fcfcfb',edgecolor='none',pad=1.5))
-  ax0.text(x[-1],hg/2,f' gap {1000*hg:.0f} meV',va='center',ha='right',fontsize=8.5,color=INK2,zorder=4,
+  ax0.text(x[-1],0,f' E_F (mid-gap), gap {1000*hg:.0f} meV',va='center',ha='right',fontsize=8.5,color=INK2,zorder=4,
            bbox=dict(facecolor='#fcfcfb',edgecolor='none',pad=1))
-  xg,xa=x[ig[1] if len(ig)>1 else ig[0]],x[ia[0]];w=xa-xg;ax1.set_xlim(xg-2.2*w,xa+2.2*w);ax1.set_ylim(-0.4,0.5)
+  xg,xa=x[ig[1] if len(ig)>1 else ig[0]],x[ia[0]];w=xa-xg;ax1.set_xlim(xg-2.2*w,xa+2.2*w);ax1.set_ylim(-0.45,0.45)
   ax1.set_title(f'near Γ–A;  PBE gap {1000*pg:.0f} → {1000*pgs:.0f} meV after scissor',loc='left',fontsize=9.5,color=INK2)
   print(m,summary[m])
  h1,=axs[0,1].plot([],[],color=HSE_C,lw=1.6,label='HSE06+SOC (07_ path)');h2,=axs[0,1].plot([],[],color=PBE_C,lw=1.6,ls=(0,(4,2)),label='PBE-D3+SOC + rigid scissor (used for transport)')
  fig.legend(handles=[h1,h2],loc='upper center',ncol=2,frameon=False,fontsize=10,bbox_to_anchor=(0.5,0.995))
- fig.text(0.5,0.005,'Shaded: HSE gap. Bands are counted by electrons (one per band with SOC), so a positive gap means a semiconductor; each line is a Kramers pair.',
+ fig.text(0.5,0.005,'Dashed line: E_F at mid-gap (undoped). Shaded: HSE gap. Bands are counted by electrons (one per band with SOC), so a positive gap means a semiconductor; each line is a Kramers pair.',
           ha='center',fontsize=9,color=INK2)
  fig.tight_layout(rect=(0,0.012,1,0.975));fig.savefig(D/(OUT+'.png'),dpi=170);fig.savefig(D/(OUT+'.svg'))
  (D/(OUT+'.json')).write_text(json.dumps(summary,ensure_ascii=False,indent=1))
