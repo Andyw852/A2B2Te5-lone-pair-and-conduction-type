@@ -3,6 +3,7 @@ Run: python lambda_bands.py DELIVERY MATERIAL LAMBDA      (LAMBDA 0.00 / 0.50 / 
 lambda < 1: 15_受控畸变/<m>/lam<LAMBDA>/EIGENVAL.gz with POSCAR_lam<LAMBDA>; lambda = 1: the baseline step3_uniform EIGENVAL,
 whose S, Lorenz and n_i are taken from the baseline rows of 12_/剪刀敏感性_300K.csv (same code and settings).
 Scissor: the fixed shift of lambda = 1 (target - PBE gap, 12_ section 3.1), so a gap change at lambda < 1 is kept.
+Columns ending in _gm repeat the transport with the gap set to the lambda = 1 value, which isolates the band-shape change from the gap change.
 """
 from pathlib import Path
 import sys,csv,json
@@ -13,6 +14,19 @@ import s_vs_n as sv
 import bt2_local as bl
 
 OUT='15_受控畸变/λ扫描_能带与S.csv'
+
+KEYS=('n_i_300K_cm3','S_net_zero','electron_S_negative_above_cm3','hole_S_max','hole_S_max_at_cm3','S_p_1e19','S_p_3e19','S_p_1e20','S_n_1e19','S_n_3e19','S_n_1e20','L_p_1e19_1e-8','L_n_1e19_1e-8')
+
+def metrics(t):
+ f=sv.curve_from(t['mu_eV'],t['n'][0],t['S'][0]);ts=np.logspace(16,20.3,600)
+ se=np.array([f(-x) for x in ts]);sh=np.array([f(x) for x in ts]);k=int(np.argmax(se<0)) if (se<0).any() else None
+ N=t['n'][0];o=np.argsort(N);ni=float(np.sqrt(max(np.interp(0,N[o],t['p_only'][0][o])*np.interp(0,N[o],t['n_only'][0][o]),0)))
+ r={'n_i_300K_cm3':float('%.3g'%ni),'S_net_zero':round(f(0.),1),'electron_S_negative_above_cm3':float('%.2g'%ts[k]) if k is not None else None,
+    'hole_S_max':round(float(sh.max()),1),'hole_S_max_at_cm3':float('%.2g'%ts[sh.argmax()])}
+ for car,sg in (('p',1),('n',-1)):
+  for lv in (1e19,3e19,1e20):r[f'S_{car}_{lv:.0e}'.replace('+','')]=round(bl.at(t,0,sg*lv,'S'),1)
+  r[f'L_{car}_1e19_1e-8']=round(1e8*bl.at(t,0,sg*1e19,'kap')/(bl.at(t,0,sg*1e19,'sig')*300),3)
+ return r
 
 def main(D,m,lam):
  base=D/'A2B2Te5_SOC_dense/materials'/m/'ke-dft-cpu/result/step3_uniform'
@@ -28,17 +42,11 @@ def main(D,m,lam):
   r[f'{edge}_Nv_eff']=round(float(neff),2);r[f'{edge}_stars']='; '.join(f"{x['mult']}@{x['dE_meV']}meV" for x in st[:4])
  if lam=='1.00':
   b=next(x for x in csv.DictReader(open(D/sm.OUT/'剪刀敏感性_300K.csv',encoding='utf-8-sig')) if x['material']==m and x['is_baseline']=='True')
-  for k in ('n_i_300K_cm3','S_net_zero','electron_S_negative_above_cm3','hole_S_max','hole_S_max_at_cm3','S_p_1e19','S_p_3e19','S_p_1e20','S_n_1e19','S_n_3e19','S_n_1e20','L_p_1e19_1e-8','L_n_1e19_1e-8'):r[k]=b[k]
+  r.update({k:b[k] for k in KEYS});r.update({k+'_gm':b[k] for k in KEYS})
  else:
-  nw,v,c,eb,vv,vuc=bl.fit(D,m,eig=eig,pos=pos);t=bl.transport(nw,v,c,eb,vv,vuc,gap)
-  f=sv.curve_from(t['mu_eV'],t['n'][0],t['S'][0]);ts=np.logspace(16,20.3,600)
-  se=np.array([f(-x) for x in ts]);sh=np.array([f(x) for x in ts]);k=int(np.argmax(se<0)) if (se<0).any() else None
-  N=t['n'][0];o=np.argsort(N);ni=float(np.sqrt(max(np.interp(0,N[o],t['p_only'][0][o])*np.interp(0,N[o],t['n_only'][0][o]),0)))
-  r.update({'n_i_300K_cm3':float('%.3g'%ni),'S_net_zero':round(f(0.),1),'electron_S_negative_above_cm3':float('%.2g'%ts[k]) if k is not None else None,
-            'hole_S_max':round(float(sh.max()),1),'hole_S_max_at_cm3':float('%.2g'%ts[sh.argmax()])})
-  for car,sg in (('p',1),('n',-1)):
-   for lv in (1e19,3e19,1e20):r[f'S_{car}_{lv:.0e}'.replace('+','')]=round(bl.at(t,0,sg*lv,'S'),1)
-   r[f'L_{car}_1e19_1e-8']=round(1e8*bl.at(t,0,sg*1e19,'kap')/(bl.at(t,0,sg*1e19,'sig')*300),3)
+  nw,v,c,eb,vv,vuc=bl.fit(D,m,eig=eig,pos=pos)
+  r.update(metrics(bl.transport(nw,v,c,eb,vv,vuc,gap)))
+  r.update({k+'_gm':x for k,x in metrics(bl.transport(nw,v,c,eb,vv,vuc,j['scissor']['target_gap_eV'])).items()})
  p=D/OUT;old=[x for x in csv.DictReader(open(p,encoding='utf-8-sig')) if (x['material'],x['lambda'])!=(m,lam)] if p.exists() else []
  rows=sorted(old+[r],key=lambda x:(sm.M.index(x['material']),x['lambda']));keys=list(r)
  with open(p,'w',newline='',encoding='utf-8-sig') as fh:
