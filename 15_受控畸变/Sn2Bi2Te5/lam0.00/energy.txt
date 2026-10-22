@@ -1,0 +1,3 @@
+  energy  without entropy=      -39.11350783  energy(sigma->0) =      -39.11350783
+  free  energy   TOTEN  =       -39.11350783 eV
+                         Elapsed time (sec):    28302.561
