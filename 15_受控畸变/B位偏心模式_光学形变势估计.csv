@@ -1,0 +1,6 @@
+﻿material,lambda,du_A,omega_B_THz,VB_mean_dEdu_eV_A,VB_max_dEdu_eV_A,hole_ODP_over_total_rate,CB_mean_dEdu_eV_A,CB_max_dEdu_eV_A,electron_ODP_over_total_rate
+Pb2Sb2Te5,0.50,0.0685,3.73,0.27,1.33,0.091,0.11,0.24,0.0032
+Pb2Sb2Te5,0.00,0.1371,3.73,0.3,1.3,0.087,0.18,0.44,0.011
+Pb2Bi2Te5,0.00,0.1551,2.8,0.13,0.77,0.05,0.36,0.38,0.013
+Sn2Sb2Te5,0.00,0.1393,3.9,0.13,0.34,0.008,0.1,0.59,0.019
+Sn2Bi2Te5,0.00,0.1587,2.89,0.07,0.13,0.0012,0.14,0.44,0.011
