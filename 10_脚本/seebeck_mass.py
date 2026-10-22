@@ -38,7 +38,7 @@ def S_mass(S,n,T,r):
  except ValueError:return None
 
 def read_eigenval(p):
- with open(p) as f:
+ with (gzip.open(p,'rt') if str(p).endswith('.gz') else open(p)) as f:
   for _ in range(5):next(f)
   nel,nk,nb=map(int,next(f).split());K=np.zeros((nk,3));E=np.zeros((nk,nb))
   for k in range(nk):

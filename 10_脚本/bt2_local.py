@@ -24,11 +24,13 @@ class Data:
  def __init__(s,atoms,K,E):s.atoms,s.kpoints,s.ebands,s.mommat,s.magmom=atoms,K,E.T/HA,None,None
  def get_lattvec(s):return s.atoms.get_cell().T*U.Angstrom
 
-def fit(D,m,window=3.0):
- u=D/'A2B2Te5_SOC_dense/materials'/m/'ke-dft-cpu/result/step3_uniform';nel,K,E=sm.read_eigenval(u/'EIGENVAL')
+def fit(D,m,window=3.0,eig=None,pos=None):
+ """Fit the bands within `window` eV of the gap; eig/pos default to the baseline step3_uniform EIGENVAL/POSCAR."""
+ u=D/'A2B2Te5_SOC_dense/materials'/m/'ke-dft-cpu/result/step3_uniform';eig=eig or u/'EIGENVAL';pos=pos or u/'POSCAR'
+ nel,K,E=sm.read_eigenval(eig)
  vbm,cbm=E[:,:nel].max(),E[:,nel:].min();keep=np.where(((E>vbm-window)&(E<cbm+window)).any(0))[0]
  assert keep[0]<nel<=keep[-1],'window must contain both edges';E=E[:,keep];nel-=int(keep[0])   # nel = valence bands kept
- d=Data(ase.io.read(u/'POSCAR',format='vasp'),K,E);eq=sphere.get_equivalences(d.atoms,None,len(K)*5)
+ d=Data(ase.io.read(pos,format='vasp'),K,E);eq=sphere.get_equivalences(d.atoms,None,len(K)*5)
  eb,vv,_=fite.getBTPbands(eq,fite.fitde3D(d,eq),d.get_lattvec())
  return nel,E[:,:nel].max(),E[:,nel:].min(),eb,vv,abs(np.linalg.det(d.get_lattvec()))
 
