@@ -1,4 +1,5 @@
 # D/V/O 母胞弛豫：体积+形状+原子（文献：母胞先优化到理论密度）。PBE-D3(BJ)，无 SOC 预筛。
+# POTIM=0.1（默认 0.5）：O_ordered 用默认步长时第 10 步起能量上升数百 eV（hanhai 301880，2026-10-23）。
 SYSTEM  = {name} parent relax
 GGA     = PE
 IVDW    = 12
@@ -14,6 +15,7 @@ SIGMA   = 0.05
 ISPIN   = 1
 ISYM    = 0
 IBRION  = 2
+POTIM   = 0.1
 ISIF    = 3
 NSW     = 300
 EDIFFG  = -0.02
