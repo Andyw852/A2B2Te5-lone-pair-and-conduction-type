@@ -1,0 +1,23 @@
+{
+  "material": "Sn2Sb2Te5",
+  "note": "投影取 PROCAR 每带第 1 个块（电荷投影）；后 3 个块是自旋分量，不参与轨道成分。9 条 ion 行的 s/py/pz/px/d 权重按元素归并为 s/p。",
+  "raw_files": [
+    {
+      "file": "step4_fatband_plot/PROCAR_OPT",
+      "size_bytes": 62117070,
+      "sha256": "a537a18fa88a8a1061caf44eb51832c3115fde24e4fbf90b4df0b917e15b4222"
+    },
+    {
+      "file": "step4_fatband_plot/PROCAR",
+      "size_bytes": 11570900,
+      "sha256": "3bf450e611120ec49aa785fa2f7d8a883669834763abae1058a27998e5b77109"
+    }
+  ],
+  "parsed": {
+    "kdist": "路径累积 k 距离 (1/Ang)",
+    "E": "E - E_VBM (eV)，与 band.dat 相同",
+    "frac": "(nk, nb, ncat) 各 (元素-轨道) 类别的相对份额（按该带投影总和归一）",
+    "tot": "(nk, nb) 该带投影总权重（原子球内份额，约 0.44–0.58）",
+    "cats": "类别顺序 = 元素顺序 × (s,p)；元素顺序见 POSCAR"
+  }
+}

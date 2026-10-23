@@ -1,0 +1,68 @@
+{
+  "step": "step4_band_plot",
+  "step4_dir": "/public/home/wangchao/joint_research_project/huang/Sn2Bi2Te5/POSCAR_B/band/step4_HSE_band",
+  "out_dir": "/public/home/wangchao/joint_research_project/huang/Sn2Bi2Te5/POSCAR_B/band/step4_band_plot",
+  "checked_at": "2026-07-16T14:18:26",
+  "status": "ok",
+  "soc": true,
+  "nelect": 88,
+  "n_path_kpts": 204,
+  "band_source": "EIGENVAL(zero-weight)",
+  "gap_eV": 0.1366,
+  "gap_type": "indirect",
+  "min_direct_gap_eV": 0.2152,
+  "min_direct_gap_k_frac": [
+    0.0,
+    0.0,
+    0.071429
+  ],
+  "vbm": {
+    "E_eV": 6.2862,
+    "k_frac": [
+      0.333333,
+      0.0,
+      0.5
+    ]
+  },
+  "cbm": {
+    "E_eV": 6.4227,
+    "k_frac": [
+      0.0,
+      0.0,
+      0.0
+    ]
+  },
+  "efermi_scf_eV": 6.3682,
+  "energy_zero": "VBM",
+  "plot_title": "step4_HSE_band   $E_g$ = 0.137 eV (indirect);  $E_g^{\\rm dir}$ = 0.215 eV",
+  "extrema_marked": true,
+  "inputs_copied": [
+    "EIGENVAL",
+    "vasprun.xml",
+    "POSCAR",
+    "INCAR",
+    "KPOINTS",
+    "workflow_method.txt"
+  ],
+  "files": {
+    "dat": "/public/home/wangchao/joint_research_project/huang/Sn2Bi2Te5/POSCAR_B/band/step4_band_plot/band.dat",
+    "klabels": "/public/home/wangchao/joint_research_project/huang/Sn2Bi2Te5/POSCAR_B/band/step4_band_plot/band_klabels.txt",
+    "png": "/public/home/wangchao/joint_research_project/huang/Sn2Bi2Te5/POSCAR_B/band/step4_band_plot/band.png",
+    "summary": "/public/home/wangchao/joint_research_project/huang/Sn2Bi2Te5/POSCAR_B/band/step4_band_plot/band_summary.json"
+  },
+  "labels_found": [
+    "Γ",
+    "M",
+    "K",
+    "Γ",
+    "A",
+    "L",
+    "H",
+    "A|L",
+    "M|K",
+    "H"
+  ],
+  "kpath_source": "内置六方表(坐标匹配)",
+  "kpath_method": null,
+  "kpath_note": null
+}
