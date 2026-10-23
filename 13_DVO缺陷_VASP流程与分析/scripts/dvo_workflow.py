@@ -97,7 +97,8 @@ def fill(template, **kw):
 
 def write_job(folder, poscar_src, name, relax_tpl, static_tpl, args, kpoints=True, ispin=1, nelect=None, meta=None):
     folder.mkdir(parents=True, exist_ok=False)
-    shutil.copy(poscar_src, folder / "POSCAR")
+    # 模型包里的 POSCAR 是 CRLF 换行，VASP 会拒读（“1 or 3 items on line 2”），写出时统一成 LF
+    (folder / "POSCAR").write_text(Path(poscar_src).read_text().replace("\r\n", "\n").replace("\r", "\n"))
     species = Path(poscar_src).read_text().splitlines()[5].split()
     if not args.no_potcar:
         blocks = potcar_blocks()

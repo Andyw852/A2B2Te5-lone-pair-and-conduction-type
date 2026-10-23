@@ -1,4 +1,5 @@
 # 缺陷弛豫：母胞弛豫后晶格固定，只优化原子（文献同口径）。NELECT 仅在带电态写入。
+# 能量取自之后的 static/ 单点，所以弛豫阶段的 EDIFF/EDIFFG 比母胞宽（2026-10-23）。
 SYSTEM  = {name} defect relax
 GGA     = PE
 IVDW    = 12
@@ -7,7 +8,7 @@ ENCUT   = 360
 LASPH   = .TRUE.
 LREAL   = Auto
 ALGO    = Normal
-EDIFF   = 1E-6
+EDIFF   = 1E-5
 NELM    = 200
 ISMEAR  = 0
 SIGMA   = 0.05
@@ -16,7 +17,7 @@ ISYM    = 0
 IBRION  = 2
 ISIF    = 2
 NSW     = 300
-EDIFFG  = -0.02
+EDIFFG  = -0.03
 LWAVE   = .FALSE.
 LCHARG  = .FALSE.
 NCORE   = 4
