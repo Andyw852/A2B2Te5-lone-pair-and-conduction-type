@@ -49,6 +49,17 @@
 
 所有命令在本目录下执行，`WORK` 为任意新工作目录。脚本依赖 numpy、scipy、matplotlib；生成参考相需要 ase。
 
+**集群上的目录布局**：脚本按“`scripts/` 的上两级 = 仓库根目录”找依赖，所以集群上要保持仓库的相对路径（本目录可以改名）：
+
+```
+<根>/<本目录>/inputs、scripts
+<根>/补算实施方案_20261007/rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED/   # parents、defects 都要（约 5 MB）
+<根>/补算实施方案_20261007/scripts/regenerate_defects_from_relaxed_parent.py   # defects 要（只依赖 numpy）
+<根>/A2B2Te5_SOC_dense/materials/*/POSCAR、POTCAR             # POTCAR 拼接与 refs 要
+```
+
+只有 `refs` 需要 ase；集群上没有 ase 时，可以在有 ase 的机器上运行 `refs --cluster hanhai`，再把生成的作业目录拷过去。
+
 ```bash
 # 0+1a：生成母胞与参考相作业（POTCAR 由仓库内同版本 PAW 拼接：Pb_d、Sb、Te）
 python scripts/dvo_workflow.py parents --out WORK
