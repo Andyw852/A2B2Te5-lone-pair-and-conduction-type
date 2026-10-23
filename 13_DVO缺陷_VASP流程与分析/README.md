@@ -41,6 +41,8 @@
   - **第二批**：其余 3 个 D 母胞（60 个），只有在第一批中 D 与 O 的差别没有明显超出 D 内部位点之间的离散时才补。
 - **弛豫阶段放宽收敛**：`INCAR.defect_relax` 的 EDIFF 由 1E-6 改为 1E-5，EDIFFG 由 −0.02 改为 −0.03。最终能量仍取 `static/` 单点（EDIFF 1E-6、`LREAL=.FALSE.`），不受影响。母胞设置不变。
 - **成本**：母胞 O_ordered 的前两个离子步共 64 min（每步约 17 个电子步）。这是最贵的情况：从未弛豫结构起步、ISIF=3、含启动开销。缺陷从已弛豫母胞出发，后续离子步一般只需 5–8 个电子步、共 15–40 步。单个缺陷的耗时等母胞第 5–10 步的实测值再定，不要用前两步外推。
+- **集群**：13_ 全部改在 hanhai 上跑（jzzn 排不上）。所有生成命令加 `--cluster hanhai --ntasks 64 --vasp <hanhai 的 vasp_std>`，用 `inputs/submit.sh.hanhai.template`（CPU-256C768GB 分区，墙钟上限 15 天，默认 `--time 7-00:00:00`、`--mem 300G`）。它和 jzzn 模板的计算逻辑相同：relax（不收敛则续算）→ static → 写 `STATUS`。参考相此前在 jzzn 用 vasp 6.4.3 算过，要在 hanhai 用同一个 vasp 重算，保证形成能里的能量来自同一版本。
+- **O_ordered 的补救**（hanhai 301880 用的是只有一次 mpirun 的脚本，没有 relax/static/STATUS）：作业结束后（收敛或被墙钟终止都一样），把 VASP 输出连同 INCAR 移进 `relax/`，再用 hanhai 模板生成的 submit.sh 提交。脚本检查 `relax/OUTCAR`：已收敛就只做 static，未收敛就从 CONTCAR 续算。
 - **换行符**：模型包 `补算实施方案_20261007/rocksalt_*` 中的 POSCAR 是 CRLF 换行，VASP 拒读。`write_job` 现在写出时统一转成 LF（此前母胞作业因此失败过两次）。
 
 ## 3 操作
@@ -51,6 +53,7 @@
 # 0+1a：生成母胞与参考相作业（POTCAR 由仓库内同版本 PAW 拼接：Pb_d、Sb、Te）
 python scripts/dvo_workflow.py parents --out WORK
 python scripts/dvo_workflow.py refs    --out WORK
+#   hanhai：以上及下面每条生成命令都加 --cluster hanhai --ntasks 64 --vasp <hanhai 的 vasp_std>
 #   上传后在每个作业目录执行 sbatch submit.sh；脚本自动 relax（不收敛则续算，至多 3 轮）→ static，写 STATUS=DONE
 
 # 1b：母胞 STATUS=DONE 后，用原工具从 relax/CONTCAR 重建缺陷，再写作业（默认 5 类关键缺陷、≤4 位点、q=0）

@@ -109,8 +109,9 @@ def write_job(folder, poscar_src, name, relax_tpl, static_tpl, args, kpoints=Tru
     if kpoints:
         k = args.kmesh
         (folder / "KPOINTS").write_text(f"D/V/O common mesh\n0\n{'Monkhorst-Pack' if args.shift else 'Gamma'}\n{k[0]} {k[1]} {k[2]}\n0 0 0\n")
-    sub = fill("submit.sh.template", partition=args.partition, jobname=name[:60], nodes=args.nodes,
-               ntasks=args.ntasks, vasp=args.vasp, restarts=args.restarts)
+    tpl = "submit.sh.hanhai.template" if args.cluster == "hanhai" else "submit.sh.template"
+    sub = fill(tpl, partition=args.partition, jobname=name[:60], nodes=args.nodes,
+               ntasks=args.ntasks, vasp=args.vasp, restarts=args.restarts, mem=args.mem, time=args.time)
     (folder / "submit.sh").write_text(sub)
     (folder / "job.json").write_text(json.dumps(meta or {}, indent=1, ensure_ascii=False) + "\n")
 
@@ -607,6 +608,10 @@ def main():
         s.add_argument("--ntasks", type=int, default=48)
         s.add_argument("--vasp", default="/public/home/wangchao/software/vasp.6.4.3/bin/vasp_std")
         s.add_argument("--restarts", type=int, default=3)
+        s.add_argument("--cluster", choices=("jzzn", "hanhai"), default="jzzn",
+                       help="hanhai: inputs/submit.sh.hanhai.template (CPU-256C768GB, hpcx); --vasp must point to hanhai's binary")
+        s.add_argument("--mem", default="300G", help="hanhai only")
+        s.add_argument("--time", default="7-00:00:00", help="hanhai only; partition limit is 15 days")
         s.add_argument("--no-potcar", action="store_true", help="do not write POTCAR (copy it on the cluster)")
         s.add_argument("--families", default="DVO")
         s.add_argument("--models", default=str(DVO), help="D/V/O model package (parents/, defects/, jobs.csv)")

@@ -1,0 +1,40 @@
+#!/bin/bash
+#SBATCH --partition=CPU-256C768GB
+#SBATCH --qos=qos_cpu-256c768gb
+#SBATCH --job-name={jobname}
+#SBATCH --nodes={nodes}
+#SBATCH --ntasks-per-node={ntasks}
+#SBATCH --mem={mem}
+#SBATCH --time={time}
+#SBATCH --output=queue.out
+#SBATCH --error=queue.err
+# 由 dvo_workflow.py --cluster hanhai 生成（环境取自 hanhai 上已跑通的 13_ 作业）：
+# relax（不收敛则以 CONTCAR 续算，至多 {restarts} 轮）→ static → 写 STATUS。
+# relax/ 里已有 OUTCAR/CONTCAR 时直接接着算：已收敛就只做 static。
+source /etc/profile
+module load AMD/aocc-compiler-5.0.0_module AMD/aocl-linux-aocc-5.0.0_module hpcx-v2.24.1/ompi-aocc
+cd $SLURM_SUBMIT_DIR
+ulimit -s unlimited
+export OMP_NUM_THREADS=1
+export OMPI_MCA_btl="self,vader,tcp"
+export OMPI_MCA_btl_vader_single_copy_mechanism=none
+export OMPI_MCA_btl_vader_xpmem_enable=0
+VASP={vasp}
+echo "[13] start $(date) $(hostname) mpirun=$(command -v mpirun)"
+set -e
+mkdir -p relax static
+for f in POSCAR INCAR.relax KPOINTS POTCAR; do [ -f $f ] && [ ! -f relax/$f ] && cp $f relax/; done; true
+cd relax
+[ -f INCAR ] || cp INCAR.relax INCAR
+for i in $(seq 1 {restarts}); do
+  if [ -f OUTCAR ] && grep -q "reached required accuracy" OUTCAR; then break; fi
+  if [ -s CONTCAR ]; then cp CONTCAR POSCAR; fi
+  mpirun -np $SLURM_NTASKS $VASP > vasp.out.$i 2>&1
+done
+grep -q "reached required accuracy" OUTCAR || { echo RELAX_NOT_CONVERGED > ../STATUS; exit 1; }
+cd ../static
+cp ../relax/CONTCAR POSCAR; cp ../INCAR.static INCAR; cp ../POTCAR .
+[ -f ../KPOINTS ] && cp ../KPOINTS . || true
+mpirun -np $SLURM_NTASKS $VASP > vasp.out 2>&1
+grep -q "General timing" OUTCAR && echo DONE > ../STATUS || echo STATIC_FAILED > ../STATUS
+echo "[13] end $(date)"
