@@ -43,7 +43,10 @@
 - **成本**：母胞 O_ordered 的前两个离子步共 64 min（每步约 17 个电子步）。这是最贵的情况：从未弛豫结构起步、ISIF=3、含启动开销。缺陷从已弛豫母胞出发，后续离子步一般只需 5–8 个电子步、共 15–40 步。单个缺陷的耗时等母胞第 5–10 步的实测值再定，不要用前两步外推。
 - **集群**：13_ 全部改在 hanhai 上跑（jzzn 排不上）。所有生成命令加 `--cluster hanhai --ntasks 64 --vasp <hanhai 的 vasp_std>`，用 `inputs/submit.sh.hanhai.template`（CPU-256C768GB 分区，墙钟上限 15 天，默认 `--time 7-00:00:00`、`--mem 300G`）。它和 jzzn 模板的计算逻辑相同：relax（不收敛则续算）→ static → 写 `STATUS`。参考相此前在 jzzn 用 vasp 6.4.3 算过，要在 hanhai 用同一个 vasp 重算，保证形成能里的能量来自同一版本。
 - **O_ordered 的补救**（hanhai 301880 用的是只有一次 mpirun 的脚本，没有 relax/static/STATUS）：作业结束后（收敛或被墙钟终止都一样），把 VASP 输出连同 INCAR 移进 `relax/`，再用 hanhai 模板生成的 submit.sh 提交。脚本检查 `relax/OUTCAR`：已收敛就只做 static，未收敛就从 CONTCAR 续算。
-- **母胞弛豫步长**（2026-10-23）：O_ordered 用默认 POTIM（IBRION=2 时为 0.5）弛豫，前 9 步正常（能量 −583.66 → −589.79 eV，体积 4767 → 4995 Å³），第 10–12 步体积基本不变，能量却升到 −90.6 eV。`INCAR.parent_relax` 已加 `POTIM = 0.1`。O_ordered 从第 9 步结构重新开始，D_seed1729 从模板重新开始；两个作业的 `relax/` 都要清空，否则模板会沿用旧的 `relax/INCAR`（不含 POTIM），或者从发散后的 CONTCAR 续算。
+- **母胞弛豫步长**（2026-10-23）：O_ordered 用默认 POTIM（IBRION=2 时为 0.5）弛豫，前 9 步正常（能量 −583.66 → −589.79 eV，体积 4767 → 4995 Å³），第 10–12 步体积基本不变，能量却升到 −90.6 eV。`INCAR.parent_relax` 已加 `POTIM = 0.1`。
+  - **原因已由单点对照确认**（hanhai 302292/302293，同一 INCAR、NSW=0）：第 9、10 步构型的单点 F 分别为 −589.960、−589.993 eV，而弛豫过程中第 10 步给出 −508.741 eV。两个构型体积只差 0.7%、最短键长正常（Pb–Te 3.19、Sb–Te 3.00 Å），所以结构没坏，是 ISIF=3 下晶胞变形后基组和 `LREAL=Auto` 的实空间投影没有重新优化造成的计算误差。`INCAR.parent_relax` 因此改为 `LREAL = .FALSE.`（80aaa99）。（早先从 OUTCAR 抓的体积表错位两步：OUTCAR 开头会先打印 `volume of cell`。以 ase 读 XDATCAR 为准。）
+  - **收敛后要看压强**：母胞弛豫收敛后，检查 `static/OUTCAR` 的 `external pressure`。绝对值超过约 5 kbar 时，从 `relax/CONTCAR` 再弛豫一轮（体积变化大时，弛豫末尾的应力仍带基组误差）。
+  - O_ordered 从第 9 步结构重新开始，D_seed1729 从模板重新开始；两个作业的 `relax/` 都要清空，否则模板会沿用旧的 `relax/INCAR`（不含 POTIM），或者从发散后的 CONTCAR 续算。
 - **换行符**：模型包 `补算实施方案_20261007/rocksalt_*` 中的 POSCAR 是 CRLF 换行，VASP 拒读。`write_job` 现在写出时统一转成 LF（此前母胞作业因此失败过两次）。
 
 ## 3 操作
@@ -100,7 +103,7 @@ python scripts/dvo_workflow.py refs --material Pb2Bi2Te5 --out WORK_BI   # Pb、
 | 泛函 / vdW | PBE + D3(BJ)（`IVDW=12`） | 与文献一致，也与本项目 SOC 密网格一致 |
 | POTCAR | Pb_d、Sb、Te（Bi 用 Bi_d），从仓库 `A2B2Te5_SOC_dense/materials/*/POTCAR` 拼接 | 与已有计算使用同一组数据集 |
 | ENCUT | 360 eV | 与 Pb₂Sb₂Te₅ 密网格相同；约为最大 ENMAX 的 1.5 倍，ISIF=3 时可抑制 Pulay 应力 |
-| 母胞 | ISIF=3，EDIFFG=−0.02，ISYM=0，POTIM=0.1 | 文献要求优化到理论密度；关闭对称，避免把 O 母胞锁在理想对称下 |
+| 母胞 | ISIF=3，EDIFFG=−0.02，ISYM=0，POTIM=0.1，LREAL=.FALSE. | 文献要求优化到理论密度；关闭对称，避免把 O 母胞锁在理想对称下 |
 | 缺陷 | ISIF=2，晶格取母胞弛豫后的值；弛豫阶段 EDIFF=1E-5、EDIFFG=−0.03 | 与文献一致；形成能只做固定晶格比较；能量取自 static/ 单点 |
 | 能量 | 统一由 `static/` 的 `energy(sigma->0)` 给出，`LREAL=.FALSE.`，`LORBIT=11` | 母胞与缺陷用同一套设置；DOSCAR 供第 4 阶段使用 |
 | 展宽 | ISMEAR=0，SIGMA=0.05 | 窄隙或半金属宿主 |
