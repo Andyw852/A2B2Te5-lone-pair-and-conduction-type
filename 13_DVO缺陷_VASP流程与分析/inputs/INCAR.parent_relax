@@ -1,6 +1,7 @@
 # D/V/O 母胞弛豫：体积+形状+原子（文献：母胞先优化到理论密度）。PBE-D3(BJ)，无 SOC 预筛。
 # 晶胞弛豫（ISIF=3）中体积变化后，固定的平面波基组会逐渐失真，能量会突然上升数十到数百 eV（O_ordered、D_seed1729 都出现过，单点证实结构没坏）。
-# 对策：NSW=20 分段，每段结束由 submit.sh 从 CONTCAR 重启（基组随之按新晶胞重建），生成时用 --restarts 15（最多 300 步）；
+# 对策：NSW=10 分段，每段结束由 submit.sh 从 CONTCAR 重启（基组随之按新晶胞重建），生成时用 --restarts 30（最多 300 步）。
+# 发散最早出现在重启后第 10 步（O_ordered）和第 18 步（D_seed1729，hanhai 305123），所以每段不超过 10 步；
 # POTIM=0.02：D_seed1729 用 0.1、0.05 仍发散，0.02 稳定（hanhai 305123，2026-10-24）。LREAL=.FALSE.。
 SYSTEM  = {name} parent relax
 GGA     = PE
@@ -19,7 +20,7 @@ ISYM    = 0
 IBRION  = 2
 POTIM   = 0.02
 ISIF    = 3
-NSW     = 20
+NSW     = 10
 EDIFFG  = -0.02
 LWAVE   = .FALSE.
 LCHARG  = .FALSE.
