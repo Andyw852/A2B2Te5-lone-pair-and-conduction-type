@@ -1,5 +1,6 @@
 # 缺陷弛豫：母胞弛豫后晶格固定，只优化原子（文献同口径）。NELECT 仅在带电态写入。
 # 能量取自之后的 static/ 单点，所以弛豫阶段的 EDIFF/EDIFFG 比母胞宽（2026-10-23）。
+# POTIM=0.1（默认 0.5）：O_ordered 的 Pb_on_Vac 用默认步长时第 27–28 步能量降到 −7361 eV（hanhai 304673，2026-10-25）。
 SYSTEM  = {name} defect relax
 GGA     = PE
 IVDW    = 12
@@ -15,6 +16,7 @@ SIGMA   = 0.05
 ISPIN   = {ispin}
 ISYM    = 0
 IBRION  = 2
+POTIM   = 0.1
 ISIF    = 2
 NSW     = 300
 EDIFFG  = -0.03

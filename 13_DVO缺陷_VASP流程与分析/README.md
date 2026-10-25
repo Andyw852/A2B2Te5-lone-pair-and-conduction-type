@@ -48,6 +48,7 @@
   - **收敛后要看压强**：母胞弛豫收敛后，检查 `static/OUTCAR` 的 `external pressure`。绝对值超过约 5 kbar 时，从 `relax/CONTCAR` 再弛豫一轮（体积变化大时，弛豫末尾的应力仍带基组误差）。
   - O_ordered 从第 9 步结构重新开始，D_seed1729 从模板重新开始；两个作业的 `relax/` 都要清空，否则模板会沿用旧的 `relax/INCAR`（不含 POTIM），或者从发散后的 CONTCAR 续算。
 - **母胞分段弛豫**（2026-10-25）：D_seed1729 在 POTIM=0.1（第 34 步）和 0.05（重启后第 26 步）下仍出现能量突然上升，POTIM=0.02 才稳定。根源和 O_ordered 一样：ISIF=3 下体积变化后基组不再匹配晶胞，误差随步数累积。`INCAR.parent_relax` 改为 `POTIM = 0.02`、`NSW = 20`，生成母胞时加 `--restarts 15`：每 20 步从 CONTCAR 重启一次，基组随之重建，最多 300 步。模板在每段开始前删除 STOPCAR，所以运行中若发现能量上升（dE > +0.5 eV），可以写 `LSTOP = .TRUE.` 到 `relax/STOPCAR`，让 VASP 在当前离子步后停下，下一段自动从 CONTCAR 续算。
+- **填空位缺陷不能剔除**（2026-10-25）：`Pb_on_Vac`、`Sb_on_Vac` 是 Pb 或 Sb 填入母胞中的**阳离子结构空位**（Pb₂Sb₂Te₅ 的阳离子位有 20% 是空位），名义电荷 +2、+3，是施主。文献认为无序相正是因为这两类和 Sb_Pb 容易形成才呈 n 型（第 1 节），所以它们是 1b 的核心，不是“填 Te 空位”。O_ordered 上这两个作业失败（304673 用默认 POTIM 时能量降到 −7361 eV，304675 跑 16 h 没有完成一个离子步），是数值问题，要修设置后重算：`INCAR.defect_relax` 已加 `POTIM = 0.1`；没有完成离子步的那个要先看 OSZICAR 的电子步，判断是不是自洽不收敛。
 - **换行符**：模型包 `补算实施方案_20261007/rocksalt_*` 中的 POSCAR 是 CRLF 换行，VASP 拒读。`write_job` 现在写出时统一转成 LF（此前母胞作业因此失败过两次）。
 
 ## 3 操作
@@ -105,7 +106,7 @@ python scripts/dvo_workflow.py refs --material Pb2Bi2Te5 --out WORK_BI   # Pb、
 | POTCAR | Pb_d、Sb、Te（Bi 用 Bi_d），从仓库 `A2B2Te5_SOC_dense/materials/*/POTCAR` 拼接 | 与已有计算使用同一组数据集 |
 | ENCUT | 360 eV | 与 Pb₂Sb₂Te₅ 密网格相同；约为最大 ENMAX 的 1.5 倍，ISIF=3 时可抑制 Pulay 应力 |
 | 母胞 | ISIF=3，EDIFFG=−0.02，ISYM=0，POTIM=0.02，LREAL=.FALSE.，NSW=20 分段（`--restarts 15`） | 文献要求优化到理论密度；关闭对称，避免把 O 母胞锁在理想对称下 |
-| 缺陷 | ISIF=2，晶格取母胞弛豫后的值；弛豫阶段 EDIFF=1E-5、EDIFFG=−0.03 | 与文献一致；形成能只做固定晶格比较；能量取自 static/ 单点 |
+| 缺陷 | ISIF=2，晶格取母胞弛豫后的值；弛豫阶段 EDIFF=1E-5、EDIFFG=−0.03、POTIM=0.1 | 与文献一致；形成能只做固定晶格比较；能量取自 static/ 单点 |
 | 能量 | 统一由 `static/` 的 `energy(sigma->0)` 给出，`LREAL=.FALSE.`，`LORBIT=11` | 母胞与缺陷用同一套设置；DOSCAR 供第 4 阶段使用 |
 | 展宽 | ISMEAR=0，SIGMA=0.05 | 窄隙或半金属宿主 |
 | 自旋 / SOC | 默认 ISPIN=1，无 SOC | 文献级预筛；对决定排序的缺陷，再用 `--spin auto` 和 SOC 单点抽查 |
