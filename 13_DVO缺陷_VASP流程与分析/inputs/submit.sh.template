@@ -23,6 +23,7 @@ cd relax
 for i in $(seq 1 {restarts}); do
   if [ -f OUTCAR ] && grep -q "reached required accuracy" OUTCAR; then break; fi
   if [ -s CONTCAR ]; then cp CONTCAR POSCAR; fi
+  rm -f STOPCAR   # 上一段若用 LSTOP 中止，避免本段一开始就停
   mpirun -np $SLURM_NTASKS $VASP > vasp.out.$i 2>&1
 done
 grep -q "reached required accuracy" OUTCAR || { echo RELAX_NOT_CONVERGED > ../STATUS; exit 1; }
