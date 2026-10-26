@@ -1,0 +1,139 @@
+{
+ "chemical_potentials": {
+  "conditions": {
+   "Te-rich": {
+    "Pb": -4.722507703333333,
+    "Sb": -4.91731868,
+    "Te": -3.5819538266666666,
+    "delta": {
+     "Pb": -0.7619290933333325,
+     "Sb": -0.3151232999999998,
+     "Te": 0.0
+    }
+   },
+   "Te-poor": {
+    "Pb": -4.512425503333333,
+    "Sb": -4.60219538,
+    "Te": -3.7920360266666666,
+    "delta": {
+     "Pb": -0.5518468933333326,
+     "Sb": 0.0,
+     "Te": -0.21008219999999986
+    }
+   }
+  },
+  "info": {
+   "B_element": "Sb",
+   "dH_PbTe_eV_fu": -0.7619290933333325,
+   "dH_Sb2Te3_eV_fu": -0.6302465999999995,
+   "E_layered_minus_2PbTe_B2Te3_eV_fu": 0.10561967999999666
+  }
+ },
+ "dominant_by_condition_family_T": {
+  "Te-rich|O|473K": {
+   "lowest_three": [
+    [
+     "Pb_Sb",
+     0.142,
+     -1
+    ],
+    [
+     "Sb_Pb",
+     0.604,
+     1
+    ],
+    [
+     "Pb_on_Vac",
+     1.699,
+     2
+    ]
+   ],
+   "nominal_net_donor_minus_acceptor_cm3": -2.056877798453654e+20,
+   "tendency": "p",
+   "negative_Ef_present": false
+  },
+  "Te-rich|O|573K": {
+   "lowest_three": [
+    [
+     "Pb_Sb",
+     0.142,
+     -1
+    ],
+    [
+     "Sb_Pb",
+     0.604,
+     1
+    ],
+    [
+     "Pb_on_Vac",
+     1.699,
+     2
+    ]
+   ],
+   "nominal_net_donor_minus_acceptor_cm3": -3.783575696522995e+20,
+   "tendency": "p",
+   "negative_Ef_present": false
+  },
+  "Te-poor|O|473K": {
+   "lowest_three": [
+    [
+     "Pb_Sb",
+     0.247,
+     -1
+    ],
+    [
+     "Sb_Pb",
+     0.499,
+     1
+    ],
+    [
+     "Sb_on_Vac",
+     1.475,
+     3
+    ]
+   ],
+   "nominal_net_donor_minus_acceptor_cm3": -1.5599288102958e+19,
+   "tendency": "p",
+   "negative_Ef_present": false
+  },
+  "Te-poor|O|573K": {
+   "lowest_three": [
+    [
+     "Pb_Sb",
+     0.247,
+     -1
+    ],
+    [
+     "Sb_Pb",
+     0.499,
+     1
+    ],
+    [
+     "Sb_on_Vac",
+     1.475,
+     3
+    ]
+   ],
+   "nominal_net_donor_minus_acceptor_cm3": -4.481229015627438e+19,
+   "tendency": "p",
+   "negative_Ef_present": false
+  }
+ },
+ "same_type_shift_between_families": [],
+ "host_energy_per_formula_unit": {
+  "O": {
+   "E_per_fu_mean": -36.999180514375,
+   "E_per_fu_min": -36.999180514375,
+   "n": 1,
+   "minus_O_meV_per_fu": 0.0
+  }
+ },
+ "charged_neutrality": {},
+ "notes": [
+  "Neutral Ef do not depend on EF; dominant = lowest configurational-average Ef0 among sampled sites",
+  "tendency uses electron counting (Pb2+, Sb3+, Te2-) with full ionisation; it is the literature-level classification, not a carrier prediction",
+  "same_type_shift is mu-independent because both families add/remove the same atoms",
+  "negative_Ef_present: the dilute limit fails for that family/condition; report ranking only",
+  "charged_neutrality appears only with charged jobs and --dos; it needs the parent static DOSCAR"
+ ]
+}

@@ -1,0 +1,23 @@
+﻿job,kind,parent_id,family,ref_id,defect_id,defect_type,site_id,q,nominal_q,models,delta_n,relax_converged,status,energy_eV,nelect,n_atoms,volume_A3,magnetization,formula,nearest_atom_to_filled_site_A
+defects/O_ordered__Pb_Sb__s01__q+0,defect,O_ordered,O,,Pb_Sb__s01,Pb_Sb,C_q00_0_0_0,0,-1,/home/zyzhuqgroup/wangchao217/work/补算实施方案_20261007/rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED,"{""Pb"": 1, ""Sb"": -1, ""Te"": 0}",True,DONE,-591.64971279,1097.0,144,4732.100883843379,0.0,"{""Pb"": 33, ""Sb"": 31, ""Te"": 80}",
+defects/O_ordered__Pb_on_Vac__s01__q+0,defect,O_ordered,O,,Pb_on_Vac__s01,Pb_on_Vac,C_q08_0_0_0,0,2,/home/zyzhuqgroup/wangchao217/work/补算实施方案_20261007/rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED,"{""Pb"": 1, ""Sb"": 0, ""Te"": 0}",True,DONE,-595.01010508,1102.0,145,4732.100883843379,0.0,"{""Pb"": 33, ""Sb"": 32, ""Te"": 80}",0.0012196732238362537
+defects/O_ordered__Sb_Pb__s01__q+0,defect,O_ordered,O,,Sb_Pb__s01,Sb_Pb,C_q02_0_0_0,0,1,/home/zyzhuqgroup/wangchao217/work/补算实施方案_20261007/rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED,"{""Pb"": -1, ""Sb"": 1, ""Te"": 0}",True,DONE,-591.57753978,1079.0,144,4732.100883843379,0.0,"{""Pb"": 31, ""Sb"": 33, ""Te"": 80}",
+defects/O_ordered__Sb_on_Vac__s01__q+0,defect,O_ordered,O,,Sb_on_Vac__s01,Sb_on_Vac,C_q08_0_0_0,0,3,/home/zyzhuqgroup/wangchao217/work/补算实施方案_20261007/rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED,"{""Pb"": 0, ""Sb"": 1, ""Te"": 0}",True,DONE,-595.11431156,1093.0,145,4732.100883843379,0.0,"{""Pb"": 32, ""Sb"": 33, ""Te"": 80}",7.822457639226306e-05
+defects/O_ordered__V_Te__s01__q+0,defect,O_ordered,O,,V_Te__s01,V_Te,T_q01_0_0_0,0,2,/home/zyzhuqgroup/wangchao217/work/补算实施方案_20261007/rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED,"{""Pb"": 0, ""Sb"": 0, ""Te"": -1}",True,STATIC_INCOMPLETE,,1082.0,143,4732.100883843379,0.0,"{""Pb"": 32, ""Sb"": 32, ""Te"": 79}",
+defects/O_ordered__V_Te__s02__q+0,defect,O_ordered,O,,V_Te__s02,V_Te,T_q07_0_0_0,0,2,/home/zyzhuqgroup/wangchao217/work/补算实施方案_20261007/rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED,"{""Pb"": 0, ""Sb"": 0, ""Te"": -1}",False,NO_STATIC,,,,,,,
+defects/O_ordered__V_Te__s03__q+0,defect,O_ordered,O,,V_Te__s03,V_Te,T_q03_0_0_0,0,2,/home/zyzhuqgroup/wangchao217/work/补算实施方案_20261007/rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED,"{""Pb"": 0, ""Sb"": 0, ""Te"": -1}",True,DONE,-586.5603515,1082.0,143,4732.100883843379,0.0,"{""Pb"": 32, ""Sb"": 32, ""Te"": 79}",
+parents/D_seed161803,parent,D_seed161803,D,,,,,,,/home/zyzhuqgroup/wangchao217/work/补算实施方案_20261007/rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED,{},False,NO_STATIC,,,,,,,
+parents/D_seed1729,parent,D_seed1729,D,,,,,,,/home/zyzhuqgroup/wangchao217/work/补算实施方案_20261007/rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED,{},False,NO_STATIC,,,,,,,
+parents/D_seed2718,parent,D_seed2718,D,,,,,,,/home/zyzhuqgroup/wangchao217/work/补算实施方案_20261007/rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED,{},False,NO_STATIC,,,,,,,
+parents/D_seed31415,parent,D_seed31415,D,,,,,,,/home/zyzhuqgroup/wangchao217/work/补算实施方案_20261007/rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED,{},False,NO_STATIC,,,,,,,
+parents/O_ordered,parent,O_ordered,O,,,,,,,/home/zyzhuqgroup/wangchao217/work/补算实施方案_20261007/rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED,{},True,DONE,-591.98688823,1088.0,144,4732.100883843379,0.0,"{""Pb"": 32, ""Sb"": 32, ""Te"": 80}",
+parents/V_seed161803,parent,V_seed161803,V,,,,,,,/home/zyzhuqgroup/wangchao217/work/补算实施方案_20261007/rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED,{},False,NO_STATIC,,,,,,,
+parents/V_seed1729,parent,V_seed1729,V,,,,,,,/home/zyzhuqgroup/wangchao217/work/补算实施方案_20261007/rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED,{},False,NO_STATIC,,,,,,,
+parents/V_seed2718,parent,V_seed2718,V,,,,,,,/home/zyzhuqgroup/wangchao217/work/补算实施方案_20261007/rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED,{},False,NO_STATIC,,,,,,,
+parents/V_seed31415,parent,V_seed31415,V,,,,,,,/home/zyzhuqgroup/wangchao217/work/补算实施方案_20261007/rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED,{},False,NO_STATIC,,,,,,,
+refs/Pb,ref,,,Pb,,,,,,,{},True,DONE,-3.96057861,14.0,1,30.127408834522893,0.0,"{""Pb"": 1}",
+refs/Pb2Sb2Te5_layered9,ref,,,Pb2Sb2Te5_layered9,,,,,,,{},True,DONE,-37.08380222,68.0,9,291.54300225502215,0.0,"{""Sb"": 2, ""Te"": 5, ""Pb"": 2}",
+refs/PbTe,ref,,,PbTe,,,,,,,{},True,DONE,-8.30446153,20.0,2,67.32704222869894,0.0,"{""Pb"": 1, ""Te"": 1}",
+refs/Sb,ref,,,Sb,,,,,,,{},True,DONE,-9.20439076,10.0,2,59.47050098448119,0.0,"{""Sb"": 2}",
+refs/Sb2Te3,ref,,,Sb2Te3,,,,,,,{},True,DONE,-20.58049884,28.0,5,157.18315992366536,0.0,"{""Sb"": 2, ""Te"": 3}",
+refs/Te,ref,,,Te,,,,,,,{},True,DONE,-10.74586148,18.0,3,96.0543095002034,0.0,"{""Te"": 3}",
