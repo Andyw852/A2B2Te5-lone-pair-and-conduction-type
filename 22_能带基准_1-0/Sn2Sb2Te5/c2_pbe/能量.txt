@@ -1,0 +1,3 @@
+  energy  without entropy=      -37.98358987  energy(sigma->0) =      -37.98358987
+ E-fermi :   6.8095     XC(G=0):  -9.4279     alpha+bet :-11.4265
+------------------------ aborting loop because EDIFF is reached ----------------------------------------
