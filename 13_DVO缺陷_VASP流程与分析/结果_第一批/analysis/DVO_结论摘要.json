@@ -70,7 +70,7 @@
      2
     ]
    ],
-   "nominal_net_donor_minus_acceptor_cm3": -3.783575696522995e+20,
+   "nominal_net_donor_minus_acceptor_cm3": -3.783575696522977e+20,
    "tendency": "p",
    "negative_Ef_present": false
   },
@@ -92,7 +92,7 @@
      3
     ]
    ],
-   "nominal_net_donor_minus_acceptor_cm3": -1.5599288102958e+19,
+   "nominal_net_donor_minus_acceptor_cm3": -1.5599288102957834e+19,
    "tendency": "p",
    "negative_Ef_present": false
   },
@@ -114,7 +114,7 @@
      3
     ]
    ],
-   "nominal_net_donor_minus_acceptor_cm3": -4.481229015627438e+19,
+   "nominal_net_donor_minus_acceptor_cm3": -4.481229015614355e+19,
    "tendency": "p",
    "negative_Ef_present": false
   }
