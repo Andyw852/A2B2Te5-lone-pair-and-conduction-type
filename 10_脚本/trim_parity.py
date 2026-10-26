@@ -7,7 +7,9 @@
   简并能级（能量差 < --degtol，如 SOC 下的 Kramers 对）在子空间内求 O⁻¹P（O 为平面波重叠矩阵）的本征值，应为 ±1。
   用的是赝波函数（PAW 平面波部分），与 irrep、irvsp 的做法相同。
 输出：每个 TRIM 点上 --bands 范围内各能级的能量（eV，可与 EIGENVAL 核对）与宇称，
-  以及第 1…NELECT 条带（每个 Kramers 对计一次）的宇称乘积 δ。六方 P-3m1 的强 Z2：(−1)^ν = δ_Γ·δ_A·δ_M³·δ_L³。
+  以及第 1…NELECT 条带（每个 Kramers 对计一次）的宇称乘积 δ（--first 可改起点）。六方 P-3m1 的强 Z2：(−1)^ν = δ_Γ·δ_A·δ_M³·δ_L³。
+  一对关于反演中心对称的原子，其满壳层在每个 TRIM 点上贡献相同的因子（d 壳层为 (−1)^5 = −1），
+  所以半芯层只会让 8 个 TRIM 点的 δ 一起翻号，不改变 Z2，也不改变“哪个 TRIM 点与其余不同”。
 自查：每个 k 点生成的 G 矢量个数必须等于 WAVECAR 记录的平面波数（不等就报错停止）；宇称必须接近 ±1（偏离 > 0.05 会标出）。
 """
 import argparse, numpy as np
@@ -45,6 +47,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('wavecar'); ap.add_argument('--kpoints', required=True, help='1 起的 k 点序号（与 IBZKPT 相同），逗号分隔')
     ap.add_argument('--nelect', type=int, required=True); ap.add_argument('--bands', default=None, help='如 65-72（1 起）')
+    ap.add_argument('--first', type=int, default=1, help='宇称乘积从第几条带算起（默认 1；如 21 可去掉 Bi 5d 半芯的 20 条带）')
     ap.add_argument('--collinear', action='store_true', help='非 SOC 计算时加（默认按旋量读）'); ap.add_argument('--degtol', type=float, default=1e-3)
     a = ap.parse_args()
     a.spinor = not a.collinear
@@ -88,7 +91,7 @@ def main():
             ev = np.sort(np.linalg.eigvals(M).real)
             xi = np.trace(M).real / len(g)
             nneg = int(np.sum(ev < 0))
-            if g[-1] < a.nelect:                               # 占据带：每个 Kramers 对计一次 → (−1)^(负本征值个数/2)
+            if a.first - 1 <= g[0] and g[-1] < a.nelect:        # 占据带：每个 Kramers 对计一次 → (−1)^(负本征值个数/2)
                 delta *= (-1) ** (nneg // 2) if len(g) % 2 == 0 else (-1) ** nneg
             elif g[0] < a.nelect:
                 print(f'   注意：带 {g[0] + 1}–{g[-1] + 1} 跨过第 NELECT 条，价带顶与导带底简并')
@@ -98,7 +101,7 @@ def main():
         deltas[ik + 1] = int(np.round(delta))
         print(f'\nk 点 {ik + 1}  k = {np.round(k, 4).tolist()}  平面波 {nG}×{2 if a.spinor else 1}')
         print('\n'.join(report))
-        print(f'   第 1…{a.nelect} 条带（每个 Kramers 对计一次）的宇称乘积 δ = {deltas[ik + 1]:+d}')
+        print(f'   第 {a.first}…{a.nelect} 条带（每个 Kramers 对计一次）的宇称乘积 δ = {deltas[ik + 1]:+d}')
     print('\nδ:', deltas)
 
 
