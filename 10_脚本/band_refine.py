@@ -3,10 +3,15 @@
 """
 band_refine.py —— 精细化能带图（解决“能带收敛/简并看不清”）
 
-输入：band_and_elf/huang/<材料>/step4_band_plot/{band.dat, band_klabels.txt, band_summary.json}
+输入：<材料>/{band.dat, band_klabels.txt, band_summary.json, KPOINTS[_OPT]}
       （HSE + SOC，Γ-M-K-Γ-A-L-H-A|L-M|H-K 路径，~200 点，能量已相对 VBM）
+      * clone 下来的仓库：默认读 12_能带绘图_20261021/源数据/<材料>/，输出到 12_能带绘图_20261021/复现输出/
+      * 原工作区：band_and_elf/huang/<材料>/step4_band_plot/，输出到 band_refine_20261021/
+      用 --data-root / --out 可显式指定。
+      Bi 系（零权重 HSE 路径方案）默认剔除落在 SCF 网格上的路径点（见 mesh_dup_points），
+      --keep-dup-kpts 保留它们（复现剔除前的数值）。
 
-输出（默认写到 band_refine_20261021/figures）：
+输出（图在 <out>/figures，摘要在 <out>）：
   bands_<材料>.png/pdf   双面板：全貌 + 带边放大（±kT 窗口、简并说明、收敛标记）
   bands_4mats_near_edge.png/pdf   四材料带边对比（同一能量窗）
   bands_degeneracy_convergence.png/pdf  简并/收敛诊断（高对称点能级 + 态数-窗口曲线）
@@ -20,7 +25,9 @@ band_refine.py —— 精细化能带图（解决“能带收敛/简并看不清
   3. 诊断图：各高对称点的前 4 对价带能级阶梯（看简并与分裂）+ 距 VBM 的态数随窗口 ΔE 的曲线
      （带收敛程度的单调刻画）。
 """
-import json, os, sys
+import argparse, json, os, sys
+from fractions import Fraction
+from math import lcm
 import numpy as np
 import matplotlib
 matplotlib.use('Agg')
@@ -28,11 +35,18 @@ import matplotlib.pyplot as plt
 from matplotlib.lines import Line2D
 from matplotlib.patches import Rectangle
 
+HERE = os.path.dirname(os.path.abspath(__file__))
+REPO_PKG = os.path.normpath(os.path.join(HERE, '..', '12_能带绘图_20261021'))
 BASE = '/home/wangchao/work_wc/Pb2Sb2Te5-Sb孤对电子特性分析-POSCAR_B-band_and_elf'
-SRC = os.path.join(BASE, 'band_and_elf', 'huang')
-OUT = os.path.join(BASE, 'band_refine_20261021')
+if os.path.isdir(os.path.join(REPO_PKG, '源数据')):          # 仓库内：读打包好的源数据
+    SRC = os.path.join(REPO_PKG, '源数据')
+    OUT = os.path.join(REPO_PKG, '复现输出')
+else:                                                          # 原工作区
+    SRC = os.path.join(BASE, 'band_and_elf', 'huang')
+    OUT = os.path.join(BASE, 'band_refine_20261021')
 FIG = os.path.join(OUT, 'figures')
 MATS = ['Pb2Sb2Te5', 'Pb2Bi2Te5', 'Sn2Sb2Te5', 'Sn2Bi2Te5']
+KEEP_DUP = False       # True: 不剔除落在 SCF 网格上的零权重路径点
 KT = 0.025852          # 300 K 的 kT (eV)
 WIN = (-0.35, 0.45)    # 带边放大窗口 (eV, 相对 VBM)
 
@@ -48,8 +62,46 @@ C_CON = ['#1f618d', '#2874a6', '#148f77', '#117864', '#5b2c6f', '#7b241c']
 C_DEEP = '#aab7c4'
 
 
+def band_dir(m):
+    """原工作区：<SRC>/<材料>/step4_band_plot；仓库打包：文件直接在 <SRC>/<材料>/ 下。"""
+    d = os.path.join(SRC, m)
+    return os.path.join(d, 'step4_band_plot') if os.path.isdir(os.path.join(d, 'step4_band_plot')) else d
+
+
+def mesh_dup_points(d, nk):
+    """零权重 HSE 路径方案（Bi 系）：KPOINTS = 带权重的 SCF 网格 + nk 个零权重路径点。
+    落在 SCF 网格上的路径点，Fock 项 q→0 的处理与其它路径点不同，价带被整体抬高 0.03–0.47 eV
+    （能带上的单点尖峰）。返回 (这些路径点的序号 = band.dat 行号, 路径点分数坐标)；
+    KPOINTS_OPT 方案（Sb 系）返回 ([], None)。"""
+    p = os.path.join(d, 'KPOINTS')
+    if not os.path.exists(p):
+        return [], None
+    rows = []
+    for line in open(p).read().splitlines()[3:]:
+        q = line.split()
+        try:
+            rows.append([float(x) for x in q[:4]])
+        except ValueError:
+            continue
+    rows = np.array([r for r in rows if len(r) == 4])
+    if rows.ndim != 2:
+        return [], None
+    path, grid = rows[rows[:, 3] == 0, :3], rows[rows[:, 3] > 0, :3]
+    if len(path) != nk or not len(grid):
+        return [], None
+    N = np.array([lcm(*(Fraction(x).limit_denominator(48).denominator for x in grid[:, i])) for i in range(3)])
+    on = np.all(np.abs(path * N - np.round(path * N)) < 1e-4, axis=1)
+    return [int(i) for i in np.where(on)[0]], path
+
+
+def brk(x, seg):
+    """在路径断点（A|L、M|H）处插 NaN，画线时不跨断点连线。"""
+    return np.insert(np.asarray(x, float), np.where(np.diff(seg) != 0)[0] + 1, np.nan, axis=0)
+
+
 def load(m):
-    d = os.path.join(SRC, m, 'step4_band_plot')
+    """返回 k, E, labels, sm, d, kfrac, seg, drop：seg = 路径段号；drop = 剔除的 band.dat 行号。"""
+    d = band_dir(m)
     raw = np.loadtxt(os.path.join(d, 'band.dat'))
     k, E = raw[:, 0], raw[:, 1:]
     labels = []
@@ -58,7 +110,13 @@ def load(m):
         if len(p) == 2 and not p[0].startswith('#'):
             labels.append((p[0], float(p[1])))
     sm = json.load(open(os.path.join(d, 'band_summary.json')))
-    return k, E, labels, sm, d
+    kfrac = read_path_kpoints(m, n_expect=len(k))
+    seg = np.concatenate([[0], np.cumsum(np.diff(k) < 1e-6)])
+    drop = [] if KEEP_DUP else mesh_dup_points(d, len(k))[0]
+    keep = np.setdiff1d(np.arange(len(k)), drop)
+    if kfrac is not None:
+        kfrac = kfrac[keep]
+    return k[keep], E[keep], labels, sm, d, kfrac, seg[keep], drop
 
 
 def read_path_kpoints(m, n_expect=None):
@@ -79,7 +137,7 @@ def read_path_kpoints(m, n_expect=None):
                 out.append(v)
         return out
     for fn in ('KPOINTS_OPT', 'KPOINTS'):
-        fp = os.path.join(SRC, m, 'step4_band_plot', fn)
+        fp = os.path.join(band_dir(m), fn)
         if not os.path.exists(fp):
             continue
         rows = four_col(fp)
@@ -110,7 +168,7 @@ def draw_path(ax, labels, lw_edge=0.9, fs=12, y0=None):
 
 
 def analyze(m):
-    k, E, labels, sm, d = load(m)
+    k, E, labels, sm, d, kfrac, seg, drop = load(m)
     nv = int(sm['nelect'])                       # SOC: 每条带 1 个电子
     vbm = float(E[:, :nv].max()); cbm = float(E[:, nv:].min())
     gap = cbm - vbm
@@ -133,10 +191,17 @@ def analyze(m):
     dc = cp - cp[0][None, :]
     # 价带/导带在“距 VBM/CBM 窗口”内的态数（沿路径，含简并 x2）
     res = dict(material=m, gap=gap, gap_type=sm['gap_type'], min_direct=sm.get('min_direct_gap_eV'),
-               vbm=vbm, cbm=cbm, k=k, labels=labels, nv=nv,
+               vbm=vbm, cbm=cbm, k=k, seg=seg, labels=labels, nv=nv,
                vbm_k=(float(k[iv]), list(map(float, sm['vbm']['k_frac']))),
                cbm_k=(float(k[ic]), list(map(float, sm['cbm']['k_frac']))),
-               vp=vp, cp=cp, dv=dv, dc=dc)
+               vp=vp, cp=cp, dv=dv, dc=dc, dropped_kpts=drop)
+    if drop:   # 剔除了路径点：带隙类型、最小直接带隙、VBM/CBM 坐标按剩余点重算（band_summary.json 是剔除前的）
+        same = kfrac is not None and np.allclose(np.mod(kfrac[iv] + 1e-9, 1), np.mod(kfrac[ic] + 1e-9, 1), atol=1e-4)
+        res['gap_type'] = 'direct' if same else 'indirect'
+        res['min_direct'] = float((E[:, nv] - E[:, nv - 1]).min())
+        if kfrac is not None:
+            res['vbm_k'] = (float(k[iv]), [float(x) for x in kfrac[iv]])
+            res['cbm_k'] = (float(k[ic]), [float(x) for x in kfrac[ic]])
     for tag, arr in [('v', vp), ('c', cp)]:
         for w in [0.005, 0.010, 0.025, 0.050, 0.100]:
             if tag == 'v':
@@ -149,8 +214,8 @@ def analyze(m):
     # 高对称点能级（价带前 4 对 / 导带前 4 对，eV 相对 VBM）
     lev = []
     for name, x in labels:
-        i = int(np.argmin(np.abs(k - x)))
-        lev.append(dict(label=name, x=float(k[i]),
+        i = int(np.argmin(np.abs(k - x)))       # 高对称点被剔除时（Bi 系全部落在 SCF 网格上）取最近的剩余路径点
+        lev.append(dict(label=name, x=float(k[i]), dk=float(k[i] - x),
                         v=[float(vp[j][i] - vbm) for j in range(4)],
                         c=[float(cp[j][i] - vbm) for j in range(4)]))
     res['levels'] = lev
@@ -191,7 +256,6 @@ def analyze(m):
         return pick
     vmax_idx = _extrema(vp[0], 'max')
     cmin_idx = _extrema(cp[0], 'min')
-    kfrac = read_path_kpoints(m, n_expect=len(k))
     res['kfrac'] = kfrac.tolist() if kfrac is not None else None
 
     def _dedup(idx, y, best='max'):
@@ -228,8 +292,8 @@ def analyze(m):
 
 
 def fig_material(r, path):
-    m = r['material']; k = r['k']; labels = r['labels']
-    kk, E, _, _, _ = load(m)
+    m = r['material']; k = r['k']; sg = r['seg']; labels = r['labels']
+    E = load(m)[1]
     nv = r['nv']
     fig, (ax, az) = plt.subplots(1, 2, figsize=(13.2, 5.4), layout='constrained',
                                  gridspec_kw=dict(width_ratios=[1.0, 1.12]))
@@ -239,10 +303,10 @@ def fig_material(r, path):
     for j in range(nup):
         col = C_DEEP if j < nup - 8 else '#5d6d7e'
         lw = 0.7
-        ax.plot(k, Eu[:, j], color=col, lw=lw)
+        ax.plot(brk(k, sg), brk(Eu[:, j], sg), color=col, lw=lw)
     for j in range(4):                                    # 顶部 4 对价带 + 底部 4 对导带高亮
-        ax.plot(k, r['vp'][j] - r['vbm'], color=C_VAL[j], lw=1.5, zorder=3)
-        ax.plot(k, r['cp'][j] - r['vbm'], color=C_CON[j], lw=1.5, zorder=3)
+        ax.plot(brk(k, sg), brk(r['vp'][j] - r['vbm'], sg), color=C_VAL[j], lw=1.5, zorder=3)
+        ax.plot(brk(k, sg), brk(r['cp'][j] - r['vbm'], sg), color=C_CON[j], lw=1.5, zorder=3)
     draw_path(ax, labels)
     ax.axhline(0, color='0.35', lw=0.7, ls='--')
     ax.axhspan(0, r['gap'], color='#f4f6f7', zorder=0)
@@ -253,7 +317,7 @@ def fig_material(r, path):
     ax.text(k[-1] * 0.975, r['gap'] / 2, '%.3f eV' % r['gap'], ha='right', va='center', fontsize=10, color='0.2')
     ax.set_ylim(-4.0, 3.2)
     ax.set_ylabel('E - E$_{VBM}$ (eV)')
-    ax.set_xlim(k[0], k[-1])
+    ax.set_xlim(labels[0][1], labels[-1][1])
     ax.set_title('(a) %s   HSE+SOC   %s gap %.3f eV' % (m, r['gap_type'], r['gap']),
                  loc='left', fontsize=11, fontweight='bold')
     ax.legend(handles=[Line2D([], [], color=C_VAL[0], lw=1.5, label='top 4 valence pairs'),
@@ -262,9 +326,9 @@ def fig_material(r, path):
               loc='lower right', fontsize=8.5, frameon=False)
     # ---------------- 带边放大 ----------------
     for j in range(6):
-        az.plot(k, r['vp'][j] - r['vbm'], color=C_VAL[j], lw=1.5, label='VB%d (×2)' % (j + 1))
+        az.plot(brk(k, sg), brk(r['vp'][j] - r['vbm'], sg), color=C_VAL[j], lw=1.5, label='VB%d (×2)' % (j + 1))
     for j in range(6):
-        az.plot(k, r['cp'][j] - r['vbm'], color=C_CON[j], lw=1.5, label='CB%d (×2)' % (j + 1))
+        az.plot(brk(k, sg), brk(r['cp'][j] - r['vbm'], sg), color=C_CON[j], lw=1.5, label='CB%d (×2)' % (j + 1))
     draw_path(az, labels)
     az.axhspan(-KT, KT, color='#fdebd0', alpha=.75, zorder=0)
     az.axhspan(r['gap'] - KT, r['gap'] + KT, color='#d6eaf8', alpha=.75, zorder=0)
@@ -298,7 +362,7 @@ def fig_material(r, path):
     az.text(0.015, 0.98, txt, transform=az.transAxes, va='top', ha='left', fontsize=8.2,
             bbox=dict(boxstyle='round,pad=0.35', fc='white', ec='0.8', alpha=.92))
     az.set_ylim(-0.37, 0.44)
-    az.set_xlim(k[0], k[-1])
+    az.set_xlim(labels[0][1], labels[-1][1])
     az.set_ylabel('E - E$_{VBM}$ (eV)')
     az.set_title('(b) near-edge zoom (±k$_B$T at 300 K shaded)', loc='left', fontsize=11, fontweight='bold')
     az.legend(ncol=2, fontsize=7.4, frameon=False, loc='upper right', bbox_to_anchor=(1.0, 0.86))
@@ -310,17 +374,17 @@ def fig_material(r, path):
 def fig_compare(rs, path):
     fig, axs = plt.subplots(2, 2, figsize=(11.6, 8.2), layout='constrained')
     for ax, r in zip(axs.flat, rs):
-        m = r['material']; k = r['k']
+        m = r['material']; k = r['k']; sg = r['seg']
         for j in range(4):
-            ax.plot(k, r['vp'][j] - r['vbm'], color=C_VAL[j], lw=1.3,
+            ax.plot(brk(k, sg), brk(r['vp'][j] - r['vbm'], sg), color=C_VAL[j], lw=1.3,
                     label='VB%d' % (j + 1) if j < 2 else None)
-            ax.plot(k, r['cp'][j] - r['vbm'], color=C_CON[j], lw=1.3,
+            ax.plot(brk(k, sg), brk(r['cp'][j] - r['vbm'], sg), color=C_CON[j], lw=1.3,
                     label='CB%d' % (j + 1) if j < 2 else None)
         draw_path(ax, r['labels'], fs=9)
         ax.axhspan(-KT, KT, color='#fdebd0', alpha=.7, zorder=0)
         ax.axhspan(r['gap'] - KT, r['gap'] + KT, color='#d6eaf8', alpha=.7, zorder=0)
         ax.axhline(0, color='0.35', lw=.5, ls='--'); ax.axhline(r['gap'], color='0.35', lw=.5, ls='--')
-        ax.set_ylim(-0.35, 0.42); ax.set_xlim(k[0], k[-1])
+        ax.set_ylim(-0.35, 0.42); ax.set_xlim(r['labels'][0][1], r['labels'][-1][1])
         ax.set_ylabel('E - E$_{VBM}$ (eV)', fontsize=9.5)
         ax.set_title('%s   %s gap %.3f eV' % (m, r['gap_type'], r['gap']), loc='left', fontsize=10.5)
         w10 = r['window_v']['10']['states']
@@ -359,6 +423,11 @@ def fig_diag(rs, path):
     ax1.set_title('(a) valence-pair energies at high-symmetry points\n(level spacing = degeneracy / crystal-field splitting)',
                   loc='left', fontsize=10.5, fontweight='bold')
     ax1.axhline(0, color='0.4', lw=.6, ls='--')
+    dropped = [r['material'] for r in rs if r['dropped_kpts']]
+    if dropped:
+        ax1.text(0.0, -0.2, '%s: high-symmetry points lie on the SCF k-mesh (artifact, removed);\n'
+                 'levels taken at the nearest remaining path point' % ', '.join(dropped),
+                 transform=ax1.transAxes, fontsize=7.5, color='0.35', va='top')
     # (b) 收敛曲线：态数 vs 窗口
     for i, r in enumerate(rs):
         ws = np.array([0.005, 0.010, 0.025, 0.050, 0.100])
@@ -378,14 +447,24 @@ def fig_diag(rs, path):
     plt.close(fig)
 
 
-def main():
+def main(argv=None):
+    global SRC, OUT, FIG, KEEP_DUP
+    ap = argparse.ArgumentParser(description='HSE+SOC 精细化能带图 + 简并/带收敛诊断')
+    ap.add_argument('--data-root', default=SRC, help='含 <材料>/band.dat… 的目录（默认 %(default)s）')
+    ap.add_argument('--out', default=OUT, help='输出目录；图写到 <out>/figures（默认 %(default)s）')
+    ap.add_argument('--keep-dup-kpts', action='store_true',
+                    help='不剔除 Bi 系落在 SCF 网格上的零权重路径点（复现剔除前的数值）')
+    a = ap.parse_args(argv)
+    SRC, OUT, KEEP_DUP = a.data_root, a.out, a.keep_dup_kpts
+    FIG = os.path.join(OUT, 'figures')
     os.makedirs(FIG, exist_ok=True)
     rs = []
     for m in MATS:
         r = analyze(m)
         rs.append(r)
         print('%s: gap %.4f eV (%s), VBM k=%.2f frac=%s, CBM k=%.2f frac=%s' % (
-            m, r['gap'], r['gap_type'], r['vbm_k'][0], np.round(r['vbm_k'][1], 2), r['cbm_k'][0], np.round(r['cbm_k'][1], 2)))
+            m, r['gap'], r['gap_type'], r['vbm_k'][0], np.round(r['vbm_k'][1], 2), r['cbm_k'][0], np.round(r['cbm_k'][1], 2))
+            + ('   [剔除 %d 个落在 SCF 网格上的路径点]' % len(r['dropped_kpts']) if r['dropped_kpts'] else ''))
         print('   states within 10/25/50 meV of VBM:', [r['window_v'][k]['states'] for k in ['10', '25', '50']],
               ' of CBM:', [r['window_c'][k]['states'] for k in ['10', '25', '50']])
         fig_material(r, os.path.join(FIG, 'bands_%s' % m))
@@ -403,12 +482,17 @@ def main():
                          kv_kT=r['window_v']['25']['k_points']))
     with open(os.path.join(OUT, 'band_summary_refined.csv'), 'w', newline='', encoding='utf-8-sig') as f:
         w = csv.DictWriter(f, fieldnames=list(rows[0].keys())); w.writeheader(); w.writerows(rows)
-    json.dump([{k2: v for k2, v in r.items() if k2 not in ('k', 'vp', 'cp', 'dv', 'dc', 'labels')} for r in rs],
+    json.dump([{k2: v for k2, v in r.items() if k2 not in ('k', 'seg', 'vp', 'cp', 'dv', 'dc', 'labels')} for r in rs],
               open(os.path.join(OUT, 'band_summary_refined.json'), 'w'), ensure_ascii=False, indent=2)
     # markdown 摘要
     lines = ['# 精细化能带图与带边简并/收敛数值摘要', '',
              '数据：HSE+SOC 能带（Γ-M-K-Γ-A-L-H-A|L-M|H-K 路径，~200 点，能量相对 VBM）；',
-             'SOC + 反演对称使**每条能带都是 Kramers 二重简并**（逐点核对：配对能量差 0），图中每条线代表 2 个电子。', '',
+             'SOC + 反演对称使**每条能带都是 Kramers 二重简并**（逐点核对：配对能量差 0），图中每条线代表 2 个电子。', '']
+    dropped = [(r['material'], len(r['dropped_kpts'])) for r in rs if r['dropped_kpts']]
+    if dropped:
+        lines += ['Bi 系为“SCF 网格 + 零权重路径点”的 HSE 方案，落在 SCF 网格上的路径点价带被抬高 0.03–0.47 eV（单点尖峰），'
+                  '已剔除（%s）；带隙、VBM/CBM 按剩余路径点重算。' % '，'.join('%s %d 个' % d for d in dropped), '']
+    lines += [
              '| 材料 | 带隙 / eV | 类型 | VBM 位置 | CBM 位置 | kT 内价带谷数（含主谷） | 次谷能量 / meV | kT 内导带谷数 |',
              '|---|---:|---|---|---|---:|---:|---:|']
     for r in rs:
@@ -423,7 +507,8 @@ def main():
     for r in rs:
         lines += ['### ' + r['material'], '', '| 点 | VB1 | VB2 | VB3 | VB4 |', '|---|---:|---:|---:|---:|']
         for lev in r['levels']:
-            lines.append('| %s | %s |' % (lev['label'], ' | '.join('%.4f' % x for x in lev['v'])))
+            lines.append('| %s | %s |' % (lev['label'] + ('（最近点 Δk=%+.3f Å⁻¹）' % lev['dk'] if abs(lev['dk']) > 1e-6 else ''),
+                                          ' | '.join('%.4f' % x for x in lev['v'])))
         lines.append('')
     open(os.path.join(OUT, 'band_summary_refined.md'), 'w', encoding='utf-8').write('\n'.join(lines))
     print('written to', OUT)
