@@ -168,7 +168,7 @@ Kramers 对求和，占原子球内 s+p+d 投影的 %（A = Pb/Sn，B = Bi/Sb）
 0. ~~同 k 点逐点对比~~：已完成，见上节。
 1. ~~Bi 系和 SnSb 的 HSE~~：已完成（2026-10-26），见“四种材料对比”。
 2. **TRIM 点宇称（四种材料）**：判断 Γ 处是否 s–p 反转。三种新材料的 c_hse_A WAVECAR 在 hanhai；c1 的 WAVECAR 在 clus_xa（257 MB）。HSE 带边成分三种材料已算；PbSb 待 c1 的 PROCAR，PBE 侧待 a_pbe 和 b 的 PROCAR（同 k 点对比 PBE/HSE 成分）。
-3. **HSE 能带路径（c2）或 Wannier 插值**：Γ 附近的色散和谷结构，网格点之间的极值（见“四种材料对比”的注意）。
+3. **HSE 能带路径（c2）**：用户 2026-10-26 选定（不做 Wannier）。设置与验收见 [`c2_path/README.md`](c2_path/README.md)。
 4. **mBJ** 暂搁置（VASP 报 `XC_FOCK_READER: Only one tag`，mBJ 与 `GGA` 冲突，且 `STOP 1` 原因未定）。
 5. 带边 k 点的 HSE 带隙（1-8 里的“密网格带边点”）——本轮只给了 38 点网格上的值。
 
