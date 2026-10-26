@@ -22,7 +22,7 @@
 |---|---|---|
 | 起点 | 复制 c_hse_A 的 INCAR、POSCAR、POTCAR、KPOINTS（PbSb 用 c1 的，从 clus_xa 取） | 复制 a_pbe 的（PbSb 用 jzzn 上 b 的） |
 | 新增 | 本目录的 `KPOINTS_OPT` | 同左 |
-| WAVECAR | 已收敛的 `c_hse_A/WAVECAR`（PbSb 用 c1 的）；脚本只在目录里没有 WAVECAR 时复制。**不要用 a_pbe 的** | `a_pbe/WAVECAR`；PbSb 不需要，`ISTART = 0` 重新自洽（约 1 分钟） |
+| WAVECAR | 已收敛的 `c_hse_A/WAVECAR`（PbSb 用 c1 的）；脚本只在目录里没有 WAVECAR 时复制。**不要用 a_pbe 的** | 不需要：a_pbe 的 INCAR 本来就是 `ISTART = 0`，PBE 自洽约 1 分钟 |
 | INCAR 改动 | `TIME = 0.2`、`NELM = 250`（PbSb 的 c1 原为 0.4、100，也照改）；`LWAVE = .FALSE.`、`LCHARG = .FALSE.`；保留 `ISYM = 3`、`LORBIT = 11`；不加 `KPOINTS_OPT_NKBATCH`（内存不够再加） | `LWAVE = .FALSE.`、`LCHARG = .FALSE.`；保留 `LORBIT = 11` |
 | 墙钟 | `--time=3-00:00:00`，后台 `sleep 253800` 后写 `LABORT = .TRUE.` | 默认 |
 | 结尾检查 | General timing 和 `aborting loop because EDIFF is reached`，任一缺失就 `exit 1` | 同左 |
