@@ -48,7 +48,7 @@
      -1
     ]
    ],
-   "nominal_net_donor_minus_acceptor_cm3": 6.711992524253689e+21,
+   "nominal_net_donor_minus_acceptor_cm3": 6.711992524252711e+21,
    "tendency": "n",
    "negative_Ef_present": true
   },
@@ -70,7 +70,7 @@
      -1
     ]
    ],
-   "nominal_net_donor_minus_acceptor_cm3": 6.841046156011371e+21,
+   "nominal_net_donor_minus_acceptor_cm3": 6.841046155812508e+21,
    "tendency": "n",
    "negative_Ef_present": true
   },
@@ -136,7 +136,7 @@
      1
     ]
    ],
-   "nominal_net_donor_minus_acceptor_cm3": 2.264765435899539e+22,
+   "nominal_net_donor_minus_acceptor_cm3": 2.2647653973647115e+22,
    "tendency": "n",
    "negative_Ef_present": true
   },
@@ -158,7 +158,7 @@
      1
     ]
    ],
-   "nominal_net_donor_minus_acceptor_cm3": 2.2491603122765955e+22,
+   "nominal_net_donor_minus_acceptor_cm3": 2.2491594844092966e+22,
    "tendency": "n",
    "negative_Ef_present": true
   },
@@ -225,6 +225,12 @@
    "compare": "O-D",
    "dEf_min": 0.5184846199998674,
    "dEf_median": 0.49834727499990095
+  },
+  {
+   "defect_type": "Sb_Te",
+   "compare": "O-D",
+   "dEf_min": -0.3018113200000698,
+   "dEf_median": -0.04961277000006703
   },
   {
    "defect_type": "Sb_on_Vac",
