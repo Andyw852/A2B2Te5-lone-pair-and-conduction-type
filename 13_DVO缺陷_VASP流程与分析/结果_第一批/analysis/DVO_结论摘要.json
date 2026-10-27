@@ -87,12 +87,12 @@
      1
     ],
     [
-     "Te_Sb",
-     0.796,
-     1
+     "V_Pb",
+     0.658,
+     -2
     ]
    ],
-   "nominal_net_donor_minus_acceptor_cm3": -2.0568775797053778e+20,
+   "nominal_net_donor_minus_acceptor_cm3": -2.0568908640986644e+20,
    "tendency": "p",
    "negative_Ef_present": false
   },
@@ -109,12 +109,12 @@
      1
     ],
     [
-     "Te_Sb",
-     0.796,
-     1
+     "V_Pb",
+     0.658,
+     -2
     ]
    ],
-   "nominal_net_donor_minus_acceptor_cm3": -3.7835692352273836e+20,
+   "nominal_net_donor_minus_acceptor_cm3": -3.783791228964242e+20,
    "tendency": "p",
    "negative_Ef_present": false
   },
@@ -180,7 +180,7 @@
      1
     ]
    ],
-   "nominal_net_donor_minus_acceptor_cm3": -1.5815366430956554e+19,
+   "nominal_net_donor_minus_acceptor_cm3": -1.5815374103374184e+19,
    "tendency": "p",
    "negative_Ef_present": false
   },
@@ -202,7 +202,7 @@
      1
     ]
    ],
-   "nominal_net_donor_minus_acceptor_cm3": -4.609241801622829e+19,
+   "nominal_net_donor_minus_acceptor_cm3": -4.609273321071503e+19,
    "tendency": "p",
    "negative_Ef_present": false
   }
