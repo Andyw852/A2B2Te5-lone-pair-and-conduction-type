@@ -48,7 +48,7 @@
      -1
     ]
    ],
-   "nominal_net_donor_minus_acceptor_cm3": 6.696059783950159e+21,
+   "nominal_net_donor_minus_acceptor_cm3": 6.696059783950164e+21,
    "tendency": "n",
    "negative_Ef_present": true
   },
@@ -70,7 +70,7 @@
      -1
     ]
    ],
-   "nominal_net_donor_minus_acceptor_cm3": 6.789190432999357e+21,
+   "nominal_net_donor_minus_acceptor_cm3": 6.789190433001776e+21,
    "tendency": "n",
    "negative_Ef_present": true
   },
@@ -87,12 +87,12 @@
      1
     ],
     [
-     "Pb_on_Vac",
-     1.699,
-     2
+     "Te_Sb",
+     0.796,
+     1
     ]
    ],
-   "nominal_net_donor_minus_acceptor_cm3": -2.056877798453654e+20,
+   "nominal_net_donor_minus_acceptor_cm3": -2.0568775742446934e+20,
    "tendency": "p",
    "negative_Ef_present": false
   },
@@ -109,12 +109,12 @@
      1
     ],
     [
-     "Pb_on_Vac",
-     1.699,
-     2
+     "Te_Sb",
+     0.796,
+     1
     ]
    ],
-   "nominal_net_donor_minus_acceptor_cm3": -3.7835756965229894e+20,
+   "nominal_net_donor_minus_acceptor_cm3": -3.783568930505718e+20,
    "tendency": "p",
    "negative_Ef_present": false
   },
@@ -136,7 +136,7 @@
      1
     ]
    ],
-   "nominal_net_donor_minus_acceptor_cm3": 2.264765382987048e+22,
+   "nominal_net_donor_minus_acceptor_cm3": 2.2647653829871365e+22,
    "tendency": "n",
    "negative_Ef_present": true
   },
@@ -158,7 +158,7 @@
      1
     ]
    ],
-   "nominal_net_donor_minus_acceptor_cm3": 2.2491592764716732e+22,
+   "nominal_net_donor_minus_acceptor_cm3": 2.249159276488707e+22,
    "tendency": "n",
    "negative_Ef_present": true
   },
@@ -175,12 +175,12 @@
      1
     ],
     [
-     "Sb_on_Vac",
-     1.475,
-     3
+     "Sb_Te",
+     0.695,
+     -1
     ]
    ],
-   "nominal_net_donor_minus_acceptor_cm3": -1.559928810295793e+19,
+   "nominal_net_donor_minus_acceptor_cm3": -1.559995553381947e+19,
    "tendency": "p",
    "negative_Ef_present": false
   },
@@ -197,12 +197,12 @@
      1
     ],
     [
-     "Sb_on_Vac",
-     1.475,
-     3
+     "Sb_Te",
+     0.7,
+     -1
     ]
    ],
-   "nominal_net_donor_minus_acceptor_cm3": -4.481229015623205e+19,
+   "nominal_net_donor_minus_acceptor_cm3": -4.482396037502956e+19,
    "tendency": "p",
    "negative_Ef_present": false
   }
@@ -235,8 +235,8 @@
   {
    "defect_type": "V_Te",
    "compare": "O-D",
-   "dEf_min": 0.12634198999990076,
-   "dEf_median": 0.10226625999990802
+   "dEf_min": 0.3540104499999188,
+   "dEf_median": 0.17787935999990623
   }
  ],
  "host_energy_per_formula_unit": {
