@@ -30,6 +30,50 @@
   }
  },
  "dominant_by_condition_family_T": {
+  "Te-rich|D|473K": {
+   "lowest_three": [
+    [
+     "Pb_on_Vac",
+     -0.033,
+     2
+    ],
+    [
+     "Sb_Pb",
+     0.108,
+     1
+    ],
+    [
+     "Pb_Sb",
+     0.113,
+     -1
+    ]
+   ],
+   "nominal_net_donor_minus_acceptor_cm3": 6.696059783950159e+21,
+   "tendency": "n",
+   "negative_Ef_present": true
+  },
+  "Te-rich|D|573K": {
+   "lowest_three": [
+    [
+     "Pb_on_Vac",
+     -0.023,
+     2
+    ],
+    [
+     "Sb_Pb",
+     0.11,
+     1
+    ],
+    [
+     "Pb_Sb",
+     0.118,
+     -1
+    ]
+   ],
+   "nominal_net_donor_minus_acceptor_cm3": 6.789190432999357e+21,
+   "tendency": "n",
+   "negative_Ef_present": true
+  },
   "Te-rich|O|473K": {
    "lowest_three": [
     [
@@ -73,6 +117,50 @@
    "nominal_net_donor_minus_acceptor_cm3": -3.7835756965229894e+20,
    "tendency": "p",
    "negative_Ef_present": false
+  },
+  "Te-poor|D|473K": {
+   "lowest_three": [
+    [
+     "Pb_on_Vac",
+     -0.243,
+     2
+    ],
+    [
+     "Sb_on_Vac",
+     -0.075,
+     3
+    ],
+    [
+     "Sb_Pb",
+     0.003,
+     1
+    ]
+   ],
+   "nominal_net_donor_minus_acceptor_cm3": 2.264765382987048e+22,
+   "tendency": "n",
+   "negative_Ef_present": true
+  },
+  "Te-poor|D|573K": {
+   "lowest_three": [
+    [
+     "Pb_on_Vac",
+     -0.234,
+     2
+    ],
+    [
+     "Sb_on_Vac",
+     -0.064,
+     3
+    ],
+    [
+     "Sb_Pb",
+     0.005,
+     1
+    ]
+   ],
+   "nominal_net_donor_minus_acceptor_cm3": 2.2491592764716732e+22,
+   "tendency": "n",
+   "negative_Ef_present": true
   },
   "Te-poor|O|473K": {
    "lowest_three": [
@@ -119,8 +207,45 @@
    "negative_Ef_present": false
   }
  },
- "same_type_shift_between_families": [],
+ "same_type_shift_between_families": [
+  {
+   "defect_type": "Pb_Sb",
+   "compare": "O-D",
+   "dEf_min": 0.07729003999997985,
+   "dEf_median": -0.020208980000063548
+  },
+  {
+   "defect_type": "Pb_on_Vac",
+   "compare": "O-D",
+   "dEf_min": 1.7873000399998773,
+   "dEf_median": 1.5638351649999436
+  },
+  {
+   "defect_type": "Sb_Pb",
+   "compare": "O-D",
+   "dEf_min": 0.5184846199998674,
+   "dEf_median": 0.49834727499990095
+  },
+  {
+   "defect_type": "Sb_on_Vac",
+   "compare": "O-D",
+   "dEf_min": 1.604228189999958,
+   "dEf_median": 1.3784517949998758
+  },
+  {
+   "defect_type": "V_Te",
+   "compare": "O-D",
+   "dEf_min": 0.12634198999990076,
+   "dEf_median": 0.10226625999990802
+  }
+ ],
  "host_energy_per_formula_unit": {
+  "D": {
+   "E_per_fu_mean": -36.55988936375,
+   "E_per_fu_min": -36.55988936375,
+   "n": 1,
+   "minus_O_meV_per_fu": 439.2911506249959
+  },
   "O": {
    "E_per_fu_mean": -36.999180514375,
    "E_per_fu_min": -36.999180514375,
