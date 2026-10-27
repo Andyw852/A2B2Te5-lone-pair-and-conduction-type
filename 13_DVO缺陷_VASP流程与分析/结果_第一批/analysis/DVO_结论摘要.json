@@ -92,7 +92,7 @@
      -2
     ]
    ],
-   "nominal_net_donor_minus_acceptor_cm3": -2.0568908640986644e+20,
+   "nominal_net_donor_minus_acceptor_cm3": -2.056890394984868e+20,
    "tendency": "p",
    "negative_Ef_present": false
   },
@@ -114,7 +114,7 @@
      -2
     ]
    ],
-   "nominal_net_donor_minus_acceptor_cm3": -3.783791228964242e+20,
+   "nominal_net_donor_minus_acceptor_cm3": -3.7837771784755583e+20,
    "tendency": "p",
    "negative_Ef_present": false
   },
@@ -180,7 +180,7 @@
      1
     ]
    ],
-   "nominal_net_donor_minus_acceptor_cm3": -1.5815374103374184e+19,
+   "nominal_net_donor_minus_acceptor_cm3": -1.5815374101809383e+19,
    "tendency": "p",
    "negative_Ef_present": false
   },
@@ -202,7 +202,7 @@
      1
     ]
    ],
-   "nominal_net_donor_minus_acceptor_cm3": -4.609273321071503e+19,
+   "nominal_net_donor_minus_acceptor_cm3": -4.60927329274668e+19,
    "tendency": "p",
    "negative_Ef_present": false
   }
@@ -243,6 +243,12 @@
    "compare": "O-D",
    "dEf_min": 1.604228189999958,
    "dEf_median": 1.3784517949998758
+  },
+  {
+   "defect_type": "Te_Pb",
+   "compare": "O-D",
+   "dEf_min": 0.5197706899998593,
+   "dEf_median": 0.5197706899998593
   },
   {
    "defect_type": "Te_Sb",
