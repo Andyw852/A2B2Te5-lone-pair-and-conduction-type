@@ -215,6 +215,12 @@
    "dEf_median": -0.020208980000063548
   },
   {
+   "defect_type": "Pb_Te",
+   "compare": "O-D",
+   "dEf_min": -0.5750864400000637,
+   "dEf_median": 0.23300335999999788
+  },
+  {
    "defect_type": "Pb_on_Vac",
    "compare": "O-D",
    "dEf_min": 1.7873000399998773,
