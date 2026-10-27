@@ -69,7 +69,7 @@ if not st.exists(): row["status"] = "NO_STATIC"
 | V_Te s02 | 18 | 0.0253 | 0.022 | 2.806 | 0.0385 |
 
 **汇总**：18 个缺陷，末步力最大 **0.0296**、最短距最小 **2.803 Å**、max\|ΔE\| 最大 **0.317 eV**、
-static−relax 末步一律 **0.037–0.040 eV**（一致，属 SIGMA=0.05 展宽的固定修正）。
+static−relax 末步一律 **0.037–0.040 eV**（一致。原写“属 SIGMA=0.05 展宽的固定修正”不对：缺陷弛豫 `INCAR.defect_relax` 用 `LREAL = Auto`，static 用 `.FALSE.`，差的是实空间投影误差；母胞弛豫也用 `.FALSE.`，所以母胞的 relax 与 static 只差 2×10⁻⁵ eV。形成能只用 static，不受影响。——Claude 2026-10-27）。
 **无一个触发异常判据（末步力>0.05、最短距<1.5 Å、max\|ΔE\|>2 eV）。**
 
 ## 3. V_Te s03/s04 的发散与处理
