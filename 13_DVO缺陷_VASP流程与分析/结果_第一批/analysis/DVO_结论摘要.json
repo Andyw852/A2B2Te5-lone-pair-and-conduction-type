@@ -48,7 +48,7 @@
      -1
     ]
    ],
-   "nominal_net_donor_minus_acceptor_cm3": 6.696059783950372e+21,
+   "nominal_net_donor_minus_acceptor_cm3": 6.711915532941737e+21,
    "tendency": "n",
    "negative_Ef_present": true
   },
@@ -70,7 +70,7 @@
      -1
     ]
    ],
-   "nominal_net_donor_minus_acceptor_cm3": 6.789190433050422e+21,
+   "nominal_net_donor_minus_acceptor_cm3": 6.840486911564312e+21,
    "tendency": "n",
    "negative_Ef_present": true
   },
@@ -92,7 +92,7 @@
      1
     ]
    ],
-   "nominal_net_donor_minus_acceptor_cm3": -2.0568775797053384e+20,
+   "nominal_net_donor_minus_acceptor_cm3": -2.0568775797053492e+20,
    "tendency": "p",
    "negative_Ef_present": false
   },
@@ -114,7 +114,7 @@
      1
     ]
    ],
-   "nominal_net_donor_minus_acceptor_cm3": -3.783569235204484e+20,
+   "nominal_net_donor_minus_acceptor_cm3": -3.7835692352107276e+20,
    "tendency": "p",
    "negative_Ef_present": false
   },
@@ -136,7 +136,7 @@
      1
     ]
    ],
-   "nominal_net_donor_minus_acceptor_cm3": 2.264765382990726e+22,
+   "nominal_net_donor_minus_acceptor_cm3": 2.2647654358800216e+22,
    "tendency": "n",
    "negative_Ef_present": true
   },
@@ -158,7 +158,7 @@
      1
     ]
    ],
-   "nominal_net_donor_minus_acceptor_cm3": 2.24915927683133e+22,
+   "nominal_net_donor_minus_acceptor_cm3": 2.2491603109332233e+22,
    "tendency": "n",
    "negative_Ef_present": true
   },
@@ -180,7 +180,7 @@
      1
     ]
    ],
-   "nominal_net_donor_minus_acceptor_cm3": -1.5815366430956546e+19,
+   "nominal_net_donor_minus_acceptor_cm3": -1.5815366430956552e+19,
    "tendency": "p",
    "negative_Ef_present": false
   },
@@ -202,7 +202,7 @@
      1
     ]
    ],
-   "nominal_net_donor_minus_acceptor_cm3": -4.6092418016216605e+19,
+   "nominal_net_donor_minus_acceptor_cm3": -4.609241801622547e+19,
    "tendency": "p",
    "negative_Ef_present": false
   }
