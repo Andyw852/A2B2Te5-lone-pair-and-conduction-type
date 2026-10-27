@@ -48,7 +48,7 @@
      -1
     ]
    ],
-   "nominal_net_donor_minus_acceptor_cm3": 6.711992524252711e+21,
+   "nominal_net_donor_minus_acceptor_cm3": 6.711992263244866e+21,
    "tendency": "n",
    "negative_Ef_present": true
   },
@@ -70,7 +70,7 @@
      -1
     ]
    ],
-   "nominal_net_donor_minus_acceptor_cm3": 6.841046155812508e+21,
+   "nominal_net_donor_minus_acceptor_cm3": 6.84104104086566e+21,
    "tendency": "n",
    "negative_Ef_present": true
   },
@@ -92,7 +92,7 @@
      1
     ]
    ],
-   "nominal_net_donor_minus_acceptor_cm3": -2.0568775797053492e+20,
+   "nominal_net_donor_minus_acceptor_cm3": -2.0568775797053778e+20,
    "tendency": "p",
    "negative_Ef_present": false
   },
@@ -114,7 +114,7 @@
      1
     ]
    ],
-   "nominal_net_donor_minus_acceptor_cm3": -3.7835692352107276e+20,
+   "nominal_net_donor_minus_acceptor_cm3": -3.7835692352273836e+20,
    "tendency": "p",
    "negative_Ef_present": false
   },
@@ -136,7 +136,7 @@
      1
     ]
    ],
-   "nominal_net_donor_minus_acceptor_cm3": 2.2647653973647115e+22,
+   "nominal_net_donor_minus_acceptor_cm3": 2.264765397213966e+22,
    "tendency": "n",
    "negative_Ef_present": true
   },
@@ -158,7 +158,7 @@
      1
     ]
    ],
-   "nominal_net_donor_minus_acceptor_cm3": 2.2491594844092966e+22,
+   "nominal_net_donor_minus_acceptor_cm3": 2.249159477146916e+22,
    "tendency": "n",
    "negative_Ef_present": true
   },
@@ -180,7 +180,7 @@
      1
     ]
    ],
-   "nominal_net_donor_minus_acceptor_cm3": -1.5815366430956552e+19,
+   "nominal_net_donor_minus_acceptor_cm3": -1.5815366430956554e+19,
    "tendency": "p",
    "negative_Ef_present": false
   },
@@ -202,7 +202,7 @@
      1
     ]
    ],
-   "nominal_net_donor_minus_acceptor_cm3": -4.609241801622547e+19,
+   "nominal_net_donor_minus_acceptor_cm3": -4.609241801622829e+19,
    "tendency": "p",
    "negative_Ef_present": false
   }
@@ -243,6 +243,12 @@
    "compare": "O-D",
    "dEf_min": 0.3327066699999932,
    "dEf_median": 0.3327066699999932
+  },
+  {
+   "defect_type": "Te_on_Vac",
+   "compare": "O-D",
+   "dEf_min": 0.7870674699998972,
+   "dEf_median": 0.7870674699998972
   },
   {
    "defect_type": "V_Te",
