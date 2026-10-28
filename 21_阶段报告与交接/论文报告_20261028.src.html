@@ -50,8 +50,9 @@ sup.r { font-size: 11px; color: var(--accent); }
 <div class="toc">
 <a href="#s0">摘要</a><br>
 <a href="#s1">1 计算细节</a><br>
-<a href="#s1-4">1.4 缺陷模型的构造与理由</a><br>
-<a href="#s1-6">1.6 Seebeck 系数的计算方法</a><br>
+<a href="#s1-1">1.1 计算所用的结构</a><br>
+<a href="#s1-5">1.5 缺陷模型的构造与理由</a><br>
+<a href="#s1-7">1.7 Seebeck 系数的计算方法</a><br>
 <a href="#s2">2 能带：PBE 与 HSE 的对比</a><br>
 <a href="#s3">3 HSE 能带：孤对电子态的位置与拓扑</a><br>
 <a href="#s4">4 孤对电子对 Seebeck 系数的影响</a><br>
@@ -62,6 +63,7 @@ sup.r { font-size: 11px; color: var(--accent); }
 </div>
 
 <h2 id="s0">摘要</h2>
+<p class="note"><b>结构说明</b>：两个问题用的不是同一个结构模型（1.1 节、图 1、表 1）。问题一的 PBE、HSE 能带与 S 全部用所给的四种 9 原子层状结构（<i>P</i>-3<i>m</i>1）。问题二的缺陷计算只做了 Pb₂Sb₂Te₅，用的是按 Evang 等<sup class="r">[16]</sup>的方法构造的 144 原子岩盐超胞 O（有序）和 D（无序）。三者是同一化合物、同一组成；O 的阳离子层序与所给结构相同，但 O、D 保留了结构空位，是层状相形成之前的立方亚稳状态，不是所给结构本身。</p>
 <p><b>问题一：孤对电子如何影响 S（p、n 分开）。</b></p>
 <ol>
 <li>孤对电子以已填满的阳离子 s–Te p 反键态存在；化学键主要靠 p–p 成键。</li>
@@ -73,7 +75,7 @@ sup.r { font-size: 11px; color: var(--accent); }
 </ol>
 <p><b>问题二：退火前后的主导缺陷与 p/n 转变（Pb₂Sb₂Te₅）。</b></p>
 <ol>
-<li>在同一岩盐母格、同一组成的 144 原子超胞中，比较阳离子与结构空位完全无序（D，退火前）和空位成层、阳离子分层的有序构型（O，退火后），计算 12 类点缺陷、45 个位点的中性形成能。</li>
+<li>在同一岩盐母格、同一组成的 144 原子超胞中（不是问题一的层状结构，见 1.1 节），比较阳离子与结构空位完全无序（D，退火前）和空位成层、阳离子分层的有序构型（O，退火后），计算 12 类点缺陷、45 个位点的中性形成能。</li>
 <li>有序相的主导缺陷是受主 Pb<sub>Sb</sub>，在整个化学势范围内都最低：p 型。</li>
 <li>无序相的主导缺陷是施主 Pb<sub>Vac</sub>（Pb 填入结构空位），其次 Sb<sub>Pb</sub>、Sb<sub>Vac</sub>；所有受主都在 0.66 eV 以上，补偿不了施主：n 型。</li>
 <li>转变机理：有序化让施主的形成能升高 0.3–1.8 eV，而受主 Pb<sub>Sb</sub> 几乎不变。即“有序化抑制施主”，与 Evang 等<sup class="r">[16]</sup>的结论一致。</li>
@@ -81,26 +83,76 @@ sup.r { font-size: 11px; color: var(--accent); }
 
 <h2 id="s1">1 计算细节</h2>
 
-<h3 id="s1-1">1.1 电子结构</h3>
-<p>全部计算用 VASP<sup class="r">[1]</sup> 与 PAW 赝势<sup class="r">[2,3]</sup>。结构用 PBE<sup class="r">[4]</sup> 加 D3(BJ) 色散修正<sup class="r">[5,6]</sup> 弛豫（9 原子原胞，空间群 P-3m1）。能带计算包含自旋–轨道耦合（SOC）：PBE+SOC 与 HSE06+SOC<sup class="r">[7–9]</sup>（屏蔽参数 0.2 Å⁻¹，Fock 交换比例 0.25）。截断能 360 eV（Pb₂Sb₂Te₅）或 370 eV（其余三种），Γ 中心 12×12×2 网格自洽，EDIFF = 10⁻⁶ eV。HSE 的 Fock 项用 <code>PRECFOCK = Fast</code> 并在面内做 2×2 的 k 点约化；电子步用阻尼极小化（<code>ALGO = Damped</code>，TIME = 0.2–0.4）。</p>
-
-<h3 id="s1-2">1.2 能带路径与质量控制</h3>
-<p>在已收敛的自洽电荷与 Fock 算符上，用 <code>KPOINTS_OPT</code> 对 204 点高对称路径（Γ–M–K–Γ–A–L–H–A|L–M|H–K）求本征值，PBE 与 HSE 用同一路径。路径上有 18 个点与自洽网格重合，在这些点上逐带核对：带边 ±8 条带内，PBE、HSE 都一致到 0.07 meV（Pb₂Sb₂Te₅ 的 HSE 为 1.4 meV，因为其自洽从 PBE 波函数起步）。带边按能带序号读取：SOC 下第 N<sub>e</sub> 条为价带，第 N<sub>e</sub>+1 条为导带。</p>
-
-<h3 id="s1-3">1.3 轨道成分与拓扑</h3>
-<p>能带成分取 SOC PROCAR 中每条带的电荷投影，对 Kramers 对求和，表示为原子球内 s+p+d 总投影的百分比；离子顺序用半芯 d 带核对。拓扑不变量用 Fu–Kane 判据<sup class="r">[10]</sup>：反演中心在原点，计算 8 个 TRIM 点上全部占据态的宇称乘积 δ，强指标 (−1)<sup>ν₀</sup> = δ<sub>Γ</sub>·δ<sub>A</sub>·δ<sub>M</sub>³·δ<sub>L</sub>³。宇称由 IrRep<sup class="r">[11]</sup> 和自写的 WAVECAR 解析脚本（简并子空间内 O⁻¹P 的本征值）两种方法独立计算，结果一致。</p>
-
-<h3 id="s1-4">1.4 缺陷模型的构造与理由</h3>
+<h3 id="s1-1">1.1 计算所用的结构：两个问题用的不是同一个结构模型</h3>
+<div class="box">问题一（PBE、HSE 能带与 S）全部用所给的 9 原子层状结构。问题二（缺陷）用的是按 Evang 等<sup class="r">[16]</sup>的方法构造的 144 原子岩盐超胞 O 和 D，只做了 Pb₂Sb₂Te₅。三者是同一种化合物、同一组成，O 的阳离子层序也与所给结构相同；但 O、D 保留了结构空位，是层状相形成之前的立方状态，不是所给结构本身。</div>
 
 <figure>
-<img src="{{FIG:Fig1_supercells_O_D}}" alt="Fig. 1">
-<figcaption><b>图 1</b> 144 原子超胞的阳离子占位。(a) 有序构型 O；(b) 无序构型 D（随机种子 1729）。每一行是一个 (111) 原子面上的 16 个格点，自下而上沿 [111] 堆垛，Te 面与阳离子面交替。空心圆为结构空位。</figcaption>
+<img src="{{FIG:Fig1_structures}}" alt="Fig. 1">
+<figcaption><b>图 1</b> 本工作用到的结构（均为 Pb₂Sb₂Te₅）。(a)(b) 缺陷计算用的 144 原子超胞的阳离子占位：(a) 有序模型 O；(b) 无序模型 D（随机种子 1729）。每一行是一个 (111) 原子面上的 16 个格点，自下而上沿 [111] 堆垛，Te 面与阳离子面交替；空心圆为结构空位。(c)(d) 侧视对比：(c) 所给的 9 原子层状结构，问题一的能带与 S 都用它；(d) 有序模型 O。纵轴为沿 c（即 [111]）的高度，以两个 Pb 面之间的 Te 面为零点；横向按每个原子面的面内堆垛位置排布。灰底为九层块，两者的层序相同；块与块之间，(c) 是范德华间隙，(d) 是结构空位面。(c) 的坐标取自所给 POSCAR；(d) 是理想岩盐格点按弛豫后的体积缩放（<i>a</i><sub>eff</sub> = 6.185 Å），因为仓库中没有 O 弛豫后的坐标。图下方：面内晶格常数、每化学式体积与相对层状相的能量（PBE-D3，见表 1）；(d) 的面内常数是按体积折算的等效值。</figcaption>
 </figure>
+
+<p class="tcap"><b>表 1</b> 本工作用到的三种 Pb₂Sb₂Te₅ 结构。能量与体积为 PBE-D3、不含 SOC，与缺陷计算用同一设置。</p>
+<table data-csv="Table1_structures">
+<thead><tr><th>结构</th><th>用途</th><th>来源</th><th class="num">原子数</th><th>结构空位</th><th class="num"><i>a</i><sub>hex</sub> (Å)</th><th class="num">体积 (Å³/f.u.)</th><th class="num">相对层状相 (eV/f.u.)</th><th class="num">相对 2PbTe + Sb₂Te₃ (eV/f.u.)</th></tr></thead>
+<tbody>
+<tr><td>层状相，<i>P</i>-3<i>m</i>1（所给结构）</td><td>问题一：PBE+SOC、HSE06+SOC 能带，轨道成分，拓扑，S；问题二：只作能量参考</td><td>所给的 PBE-D3 弛豫结构，能带计算直接使用；问题二中以缺陷计算的设置重新弛豫，只取能量</td><td class="num">9</td><td>无（块间为范德华间隙）</td><td class="num">4.395</td><td class="num">291.5</td><td class="num">0</td><td class="num">+0.106</td></tr>
+<tr><td>有序模型 O</td><td>问题二：退火后的缺陷母胞</td><td>脚本从理想岩盐格子生成（起始 <i>a</i> = 6.2 Å），按文献<sup class="r">[16]</sup>排布，PBE-D3 全弛豫</td><td class="num">144</td><td>16 个，集中在一个面</td><td class="num">4.373*</td><td class="num">295.8</td><td class="num">+0.085</td><td class="num">+0.190</td></tr>
+<tr><td>无序模型 D</td><td>问题二：退火前的缺陷母胞</td><td>同上，阳离子与空位随机排布（种子 1729）</td><td class="num">144</td><td>16 个，随机分布</td><td class="num">4.405*</td><td class="num">302.1</td><td class="num">+0.524</td><td class="num">+0.630</td></tr>
+</tbody></table>
+<p style="font-size:13.5px;color:var(--ink2)">* 由弛豫后的体积折算的等效值 <i>a</i><sub>eff</sub>/√2，<i>a</i><sub>eff</sub> = (<i>V</i>/20)<sup>1/3</sup>（160 个岩盐格点 = 20 个立方晶胞），假定晶胞保持立方形状；弛豫后的晶胞文件不在仓库中。所给结构的体积为 291.7 Å³/f.u.，以缺陷计算设置重新弛豫后为 291.5，相差 0.05%。</p>
+
+<h4>问题一（PBE、HSE、S）用的结构</h4>
+<ul>
+<li>四种材料都用所给的 9 原子层状结构（<i>P</i>-3<i>m</i>1，PBE-D3 弛豫），即仓库中 <code>A2B2Te5_SOC_dense/materials/&lt;材料&gt;/POSCAR</code>。PBE+SOC 和 HSE06+SOC 用同一结构，没有重新弛豫，也没有在上面放缺陷。</li>
+<li>第 2–5 节的全部结论（能带、孤对电子谷、拓扑、S、与实验 S(T) 的对照）都是关于这个层状相的。</li>
+</ul>
+
+<h4>问题二（缺陷）用的结构</h4>
+<ul>
+<li>只算了 Pb₂Sb₂Te₅。母胞是 144 原子的岩盐超胞 O 和 D（图 1a、b），按 Evang 等<sup class="r">[16]</sup>正文描述的模型，用脚本从理想岩盐格子生成，再做全弛豫（构造细节见 1.5 节）。</li>
+<li>它们不是所给结构的超胞。起始晶格常数 6.2 Å 是人为设的起点，最终晶格由全弛豫决定（残余压强 O 0.11 kbar、D −0.07 kbar）。也没有用文献的原子坐标：文献的结构文件在其补充材料中，未取得。</li>
+<li>计算设置与问题一不同：PBE-D3、不含 SOC、Γ 中心 2×2×2 网格，没有 HSE（1.5 节）。</li>
+</ul>
+
+<h4>是不是同一种材料，对得上吗</h4>
+<p>是同一种化合物的不同结构状态。逐项对照如下：</p>
+<ul>
+<li><b>相同</b>：组成都是 Pb₂Sb₂Te₅。O 的九层块与所给结构完全相同，都是 Te–Sb–Te–Pb–Te–Pb–Te–Sb–Te（Sb 在外、Pb 在内），块内的面内堆垛也相同（图 1c、d 灰底部分）。面内晶格常数相差 0.5%。</li>
+<li><b>O 与层状相的区别</b>：
+  <ol>
+  <li>块与块之间：层状相是范德华间隙，两侧 Te 面相距 2.52 Å；O 保留一个结构空位面，两侧 Te 面相距 3.57 Å（理想位置）。层状相中没有结构空位。</li>
+  <li>堆垛：去掉 O 的空位面后，相邻的块还要在面内滑移一个堆垛位置，才得到层状相（图 1c、d 中间隙上方 Te 面的横向位置不同）。所以 O 不是层状相的超胞，而是它在立方骨架上的前体。</li>
+  <li>能量与体积：O 比层状相每化学式高 0.085 eV，体积大 1.4%。</li>
+  </ol></li>
+<li><b>D 与所给结构差别更大</b>：阳离子与空位完全随机，没有层，比层状相高 0.524 eV/f.u.，体积大 3.6%。</li>
+<li><b>三者的关系</b>：D（退火前，立方无序）→ O（空位与阳离子分层，仍为立方堆垛）→ 层状相（空位面塌缩成范德华间隙，三方）。这是 GeSbTe 类富空位碲化物退火时的结构演化顺序<sup class="r">[18,19]</sup>。O 和 D 是这条路径上的两个立方状态，层状相是终点；能量依次降低（+0.524、+0.085、0 eV/f.u.）。</li>
+</ul>
+
+<h4>对结论的影响</h4>
+<ul>
+<li>问题一的结论只针对层状相，与缺陷模型无关。</li>
+<li>问题二比较的是退火前（D）和退火后（O）两个立方状态。“有序化抑制施主、受主 Pb<sub>Sb</sub> 主导”这一结论直接成立于 O。</li>
+<li>所给的层状相本身没有做缺陷计算。块内的反位缺陷（Pb<sub>Sb</sub>、Sb<sub>Pb</sub>）在 O 与层状相中的近邻环境基本相同，形成能预计接近。不同的是填空位类缺陷：层状相没有结构空位，X<sub>Vac</sub> 在那里变成范德华间隙中的间隙原子，其形成能没有算过。所以层状相是否同样由 Pb<sub>Sb</sub> 主导，取决于这类间隙缺陷，需要单独计算。</li>
+<li>直接验证的办法：在所给结构上做同样的缺陷计算。9 原子胞扩成 4×4×1 正好也是 144 原子，计算量与 O 相同；反位与空位类缺陷照搬，填空位类改为范德华间隙中的间隙原子。</li>
+<li>第 5 节用层状相的能带对照实验 S(T)，默认实验样品是层状相；若样品未完全退火（仍含立方相），对照需另作说明。</li>
+</ul>
+
+<h3 id="s1-2">1.2 电子结构</h3>
+<p>全部计算用 VASP<sup class="r">[1]</sup> 与 PAW 赝势<sup class="r">[2,3]</sup>。结构用 PBE<sup class="r">[4]</sup> 加 D3(BJ) 色散修正<sup class="r">[5,6]</sup> 弛豫（9 原子原胞，空间群 P-3m1）。能带计算包含自旋–轨道耦合（SOC）：PBE+SOC 与 HSE06+SOC<sup class="r">[7–9]</sup>（屏蔽参数 0.2 Å⁻¹，Fock 交换比例 0.25）。截断能 360 eV（Pb₂Sb₂Te₅）或 370 eV（其余三种），Γ 中心 12×12×2 网格自洽，EDIFF = 10⁻⁶ eV。HSE 的 Fock 项用 <code>PRECFOCK = Fast</code> 并在面内做 2×2 的 k 点约化；电子步用阻尼极小化（<code>ALGO = Damped</code>，TIME = 0.2–0.4）。</p>
+
+<h3 id="s1-3">1.3 能带路径与质量控制</h3>
+<p>在已收敛的自洽电荷与 Fock 算符上，用 <code>KPOINTS_OPT</code> 对 204 点高对称路径（Γ–M–K–Γ–A–L–H–A|L–M|H–K）求本征值，PBE 与 HSE 用同一路径。路径上有 18 个点与自洽网格重合，在这些点上逐带核对：带边 ±8 条带内，PBE、HSE 都一致到 0.07 meV（Pb₂Sb₂Te₅ 的 HSE 为 1.4 meV，因为其自洽从 PBE 波函数起步）。带边按能带序号读取：SOC 下第 N<sub>e</sub> 条为价带，第 N<sub>e</sub>+1 条为导带。</p>
+
+<h3 id="s1-4">1.4 轨道成分与拓扑</h3>
+<p>能带成分取 SOC PROCAR 中每条带的电荷投影，对 Kramers 对求和，表示为原子球内 s+p+d 总投影的百分比；离子顺序用半芯 d 带核对。拓扑不变量用 Fu–Kane 判据<sup class="r">[10]</sup>：反演中心在原点，计算 8 个 TRIM 点上全部占据态的宇称乘积 δ，强指标 (−1)<sup>ν₀</sup> = δ<sub>Γ</sub>·δ<sub>A</sub>·δ<sub>M</sub>³·δ<sub>L</sub>³。宇称由 IrRep<sup class="r">[11]</sup> 和自写的 WAVECAR 解析脚本（简并子空间内 O⁻¹P 的本征值）两种方法独立计算，结果一致。</p>
+
+<h3 id="s1-5">1.5 缺陷模型的构造与理由</h3>
 
 <h4>构造方法</h4>
 <ul>
+<li><b>生成方式</b>：用脚本 <code>补算实施方案_20261007/scripts/build_rocksalt_models.py</code> 从理想 FCC 岩盐格子生成（起始 <i>a</i> = 6.2 Å，只是弛豫的起点），不是由所给的层状结构扩胞得到（1.1 节）。</li>
 <li><b>共同母格</b>：Pb₂Sb₂Te₅ 的阳离子与 Te 的个数比是 4:5。把它放在 FCC 岩盐母格上，每 5 个阳离子格点中必须有 1 个是空位，即阳离子位的 20% 是<b>结构空位</b>。超胞取岩盐母格沿 [111] 的 10 个原子面（5 个阳离子面、5 个 Te 面交替），面内 4×4 重复，共 160 个格点：64 个阳离子、16 个结构空位、80 个 Te，即 144 个原子（Pb₃₂Sb₃₂Te₈₀）。</li>
-<li><b>有序构型 O（对应退火后）</b>：阳离子面沿 [111] 的顺序为 Sb–Pb–Pb–Sb–空位，空位全部集中在一个面里，对应层状相的范德华间隙；即 Te–Sb–Te–Pb–Te–Pb–Te–Sb–Te 九层块，加一个空位层。</li>
+<li><b>有序构型 O（对应退火后）</b>：阳离子面沿 [111] 的顺序为 Sb–Pb–Pb–Sb–空位，空位全部集中在一个面里；即 Te–Sb–Te–Pb–Te–Pb–Te–Sb–Te 九层块加一个空位面，块的层序与所给结构相同。层状相中这个空位面塌缩成范德华间隙（1.1 节，图 1c、d）。</li>
 <li><b>无序构型 D（对应退火前）</b>：Te 子晶格保持完整，32 个 Pb、32 个 Sb 和 16 个结构空位在 80 个阳离子格点上完全随机排列（不是 SQS<sup class="r">[17]</sup>，是有限随机构型）。</li>
 <li><b>弛豫</b>：两个母胞都做全弛豫（体积、晶胞形状、原子；PBE-D3，Γ 2×2×2），每 10 个离子步重启一次以重建平面波基组，力收敛到约 0.02 eV/Å。最终外压 O 为 0.11 kbar、D 为 −0.07 kbar。D 比 O 每化学式高 0.439 eV（有序化驱动力），体积大 2.1%。</li>
 <li><b>缺陷</b>：在弛豫后的母胞上只改变一个格点，固定晶胞弛豫原子（力 &lt; 0.03 eV/Å），能量取 <code>LREAL = .FALSE.</code>、EDIFF = 10⁻⁶ eV 的单点。12 类缺陷覆盖这个格点模型中的全部单格点缺陷：
@@ -120,7 +172,7 @@ sup.r { font-size: 11px; color: var(--accent); }
 <li><b>规模与采样</b>：144 原子在 PBE-D3 下可做全弛豫。无序相每类取多个位点，用来估计局域环境带来的离散（第一批 5 类为 0.10–0.58 eV）。是否补算其余 3 个随机种子，事先定的规则是：只有 D–O 差别没有明显超出位点离散时才补。结果所有施主的 Δ<i>E</i><sub>f</sub> 都大于 0.4 eV，超出离散，所以没有补。</li>
 </ul>
 
-<h3 id="s1-5">1.5 形成能、化学势与导电类型</h3>
+<h3 id="s1-6">1.6 形成能、化学势与导电类型</h3>
 <p>中性缺陷的形成能<sup class="r">[12]</sup>：</p>
 <div class="eq"><i>E</i><sub>f</sub>[X] = <i>E</i><sub>tot</sub>[X] − <i>E</i><sub>tot</sub>[host] − Σ<sub><i>i</i></sub> <i>n<sub>i</sub></i> <i>μ<sub>i</sub></i></div>
 <p>其中 <i>n<sub>i</sub></i> 为加入（&gt;0）或移去（&lt;0）的 <i>i</i> 原子数。化学势取 PbTe 与 Sb₂Te₃ 共存线的两端：</p>
@@ -131,7 +183,7 @@ sup.r { font-size: 11px; color: var(--accent); }
 <p>两端之间形成能随化学势线性变化。参考相（Pb、Sb、Te、PbTe、Sb₂Te₃）与母胞用同一版本、同一设置计算。两个母胞都在 PbTe + Sb₂Te₃ 凸包之上（O 高 0.190、D 高 0.630 eV/f.u.），所以化学势取竞争相的共存线，这是处理亚稳相的通行近似。</p>
 <p><b>为什么只算中性态</b>：带隙只有 0.05–0.2 eV，静态介电常数 ε₀ 为 115–390，单电荷缺陷的像电荷修正约 0.01 eV，反位与空位基本都是浅能级。因此按电子计数确定名义电荷，净载流子 = Σ<i>q</i>·<i>c</i>。占据按格气统计 <i>c</i> = <i>N</i><sub>site</sub>/(1 + e<sup><i>E</i><sub>f</sub>/<i>k</i><sub>B</sub><i>T</i></sup>)，在 473–573 K 下估算。这与 Evang 等<sup class="r">[16]</sup>的“中性计算 + 电子计数”做法一致。无序相出现负形成能，稀薄近似失效，只取符号。</p>
 
-<h3 id="s1-6">1.6 Seebeck 系数的计算方法</h3>
+<h3 id="s1-7">1.7 Seebeck 系数的计算方法</h3>
 <div class="box">思路：能谷直接取自 HSE 能带路径，用 Kane 型非抛物色散描述每个谷，在常数弛豫时间近似下解 Boltzmann 方程求 S，再用 PBE 的 BoltzTraP2 全布里渊区结果校准。</div>
 <p><b>第 1 步：找谷。</b>沿 HSE 路径找价带（第 N<sub>e</sub> 条）和导带（第 N<sub>e</sub>+1 条）在带边 300 meV 内的局部极值，分三类处理：</p>
 <ul>
@@ -156,8 +208,8 @@ sup.r { font-size: 11px; color: var(--accent); }
 <img src="{{FIG:Fig2_bands_PBE_vs_HSE}}" alt="Fig. 2">
 <figcaption><b>图 2</b> PBE+SOC（虚线）与 HSE06+SOC（实线）能带，各自以价带顶为零点。路径 Γ–M–K–Γ–A–L–H–A。(a) Pb₂Sb₂Te₅，(b) Pb₂Bi₂Te₅，(c) Sn₂Sb₂Te₅，(d) Sn₂Bi₂Te₅；每幅图上方注明两种泛函的路径带隙。</figcaption>
 </figure>
-<p class="tcap"><b>表 1</b> 路径带隙与带边位置。</p>
-<table data-csv="Table1_band_gaps_and_edges">
+<p class="tcap"><b>表 2</b> 路径带隙与带边位置。</p>
+<table data-csv="Table2_band_gaps_and_edges">
 <thead><tr><th>材料</th><th class="num">路径带隙 PBE (eV)</th><th class="num">路径带隙 HSE (eV)</th><th>PBE 价带顶</th><th>HSE 价带顶</th><th>HSE 导带底</th></tr></thead>
 <tbody>
 <tr><td>Pb₂Sb₂Te₅</td><td class="num">0.216</td><td class="num">0.051</td><td>Γ–A 线上（kz = 3/14）</td><td>Γ</td><td>Γ（直接带隙）</td></tr>
@@ -184,8 +236,8 @@ sup.r { font-size: 11px; color: var(--accent); }
 <li><b>Γ 处的导带底</b>：阳离子 s 占 20–28%。</li>
 </ul>
 <p>Γ 处的价带顶（Pb₂Sb₂Te₅、Sn₂Sb₂Te₅）是阳离子 p 态，阳离子 s 只占 0–2%。这一图像与孤对电子的“修正模型”一致<sup class="r">[25,26]</sup>：阳离子 s 与阴离子 p 的反键态被填满，位于价带顶附近。</p>
-<p class="tcap"><b>表 2</b> HSE06+SOC 的带边：位置、主质量（单位 <i>m</i><sub>e</sub>）与轨道成分。</p>
-<table data-csv="Table2_HSE_band_edges">
+<p class="tcap"><b>表 3</b> HSE06+SOC 的带边：位置、主质量（单位 <i>m</i><sub>e</sub>）与轨道成分。</p>
+<table data-csv="Table3_HSE_band_edges">
 <thead><tr><th>材料</th><th>p 型：价带顶（主质量，面内两向 / 沿 c）</th><th>价带顶成分</th><th>n 型：导带底</th><th>导带底成分</th><th>最近的其他导带谷</th></tr></thead>
 <tbody>
 <tr><td>Pb₂Sb₂Te₅</td><td>Γ：0.062 / 0.063 / 0.25</td><td>阳离子 p 68%，s 0%</td><td>Γ：0.065 / 0.068 / 0.26</td><td>阳离子 s 26%</td><td>254 meV（A–L，阳离子 p）</td></tr>
@@ -202,10 +254,10 @@ sup.r { font-size: 11px; color: var(--accent); }
 </figure>
 <figure>
 <img src="{{FIG:Fig5_Seebeck_PBE_vs_HSE}}" alt="Fig. 5">
-<figcaption><b>图 5</b> 300 K、3×10¹⁹ cm⁻³ 时的面内 Seebeck 系数。(a) p 型；(b) n 型（取 |S|）。橙色为 PBE+SOC + BoltzTraP2，蓝色为 HSE 能带的估计（第 1.6 节）。星号与斜线表示暂定值。</figcaption>
+<figcaption><b>图 5</b> 300 K、3×10¹⁹ cm⁻³ 时的面内 Seebeck 系数。(a) p 型；(b) n 型（取 |S|）。橙色为 PBE+SOC + BoltzTraP2，蓝色为 HSE 能带的估计（第 1.7 节）。星号与斜线表示暂定值。</figcaption>
 </figure>
-<p class="tcap"><b>表 3</b> 300 K 面内 Seebeck 系数（µV/K；箭头左边为 PBE + BoltzTraP2，右边为 HSE 估计，* 为暂定值）与孤对电子态承担的电导份额（HSE，3×10¹⁹ cm⁻³）。</p>
-<table data-csv="Table3_Seebeck_300K">
+<p class="tcap"><b>表 4</b> 300 K 面内 Seebeck 系数（µV/K；箭头左边为 PBE + BoltzTraP2，右边为 HSE 估计，* 为暂定值）与孤对电子态承担的电导份额（HSE，3×10¹⁹ cm⁻³）。</p>
+<table data-csv="Table4_Seebeck_300K">
 <thead><tr><th>材料</th><th class="num">p 3×10¹⁹</th><th class="num">p 1×10²⁰</th><th class="num">n 3×10¹⁹</th><th class="num">n 1×10²⁰</th><th>p 型：孤对电子谷的电导份额</th><th>n 型：Γ 导带（孤对电子 s 态）的份额</th></tr></thead>
 <tbody>
 <tr><td>Pb₂Sb₂Te₅</td><td class="num">204 → 58</td><td class="num">121 → 48</td><td class="num">−125 → −63</td><td class="num">−91 → −59</td><td>17%</td><td>78%</td></tr>
@@ -231,10 +283,10 @@ sup.r { font-size: 11px; color: var(--accent); }
 <h2 id="s5">5 与实验 S(T) 的对照</h2>
 <figure>
 <img src="{{FIG:Fig6_S_vs_T_experiment}}" alt="Fig. 6">
-<figcaption><b>图 6</b> 四种材料的实验 S(T)（空心符号，从所给曲线图读取）与计算的对照。蓝色实线用 HSE06+SOC 能带，橙色虚线用 PBE+SOC 能带。每条计算曲线只有一个参数，即用 300 K（或 302 K）的实验值定出的净载流子浓度（见图例），其余温度都是预测。(a) Pb₂Sb₂Te₅，按 302 K 时 S = 0 的补偿样品处理；(b) Pb₂Bi₂Te₅；(c) Sn₂Sb₂Te₅；(d) Sn₂Bi₂Te₅。(a)(b) 用 1.6 节的路径多谷模型。(c)(d) 的样品重掺杂，费米能级深入价带，超出路径模型（只含最高一条价带）的适用范围，改用 PBE+SOC 全布里渊区的 BoltzTraP2 结果（导带做过剪刀平移，对重掺杂 p 型没有影响；只算了 300、500、700 K，中间按二次插值），HSE 曲线再乘以模型的 HSE/PBE 比值（1.6 节第 5 步）。</figcaption>
+<figcaption><b>图 6</b> 四种材料的实验 S(T)（空心符号，从所给曲线图读取）与计算的对照。蓝色实线用 HSE06+SOC 能带，橙色虚线用 PBE+SOC 能带。每条计算曲线只有一个参数，即用 300 K（或 302 K）的实验值定出的净载流子浓度（见图例），其余温度都是预测。(a) Pb₂Sb₂Te₅，按 302 K 时 S = 0 的补偿样品处理；(b) Pb₂Bi₂Te₅；(c) Sn₂Sb₂Te₅；(d) Sn₂Bi₂Te₅。(a)(b) 用 1.7 节的路径多谷模型。(c)(d) 的样品重掺杂，费米能级深入价带，超出路径模型（只含最高一条价带）的适用范围，改用 PBE+SOC 全布里渊区的 BoltzTraP2 结果（导带做过剪刀平移，对重掺杂 p 型没有影响；只算了 300、500、700 K，中间按二次插值），HSE 曲线再乘以模型的 HSE/PBE 比值（1.7 节第 5 步）。</figcaption>
 </figure>
-<p class="tcap"><b>表 4</b> 实验 S(T) 的对照：拟合出的净载流子浓度，以及 300–620 K 全程的最大偏差（计算 − 实验，µV/K）。</p>
-<table data-csv="Table4_S_T_fit">
+<p class="tcap"><b>表 5</b> 实验 S(T) 的对照：拟合出的净载流子浓度，以及 300–620 K 全程的最大偏差（计算 − 实验，µV/K）。</p>
+<table data-csv="Table5_S_T_fit">
 <thead><tr><th>材料</th><th>实验 S（µV/K）</th><th>HSE 能带：浓度 / 最大偏差</th><th>PBE 能带：浓度 / 最大偏差</th><th>HSE 与 PBE 的差别来自</th></tr></thead>
 <tbody>
 <tr><td>Pb₂Sb₂Te₅</td><td>300–620 K 都接近 0（−1 → +18）</td><td>补偿（净电子 2.4×10¹⁶ cm⁻³）/ −18</td><td>补偿（净空穴 1.2×10¹⁷ cm⁻³）/ −142</td><td>带隙：51 vs 216 meV</td></tr>
@@ -254,8 +306,8 @@ sup.r { font-size: 11px; color: var(--accent); }
 <img src="{{FIG:Fig7_defect_formation_energies}}" alt="Fig. 7">
 <figcaption><b>图 7</b> 12 类缺陷的中性形成能，每个点是一个位点。绿色为有序相 O，紫红为无序相 D。(a) 富 Te；(b) 贫 Te。上半部（灰底）为施主，下半部为受主；括号内为名义电荷。</figcaption>
 </figure>
-<p class="tcap"><b>表 5</b> 各类缺陷最低位点的中性形成能（eV），按从低到高排列；括号内为名义电荷。</p>
-<table data-csv="Table5_lowest_formation_energies">
+<p class="tcap"><b>表 6</b> 各类缺陷最低位点的中性形成能（eV），按从低到高排列；括号内为名义电荷。</p>
+<table data-csv="Table6_lowest_formation_energies">
 <thead><tr><th>条件</th><th>有序相 O（退火后），各类最低位点 (eV)</th><th>无序相 D（退火前），各类最低位点 (eV)</th></tr></thead>
 <tbody>
 <tr><td>富 Te</td><td><b>Pb<sub>Sb</sub>(−1) 0.14</b> &lt; Sb<sub>Pb</sub>(+1) 0.60 &lt; <i>V</i><sub>Pb</sub>(−2) 0.66 &lt; Te<sub>Pb</sub>(+2) 0.79 ≈ Te<sub>Sb</sub>(+1) 0.80 &lt; 其余 ≥ 0.94</td><td><b>Pb<sub>Vac</sub>(+2) −0.09</b> &lt; Pb<sub>Sb</sub>(−1) 0.07 &lt; Sb<sub>Pb</sub>(+1) 0.09 &lt; Sb<sub>Vac</sub>(+3) 0.19 &lt; Te<sub>Pb</sub>(+2) 0.27 &lt; Te<sub>Sb</sub>(+1) 0.46 &lt; 其余 ≥ 0.66</td></tr>
@@ -271,8 +323,8 @@ sup.r { font-size: 11px; color: var(--accent); }
 <li>受主 Pb<sub>Sb</sub> 几乎不变（−0.02 eV）。</li>
 <li>物理图像：无序相的阳离子亚晶格本来就是混排的，把 Sb 放到 Pb 位、或往随机分布的空位里填一个阳离子，几乎不破坏什么；有序化后，这些操作要破坏空位层和阳离子层的排列，代价大增。Pb<sub>Sb</sub> 在两相中都是替换同一层内的阳离子，所以不受影响。</li>
 </ul>
-<p class="tcap"><b>表 6</b> 退火前后的主导缺陷与导电类型。</p>
-<table data-csv="Table6_conduction_type">
+<p class="tcap"><b>表 7</b> 退火前后的主导缺陷与导电类型。</p>
+<table data-csv="Table7_conduction_type">
 <thead><tr><th></th><th>有序相 O（退火后）</th><th>无序相 D（退火前）</th></tr></thead>
 <tbody>
 <tr><td>主导缺陷</td><td>受主 Pb<sub>Sb</sub></td><td>施主 Pb<sub>Vac</sub>，其次 Sb<sub>Pb</sub>、Sb<sub>Vac</sub></td></tr>
@@ -280,7 +332,8 @@ sup.r { font-size: 11px; color: var(--accent); }
 <tr><td>导电类型</td><td><b>p 型</b>，整个化学势范围内成立</td><td><b>n 型</b>：贫 Te 端明确；富 Te 端施主中位只比 Pb<sub>Sb</sub> 低约 0.06 eV，较弱</td></tr>
 </tbody></table>
 <p><b>结论</b>：退火前以填空位施主和 Sb<sub>Pb</sub> 为主，呈 n 型；退火后这些施主的形成能升高 0.5–1.6 eV，受主 Pb<sub>Sb</sub> 成为主导，转为 p 型。这与 Evang 等<sup class="r">[16]</sup>的结论逐项一致；数值上 Sb<sub>Pb</sub> 的有序化代价（0.41–0.52 eV）小于其报道的 0.7–0.9 eV。</p>
-<p>以上只算中性态并用浅能级近似（1.5 节）。无序相只用了一个随机构型，第二批 7 类缺陷在无序相各取 1 个位点（约 ±0.3 eV 的不确定性，不影响 p/n 的判断）；计算为 PBE-D3、不含 SOC。最弱的一环是无序相的富 Te 端（表 6）。</p>
+<p>以上只算中性态并用浅能级近似（1.6 节）。无序相只用了一个随机构型，第二批 7 类缺陷在无序相各取 1 个位点（约 ±0.3 eV 的不确定性，不影响 p/n 的判断）；计算为 PBE-D3、不含 SOC。最弱的一环是无序相的富 Te 端（表 7）。</p>
+<p><b>适用范围</b>：以上结论针对 O、D 两个立方状态。所给的层状相本身没有做缺陷计算，其中填空位类缺陷变为范德华间隙中的间隙原子，需单独计算后才能下结论（1.1 节）。</p>
 
 <h2 id="ref">参考文献</h2>
 <ol class="ref">
@@ -319,7 +372,7 @@ sup.r { font-size: 11px; color: var(--accent); }
 <table>
 <thead><tr><th>图</th><th>图文件（<code>figures/png</code>、<code>figures/pdf</code>）</th><th>源数据（<code>data/</code>）</th></tr></thead>
 <tbody>
-<tr><td>图 1</td><td><code>Fig1_supercells_O_D</code></td><td><code>Fig1_supercells/</code>：O、D 母胞的格点占位，未弛豫 POSCAR</td></tr>
+<tr><td>图 1、表 1</td><td><code>Fig1_structures</code></td><td><code>Fig1_structures/</code>：O、D 母胞的格点占位与未弛豫 POSCAR；所给层状结构的 POSCAR；(c)(d) 各原子面的高度与堆垛位置；三种结构的对比（表 1 的数值）</td></tr>
 <tr><td>图 2</td><td><code>Fig2_bands_PBE_vs_HSE</code></td><td><code>Fig2_bands_PBE_vs_HSE/</code>：每种材料、每种泛函的路径能带（相对价带顶），路径带隙</td></tr>
 <tr><td>图 3</td><td><code>Fig3_HSE_bands_cation_s</code></td><td><code>Fig3_HSE_bands_cation_s/</code>：HSE 路径能带及每个 k 点、每条带的阳离子 s 成分</td></tr>
 <tr><td>图 4</td><td><code>Fig4_lone_pair_valley_PBE_vs_HSE</code></td><td><code>Fig4_lone_pair_valley/</code>：最高孤对电子价带谷的能量、k 点与成分</td></tr>
@@ -327,7 +380,7 @@ sup.r { font-size: 11px; color: var(--accent); }
 <tr><td>图 6</td><td><code>Fig6_S_vs_T_experiment</code></td><td><code>Fig6_S_vs_T/</code>：实验点、计算曲线、拟合汇总</td></tr>
 <tr><td>图 7</td><td><code>Fig7_defect_formation_energies</code></td><td><code>Fig7_formation_energies/</code>：逐位点中性形成能，两端化学势</td></tr>
 <tr><td>图 8</td><td><code>Fig8_ordering_induced_change</code></td><td><code>Fig8_ordering/</code>：逐位点与中位数 Δ<i>E</i><sub>f</sub></td></tr>
-<tr><td>表 1–6</td><td>—</td><td><code>tables/</code>：正文表格</td></tr>
+<tr><td>表 1–7</td><td>—</td><td><code>tables/</code>：正文表格</td></tr>
 </tbody></table>
 <p>图与源数据由仓库中的 <code>10_脚本/paper_figures.py</code> 生成，S 的模型在 <code>10_脚本/multivalley_seebeck.py</code>，打包由 <code>10_脚本/build_paper_report.py</code> 完成。</p>
 

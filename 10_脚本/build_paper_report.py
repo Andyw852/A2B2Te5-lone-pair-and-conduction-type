@@ -1,12 +1,12 @@
 """由论文报告的 HTML 模板生成两样东西：
 
 1. 单文件 HTML：{{FIG:名称}} 换成嵌入的图片（缩到 1800 px 宽的 PNG，base64），可直接打开或转发；
-2. 压缩包：一个 HTML（图片用相对路径）+ 全部图（PNG、PDF）+ 每幅图的源数据 + 正文表格（CSV），分目录存放：
+2. 压缩包：HTML 两份（图片用相对路径的一份；图片已嵌入的单文件一份）+ 全部图（PNG、PDF）+ 每幅图的源数据 + 正文表格（CSV），分目录存放：
        A2B2Te5_report_20261028/
-         A2B2Te5_report.html     README.txt
+         A2B2Te5_report.html     A2B2Te5_report_单文件.html     README.txt
          figures/png/  figures/pdf/
-         data/Fig1_supercells/ … data/Fig8_ordering/   （paper_figures.py 写出的源数据）
-         data/tables/                                 （正文表 1–6，从 HTML 中抽出）
+         data/Fig1_structures/ … data/Fig8_ordering/   （paper_figures.py 写出的源数据）
+         data/tables/                                 （正文表 1–7，从 HTML 中抽出）
 
 用法：先运行 10_脚本/paper_figures.py 生成图与源数据，再 python 10_脚本/build_paper_report.py
 输入：21_阶段报告与交接/论文报告_20261028.src.html、21_阶段报告与交接/论文图_20261028/（含 source_data/）
@@ -60,12 +60,17 @@ def readme(tables):
     t = '\n'.join(f'      {x["name"]}.csv    {" ".join(x["caption"].split())}' for x in tables)
     return f'''A2B2Te5（A = Pb, Sn；B = Sb, Bi）中的孤对电子与导电类型：论文写作用报告与数据
 生成日期 2026-10-28。全部为理论计算；实验 S(T) 为从所给曲线图读取的近似值。
+结构：问题一（PBE、HSE 能带与 S）用所给的四种 9 原子层状结构；问题二（缺陷）只算 Pb2Sb2Te5，
+用按文献构造的 144 原子岩盐超胞 O、D，不是所给结构（报告 1.1 节、图 1、表 1）。
 
 A2B2Te5_report.html    报告正文（用浏览器打开；图片从 figures/png 读取，请先整体解压再打开）
+A2B2Te5_report_单文件.html  同一报告，图片已嵌入，单独打开或转发都能显示
 figures/png/           图 1–8，600 dpi PNG（文件名的 FigN 即正文的图 N）
 figures/pdf/           图 1–8，矢量 PDF（字体已嵌入，英文 Times New Roman，公式 STIX）
 data/                  每幅图的源数据，即图中画出的数值，目录名与图文件名对应
-  Fig1_supercells/            O、D 两个 144 原子母胞的格点占位（每个格点的原子面、种类、坐标），未弛豫 POSCAR
+  Fig1_structures/            O、D 两个 144 原子母胞的格点占位（每个格点的原子面、种类、坐标）与未弛豫 POSCAR；
+                              所给的 9 原子层状结构 POSCAR（问题一的能带与 S 都用它）；图 1c、d 各原子面的高度与堆垛位置；
+                              三种结构的晶格、体积与能量对比（structure_comparison.csv，即表 1）
   Fig2_bands_PBE_vs_HSE/      四种材料 PBE+SOC、HSE06+SOC 的路径能带（相对价带顶，eV），路径带隙
   Fig3_HSE_bands_cation_s/    HSE06+SOC 路径能带及每个 k 点、每条带的阳离子 s 成分（%）
   Fig4_lone_pair_valley/      最高孤对电子价带谷相对价带顶的能量（meV）、所在 k 点与成分
@@ -99,6 +104,7 @@ def package():
             csv.writer(f).writerows(t['rows'])
     html = re.sub(r'\{\{FIG:([^}]+)\}\}', lambda m: f'figures/png/{m.group(1)}.png', src)
     open(os.path.join(top, 'A2B2Te5_report.html'), 'w', encoding='utf-8').write(html)
+    open(os.path.join(top, 'A2B2Te5_report_单文件.html'), 'w', encoding='utf-8').write(standalone)
     open(os.path.join(top, 'README.txt'), 'w', encoding='utf-8-sig', newline='').write(readme(p.tables))
     out = os.path.join(D, NAME + '.zip')
     with zipfile.ZipFile(out, 'w', zipfile.ZIP_DEFLATED) as z:
@@ -109,8 +115,8 @@ def package():
     print(out, f'{os.path.getsize(out) / 1e6:.1f} MB，{n} 个文件，表格 {len(p.tables)} 个')
 
 
-html = re.sub(r'\{\{FIG:([^}]+)\}\}', embed, src)
+standalone = re.sub(r'\{\{FIG:([^}]+)\}\}', embed, src)
 out = os.path.join(D, '论文报告_20261028.html')
-open(out, 'w', encoding='utf-8').write(html)
-print(out, f'{len(html) / 1e6:.1f} MB')
+open(out, 'w', encoding='utf-8').write(standalone)
+print(out, f'{len(standalone) / 1e6:.1f} MB')
 package()

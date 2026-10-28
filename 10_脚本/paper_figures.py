@@ -1,6 +1,8 @@
 """Journal-style figures for the manuscript (English labels; 600-dpi PNG + vector PDF), numbered as in 论文报告_20261028.
 
-Fig. 1  144-atom supercells: ordered (O) and disordered (D) cation sublattice   补算实施方案_20261007/.../parents/<id>/site_map.json
+Fig. 1  Structures: O/D 144-atom supercells (a, b) and side views of the user's layered phase vs model O (c, d)
+                                                                               补算实施方案_20261007/.../parents/<id>/site_map.json;
+                                                                               A2B2Te5_SOC_dense/materials/Pb2Sb2Te5/POSCAR; 13_…/energies.csv
 Fig. 2  PBE+SOC vs HSE06+SOC band structures (c2 path)                       22_能带基准_1-0/<mat>/c2_{pbe,hse}/path_eigen.txt
 Fig. 3  HSE06+SOC bands weighted by cation-s (lone-pair) character             22_能带基准_1-0/<mat>/c2_hse/PROCAR_OPT.gz
 Fig. 4  Energy of the highest lone-pair valence valley, PBE vs HSE            same
@@ -114,11 +116,93 @@ def bandname(b, nel):
 
 
 # ------------------------------------------------------------------ Fig. 1
+SUPER = os.path.join(ROOT, '补算实施方案_20261007', 'rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED', 'parents')
+LAYERED = os.path.join(ROOT, 'A2B2Te5_SOC_dense', 'materials', 'Pb2Sb2Te5', 'POSCAR')   # 用户结构，问题一的能带与 S 都用它
+ENERGIES = os.path.join(ROOT, '13_DVO缺陷_VASP流程与分析', '结果_第一批', 'energies.csv')
+ZMAX = 11.3
+
+
+def read_poscar(path):
+    L = [l.split() for l in open(path).read().splitlines()]
+    lat = np.array(L[2:5], float) * float(L[1][0]); sym, cnt = L[5], [int(c) for c in L[6]]
+    frac = np.array([l[:3] for l in L[8:8 + sum(cnt)]], float)
+    return lat, frac, [e for e, c in zip(sym, cnt) for _ in range(c)]
+
+
+def host_energies():
+    """13_ 的母胞与参考相：每 f.u. 的能量与体积（PBE-D3、无 SOC，缺陷计算的同一套设置）。"""
+    E = {}
+    for row in csv.DictReader(open(ENERGIES, encoding='utf-8-sig')):
+        if row['status'] == 'DONE' and row['kind'] in ('parent', 'ref'):
+            E[row['job'].split('/')[1]] = (float(row['energy_eV']), float(row['volume_A3']), int(row['n_atoms']))
+    fu = {'O_ordered': 16, 'D_seed1729': 16, 'Pb2Sb2Te5_layered9': 1}
+    hull = E['PbTe'][0] * 2 + E['Sb2Te3'][0]          # 2 PbTe + Sb2Te3，每 f.u. Pb2Sb2Te5
+    return {k: dict(E=E[k][0] / n, V=E[k][1] / n, hull=E[k][0] / n - hull) for k, n in fu.items()}
+
+
+def planes_layered():
+    """层状相各原子面：高度（以两 Pb 面之间的中心 Te 为 0）、面内堆垛位置 0/1/2（单位 p/3，p = a√3/2）。"""
+    lat, frac, sp = read_poscar(LAYERED)
+    a, c = np.linalg.norm(lat[0]), lat[2, 2]; p = a * np.sqrt(3) / 2
+    out = []
+    for m in (-1, 0, 1):
+        for f, e in zip(frac, sp):
+            z = (f[2] + m) * c
+            out.append((z, e, round((-(f @ lat)[1] % p) / p * 3) % 3))
+    out = sorted({(round(z, 4), e, w) for z, e, w in out if abs(z) <= ZMAX})
+    return out, a, c, p
+
+
+def planes_O(a_eff):
+    """有序模型 O：理想岩盐格点（a = 6.2 Å 的起始坐标）按弛豫后的体积缩放到 a_eff；仓库里没有弛豫后的坐标。"""
+    d = json.load(open(os.path.join(SUPER, 'O_ordered', 'site_map.json')))
+    n = np.ones(3) / np.sqrt(3); u = np.array([1, 1, -2]) / np.sqrt(6)
+    L3 = np.array(d['lattice_vectors_A_rows'])[2]; a0 = 6.2; p0 = a0 / np.sqrt(2) * np.sqrt(3) / 2
+    pl = {}
+    for s in d['sites']:
+        r_ = np.array(s['cartesian_coordinates_A'])
+        pl[s['q_times_2_mod_10']] = (r_ @ n, 'Vac' if s['is_structural_ghost_vacancy'] else s['occupancy'], (r_ @ u) % p0 / p0 * 3)
+    zc = pl[3][0]                                    # 第 3 面：两 Pb 面之间的中心 Te
+    assert pl[3][1] == 'Te' and pl[2][1] == pl[4][1] == 'Pb'
+    out = []
+    for m in (-1, 0, 1):
+        for h, e, w in pl.values():
+            z = (h + m * (L3 @ n) - zc) * a_eff / a0
+            if abs(z) <= ZMAX: out.append((round(z, 4), e, round(w + m * (L3 @ u) / p0 * 3 - pl[3][2]) % 3))
+    return sorted(out), a_eff / np.sqrt(2) * np.sqrt(3) / 2
+
+
+def side_view(ax, planes, p, title, sub):
+    ax.axhspan(min(z for z, e, _ in planes if abs(z) < 8 and e == 'Te'), max(z for z, e, _ in planes if abs(z) < 8 and e == 'Te'),
+               color='#EFEFEF', lw=0, zorder=0)
+    for z, e, w in planes:
+        for k in range(3):
+            x = (w / 3 + k) * p
+            if e == 'Te':
+                ax.plot(x, z, 'o', ms=3.6, color=C_TE, mec='none', zorder=3)
+            elif e == 'Vac':
+                ax.plot(x, z, 'o', ms=5.0, mfc='white', mec='k', mew=0.7, zorder=3)
+            else:
+                ax.plot(x, z, 'o', ms=5.0, color=C_PB if e == 'Pb' else C_SB, mec='white', mew=0.4, zorder=3)
+        ax.text(-0.9, z, e, ha='right', va='center', fontsize=6)
+    ax.set_xlim(-3.0, 3 * p + 5.6); ax.set_ylim(-ZMAX - 0.7, ZMAX + 0.7); ax.set_aspect('equal', adjustable='box')
+    ax.set_xticks([]); ax.tick_params(top=False, right=False)
+    ax.set_title(title, fontsize=7.5, pad=3); ax.set_xlabel(sub, fontsize=6.5, labelpad=4)
+
+
+def gap(ax, x, z0, z1, text):
+    ax.annotate('', xy=(x, z0), xytext=(x, z1), arrowprops=dict(arrowstyle='<->', lw=0.6, shrinkA=0, shrinkB=0))
+    ax.text(x + 0.35, (z0 + z1) / 2, text, ha='left', va='center', fontsize=6, linespacing=1.15)
+
+
 def fig1(out):
-    base = os.path.join(ROOT, '补算实施方案_20261007', 'rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED', 'parents')
-    fig, axs = plt.subplots(1, 2, figsize=(W2, 2.55), gridspec_kw=dict(wspace=0.08))
-    for ax, pid, title in zip(axs, ('O_ordered', 'D_seed1729'), ('Ordered (O)', 'Disordered (D)')):
-        sites = json.load(open(os.path.join(base, pid, 'site_map.json')))['sites']
+    H = host_energies()
+    a_eff = {k: (H[k]['V'] * 16 / 20) ** (1 / 3) for k in ('O_ordered', 'D_seed1729')}   # 160 个岩盐格点 = 20 个立方晶胞
+    fig = plt.figure(figsize=(W2, 5.75))
+    gs = fig.add_gridspec(2, 1, height_ratios=[2.2, 3.35], hspace=0.2, bottom=0.075, top=0.97)
+    axs = [fig.add_subplot(g) for g in gs[0].subgridspec(1, 2, wspace=0.08)]
+    for ax, pid, title in zip(axs, ('O_ordered', 'D_seed1729'), ('Ordered model O (after annealing)', 'Disordered model D (before annealing)')):
+        sites = json.load(open(os.path.join(SUPER, pid, 'site_map.json')))['sites']
         rows = []
         for q in range(10):
             row = sorted([s for s in sites if s['q_times_2_mod_10'] == q], key=lambda s: tuple(s['replica']))
@@ -133,11 +217,11 @@ def fig1(out):
                     ax.plot(i, y, 'o', ms=5.2, mfc='white', mec='k', mew=0.7)
                 else:
                     ax.plot(i, y, 'o', ms=5.2, color=C_PB if sp == 'Pb' else C_SB, mec='white', mew=0.4)
-        dump('Fig1_supercells', f'{pid}_sites.csv',
+        dump('Fig1_structures', f'{pid}_sites.csv',
              ['site_id', 'plane_from_bottom_along_111', 'position_in_plane_row', 'sublattice', 'species',
               'frac_a', 'frac_b', 'frac_c', 'x_A', 'y_A', 'z_A'], sorted(rows, key=lambda t: (t[1], t[2])))
         if DATA is not None:
-            shutil.copy(os.path.join(base, pid, 'POSCAR'), os.path.join(DATA, 'Fig1_supercells', f'{pid}_POSCAR_unrelaxed.vasp'))
+            shutil.copy(os.path.join(SUPER, pid, 'POSCAR'), os.path.join(DATA, 'Fig1_structures', f'{pid}_POSCAR_unrelaxed.vasp'))
         ax.set_xlim(-0.8, 15.8); ax.set_ylim(-0.8, 9.8); ax.set_xticks([]); ax.set_yticks([])
         ax.tick_params(top=False, right=False)
         ax.set_title(title, fontsize=8, pad=3)
@@ -147,10 +231,59 @@ def fig1(out):
     for y, lab in zip(range(10), ['Sb', 'Te', 'Pb', 'Te', 'Pb', 'Te', 'Sb', 'Te', 'Vac', 'Te'][::-1]):
         axs[0].text(-1.1, y, lab, ha='right', va='center', fontsize=6.5)
     panel(axs[0], '(a)', x=-0.09); panel(axs[1], '(b)')
+
+    # (c)(d) 侧视：用户的层状相与有序模型 O
+    PL, aL, cL, pL = planes_layered()
+    PO, pO = planes_O(a_eff['O_ordered'])
+    bot = gs[1].subgridspec(1, 2, wspace=0.0)
+    ac, ad = fig.add_subplot(bot[0]), fig.add_subplot(bot[1])
+    HL, HO = H['Pb2Sb2Te5_layered9'], H['O_ordered']
+    side_view(ac, PL, pL, 'Layered phase, $P\\bar{3}m1$, 9 atoms (user structure)\nused for PBE/HSE bands and $S$ (Figs. 2–6)',
+              f'$a_\\mathrm{{hex}}$ = {aL:.3f} Å,  $V$ = {HL["V"]:.1f} Å$^3$/f.u.,  $\\Delta E$ = 0')
+    side_view(ad, PO, pO, 'Ordered model O, 144 atoms (rocksalt supercell)\nhost for the defect calculations (Figs. 7, 8)',
+              f'$a_\\mathrm{{hex}}^\\mathrm{{eq}}$ = {a_eff["O_ordered"] / np.sqrt(2):.3f} Å,  $V$ = {HO["V"]:.1f} Å$^3$/f.u.,  '
+              f'$\\Delta E$ = +{HO["E"] - HL["E"]:.3f} eV/f.u.')
+    ac.set_ylabel('$z$ (Å)')
+    ad.tick_params(labelleft=True)
+    tL = sorted(z for z, e, _ in PL if e == 'Te' and z > 0)
+    gL = (tL[-2], tL[-1]); gap(ac, 3 * pL + 0.5, *gL, f'vdW gap\n{gL[1] - gL[0]:.2f} Å')
+    vO = [z for z, e, _ in PO if e == 'Vac' and z > 0][0]; tO = sorted(z for z, e, _ in PO if e == 'Te' and z > 0)
+    gO = (max(t for t in tO if t < vO), min(t for t in tO if t > vO))
+    gap(ad, 3 * pO + 0.5, *gO, f'vacancy\nplane\n{gO[1] - gO[0]:.2f} Å')
+    ac.text(3 * pL + 0.85, 0, '9-plane\nblock', ha='left', va='center', fontsize=6, color='#555555')
+    ad.text(3 * pO + 0.85, 0, '9-plane\nblock', ha='left', va='center', fontsize=6, color='#555555')
+    panel(ac, '(c)', x=0.02); panel(ad, '(d)', x=0.02)
+
     h = [plt.Line2D([], [], ls='', marker='o', ms=5, color=C_PB), plt.Line2D([], [], ls='', marker='o', ms=5, color=C_SB),
          plt.Line2D([], [], ls='', marker='o', ms=5, mfc='white', mec='k'), plt.Line2D([], [], ls='', marker='o', ms=3.5, color=C_TE)]
-    fig.legend(h, ['Pb', 'Sb', 'Structural vacancy', 'Te'], loc='lower center', ncol=4, bbox_to_anchor=(0.5, -0.06))
-    save(fig, out, 'Fig1_supercells_O_D')
+    fig.legend(h, ['Pb', 'Sb', 'Structural vacancy', 'Te'], loc='lower center', ncol=4, bbox_to_anchor=(0.5, -0.01))
+
+    if DATA is not None:
+        shutil.copy(LAYERED, os.path.join(DATA, 'Fig1_structures', 'layered_Pb2Sb2Te5_POSCAR_user.vasp'))
+    dump('Fig1_structures', 'side_view_planes.csv',
+         ['structure', 'z_A_relative_to_central_Te', 'species', 'stacking_position_0_1_2', 'geometry'],
+         [['layered_P-3m1_9atom', r(z, 3), e, w, 'user POSCAR (as used for bands)'] for z, e, w in PL]
+         + [['O_ordered', r(z, 3), e, w, f'ideal rocksalt sites scaled to relaxed volume (a_eff = {a_eff["O_ordered"]:.4f} A)'] for z, e, w in PO])
+    VL = abs(np.linalg.det(read_poscar(LAYERED)[0]))
+    dump('Fig1_structures', 'structure_comparison.csv',
+         ['structure', 'used_for', 'how_obtained', 'atoms_in_cell', 'structural_vacancies',
+          'a_hex_A', 'V_per_fu_A3', 'E_per_fu_eV', 'E_minus_layered_eV_per_fu', 'E_minus_2PbTe+Sb2Te3_eV_per_fu',
+          'vertical_Te-Te_spacing_across_gap_or_vacancy_plane_A', 'note'],
+         [['layered_P-3m1_9atom', 'bands (PBE+SOC, HSE06+SOC), orbital character, topology, Seebeck; reference phase in defect study',
+           "user structure (PBE-D3); for the energy re-relaxed with the defect settings (ISIF=3)", 9, 0,
+           r(aL, 4), r(HL['V'], 2), r(HL['E'], 5), 0.0, r(HL['hull'], 4), r(gL[1] - gL[0], 3),
+           f'a_hex and spacing from the user POSCAR (V = {VL:.2f} A3/f.u.); V and E from the re-relaxation'],
+          ['O_ordered', 'host for defects, ordered (after annealing)',
+           'built from ideal rocksalt (a = 6.2 A start) following Evang et al. 2022; PBE-D3 full relaxation (ISIF=3)', 144, 16,
+           r(a_eff['O_ordered'] / np.sqrt(2), 4), r(HO['V'], 2), r(HO['E'], 5), r(HO['E'] - HL['E'], 4), r(HO['hull'], 4),
+           r(gO[1] - gO[0], 3), 'a_hex equivalent from volume, a_eff/sqrt(2) with a_eff = (V/20)^(1/3); spacing for ideal sites at a_eff'],
+          ['D_seed1729', 'host for defects, disordered (before annealing)',
+           'built from ideal rocksalt (a = 6.2 A start) following Evang et al. 2022; PBE-D3 full relaxation (ISIF=3)', 144, 16,
+           r(a_eff['D_seed1729'] / np.sqrt(2), 4), r(H['D_seed1729']['V'], 2), r(H['D_seed1729']['E'], 5),
+           r(H['D_seed1729']['E'] - HL['E'], 4), r(H['D_seed1729']['hull'], 4), '', 'vacancies random on the cation sublattice; a_hex equivalent from volume']])
+    save(fig, out, 'Fig1_structures')
+    return {'a_eff_O': r(a_eff['O_ordered'], 4), 'a_eff_D': r(a_eff['D_seed1729'], 4), 'gap_layered': r(gL[1] - gL[0], 3),
+            'vac_O': r(gO[1] - gO[0], 3), 'E': {k: {kk: r(vv, 4) for kk, vv in v.items()} for k, v in H.items()}}
 
 
 # ------------------------------------------------------------------ Fig. 2
