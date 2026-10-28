@@ -1,0 +1,9 @@
+﻿material,bands,method,net_doping_p-n_cm-3,fit_T_K,fit_S_exp_uV/K,max_deviation_calc-exp_uV/K
+Pb2Sb2Te5,HSE06+SOC,path multivalley model,-2.355e+16,302,0,-18.1
+Pb2Sb2Te5,PBE+SOC,path multivalley model,1.243e+17,302,0,-142.3
+Pb2Bi2Te5,HSE06+SOC,path multivalley model,-8.215e+18,302,-89,7.1
+Pb2Bi2Te5,PBE+SOC,path multivalley model,-3.478e+19,302,-89,-103.7
+Sn2Sb2Te5,HSE06+SOC,BoltzTraP2 (PBE) x model HSE/PBE ratio,1.592e+21,300,16,-8.6
+Sn2Sb2Te5,PBE+SOC,"BoltzTraP2 (PBE, full BZ)",2.308e+21,300,16,-5.2
+Sn2Bi2Te5,HSE06+SOC,BoltzTraP2 (PBE) x model HSE/PBE ratio,1.227e+21,302,30,-10.6
+Sn2Bi2Te5,PBE+SOC,"BoltzTraP2 (PBE, full BZ)",1.242e+21,302,30,-9.7

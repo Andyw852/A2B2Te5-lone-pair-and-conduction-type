@@ -1,0 +1,13 @@
+﻿defect_type,nominal_charge,n_D_sites,median_dEf_O-D_eV
+Pb_on_Vac,+2,4,1.564
+Sb_on_Vac,+3,4,1.378
+Sb_Pb,+1,4,0.498
+Te_Pb,+2,1,0.52
+Te_Sb,+1,1,0.333
+V_Te,+2,4,0.24
+Pb_Sb,-1,4,-0.02
+Sb_Te,-1,1,-0.302
+V_Pb,-2,1,-0.004
+Te_on_Vac,-2,1,0.787
+V_Sb,-3,1,0.499
+Pb_Te,-2,1,-0.575
