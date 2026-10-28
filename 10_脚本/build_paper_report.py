@@ -44,6 +44,9 @@ class Tables(HTMLParser):
         elif self.cur is not None and tag in ('td', 'th'): self.cell = ''
         elif tag in ('sub', 'sup') and self.cell is not None: self.cell += '_' if tag == 'sub' else '^'
         elif tag in ('sub', 'sup') and self.in_cap: self.cap += '_' if tag == 'sub' else '^'
+        elif tag == 'span' and 'overline' in a.get('style', ''):            # 上划线（如 P-3m1 的 3̄）写成负号
+            if self.cell is not None: self.cell += '-'
+            elif self.in_cap: self.cap += '-'
 
     def handle_endtag(self, tag):
         if tag == 'p' and self.in_cap: self.in_cap = False
@@ -65,7 +68,8 @@ A2B2Te5_report.html    报告正文（用浏览器打开；图片从 figures/png
 figures/png/           图 1–8，600 dpi PNG（文件名的 FigN 即正文的图 N）
 figures/pdf/           图 1–8，矢量 PDF（字体已嵌入，英文 Times New Roman，公式 STIX）
 data/                  每幅图的源数据，即图中画出的数值，目录名与图文件名对应
-  Fig1_supercells/            O、D 两个 144 原子母胞的格点占位（每个格点的原子面、种类、坐标），未弛豫 POSCAR
+  Fig1_structures/            O、D 两个 144 原子母胞的格点占位（每个格点的原子面、种类、坐标）与未弛豫 POSCAR；
+                              层状相（能带与 S 所用）和 O 的侧视原子面（高度、元素、堆垛位置）；三种结构的体积与能量
   Fig2_bands_PBE_vs_HSE/      四种材料 PBE+SOC、HSE06+SOC 的路径能带（相对价带顶，eV），路径带隙
   Fig3_HSE_bands_cation_s/    HSE06+SOC 路径能带及每个 k 点、每条带的阳离子 s 成分（%）
   Fig4_lone_pair_valley/      最高孤对电子价带谷相对价带顶的能量（meV）、所在 k 点与成分

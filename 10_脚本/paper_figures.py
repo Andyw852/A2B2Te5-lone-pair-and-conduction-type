@@ -1,6 +1,6 @@
 """Journal-style figures for the manuscript (English labels; 600-dpi PNG + vector PDF), numbered as in 论文报告_20261028.
 
-Fig. 1  144-atom supercells: ordered (O) and disordered (D) cation sublattice   补算实施方案_20261007/.../parents/<id>/site_map.json
+Fig. 1  Structures: O/D defect supercells; side view of the user's layered cell vs O  补算实施方案_20261007/.../parents/<id>/site_map.json,\n                                                                               A2B2Te5_SOC_dense/materials/Pb2Sb2Te5/POSCAR
 Fig. 2  PBE+SOC vs HSE06+SOC band structures (c2 path)                       22_能带基准_1-0/<mat>/c2_{pbe,hse}/path_eigen.txt
 Fig. 3  HSE06+SOC bands weighted by cation-s (lone-pair) character             22_能带基准_1-0/<mat>/c2_hse/PROCAR_OPT.gz
 Fig. 4  Energy of the highest lone-pair valence valley, PBE vs HSE            same
@@ -114,10 +114,72 @@ def bandname(b, nel):
 
 
 # ------------------------------------------------------------------ Fig. 1
+LAYERED = os.path.join(ROOT, 'A2B2Te5_SOC_dense', 'materials', 'Pb2Sb2Te5', 'POSCAR')   # 用户的 9 原子层状结构（问题一全部能带用它）
+DEFDIR = os.path.join(ROOT, '13_DVO缺陷_VASP流程与分析', '结果_第一批', 'analysis')
+STACK = 'ABC'
+
+
+def letter(y, ah):
+    """面内投影坐标 → 堆垛位置：A 在 0，B 在 a/√3，C 在 a/(2√3)（以 a√3/2 为周期）。"""
+    f = (y / (ah * np.sqrt(3) / 2)) % 1
+    return 'ACB'[int(round(f * 3)) % 3]
+
+
+def side_layered():
+    """层状 P-3m1：每个原子面 (z, y, 元素)；z 从间隙中点起算，取两个晶胞。"""
+    L = open(LAYERED).read().splitlines()
+    lat = np.array([[float(v) for v in L[k].split()] for k in (2, 3, 4)])
+    sym = [e for e, c in zip(L[5].split(), map(int, L[6].split())) for _ in range(c)]
+    fr = np.array([[float(v) for v in L[8 + k].split()[:3]] for k in range(len(sym))])
+    c, ah = lat[2, 2], np.linalg.norm(lat[0])
+    planes = sorted(((((f[2] - 0.5) % 1) + n) * c, f[1] * lat[1, 1], e) for n in (0, 1) for f, e in zip(fr, sym))
+    return planes, ah, c
+
+
+def side_ordered(vfu):
+    """有序模型 O 的理想岩盐堆垛：(111) 面间距按弛豫后体积换算；阳离子面 Sb–Pb–Pb–Sb–空位。"""
+    a = (4 * vfu / 5) ** (1 / 3); d = a / (2 * np.sqrt(3)); ah = a / np.sqrt(2)
+    seq = ['Te', 'Sb', 'Te', 'Pb', 'Te', 'Pb', 'Te', 'Sb', 'Te', 'Vac']
+    planes = [((i + 0.7) * d, ((i * ah / np.sqrt(3)) + ah / (2 * np.sqrt(3))) % (ah * np.sqrt(3) / 2), seq[i % 10]) for i in range(-1, 20)]
+    return planes, ah, a, d
+
+
+def draw_side(ax, planes, ah, ylim):
+    """侧视：沿 a 投影，横轴为面内投影坐标，纵轴为沿 c 的高度。灰带标出范德华间隙或空的阳离子面，
+    间隙两侧的 Te 面堆垛字母加黑。"""
+    per = ah * np.sqrt(3) / 2; rows = []
+    pl = [p for p in planes if ylim[0] <= p[0] <= ylim[1]]
+    edge = set()
+    for k in range(len(pl) - 1):
+        (z0, _, e0), (z1, _, e1) = pl[k], pl[k + 1]
+        if e0 == 'Te' and e1 == 'Te':                      # 范德华间隙：两个 Te 面直接相邻
+            ax.axhspan(z0 + 0.45, z1 - 0.45, color='#E6E6E6', lw=0, zorder=0); edge |= {k, k + 1}
+        if e1 == 'Vac' and k + 2 < len(pl):                # 空的阳离子面
+            ax.axhspan(z0 + 0.45, pl[k + 2][0] - 0.45, color='#E6E6E6', lw=0, zorder=0); edge |= {k, k + 2}
+    for k, (z, y, e) in enumerate(pl):
+        for n in range(4):
+            x = y + n * per
+            if x > 10.5: continue
+            if e == 'Te': ax.plot(x, z, 'o', ms=3.0, color=C_TE, mec='none')
+            elif e == 'Vac': ax.plot(x, z, 'o', ms=4.4, mfc='white', mec='k', mew=0.6)
+            else: ax.plot(x, z, 'o', ms=4.4, color=C_PB if e == 'Pb' else C_SB, mec='white', mew=0.3)
+        ax.text(11.2, z, letter(y, ah), ha='left', va='center', fontsize=5.8,
+                color='k' if k in edge else '#777777', fontweight='bold' if k in edge else 'normal')
+        rows.append([r(z, 3), e, letter(y, ah)])
+    ax.set_xlim(-0.8, 10.9); ax.set_ylim(*ylim); ax.set_aspect('equal'); ax.set_xticks([]); ax.set_yticks([])
+    ax.tick_params(top=False, right=False, left=False, bottom=False)
+    for sp in ax.spines.values(): sp.set_visible(False)
+    ax.plot([-1.2, -1.2], [ylim[0] + 0.6, ylim[0] + 5.6], color='k', lw=0.8, clip_on=False)
+    ax.text(-1.6, ylim[0] + 3.1, '5 Å', rotation=90, ha='right', va='center', fontsize=6)
+    return rows
+
+
 def fig1(out):
     base = os.path.join(ROOT, '补算实施方案_20261007', 'rocksalt_Pb2Sb2Te5_144atoms_UNRELAXED', 'parents')
-    fig, axs = plt.subplots(1, 2, figsize=(W2, 2.55), gridspec_kw=dict(wspace=0.08))
-    for ax, pid, title in zip(axs, ('O_ordered', 'D_seed1729'), ('Ordered (O)', 'Disordered (D)')):
+    fig = plt.figure(figsize=(W2, 5.9))
+    gs = fig.add_gridspec(2, 2, height_ratios=[2.5, 3.2], hspace=0.22, wspace=0.08)
+    axs = [fig.add_subplot(gs[0, 0]), fig.add_subplot(gs[0, 1])]
+    for ax, pid, title in zip(axs, ('O_ordered', 'D_seed1729'), ('Ordered model O', 'Disordered model D')):
         sites = json.load(open(os.path.join(base, pid, 'site_map.json')))['sites']
         rows = []
         for q in range(10):
@@ -133,24 +195,52 @@ def fig1(out):
                     ax.plot(i, y, 'o', ms=5.2, mfc='white', mec='k', mew=0.7)
                 else:
                     ax.plot(i, y, 'o', ms=5.2, color=C_PB if sp == 'Pb' else C_SB, mec='white', mew=0.4)
-        dump('Fig1_supercells', f'{pid}_sites.csv',
+        dump('Fig1_structures', f'{pid}_sites.csv',
              ['site_id', 'plane_from_bottom_along_111', 'position_in_plane_row', 'sublattice', 'species',
               'frac_a', 'frac_b', 'frac_c', 'x_A', 'y_A', 'z_A'], sorted(rows, key=lambda t: (t[1], t[2])))
         if DATA is not None:
-            shutil.copy(os.path.join(base, pid, 'POSCAR'), os.path.join(DATA, 'Fig1_supercells', f'{pid}_POSCAR_unrelaxed.vasp'))
+            shutil.copy(os.path.join(base, pid, 'POSCAR'), os.path.join(DATA, 'Fig1_structures', f'{pid}_POSCAR_unrelaxed.vasp'))
         ax.set_xlim(-0.8, 15.8); ax.set_ylim(-0.8, 9.8); ax.set_xticks([]); ax.set_yticks([])
         ax.tick_params(top=False, right=False)
-        ax.set_title(title, fontsize=8, pad=3)
+        ax.set_title(title + ' (144 atoms, defect calculations)', fontsize=8, pad=3)
     axs[0].annotate('', xy=(-2.9, 9.4), xytext=(-2.9, -0.4), xycoords='data', annotation_clip=False,
                     arrowprops=dict(arrowstyle='->', lw=0.8))
     axs[0].text(-3.3, 4.5, '[111]', rotation=90, ha='right', va='center', fontsize=7)
     for y, lab in zip(range(10), ['Sb', 'Te', 'Pb', 'Te', 'Pb', 'Te', 'Sb', 'Te', 'Vac', 'Te'][::-1]):
         axs[0].text(-1.1, y, lab, ha='right', va='center', fontsize=6.5)
     panel(axs[0], '(a)', x=-0.09); panel(axs[1], '(b)')
+    # (c)(d)：用户的层状相与有序模型 O 的侧视（沿 a 方向投影），右侧字母为堆垛位置
+    E = {row['ref_id'] or row['parent_id']: row for row in csv.DictReader(open(os.path.join(DEFDIR, '..', 'energies.csv'), encoding='utf-8-sig'))}
+    lay_v, lay_e = float(E['Pb2Sb2Te5_layered9']['volume_A3']), float(E['Pb2Sb2Te5_layered9']['energy_eV'])
+    comp = [['layered_P-3m1_9atom', 'bands (PBE, HSE), orbital character, topology, Seebeck; reference phase in defect study',
+             'user structure (PBE-D3), re-relaxed with defect settings', 9, r(lay_v, 2), r(lay_e, 5), 0.0]]
+    for pid, nm in (('O_ordered', 'ordered model O'), ('D_seed1729', 'disordered model D')):
+        v, e = float(E[pid]['volume_A3']) / 16, float(E[pid]['energy_eV']) / 16
+        comp.append([pid, nm + ' (host for defects)', 'built from ideal rocksalt (a = 6.2 A start) following Evang et al. 2022, PBE-D3 full relaxation',
+                     144, r(v, 2), r(e, 5), r(e - lay_e, 4)])
+    dump('Fig1_structures', 'structure_comparison.csv', ['structure', 'used_for', 'source', 'atoms_in_cell', 'volume_per_fu_A3',
+                                                         'energy_per_fu_eV', 'E_minus_layered_eV_per_fu'], comp)
+    pl, ah, c = side_layered()
+    po, aho, aeff, d = side_ordered(float(E['O_ordered']['volume_A3']) / 16)
+    ylim = (-1.6, 2 * c + 1.4)
+    for col, (planes, a_, title, note) in enumerate((
+            (pl, ah, r'Layered phase, $P\bar{3}m1$ (9-atom cell)' + '\n' + r'used for all band and $S$ calculations',
+             'van der Waals gap:\nTe faces Te directly;\nthe next block continues\nthe stacking (B | C)'),
+            (po, aho, 'Ordered model O, ideal rocksalt stacking\n(plane spacing from the relaxed volume)',
+             'empty cation plane (C)\nbetween two Te planes;\nthe next block starts at A,\nshifted by $a/\\sqrt{3}$ = 2.5 Å'))):
+        ax = fig.add_subplot(gs[1, col]); ax.set_anchor('W')
+        rows = draw_side(ax, planes, a_, ylim)
+        ax.set_title(title, fontsize=7.5, pad=3, loc='left')
+        gz = next(z for z, _, e in planes if e == ('Te' if col == 0 else 'Vac') and z > c * 0.75)
+        ax.text(13.0, gz, note, ha='left', va='center', fontsize=6.3, linespacing=1.25)
+        dump('Fig1_structures', ['side_view_layered.csv', 'side_view_ordered_O.csv'][col], ['z_A', 'species', 'stacking_position'], rows)
+        cell = gs[1, col].get_position(fig)
+        fig.text(cell.x0 - 0.012, cell.y1 + 0.012, '(c)' if col == 0 else '(d)', fontsize=9, fontweight='bold', ha='right', va='bottom')
     h = [plt.Line2D([], [], ls='', marker='o', ms=5, color=C_PB), plt.Line2D([], [], ls='', marker='o', ms=5, color=C_SB),
          plt.Line2D([], [], ls='', marker='o', ms=5, mfc='white', mec='k'), plt.Line2D([], [], ls='', marker='o', ms=3.5, color=C_TE)]
-    fig.legend(h, ['Pb', 'Sb', 'Structural vacancy', 'Te'], loc='lower center', ncol=4, bbox_to_anchor=(0.5, -0.06))
-    save(fig, out, 'Fig1_supercells_O_D')
+    fig.legend(h, ['Pb', 'Sb', 'Structural vacancy', 'Te'], loc='upper center', ncol=4, bbox_to_anchor=(0.5, 0.075))
+    save(fig, out, 'Fig1_structures')
+    return {'a_eff_O': r(aeff, 3), 'ah_O': r(aho, 3), 'd_O': r(d, 3), 'ah_layered': r(ah, 4), 'c_layered': r(c, 4)}
 
 
 # ------------------------------------------------------------------ Fig. 2
@@ -363,7 +453,6 @@ NAMES = {'Pb_on_Vac': r'Pb$_{\mathrm{Vac}}$', 'Sb_on_Vac': r'Sb$_{\mathrm{Vac}}$
          'Sb_Pb': r'Sb$_{\mathrm{Pb}}$', 'Pb_Sb': r'Pb$_{\mathrm{Sb}}$', 'Te_Pb': r'Te$_{\mathrm{Pb}}$', 'Te_Sb': r'Te$_{\mathrm{Sb}}$',
          'Sb_Te': r'Sb$_{\mathrm{Te}}$', 'Pb_Te': r'Pb$_{\mathrm{Te}}$', 'V_Te': r'$V_{\mathrm{Te}}$', 'V_Pb': r'$V_{\mathrm{Pb}}$', 'V_Sb': r'$V_{\mathrm{Sb}}$'}
 ROWS = [(t, q) for t, q in rf.DONORS] + [(t, q.replace('-', '−')) for t, q in rf.ACCEPT]
-DEFDIR = os.path.join(ROOT, '13_DVO缺陷_VASP流程与分析', '结果_第一批', 'analysis')
 
 
 def ef_sites():

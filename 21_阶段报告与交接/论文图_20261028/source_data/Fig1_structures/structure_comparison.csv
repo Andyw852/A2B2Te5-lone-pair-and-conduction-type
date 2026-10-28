@@ -1,0 +1,4 @@
+﻿structure,used_for,source,atoms_in_cell,volume_per_fu_A3,energy_per_fu_eV,E_minus_layered_eV_per_fu
+layered_P-3m1_9atom,"bands (PBE, HSE), orbital character, topology, Seebeck; reference phase in defect study","user structure (PBE-D3), re-relaxed with defect settings",9,291.54,-37.0838,0.0
+O_ordered,ordered model O (host for defects),"built from ideal rocksalt (a = 6.2 A start) following Evang et al. 2022, PBE-D3 full relaxation",144,295.76,-36.99918,0.0846
+D_seed1729,disordered model D (host for defects),"built from ideal rocksalt (a = 6.2 A start) following Evang et al. 2022, PBE-D3 full relaxation",144,302.09,-36.55989,0.5239
