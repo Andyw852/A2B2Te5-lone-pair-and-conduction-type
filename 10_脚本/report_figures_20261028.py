@@ -136,10 +136,7 @@ def hse_estimates():
     for m in MATS:
         r = {}
         for side in ('c2_pbe', 'c2_hse'):
-            c3 = None
-            f = os.path.join(base(m), 'c3_valley', 'c3_masses.json')
-            if side == 'c2_hse' and os.path.exists(f):
-                import json; c3 = json.load(open(f, encoding='utf-8'))
+            c3 = mv.c3_usable(m)[0] if side == 'c2_hse' else None
             V, gap = mv.build(m, 'v', 300, c3, side); C, _ = mv.build(m, 'c', 300, side=side)
             r[side] = [mv.solve(V, C, gap, N, 300, 'crta')[0] for N in (3e19, -3e19)]
         est[m] = [BTP[m][i] * r['c2_hse'][i] / r['c2_pbe'][i] for i in range(2)]
@@ -242,7 +239,7 @@ def main():
     if '2' in todo: fig2(a.out)
     if '3' in todo:
         est = hse_estimates()
-        snbi_prov = not os.path.exists(os.path.join(base('Sn2Bi2Te5'), 'c3_valley', 'c3_masses.json'))
+        snbi_prov = mv.c3_provisional('Sn2Bi2Te5')
         print('HSE 估计（p 3e19, n 3e19）：', {m: [round(v) for v in est[m]] for m in MATS}, '；SnBi p 暂定' if snbi_prov else '')
         fig3(a.out, est, snbi_prov)
     d = read_ef()

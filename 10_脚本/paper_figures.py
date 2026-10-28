@@ -369,7 +369,7 @@ def fig4(out):
 
 # ------------------------------------------------------------------ Fig. 5
 def fig5(out):
-    est = rf.hse_estimates(); prov = not os.path.exists(os.path.join(rf.base('Sn2Bi2Te5'), 'c3_valley', 'c3_masses.json'))
+    est = rf.hse_estimates(); prov = mv.c3_provisional('Sn2Bi2Te5')
     fig, axs = plt.subplots(1, 2, figsize=(W2, 2.5), gridspec_kw=dict(wspace=0.18))
     xs = np.arange(4); w = 0.36
     for k, ax in enumerate(axs):
@@ -409,8 +409,7 @@ def valley_shares():
     以及谷极值点处的阳离子 s 成分；p 型孤对电子谷 = 价带谷中阳离子 s ≥ 15% 者，n 型“Γ 导带”= Γ 或 Γ–A 驼峰处的导带谷。"""
     K = kpath(); rows, summary = [], []
     for m in MATS:
-        f = os.path.join(rf.base(m), 'c3_valley', 'c3_masses.json')
-        c3 = json.load(open(f, encoding='utf-8')) if os.path.exists(f) else None
+        c3 = mv.c3_usable(m)[0]
         V, gap = mv.build(m, 'v', 300, c3); C, _ = mv.build(m, 'c', 300)
         _, Wp = cv.read_procar(os.path.join(rf.base(m), 'c2_hse', 'PROCAR_OPT.gz'))
         fs = rf.cation_s(Wp); nel = NEL[m]
@@ -431,6 +430,20 @@ def valley_shares():
     dump('Fig5_Seebeck', 'lone_pair_share_summary.csv',
          ['material', 'carrier_type', 'share_percent (p: lone-pair valence valleys; n: Gamma conduction valley)'], summary)
     print('shares', summary)
+    c3 = mv.c3_load('Sn2Bi2Te5')
+    if c3:
+        rows = []
+        for k, v in c3.items():
+            H = np.array(v['H_eVA2_line_perp_c']); g = np.array(v['gradient'])
+            ok, why = mv.c3_verdict(v, 'v')
+            dk = -np.linalg.solve(H, g); dE = -0.5 * g @ np.linalg.solve(H, g)
+            rows.append([k, r(v['E0'], 5)] + [r(x, 4) for x in g] + [r(x, 4) for x in v['principal']]
+                        + [r(x, 4) for x in dk] + [r(1000 * dE, 1), 'yes' if ok else 'no', why])
+        dump('Fig5_Seebeck', 'Sn2Bi2Te5_c3_valley_check.csv',
+             ['valley_k_index', 'E_center_eV', 'grad_line_eVA', 'grad_perp_eVA', 'grad_c_eVA',
+              'principal_mass_1_me', 'principal_mass_2_me', 'principal_mass_3_me',
+              'stationary_shift_line_1/A', 'stationary_shift_perp_1/A', 'stationary_shift_c_1/A',
+              'quadratic_extrapolated_dE_meV', 'used_in_model', 'reason_not_used'], rows)
 
 
 # ------------------------------------------------------------------ Fig. 6

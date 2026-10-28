@@ -6,6 +6,7 @@ band_refine.py —— 精细化能带图（解决“能带收敛/简并看不清
 输入：<材料>/{band.dat, band_klabels.txt, band_summary.json, KPOINTS[_OPT]}
       （HSE + SOC，Γ-M-K-Γ-A-L-H-A|L-M|H-K 路径，~200 点，能量已相对 VBM）
       * clone 下来的仓库：默认读 12_能带绘图_20261021/源数据/<材料>/，输出到 12_能带绘图_20261021/复现输出/
+        （2026-10-28：该目录的旧 HSE 数据已作废并从仓库删除；脚本可复用，需用 --data-root 指向正确的 HSE 路径数据）
       * 原工作区：band_and_elf/huang/<材料>/step4_band_plot/，输出到 band_refine_20261021/
       用 --data-root / --out 可显式指定。
       Bi 系（零权重 HSE 路径方案）默认剔除落在 SCF 网格上的路径点（见 mesh_dup_points），

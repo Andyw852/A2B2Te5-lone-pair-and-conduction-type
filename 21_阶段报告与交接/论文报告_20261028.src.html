@@ -68,7 +68,7 @@ sup.r { font-size: 11px; color: var(--accent); }
 <ol>
 <li>孤对电子以已填满的阳离子 s–Te p 反键态存在；化学键主要靠 p–p 成键。</li>
 <li>HSE06+SOC 能带中，这个反键态出现在两处：离开 Γ 的价带谷，以及 Γ 处的导带底。后者是 s 态在 Γ 处反转到阳离子 p 态之上的结果；Sn₂Sb₂Te₅、Pb₂Bi₂Te₅、Sn₂Bi₂Te₅ 是强拓扑绝缘体，Z₂ = (1;000)。</li>
-<li>与 PBE 相比，HSE 把孤对电子价带谷相对价带顶压低：Pb₂Sb₂Te₅ 236 meV、Sn₂Sb₂Te₅ 131 meV、Pb₂Bi₂Te₅ 91 meV；只有 Sn₂Bi₂Te₅ 的价带顶仍是孤对电子谷。</li>
+<li>与 PBE 相比，HSE 把孤对电子价带谷相对价带顶压低：Pb₂Sb₂Te₅ 236 meV、Sn₂Sb₂Te₅ 131 meV、Pb₂Bi₂Te₅ 91 meV；只有 Sn₂Bi₂Te₅ 的价带顶仍是孤对电子谷。这些是 HSE 路径上的值；Sn₂Bi₂Te₅ 的补充计算（c3）表明，离轴谷的真实极大在路径之外、能量更高，所以这些深度是上限，孤对电子谷实际更靠近价带顶（第 4 节）。</li>
 <li><b>p 型</b>：同浓度 S 的排序为 Sn₂Bi₂Te₅ > Sn₂Sb₂Te₅ > Pb₂Bi₂Te₅ > Pb₂Sb₂Te₅，大体随孤对电子谷承担的电导份额变化：Sn 系份额高（约 99%、44%），S 也高；Pb 系份额都低（12%、17%）。份额取决于孤对电子谷离价带顶多近，以及该浓度下费米能级深入价带多少。Pb 系两者之间的差别主要来自价带顶本身：Pb₂Sb₂Te₅ 的 Γ 价带近乎线性，带隙只有 51 meV。</li>
 <li><b>n 型</b>：四种材料导带底都是孤对电子 s 态（Γ 单谷）。Sn 系同浓度 |S| 是 Pb 系的 2.4–3.7 倍，主要来自约 65 meV 处的阳离子 p 导带口袋，不是孤对电子。</li>
 <li>四种材料的实验 S(T) 都能用 HSE 能带重现，每个材料只用一个参数（由 300 K 实验值定出的载流子浓度）：Pb₂Bi₂Te₅ 整条曲线差 ≤ 7 µV/K；Pb₂Sb₂Te₅ 的 S ≈ 0 由 51 meV 的小带隙解释。这两种材料改用 PBE 能带都与实验明显不符（最大偏差 104、142 µV/K）。Sn₂Sb₂Te₅、Sn₂Bi₂Te₅ 是重掺杂 p 型（约 10²¹ cm⁻³），S 随温度线性上升的趋势也被重现。</li>
@@ -226,6 +226,7 @@ sup.r { font-size: 11px; color: var(--accent); }
 <li><b>Γ–A 线上的驼峰</b>：等价谷数 g = 2。</li>
 <li><b>线段内部的离轴谷</b>：g = 6；位于区界线上时 g = 3。面内垂直方向由镜面对称确定为主轴，取沿线方向的质量；沿 c 由同一面内位置 <i>k<sub>z</sub></i> = 0 与 ½ 的能量差作余弦估计，若此方向是鞍点则舍去。</li>
 </ul>
+<p><b>前提与检验。</b>这一步默认路径上的极值就是三维极值。对 Γ、A 等对称点和 Γ–A 线上的谷，对称性保证这一点；Γ–M、A–L 线位于镜面内、不在二重轴上，对称性不要求沿 c 的梯度为零，所以离轴谷不一定成立。Sn₂Bi₂Te₅ 的补充计算（c3）证实了这一点：它的三组离轴价带谷在路径上的点都不是三维极值（第 4 节）。</p>
 <p><b>第 2 步：每个方向的色散。</b>用 Kane 两带关系<sup class="r">[13,14]</sup>拟合路径上 0.3 eV 内的点：</p>
 <div class="eq"><i>ε</i>(1 + <i>ε</i>/<i>E</i><sub>K</sub>) = ħ²<i>k</i>²/(2<i>m</i>*)</div>
 <p>得到每个方向的 <i>k<sub>i</sub></i>(<i>ε</i>) 与速度 <i>v<sub>i</sub></i> = d<i>ε</i>/d<i>k<sub>i</sub></i>。窄带隙 IV–VI 化合物的 Γ 处轻带本来就符合这一关系；例如 Pb₂Bi₂Te₅ 导带沿 Γ–M 拟合得 <i>m</i>* = 0.044、<i>E</i><sub>K</sub> ≈ 0.24 eV，与 Γ 处直接带隙 0.19 eV 同量级。</p>
@@ -249,14 +250,14 @@ sup.r { font-size: 11px; color: var(--accent); }
 <img src="{{FIG:Fig2_bands_PBE_vs_HSE}}" alt="Fig. 2">
 <figcaption><b>图 2</b> PBE+SOC（虚线）与 HSE06+SOC（实线）能带，各自以价带顶为零点。路径 Γ–M–K–Γ–A–L–H–A。(a) Pb₂Sb₂Te₅，(b) Pb₂Bi₂Te₅，(c) Sn₂Sb₂Te₅，(d) Sn₂Bi₂Te₅；每幅图上方注明两种泛函的路径带隙。</figcaption>
 </figure>
-<p class="tcap"><b>表 2</b> 路径带隙与带边位置。</p>
+<p class="tcap"><b>表 2</b> 路径带隙与带边位置。* Sn₂Bi₂Te₅ 的价带顶是离轴谷，真实极大在路径之外、能量更高（第 4 节），所以其路径带隙是上限；其余带边都在对称点或 Γ–A 线上，路径值即真实值。</p>
 <table data-csv="Table2_band_gaps_and_edges">
 <thead><tr><th>材料</th><th class="num">路径带隙 PBE (eV)</th><th class="num">路径带隙 HSE (eV)</th><th>PBE 价带顶</th><th>HSE 价带顶</th><th>HSE 导带底</th></tr></thead>
 <tbody>
 <tr><td>Pb₂Sb₂Te₅</td><td class="num">0.216</td><td class="num">0.051</td><td>Γ–A 线上（kz = 3/14）</td><td>Γ</td><td>Γ（直接带隙）</td></tr>
 <tr><td>Pb₂Bi₂Te₅</td><td class="num">0.143</td><td class="num">0.142</td><td>A</td><td>A</td><td>Γ</td></tr>
 <tr><td>Sn₂Sb₂Te₅</td><td class="num">0.170</td><td class="num">0.160</td><td>(1/6,0,0) 附近</td><td>Γ</td><td>Γ–A 线上（kz = 1/7，比 Γ 低 8 meV）</td></tr>
-<tr><td>Sn₂Bi₂Te₅</td><td class="num">0.117</td><td class="num">0.182</td><td>(1/6,0,0) 附近</td><td>(1/6,0,0) 附近</td><td>Γ</td></tr>
+<tr><td>Sn₂Bi₂Te₅</td><td class="num">0.117</td><td class="num">0.182*</td><td>(1/6,0,0) 附近</td><td>(1/6,0,0) 附近*</td><td>Γ</td></tr>
 </tbody></table>
 <p><b>读法。</b></p>
 <ul>
@@ -284,20 +285,20 @@ sup.r { font-size: 11px; color: var(--accent); }
 <tr><td>Pb₂Sb₂Te₅</td><td>Γ：0.062 / 0.063 / 0.25</td><td>阳离子 p 68%，s 0%</td><td>Γ：0.065 / 0.068 / 0.26</td><td>阳离子 s 26%</td><td>254 meV（A–L，阳离子 p）</td></tr>
 <tr><td>Pb₂Bi₂Te₅</td><td>A：0.18 / 0.14 / 3.3</td><td>阳离子 s 10%，p 17%</td><td>Γ：0.082 / 0.084 / 1.8</td><td>阳离子 s 20%</td><td>300 meV 内无</td></tr>
 <tr><td>Sn₂Sb₂Te₅</td><td>Γ：0.077 / 0.080 / 0.46</td><td>阳离子 p 64%，s 2%</td><td>Γ–A 驼峰（比 Γ 低 8 meV）</td><td>阳离子 s 21–28%</td><td>65 meV（A–L，阳离子 p）</td></tr>
-<tr><td>Sn₂Bi₂Te₅</td><td>(1/6,0,0) 孤对电子谷，另两组在 5、17 meV 内</td><td>阳离子 s 24–30%</td><td>Γ：0.19 / 0.21 / 1.5</td><td>阳离子 s 23%</td><td>69 meV（A–L，阳离子 p）</td></tr>
+<tr><td>Sn₂Bi₂Te₅</td><td>(1/6,0,0) 孤对电子谷，另两组在 5、17 meV 内（均为路径上的点；真实极大在路径之外，见第 4 节）</td><td>阳离子 s 24–30%</td><td>Γ：0.19 / 0.21 / 1.5</td><td>阳离子 s 23%</td><td>69 meV（A–L，阳离子 p）</td></tr>
 </tbody></table>
 <p><b>拓扑。</b>TRIM 点宇称乘积：Sn₂Sb₂Te₅ 为 δ = (Γ −1；M、A、L +1)，Pb₂Bi₂Te₅、Sn₂Bi₂Te₅ 为整体翻号的 (Γ +1；M、A、L −1)。整行翻号来自成对 Bi 原子的满 5d 壳层，在每个 TRIM 点都贡献 −1；去掉这 20 条半芯带后，两者与 Sn₂Sb₂Te₅ 相同。三者在 PBE 和 HSE 下都是 Z₂ = (1;000)，反转都在 Γ。结合成分可知：<b>孤对电子的 s 态在 Γ 处被反转到阳离子 p 态之上，这正是非平庸拓扑的来源</b>；它也决定了 n 型载流子所在的态。HSE 只是把 Γ 处的反转带隙减小（Sn₂Sb₂Te₅ 252 → 168、Pb₂Bi₂Te₅ 365 → 194、Sn₂Bi₂Te₅ 360 → 277 meV）。这三种材料的反转带隙（168–277 meV）远大于 HSE 数值近似（PRECFOCK、k 点约化）可能带来的误差，拓扑结论不会因此改变；Pb₂Sb₂Te₅ 在 Γ 处只有 51 meV，带序对计算细节最敏感，其宇称待补。</p>
 
 <h2 id="s4">4 孤对电子对 Seebeck 系数的影响</h2>
 <figure>
 <img src="{{FIG:Fig4_lone_pair_valley_PBE_vs_HSE}}" alt="Fig. 4" style="max-width:520px;margin:0 auto">
-<figcaption><b>图 4</b> 最高的孤对电子价带谷（阳离子 s ≥ 15% 的真实极大，鞍点除外）相对价带顶的能量。阴影为 2<i>k</i><sub>B</sub><i>T</i>（300 K）。</figcaption>
+<figcaption><b>图 4</b> 最高的孤对电子价带谷（阳离子 s ≥ 15%，路径上的极大，鞍点除外）相对价带顶的能量，取自 HSE 与 PBE 路径。离轴谷的真实极大在路径之外、能量更高（第 4 节），所以图中的深度是上限。阴影为 2<i>k</i><sub>B</sub><i>T</i>（300 K）。</figcaption>
 </figure>
 <figure>
 <img src="{{FIG:Fig5_Seebeck_PBE_vs_HSE}}" alt="Fig. 5">
-<figcaption><b>图 5</b> 300 K、3×10¹⁹ cm⁻³ 时的面内 Seebeck 系数。(a) p 型；(b) n 型（取 |S|）。橙色为 PBE+SOC + BoltzTraP2，蓝色为 HSE 能带的估计（第 1.7 节）。星号与斜线表示暂定值。</figcaption>
+<figcaption><b>图 5</b> 300 K、3×10¹⁹ cm⁻³ 时的面内 Seebeck 系数。(a) p 型；(b) n 型（取 |S|）。橙色为 PBE+SOC + BoltzTraP2，蓝色为 HSE 能带的估计（第 1.7 节）。星号与斜线表示暂定值（Sn₂Bi₂Te₅ 的 p 型，原因见第 4 节）。</figcaption>
 </figure>
-<p class="tcap"><b>表 4</b> 300 K 面内 Seebeck 系数（µV/K；箭头左边为 PBE + BoltzTraP2，右边为 HSE 估计，* 为暂定值）与孤对电子态承担的电导份额（HSE，3×10¹⁹ cm⁻³，300 K）。份额 = 1.7 节多谷模型中该类谷对面内电导的贡献 ÷ 总电导（含少数载流子）；p 型计入极值点处阳离子 s ≥ 15% 的价带谷，n 型计入 Γ 处（Sn₂Sb₂Te₅ 为紧邻 Γ 的 Γ–A 驼峰）的导带谷。逐谷数值见 <code>data/Fig5_Seebeck/valley_conductivity_shares.csv</code>。</p>
+<p class="tcap"><b>表 4</b> 300 K 面内 Seebeck 系数（µV/K；箭头左边为 PBE + BoltzTraP2，右边为 HSE 估计，* 为暂定值，原因见本节末）与孤对电子态承担的电导份额（HSE，3×10¹⁹ cm⁻³，300 K）。份额 = 1.7 节多谷模型中该类谷对面内电导的贡献 ÷ 总电导（含少数载流子）；p 型计入极值点处阳离子 s ≥ 15% 的价带谷，n 型计入 Γ 处（Sn₂Sb₂Te₅ 为紧邻 Γ 的 Γ–A 驼峰）的导带谷。逐谷数值见 <code>data/Fig5_Seebeck/valley_conductivity_shares.csv</code>。</p>
 <table data-csv="Table4_Seebeck_300K">
 <thead><tr><th>材料</th><th class="num">p 3×10¹⁹</th><th class="num">p 1×10²⁰</th><th class="num">n 3×10¹⁹</th><th class="num">n 1×10²⁰</th><th>p 型：孤对电子谷的电导份额</th><th>n 型：Γ 导带（孤对电子 s 态）的份额</th></tr></thead>
 <tbody>
@@ -308,7 +309,7 @@ sup.r { font-size: 11px; color: var(--accent); }
 </tbody></table>
 <p><b>p 型：孤对电子通过多谷提高 S，作用大小取决于孤对电子谷离价带顶多近。</b></p>
 <ul>
-<li>Sn₂Bi₂Te₅ 的价带顶本身就是孤对电子谷：17 meV 内有三组六重谷，共 18 个口袋，几乎全部电导来自孤对电子态，S 最高。</li>
+<li>Sn₂Bi₂Te₅ 的价带顶本身就是孤对电子谷：路径上 17 meV 内有三组六重谷，共 18 个口袋，几乎全部电导来自孤对电子态，S 最高。</li>
 <li>Sn₂Sb₂Te₅ 的价带顶是 Γ 处很轻的 p 单谷。3×10¹⁹ 时费米能级已深入价带 127 meV，碰到 −131 meV 处的孤对电子谷，后者承担 44% 的电导，所以 S 降得不多。</li>
 <li>Pb₂Bi₂Te₅ 的孤对电子谷在 −91 meV，只贡献 12%。</li>
 <li>Pb₂Sb₂Te₅ 的价带顶是近乎线性的 Γ 带（带隙 51 meV），孤对电子谷在 −236 meV，S 降到 PBE 的 30–40%。</li>
@@ -319,7 +320,19 @@ sup.r { font-size: 11px; color: var(--accent); }
 <li>Pb 系的导带很轻、近线性，又没有可借的谷，所以 |S| 低。</li>
 <li>Sn 系的 Γ 导带较重，另有 65–70 meV 处的 A–L 阳离子 p 口袋，3×10¹⁹ 时它承担约一半电导，所以 Sn 系 |S| 高 2.4–3.7 倍。</li>
 </ul>
-<p>这些 S 是半定量估计（椭球近似、常数弛豫时间，绝对值靠 PBE + BoltzTraP2 校准），宜看材料排序和 PBE → HSE 的变化方向。Pb₂Sb₂Te₅、Pb₂Bi₂Te₅ 这类近线性的轻带对散射机制敏感：早先 AMSET 显示这些材料由极性光学声子散射主导，此时 S 会比常数弛豫时间的值更高。Sn₂Bi₂Te₅ 的 p 型值（*）待其价带孤对电子谷的完整质量张量（c3_valley）算完后更新；迁移率尚未用 HSE 能带重算。</p>
+<p>这些 S 是半定量估计（椭球近似、常数弛豫时间，绝对值靠 PBE + BoltzTraP2 校准），宜看材料排序和 PBE → HSE 的变化方向。Pb₂Sb₂Te₅、Pb₂Bi₂Te₅ 这类近线性的轻带对散射机制敏感：早先 AMSET 显示这些材料由极性光学声子散射主导，此时 S 会比常数弛豫时间的值更高。迁移率尚未用 HSE 能带重算。</p>
+<div class="note"><b>离轴谷的真实位置（c3 补充计算，Sn₂Bi₂Te₅）。</b>为得到 Sn₂Bi₂Te₅ 三组价带谷的完整质量张量，在 HSE06+SOC 下围绕每个谷各算了 11 个点的小星形：沿线、面内垂直、沿 c 各 ±δ，以及 (线, c) 平面的对角点（δ = 0.02、δ<sub><i>z</i></sub> = 0.03 Å⁻¹），再拟合梯度与曲率。四个校验点与路径计算一致到 0.05 meV；面内垂直方向的梯度为零，符合镜面对称，说明采样几何正确。结果：
+<ul>
+<li><b>#11</b>（Γ–M 上，路径价带顶）：沿 c 的梯度为 1.06 eV·Å，(线, c) 平面内的主曲率异号，是鞍点，不是谷；只沿 c 移动即可再升高约 12 meV。</li>
+<li><b>#101</b>（A–L 上，路径上低 5 meV）：曲率负定，但由梯度外推的驻点偏离路径约 0.05 Å⁻¹，比路径点高约 5 meV。</li>
+<li><b>#119</b>（A–L 上，路径上低 17 meV）：曲率负定，驻点偏离约 0.05 Å⁻¹，外推高 54–62 meV。</li>
+</ul>
+后两者的外推超出了采样半径（0.03 Å⁻¹），只能作量级参考。结论与影响：
+<ul>
+<li>Sn₂Bi₂Te₅ 价带的真实极大在镜面内、偏离路径的一般 <i>k</i><sub><i>z</i></sub> 处（Bi₂Te₃ 的价带顶也是这种情形），能量高于路径价带顶。所以它的路径带隙 0.182 eV 是上限，拟合质量也不能直接代入多谷模型，表 4 中 Sn₂Bi₂Te₅ 的 p 型 S 仍为暂定（多谷模型只采用在采样点处确认为真极值的谷，这三组都不满足）。</li>
+<li>其余三种材料的离轴孤对电子谷同理只是下限：真实极大可能更靠近价带顶，所以孤对电子谷对 p 型 S 的作用若有偏差，应是被低估。它们的价带顶（Γ、A）和四种材料的导带底（Γ 或 Γ–A 线上）由对称性保证是真实极值，不受影响；n 型结论不变。</li>
+<li>要定出真实极值，需要在镜面内围绕各离轴谷做二维 HSE 网格（例如沿线 ±0.06 Å⁻¹、沿 c 覆盖整个布里渊区），再在极值处做星形拟合。拟合数据见 <code>data/Fig5_Seebeck/Sn2Bi2Te5_c3_valley_check.csv</code>。</li>
+</ul></div>
 
 <h2 id="s5">5 与实验 S(T) 的对照</h2>
 <figure>
@@ -444,7 +457,7 @@ sup.r { font-size: 11px; color: var(--accent); }
 <tr><td>图 2</td><td><code>Fig2_bands_PBE_vs_HSE</code></td><td><code>Fig2_bands_PBE_vs_HSE/</code>：每种材料、每种泛函的路径能带（相对价带顶），路径带隙</td></tr>
 <tr><td>图 3</td><td><code>Fig3_HSE_bands_cation_s</code></td><td><code>Fig3_HSE_bands_cation_s/</code>：HSE 路径能带及每个 k 点、每条带的阳离子 s 成分</td></tr>
 <tr><td>图 4</td><td><code>Fig4_lone_pair_valley_PBE_vs_HSE</code></td><td><code>Fig4_lone_pair_valley/</code>：最高孤对电子价带谷的能量、k 点与成分</td></tr>
-<tr><td>图 5</td><td><code>Fig5_Seebeck_PBE_vs_HSE</code></td><td><code>Fig5_Seebeck/</code>：300 K、3×10¹⁹ cm⁻³ 的 S；表 4 的逐谷电导份额（每个谷的位置、离带边能量、阳离子 s 成分、份额）与汇总</td></tr>
+<tr><td>图 5</td><td><code>Fig5_Seebeck_PBE_vs_HSE</code></td><td><code>Fig5_Seebeck/</code>：300 K、3×10¹⁹ cm⁻³ 的 S；表 4 的逐谷电导份额（每个谷的位置、离带边能量、阳离子 s 成分、份额）与汇总；Sn₂Bi₂Te₅ 的 c3 检验（梯度、主质量、驻点位移）</td></tr>
 <tr><td>图 6</td><td><code>Fig6_S_vs_T_experiment</code></td><td><code>Fig6_S_vs_T/</code>：实验点、计算曲线、拟合汇总</td></tr>
 <tr><td>图 7</td><td><code>Fig7_defect_formation_energies</code></td><td><code>Fig7_formation_energies/</code>：逐位点中性形成能，两端化学势</td></tr>
 <tr><td>图 8</td><td><code>Fig8_ordering_induced_change</code></td><td><code>Fig8_ordering/</code>：逐位点与中位数 Δ<i>E</i><sub>f</sub></td></tr>

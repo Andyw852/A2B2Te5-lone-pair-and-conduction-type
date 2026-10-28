@@ -6,7 +6,10 @@
 - Γ–A 线上的驼峰（kz = ±k0）：沿 c 用路径色散（朝 Γ 一侧到 Γ 截止），面内借用 Γ 处的色散形状；g = 2。
 - 线段内部的离轴谷（Γ–M、K–Γ、A–L、H–A，g = 6；M–K、L–H 在区界上，g = 3）：沿线用路径色散（两侧平均），
   面内垂直方向取沿线的抛物质量，沿 c 取余弦估计 m_z = 2·7.62/(W c²)，W 为同一面内位置 kz = 0 与 1/2 的能量差；
-  W ≤ 0 说明沿 c 是鞍点，舍去。--c3 给出的谷用 c3_valley 拟合的三个主质量（抛物）整体替换。
+  W ≤ 0 说明沿 c 是鞍点，舍去。c3_valley 拟合过的谷，只有在采样点处确认为真极值时（三个主曲率同号，且由梯度与曲率
+  外推的驻点落在采样半径以内）才用拟合质量（抛物）整体替换；否则保留路径估计，并在 --list 中注明原因。
+  注意：Γ–M、A–L 线在镜面内而不在二重轴上，对称性不要求沿 c 的梯度为零，离轴谷的真实极大可以在镜面内的一般 kz 处，
+  路径给出的离轴谷能量只是下限（SnBi 的 c3 即如此）。
 每个谷当作“三个半轴 k_i(ε) 取自真实色散”的椭球：单个口袋的态数 N(ε) = 2·(4π/3)k1k2k3/(2π)³，
 面内 ⟨v_x²⟩ ≈ (v1² + v2²)/6，v_i = dε/dk_i。
 
@@ -34,6 +37,7 @@ POINTS = {'Γ': ((0, 90), [(0, 1), (90, -1)], [(90, 1)], 1), 'A': ((97, 187), [(
           'L': ((130, 188), [(130, -1), (130, 1)], [(188, 1)], 3), 'M': ((33, 195), [(33, -1), (33, 1)], [(195, -1)], 3),
           'K': ((52, 203), [(52, -1), (52, 1)], [(203, -1)], 2), 'H': ((149, 196), [(149, -1), (149, 1)], [(196, 1)], 2)}
 EPS = np.linspace(0, 0.8, 3201)            # 进入带内的能量网格，eV
+STAR = (0.02, 0.03)                        # c3 星形采样的半径：沿线与面内垂直 δ、沿 c δz（Å⁻¹）
 MZ_SCALE = 1.0                             # 余弦估计的 m_z 乘的系数（敏感性检验用）
 
 
@@ -112,6 +116,40 @@ def parabolic(m):
 def line_mass(x, e, i):
     p = np.polyfit(x[i - 2:i + 3] - x[i], e[i - 2:i + 3], 2)
     return abs(HB / (2 * p[0]))
+
+
+def c3_load(material):
+    f = os.path.join(ROOT, '22_能带基准_1-0', material, 'c3_valley', 'c3_masses.json')
+    return json.load(open(f, encoding='utf-8')) if os.path.exists(f) else None
+
+
+def c3_verdict(entry, kind='v'):
+    """c3 拟合的谷能否直接用：三个主曲率同号（价带为极大、导带为极小），且驻点 Δk = −H⁻¹g 在采样半径以内。"""
+    H = np.array(entry['H_eVA2_line_perp_c']); g = np.array(entry['gradient'])
+    w = np.linalg.eigvalsh(H)
+    if not (np.all(w < 0) if kind == 'v' else np.all(w > 0)):
+        return False, '主曲率异号，是鞍点'
+    dk = -np.linalg.solve(H, g); dE = -0.5 * g @ np.linalg.solve(H, g)
+    if abs(dk[0]) > STAR[0] or abs(dk[1]) > STAR[0] or abs(dk[2]) > STAR[1]:
+        return False, f'驻点偏离采样点 {np.round(dk, 3).tolist()} Å⁻¹（线、面内垂直、c），超出采样半径；二次外推高 {1000 * abs(dE):.0f} meV'
+    return True, ''
+
+
+def c3_usable(material, kind='v'):
+    """返回 (可直接用的谷 {序号: 拟合}, 不能用的谷 {序号: 原因})；没有 c3 时返回 (None, {})。"""
+    c3 = c3_load(material)
+    if c3 is None: return None, {}
+    ok, bad = {}, {}
+    for k, v in c3.items():
+        good, why = c3_verdict(v, kind)
+        (ok.__setitem__(k, v) if good else bad.__setitem__(k, why))
+    return ok, bad
+
+
+def c3_provisional(material):
+    """没有 c3，或 c3 中有谷不能直接用：该材料 p 型的多谷估计仍为暂定。"""
+    ok, bad = c3_usable(material)
+    return ok is None or bool(bad)
 
 
 def build(material, kind, win, c3=None, side='c2_hse'):
@@ -222,16 +260,19 @@ def main():
     a = ap.parse_args()
     global MZ_SCALE
     MZ_SCALE = a.mz_scale
-    c3all = {}
+    c3all, c3bad = {}, {}
     for m in a.materials:
-        f = os.path.join(ROOT, '22_能带基准_1-0', m, 'c3_valley', 'c3_masses.json')
-        if os.path.exists(f): c3all[m] = json.load(open(f, encoding='utf-8'))
+        ok, bad = c3_usable(m)
+        if ok: c3all[m] = ok
+        if bad: c3bad[m] = bad
     models = {}
     for m in a.materials:
         V, gap = build(m, 'v', a.win, c3all.get(m) if a.side == 'c2_hse' else None, a.side); C, _ = build(m, 'c', a.win, side=a.side)
         models[m] = (V, C, gap)
         if a.list:
             print(f'== {m}：带隙 {1000 * gap:.1f} meV' + ('（含 c3）' if m in c3all else ''))
+            for k, why in c3bad.get(m, {}).items():
+                print(f'   c3 谷 #{k} 未采用：{why}')
             for side, L in (('价带', V), ('导带', C)):
                 for v in L:
                     print(f'   {side} {v["name"]:28s} 离带边 {1000 * v["off"]:6.1f} meV  g={v["g"]}  {v["src"]}')

@@ -23,6 +23,7 @@ orbital_fatband.py —— 轨道分辨能带（fat-band，文献常用的气泡�
 
 数据位置（自动识别两种目录结构）：
   * clone 下来的仓库：默认读 12_能带绘图_20261021/源数据/<材料>/（band.dat + 投影_解析.npz），
+        （2026-10-28：该目录的旧 HSE 数据已作废并从仓库删除；脚本可复用，需用 --data-root 指向正确的 HSE 路径数据）
     输出到 12_能带绘图_20261021/复现输出/；
   * 原工作区：<root>/<材料>/step4_band_plot + step4_fatband_plot（直接解析 PROCAR）。
   --procar-root 07_带边能窗/源数据 可改为从原始 PROCAR(.gz) 重新解析，并与 npz 逐元素比对。

@@ -1,5 +1,0 @@
-﻿material,gap_eV,gap_type,vbm_k,cbm_k,states_V_10meV,states_V_25meV,states_V_50meV,states_V_100meV,states_C_10meV,states_C_25meV,kv_kT
-Pb2Sb2Te5,0.0654,direct,0.0,0.0,4,6,6,14,4,6,3
-Pb2Bi2Te5,0.1141,indirect,2.2612,0.0,12,16,20,24,6,8,8
-Sn2Sb2Te5,0.1352,direct,0.0,0.0,6,6,8,14,8,10,3
-Sn2Bi2Te5,0.1366,indirect,2.9741,0.0,2,2,4,24,8,8,1
