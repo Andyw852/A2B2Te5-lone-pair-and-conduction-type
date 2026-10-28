@@ -99,6 +99,7 @@ def fit(a):
         E = read_eig(os.path.join(a.dir, 'c3_eigen.txt')); print('# 能量取自 c3_eigen.txt（4 位小数）')
     if E.shape[0] != meta['n_kpoints']: sys.exit(f"c3_eigen.txt 有 {E.shape[0]} 个 k 点，应为 {meta['n_kpoints']}")
     b = meta['band'] - 1
+    out = {}
     P = read_eig(os.path.join(mat_dir(meta['material']), 'c2_hse', 'path_eigen.txt'))
     dev = max(abs(E[c['k_index'], b - 3:b + 5] - P[c['path_index'], b - 3:b + 5]).max() for c in meta['checks'])
     print(f"# {meta['material']} 第 {meta['band']} 条带；校验点与 c2 路径（带边 ±4 条带）最大差 {1000 * dev:.3f} meV")
@@ -120,6 +121,13 @@ def fit(a):
         print(f"   主质量（m_e，正 = 该带的正常载流子质量）：{', '.join(f'{x:.3f}' for x in m)}；"
               f"{'三个主曲率同号，是真极值' if np.all(np.sign(w) == np.sign(w[0])) else '主曲率异号：鞍点，不是谷'}；态密度质量 {md:.3f}")
         print('   主轴（在 线、面内垂直、c 基下）：' + '；'.join(str(np.round(U[:, i], 3).tolist()) for i in range(3)))
+        # 给 multivalley_seebeck.py：面内两个质量取 Hessian 的面内对角元（面内电导质量不变），沿 c 取等效值使三者乘积 = 主质量乘积（态密度不变）
+        sg = -1 if meta['kind'] == 'v' else 1
+        ml, mp = sg * HB / H[0, 0], sg * HB / H[1, 1]
+        out[str(v['path_index'])] = {'m': [ml, mp, float(np.prod(m) / (ml * mp))], 'principal': [float(x) for x in m],
+                                      'H_eVA2_line_perp_c': H.tolist(), 'gradient': g, 'E0': float(e['0'])}
+    json.dump(out, open(os.path.join(a.dir, 'c3_masses.json'), 'w'), indent=1, ensure_ascii=False)
+    print(f"# 写出 {os.path.join(a.dir, 'c3_masses.json')}（multivalley_seebeck.py 自动读取）")
 
 
 ap = argparse.ArgumentParser(); sub = ap.add_subparsers(dest='cmd', required=True)
