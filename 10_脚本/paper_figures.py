@@ -9,7 +9,7 @@ Fig. 6  144-atom supercells: ordered (O) and disordered (D) cation sublattice   
 Fig. 7  Neutral formation energies of 12 defect types in O and D               13_DVO缺陷_VASP流程与分析/结果_第一批/analysis/形成能_逐位点.csv
 Fig. 8  Ordering-induced change of the formation energy, O − D                  same
 
-Style: Liberation Sans (Arial metrics), 7–8 pt text, 0.8-pt axes, inward ticks on all four sides, panel labels (a), (b), …;
+Style: Times New Roman (Liberation Serif, same metrics, where TNR is not installed), STIX math, 7–8 pt text, 0.8-pt axes, inward ticks on all four sides, panel labels (a), (b), …;
 double column 7.0 in, single column 3.35 in; Okabe–Ito colors (HSE #0072B2, PBE #D55E00, ordered #009E73, disordered #CC79A7).
 
 Usage: python 10_脚本/paper_figures.py [--out 21_阶段报告与交接/论文图_20261028] [--only 1 2 ...]
@@ -41,12 +41,14 @@ KEND = 187          # 路径截到第二个 A（标准六方路径 Γ–M–K–
 
 
 def style():
+    # 英文 Times New Roman；本机没有时用度量完全相同的 Liberation Serif 代替
     for f in font_manager.findSystemFonts():
-        if 'liberationsans' in os.path.basename(f).lower().replace('-', '').replace(' ', ''):
+        n = os.path.basename(f).lower().replace('-', '').replace(' ', '').replace('_', '')
+        if n.startswith(('times', 'liberationserif')):
             font_manager.fontManager.addfont(f)
     plt.rcParams.update({
-        'font.family': 'Liberation Sans', 'mathtext.fontset': 'custom', 'mathtext.rm': 'Liberation Sans',
-        'mathtext.it': 'Liberation Sans:italic', 'mathtext.bf': 'Liberation Sans:bold',
+        'font.family': 'serif', 'font.serif': ['Times New Roman', 'Liberation Serif', 'DejaVu Serif'],
+        'mathtext.fontset': 'stix',
         'font.size': 7.5, 'axes.labelsize': 8, 'axes.titlesize': 8, 'xtick.labelsize': 7, 'ytick.labelsize': 7,
         'legend.fontsize': 7, 'axes.linewidth': 0.8, 'lines.linewidth': 1.0,
         'xtick.direction': 'in', 'ytick.direction': 'in', 'xtick.top': True, 'ytick.right': True,
@@ -170,8 +172,8 @@ def fig4(out):
             ax.text(xs[i] + w / 2, v + 4, f'{v:.0f}' + ('*' if (k == 0 and i == 3 and prov) else ''), ha='center', fontsize=6.5)
         if k == 0 and prov: bars[3].set_hatch('/////'); bars[3].set_edgecolor('white')
         ax.set_xticks(xs, [TEX[m] for m in MATS]); ax.tick_params(axis='x', top=False)
-        ax.set_ylim(0, 270); ax.set_ylabel(r'$|S|$ ($\mu$V K$^{-1}$)' if k else r'$S$ ($\mu$V K$^{-1}$)')
-        ax.text(0.02, 0.97, ('p-type' if k == 0 else 'n-type') + r', $3\times10^{19}$ cm$^{-3}$, 300 K', transform=ax.transAxes, ha='left', va='top', fontsize=7)
+        ax.set_ylim(0, 270); ax.set_ylabel(r'$|S|$ (μV K$^{-1}$)' if k else r'$S$ (μV K$^{-1}$)')
+        ax.text(0.04, 0.97, ('p-type' if k == 0 else 'n-type') + r', $3\times10^{19}$ cm$^{-3}$, 300 K', transform=ax.transAxes, ha='left', va='top', fontsize=7)
         panel(ax, f'({"ab"[k]})')
     h, l = axs[0].get_legend_handles_labels()
     fig.legend(h, l, loc='upper center', ncol=2, bbox_to_anchor=(0.5, 1.07), handlelength=1.2)
@@ -211,7 +213,7 @@ def fig5(out):
     ax = axs[0]
     T, S = zip(*EXP['Pb2Bi2Te5']); ax.plot(T, S, 's', ms=4, mfc='white', mec='k', mew=0.8, label='Exp.', zorder=3)
     ax.plot(Ts, [f(-n_fit, t) for t in Ts], '-', color=C_HSE, label=f'HSE bands, $n$ = {n_fit / 1e18:.1f}' + r'$\times10^{18}$ cm$^{-3}$')
-    ax.set_ylabel(r'$S$ ($\mu$V K$^{-1}$)'); ax.set_xlabel('$T$ (K)'); ax.set_ylim(-150, -60); ax.set_xlim(280, 640)
+    ax.set_ylabel(r'$S$ (μV K$^{-1}$)'); ax.set_xlabel('$T$ (K)'); ax.set_ylim(-150, -60); ax.set_xlim(280, 640)
     ax.text(0.03, 0.05, TEX['Pb2Bi2Te5'], transform=ax.transAxes, fontsize=8); ax.legend(loc='upper right'); panel(ax, '(a)')
     # (b) Pb2Sb2Te5: compensated sample (S(302 K) = 0) with the HSE gap vs the PBE gap
     ax = axs[1]
@@ -221,7 +223,7 @@ def fig5(out):
         N0 = solve_N(g, 0.0, 302, -1e19, 1e19)
         ax.plot(Ts, [g(N0, t) for t in Ts], color=col, ls=ls, label=lab)
     ax.axhline(0, color='k', lw=0.5, ls=':')
-    ax.set_xlabel('$T$ (K)'); ax.set_ylabel(r'$S$ ($\mu$V K$^{-1}$)'); ax.set_xlim(280, 640); ax.set_ylim(-140, 40)
+    ax.set_xlabel('$T$ (K)'); ax.set_ylabel(r'$S$ (μV K$^{-1}$)'); ax.set_xlim(280, 640); ax.set_ylim(-140, 40)
     ax.text(0.03, 0.05, TEX['Pb2Sb2Te5'] + ', compensated ($S$ = 0 at 302 K)', transform=ax.transAxes, fontsize=7)
     ax.legend(loc='center right', bbox_to_anchor=(1.0, 0.45)); panel(ax, '(b)')
     save(fig, out, 'Fig5_S_vs_T_experiment')
