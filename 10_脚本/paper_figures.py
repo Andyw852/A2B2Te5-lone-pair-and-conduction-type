@@ -7,6 +7,7 @@ Fig. 2  PBE+SOC vs HSE06+SOC band structures (c2 path)                       22_
 Fig. 3  HSE06+SOC bands weighted by cation-s (lone-pair) character             22_能带基准_1-0/<mat>/c2_hse/PROCAR_OPT.gz
 Fig. 4  Energy of the highest lone-pair valence valley, PBE vs HSE            same
 Fig. 5  Seebeck coefficient at 3e19 cm-3: PBE (BoltzTraP2) vs HSE estimate     10_脚本/multivalley_seebeck.py
+        (+ per-valley conductivity shares and cation-s character for Table 4)
 Fig. 6  S(T) of all four compounds: experiment vs calculation (HSE and PBE)    experimental points digitized from the user's plot;
                                                                                A2B2Te5_SOC_dense/materials/<mat>/.../boltztrap_crta.json
 Fig. 7  Neutral formation energies of 12 defect types in O and D               13_DVO缺陷_VASP流程与分析/结果_第一批/analysis/形成能_逐位点.csv
@@ -389,7 +390,47 @@ def fig5(out):
     h, l = axs[0].get_legend_handles_labels()
     fig.legend(h, l, loc='upper center', ncol=2, bbox_to_anchor=(0.5, 1.07), handlelength=1.2)
     save(fig, out, 'Fig5_Seebeck_PBE_vs_HSE')
+    valley_shares()
     return est
+
+
+LP_MIN = 0.15        # 孤对电子谷的判据：谷极值点处阳离子 s 成分 ≥ 15%（与图 4 相同）
+
+
+def valley_index(name):
+    """multivalley_seebeck 的谷名 → c2 路径上的 k 序号（取成分用）。"""
+    if name.startswith('#'): return int(name[1:].split()[0])
+    if name.startswith('Γ–A'): return 90 + round(float(name.split('±')[1]) * 14)
+    return mv.POINTS[name][0][0]
+
+
+def valley_shares():
+    """表 4 的电导份额：多谷模型（HSE、CRTA、300 K、面内、3e19）中每个谷占总电导（含少数载流子）的比例，
+    以及谷极值点处的阳离子 s 成分；p 型孤对电子谷 = 价带谷中阳离子 s ≥ 15% 者，n 型“Γ 导带”= Γ 或 Γ–A 驼峰处的导带谷。"""
+    K = kpath(); rows, summary = [], []
+    for m in MATS:
+        f = os.path.join(rf.base(m), 'c3_valley', 'c3_masses.json')
+        c3 = json.load(open(f, encoding='utf-8')) if os.path.exists(f) else None
+        V, gap = mv.build(m, 'v', 300, c3); C, _ = mv.build(m, 'c', 300)
+        _, Wp = cv.read_procar(os.path.join(rf.base(m), 'c2_hse', 'PROCAR_OPT.gz'))
+        fs = rf.cation_s(Wp); nel = NEL[m]
+        for N, lab in ((3e19, 'p'), (-3e19, 'n')):
+            _, EF, parts = mv.solve(V, C, gap, N, 300)
+            lp = 0.0
+            for (side, name, w), v in zip(parts, V + C):
+                i = valley_index(name); b = nel - 1 if side == 'v' else nel; cs = fs[i, b]
+                flag = (side == 'v' and lab == 'p' and cs >= LP_MIN) or (side == 'c' and lab == 'n' and (name in ('Γ',) or name.startswith('Γ–A')))
+                lp += w if flag else 0.0
+                rows.append([m, lab, r(1000 * EF, 1), 'valence' if side == 'v' else 'conduction', name.split(' [')[0], i]
+                            + [r(x, 4) for x in K[i]] + [r(1000 * v['off'], 1), v['g'], r(100 * cs, 1), r(100 * w, 2), 'yes' if flag else 'no'])
+            summary.append([m, lab, r(100 * lp, 1)])
+    dump('Fig5_Seebeck', 'valley_conductivity_shares.csv',
+         ['material', 'carrier_type', 'EF_minus_VBM_meV', 'band', 'valley', 'k_index_on_path', 'k_frac_1', 'k_frac_2', 'k_frac_3',
+          'offset_from_band_edge_meV', 'degeneracy_g', 'cation_s_percent', 'conductivity_share_percent',
+          'counted (p: lone-pair valence valley, cation s >= 15%; n: Gamma conduction valley)'], rows)
+    dump('Fig5_Seebeck', 'lone_pair_share_summary.csv',
+         ['material', 'carrier_type', 'share_percent (p: lone-pair valence valleys; n: Gamma conduction valley)'], summary)
+    print('shares', summary)
 
 
 # ------------------------------------------------------------------ Fig. 6
