@@ -238,7 +238,7 @@ def fig1(out):
     bot = gs[1].subgridspec(1, 2, wspace=0.0)
     ac, ad = fig.add_subplot(bot[0]), fig.add_subplot(bot[1])
     HL, HO = H['Pb2Sb2Te5_layered9'], H['O_ordered']
-    side_view(ac, PL, pL, 'Layered phase, $P\\bar{3}m1$, 9 atoms (user structure)\nused for PBE/HSE bands and $S$ (Figs. 2–6)',
+    side_view(ac, PL, pL, 'Layered phase, $P\\bar{3}m1$, 9 atoms (user structure)\nused for bands, $S$ (Figs. 2–6) and defect set L',
               f'$a_\\mathrm{{hex}}$ = {aL:.3f} Å,  $V$ = {HL["V"]:.1f} Å$^3$/f.u.,  $\\Delta E$ = 0')
     side_view(ad, PO, pO, 'Ordered model O, 144 atoms (rocksalt supercell)\nhost for the defect calculations (Figs. 7, 8)',
               f'$a_\\mathrm{{hex}}^\\mathrm{{eq}}$ = {a_eff["O_ordered"] / np.sqrt(2):.3f} Å,  $V$ = {HO["V"]:.1f} Å$^3$/f.u.,  '

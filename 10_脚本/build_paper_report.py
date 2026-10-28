@@ -6,7 +6,8 @@
          A2B2Te5_report.html     A2B2Te5_report_单文件.html     README.txt
          figures/png/  figures/pdf/
          data/Fig1_structures/ … data/Fig8_ordering/   （paper_figures.py 写出的源数据）
-         data/tables/                                 （正文表 1–7，从 HTML 中抽出）
+         data/tables/                                 （正文表 1–8，从 HTML 中抽出）
+         data/L_layered_defects/                      （早先一批层状相缺陷计算的原始结果，取自 03_缺陷形成能与PN型数据/Pb2Sb2Te5.zip）
 
 用法：先运行 10_脚本/paper_figures.py 生成图与源数据，再 python 10_脚本/build_paper_report.py
 输入：21_阶段报告与交接/论文报告_20261028.src.html、21_阶段报告与交接/论文图_20261028/（含 source_data/）
@@ -60,8 +61,8 @@ def readme(tables):
     t = '\n'.join(f'      {x["name"]}.csv    {" ".join(x["caption"].split())}' for x in tables)
     return f'''A2B2Te5（A = Pb, Sn；B = Sb, Bi）中的孤对电子与导电类型：论文写作用报告与数据
 生成日期 2026-10-28。全部为理论计算；实验 S(T) 为从所给曲线图读取的近似值。
-结构：问题一（PBE、HSE 能带与 S）用所给的四种 9 原子层状结构；问题二（缺陷）只算 Pb2Sb2Te5，
-用按文献构造的 144 原子岩盐超胞 O、D，不是所给结构（报告 1.1 节、图 1、表 1）。
+结构：问题一（PBE、HSE 能带与 S）用所给的四种 9 原子层状结构。问题二只算 Pb2Sb2Te5，用了三套缺陷计算：
+D（无序立方）、O（有序立方）为 144 原子岩盐超胞；L 为所给层状结构的 3×3×1 超胞（81 原子，早先一批）。见报告 1.1 节、图 1、表 1。
 
 A2B2Te5_report.html    报告正文（用浏览器打开；图片从 figures/png 读取，请先整体解压再打开）
 A2B2Te5_report_单文件.html  同一报告，图片已嵌入，单独打开或转发都能显示
@@ -78,6 +79,9 @@ data/                  每幅图的源数据，即图中画出的数值，目录
   Fig6_S_vs_T/                实验 S(T)、计算 S(T)（HSE 与 PBE 能带）、拟合浓度与最大偏差
   Fig7_formation_energies/    12 类缺陷逐位点的中性形成能（富 Te、贫 Te），两端化学势
   Fig8_ordering/              有序化引起的形成能变化 ΔE_f = E_f(O) − E_f(D)，逐位点与中位数
+  L_layered_defects/          早先一批在所给层状结构上（3×3×1，81 原子）的缺陷计算，即正文表 7、表 8 的 L 列：
+                              L_defect_ranking_all_vertices.csv  5 个化学势顶点下全部缺陷在平衡费米能级处的形成能排名
+                              L_formation_energy_results.json    原始结果（各电荷态的形成能、转变能级、化学势、载流子浓度）
   tables/                     正文表格：
 {t}
 
@@ -98,6 +102,12 @@ def package():
         for f in sorted(glob.glob(os.path.join(FIGS, f'Fig*.{ext}'))):
             shutil.copy(f, os.path.join(top, 'figures', ext))
     shutil.copytree(os.path.join(FIGS, 'source_data'), os.path.join(top, 'data'))
+    L = os.path.join(top, 'data', 'L_layered_defects'); os.makedirs(L)
+    with zipfile.ZipFile(os.path.join(ROOT, '03_缺陷形成能与PN型数据', 'Pb2Sb2Te5.zip')) as zold:
+        for suffix, name in (('全部顶点缺陷排名.csv', 'L_defect_ranking_all_vertices.csv'),
+                             ('formation_energy_results.json', 'L_formation_energy_results.json')):
+            src_name = next(n for n in zold.namelist() if n.endswith(suffix))
+            open(os.path.join(L, name), 'wb').write(zold.read(src_name))
     os.makedirs(os.path.join(top, 'data', 'tables'))
     for t in p.tables:
         with open(os.path.join(top, 'data', 'tables', t['name'] + '.csv'), 'w', newline='', encoding='utf-8-sig') as f:

@@ -63,7 +63,7 @@ sup.r { font-size: 11px; color: var(--accent); }
 </div>
 
 <h2 id="s0">摘要</h2>
-<p class="note"><b>结构说明</b>：两个问题用的不是同一个结构模型（1.1 节、图 1、表 1）。问题一的 PBE、HSE 能带与 S 全部用所给的四种 9 原子层状结构（<i>P</i>-3<i>m</i>1）。问题二的缺陷计算只做了 Pb₂Sb₂Te₅，用的是按 Evang 等<sup class="r">[16]</sup>的方法构造的 144 原子岩盐超胞 O（有序）和 D（无序）。三者是同一化合物、同一组成；O 的阳离子层序与所给结构相同，但 O、D 保留了结构空位，是层状相形成之前的立方亚稳状态，不是所给结构本身。</p>
+<p class="note"><b>结构说明</b>：问题一的 PBE、HSE 能带与 S 全部用所给的四种 9 原子层状结构（<i>P</i>-3<i>m</i>1）。问题二只针对 Pb₂Sb₂Te₅，用了三套缺陷计算（1.1 节、图 1、表 1）：D（无序立方，退火前）和 O（有序立方）是在岩盐母格上构造的 144 原子超胞，按 Evang 等<sup class="r">[16]</sup>的构造规则生成，组成、层序与赝势取自本材料；L 是早先在所给层状结构上（3×3×1，81 原子）完成的一批计算，对应退火后的终态。</p>
 <p><b>问题一：孤对电子如何影响 S（p、n 分开）。</b></p>
 <ol>
 <li>孤对电子以已填满的阳离子 s–Te p 反键态存在；化学键主要靠 p–p 成键。</li>
@@ -79,25 +79,27 @@ sup.r { font-size: 11px; color: var(--accent); }
 <li>有序相的主导缺陷是受主 Pb<sub>Sb</sub>，在整个化学势范围内都最低：p 型。</li>
 <li>无序相的主导缺陷是施主 Pb<sub>Vac</sub>（Pb 填入结构空位），其次 Sb<sub>Pb</sub>、Sb<sub>Vac</sub>；所有受主都在 0.66 eV 以上，补偿不了施主：n 型。</li>
 <li>转变机理：有序化让施主的形成能升高 0.3–1.8 eV，而受主 Pb<sub>Sb</sub> 几乎不变。即“有序化抑制施主”，与 Evang 等<sup class="r">[16]</sup>的结论一致。</li>
+<li>所给层状相（L）本身的缺陷计算（早先一批，含带电态）在 5 个化学势顶点上都是 p 型，主导缺陷为受主 Pb<sub>Sb</sub>（贫 Te 端为 Sb<sub>Te</sub>），与 O 一致。层状相没有结构空位，无序相中最便宜的填空位施主在这里变成范德华间隙中的间隙原子，形成能约 3 eV。</li>
+<li>结论：退火消除了无序分布的结构空位，关闭了施主通道；受主 Pb<sub>Sb</sub> 不受影响，导电类型由 n 转 p。</li>
 </ol>
 
 <h2 id="s1">1 计算细节</h2>
 
-<h3 id="s1-1">1.1 计算所用的结构：两个问题用的不是同一个结构模型</h3>
-<div class="box">问题一（PBE、HSE 能带与 S）全部用所给的 9 原子层状结构。问题二（缺陷）用的是按 Evang 等<sup class="r">[16]</sup>的方法构造的 144 原子岩盐超胞 O 和 D，只做了 Pb₂Sb₂Te₅。三者是同一种化合物、同一组成，O 的阳离子层序也与所给结构相同；但 O、D 保留了结构空位，是层状相形成之前的立方状态，不是所给结构本身。</div>
+<h3 id="s1-1">1.1 计算所用的结构</h3>
+<div class="box">问题一（PBE、HSE 能带与 S）全部用所给的 9 原子层状结构。问题二只针对 Pb₂Sb₂Te₅，用了三套缺陷计算，分别对应退火过程中的三个状态：D（无序立方，退火前）、O（有序立方）和 L（所给的层状结构，退火后的终态）。D、O 是在岩盐母格上构造的 144 原子超胞，保留了结构空位；L 是早先一批在所给结构上（3×3×1，81 原子）完成的计算，没有结构空位。</div>
 
 <figure>
 <img src="{{FIG:Fig1_structures}}" alt="Fig. 1">
-<figcaption><b>图 1</b> 本工作用到的结构（均为 Pb₂Sb₂Te₅）。(a)(b) 缺陷计算用的 144 原子超胞的阳离子占位：(a) 有序模型 O；(b) 无序模型 D（随机种子 1729）。每一行是一个 (111) 原子面上的 16 个格点，自下而上沿 [111] 堆垛，Te 面与阳离子面交替；空心圆为结构空位。(c)(d) 侧视对比：(c) 所给的 9 原子层状结构，问题一的能带与 S 都用它；(d) 有序模型 O。纵轴为沿 c（即 [111]）的高度，以两个 Pb 面之间的 Te 面为零点；横向按每个原子面的面内堆垛位置排布。灰底为九层块，两者的层序相同；块与块之间，(c) 是范德华间隙，(d) 是结构空位面。(c) 的坐标取自所给 POSCAR；(d) 是理想岩盐格点按弛豫后的体积缩放（<i>a</i><sub>eff</sub> = 6.185 Å），因为仓库中没有 O 弛豫后的坐标。图下方：面内晶格常数、每化学式体积与相对层状相的能量（PBE-D3，见表 1）；(d) 的面内常数是按体积折算的等效值。</figcaption>
+<figcaption><b>图 1</b> 本工作用到的结构（均为 Pb₂Sb₂Te₅）。(a)(b) 缺陷计算用的 144 原子超胞的阳离子占位：(a) 有序模型 O；(b) 无序模型 D（随机种子 1729）。每一行是一个 (111) 原子面上的 16 个格点，自下而上沿 [111] 堆垛，Te 面与阳离子面交替；空心圆为结构空位。(c)(d) 侧视对比：(c) 所给的 9 原子层状结构，问题一的能带与 S、以及早先一批缺陷计算 L 都用它；(d) 有序模型 O。纵轴为沿 c（即 [111]）的高度，以两个 Pb 面之间的 Te 面为零点；横向按每个原子面的面内堆垛位置排布。灰底为九层块，两者的层序相同；块与块之间，(c) 是范德华间隙，(d) 是结构空位面。(c) 的坐标取自所给 POSCAR；(d) 是理想岩盐格点按弛豫后的体积缩放（<i>a</i><sub>eff</sub> = 6.185 Å），因为仓库中没有 O 弛豫后的坐标。图下方：面内晶格常数、每化学式体积与相对层状相的能量（PBE-D3，见表 1）；(d) 的面内常数是按体积折算的等效值。</figcaption>
 </figure>
 
 <p class="tcap"><b>表 1</b> 本工作用到的三种 Pb₂Sb₂Te₅ 结构。能量与体积为 PBE-D3、不含 SOC，与缺陷计算用同一设置。</p>
 <table data-csv="Table1_structures">
 <thead><tr><th>结构</th><th>用途</th><th>来源</th><th class="num">原子数</th><th>结构空位</th><th class="num"><i>a</i><sub>hex</sub> (Å)</th><th class="num">体积 (Å³/f.u.)</th><th class="num">相对层状相 (eV/f.u.)</th><th class="num">相对 2PbTe + Sb₂Te₃ (eV/f.u.)</th></tr></thead>
 <tbody>
-<tr><td>层状相，<i>P</i>-3<i>m</i>1（所给结构）</td><td>问题一：PBE+SOC、HSE06+SOC 能带，轨道成分，拓扑，S；问题二：只作能量参考</td><td>所给的 PBE-D3 弛豫结构，能带计算直接使用；问题二中以缺陷计算的设置重新弛豫，只取能量</td><td class="num">9</td><td>无（块间为范德华间隙）</td><td class="num">4.395</td><td class="num">291.5</td><td class="num">0</td><td class="num">+0.106</td></tr>
-<tr><td>有序模型 O</td><td>问题二：退火后的缺陷母胞</td><td>脚本从理想岩盐格子生成（起始 <i>a</i> = 6.2 Å），按文献<sup class="r">[16]</sup>排布，PBE-D3 全弛豫</td><td class="num">144</td><td>16 个，集中在一个面</td><td class="num">4.373*</td><td class="num">295.8</td><td class="num">+0.085</td><td class="num">+0.190</td></tr>
-<tr><td>无序模型 D</td><td>问题二：退火前的缺陷母胞</td><td>同上，阳离子与空位随机排布（种子 1729）</td><td class="num">144</td><td>16 个，随机分布</td><td class="num">4.405*</td><td class="num">302.1</td><td class="num">+0.524</td><td class="num">+0.630</td></tr>
+<tr><td>层状相，<i>P</i>-3<i>m</i>1（所给结构）</td><td>问题一：PBE+SOC、HSE06+SOC 能带，轨道成分，拓扑，S；问题二：缺陷计算 L 的母胞（3×3×1，81 原子），以及 D、O 计算中的能量参考</td><td>所给的 PBE-D3 弛豫结构，能带与 L 直接使用；在 D、O 的设置下重新弛豫一次，只取能量</td><td class="num">9</td><td>无（块间为范德华间隙）</td><td class="num">4.395</td><td class="num">291.5</td><td class="num">0</td><td class="num">+0.106</td></tr>
+<tr><td>有序模型 O</td><td>问题二：有序立方的缺陷母胞</td><td>脚本从理想岩盐格子生成（起始 <i>a</i> = 6.2 Å），按文献<sup class="r">[16]</sup>排布，PBE-D3 全弛豫</td><td class="num">144</td><td>16 个，集中在一个面</td><td class="num">4.373*</td><td class="num">295.8</td><td class="num">+0.085</td><td class="num">+0.190</td></tr>
+<tr><td>无序模型 D</td><td>问题二：无序立方（退火前）的缺陷母胞</td><td>同上，阳离子与空位随机排布（种子 1729）</td><td class="num">144</td><td>16 个，随机分布</td><td class="num">4.405*</td><td class="num">302.1</td><td class="num">+0.524</td><td class="num">+0.630</td></tr>
 </tbody></table>
 <p style="font-size:13.5px;color:var(--ink2)">* 由弛豫后的体积折算的等效值 <i>a</i><sub>eff</sub>/√2，<i>a</i><sub>eff</sub> = (<i>V</i>/20)<sup>1/3</sup>（160 个岩盐格点 = 20 个立方晶胞），假定晶胞保持立方形状；弛豫后的晶胞文件不在仓库中。所给结构的体积为 291.7 Å³/f.u.，以缺陷计算设置重新弛豫后为 291.5，相差 0.05%。</p>
 
@@ -107,11 +109,19 @@ sup.r { font-size: 11px; color: var(--accent); }
 <li>第 2–5 节的全部结论（能带、孤对电子谷、拓扑、S、与实验 S(T) 的对照）都是关于这个层状相的。</li>
 </ul>
 
-<h4>问题二（缺陷）用的结构</h4>
+<h4>问题二（缺陷）用的结构：三套计算</h4>
 <ul>
-<li>只算了 Pb₂Sb₂Te₅。母胞是 144 原子的岩盐超胞 O 和 D（图 1a、b），按 Evang 等<sup class="r">[16]</sup>正文描述的模型，用脚本从理想岩盐格子生成，再做全弛豫（构造细节见 1.5 节）。</li>
-<li>它们不是所给结构的超胞。起始晶格常数 6.2 Å 是人为设的起点，最终晶格由全弛豫决定（残余压强 O 0.11 kbar、D −0.07 kbar）。也没有用文献的原子坐标：文献的结构文件在其补充材料中，未取得。</li>
-<li>计算设置与问题一不同：PBE-D3、不含 SOC、Γ 中心 2×2×2 网格，没有 HSE（1.5 节）。</li>
+<li><b>D、O</b>：144 原子的岩盐超胞（图 1a、b），PBE-D3、不含 SOC、Γ 中心 2×2×2 网格，只算中性态，12 类缺陷共 45 个位点（1.5、1.6 节）。</li>
+<li><b>L</b>：所给结构扩成 3×3×1，81 原子，体积 2625.10 Å³ = 9 × 291.68 Å³，与所给结构的每化学式体积相同。22 个缺陷，含带电态，在 5 个化学势顶点上自洽求费米能级（1.5 节）。计算设置没有记录，与 D、O 不同，所以两批的形成能只比较排序与量级，不直接相减。</li>
+<li><b>分工</b>：D 与 O 晶格相同、组成相同，二者之差与化学势无关，用来分离“有序化”这一个因素；L 给出所给材料终态的缺陷。</li>
+</ul>
+
+<h4>D、O 是否基于所给材料构建</h4>
+<ul>
+<li><b>不是文献坐标。</b>文献<sup class="r">[16]</sup>只提供了构造规则：岩盐母格，20% 阳离子位为结构空位，无序时随机排布，有序时成层。原子坐标由脚本 <code>补算实施方案_20261007/scripts/build_rocksalt_models.py</code> 生成，没有使用文献的结构文件。</li>
+<li><b>与所给材料一致的部分</b>：组成都是 Pb₂Sb₂Te₅；O 的九层块与所给结构相同；PAW 数据集与本项目其余计算相同；晶格由全弛豫决定，与起始值 6.2 Å 无关。</li>
+<li><b>从所给结构出发也得到同样的 O。</b>在每个范德华间隙插回一个空位面，再把相邻的块滑回立方堆垛（图 1c、d），得到的格点排布与现有 O 相同；D 只是在同一母格上把阳离子与空位随机打乱。所以按所给材料重新构建，得到的仍是现有的 O、D。</li>
+<li><b>需要实验确认的前提</b>：用 D 代表退火前，要求退火前的样品是立方岩盐相（可由 XRD 判断）。如果退火前的样品已是三方层状、只是 Pb/Sb 混排，退火前的模型应改为在所给结构上让层内 Pb/Sb 随机分布（没有结构空位），再与 L 比较；那种情况下现有的 D 不适用。</li>
 </ul>
 
 <h4>是不是同一种材料，对得上吗</h4>
@@ -131,9 +141,8 @@ sup.r { font-size: 11px; color: var(--accent); }
 <h4>对结论的影响</h4>
 <ul>
 <li>问题一的结论只针对层状相，与缺陷模型无关。</li>
-<li>问题二比较的是退火前（D）和退火后（O）两个立方状态。“有序化抑制施主、受主 Pb<sub>Sb</sub> 主导”这一结论直接成立于 O。</li>
-<li>所给的层状相本身没有做缺陷计算。块内的反位缺陷（Pb<sub>Sb</sub>、Sb<sub>Pb</sub>）在 O 与层状相中的近邻环境基本相同，形成能预计接近。不同的是填空位类缺陷：层状相没有结构空位，X<sub>Vac</sub> 在那里变成范德华间隙中的间隙原子，其形成能没有算过。所以层状相是否同样由 Pb<sub>Sb</sub> 主导，取决于这类间隙缺陷，需要单独计算。</li>
-<li>直接验证的办法：在所给结构上做同样的缺陷计算。9 原子胞扩成 4×4×1 正好也是 144 原子，计算量与 O 相同；反位与空位类缺陷照搬，填空位类改为范德华间隙中的间隙原子。</li>
+<li>问题二：退火前的 n 型由 D 给出；退火后的 p 型由 O 和 L 共同给出，二者的主导缺陷都是受主 Pb<sub>Sb</sub>。无序相中最便宜的填空位施主，在 L 中变成范德华间隙中的间隙原子，形成能约 3 eV（第 6 节，表 7）。</li>
+<li>还不够统一的地方：L 与 D、O 的计算设置不同。要让三套数值可以直接相减，需要用 D、O 的设置在所给结构上重算（扩成 4×4×1 正好也是 144 原子）。</li>
 <li>第 5 节用层状相的能带对照实验 S(T)，默认实验样品是层状相；若样品未完全退火（仍含立方相），对照需另作说明。</li>
 </ul>
 
@@ -170,6 +179,14 @@ sup.r { font-size: 11px; color: var(--accent); }
 <li><b>同一母格、同一组成</b>：D 与 O 只差阳离子与空位的排列，所以同一类缺陷的形成能差 Δ<i>E</i><sub>f</sub> = <i>E</i><sub>f</sub><sup>O</sup> − <i>E</i><sub>f</sub><sup>D</sup> 中化学势项完全抵消，可以直接衡量“有序化”这一个因素的作用。</li>
 <li><b>结构空位不可省略</b>：20% 的结构空位是这个组成的本征特征；填空位类缺陷（X<sub>Vac</sub>）是文献认为无序相呈 n 型的关键<sup class="r">[16]</sup>。</li>
 <li><b>规模与采样</b>：144 原子在 PBE-D3 下可做全弛豫。无序相每类取多个位点，用来估计局域环境带来的离散（第一批 5 类为 0.10–0.58 eV）。是否补算其余 3 个随机种子，事先定的规则是：只有 D–O 差别没有明显超出位点离散时才补。结果所有施主的 Δ<i>E</i><sub>f</sub> 都大于 0.4 eV，超出离散，所以没有补。</li>
+</ul>
+
+<h4>层状相 L（早先一批计算）</h4>
+<ul>
+<li><b>母胞</b>：所给的 9 原子结构扩为 3×3×1，81 原子（Pb₁₈Sb₁₈Te₄₅），体积 2625.10 Å³，与所给结构的每化学式体积相同。</li>
+<li><b>缺陷</b>：22 个。反位 Pb<sub>Sb</sub>、Sb<sub>Pb</sub>、Te<sub>Pb</sub>、Te<sub>Sb</sub>；Pb、Sb 空位；三个不等价 Te 位上的 <i>V</i><sub>Te</sub>、Sb<sub>Te</sub>、Pb<sub>Te</sub>；Pb<sub>Sb</sub>–Sb<sub>Pb</sub> 反位对；范德华间隙中的间隙原子 Pb<sub>i</sub>、Sb<sub>i</sub>、Te<sub>i</sub>，各取两个位置。层状相没有结构空位，D、O 中的 X<sub>Vac</sub> 在这里对应间隙原子 X<sub>i</sub>。</li>
+<li><b>电荷态与载流子</b>：每个缺陷算了中性态和若干带电态，有限尺寸修正取 ε = 100，带隙取 0.065 eV（早先的 HSE+SOC 值，现为 0.051 eV）。化学势取层状相稳定区的 5 个顶点 v0–v4（v0 为富 Te 端，v3、v4 为贫 Te 端），在每个顶点自洽求平衡费米能级和电子、空穴浓度。</li>
+<li><b>限制</b>：(1) 计算设置没有记录；完美晶胞每化学式能量为 −38.62 eV，D、O 所用的 PBE-D3 设置为 −37.08 eV，所以两批的形成能只比较排序与量级。(2) 归档的 POSCAR 是 72 原子的旧超胞，与 81 原子的能量不对应，81 原子的实际计算结构没有归档（见 <code>01_报告/结构对应报告.html</code>）。(3) v1–v4 出现负形成能，稀薄近似失效，这些顶点只取导电类型，不取浓度。(4) 部分中性间隙原子的计算没有成功（Pb<sub>i</sub> 的一个位置和 Te<sub>i</sub> 的中性态给出 37–39 eV），表 7 中 Te<sub>i</sub> 改用带电态。</li>
 </ul>
 
 <h3 id="s1-6">1.6 形成能、化学势与导电类型</h3>
@@ -323,17 +340,44 @@ sup.r { font-size: 11px; color: var(--accent); }
 <li>受主 Pb<sub>Sb</sub> 几乎不变（−0.02 eV）。</li>
 <li>物理图像：无序相的阳离子亚晶格本来就是混排的，把 Sb 放到 Pb 位、或往随机分布的空位里填一个阳离子，几乎不破坏什么；有序化后，这些操作要破坏空位层和阳离子层的排列，代价大增。Pb<sub>Sb</sub> 在两相中都是替换同一层内的阳离子，所以不受影响。</li>
 </ul>
-<p class="tcap"><b>表 7</b> 退火前后的主导缺陷与导电类型。</p>
-<table data-csv="Table7_conduction_type">
-<thead><tr><th></th><th>有序相 O（退火后）</th><th>无序相 D（退火前）</th></tr></thead>
+<p><b>所给层状相（L）的结果。</b>表 7 把三套计算中各类缺陷的最低形成能放在一起，按退火顺序 D → O → L 排列。</p>
+<p class="tcap"><b>表 7</b> 三种结构中各类缺陷最低位点的中性形成能（eV）。D、O 取富 Te 端；L 取早先计算的富 Te 顶点 v0，其计算设置与 D、O 不同，只比较排序与量级（1.5 节）。括号内为名义电荷。</p>
+<table data-csv="Table7_defects_D_O_L">
+<thead><tr><th>缺陷</th><th class="num">D：无序立方（退火前）</th><th class="num">O：有序立方</th><th class="num">L：所给层状相（退火后）</th></tr></thead>
 <tbody>
-<tr><td>主导缺陷</td><td>受主 Pb<sub>Sb</sub></td><td>施主 Pb<sub>Vac</sub>，其次 Sb<sub>Pb</sub>、Sb<sub>Vac</sub></td></tr>
-<tr><td>净载流子（浅能级近似，473–573 K）</td><td>净受主 1.6×10¹⁹–3.6×10²⁰ cm⁻³（上限）</td><td>净施主（负形成能使稀薄近似失效，只取符号）</td></tr>
-<tr><td>导电类型</td><td><b>p 型</b>，整个化学势范围内成立</td><td><b>n 型</b>：贫 Te 端明确；富 Te 端施主中位只比 Pb<sub>Sb</sub> 低约 0.06 eV，较弱</td></tr>
+<tr><td colspan="4"><i>施主</i></td></tr>
+<tr><td>Pb<sub>Vac</sub>(+2)，L 中为间隙 Pb<sub>i</sub></td><td class="num"><b>−0.09</b></td><td class="num">1.70</td><td class="num">3.11</td></tr>
+<tr><td>Sb<sub>Vac</sub>(+3)，L 中为间隙 Sb<sub>i</sub></td><td class="num">0.19</td><td class="num">1.79</td><td class="num">3.06</td></tr>
+<tr><td>Sb<sub>Pb</sub>(+1)</td><td class="num">0.09</td><td class="num">0.60</td><td class="num">0.43</td></tr>
+<tr><td>Te<sub>Pb</sub>(+2)</td><td class="num">0.27</td><td class="num">0.79</td><td class="num">0.79</td></tr>
+<tr><td>Te<sub>Sb</sub>(+1)</td><td class="num">0.46</td><td class="num">0.80</td><td class="num">0.48</td></tr>
+<tr><td><i>V</i><sub>Te</sub>(+2)</td><td class="num">1.28</td><td class="num">1.79</td><td class="num">1.68</td></tr>
+<tr><td colspan="4"><i>受主</i></td></tr>
+<tr><td>Pb<sub>Sb</sub>(−1)</td><td class="num">0.07</td><td class="num"><b>0.14</b></td><td class="num"><b>0.07</b></td></tr>
+<tr><td><i>V</i><sub>Pb</sub>(−2)</td><td class="num">0.66</td><td class="num">0.66</td><td class="num">0.58</td></tr>
+<tr><td>Te<sub>Vac</sub>(−2)，L 中为间隙 Te<sub>i</sub></td><td class="num">0.69</td><td class="num">1.48</td><td class="num">2.89*</td></tr>
+<tr><td>Sb<sub>Te</sub>(−1)</td><td class="num">1.24</td><td class="num">0.94</td><td class="num">0.70</td></tr>
+<tr><td><i>V</i><sub>Sb</sub>(−3)</td><td class="num">0.99</td><td class="num">1.49</td><td class="num">0.88</td></tr>
+<tr><td>Pb<sub>Te</sub>(−2)</td><td class="num">2.35</td><td class="num">1.78</td><td class="num">1.28</td></tr>
 </tbody></table>
-<p><b>结论</b>：退火前以填空位施主和 Sb<sub>Pb</sub> 为主，呈 n 型；退火后这些施主的形成能升高 0.5–1.6 eV，受主 Pb<sub>Sb</sub> 成为主导，转为 p 型。这与 Evang 等<sup class="r">[16]</sup>的结论逐项一致；数值上 Sb<sub>Pb</sub> 的有序化代价（0.41–0.52 eV）小于其报道的 0.7–0.9 eV。</p>
-<p>以上只算中性态并用浅能级近似（1.6 节）。无序相只用了一个随机构型，第二批 7 类缺陷在无序相各取 1 个位点（约 ±0.3 eV 的不确定性，不影响 p/n 的判断）；计算为 PBE-D3、不含 SOC。最弱的一环是无序相的富 Te 端（表 7）。</p>
-<p><b>适用范围</b>：以上结论针对 O、D 两个立方状态。所给的层状相本身没有做缺陷计算，其中填空位类缺陷变为范德华间隙中的间隙原子，需单独计算后才能下结论（1.1 节）。</p>
+<p style="font-size:13.5px;color:var(--ink2)">粗体为该结构中最低的缺陷。* Te<sub>i</sub> 的中性计算没有成功，取 −1 价在平衡费米能级处的值；Pb<sub>i</sub>、Sb<sub>i</sub> 取 +2 价时为 2.41、2.60 eV。</p>
+<ul>
+<li>L 的主导缺陷是受主 Pb<sub>Sb</sub>（0.07 eV），与 O 相同。计入带电态后，L 在全部 5 个化学势顶点都是 p 型：v0–v2 由 Pb<sub>Sb</sub> 主导，贫 Te 端的 v3、v4 由受主 Sb<sub>Te</sub> 主导（表 8）。</li>
+<li>D 中最便宜的施主是阳离子填入结构空位（Pb<sub>Vac</sub>、Sb<sub>Vac</sub>）。O 中空位成层，这类缺陷升到 1.7–1.8 eV；L 中结构空位已塌缩成范德华间隙，同样的原子只能以间隙原子存在，升到约 3 eV（带电态 2.4–2.6 eV）。施主通道沿 D → O → L 逐步关闭。</li>
+<li>受主 Pb<sub>Sb</sub> 在三种结构中都是 0.07–0.14 eV，不受有序化影响。</li>
+<li>L 的富 Te 顶点上，施主 Sb<sub>Pb</sub>(+1) 在平衡费米能级处只比 Pb<sub>Sb</sub> 高 0.05 eV，空穴与电子浓度之比只有约 15（<i>p</i> = 1.6×10¹⁸、<i>n</i> = 1.1×10¹⁷ cm⁻³），补偿很强。如果第 5 节的 Pb₂Sb₂Te₅ 实验样品是退火后的层状相，这与其 S ≈ 0 的强补偿定性一致。</li>
+</ul>
+<p class="tcap"><b>表 8</b> 退火前后的主导缺陷与导电类型。</p>
+<table data-csv="Table8_conduction_type">
+<thead><tr><th></th><th>D：无序立方（退火前）</th><th>O：有序立方</th><th>L：所给层状相（退火后）</th></tr></thead>
+<tbody>
+<tr><td>主导缺陷</td><td>施主 Pb<sub>Vac</sub>，其次 Sb<sub>Pb</sub>、Sb<sub>Vac</sub></td><td>受主 Pb<sub>Sb</sub></td><td>受主 Pb<sub>Sb</sub>；贫 Te 端为受主 Sb<sub>Te</sub></td></tr>
+<tr><td>净载流子</td><td>净施主（浅能级近似；负形成能使稀薄近似失效，只取符号）</td><td>净受主 1.6×10¹⁹–3.6×10²⁰ cm⁻³（浅能级近似，473–573 K，上限）</td><td>含带电态自洽求解：v0 净空穴 1.5×10¹⁸ cm⁻³；其余顶点 p 型（有负形成能，只取符号）</td></tr>
+<tr><td>导电类型</td><td><b>n 型</b>：贫 Te 端明确；富 Te 端施主中位只比 Pb<sub>Sb</sub> 低约 0.06 eV，较弱</td><td><b>p 型</b>，整个化学势范围内成立</td><td><b>p 型</b>，5 个化学势顶点都成立</td></tr>
+</tbody></table>
+<p><b>结论</b>：退火前（D）以填空位施主和 Sb<sub>Pb</sub> 为主，呈 n 型。退火时空位先成层（O），这些施主的形成能升高 0.5–1.6 eV；最终空位面塌缩成范德华间隙（L，即所给结构），对应的间隙原子要约 3 eV，施主通道关闭。受主 Pb<sub>Sb</sub> 在三种结构中都只要 0.07–0.14 eV，成为主导，材料转为 p 型；O 与 L 的主导缺陷和导电类型一致。这与 Evang 等<sup class="r">[16]</sup>的结论逐项一致；数值上 Sb<sub>Pb</sub> 的有序化代价（0.41–0.52 eV）小于其报道的 0.7–0.9 eV。</p>
+<p>D、O 只算中性态并用浅能级近似（1.6 节）。无序相只用了一个随机构型，第二批 7 类缺陷在无序相各取 1 个位点（约 ±0.3 eV 的不确定性，不影响 p/n 的判断）；计算为 PBE-D3、不含 SOC。最弱的一环是无序相的富 Te 端（表 8）。</p>
+<p><b>适用范围</b>：D 代表退火前，前提是退火前的样品为立方岩盐相；若退火前已是三方层状、只是 Pb/Sb 混排，退火前的模型应在所给结构上构造（1.1 节）。L 与 D、O 的计算设置不同，三者只比较排序与量级；要得到可以直接相减的数值，需用 D、O 的设置在所给结构上重算。</p>
 
 <h2 id="ref">参考文献</h2>
 <ol class="ref">
@@ -380,7 +424,8 @@ sup.r { font-size: 11px; color: var(--accent); }
 <tr><td>图 6</td><td><code>Fig6_S_vs_T_experiment</code></td><td><code>Fig6_S_vs_T/</code>：实验点、计算曲线、拟合汇总</td></tr>
 <tr><td>图 7</td><td><code>Fig7_defect_formation_energies</code></td><td><code>Fig7_formation_energies/</code>：逐位点中性形成能，两端化学势</td></tr>
 <tr><td>图 8</td><td><code>Fig8_ordering_induced_change</code></td><td><code>Fig8_ordering/</code>：逐位点与中位数 Δ<i>E</i><sub>f</sub></td></tr>
-<tr><td>表 1–7</td><td>—</td><td><code>tables/</code>：正文表格</td></tr>
+<tr><td>表 7、表 8 的 L</td><td>—</td><td><code>L_layered_defects/</code>：早先一批层状相缺陷计算的原始结果（5 个化学势顶点下全部缺陷的形成能排名；原始 JSON，含各电荷态、化学势与载流子浓度）</td></tr>
+<tr><td>表 1–8</td><td>—</td><td><code>tables/</code>：正文表格</td></tr>
 </tbody></table>
 <p>图与源数据由仓库中的 <code>10_脚本/paper_figures.py</code> 生成，S 的模型在 <code>10_脚本/multivalley_seebeck.py</code>，打包由 <code>10_脚本/build_paper_report.py</code> 完成。</p>
 
