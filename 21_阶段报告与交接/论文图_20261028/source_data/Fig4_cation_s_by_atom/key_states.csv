@@ -1,0 +1,13 @@
+﻿material,state,path_k_index,k_frac_1,k_frac_2,k_frac_3,E-EVBM_meV,A,A_s_percent,B,B_s_percent,Te_s_percent
+Pb2Sb2Te5,VBM,0,0.0,0.0,0.0,0.0,Pb,0.4,Sb,0.0,12.6
+Pb2Sb2Te5,lone-pair valence valley,11,-0.1667,0.0,0.0,-235.6,Pb,9.9,Sb,11.2,1.2
+Pb2Sb2Te5,CBM,0,0.0,0.0,0.0,51.2,Pb,11.3,Sb,15.4,1.0
+Pb2Bi2Te5,VBM,97,0.0,0.0,-0.5,0.0,Pb,1.4,Bi,9.3,9.3
+Pb2Bi2Te5,lone-pair valence valley,11,-0.1667,0.0,0.0,-91.0,Pb,11.6,Bi,6.1,1.5
+Pb2Bi2Te5,CBM,0,0.0,0.0,0.0,141.9,Pb,8.3,Bi,12.1,2.4
+Sn2Sb2Te5,VBM,0,0.0,0.0,0.0,0.0,Sn,1.6,Sb,0.4,9.7
+Sn2Sb2Te5,lone-pair valence valley,11,-0.1667,0.0,0.0,-131.5,Sn,18.2,Sb,8.2,1.8
+Sn2Sb2Te5,CBM,92,0.0,0.0,-0.1429,160.3,Sn,10.9,Sb,10.2,1.4
+Sn2Bi2Te5,VBM,11,-0.1667,0.0,0.0,0.0,Sn,19.9,Bi,4.2,2.1
+Sn2Bi2Te5,lone-pair valence valley,11,-0.1667,0.0,0.0,0.0,Sn,19.9,Bi,4.2,2.1
+Sn2Bi2Te5,CBM,0,0.0,0.0,0.0,181.7,Sn,11.5,Bi,10.5,2.4
