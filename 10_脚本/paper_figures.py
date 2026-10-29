@@ -294,20 +294,23 @@ def fig2(out):
     K = kpath(); gaps = []
     fig, axs = plt.subplots(2, 2, figsize=(W2, 5.0), sharey=True, gridspec_kw=dict(hspace=0.34, wspace=0.06))
     for n, (ax, m) in enumerate(zip(axs.flat, MATS)):
-        x, _ = rf.path_x(m); nel = NEL[m]; g = {}
+        x, _ = rf.path_x(m); nel = NEL[m]; g = {}; gam = []
         for side, nm, col, ls, lw, z in (('c2_pbe', 'PBE', C_PBE, DASH, 0.9, 2), ('c2_hse', 'HSE', C_HSE, '-', 1.1, 3)):
             E, g[nm] = bands(m, side); bs = range(nel - 10, nel + 8)
+            gam += [r(1000 * E[0, nel - 1], 1), r(1000 * E[0, nel], 1), r(1000 * (E[0, nel] - E[0, nel - 1]), 1)]   # Γ 处最高价带、最低导带、两者之差
             for b in bs:
                 ax.plot(x[:KEND + 1], E[:KEND + 1, b], color=col, ls=ls, lw=lw, zorder=z)
             dump('Fig2_bands_PBE_vs_HSE', f'{m}_{nm.replace("HSE", "HSE06")}+SOC.csv',
                  ['k_index', 'k_frac_1', 'k_frac_2', 'k_frac_3', 'k_distance_1/A', 'label'] + [bandname(b, nel) + '_E-EVBM_eV' for b in bs],
                  [[i] + [r(v, 6) for v in K[i]] + [r(x[i], 5), LAB.get(i, '')] + [r(E[i, b], 5) for b in bs] for i in range(KEND + 1)])
-        gaps.append([m, r(1000 * g['PBE'], 1), r(1000 * g['HSE'], 1)])
+        gaps.append([m, r(1000 * g['PBE'], 1), r(1000 * g['HSE'], 1)] + gam)
         ax.axhline(0, color='k', lw=0.5, ls=':', zorder=1)
         kticks(ax, x); ax.set_ylim(-0.66, 0.66); ax.set_yticks(np.arange(-0.6, 0.61, 0.2))
         ax.set_title(f'{TEX[m]}     $E_g$: PBE {1000 * g["PBE"]:.0f} meV, HSE {1000 * g["HSE"]:.0f} meV', fontsize=8, pad=4)
         panel(ax, f'({"abcd"[n]})')
-    dump('Fig2_bands_PBE_vs_HSE', 'band_gaps_on_path.csv', ['material', 'Eg_PBE+SOC_meV', 'Eg_HSE06+SOC_meV'], gaps)
+    dump('Fig2_bands_PBE_vs_HSE', 'band_gaps_on_path.csv',
+         ['material', 'Eg_PBE+SOC_meV', 'Eg_HSE06+SOC_meV'] +
+         [f'{s}_Gamma_{q}_meV' for s in ('PBE+SOC', 'HSE06+SOC') for q in ('VB', 'CB', 'gap')], gaps)
     for ax in axs[:, 0]: ax.set_ylabel(r'$E - E_{\mathrm{VBM}}$ (eV)')
     h = [plt.Line2D([], [], color=C_HSE, lw=1.1), plt.Line2D([], [], color=C_PBE, lw=0.9, ls=DASH)]
     fig.legend(h, ['HSE06+SOC', 'PBE+SOC'], loc='lower center', ncol=2, bbox_to_anchor=(0.5, 0.905))
@@ -408,7 +411,7 @@ def fig5(out):
     mats = ['Sn2Sb2Te5', 'Sn2Bi2Te5']
     fig = plt.figure(figsize=(W2, 4.7))
     gs = fig.add_gridspec(2, 3, width_ratios=[1, 1, 0.55], hspace=0.36, wspace=0.12)
-    lv = {}
+    lv = {}; gam = []
     for c, m in enumerate(mats):
         x, _ = rf.path_x(m); nel = NEL[m]; B_ = m[3:5]
         E, gap = bands(m, 'c2_hse')
@@ -439,6 +442,8 @@ def fig5(out):
             bb = [nel - 2, nel - 1]; g = lambda X: r(100 * X[i, bb].mean(), 1)
             lv[(m, nm)] = 1000 * E[i, bb].mean()
             rows.append([nm, i] + [r(v, 4) for v in kpath()[i]] + [r(1000 * E[i, bb].mean(), 1), g(sn_s), g(b_s), g(sn_p), g(b_p), g(te_p)])
+        for st, bb in (('Gamma_VB', [nel - 2, nel - 1]), ('Gamma_CB', [nel, nel + 1])):   # Γ 处最高价带、最低导带（表 5 前两行）
+            gam.append([m, st, r(1000 * E[0, bb].mean(), 1)] + [r(100 * X[0, bb].mean(), 1) for X in (sn_s, b_s, sn_p, b_p, te_p)])
         dump('Fig5_SnSb_vs_SnBi', f'{m}_valence_valleys.csv',
              ['valley', 'path_k_index', 'k_frac_1', 'k_frac_2', 'k_frac_3', 'E-EVBM_meV', 'Sn_s_percent', f'{B_}_s_percent',
               'Sn_p_percent', f'{B_}_p_percent', 'Te_p_percent'], rows)
@@ -463,6 +468,8 @@ def fig5(out):
     ax.tick_params(axis='y', left=True, labelleft=False, right=True, labelright=True)
     ax.set_title('Valence-band levels', fontsize=8, pad=4)
     panel(ax, '(e)', x=-0.04)
+    dump('Fig5_SnSb_vs_SnBi', 'Gamma_states.csv',
+         ['material', 'state', 'E-EVBM_meV', 'Sn_s_percent', 'B_s_percent', 'Sn_p_percent', 'B_p_percent', 'Te_p_percent'], gam)
     dump('Fig5_SnSb_vs_SnBi', 'levels.csv', ['valley', 'E_Sn2Sb2Te5_meV', 'E_Sn2Bi2Te5_meV'],
          [[nm, r(lv[('Sn2Sb2Te5', nm)], 1), r(lv[('Sn2Bi2Te5', nm)], 1)] for nm in SNVAL])
     save(fig, out, 'Fig5_SnSb_vs_SnBi_orbitals')

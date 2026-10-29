@@ -1,0 +1,5 @@
+﻿material,state,E-EVBM_meV,Sn_s_percent,B_s_percent,Sn_p_percent,B_p_percent,Te_p_percent
+Sn2Sb2Te5,Gamma_VB,0.0,1.6,0.4,20.6,43.3,20.2
+Sn2Sb2Te5,Gamma_CB,168.3,13.6,13.6,2.0,5.1,61.5
+Sn2Bi2Te5,Gamma_VB,-95.0,3.4,0.7,14.2,41.9,29.9
+Sn2Bi2Te5,Gamma_CB,181.7,11.5,10.5,2.0,6.1,65.0

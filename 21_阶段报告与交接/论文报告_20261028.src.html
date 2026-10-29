@@ -193,10 +193,11 @@ sup.r { font-size: 11px; color: var(--accent); }
 <img src="{{FIG:Fig5_SnSb_vs_SnBi_orbitals}}" alt="Fig. 5">
 <figcaption><b>图 5</b> Sn₂Sb₂Te₅ 与 Sn₂Bi₂Te₅ 价带顶附近的轨道投影（HSE06+SOC，线宽表示权重）。(a)(b) Sn 5s，▼ 为三组孤对电子价带谷；(c)(d) B 位 p（Sb 5p、Bi 6p），▼ 为 Γ 单谷；(e) 这四个态的能量，各以价带顶为零点。Sb 换成 Bi 后，Γ 单谷从价带顶降到 −95 meV，Sn 5s 多谷成为价带顶。</figcaption>
 </figure>
-<p class="tcap"><b>表 5</b> Sn₂Sb₂Te₅ 与 Sn₂Bi₂Te₅ 价带顶附近各态的能量（相对各自价带顶，meV）与主要成分（%）。</p>
+<p class="tcap"><b>表 5</b> Sn₂Sb₂Te₅ 与 Sn₂Bi₂Te₅ 中 Γ 处最低导带态与价带顶附近各态的能量（相对各自价带顶，meV）与主要成分（%）。前两行之差即 Γ 处的反转带隙。</p>
 <table data-csv="Table5_SnSb_vs_SnBi_valleys">
-<thead><tr><th>价带态</th><th>Sn₂Sb₂Te₅：能量；成分</th><th>Sn₂Bi₂Te₅：能量；成分</th></tr></thead>
+<thead><tr><th>态</th><th>Sn₂Sb₂Te₅：能量；成分</th><th>Sn₂Bi₂Te₅：能量；成分</th></tr></thead>
 <tbody>
+<tr><td>Γ 最低导带态（s 态）</td><td>168；Te-p 62、Sn-s 13.6、Sb-s 13.6</td><td>182；Te-p 65、Sn-s 11.5、Bi-s 10.5</td></tr>
 <tr><td>Γ 单谷</td><td><b>0</b>（价带顶）；Sb-p 43、Sn-p 21、Te-p 20、Sn-s 1.6</td><td><b>−95</b>；Bi-p 42、Sn-p 14、Te-p 30、Sn-s 3.4</td></tr>
 <tr><td>#11（Γ–M，1/6,0,0）</td><td>−131；Sn-s 18、Sb-s 8、Te-p 67</td><td><b>0</b>（价带顶）；Sn-s 20、Bi-s 4、Te-p 67</td></tr>
 <tr><td>#101（A–L，靠近 A）</td><td>−141；Sn-s 22、Sb-s 6、Te-p 53</td><td>−5；Sn-s 23、Bi-s 3、Te-p 53</td></tr>
@@ -205,9 +206,10 @@ sup.r { font-size: 11px; color: var(--accent); }
 <ul>
 <li><b>多谷来自 Sn</b>：三组孤对电子谷在两种材料中位置、成分（Sn-s 18–23%，B 位 s 只有 3–10%）和谷间距（约 15 meV）都一样。</li>
 <li><b>Bi 的作用是压低 Γ 单谷</b>：Γ 单谷以 B 位 p 为主（Sb-p 43%、Bi-p 42%）。Sb 换成 Bi 后，它相对孤对电子谷下降约 225 meV，从价带顶（Sn₂Sb₂Te₅）降到 −95 meV（Sn₂Bi₂Te₅），Sn 的多谷于是成为价带顶。比较的是同一材料内的相对位置，不涉及跨材料的能量对齐。</li>
-<li><b>原因（推测）</b>：Bi 6p 的自旋–轨道耦合比 Sb 5p 强得多，Γ 处的 s–p 反转带隙也更大（277 对 168 meV）。尚未用不含 SOC 的能带验证。</li>
+<li><b>Γ 处的反转带隙</b>：Γ 处最低导带态（阳离子 s 共 22–27%）与最高价带态（p 为主，s 仅 2–4%）之差，即表 5 前两行相减：Sn₂Sb₂Te₅ 168 − 0 = 168 meV，Sn₂Bi₂Te₅ 182 − (−95) = 277 meV。增大的 109 meV 中，95 meV 来自 Γ 价带下降，导带只升高 14 meV。所以“反转带隙变大”和“Γ 单谷被压低”是同一现象，不能作为下一条推测的证据。</li>
+<li><b>原因（推测）</b>：Γ 单谷以 B 位 p 为主，Bi 6p 的自旋–轨道耦合比 Sb 5p 强得多，可能是它被压低的原因。尚未验证；判据是不含 SOC 的两种材料的能带：若去掉 SOC 后，Sb 换成 Bi 引起的约 225 meV 下移大部分消失，即为 SOC 所致。</li>
 </ul>
-<p><b>拓扑。</b>Sn₂Sb₂Te₅、Pb₂Bi₂Te₅、Sn₂Bi₂Te₅ 在 PBE 和 HSE 下都是 Z₂ = (1;000)，反转都在 Γ：孤对电子的 s 态在 Γ 处被反转到阳离子 p 态之上，这正是非平庸拓扑的来源，也决定了 n 型载流子所在的态。三者的反转带隙（HSE 下 168–277 meV）远大于数值误差。Pb₂Sb₂Te₅ 在 Γ 处只有 51 meV，宇称待补。</p>
+<p><b>拓扑。</b>Sn₂Sb₂Te₅、Pb₂Bi₂Te₅、Sn₂Bi₂Te₅ 在 PBE 和 HSE 下都是 Z₂ = (1;000)，反转都在 Γ：孤对电子的 s 态在 Γ 处被反转到阳离子 p 态之上，这正是非平庸拓扑的来源，也决定了 n 型载流子所在的态。三者 Γ 处的反转带隙（HSE 下 Sn₂Sb₂Te₅ 168、Pb₂Bi₂Te₅ 194、Sn₂Bi₂Te₅ 277 meV，即 Γ 处最低导带与最高价带之差，见图 2 源数据 <code>band_gaps_on_path.csv</code>）远大于数值误差。Pb₂Sb₂Te₅ 在 Γ 处只有 51 meV，宇称待补。</p>
 
 <h2 id="s4">4 孤对电子对 Seebeck 系数的影响</h2>
 <p>本节所有数值都在统一的比较条件下：300 K，净载流子 3×10¹⁹ cm⁻³（另给 1×10²⁰），见 1.4 节。</p>
@@ -347,10 +349,10 @@ sup.r { font-size: 11px; color: var(--accent); }
 <thead><tr><th>图</th><th>图文件（<code>figures/png</code>、<code>figures/pdf</code>）</th><th>源数据（<code>data/</code>）</th></tr></thead>
 <tbody>
 <tr><td>图 1、表 1</td><td><code>Fig1_structures</code></td><td><code>Fig1_structures/</code>：O、D 母胞的格点占位与未弛豫 POSCAR；所给层状结构的 POSCAR；(c)(d) 各原子面的高度与堆垛位置；三种结构的对比（表 1 的数值）</td></tr>
-<tr><td>图 2</td><td><code>Fig2_bands_PBE_vs_HSE</code></td><td><code>Fig2_bands_PBE_vs_HSE/</code>：每种材料、每种泛函的路径能带（相对价带顶），路径带隙</td></tr>
+<tr><td>图 2</td><td><code>Fig2_bands_PBE_vs_HSE</code></td><td><code>Fig2_bands_PBE_vs_HSE/</code>：每种材料、每种泛函的路径能带（相对价带顶）；路径带隙及 Γ 处最高价带、最低导带的能量与反转带隙（<code>band_gaps_on_path.csv</code>）</td></tr>
 <tr><td>图 3</td><td><code>Fig3_HSE_bands_cation_s</code></td><td><code>Fig3_HSE_bands_cation_s/</code>：HSE 路径能带及每个 k 点、每条带的阳离子 s 成分</td></tr>
 <tr><td>图 4</td><td><code>Fig4_cation_s_by_atom</code></td><td><code>Fig4_cation_s_by_atom/</code>：HSE 路径能带上每个 k 点、每条带的 A、B、Te 的 s 成分；关键态（表 4）</td></tr>
-<tr><td>图 5</td><td><code>Fig5_SnSb_vs_SnBi_orbitals</code></td><td><code>Fig5_SnSb_vs_SnBi/</code>：两种材料路径能带上的 Sn-s、B-s、Sn-p、B-p、Te-p 投影；四个价带态的能量与成分（表 5）</td></tr>
+<tr><td>图 5</td><td><code>Fig5_SnSb_vs_SnBi_orbitals</code></td><td><code>Fig5_SnSb_vs_SnBi/</code>：两种材料路径能带上的 Sn-s、B-s、Sn-p、B-p、Te-p 投影；四个价带态的能量与成分，Γ 处最高价带与最低导带的能量与成分（<code>Gamma_states.csv</code>）（表 5）</td></tr>
 <tr><td>图 6</td><td><code>Fig6_lone_pair_valley_PBE_vs_HSE</code></td><td><code>Fig6_lone_pair_valley/</code>：最高孤对电子价带谷的能量、k 点与成分</td></tr>
 <tr><td>图 7</td><td><code>Fig7_Seebeck_PBE_vs_HSE</code></td><td><code>Fig7_Seebeck/</code>：300 K、3×10¹⁹ cm⁻³ 的 S；表 6 的逐谷电导份额（每个谷的位置、离带边能量、阳离子 s 成分、份额）与汇总；孤对电子谷份额随空穴浓度（10¹⁹–3×10²⁰ cm⁻³）的变化；Sn₂Bi₂Te₅ 的 c3 检验（梯度、主质量、驻点位移）</td></tr>
 <tr><td>图 8</td><td><code>Fig8_S_vs_T_experiment</code></td><td><code>Fig8_S_vs_T/</code>：实验数据、计算曲线、拟合汇总</td></tr>

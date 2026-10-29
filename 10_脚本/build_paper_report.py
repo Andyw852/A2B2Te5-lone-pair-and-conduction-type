@@ -72,10 +72,12 @@ data/                  每幅图的源数据，即图中画出的数值，目录
   Fig1_structures/            O、D 两个 144 原子母胞的格点占位（每个格点的原子面、种类、坐标）与未弛豫 POSCAR；
                               所给的 9 原子层状结构 POSCAR（问题一的能带与 S 都用它）；图 1c、d 各原子面的高度与堆垛位置；
                               三种结构的晶格、体积与能量对比（structure_comparison.csv，即表 1）
-  Fig2_bands_PBE_vs_HSE/      四种材料 PBE+SOC、HSE06+SOC 的路径能带（相对价带顶，eV），路径带隙
+  Fig2_bands_PBE_vs_HSE/      四种材料 PBE+SOC、HSE06+SOC 的路径能带（相对价带顶，eV）；路径带隙及 Γ 处最高价带、
+                              最低导带的能量与反转带隙（band_gaps_on_path.csv）
   Fig3_HSE_bands_cation_s/    HSE06+SOC 路径能带及每个 k 点、每条带的阳离子 s 成分（%）
   Fig4_cation_s_by_atom/      HSE06+SOC 路径能带上每个 k 点、每条带的 A（Pb/Sn）、B（Sb/Bi）、Te 的 s 成分（%）；关键态（表 4）
-  Fig5_SnSb_vs_SnBi/          Sn2Sb2Te5 与 Sn2Bi2Te5 路径能带上的 Sn-s、B-s、Sn-p、B-p、Te-p 投影；Γ 单谷与三组孤对电子谷的能量与成分（表 5）
+  Fig5_SnSb_vs_SnBi/          Sn2Sb2Te5 与 Sn2Bi2Te5 路径能带上的 Sn-s、B-s、Sn-p、B-p、Te-p 投影；Γ 单谷与三组孤对电子谷的能量与成分；
+                              Γ 处最高价带与最低导带的能量与成分（Gamma_states.csv）（表 5）
   Fig6_lone_pair_valley/      最高孤对电子价带谷相对价带顶的能量（meV）、所在 k 点与成分
   Fig7_Seebeck/               300 K、3×10^19 cm^-3 的面内 S：PBE+SOC（BoltzTraP2）与 HSE 估计；表 6 的逐谷电导份额
                               （valley_conductivity_shares.csv：每个谷的位置、离带边能量、阳离子 s 成分、份额；lone_pair_share_summary.csv：汇总）
