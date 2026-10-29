@@ -448,13 +448,11 @@ def valley_shares():
 
 # ------------------------------------------------------------------ Fig. 6
 # 实验 S(T)，从所给曲线图读取（µV/K）
-# 实验 S(T)（µV/K）。Pb₂Sb₂Te₅ 为用户给的原始数据（2026-10-29），其余三种从所给曲线图读取
+# 实验 S(T)（µV/K），用户提供。Pb₂Sb₂Te₅ 为原始数据（2026-10-29，见 21_阶段报告与交接/实验数据/），其余三种从所给曲线图读取
 EXP = {'Pb2Sb2Te5': [(301.58, 5.52), (319.32, 5.39), (370.16, 5.60), (418.62, 4.94), (468.56, 5.09), (519.25, 6.93), (568.17, 10.67), (619.36, 17.10)],
        'Pb2Bi2Te5': [(302, -89), (318, -89), (368, -101), (415, -116), (463, -127), (513, -133), (562, -132), (611, -127)],
        'Sn2Sb2Te5': [(300, 16), (320, 16), (370, 19), (418, 23), (467, 28), (518, 33), (567, 37), (618, 42)],
        'Sn2Bi2Te5': [(302, 30), (318, 31), (368, 39), (417, 46), (466, 55), (518, 62), (567, 66), (619, 67)]}
-EXP_SRC = {'Pb2Sb2Te5': 'raw data from user', 'Pb2Bi2Te5': 'digitized from plot', 'Sn2Sb2Te5': 'digitized from plot', 'Sn2Bi2Te5': 'digitized from plot'}
-MARK = {'Pb2Sb2Te5': 'o', 'Pb2Bi2Te5': 's', 'Sn2Sb2Te5': 'v', 'Sn2Bi2Te5': '^'}
 
 
 def model(m, side):
@@ -504,42 +502,48 @@ def fig6(out):
     fig, axs = plt.subplots(2, 2, figsize=(W2, 4.9), gridspec_kw=dict(hspace=0.40, wspace=0.24))
     titles = {'Pb2Sb2Te5': 'near-compensated', 'Pb2Bi2Te5': 'n-type', 'Sn2Sb2Te5': 'p-type', 'Sn2Bi2Te5': 'p-type'}
     ylim = {'Pb2Sb2Te5': (-140, 30), 'Pb2Bi2Te5': (-245, -58), 'Sn2Sb2Te5': (0, 57), 'Sn2Bi2Te5': (0, 90)}
-    legloc = {'Pb2Sb2Te5': dict(loc='center right', bbox_to_anchor=(1.0, 0.42)), 'Pb2Bi2Te5': dict(loc='upper right'),
-              'Sn2Sb2Te5': dict(loc='upper left'), 'Sn2Bi2Te5': dict(loc='upper left')}
+    # 拟合出的载流子浓度标在各图空白处：(x, y, 对齐)，轴坐标
+    note = {'Pb2Sb2Te5': (0.97, 0.52, 'right'), 'Pb2Bi2Te5': (0.97, 0.93, 'right'), 'Sn2Sb2Te5': (0.04, 0.93, 'left'), 'Sn2Bi2Te5': (0.04, 0.93, 'left')}
     exp_rows, calc_rows, fit_rows = [], [], []
     for n, (ax, m) in enumerate(zip(axs.flat, MATS)):
         Te, Se = zip(*EXP[m]); T0, S0 = Te[0], Se[0]
-        exp_rows += [[m, t, s, EXP_SRC[m]] for t, s in EXP[m]]
+        exp_rows += [[m, t, s] for t, s in EXP[m]]
         curves = []
         if m == 'Pb2Sb2Te5':        # 近补偿：用 301.6 K 的 S 定净掺杂（N 在 ±10¹⁹ 内单调，二分）；比较两种带隙
             for side, nm in (('c2_hse', 'HSE06+SOC'), ('c2_pbe', 'PBE+SOC')):
                 g = model(m, side); N = solve_N(g, S0, T0, -1e19, 1e19)
                 gap = mv.build(m, 'v', 300, None, side)[1]
-                curves.append((nm, 'path multivalley model', g, N, f'{nm[:3]} bands ($E_g$ = {1000 * gap:.0f} meV)'))
+                curves.append((nm, 'path multivalley model', g, N, f'{nm[:3]} ($E_g$ = {1000 * gap:.0f} meV): $p-n$ = {"+" if N > 0 else "\u2212"}{sci(N)}'))
         elif m == 'Pb2Bi2Te5':      # n 型：302 K 的实验值定电子浓度
             for side, nm in (('c2_hse', 'HSE06+SOC'), ('c2_pbe', 'PBE+SOC')):
                 g = model(m, side); N = solve_log(g, EXP[m], 17, 20, -1)
-                curves.append((nm, 'path multivalley model', g, N, f'{nm[:3]} bands, $n$ = {sci(N)}'))
+                curves.append((nm, 'path multivalley model', g, N, f'{nm[:3]}: $n$ = {sci(N)}'))
         else:                       # Sn 系重掺杂 p 型：BoltzTraP2 全区；HSE = BoltzTraP2 × 模型 HSE/PBE 比值（1.7 节第 5 步）
             b = bt2(m); gh, gp = model(m, 'c2_hse'), model(m, 'c2_pbe')
             hse = lambda p, t, b=b, gh=gh, gp=gp: b(p, t) * gh(p, t) / gp(p, t)
             for nm, meth, g in (('HSE06+SOC', 'BoltzTraP2 (PBE) x model HSE/PBE ratio', hse), ('PBE+SOC', 'BoltzTraP2 (PBE, full BZ)', b)):
                 N = solve_log(g, EXP[m], 20, 21.8)
-                curves.append((nm, meth, g, N, f'{nm[:3]} bands, $p$ = {sci(N)}'))
-        ax.plot(Te, Se, MARK[m], ms=4, mfc='white', mec='k', mew=0.8, ls='', label='Exp.', zorder=3)
+                curves.append((nm, meth, g, N, f'{nm[:3]}: $p$ = {sci(N)}'))
+        ax.plot(Te, Se, 'o', ms=4, mfc='white', mec='k', mew=0.8, ls='', zorder=3)
         for nm, meth, g, N, lab in curves:
             v = [g(N, t) for t in Ts]
-            ax.plot(Ts, v, color=C_HSE if nm[0] == 'H' else C_PBE, ls='-' if nm[0] == 'H' else DASH, label=lab)
+            ax.plot(Ts, v, color=C_HSE if nm[0] == 'H' else C_PBE, ls='-' if nm[0] == 'H' else DASH)
             calc_rows += [[m, nm, meth, f'{N:.3e}', int(t), r(s, 2)] for t, s in zip(Ts, v)]
             dev = [g(N, t) - s for t, s in EXP[m]]
             fit_rows.append([m, nm, meth, f'{N:.3e}', T0, S0, r(max(dev, key=abs), 1)])
         if m == 'Pb2Sb2Te5': ax.axhline(0, color='k', lw=0.5, ls=':')
         ax.set_xlim(280, 640); ax.set_ylim(*ylim[m])
         ax.set_title(f'{TEX[m]} ({titles[m]})', fontsize=8, pad=4)
-        ax.legend(**legloc[m]); panel(ax, f'({"abcd"[n]})')
+        x0, y0, ha = note[m]
+        for k, (nm, _, _, _, lab) in enumerate(curves):
+            ax.text(x0, y0 - 0.075 * k, lab, transform=ax.transAxes, ha=ha, va='top', fontsize=6.5, color=C_HSE if nm[0] == 'H' else C_PBE)
+        panel(ax, f'({"abcd"[n]})')
     for ax in axs[:, 0]: ax.set_ylabel(r'$S$ (μV K$^{-1}$)')
     for ax in axs[1]: ax.set_xlabel('$T$ (K)')
-    dump('Fig6_S_vs_T', 'experiment_S_T.csv', ['material', 'T_K', 'S_exp_uV/K', 'source'], exp_rows)
+    h = [plt.Line2D([], [], ls='', marker='o', ms=4, mfc='white', mec='k', mew=0.8), plt.Line2D([], [], color=C_HSE),
+         plt.Line2D([], [], color=C_PBE, ls=DASH)]
+    fig.legend(h, ['Experiment', 'HSE06+SOC bands', 'PBE+SOC bands'], loc='lower center', ncol=3, bbox_to_anchor=(0.5, 0.935))
+    dump('Fig6_S_vs_T', 'experiment_S_T.csv', ['material', 'T_K', 'S_exp_uV/K'], exp_rows)
     dump('Fig6_S_vs_T', 'calculated_S_T.csv', ['material', 'bands', 'method', 'net_doping_p-n_cm-3', 'T_K', 'S_calc_uV/K'], calc_rows)
     dump('Fig6_S_vs_T', 'fit_summary.csv', ['material', 'bands', 'method', 'net_doping_p-n_cm-3', 'fit_T_K', 'fit_S_exp_uV/K',
                                              'max_deviation_calc-exp_uV/K'], fit_rows)

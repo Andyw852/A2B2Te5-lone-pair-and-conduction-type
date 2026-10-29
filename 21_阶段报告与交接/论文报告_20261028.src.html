@@ -71,7 +71,7 @@ sup.r { font-size: 11px; color: var(--accent); }
 <li>与 PBE 相比，HSE 把孤对电子价带谷相对价带顶压低：Pb₂Sb₂Te₅ 236 meV、Sn₂Sb₂Te₅ 131 meV、Pb₂Bi₂Te₅ 91 meV；只有 Sn₂Bi₂Te₅ 的价带顶仍是孤对电子谷。这些是 HSE 路径上的值；Sn₂Bi₂Te₅ 的补充计算（c3）表明，离轴谷的真实极大在路径之外、能量更高，所以这些深度是上限，孤对电子谷实际更靠近价带顶（第 4 节）。</li>
 <li><b>p 型</b>：同浓度 S 的排序为 Sn₂Bi₂Te₅ > Sn₂Sb₂Te₅ > Pb₂Bi₂Te₅ > Pb₂Sb₂Te₅，大体随孤对电子谷承担的电导份额变化：Sn 系份额高（约 99%、44%），S 也高；Pb 系份额都低（12%、17%）。份额取决于孤对电子谷离价带顶多近，以及该浓度下费米能级深入价带多少。Pb 系两者之间的差别主要来自价带顶本身：Pb₂Sb₂Te₅ 的 Γ 价带近乎线性，带隙只有 51 meV。</li>
 <li><b>n 型</b>：四种材料导带底都是孤对电子 s 态（Γ 单谷）。Sn 系同浓度 |S| 是 Pb 系的 2.4–3.7 倍，主要来自约 65 meV 处的阳离子 p 导带口袋，不是孤对电子。</li>
-<li>四种材料的实验 S(T) 都能用 HSE 能带在同一量级上重现，每个材料只用一个参数（由约 300 K 的实验 S 定出的净载流子浓度）：Pb₂Bi₂Te₅ 整条曲线差 ≤ 7 µV/K；Pb₂Sb₂Te₅（原始测量数据）的 S 在 300–620 K 只有 +5 到 +17 µV/K，HSE 的 51 meV 小带隙给出同一量级（最大偏差 17 µV/K，520 K 以上的上升没有重现）。这两种材料改用 PBE 能带都与实验明显不符（最大偏差 104、141 µV/K）。Sn₂Sb₂Te₅、Sn₂Bi₂Te₅ 是重掺杂 p 型（约 10²¹ cm⁻³），S 随温度线性上升的趋势也被重现。</li>
+<li>四种材料的实验 S(T) 都能用 HSE 能带在同一量级上重现，每个材料只用一个参数（由约 300 K 的实验 S 定出的净载流子浓度）：Pb₂Bi₂Te₅ 整条曲线差 ≤ 7 µV/K；Pb₂Sb₂Te₅ 的 S 在 300–620 K 只有 +5 到 +17 µV/K，HSE 的 51 meV 小带隙给出同一量级（最大偏差 17 µV/K，520 K 以上的上升没有重现）。这两种材料改用 PBE 能带都与实验明显不符（最大偏差 104、141 µV/K）。Sn₂Sb₂Te₅、Sn₂Bi₂Te₅ 是重掺杂 p 型（约 10²¹ cm⁻³），S 随温度线性上升的趋势也被重现。</li>
 </ol>
 <p><b>问题二：退火前后的主导缺陷与 p/n 转变（Pb₂Sb₂Te₅）。</b></p>
 <ol>
@@ -243,7 +243,14 @@ sup.r { font-size: 11px; color: var(--accent); }
 <p><b>第 5 步：校准。</b>同一模型也跑 PBE 路径，并与 PBE+SOC 密网格（28×28×7，Bi 系 28×28×6）BoltzTraP2 的结果比较。模型多数偏高 1.2–1.8 倍，误差主要来自椭球近似和环状极值。最终的 HSE 估计取：</p>
 <div class="eq"><i>S</i><sub>HSE</sub> = <i>S</i><sub>BoltzTraP2</sub><sup>PBE</sup> × <i>S</i><sub>model</sub><sup>HSE</sup> / <i>S</i><sub>model</sub><sup>PBE</sup></div>
 <p>这样模型的系统误差大部分抵消。BoltzTraP2 计算时，导带按早先的目标带隙做过刚性平移（剪刀）；用同一模型估计，这对 3×10¹⁹ cm⁻³、300 K 的 S 影响 ≤ 2%，只有 Pb₂Sb₂Te₅ 的 p 型约 12%（目标带隙 65 meV，PBE 为 216 meV）。第 5 节两个 Sn 样品的掺杂很重，费米能级超出路径模型的范围，此时直接用 BoltzTraP2 的全区结果乘以这个比值。<b>敏感性</b>：所有沿 c 的估计质量加倍，结果只变 0–8%。改用声学形变势散射（τ ∝ 1/<i>D</i>(<i>ε</i>)），材料排序不变，Pb 系的数值更低。</p>
-<p><b>文献依据与原创部分。</b>以下各环节都是常规做法：Kane 两带色散用于窄带隙 IV–VI 化合物<sup class="r">[13,14]</sup>；多谷能带对 S 的贡献<sup class="r">[15]</sup>；常数弛豫时间的 Boltzmann 输运<sup class="r">[20,21]</sup>；单抛物带与 Pisarenko 分析<sup class="r">[22,23]</sup>；用 S 峰值估带隙的 Goldsmid–Sharp 关系<sup class="r">[24]</sup>。本工作新做的只有两点：从能带路径构造椭球谷，以及用 PBE 的 BoltzTraP2 结果做比值校准。所以绝对值只宜作估计，可靠的是材料排序和 PBE→HSE 的变化方向；第 5 节的实验对照为此提供了独立检验。</p>
+<p><b>第 6 步：与实验 S(T) 对照时的载流子浓度（第 5 节）。</b>实验没有霍尔浓度，所以把净掺杂 <i>N</i> = <i>p</i> − <i>n</i> 当作唯一的可调参数：用最低温度点（约 300 K）的实验 S 反推 <i>N</i>，再固定 <i>N</i>，预测其余温度的 S(T)。依据是：在给定能带下，S 由费米能级的位置决定，与载流子浓度一一对应（双极区至多两个解），这正是 Pisarenko 分析由 S 推载流子浓度的思路<sup class="r">[22,23]</sup>。具体求解：</p>
+<ul>
+<li><b>Pb₂Sb₂Te₅</b>：S 在 <i>N</i> = ±10¹⁹ cm⁻³ 内随 <i>N</i> 单调，直接二分，求 S(301.6 K) = +5.5 µV/K 的 <i>N</i>。</li>
+<li><b>Pb₂Bi₂Te₅</b>：在 10¹⁷–10²⁰ cm⁻³ 内按对数等分取 31 个电子浓度，找出 S(302 K) = −89 µV/K 的全部解。双极区 S 随浓度不单调，可能有两个解，取与整条实验曲线最大偏差最小的那个；PBE 也这样取，即取对 PBE 最有利的解。</li>
+<li><b>Sn₂Sb₂Te₅、Sn₂Bi₂Te₅</b>：做法相同，空穴浓度范围 10²⁰–6×10²¹ cm⁻³，S 用全布里渊区 BoltzTraP2 的值（HSE 再乘第 5 步的比值）。</li>
+</ul>
+<p>这样得到的是在所用能带与常数弛豫时间下的等效净载流子浓度，HSE 与 PBE 的值不同；比较的重点是浓度固定后 S(T) 的温度依赖能否重现。前提是测量过程中载流子浓度由缺陷固定、不随温度变化（刚性能带近似<sup class="r">[20]</sup>）。有了霍尔浓度，就可以直接代入，不再需要这一步。</p>
+<p><b>文献依据与原创部分。</b>以下各环节都是常规做法：Kane 两带色散用于窄带隙 IV–VI 化合物<sup class="r">[13,14]</sup>；多谷能带对 S 的贡献<sup class="r">[15]</sup>；常数弛豫时间的 Boltzmann 输运<sup class="r">[20,21]</sup>；单抛物带与 Pisarenko 分析<sup class="r">[22,23]</sup>；用 S 峰值估带隙的 Goldsmid–Sharp 关系与双极 S<sup class="r">[24]</sup>；由实验 S 反推载流子浓度、再固定浓度比较 S(T)（第 6 步），与 Pisarenko 分析的思路相同<sup class="r">[22,23]</sup>。本工作新做的只有两点：从能带路径构造椭球谷，以及用 PBE 的 BoltzTraP2 结果做比值校准。所以绝对值只宜作估计，可靠的是材料排序和 PBE→HSE 的变化方向；第 5 节的实验对照为此提供了独立检验。</p>
 
 <h2 id="s2">2 能带：PBE 与 HSE 的对比</h2>
 <figure>
@@ -337,7 +344,7 @@ sup.r { font-size: 11px; color: var(--accent); }
 <h2 id="s5">5 与实验 S(T) 的对照</h2>
 <figure>
 <img src="{{FIG:Fig6_S_vs_T_experiment}}" alt="Fig. 6">
-<figcaption><b>图 6</b> 四种材料的实验 S(T) 与计算的对照。空心符号为实验值：Pb₂Sb₂Te₅ 为原始测量数据，其余三种从所给曲线图读取。蓝色实线用 HSE06+SOC 能带，橙色虚线用 PBE+SOC 能带。每条计算曲线只有一个可调参数，即净掺杂 <i>N</i> = <i>p</i> − <i>n</i>：由最低温度点（约 300 K）的实验 S 定出，所有温度下保持不变，其余温度都是预测（数值见图例与表 5）。(a) Pb₂Sb₂Te₅；(b) Pb₂Bi₂Te₅；(c) Sn₂Sb₂Te₅；(d) Sn₂Bi₂Te₅。(a)(b) 用 1.7 节的路径多谷模型。(c)(d) 的样品重掺杂，费米能级深入价带，超出路径模型（只含最高一条价带）的适用范围，改用 PBE+SOC 全布里渊区的 BoltzTraP2 结果（导带做过剪刀平移，对重掺杂 p 型没有影响；只算了 300、500、700 K，中间按二次插值），HSE 曲线再乘以模型的 HSE/PBE 比值（1.7 节第 5 步）。</figcaption>
+<figcaption><b>图 6</b> 四种材料的实验 S(T) 与计算的对照。空心圆为实验值。蓝色实线用 HSE06+SOC 能带，橙色虚线用 PBE+SOC 能带。每条计算曲线只有一个可调参数，即净掺杂 <i>N</i> = <i>p</i> − <i>n</i>：由最低温度点（约 300 K）的实验 S 定出，所有温度下保持不变，其余温度都是预测；拟合出的浓度标在各图中，也列在表 5，求法见 1.7 节第 6 步。(a) Pb₂Sb₂Te₅；(b) Pb₂Bi₂Te₅；(c) Sn₂Sb₂Te₅；(d) Sn₂Bi₂Te₅。(a)(b) 用 1.7 节的路径多谷模型。(c)(d) 的样品重掺杂，费米能级深入价带，超出路径模型（只含最高一条价带）的适用范围，改用 PBE+SOC 全布里渊区的 BoltzTraP2 结果（导带做过剪刀平移，对重掺杂 p 型没有影响；只算了 300、500、700 K，中间按二次插值），HSE 曲线再乘以模型的 HSE/PBE 比值（1.7 节第 5 步）。</figcaption>
 </figure>
 <p class="tcap"><b>表 5</b> 实验 S(T) 的对照：拟合出的净载流子浓度，以及 300–620 K 全程的最大偏差（计算 − 实验，µV/K）。</p>
 <table data-csv="Table5_S_T_fit">
@@ -350,7 +357,7 @@ sup.r { font-size: 11px; color: var(--accent); }
 </tbody></table>
 <h4>Pb₂Sb₂Te₅（图 6a）：曲线是怎么得到的</h4>
 <ol>
-<li><b>实验数据</b>：用户提供的原始测量值，8 个温度点（301.6–619.4 K）。早先从曲线图读取时，300 K 附近读成 0；实测为 +5.5 µV/K，本版全部换成原始数据。</li>
+<li><b>实验数据</b>：8 个温度点（301.6–619.4 K）。</li>
 <li><b>能带</b>：两条计算曲线分别用 HSE06+SOC 和 PBE+SOC 的路径能带（图 2a），除泛函外设置完全相同，路径带隙分别为 51 和 216 meV。按 1.7 节第 1–3 步，把带边 300 meV 内的谷（价带和导带都算）拟合成 Kane 型椭球谷。</li>
 <li><b>输运</b>：常数弛豫时间近似（1.7 节第 4 步），电子和空穴取同一个 τ，这样 S 与 τ 无关。</li>
 <li><b>唯一的参数</b>：净掺杂 <i>N</i> = <i>p</i> − <i>n</i>（施主与受主相抵后的净值），只用 301.6 K 的 S = +5.5 µV/K 定出：HSE 能带得 <i>N</i> = −1.7×10¹⁶ cm⁻³（净电子），PBE 能带得 +1.3×10¹⁷ cm⁻³（净空穴）。<i>N</i> 不随温度变化，即假设测量过程中缺陷不再变化。</li>
@@ -369,7 +376,7 @@ sup.r { font-size: 11px; color: var(--accent); }
 <li><b>Pb₂Bi₂Te₅（n 型）</b>：HSE 能带下，预测曲线与实验在 300–610 K 全程相差不超过 7 µV/K（≤ 6%），|S| 的峰在 540 K，实验在 510–560 K。按 Goldsmid–Sharp 关系<sup class="r">[24]</sup> <i>E</i><sub>g</sub> ≈ 2<i>e</i>|<i>S</i>|<sub>max</sub><i>T</i><sub>max</sub>，从实验峰值估得 0.136 eV，与 HSE 带隙 0.142 eV 一致。PBE 的路径带隙几乎相同（0.143 eV），结果却差得多：PBE 的导带底是 Γ–A 线上的驼峰多谷，态密度更大，同样的 300 K S 需要约 4 倍的电子（3.5×10¹⁹ cm⁻³），本征激发要到更高温度才能抵消，|S| 一路升到 233 µV/K（约 580 K）才回落，比实验高约 100 µV/K。<b>这个样品检验的是谷结构，不只是带隙</b>，与第 2 节“剪刀修正不能代替 HSE”一致。</li>
 <li><b>Sn₂Sb₂Te₅、Sn₂Bi₂Te₅（p 型）</b>：300 K 时 S 只有 +16、+30 µV/K，对应 1.6×10²¹、1.2×10²¹ cm⁻³ 的空穴，是重掺杂 p 型，与 SnTe 类化合物中 Sn 空位造成的高空穴浓度一致<sup class="r">[27]</sup>。固定这个浓度，计算重现了 S 随温度近似线性上升的趋势，这是重简并半导体的特征；高温端计算偏低 9–11 µV/K（约 15–20%），可能来自载流子浓度随温度的变化或常数弛豫时间近似。这样的掺杂下费米能级深入价带，带隙和 0.1 eV 量级的谷位移影响很小，所以 HSE 与 PBE 的结果接近。这两个样品检验的是重掺杂下的价带，不能区分两种泛函，也检验不了第 4 节 3×10¹⁹ cm⁻³ 时的 p 型排序。</li>
 </ul>
-<p><b>小结</b>：HSE 能带在四种材料上都只用一个参数，就重现了 S(T) 的量级和主要趋势（Pb₂Sb₂Te₅ 520 K 以上的上升除外）；PBE 能带在 Pb₂Sb₂Te₅（带隙）和 Pb₂Bi₂Te₅（谷结构）上都与实验矛盾。Pb₂Sb₂Te₅ 已换成原始数据；其余三种的实验点是从曲线图读取的近似值，写文章时请换成原始数据。由于没有霍尔浓度，每个材料只能用约 300 K 的实验值定出浓度，检验的是温度依赖；有了霍尔浓度，就能做同浓度对照（Pisarenko 图），也能检验这里拟合出的浓度。</p>
+<p><b>小结</b>：HSE 能带在四种材料上都只用一个参数，就重现了 S(T) 的量级和主要趋势（Pb₂Sb₂Te₅ 520 K 以上的上升除外）；PBE 能带在 Pb₂Sb₂Te₅（带隙）和 Pb₂Bi₂Te₅（谷结构）上都与实验矛盾。由于没有霍尔浓度，每个材料只能用约 300 K 的实验值定出浓度，检验的是温度依赖；有了霍尔浓度，就能做同浓度对照（Pisarenko 图），也能检验这里拟合出的浓度。</p>
 
 <h2 id="s6">6 退火前后的主导缺陷与 p/n 转变</h2>
 <figure>
@@ -474,7 +481,7 @@ sup.r { font-size: 11px; color: var(--accent); }
 <tr><td>图 3</td><td><code>Fig3_HSE_bands_cation_s</code></td><td><code>Fig3_HSE_bands_cation_s/</code>：HSE 路径能带及每个 k 点、每条带的阳离子 s 成分</td></tr>
 <tr><td>图 4</td><td><code>Fig4_lone_pair_valley_PBE_vs_HSE</code></td><td><code>Fig4_lone_pair_valley/</code>：最高孤对电子价带谷的能量、k 点与成分</td></tr>
 <tr><td>图 5</td><td><code>Fig5_Seebeck_PBE_vs_HSE</code></td><td><code>Fig5_Seebeck/</code>：300 K、3×10¹⁹ cm⁻³ 的 S；表 4 的逐谷电导份额（每个谷的位置、离带边能量、阳离子 s 成分、份额）与汇总；Sn₂Bi₂Te₅ 的 c3 检验（梯度、主质量、驻点位移）</td></tr>
-<tr><td>图 6</td><td><code>Fig6_S_vs_T_experiment</code></td><td><code>Fig6_S_vs_T/</code>：实验数据（Pb₂Sb₂Te₅ 为原始数据，其余为读图值）、计算曲线、拟合汇总</td></tr>
+<tr><td>图 6</td><td><code>Fig6_S_vs_T_experiment</code></td><td><code>Fig6_S_vs_T/</code>：实验数据、计算曲线、拟合汇总</td></tr>
 <tr><td>图 7</td><td><code>Fig7_defect_formation_energies</code></td><td><code>Fig7_formation_energies/</code>：逐位点中性形成能，两端化学势</td></tr>
 <tr><td>图 8</td><td><code>Fig8_ordering_induced_change</code></td><td><code>Fig8_ordering/</code>：逐位点与中位数 Δ<i>E</i><sub>f</sub></td></tr>
 <tr><td>表 7、表 8 的 L</td><td>—</td><td><code>L_layered_defects/</code>：早先一批层状相缺陷计算的原始结果（5 个化学势顶点下全部缺陷的形成能排名；原始 JSON，含各电荷态、化学势与载流子浓度）</td></tr>

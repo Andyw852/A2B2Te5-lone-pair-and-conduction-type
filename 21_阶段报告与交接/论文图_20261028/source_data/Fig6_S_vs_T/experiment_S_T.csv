@@ -1,33 +1,33 @@
-﻿material,T_K,S_exp_uV/K,source
-Pb2Sb2Te5,301.58,5.52,raw data from user
-Pb2Sb2Te5,319.32,5.39,raw data from user
-Pb2Sb2Te5,370.16,5.6,raw data from user
-Pb2Sb2Te5,418.62,4.94,raw data from user
-Pb2Sb2Te5,468.56,5.09,raw data from user
-Pb2Sb2Te5,519.25,6.93,raw data from user
-Pb2Sb2Te5,568.17,10.67,raw data from user
-Pb2Sb2Te5,619.36,17.1,raw data from user
-Pb2Bi2Te5,302,-89,digitized from plot
-Pb2Bi2Te5,318,-89,digitized from plot
-Pb2Bi2Te5,368,-101,digitized from plot
-Pb2Bi2Te5,415,-116,digitized from plot
-Pb2Bi2Te5,463,-127,digitized from plot
-Pb2Bi2Te5,513,-133,digitized from plot
-Pb2Bi2Te5,562,-132,digitized from plot
-Pb2Bi2Te5,611,-127,digitized from plot
-Sn2Sb2Te5,300,16,digitized from plot
-Sn2Sb2Te5,320,16,digitized from plot
-Sn2Sb2Te5,370,19,digitized from plot
-Sn2Sb2Te5,418,23,digitized from plot
-Sn2Sb2Te5,467,28,digitized from plot
-Sn2Sb2Te5,518,33,digitized from plot
-Sn2Sb2Te5,567,37,digitized from plot
-Sn2Sb2Te5,618,42,digitized from plot
-Sn2Bi2Te5,302,30,digitized from plot
-Sn2Bi2Te5,318,31,digitized from plot
-Sn2Bi2Te5,368,39,digitized from plot
-Sn2Bi2Te5,417,46,digitized from plot
-Sn2Bi2Te5,466,55,digitized from plot
-Sn2Bi2Te5,518,62,digitized from plot
-Sn2Bi2Te5,567,66,digitized from plot
-Sn2Bi2Te5,619,67,digitized from plot
+﻿material,T_K,S_exp_uV/K
+Pb2Sb2Te5,301.58,5.52
+Pb2Sb2Te5,319.32,5.39
+Pb2Sb2Te5,370.16,5.6
+Pb2Sb2Te5,418.62,4.94
+Pb2Sb2Te5,468.56,5.09
+Pb2Sb2Te5,519.25,6.93
+Pb2Sb2Te5,568.17,10.67
+Pb2Sb2Te5,619.36,17.1
+Pb2Bi2Te5,302,-89
+Pb2Bi2Te5,318,-89
+Pb2Bi2Te5,368,-101
+Pb2Bi2Te5,415,-116
+Pb2Bi2Te5,463,-127
+Pb2Bi2Te5,513,-133
+Pb2Bi2Te5,562,-132
+Pb2Bi2Te5,611,-127
+Sn2Sb2Te5,300,16
+Sn2Sb2Te5,320,16
+Sn2Sb2Te5,370,19
+Sn2Sb2Te5,418,23
+Sn2Sb2Te5,467,28
+Sn2Sb2Te5,518,33
+Sn2Sb2Te5,567,37
+Sn2Sb2Te5,618,42
+Sn2Bi2Te5,302,30
+Sn2Bi2Te5,318,31
+Sn2Bi2Te5,368,39
+Sn2Bi2Te5,417,46
+Sn2Bi2Te5,466,55
+Sn2Bi2Te5,518,62
+Sn2Bi2Te5,567,66
+Sn2Bi2Te5,619,67
