@@ -7,7 +7,7 @@ Fig. 2  PBE+SOC vs HSE06+SOC band structures (c2 path)                       22_
 Fig. 3  HSE06+SOC bands weighted by cation-s (lone-pair) character             22_能带基准_1-0/<mat>/c2_hse/PROCAR_OPT.gz
 Fig. 4  HSE06+SOC bands: which cation (A = Pb/Sn or B = Sb/Bi) carries the s weight   same
 Fig. 5  Sn2Sb2Te5 vs Sn2Bi2Te5: Sn-5s and B-site p (Sb 5p / Bi 6p) projections near the VBM, and level diagram   same
-Fig. 6  Valence pockets in the Brillouin zone (Sn2Sb2Te5 vs Sn2Bi2Te5, HSE) and the lone-pair / Γ–A crossover energy ΔE
+Fig. 6  Valence pockets in the Brillouin zone (Sn2Sb2Te5 vs Sn2Bi2Te5) and the lone-pair / Γ–A crossover energy, HSE only
                                                                                same + A2B2Te5_SOC_dense/materials/<mat>/POSCAR (spglib)
 Fig. 7  Energy of the highest lone-pair valence valley, PBE vs HSE            same
 Fig. 8  Seebeck coefficient at 3e19 cm-3: PBE (BoltzTraP2) vs HSE estimate     10_脚本/multivalley_seebeck.py
@@ -548,11 +548,11 @@ def top_vb(m, side):
 
 
 def crossover():
-    """转变能量：最高孤对电子谷（与图 7 同一判据）减 Γ–A 轴（Γ、Δ 线、A）上最高的价带态，四种材料 × 两种泛函。"""
+    """转变能量（HSE06+SOC）：最高孤对电子谷（与图 7 同一判据）减 Γ–A 轴（Γ、Δ 线、A）上最高的价带态，四种材料。"""
     K = kpath(); rows = []
     for m in MATS:
         _, rots = bz_lattice(m)
-        for side, fn in (('c2_pbe', 'PBE+SOC'), ('c2_hse', 'HSE06+SOC')):
+        for side, fn in (('c2_hse', 'HSE06+SOC'),):
             v = top_vb(m, side); ia = max(AXIS, key=lambda i: v[i])
             lp = rf.lone_pair_offset(m, side); il = lp[1]
             rows.append(dict(m=m, fn=fn, EG=v[0], Ea=v[ia], ia=ia, na=len(star(K[ia], rots)),
@@ -640,25 +640,22 @@ def fig6(out):
     bz_3d(ax, 'Sn2Bi2Te5', *data['Sn2Bi2Te5'], zs=zs)
     ax.text2D(0.5, 0.97, f'{TEX["Sn2Bi2Te5"]}: 3D view ($k_z$ ×{zs})', transform=ax.transAxes, fontsize=8, ha='center', va='bottom')
     ax.text2D(0.04, 0.97, '(c)', transform=ax.transAxes, fontsize=9, fontweight='bold', ha='right', va='bottom')
-    # (d) 转变能量
-    rows = crossover(); by = {(d['m'], d['fn']): d for d in rows}
+    # (d) 转变能量（HSE06+SOC）：正为孤对电子多谷在上（紫），负为 Γ–A 轴上的态在上（橙），与 (a)–(c) 同色
+    rows = crossover(); by = {d['m']: d for d in rows}
     ax = fig.add_subplot(gs[1, :2])
-    ax.axvspan(-KT300, KT300, color='#EEF3F8', zorder=0, lw=0); ax.axvline(0, color='k', lw=0.6, zorder=1)
+    ax.axvspan(-KT300, KT300, color='#EEF3F8', zorder=0, lw=0); ax.axvline(0, color='k', lw=0.6, zorder=2)
     for j, m in enumerate(MATS[::-1]):
-        p, h = by[(m, 'PBE+SOC')]['d'], by[(m, 'HSE06+SOC')]['d']
-        ax.plot([p, h], [j, j], color='#BDBDBD', lw=1.2, zorder=1)
-        ax.plot(p, j + 0.08, 'o', ms=4.5, color=C_PBE, mec='white', mew=0.6, zorder=3, label='PBE+SOC' if j == 0 else None)
-        ax.plot(h, j - 0.08, 'o', ms=4.5, color=C_HSE, mec='white', mew=0.6, zorder=3, label='HSE06+SOC' if j == 0 else None)
-        for v, dy, col in ((h, -0.30, C_HSE), (p, 0.30, C_PBE)):
-            ax.text(v, j + dy, f'{v:+.0f}'.replace('-', '−'), ha='center', va='center', fontsize=6.3, color=col)
-    ax.set_yticks(range(4), [TEX[m] for m in MATS[::-1]]); ax.set_ylim(-0.6, 4.2); ax.tick_params(axis='y', length=0, right=False)
-    ax.set_xlim(-262, 135)
+        d = by[m]; v = d['d']; col = C_A if v > 0 else C_B
+        ax.barh(j, v, height=0.5, color=col, lw=0, zorder=1)
+        lab = f'{v:+.0f}'.replace('-', '−') + f"  ({kname(d['il'])} − {kname(d['ia'])})"
+        ax.text(v + (6 if v > 0 else -6), j, lab, ha='left' if v > 0 else 'right', va='center', fontsize=6.5)
+    ax.set_yticks(range(4), [TEX[m] for m in MATS[::-1]]); ax.set_ylim(-0.6, 4.1); ax.tick_params(axis='y', length=0, right=False)
+    ax.set_xlim(-330, 170)
     ax.set_xlabel(r'$E_{\mathrm{lone\ pair}} - E_{\Gamma\mathrm{-A\ axis}}$ (meV)')
-    ax.text(-130, 3.72, 'Γ–A axis valley on top (1–2 pockets)', ha='center', va='center', fontsize=6.5)
-    ax.text(80, 3.72, 'lone-pair valleys on top' '\n' '(6 pockets each)', ha='center', va='center', fontsize=6.5)
-    ax.text(0, 0.5, r'$\pm k_\mathrm{B}T$', ha='center', va='center', fontsize=6.3, bbox=dict(fc='#EEF3F8', ec='none', pad=0.6))
-    ax.legend(loc='lower left', handletextpad=0.2, borderaxespad=0.3)
-    ax.set_title('Crossover energy, all four compounds', fontsize=8, pad=4)
+    ax.text(-165, 3.62, 'Γ–A axis state on top (1–2 pockets)', ha='center', va='center', fontsize=6.5, color=C_B)
+    ax.text(85, 3.62, 'lone-pair valleys on top' '\n' '(6 pockets each)', ha='center', va='center', fontsize=6.5, color=C_A)
+    ax.text(0, -0.45, r'$\pm k_\mathrm{B}T$', ha='center', va='center', fontsize=6.3, bbox=dict(fc='#EEF3F8', ec='none', pad=0.6), zorder=3)
+    ax.set_title('Crossover energy (HSE06+SOC)', fontsize=8, pad=4)
     panel(ax, '(d)')
     # 右下：(a)–(c) 的图例
     lg = fig.add_subplot(gs[1, 2]); lg.axis('off')
@@ -680,7 +677,7 @@ def fig6(out):
                              r(g['E'], 1), len(g['frac'])])
     dump('Fig6_valence_pockets', 'pocket_positions.csv', ['material', 'valley', 'path_k_index', 'k_frac_1', 'k_frac_2', 'k_frac_3',
          'kx_1/A', 'ky_1/A', 'kz_1/A', 'plane', 'E-EVBM_meV (HSE06+SOC)', 'n_equivalent_pockets'], prow)
-    dump('Fig6_valence_pockets', 'crossover_energy.csv',
+    dump('Fig6_valence_pockets', 'crossover_energy_HSE.csv',
          ['material', 'functional', 'E_Gamma_meV', 'E_GammaA_axis_max_meV', 'axis_position', 'axis_path_k_index', 'axis_n_pockets',
           'E_lone_pair_max_meV', 'lone_pair_valley', 'lone_pair_path_k_index', 'lone_pair_n_pockets', 'lone_pair_cation_s_percent',
           'E_lone_pair_minus_E_axis_meV', 'E_lone_pair_minus_E_Gamma_meV'],

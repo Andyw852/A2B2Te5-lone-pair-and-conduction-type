@@ -154,7 +154,7 @@ sup.r { font-size: 11px; color: var(--accent); }
 <tr><td>Sn₂Bi₂Te₅</td><td class="num">0.117</td><td class="num">0.182*</td><td>Σ（(1/6,0,0) 附近）</td><td>Σ（(1/6,0,0) 附近）*</td><td>Γ</td></tr>
 </tbody></table>
 <ul>
-<li>两种泛函下 Γ 处的带序相同。HSE 改变的主要是<b>离开 Γ 的价带谷</b>相对 Γ 价带的高低（图 6d、图 7）。</li>
+<li>两种泛函下 Γ 处的带序相同。HSE 改变的主要是<b>离开 Γ 的价带谷</b>相对 Γ 价带的高低（图 7）。</li>
 <li>PBE 下四种材料的价带都是多谷，HSE 下这些谷大多退到价带顶以下 50 meV 以上。所以 PBE 加剪刀修正（只平移导带）不能代替 HSE：剪刀改带隙，不改谷结构。Pb₂Bi₂Te₅ 就是两种泛函带隙相同、谷结构不同的例子。</li>
 </ul>
 
@@ -213,7 +213,7 @@ sup.r { font-size: 11px; color: var(--accent); }
 </ul>
 <figure>
 <img src="{{FIG:Fig6_valence_pockets_crossover}}" alt="Fig. 6">
-<figcaption><b>图 6</b> 价带口袋在布里渊区中的位置，以及“Γ 单谷 → 孤对电子多谷”的转变能量。(a) Sn₂Sb₂Te₅、(b) Sn₂Bi₂Te₅ 沿 c 俯视（HSE06+SOC；俯视时 A 与 Γ、L 与 M、H 与 K 重合），(c) Sn₂Bi₂Te₅ 的三维透视（<i>k</i><sub>z</sub> 放大 4 倍）。橙色为 Γ–A 轴上以 B 位 p 为主的价带态，紫色为 Sn 5s 孤对电子谷；实心标记在 <i>k</i><sub>z</sub> = 0 面或区内，空心标记在 <i>k</i><sub>z</sub> = ½ 区界面，(c) 中顶面与底面上的是同一组口袋；淡色表示离价带顶超过 2<i>k</i><sub>B</sub><i>T</i>（300 K，52 meV）。角上的小表列出各组的位置名、相对价带顶的能量（meV）与等价口袋数。(d) 四种材料的转变能量 <i>E</i><sub>LP</sub> − <i>E</i><sub>Γ–A</sub>，即最高孤对电子谷减去 Γ–A 轴上最高的价带态；正值表示孤对电子多谷在价带顶；阴影为 ±<i>k</i><sub>B</sub><i>T</i>。图中只标谷的中心，取能带路径上的极值点，不是等能面（没有全区三维能量网格）。真实极大在含 c 轴的镜面内略偏离这些点（第 4 节），只要仍在镜面内，等价口袋的个数不变。</figcaption>
+<figcaption><b>图 6</b> 价带口袋在布里渊区中的位置，以及“Γ 单谷 → 孤对电子多谷”的转变能量。(a) Sn₂Sb₂Te₅、(b) Sn₂Bi₂Te₅ 沿 c 俯视（HSE06+SOC；俯视时 A 与 Γ、L 与 M、H 与 K 重合），(c) Sn₂Bi₂Te₅ 的三维透视（<i>k</i><sub>z</sub> 放大 4 倍）。橙色为 Γ–A 轴上以 B 位 p 为主的价带态，紫色为 Sn 5s 孤对电子谷；实心标记在 <i>k</i><sub>z</sub> = 0 面或区内，空心标记在 <i>k</i><sub>z</sub> = ½ 区界面，(c) 中顶面与底面上的是同一组口袋；淡色表示离价带顶超过 2<i>k</i><sub>B</sub><i>T</i>（300 K，52 meV）。角上的小表列出各组的位置名、相对价带顶的能量（meV）与等价口袋数。(d) 四种材料的转变能量 <i>E</i><sub>LP</sub> − <i>E</i><sub>Γ–A</sub>（HSE06+SOC），即最高孤对电子谷减去 Γ–A 轴上最高的价带态，括号内为相减的两个位置；正值（紫）表示孤对电子多谷在价带顶，负值（橙）表示 Γ–A 轴上的态在价带顶；阴影为 ±<i>k</i><sub>B</sub><i>T</i>。图中只标谷的中心，取能带路径上的极值点，不是等能面（没有全区三维能量网格）。真实极大在含 c 轴的镜面内略偏离这些点（第 4 节），只要仍在镜面内，等价口袋的个数不变。</figcaption>
 </figure>
 <p><b>口袋的位置（图 6a–c）。</b>晶体对称性（点群 D<sub>3d</sub>，12 个操作）把不在对称点上的能谷复制成几个能量相同的等价副本，每个副本是一个口袋。Γ 只有 1 个口袋；Σ、R₁、R₂ 各有 6 个，个数用 spglib 从所给结构的对称操作核对过。图 5 沿一条路径，每组谷只出现一次；图 6 画出全部等价副本。画法参照热电文献中常见的布里渊区示意图，如 Bi₂Te₃ 的六谷价带<sup class="r">[30]</sup>、Mg₃Sb₂ 的多谷导带<sup class="r">[29]</sup>。</p>
 <ul>
@@ -221,10 +221,9 @@ sup.r { font-size: 11px; color: var(--accent); }
 <li><b>Sn₂Bi₂Te₅</b>：Σ、R₁、R₂ 在 17 meV 内，共 18 个口袋。Σ 在 <i>k</i><sub>z</sub> = 0 面，离中心 0.27 Å⁻¹；R₁、R₂ 在顶面，离中心 0.10、0.55 Å⁻¹。俯视时 18 个口袋落在 6 条 Γ–M 方向的射线上。</li>
 <li><b>Sn₂Bi₂Te₅ 中 B 位 p 带的最高点不在 Γ</b>：沿 Γ–A，它从 Γ 的 −95 meV 升到 Δ 线 4/7 处的 −80 meV（Te-p 50%、Bi-p 22%；±<i>k</i><sub>z</sub> 两个口袋），仍在 2<i>k</i><sub>B</sub><i>T</i> 以外，不改变上面的结论。表 5 列的是 Γ 点本身的态。</li>
 </ul>
-<p><b>转变能量（图 6d）。</b><i>E</i><sub>LP</sub> − <i>E</i><sub>Γ–A</sub> 的两项取自同一个计算，与能量零点无关。轴上的态取 Γ、Δ 线和 A 中最高的一个，因为 Pb₂Bi₂Te₅ 的价带顶在 A，Pb₂Sb₂Te₅（PBE）与 Sn₂Bi₂Te₅ 的轴上最高点在 Δ 线中间；只取 Γ 会算错这几种情况。逐项数值见 <code>data/Fig6_valence_pockets/crossover_energy.csv</code>。</p>
+<p><b>转变能量（图 6d）。</b><i>E</i><sub>LP</sub> − <i>E</i><sub>Γ–A</sub> 的两项取自同一个计算，与能量零点无关。轴上的态取 Γ、Δ 线和 A 中最高的一个，因为 Pb₂Bi₂Te₅ 的价带顶在 A，Sn₂Bi₂Te₅ 的轴上最高点在 Δ 线中间；只取 Γ 会算错这两种情况。逐项数值见 <code>data/Fig6_valence_pockets/crossover_energy_HSE.csv</code>。</p>
 <ul>
-<li><b>HSE 下只有 Sn₂Bi₂Te₅ 为正</b>（+80 meV）；Pb₂Sb₂Te₅、Pb₂Bi₂Te₅、Sn₂Sb₂Te₅ 分别为 −236、−91、−131 meV。从 Sn₂Sb₂Te₅ 到 Sn₂Bi₂Te₅ 变化 211 meV；只看 Γ 点为 226 meV，即上文的“约 225 meV”。</li>
-<li><b>泛函的影响</b>：PBE → HSE 时，前三种分别下降 234、74、167 meV，Sn₂Bi₂Te₅ 只降 6 meV。Sn₂Sb₂Te₅ 在 PBE 下为 +35 meV，HSE 下为 −131 meV，泛函决定了它在零点哪一边；Sn₂Bi₂Te₅ 两种泛函下都为正。</li>
+<li><b>只有 Sn₂Bi₂Te₅ 为正</b>（+80 meV）；Pb₂Sb₂Te₅、Pb₂Bi₂Te₅、Sn₂Sb₂Te₅ 分别为 −236、−91、−131 meV。从 Sn₂Sb₂Te₅ 到 Sn₂Bi₂Te₅ 变化 211 meV；只看 Γ 点为 226 meV，即上文的“约 225 meV”。</li>
 <li><b>是下限</b>：孤对电子谷是离轴谷，真实极大比路径上的值高（c3 对 Sn₂Bi₂Te₅ 的外推为 5–60 meV，只作量级参考）；轴上的态在三重轴上，路径值就是极大。所以 Sn₂Bi₂Te₅ 的正号不受影响，负值的真实值会更接近零。</li>
 </ul>
 <p><b>拓扑。</b>Sn₂Sb₂Te₅、Pb₂Bi₂Te₅、Sn₂Bi₂Te₅ 在 PBE 和 HSE 下都是 Z₂ = (1;000)，反转都在 Γ：孤对电子的 s 态在 Γ 处被反转到阳离子 p 态之上，这正是非平庸拓扑的来源，也决定了 n 型载流子所在的态。三者 Γ 处的反转带隙（HSE 下 Sn₂Sb₂Te₅ 168、Pb₂Bi₂Te₅ 194、Sn₂Bi₂Te₅ 277 meV，即 Γ 处最低导带与最高价带之差，见图 2 源数据 <code>band_gaps_on_path.csv</code>）远大于数值误差。Pb₂Sb₂Te₅ 在 Γ 处只有 51 meV，宇称待补。</p>
@@ -374,7 +373,7 @@ sup.r { font-size: 11px; color: var(--accent); }
 <tr><td>图 3</td><td><code>Fig3_HSE_bands_cation_s</code></td><td><code>Fig3_HSE_bands_cation_s/</code>：HSE 路径能带及每个 k 点、每条带的阳离子 s 成分</td></tr>
 <tr><td>图 4</td><td><code>Fig4_cation_s_by_atom</code></td><td><code>Fig4_cation_s_by_atom/</code>：HSE 路径能带上每个 k 点、每条带的 A、B、Te 的 s 成分；关键态（表 4）</td></tr>
 <tr><td>图 5</td><td><code>Fig5_SnSb_vs_SnBi_orbitals</code></td><td><code>Fig5_SnSb_vs_SnBi/</code>：两种材料路径能带上的 Sn-s、B-s、Sn-p、B-p、Te-p 投影；四个价带态的能量与成分，Γ 处最高价带与最低导带的能量与成分（<code>Gamma_states.csv</code>）（表 5）</td></tr>
-<tr><td>图 6</td><td><code>Fig6_valence_pockets_crossover</code></td><td><code>Fig6_valence_pockets/</code>：Sn₂Sb₂Te₅、Sn₂Bi₂Te₅ 全部价带口袋的位置（分数与笛卡尔坐标、所在面、能量、等价口袋数；<code>pocket_positions.csv</code>）；四种材料 × 两种泛函的转变能量（<code>crossover_energy.csv</code>）</td></tr>
+<tr><td>图 6</td><td><code>Fig6_valence_pockets_crossover</code></td><td><code>Fig6_valence_pockets/</code>：Sn₂Sb₂Te₅、Sn₂Bi₂Te₅ 全部价带口袋的位置（分数与笛卡尔坐标、所在面、能量、等价口袋数；<code>pocket_positions.csv</code>）；四种材料的转变能量（HSE06+SOC，<code>crossover_energy_HSE.csv</code>）</td></tr>
 <tr><td>图 7</td><td><code>Fig7_lone_pair_valley_PBE_vs_HSE</code></td><td><code>Fig7_lone_pair_valley/</code>：最高孤对电子价带谷的能量、k 点与成分</td></tr>
 <tr><td>图 8</td><td><code>Fig8_Seebeck_PBE_vs_HSE</code></td><td><code>Fig8_Seebeck/</code>：300 K、3×10¹⁹ cm⁻³ 的 S；表 6 的逐谷电导份额（每个谷的位置、离带边能量、阳离子 s 成分、份额）与汇总；孤对电子谷份额随空穴浓度（10¹⁹–3×10²⁰ cm⁻³）的变化；Sn₂Bi₂Te₅ 的 c3 检验（梯度、主质量、驻点位移）</td></tr>
 <tr><td>图 9</td><td><code>Fig9_S_vs_T_experiment</code></td><td><code>Fig9_S_vs_T/</code>：实验数据、计算曲线、拟合汇总</td></tr>
