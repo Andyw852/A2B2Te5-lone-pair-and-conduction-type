@@ -79,6 +79,7 @@ data/                  每幅图的源数据，即图中画出的数值，目录
   Fig6_lone_pair_valley/      最高孤对电子价带谷相对价带顶的能量（meV）、所在 k 点与成分
   Fig7_Seebeck/               300 K、3×10^19 cm^-3 的面内 S：PBE+SOC（BoltzTraP2）与 HSE 估计；表 6 的逐谷电导份额
                               （valley_conductivity_shares.csv：每个谷的位置、离带边能量、阳离子 s 成分、份额；lone_pair_share_summary.csv：汇总）
+                              lone_pair_share_vs_concentration.csv：孤对电子谷份额随空穴浓度的变化；
                               Sn2Bi2Te5_c3_valley_check.csv：SnBi 价带谷 c3 拟合的梯度、主质量、驻点位移与是否采用
   Fig8_S_vs_T/                实验 S(T)、计算 S(T)（HSE 与 PBE 能带）、拟合浓度与最大偏差
   Fig9_formation_energies/    12 类缺陷逐位点的中性形成能（富 Te、贫 Te），两端化学势

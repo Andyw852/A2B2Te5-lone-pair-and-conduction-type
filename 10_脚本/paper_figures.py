@@ -532,7 +532,7 @@ def valley_index(name):
 def valley_shares():
     """表 4 的电导份额：多谷模型（HSE、CRTA、300 K、面内、3e19）中每个谷占总电导（含少数载流子）的比例，
     以及谷极值点处的阳离子 s 成分；p 型孤对电子谷 = 价带谷中阳离子 s ≥ 15% 者，n 型“Γ 导带”= Γ 或 Γ–A 驼峰处的导带谷。"""
-    K = kpath(); rows, summary = [], []
+    K = kpath(); rows, summary, scan = [], [], []
     for m in MATS:
         c3 = mv.c3_usable(m)[0]
         V, gap = mv.build(m, 'v', 300, c3); C, _ = mv.build(m, 'c', 300)
@@ -548,12 +548,19 @@ def valley_shares():
                 rows.append([m, lab, r(1000 * EF, 1), 'valence' if side == 'v' else 'conduction', name.split(' [')[0], i]
                             + [r(x, 4) for x in K[i]] + [r(1000 * v['off'], 1), v['g'], r(100 * cs, 1), r(100 * w, 2), 'yes' if flag else 'no'])
             summary.append([m, lab, r(100 * lp, 1)])
+        # p 型孤对电子谷份额随空穴浓度的变化（判据同上）
+        lpv = [name for name, v in zip([x[1] for x in parts[:len(V)]], V) if fs[valley_index(name), nel - 1] >= LP_MIN]
+        for N in (1e19, 3e19, 1e20, 3e20):
+            S, EF, pp = mv.solve(V, C, gap, N, 300)
+            scan.append([m, f'{N:.0e}', r(1000 * EF, 1), r(100 * sum(w for side, name, w in pp if side == 'v' and name in lpv), 1), r(S, 1)])
     dump('Fig7_Seebeck', 'valley_conductivity_shares.csv',
          ['material', 'carrier_type', 'EF_minus_VBM_meV', 'band', 'valley', 'k_index_on_path', 'k_frac_1', 'k_frac_2', 'k_frac_3',
           'offset_from_band_edge_meV', 'degeneracy_g', 'cation_s_percent', 'conductivity_share_percent',
           'counted (p: lone-pair valence valley, cation s >= 15%; n: Gamma conduction valley)'], rows)
     dump('Fig7_Seebeck', 'lone_pair_share_summary.csv',
          ['material', 'carrier_type', 'share_percent (p: lone-pair valence valleys; n: Gamma conduction valley)'], summary)
+    dump('Fig7_Seebeck', 'lone_pair_share_vs_concentration.csv',
+         ['material', 'hole_conc_cm-3', 'EF_minus_VBM_meV', 'lone_pair_valley_share_percent', 'S_model_raw_uV/K (HSE path model, not calibrated)'], scan)
     print('shares', summary)
     c3 = mv.c3_load('Sn2Bi2Te5')
     if c3:
