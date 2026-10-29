@@ -218,13 +218,18 @@ def build(material, kind, win, c3=None, side='c2_hse'):
     return valleys, gap
 
 
-def solve(V, C, gap, N, T, tau='crta'):
-    """tau='crta'：常数弛豫时间，σ(ε) ∝ g(ε)⟨v_x²⟩（与 BoltzTraP 的口径相同）；tau='adp'：声学形变势，τ ∝ 1/g(ε)，σ(ε) ∝ ⟨v_x²⟩。"""
+def _occ(T):
     kT = KB * T
 
     def occ(eta):            # 每个 ε 网格点的占据与 −∂f/∂ε
         f = 1 / (1 + np.exp(np.clip(EPS / kT - eta, -700, 700)))
         return f, f * (1 - f) / kT
+    return occ
+
+
+def fermi_level(V, C, gap, N, T):
+    """由电中性 p − n = N 解费米能级（相对价带顶，eV），并返回此时的空穴、电子浓度。"""
+    kT = KB * T; occ = _occ(T)
 
     def carriers(EF):
         p = sum(v['g'] * np.trapezoid(v['N'] * occ((-v['off'] - EF) / kT)[1], EPS) for v in V)
@@ -235,6 +240,13 @@ def solve(V, C, gap, N, T, tau='crta'):
         mid = (lo + hi) / 2; p, n = carriers(mid)
         lo, hi = (mid, hi) if p - n > N else (lo, mid)
     EF = (lo + hi) / 2
+    return EF, carriers(EF)
+
+
+def solve(V, C, gap, N, T, tau='crta'):
+    """tau='crta'：常数弛豫时间，σ(ε) ∝ g(ε)⟨v_x²⟩（与 BoltzTraP 的口径相同）；tau='adp'：声学形变势，τ ∝ 1/g(ε)，σ(ε) ∝ ⟨v_x²⟩。"""
+    kT = KB * T; occ = _occ(T)
+    EF, _ = fermi_level(V, C, gap, N, T)
     num = den = 0.0; parts = []
     for sgn, L in ((1, V), (-1, C)):
         for v in L:
@@ -245,6 +257,18 @@ def solve(V, C, gap, N, T, tau='crta'):
             s1 = v['g'] * np.trapezoid(sig * w * (EPS - eta * kT), EPS)
             num += sgn * s1; den += s0; parts.append(('v' if sgn > 0 else 'c', v['name'], s0))
     return num / den / T * 1e6, EF, [(s, nm, x / den) for s, nm, x in parts]
+
+
+def sigma_tau(V, C, gap, N, T):
+    """常数弛豫时间下的 σ/τ（任意单位，只用于同一材料的温度依赖）与空穴、电子浓度，口径与 solve 相同。"""
+    kT = KB * T; occ = _occ(T)
+    EF, (p, n) = fermi_level(V, C, gap, N, T)
+    den = 0.0
+    for sgn, L in ((1, V), (-1, C)):
+        for v in L:
+            eta = ((-v['off'] - EF) if sgn > 0 else (EF - gap - v['off'])) / kT
+            den += v['g'] * np.trapezoid(v['vx2'] * v['dos'] * occ(eta)[1], EPS)
+    return den, p, n
 
 
 def main():
