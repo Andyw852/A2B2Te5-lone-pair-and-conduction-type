@@ -6,13 +6,14 @@ Fig. 1  Structures: O/D 144-atom supercells (a, b) and side views of the user's 
 Fig. 2  PBE+SOC vs HSE06+SOC band structures (c2 path)                       22_能带基准_1-0/<mat>/c2_{pbe,hse}/path_eigen.txt
 Fig. 3  HSE06+SOC bands weighted by cation-s (lone-pair) character             22_能带基准_1-0/<mat>/c2_hse/PROCAR_OPT.gz
 Fig. 4  HSE06+SOC bands: which cation (A = Pb/Sn or B = Sb/Bi) carries the s weight   same
-Fig. 5  Energy of the highest lone-pair valence valley, PBE vs HSE            same
-Fig. 6  Seebeck coefficient at 3e19 cm-3: PBE (BoltzTraP2) vs HSE estimate     10_脚本/multivalley_seebeck.py
-        (+ per-valley conductivity shares and cation-s character for Table 5)
-Fig. 7  S(T) of all four compounds: experiment vs calculation (HSE and PBE)    experimental S(T) from the user;
+Fig. 5  Sn2Sb2Te5 vs Sn2Bi2Te5: Sn-5s and B-site p (Sb 5p / Bi 6p) projections near the VBM, and level diagram   same
+Fig. 6  Energy of the highest lone-pair valence valley, PBE vs HSE            same
+Fig. 7  Seebeck coefficient at 3e19 cm-3: PBE (BoltzTraP2) vs HSE estimate     10_脚本/multivalley_seebeck.py
+        (+ per-valley conductivity shares and cation-s character for Table 6)
+Fig. 8  S(T) of all four compounds: experiment vs calculation (HSE and PBE)    experimental S(T) from the user;
                                                                                A2B2Te5_SOC_dense/materials/<mat>/.../boltztrap_crta.json
-Fig. 8  Neutral formation energies of 12 defect types in O and D               13_DVO缺陷_VASP流程与分析/结果_第一批/analysis/形成能_逐位点.csv
-Fig. 9  Ordering-induced change of the formation energy, O − D                  same
+Fig. 9  Neutral formation energies of 12 defect types in O and D               13_DVO缺陷_VASP流程与分析/结果_第一批/analysis/形成能_逐位点.csv
+Fig. 10 Ordering-induced change of the formation energy, O − D                  same
 
 Every figure also writes its plotted numbers as CSV (UTF-8 with BOM) to --data/<figure name>/.
 
@@ -398,7 +399,78 @@ def fig4(out):
 
 
 # ------------------------------------------------------------------ Fig. 5
+C_A, C_B = '#5D3A9B', '#E66100'          # A 位（Sn）紫、B 位（Sb/Bi）橙，与图 4 的两端一致
+SNVAL = {'Γ': 0, '#11': 11, '#101': 101, '#119': 119}   # 价带：Γ 单谷与三组孤对电子谷（路径序号）
+
+
 def fig5(out):
+    """Sn₂Sb₂Te₅ 与 Sn₂Bi₂Te₅ 对比：上排 Sn 5s 投影（孤对电子谷），下排 B 位 p 投影（Γ 单谷），右侧为两者的能级。"""
+    mats = ['Sn2Sb2Te5', 'Sn2Bi2Te5']
+    fig = plt.figure(figsize=(W2, 4.7))
+    gs = fig.add_gridspec(2, 3, width_ratios=[1, 1, 0.55], hspace=0.36, wspace=0.12)
+    lv = {}
+    for c, m in enumerate(mats):
+        x, _ = rf.path_x(m); nel = NEL[m]; B_ = m[3:5]
+        E, gap = bands(m, 'c2_hse')
+        _, Wp = cv.read_procar(os.path.join(rf.base(m), 'c2_hse', 'PROCAR_OPT.gz'))
+        tot = np.maximum(Wp.sum((-1, -2)), 1e-9)
+        sn_s = Wp[:, :, [7, 8], 0].sum(-1) / tot; b_s = Wp[:, :, [0, 1], 0].sum(-1) / tot
+        b_p = Wp[:, :, [0, 1], 1:4].sum((-1, -2)) / tot; sn_p = Wp[:, :, [7, 8], 1:4].sum((-1, -2)) / tot
+        te_p = Wp[:, :, 2:7, 1:4].sum((-1, -2)) / tot
+        rows = []
+        for row, (w, wmax, col, lab) in enumerate(((sn_s, 0.25, C_A, 'Sn 5s'), (b_p, 0.45, C_B, f'{B_} {"5p" if B_ == "Sb" else "6p"}'))):
+            ax = fig.add_subplot(gs[row, c])
+            for b in range(nel - 8, nel + 6):
+                ax.plot(x[:KEND + 1], E[:KEND + 1, b], color='#C8C8C8', lw=0.5, zorder=1)
+                segs = [[(x[i], E[i, b]), (x[i + 1], E[i + 1, b])] for i in range(KEND)]
+                wid = [3.2 * np.clip((w[i, b] + w[i + 1, b]) / 2 / wmax, 0, 1) for i in range(KEND)]
+                ax.add_collection(LineCollection(segs, colors=col, linewidths=wid, capstyle='round', zorder=2))
+            ax.axhline(0, color='k', lw=0.5, ls=':')
+            kticks(ax, x); ax.set_ylim(-0.42, 0.30)
+            if c == 0: ax.set_ylabel(r'$E - E_{\mathrm{VBM}}$ (eV)')
+            else: ax.tick_params(labelleft=False)
+            ax.set_title(f'{TEX[m]}: {lab}', fontsize=8, pad=4, color=col)
+            panel(ax, f'({"abcd"[2 * row + c]})')
+            for nm, i in SNVAL.items():                      # 标出四个谷：上排标孤对电子谷，下排标 Γ 单谷
+                if (row == 0) == (nm != 'Γ'):
+                    xi = x[90] if nm == 'Γ' else x[i]
+                    ax.plot(xi, E[i, nel - 1] + 0.035, 'v', ms=3.2, color='k', zorder=3)
+        for nm, i in SNVAL.items():
+            bb = [nel - 2, nel - 1]; g = lambda X: r(100 * X[i, bb].mean(), 1)
+            lv[(m, nm)] = 1000 * E[i, bb].mean()
+            rows.append([nm, i] + [r(v, 4) for v in kpath()[i]] + [r(1000 * E[i, bb].mean(), 1), g(sn_s), g(b_s), g(sn_p), g(b_p), g(te_p)])
+        dump('Fig5_SnSb_vs_SnBi', f'{m}_valence_valleys.csv',
+             ['valley', 'path_k_index', 'k_frac_1', 'k_frac_2', 'k_frac_3', 'E-EVBM_meV', 'Sn_s_percent', f'{B_}_s_percent',
+              'Sn_p_percent', f'{B_}_p_percent', 'Te_p_percent'], rows)
+        dump('Fig5_SnSb_vs_SnBi', f'{m}_HSE06+SOC_projections.csv',
+             ['k_index', 'k_distance_1/A', 'label', 'band', 'E-EVBM_eV', 'Sn_s_percent', f'{B_}_s_percent', 'Sn_p_percent', f'{B_}_p_percent', 'Te_p_percent'],
+             [[i, r(x[i], 5), LAB.get(i, ''), bandname(b, nel), r(E[i, b], 5), r(100 * sn_s[i, b], 2), r(100 * b_s[i, b], 2),
+               r(100 * sn_p[i, b], 2), r(100 * b_p[i, b], 2), r(100 * te_p[i, b], 2)] for b in range(nel - 8, nel + 6) for i in range(KEND + 1)])
+    # (e) 能级：各自以价带顶为零点
+    ax = fig.add_subplot(gs[:, 2]); X = (0.0, 1.7); hw = 0.3
+    for nm, col, lw in (('Γ', C_B, 2.0), ('#11', C_A, 1.4), ('#101', C_A, 1.4), ('#119', C_A, 1.4)):
+        y = [lv[(m, nm)] for m in mats]
+        for k in range(2): ax.plot([X[k] - hw, X[k] + hw], [y[k]] * 2, color=col, lw=lw, solid_capstyle='butt')
+        ax.plot([X[0] + hw, X[1] - hw], y, color=col, lw=0.6, ls=(0, (2, 1.5)))
+    for k, m in enumerate(mats):                     # 标签放在各自能级上方
+        B_ = m[3:5]; top = max(lv[(m, v)] for v in ('#11', '#101', '#119'))
+        ax.text(X[k], lv[(m, 'Γ')] + 2.5, f'Γ ({B_} p)', ha='center', va='bottom', fontsize=6.5, color=C_B)
+        ax.text(X[k], top + 2.5 + (9 if k == 1 else 0), 'Sn 5s', ha='center', va='bottom', fontsize=6.5, color=C_A)
+    ax.axhline(0, color='k', lw=0.5, ls=':')
+    ax.set_xlim(-0.75, 2.45); ax.set_ylim(-165, 26)
+    ax.set_xticks(X, [TEX[m] for m in mats], fontsize=6.5); ax.tick_params(axis='x', top=False, length=0)
+    ax.set_ylabel(r'$E - E_{\mathrm{VBM}}$ (meV)'); ax.yaxis.set_label_position('right'); ax.yaxis.tick_right()
+    ax.tick_params(axis='y', left=True, labelleft=False, right=True, labelright=True)
+    ax.set_title('Valence-band levels', fontsize=8, pad=4)
+    panel(ax, '(e)', x=-0.04)
+    dump('Fig5_SnSb_vs_SnBi', 'levels.csv', ['valley', 'E_Sn2Sb2Te5_meV', 'E_Sn2Bi2Te5_meV'],
+         [[nm, r(lv[('Sn2Sb2Te5', nm)], 1), r(lv[('Sn2Bi2Te5', nm)], 1)] for nm in SNVAL])
+    save(fig, out, 'Fig5_SnSb_vs_SnBi_orbitals')
+    return {f'{a}|{b}': r(v, 1) for (a, b), v in lv.items()}
+
+
+# ------------------------------------------------------------------ Fig. 6
+def fig6(out):
     K = kpath(); rows = []
     fig, ax = plt.subplots(figsize=(W1, 2.1))
     kT2 = 2 * 1000 * mv.KB * 300
@@ -412,16 +484,16 @@ def fig5(out):
         ax.plot(p[0], j + 0.08, 'o', ms=4.5, color=C_PBE, mec='white', mew=0.6, zorder=3, label='PBE+SOC' if j == 0 else None)
         ax.plot(h[0], j - 0.08, 'o', ms=4.5, color=C_HSE, mec='white', mew=0.6, zorder=3, label='HSE06+SOC' if j == 0 else None)
         ax.text(h[0] - 7, j - 0.08, f'{h[0]:.0f}'.replace('-', '−'), ha='right', va='center', fontsize=6.3)
-    dump('Fig5_lone_pair_valley', 'highest_lone_pair_valley.csv',
+    dump('Fig6_lone_pair_valley', 'highest_lone_pair_valley.csv',
          ['material', 'functional', 'E-EVBM_meV', 'path_k_index', 'k_frac_1', 'k_frac_2', 'k_frac_3', 'cation_s_percent'], rows[::-1])
     ax.set_yticks(range(4), [TEX[m] for m in MATS[::-1]]); ax.set_ylim(-0.6, 3.85)
     ax.set_xlim(-275, 15); ax.set_xlabel('Highest lone-pair valence valley, $E - E_{\\mathrm{VBM}}$ (meV)')
     ax.tick_params(axis='y', length=0, right=False); ax.legend(loc='lower left', handletextpad=0.2, borderaxespad=0.2)
-    save(fig, out, 'Fig5_lone_pair_valley_PBE_vs_HSE')
+    save(fig, out, 'Fig6_lone_pair_valley_PBE_vs_HSE')
 
 
-# ------------------------------------------------------------------ Fig. 6
-def fig6(out):
+# ------------------------------------------------------------------ Fig. 7
+def fig7(out):
     est = rf.hse_estimates(); prov = mv.c3_provisional('Sn2Bi2Te5')
     fig, axs = plt.subplots(1, 2, figsize=(W2, 2.5), gridspec_kw=dict(wspace=0.18))
     xs = np.arange(4); w = 0.36
@@ -436,13 +508,13 @@ def fig6(out):
         ax.set_ylim(0, 270); ax.set_ylabel(r'$|S|$ (μV K$^{-1}$)' if k else r'$S$ (μV K$^{-1}$)')
         ax.text(0.04, 0.97, ('p-type' if k == 0 else 'n-type') + r', $3\times10^{19}$ cm$^{-3}$, 300 K', transform=ax.transAxes, ha='left', va='top', fontsize=7)
         panel(ax, f'({"ab"[k]})')
-    dump('Fig6_Seebeck', 'S_300K_3e19.csv', ['material', 'carrier_type', 'carrier_conc_cm-3', 'S_PBE+SOC_BoltzTraP2_uV/K',
+    dump('Fig7_Seebeck', 'S_300K_3e19.csv', ['material', 'carrier_type', 'carrier_conc_cm-3', 'S_PBE+SOC_BoltzTraP2_uV/K',
                                              'S_HSE06+SOC_estimate_uV/K', 'provisional'],
          [[m, 'pn'[k], 3e19, rf.BTP[m][k], r(est[m][k], 1), 'yes' if (k == 0 and m == 'Sn2Bi2Te5' and prov) else 'no']
           for k in range(2) for m in MATS])
     h, l = axs[0].get_legend_handles_labels()
     fig.legend(h, l, loc='upper center', ncol=2, bbox_to_anchor=(0.5, 1.07), handlelength=1.2)
-    save(fig, out, 'Fig6_Seebeck_PBE_vs_HSE')
+    save(fig, out, 'Fig7_Seebeck_PBE_vs_HSE')
     valley_shares()
     return est
 
@@ -476,11 +548,11 @@ def valley_shares():
                 rows.append([m, lab, r(1000 * EF, 1), 'valence' if side == 'v' else 'conduction', name.split(' [')[0], i]
                             + [r(x, 4) for x in K[i]] + [r(1000 * v['off'], 1), v['g'], r(100 * cs, 1), r(100 * w, 2), 'yes' if flag else 'no'])
             summary.append([m, lab, r(100 * lp, 1)])
-    dump('Fig6_Seebeck', 'valley_conductivity_shares.csv',
+    dump('Fig7_Seebeck', 'valley_conductivity_shares.csv',
          ['material', 'carrier_type', 'EF_minus_VBM_meV', 'band', 'valley', 'k_index_on_path', 'k_frac_1', 'k_frac_2', 'k_frac_3',
           'offset_from_band_edge_meV', 'degeneracy_g', 'cation_s_percent', 'conductivity_share_percent',
           'counted (p: lone-pair valence valley, cation s >= 15%; n: Gamma conduction valley)'], rows)
-    dump('Fig6_Seebeck', 'lone_pair_share_summary.csv',
+    dump('Fig7_Seebeck', 'lone_pair_share_summary.csv',
          ['material', 'carrier_type', 'share_percent (p: lone-pair valence valleys; n: Gamma conduction valley)'], summary)
     print('shares', summary)
     c3 = mv.c3_load('Sn2Bi2Te5')
@@ -492,14 +564,14 @@ def valley_shares():
             dk = -np.linalg.solve(H, g); dE = -0.5 * g @ np.linalg.solve(H, g)
             rows.append([k, r(v['E0'], 5)] + [r(x, 4) for x in g] + [r(x, 4) for x in v['principal']]
                         + [r(x, 4) for x in dk] + [r(1000 * dE, 1), 'yes' if ok else 'no', why])
-        dump('Fig6_Seebeck', 'Sn2Bi2Te5_c3_valley_check.csv',
+        dump('Fig7_Seebeck', 'Sn2Bi2Te5_c3_valley_check.csv',
              ['valley_k_index', 'E_center_eV', 'grad_line_eVA', 'grad_perp_eVA', 'grad_c_eVA',
               'principal_mass_1_me', 'principal_mass_2_me', 'principal_mass_3_me',
               'stationary_shift_line_1/A', 'stationary_shift_perp_1/A', 'stationary_shift_c_1/A',
               'quadratic_extrapolated_dE_meV', 'used_in_model', 'reason_not_used'], rows)
 
 
-# ------------------------------------------------------------------ Fig. 7
+# ------------------------------------------------------------------ Fig. 8
 # 实验 S(T)，从所给曲线图读取（µV/K）
 # 实验 S(T)（µV/K），用户提供。Pb₂Sb₂Te₅ 为原始数据（2026-10-29，见 21_阶段报告与交接/实验数据/），其余三种从所给曲线图读取
 EXP = {'Pb2Sb2Te5': [(301.58, 5.52), (319.32, 5.39), (370.16, 5.60), (418.62, 4.94), (468.56, 5.09), (519.25, 6.93), (568.17, 10.67), (619.36, 17.10)],
@@ -550,7 +622,7 @@ def solve_log(f, data, lo, hi, sign=1):
     return min(roots, key=lambda N: max(abs(f(N, t) - s) for t, s in data))
 
 
-def fig7(out):
+def fig8(out):
     Ts = np.arange(300, 641, 10)
     fig, axs = plt.subplots(2, 2, figsize=(W2, 4.9), gridspec_kw=dict(hspace=0.40, wspace=0.24))
     titles = {'Pb2Sb2Te5': 'near-compensated', 'Pb2Bi2Te5': 'n-type', 'Sn2Sb2Te5': 'p-type', 'Sn2Bi2Te5': 'p-type'}
@@ -596,15 +668,15 @@ def fig7(out):
     h = [plt.Line2D([], [], ls='', marker='o', ms=4, mfc='white', mec='k', mew=0.8), plt.Line2D([], [], color=C_HSE),
          plt.Line2D([], [], color=C_PBE, ls=DASH)]
     fig.legend(h, ['Experiment', 'HSE06+SOC bands', 'PBE+SOC bands'], loc='lower center', ncol=3, bbox_to_anchor=(0.5, 0.935))
-    dump('Fig7_S_vs_T', 'experiment_S_T.csv', ['material', 'T_K', 'S_exp_uV/K'], exp_rows)
-    dump('Fig7_S_vs_T', 'calculated_S_T.csv', ['material', 'bands', 'method', 'net_doping_p-n_cm-3', 'T_K', 'S_calc_uV/K'], calc_rows)
-    dump('Fig7_S_vs_T', 'fit_summary.csv', ['material', 'bands', 'method', 'net_doping_p-n_cm-3', 'fit_T_K', 'fit_S_exp_uV/K',
+    dump('Fig8_S_vs_T', 'experiment_S_T.csv', ['material', 'T_K', 'S_exp_uV/K'], exp_rows)
+    dump('Fig8_S_vs_T', 'calculated_S_T.csv', ['material', 'bands', 'method', 'net_doping_p-n_cm-3', 'T_K', 'S_calc_uV/K'], calc_rows)
+    dump('Fig8_S_vs_T', 'fit_summary.csv', ['material', 'bands', 'method', 'net_doping_p-n_cm-3', 'fit_T_K', 'fit_S_exp_uV/K',
                                              'max_deviation_calc-exp_uV/K'], fit_rows)
-    save(fig, out, 'Fig7_S_vs_T_experiment')
+    save(fig, out, 'Fig8_S_vs_T_experiment')
     return {f'{a}|{b}': (c, g) for a, b, _, c, _, _, g in fit_rows}
 
 
-# ------------------------------------------------------------------ Fig. 8, 9
+# ------------------------------------------------------------------ Fig. 9, 10
 NAMES = {'Pb_on_Vac': r'Pb$_{\mathrm{Vac}}$', 'Sb_on_Vac': r'Sb$_{\mathrm{Vac}}$', 'Te_on_Vac': r'Te$_{\mathrm{Vac}}$',
          'Sb_Pb': r'Sb$_{\mathrm{Pb}}$', 'Pb_Sb': r'Pb$_{\mathrm{Sb}}$', 'Te_Pb': r'Te$_{\mathrm{Pb}}$', 'Te_Sb': r'Te$_{\mathrm{Sb}}$',
          'Sb_Te': r'Sb$_{\mathrm{Te}}$', 'Pb_Te': r'Pb$_{\mathrm{Te}}$', 'V_Te': r'$V_{\mathrm{Te}}$', 'V_Pb': r'$V_{\mathrm{Pb}}$', 'V_Sb': r'$V_{\mathrm{Sb}}$'}
@@ -622,7 +694,7 @@ def ef_sites():
     return out
 
 
-def fig8(out):
+def fig9(out):
     d = rf.read_ef()
     fig, axs = plt.subplots(1, 2, figsize=(W2, 3.3), sharey=True, gridspec_kw=dict(wspace=0.06))
     for n, (ax, c) in enumerate(zip(axs, ('Te-rich', 'Te-poor'))):
@@ -643,16 +715,16 @@ def fig8(out):
     h, l = axs[0].get_legend_handles_labels()
     fig.legend(h, l, loc='upper center', ncol=2, bbox_to_anchor=(0.55, 1.04))
     order = {t: i for i, (t, _) in enumerate(ROWS)}
-    dump('Fig8_formation_energies', 'formation_energy_per_site.csv',
+    dump('Fig9_formation_energies', 'formation_energy_per_site.csv',
          ['phase', 'defect_type', 'nominal_charge', 'site', 'Ef_Te-rich_eV', 'Ef_Te-poor_eV'],
          [[a, b, c, s, r(x, 4), r(y, 4)] for a, b, c, s, x, y in sorted(ef_sites(), key=lambda t: (order[t[1]], t[0] != 'O', t[3]))])
     mu = json.load(open(os.path.join(DEFDIR, 'DVO_结论摘要.json')))['chemical_potentials']['conditions']
-    dump('Fig8_formation_energies', 'chemical_potentials.csv', ['condition', 'mu_Pb_eV', 'mu_Sb_eV', 'mu_Te_eV', 'dmu_Pb_eV', 'dmu_Sb_eV', 'dmu_Te_eV'],
+    dump('Fig9_formation_energies', 'chemical_potentials.csv', ['condition', 'mu_Pb_eV', 'mu_Sb_eV', 'mu_Te_eV', 'dmu_Pb_eV', 'dmu_Sb_eV', 'dmu_Te_eV'],
          [[c] + [r(mu[c][e], 4) for e in ('Pb', 'Sb', 'Te')] + [r(mu[c]['delta'][e], 4) for e in ('Pb', 'Sb', 'Te')] for c in ('Te-rich', 'Te-poor')])
-    save(fig, out, 'Fig8_defect_formation_energies')
+    save(fig, out, 'Fig9_defect_formation_energies')
 
 
-def fig9(out):
+def fig10(out):
     sites = ef_sites(); rows, med = [], []
     fig, ax = plt.subplots(figsize=(W1, 3.0))
     ax.axvline(0, color='k', lw=0.5)
@@ -670,9 +742,9 @@ def fig9(out):
     ax.set_xlim(-0.8, 2.0); ax.set_xlabel(r'$\Delta E_f = E_f^{\mathrm{O}} - E_f^{\mathrm{D}}$ (eV)')
     ax.text(-0.76, len(ROWS) - 0.95, 'donors', ha='left', va='center', fontsize=6.5, style='italic')
     ax.text(-0.76, len(rf.ACCEPT) - 0.95, 'acceptors', ha='left', va='center', fontsize=6.5, style='italic')
-    dump('Fig9_ordering', 'delta_Ef_per_site.csv', ['defect_type', 'nominal_charge', 'D_site', 'Ef_O_lowest_site_eV', 'Ef_D_eV', 'dEf_O-D_eV'], rows)
-    dump('Fig9_ordering', 'delta_Ef_median.csv', ['defect_type', 'nominal_charge', 'n_D_sites', 'median_dEf_O-D_eV'], med)
-    save(fig, out, 'Fig9_ordering_induced_change')
+    dump('Fig10_ordering', 'delta_Ef_per_site.csv', ['defect_type', 'nominal_charge', 'D_site', 'Ef_O_lowest_site_eV', 'Ef_D_eV', 'dEf_O-D_eV'], rows)
+    dump('Fig10_ordering', 'delta_Ef_median.csv', ['defect_type', 'nominal_charge', 'n_D_sites', 'median_dEf_O-D_eV'], med)
+    save(fig, out, 'Fig10_ordering_induced_change')
 
 
 def main():
@@ -681,10 +753,10 @@ def main():
     ap.add_argument('--data'); ap.add_argument('--only', nargs='+'); a = ap.parse_args()
     DATA = a.data or os.path.join(a.out, 'source_data')
     os.makedirs(a.out, exist_ok=True); style()
-    todo = a.only or [str(i) for i in range(1, 10)]
+    todo = a.only or [str(i) for i in range(1, 11)]
     info = {}
     for i in todo:
-        res = {'1': fig1, '2': fig2, '3': fig3, '4': fig4, '5': fig5, '6': fig6, '7': fig7, '8': fig8, '9': fig9}[i](a.out)
+        res = {'1': fig1, '2': fig2, '3': fig3, '4': fig4, '5': fig5, '6': fig6, '7': fig7, '8': fig8, '9': fig9, '10': fig10}[i](a.out)
         if res is not None: info[i] = res
     print(info); print('→', a.out, '；源数据 →', DATA)
 

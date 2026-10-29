@@ -5,8 +5,8 @@
        A2B2Te5_report_20261028/
          A2B2Te5_report.html     A2B2Te5_report_单文件.html     README.txt
          figures/png/  figures/pdf/
-         data/Fig1_structures/ … data/Fig9_ordering/   （paper_figures.py 写出的源数据）
-         data/tables/                                 （正文表 1–9，从 HTML 中抽出）
+         data/Fig1_structures/ … data/Fig10_ordering/   （paper_figures.py 写出的源数据）
+         data/tables/                                 （正文表 1–10，从 HTML 中抽出）
          data/L_layered_defects/                      （早先一批层状相缺陷计算的原始结果，取自 03_缺陷形成能与PN型数据/Pb2Sb2Te5.zip）
 
 用法：先运行 10_脚本/paper_figures.py 生成图与源数据，再 python 10_脚本/build_paper_report.py
@@ -66,8 +66,8 @@ D（无序立方）、O（有序立方）为 144 原子岩盐超胞；L 为所�
 
 A2B2Te5_report.html    报告正文（用浏览器打开；图片从 figures/png 读取，请先整体解压再打开）
 A2B2Te5_report_单文件.html  同一报告，图片已嵌入，单独打开或转发都能显示
-figures/png/           图 1–9，600 dpi PNG（文件名的 FigN 即正文的图 N）
-figures/pdf/           图 1–9，矢量 PDF（字体已嵌入，英文 Times New Roman，公式 STIX）
+figures/png/           图 1–10，600 dpi PNG（文件名的 FigN 即正文的图 N）
+figures/pdf/           图 1–10，矢量 PDF（字体已嵌入，英文 Times New Roman，公式 STIX）
 data/                  每幅图的源数据，即图中画出的数值，目录名与图文件名对应
   Fig1_structures/            O、D 两个 144 原子母胞的格点占位（每个格点的原子面、种类、坐标）与未弛豫 POSCAR；
                               所给的 9 原子层状结构 POSCAR（问题一的能带与 S 都用它）；图 1c、d 各原子面的高度与堆垛位置；
@@ -75,14 +75,15 @@ data/                  每幅图的源数据，即图中画出的数值，目录
   Fig2_bands_PBE_vs_HSE/      四种材料 PBE+SOC、HSE06+SOC 的路径能带（相对价带顶，eV），路径带隙
   Fig3_HSE_bands_cation_s/    HSE06+SOC 路径能带及每个 k 点、每条带的阳离子 s 成分（%）
   Fig4_cation_s_by_atom/      HSE06+SOC 路径能带上每个 k 点、每条带的 A（Pb/Sn）、B（Sb/Bi）、Te 的 s 成分（%）；关键态（表 4）
-  Fig5_lone_pair_valley/      最高孤对电子价带谷相对价带顶的能量（meV）、所在 k 点与成分
-  Fig6_Seebeck/               300 K、3×10^19 cm^-3 的面内 S：PBE+SOC（BoltzTraP2）与 HSE 估计；表 5 的逐谷电导份额
+  Fig5_SnSb_vs_SnBi/          Sn2Sb2Te5 与 Sn2Bi2Te5 路径能带上的 Sn-s、B-s、Sn-p、B-p、Te-p 投影；Γ 单谷与三组孤对电子谷的能量与成分（表 5）
+  Fig6_lone_pair_valley/      最高孤对电子价带谷相对价带顶的能量（meV）、所在 k 点与成分
+  Fig7_Seebeck/               300 K、3×10^19 cm^-3 的面内 S：PBE+SOC（BoltzTraP2）与 HSE 估计；表 6 的逐谷电导份额
                               （valley_conductivity_shares.csv：每个谷的位置、离带边能量、阳离子 s 成分、份额；lone_pair_share_summary.csv：汇总）
                               Sn2Bi2Te5_c3_valley_check.csv：SnBi 价带谷 c3 拟合的梯度、主质量、驻点位移与是否采用
-  Fig7_S_vs_T/                实验 S(T)、计算 S(T)（HSE 与 PBE 能带）、拟合浓度与最大偏差
-  Fig8_formation_energies/    12 类缺陷逐位点的中性形成能（富 Te、贫 Te），两端化学势
-  Fig9_ordering/              有序化引起的形成能变化 ΔE_f = E_f(O) − E_f(D)，逐位点与中位数
-  L_layered_defects/          早先一批在所给层状结构上（3×3×1，81 原子）的缺陷计算，即正文表 8、表 9 的 L 列：
+  Fig8_S_vs_T/                实验 S(T)、计算 S(T)（HSE 与 PBE 能带）、拟合浓度与最大偏差
+  Fig9_formation_energies/    12 类缺陷逐位点的中性形成能（富 Te、贫 Te），两端化学势
+  Fig10_ordering/             有序化引起的形成能变化 ΔE_f = E_f(O) − E_f(D)，逐位点与中位数
+  L_layered_defects/          早先一批在所给层状结构上（3×3×1，81 原子）的缺陷计算，即正文表 9、表 10 的 L 列：
                               L_defect_ranking_all_vertices.csv  5 个化学势顶点下全部缺陷在平衡费米能级处的形成能排名
                               L_formation_energy_results.json    原始结果（各电荷态的形成能、转变能级、化学势、载流子浓度）
   tables/                     正文表格：
