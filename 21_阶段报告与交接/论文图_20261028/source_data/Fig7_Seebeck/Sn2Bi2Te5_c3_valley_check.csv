@@ -1,4 +1,0 @@
-﻿valley_k_index,E_center_eV,grad_line_eVA,grad_perp_eVA,grad_c_eVA,principal_mass_1_me,principal_mass_2_me,principal_mass_3_me,stationary_shift_line_1/A,stationary_shift_perp_1/A,stationary_shift_c_1/A,quadratic_extrapolated_dE_meV,used_in_model,reason_not_used
-11,6.2312,-0.0988,-0.0,1.0607,0.0378,0.094,-1.1566,-0.0768,-0.0,-0.0488,-22.1,no,主曲率异号，是鞍点
-101,6.22614,0.0904,0.0,-0.2683,0.0465,0.091,1.9118,-0.0209,0.0,-0.0435,4.9,no,"驻点偏离采样点 [-0.021, 0.0, -0.044] Å⁻¹（线、面内垂直、c），超出采样半径；二次外推高 5 meV"
-119,6.21373,-0.0092,0.0,-2.581,0.1072,0.1139,0.3565,0.0263,0.0,-0.0483,62.2,no,"驻点偏离采样点 [0.026, 0.0, -0.048] Å⁻¹（线、面内垂直、c），超出采样半径；二次外推高 62 meV"
