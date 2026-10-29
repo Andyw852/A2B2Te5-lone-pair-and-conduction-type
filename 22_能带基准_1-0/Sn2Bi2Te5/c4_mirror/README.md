@@ -7,7 +7,7 @@ git fetch origin claude/keen-sagan-15fv7v
 git checkout -B claude/keen-sagan-15fv7v origin/claude/keen-sagan-15fv7v
 ```
 
-> **2026-10-29 晚：本目录的两种排布都在第 2 批崩溃（作业 313107、315591），不要再用。改用 [`../c4_mirror_w2/`](../c4_mirror_w2/README.md)：按 w 分组、每批单独一个作业。** 下面保留原说明作记录。
+> **2026-10-29 晚：本目录的两种排布都在第 2 批崩溃（作业 313107、315591），不要再用。根因已据 VASP 源码查明：网格步长 0.025 时 u = −0.125、−0.375 的分数坐标是奇数/24，正落在 FOCK_FCC 判据的取整边界上。改用 [`../c4_mirror_v3/`](../c4_mirror_v3/README.md)：步长 1/36，NKRED 2 2 1 不变。** 下面保留原说明作记录。
 >
 > **2026-10-29 更新：KPOINTS_OPT 已重排，INCAR 加了 `KPOINTS_OPT_NKBATCH = 36`。旧版 208 点的文件不要再用。**
 > 原文件在 NKRED 2 2 1 下崩溃：`internal error in FOCK_FCC: number of k-points incorrect 68 288 2 2 1`，见 `崩溃分析_FOCK_FCC_NKRED.md`。

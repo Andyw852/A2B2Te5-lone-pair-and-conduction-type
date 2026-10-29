@@ -23,22 +23,17 @@ KPOINTS_OPT 的排布（2026-10-29，针对 VASP 在 NKRED 2 2 1 下的 FOCK_FCC
   - 另加 4 个对称校验点（两个网格点的另两个等价表示），直接检验三种表示的能量相同。
   INCAR 必须设 KPOINTS_OPT_NKBATCH 等于 --nkbatch，批的边界才与锚点对齐。
 
-  2026-10-29 晚：这个排布（每批 kz 取 12 个值）第 2 批仍崩溃（作业 315591）。已知的批里，崩溃的都是 kz 取 12 个值、
-  Γ–A 线上点很少的批；kz 不超过 8 个值的批（c2、c3）从未出错。这只是经验规律，机制不明，所以新增的选项都把批内 kz 压少，
-  并且可以每批单独一个作业，生产作业本身就是检验：
-  - grid --wgroup 2：按 w 分组排批，每批只含 2 个 w（相差 1/2；第一组是 w = −1/2 与 0 两个自洽网格面）× 全部 u，加锚点，
-    批内 kz 只有 2–3 个值；空位用批内网格点的另一个旋转表示补足（kz 不变，同时作对称校验），除最后一批外每批恰好 nkbatch 个点；
-  - --split：另把每批写成 KPOINTS_OPT_b01 …，可各开一个作业并行算；analyze、fit 用 --parts 按批号顺序读各作业的 PROCAR_OPT；
-  - analyze --c5-group：c5 每个谷一批（锚点 + 11 点星形 + 补位），批内 kz 只有 3–5 个值。
+  2026-10-29 晚，根因（据 VASP 6.6.0 源码，见 write_kpoints 前的说明）：崩溃与批的排法无关，只取决于有没有分数坐标为
+  奇数/24 的点（NKRED = 2 的 x、y 方向）。原网格步长 0.025 时 u = −0.125、−0.375 正是这种点。现在 write_kpoints 遇到这种点直接报错；
+  网格改用步长 1/36（u = 0 … −15/36，含 −1/6、−1/3 两个 c2 谷所在的 u），NKRED 2 2 1 不变。
+  另有三个选项：--split 把每批另写成 KPOINTS_OPT_b01 …，可各开一个作业并行算；analyze、fit 用 --parts 按批号顺序读各作业的
+  PROCAR_OPT；--wgroup、--c5-group 按 w 或按谷排批（当时针对“批内 kz 取值数”的猜测，已不需要，保留备用）。
 
 用法（Sn2Bi2Te5）：
-  python 10_脚本/c4_mirror_scan.py grid Sn2Bi2Te5 --out 22_能带基准_1-0/Sn2Bi2Te5/c4_mirror
-  python 10_脚本/c4_mirror_scan.py analyze 22_能带基准_1-0/Sn2Bi2Te5/c4_mirror      # 同时写出 ../c5_star/KPOINTS_OPT
-  python 10_脚本/c4_mirror_scan.py fit 22_能带基准_1-0/Sn2Bi2Te5/c5_star
-按 w 分组、逐批作业：
-  python 10_脚本/c4_mirror_scan.py grid Sn2Bi2Te5 --out 22_能带基准_1-0/Sn2Bi2Te5/c4_mirror_w2 --wgroup 2 --split
-  python 10_脚本/c4_mirror_scan.py analyze 22_能带基准_1-0/Sn2Bi2Te5/c4_mirror_w2 --parts <各批目录，按 b01…b06> --c5-group --split
-  python 10_脚本/c4_mirror_scan.py fit 22_能带基准_1-0/Sn2Bi2Te5/c5_star --parts <各批目录>
+  python 10_脚本/c4_mirror_scan.py grid Sn2Bi2Te5 --out 22_能带基准_1-0/Sn2Bi2Te5/c4_mirror_v3 --du 1/36 --umin=-15/36 --split
+  python 10_脚本/c4_mirror_scan.py analyze 22_能带基准_1-0/Sn2Bi2Te5/c4_mirror_v3 --parts <b01…b06 的目录> --split   # 同时写出 ../c5_star/
+  python 10_脚本/c4_mirror_scan.py fit 22_能带基准_1-0/Sn2Bi2Te5/c5_star --parts <c5 各批目录>
+单个作业顺序跑全部批时，去掉 --parts，PROCAR_OPT 放在目录里即可。
 只依赖 numpy。
 """
 import argparse, gzip, json, os, sys
@@ -111,7 +106,27 @@ def frames(B):
     return eline, np.cross(z, eline), z
 
 
+# FOCK_FCC 的判据（VASP 6.6.0 源码 fock_dbl.F:1407、fock.F 的 SKIP_THIS_KPOINT_IN_FOCK）：对每个 KPOINTS_OPT 点 k，
+# 在 12×12×2 全网格上数 q = k_full − k 中 MOD(FLOOR((q+32)·NKP + 0.5), NKRED) = 0 的个数，必须恰好 288/(NKREDX·NKREDY·NKREDZ)。
+# 每个方向上 12 个网格坐标减去 k 再乘 12，是 12 个间隔为 1 的数，FLOOR 后模 2 恰好留下一半，与 k 无关；
+# 唯一的例外是 12·k 恰为半整数（k = 奇数/24）：这 12 个数全都正好落在整数上，FLOOR 取哪边由浮点舍入决定，个数就不再是一半。
+# c4 原网格（步长 0.025）中 u = −0.125、−0.375 正是这种点，崩溃的批都含它们，通过的批都不含。
+NKP_SCF, NKRED = (12, 12, 2), (2, 2, 1)
+
+
+def fock_unsafe(pts, tol=1e-3):
+    """返回会触发 FOCK_FCC 判据边界的点：NKRED ≥ 2 的方向上 NKP·k 离半整数不到 tol。"""
+    bad = []
+    for n, p in enumerate(pts):
+        for d in range(3):
+            if NKRED[d] >= 2 and abs((NKP_SCF[d] * p[d]) % 1 - 0.5) < tol: bad.append((n, d, p[d])); break
+    return bad
+
+
 def write_kpoints(path, title, pts):
+    bad = fock_unsafe(pts)
+    if bad: sys.exit(f'{path}：{len(bad)} 个点的分数坐标是奇数/24（NKRED = 2 的方向），会触发 FOCK_FCC 内部错误，'
+                     f'例如第 {bad[0][0] + 1} 点 {np.round(pts[bad[0][0]], 6).tolist()}。换网格步长或星形步长')
     with open(path, 'w') as f:
         f.write(title + '\n' + f'{len(pts)}\nReciprocal\n')
         for p in pts: f.write(''.join(f'{x:+.14f}  ' for x in p) + '     1\n')
@@ -442,11 +457,16 @@ def cmd_fit(a):
     print(f"# 写出 {os.path.join(a.dir, 'c5_masses.json')}")
 
 
+def frac(s):
+    from fractions import Fraction
+    return float(Fraction(s))
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     sub = ap.add_subparsers(dest='cmd', required=True)
     s = sub.add_parser('grid'); s.add_argument('material'); s.add_argument('--out', required=True)
-    s.add_argument('--umin', type=float, default=-0.40); s.add_argument('--du', type=float, default=0.025)
+    s.add_argument('--umin', type=frac, default=-0.40); s.add_argument('--du', type=frac, default=0.025, help='可写分数，如 1/36')
     s.add_argument('--nw', type=int, default=12)
     s.add_argument('--nkbatch', type=int, default=36, help='每批点数，INCAR 的 KPOINTS_OPT_NKBATCH 必须相同')
     s.add_argument('--no-rotate', dest='rotate', action='store_false', help='不做三重旋转轮换（全部写成 (u,0,w)）')
