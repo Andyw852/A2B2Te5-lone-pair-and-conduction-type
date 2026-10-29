@@ -304,7 +304,7 @@ def fig2(out):
                  [[i] + [r(v, 6) for v in K[i]] + [r(x[i], 5), LAB.get(i, '')] + [r(E[i, b], 5) for b in bs] for i in range(KEND + 1)])
         gaps.append([m, r(1000 * g['PBE'], 1), r(1000 * g['HSE'], 1)])
         ax.axhline(0, color='k', lw=0.5, ls=':', zorder=1)
-        kticks(ax, x); ax.set_ylim(-0.6, 0.6)
+        kticks(ax, x); ax.set_ylim(-0.66, 0.66); ax.set_yticks(np.arange(-0.6, 0.61, 0.2))
         ax.set_title(f'{TEX[m]}     $E_g$: PBE {1000 * g["PBE"]:.0f} meV, HSE {1000 * g["HSE"]:.0f} meV', fontsize=8, pad=4)
         panel(ax, f'({"abcd"[n]})')
     dump('Fig2_bands_PBE_vs_HSE', 'band_gaps_on_path.csv', ['material', 'Eg_PBE+SOC_meV', 'Eg_HSE06+SOC_meV'], gaps)
