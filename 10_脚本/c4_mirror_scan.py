@@ -14,6 +14,15 @@ K–Γ、H–A 线在二重轴上，那里的谷沿 c 的梯度由对称性为�
             为离带边 --win-v 内的价带极大、--win-c 内的导带极小写出 c5 的星形 KPOINTS_OPT（与 c3 相同的 11 点星形）。
   fit       读 c5 的 PROCAR_OPT(.gz)：每个谷的梯度、曲率、主质量；检查驻点是否落在采样半径内（同 multivalley_seebeck.c3_verdict）。
 
+KPOINTS_OPT 的排布（2026-10-29，针对 VASP 在 NKRED 2 2 1 下的 FOCK_FCC 内部错误“number of k-points incorrect”）：
+  原网格（全部 ky = 0，208 点）第 1 批通过、第 2 批崩溃；第 1 批含落在 12×12×2 自洽网格上的点（Γ、A），第 2 批没有。
+  为同时排除“批内点共面”和“批内没有自洽网格点”两种可能，现在：
+  - 网格点轮流写成三个等价表示 (u,0,w)、(−u,u,w)、(0,−u,w)（绕 c 轴转 0、120°、240°，能量严格相同），批内不再共面；
+  - 每批（KPOINTS_OPT_NKBATCH 个点，默认 36）的第 1 个点是一个“锚点”：c2 路径上同时在自洽网格与镜面内的点
+    （#0 Γ、#11、#22、#33 M、#97 A、#108、#119、#130 L），轮流使用；它们也是与 c2 对比的校验点；
+  - 另加 4 个对称校验点（两个网格点的另两个等价表示），直接检验三种表示的能量相同。
+  INCAR 必须设 KPOINTS_OPT_NKBATCH 等于 --nkbatch，批的边界才与锚点对齐。
+
 用法（Sn2Bi2Te5）：
   python 10_脚本/c4_mirror_scan.py grid Sn2Bi2Te5 --out 22_能带基准_1-0/Sn2Bi2Te5/c4_mirror
   python 10_脚本/c4_mirror_scan.py analyze 22_能带基准_1-0/Sn2Bi2Te5/c4_mirror      # 同时写出 ../c5_star/KPOINTS_OPT
@@ -27,6 +36,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 HB = 7.62                                     # ħ²/m_e，eV·Å²
 NEL = {'Pb2Sb2Te5': 68, 'Sn2Sb2Te5': 68, 'Pb2Bi2Te5': 88, 'Sn2Bi2Te5': 88}
 CHECKS = (0, 11, 101, 119)                    # c2 路径校验点：Γ 与三个镜面内的离轴谷
+ANCHORS = (0, 11, 22, 33, 97, 108, 119, 130)  # c2 路径上同时落在 12×12×2 自洽网格与镜面内的点，用作每批的锚点
 CATION_IONS = (0, 1, 7, 8)                    # 离子 1–2 为 B（Sb/Bi），8–9 为 A（Pb/Sn）
 STENCIL = [('0', 0, 0, 0), ('l+', 1, 0, 0), ('l-', -1, 0, 0), ('p+', 0, 1, 0), ('p-', 0, -1, 0),
            ('z+', 0, 0, 1), ('z-', 0, 0, -1), ('l+z+', 1, 0, 1), ('l-z-', -1, 0, -1), ('l+z-', 1, 0, -1), ('l-z+', -1, 0, 1)]
@@ -96,24 +106,61 @@ def write_kpoints(path, title, pts):
 
 
 # ------------------------------------------------------------------ c4：镜面网格
+def c3_images(f):
+    """绕 c 轴转 0、120°、240° 的等价点（六方 120° 设置下倒格矢变换 b1 → −b1 + b2 → −b2）：(u,v,w) → (−u−v, u, w) → (v, −u−v, w)。"""
+    u, v, w = f
+    return [np.array([u, v, w]), np.array([-u - v, u, w]), np.array([v, -u - v, w])]
+
+
+def layout(items, K, nkbatch):
+    """每 nkbatch 个点为一批，每批第 1 个是锚点（轮流取 ANCHORS），其后是 nkbatch − 1 个 items。返回 k 点列表与逐点记录。"""
+    pts, recs, n, a = [], [], 0, 0
+    while n < len(items):
+        i = ANCHORS[a % len(ANCHORS)]; a += 1
+        recs.append({'kind': 'anchor', 'path_index': i, 'k_index': len(pts)}); pts.append(np.array(K[i]))
+        for it in items[n:n + nkbatch - 1]:
+            it = dict(it); k = it.pop('k'); it['k_index'] = len(pts); pts.append(np.array(k)); recs.append(it)
+        n += nkbatch - 1
+    return pts, recs
+
+
 def cmd_grid(a):
     B = recip(a.material)
     us = np.round(np.arange(0, a.umin - 1e-9, -a.du), 10)
     ws = -0.5 + np.arange(a.nw) / a.nw
-    pts = [np.array([u, 0.0, w]) for u in us for w in ws]
     K = read_kpoints_opt(os.path.join(ROOT, '22_能带基准_1-0', 'c2_path', 'KPOINTS_OPT'))
-    chk = []
-    for i in CHECKS:
-        chk.append({'path_index': i, 'k_index': len(pts)}); pts.append(K[i])
+    items, n = [], 0
+    for iu, u in enumerate(us):
+        for jw, w in enumerate(ws):
+            r = n % 3 if a.rotate else 0; n += 1
+            items.append({'kind': 'grid', 'grid': [iu, jw], 'rep': r, 'k': c3_images((u, 0.0, w))[r].tolist()})
+    items.append({'kind': 'check', 'path_index': 101, 'k': K[101].tolist()})        # 不在自洽网格上的 c2 校验点
+    sym = []
+    for u0, w0 in ((-0.2, 0.25), (-0.35, -1 / 3)):
+        iu, jw = int(np.argmin(abs(us - u0))), int(np.argmin(abs(ws - w0)))
+        used = next(it['rep'] for it in items if it['kind'] == 'grid' and it['grid'] == [iu, jw])
+        for r in range(3):
+            if r != used:
+                items.append({'kind': 'symcheck', 'grid': [iu, jw], 'rep': r, 'k': c3_images((us[iu], 0.0, ws[jw]))[r].tolist()})
+    pts, recs = layout(items, K, a.nkbatch)
     os.makedirs(a.out, exist_ok=True)
     write_kpoints(os.path.join(a.out, 'KPOINTS_OPT'),
-                  f'c4 mirror-plane grid for {a.material}: (u,0,w), u in [{a.umin},0] step {a.du}, w in [-1/2,1/2) /{a.nw}; see c4_grid.json', pts)
-    meta = {'material': a.material, 'nelect': NEL[a.material], 'us': us.tolist(), 'ws': ws.tolist(),
-            'n_grid': len(us) * len(ws), 'checks': chk, 'n_kpoints': len(pts), 'B_rows_cart_invA': B.tolist()}
+                  f'c4 mirror-plane grid for {a.material}: u in [{a.umin},0] step {a.du}, w in [-1/2,1/2) /{a.nw}; '
+                  f'C3-rotated reps, one c2 anchor per batch of {a.nkbatch}; set KPOINTS_OPT_NKBATCH = {a.nkbatch}; see c4_grid.json', pts)
+    gk = [[None] * len(ws) for _ in us]
+    for r_ in recs:
+        if r_['kind'] == 'grid': gk[r_['grid'][0]][r_['grid'][1]] = r_['k_index']
+    meta = {'material': a.material, 'nelect': NEL[a.material], 'us': us.tolist(), 'ws': ws.tolist(), 'nkbatch': a.nkbatch,
+            'n_grid': len(us) * len(ws), 'grid_k_index': gk,
+            'checks': [{'path_index': r_['path_index'], 'k_index': r_['k_index']} for r_ in recs if r_['kind'] in ('anchor', 'check')],
+            'symchecks': [{'grid': r_['grid'], 'rep': r_['rep'], 'k_index': r_['k_index']} for r_ in recs if r_['kind'] == 'symcheck'],
+            'records': recs, 'n_kpoints': len(pts), 'B_rows_cart_invA': B.tolist()}
     json.dump(meta, open(os.path.join(a.out, 'c4_grid.json'), 'w'), indent=1, ensure_ascii=False)
     nb1, cz = np.linalg.norm(B[0]), B[2, 2]
-    print(f'{len(pts)} 个 k 点（网格 {len(us)}×{len(ws)} + 校验 {len(chk)}）→ {a.out}/KPOINTS_OPT；'
-          f'网格间距：沿线 {a.du * nb1:.4f} Å⁻¹，沿 c {cz / a.nw:.4f} Å⁻¹')
+    na = sum(r_['kind'] == 'anchor' for r_ in recs)
+    print(f'{len(pts)} 个 k 点 = 网格 {len(us)}×{len(ws)} + 锚点 {na}（每批 1 个）+ 校验 1 + 对称校验 {len(meta["symchecks"])}'
+          f' → {a.out}/KPOINTS_OPT；INCAR 设 KPOINTS_OPT_NKBATCH = {a.nkbatch}（共 {-(-len(pts) // a.nkbatch)} 批）')
+    print(f'网格间距：沿线 {a.du * nb1:.4f} Å⁻¹，沿 c {cz / a.nw:.4f} Å⁻¹')
 
 
 # ------------------------------------------------------------------ c4 分析
@@ -176,12 +223,20 @@ def cmd_analyze(a):
     if E.shape[0] != meta['n_kpoints']: sys.exit(f"PROCAR 有 {E.shape[0]} 个 k 点，应为 {meta['n_kpoints']}")
     P = read_path_eigen(os.path.join(mat_dir(m), 'c2_hse', 'path_eigen.txt'))
     dev = max(abs(E[c['k_index'], nel - 5:nel + 4] - P[c['path_index'], nel - 5:nel + 4]).max() for c in meta['checks'])
-    print(f'# {m}：校验点与 c2 路径（带边 ±4 条带）最大差 {1000 * dev:.3f} meV' + ('' if dev < 5e-4 else '  ← 超过 0.5 meV，先查输入是否与 c2 相同'))
+    print(f'# {m}：{len(meta["checks"])} 个校验点与 c2 路径（带边 ±4 条带）最大差 {1000 * dev:.3f} meV'
+          + ('' if dev < 5e-4 else ('  ← 超过 0.5 meV' + ('；按 --internal-ref 用本次计算的校验点作参考' if a.internal_ref else '，先查输入是否与 c2 相同'))))
     us, ws = np.array(meta['us']), np.array(meta['ws']); nu, nw = len(us), len(ws)
-    vb_path, cb_path = np.nanmax(P[:, nel - 1]), np.nanmin(P[:, nel])
+    gk = np.array(meta.get('grid_k_index') or np.arange(meta['n_grid']).reshape(nu, nw))
+    if meta.get('symchecks'):
+        sdev = max(abs(E[c['k_index'], nel - 5:nel + 4] - E[gk[c['grid'][0], c['grid'][1]], nel - 5:nel + 4]).max() for c in meta['symchecks'])
+        print(f'# 对称校验（同一点的不同旋转表示）最大差 {1000 * sdev:.4f} meV' + ('' if sdev < 1e-4 else '  ← 超过 0.1 meV，等价表示不成立，停下检查'))
+    if a.internal_ref:      # NKRED 与 c2 不同时：带边参考取本次计算中的 c2 校验点（SnBi 的路径价带顶在 #11、导带底在 Γ）
+        vb_path = max(E[c['k_index'], nel - 1] for c in meta['checks']); cb_path = min(E[c['k_index'], nel] for c in meta['checks'])
+    else:
+        vb_path, cb_path = np.nanmax(P[:, nel - 1]), np.nanmin(P[:, nel])
     res = {}
     for kind, b, ref in (('max', nel - 1, vb_path), ('min', nel, cb_path)):
-        G = E[:meta['n_grid'], b].reshape(nu, nw); F = fs[:meta['n_grid'], b].reshape(nu, nw)
+        G = E[gk, b]; F = fs[gk, b]
         ex = extrema(G, us, ws, kind, nb1, cz)
         for e in ex: e['cation_s'] = float(F[e['grid'][0], e['grid'][1]])
         res[kind] = ex
@@ -205,24 +260,29 @@ def cmd_analyze(a):
     # 只给经二次拟合确认的极值做星形；u = 0 是 Γ–A 线（三重轴），那里的谷已由对称性定好
     sel = [(k, e) for k, e in sel if e['refined'] and abs(e['u']) > 1e-6]
     K = read_kpoints_opt(os.path.join(ROOT, '22_能带基准_1-0', 'c2_path', 'KPOINTS_OPT'))
-    pts, vals = [], []
+    items, vals = [], []
     for n, (kind, e) in enumerate(sel):
-        c = np.array([e['u'], 0.0, e['w']])
-        vals.append({'label': f'{kind}{n}', 'kind': kind, 'band': nel if kind == 'v' else nel + 1, 'center_frac': c.tolist(),
-                     'E_c4_eV': e['E'], 'first_k': len(pts), 'delta': a.delta, 'delta_z': a.delta_z, 'stencil': [s[0] for s in STENCIL]})
-        pts += star_points(B, c, a.delta, a.delta_z)
-    chk = []
-    for i in CHECKS:
-        chk.append({'path_index': i, 'k_index': len(pts)}); pts.append(K[i])
+        c = np.array([e['u'], 0.0, e['w']]); lab = f'{kind}{n}'
+        vals.append({'label': lab, 'kind': kind, 'band': nel if kind == 'v' else nel + 1, 'center_frac': c.tolist(),
+                     'E_c4_eV': e['E'], 'delta': a.delta, 'delta_z': a.delta_z})
+        for (st, *_), kp in zip(STENCIL, star_points(B, c, a.delta, a.delta_z)):
+            items.append({'kind': 'star', 'label': lab, 'stencil': st, 'k': kp.tolist()})
+    items.append({'kind': 'check', 'path_index': 101, 'k': K[101].tolist()})
+    pts, recs = layout(items, K, a.nkbatch)
+    for v in vals:
+        v['k_indices'] = {r_['stencil']: r_['k_index'] for r_ in recs if r_.get('label') == v['label']}
+    chk = [{'path_index': r_['path_index'], 'k_index': r_['k_index']} for r_ in recs if r_['kind'] in ('anchor', 'check')]
     sd = os.path.join(os.path.dirname(os.path.abspath(a.dir)), 'c5_star')
     os.makedirs(sd, exist_ok=True)
-    write_kpoints(os.path.join(sd, 'KPOINTS_OPT'), f'c5 stars at the c4 mirror-plane extrema of {m}; see c5_points.json', pts)
+    write_kpoints(os.path.join(sd, 'KPOINTS_OPT'), f'c5 stars at the c4 mirror-plane extrema of {m}; one c2 anchor per batch of {a.nkbatch}; '
+                  f'set KPOINTS_OPT_NKBATCH = {a.nkbatch}; see c5_points.json', pts)
     eline, eperp, _ = frames(B)
-    json.dump({'material': m, 'nelect': nel, 'valleys': vals, 'checks': chk, 'n_kpoints': len(pts), 'vbm_c4': vbm, 'cbm_c4': cbm,
-               'path_vbm': vb_path, 'path_cbm': cb_path,
-               'e_line': eline.tolist(), 'e_perp': eperp.tolist(), 'B_rows_cart_invA': B.tolist()},
+    json.dump({'material': m, 'nelect': nel, 'valleys': vals, 'checks': chk, 'n_kpoints': len(pts), 'nkbatch': a.nkbatch,
+               'vbm_c4': vbm, 'cbm_c4': cbm, 'path_vbm': vb_path, 'path_cbm': cb_path, 'internal_ref': bool(a.internal_ref),
+               'e_line': eline.tolist(), 'e_perp': eperp.tolist(), 'B_rows_cart_invA': B.tolist(), 'records': recs},
               open(os.path.join(sd, 'c5_points.json'), 'w'), indent=1, ensure_ascii=False)
-    print(f'\n# c5：{len(sel)} 个谷（价带 {sum(k == "v" for k, _ in sel)}、导带 {sum(k == "c" for k, _ in sel)}）× 11 点 + {len(chk)} 个校验点 = {len(pts)} 个 k 点 → {sd}/KPOINTS_OPT')
+    print(f'\n# c5：{len(sel)} 个谷（价带 {sum(k == "v" for k, _ in sel)}、导带 {sum(k == "c" for k, _ in sel)}）× 11 点 + 锚点与校验 {len(chk)} 个'
+          f' = {len(pts)} 个 k 点 → {sd}/KPOINTS_OPT；INCAR 设 KPOINTS_OPT_NKBATCH = {a.nkbatch}')
 
 
 # ------------------------------------------------------------------ c5 拟合
@@ -233,11 +293,11 @@ def cmd_fit(a):
     if E.shape[0] != meta['n_kpoints']: sys.exit(f"PROCAR 有 {E.shape[0]} 个 k 点，应为 {meta['n_kpoints']}")
     P = read_path_eigen(os.path.join(mat_dir(m), 'c2_hse', 'path_eigen.txt'))
     dev = max(abs(E[c['k_index'], nel - 5:nel + 4] - P[c['path_index'], nel - 5:nel + 4]).max() for c in meta['checks'])
-    print(f'# {m}：校验点与 c2 路径最大差 {1000 * dev:.3f} meV')
+    print(f'# {m}：校验点与 c2 路径最大差 {1000 * dev:.3f} meV' + ('（内部参考模式：只看相对能量）' if meta.get('internal_ref') else ''))
     out = {}
     for v in meta['valleys']:
         b = v['band'] - 1; sg = -1 if v['kind'] == 'v' else 1
-        e = {s: E[v['first_k'] + i, b] for i, s in enumerate(v['stencil'])}
+        e = {st: E[k, b] for st, k in v['k_indices'].items()}; k0 = v['k_indices']['0']
         d, dz = v['delta'], v['delta_z']
         H = np.zeros((3, 3))
         H[0, 0] = (e['l+'] + e['l-'] - 2 * e['0']) / d ** 2
@@ -252,12 +312,12 @@ def cmd_fit(a):
         e0 = e['0'] + dE if (extremum and inside) else e['0']
         ml, mperp = sg * HB / H[0, 0], sg * HB / H[1, 1]
         out[v['label']] = {'kind': v['kind'], 'center_frac': v['center_frac'], 'E0': float(e['0']), 'E_extremum': float(e0),
-                           'cation_s': float(fs[v['first_k'], b]),
+                           'cation_s': float(fs[k0, b]),
                            'm': [float(ml), float(mperp), float(np.prod(mp) / (ml * mperp))], 'principal': mp.tolist(),
                            'H_eVA2_line_perp_c': H.tolist(), 'gradient': g.tolist(), 'stationary_shift_invA': s.tolist(),
                            'true_extremum_within_star': bool(extremum and inside)}
         print(f"{v['label']}（{'价带' if v['kind'] == 'v' else '导带'}，中心 {np.round(v['center_frac'], 4).tolist()}）："
-              f"极值能量 {e0:.5f} eV，阳离子 s {100 * fs[v['first_k'], b]:.1f}%")
+              f"极值能量 {e0:.5f} eV，阳离子 s {100 * fs[k0, b]:.1f}%")
         print(f"   梯度（线、面内垂直、c；eV·Å）{np.round(g, 4).tolist()}；主质量 {np.round(mp, 3).tolist()}；"
               f"驻点位移 {np.round(s, 4).tolist()} Å⁻¹ → {'在采样半径内，是真极值' if extremum and inside else '不满足（' + ('鞍点' if not extremum else '驻点超出采样半径') + '）'}")
     good = lambda k: [o['E_extremum'] for o in out.values() if o['kind'] == k and o['true_extremum_within_star']]
@@ -279,7 +339,11 @@ def main():
     s = sub.add_parser('grid'); s.add_argument('material'); s.add_argument('--out', required=True)
     s.add_argument('--umin', type=float, default=-0.40); s.add_argument('--du', type=float, default=0.025)
     s.add_argument('--nw', type=int, default=12)
+    s.add_argument('--nkbatch', type=int, default=36, help='每批点数，INCAR 的 KPOINTS_OPT_NKBATCH 必须相同')
+    s.add_argument('--no-rotate', dest='rotate', action='store_false', help='不做三重旋转轮换（全部写成 (u,0,w)）')
     s = sub.add_parser('analyze'); s.add_argument('dir')
+    s.add_argument('--nkbatch', type=int, default=36, help='c5 每批点数，INCAR 的 KPOINTS_OPT_NKBATCH 必须相同')
+    s.add_argument('--internal-ref', action='store_true', help='NKRED 与 c2 不同时：带边参考取本次计算中的 c2 校验点，而不是 c2 的数值')
     s.add_argument('--win-v', type=float, default=0.060, help='价带极大离价带顶多少 eV 以内做星形')
     s.add_argument('--win-c', type=float, default=0.100, help='导带极小离导带底多少 eV 以内做星形')
     s.add_argument('--delta', type=float, default=0.02); s.add_argument('--delta-z', type=float, default=0.03)
