@@ -23,10 +23,22 @@ KPOINTS_OPT 的排布（2026-10-29，针对 VASP 在 NKRED 2 2 1 下的 FOCK_FCC
   - 另加 4 个对称校验点（两个网格点的另两个等价表示），直接检验三种表示的能量相同。
   INCAR 必须设 KPOINTS_OPT_NKBATCH 等于 --nkbatch，批的边界才与锚点对齐。
 
+  2026-10-29 晚：这个排布（每批 kz 取 12 个值）第 2 批仍崩溃（作业 315591）。已知的批里，崩溃的都是 kz 取 12 个值、
+  Γ–A 线上点很少的批；kz 不超过 8 个值的批（c2、c3）从未出错。这只是经验规律，机制不明，所以新增的选项都把批内 kz 压少，
+  并且可以每批单独一个作业，生产作业本身就是检验：
+  - grid --wgroup 2：按 w 分组排批，每批只含 2 个 w（相差 1/2；第一组是 w = −1/2 与 0 两个自洽网格面）× 全部 u，加锚点，
+    批内 kz 只有 2–3 个值；空位用批内网格点的另一个旋转表示补足（kz 不变，同时作对称校验），除最后一批外每批恰好 nkbatch 个点；
+  - --split：另把每批写成 KPOINTS_OPT_b01 …，可各开一个作业并行算；analyze、fit 用 --parts 按批号顺序读各作业的 PROCAR_OPT；
+  - analyze --c5-group：c5 每个谷一批（锚点 + 11 点星形 + 补位），批内 kz 只有 3–5 个值。
+
 用法（Sn2Bi2Te5）：
   python 10_脚本/c4_mirror_scan.py grid Sn2Bi2Te5 --out 22_能带基准_1-0/Sn2Bi2Te5/c4_mirror
   python 10_脚本/c4_mirror_scan.py analyze 22_能带基准_1-0/Sn2Bi2Te5/c4_mirror      # 同时写出 ../c5_star/KPOINTS_OPT
   python 10_脚本/c4_mirror_scan.py fit 22_能带基准_1-0/Sn2Bi2Te5/c5_star
+按 w 分组、逐批作业：
+  python 10_脚本/c4_mirror_scan.py grid Sn2Bi2Te5 --out 22_能带基准_1-0/Sn2Bi2Te5/c4_mirror_w2 --wgroup 2 --split
+  python 10_脚本/c4_mirror_scan.py analyze 22_能带基准_1-0/Sn2Bi2Te5/c4_mirror_w2 --parts <各批目录，按 b01…b06> --c5-group --split
+  python 10_脚本/c4_mirror_scan.py fit 22_能带基准_1-0/Sn2Bi2Te5/c5_star --parts <各批目录>
 只依赖 numpy。
 """
 import argparse, gzip, json, os, sys
@@ -124,6 +136,66 @@ def layout(items, K, nkbatch):
     return pts, recs
 
 
+def fold_kz(w):
+    return round((w + 0.5) % 1 - 0.5, 6)
+
+
+def layout_groups(groups, extras, K, nkbatch, pad):
+    """按组排批：每组一批，批首是锚点（优先取 kz 与该组相同的），其后是该组的点；extras 放进有空位、且 kz 相同的批（没有就放进任一有空位的批）。
+    除最后一批外，每批用 pad(批内的点, 缺几个) 补足 nkbatch 个点，这样单个作业按 KPOINTS_OPT_NKBATCH 切出的批与组一一对应。
+    返回 k 点列表、逐点记录（含 batch）与每批的 [起, 止) 序号。"""
+    anc = {}
+    for i in ANCHORS: anc.setdefault(fold_kz(K[i][2]), []).append(i)
+    bat, na = [], 0
+    for g in groups:
+        if len(g) + 1 > nkbatch: sys.exit(f'一组 {len(g)} 个点加锚点超过每批 {nkbatch} 个')
+        pool = next((anc[z] for z in sorted({fold_kz(it['k'][2]) for it in g}) if z in anc), ANCHORS)
+        i = pool[na % len(pool)]; na += 1
+        bat.append([{'kind': 'anchor', 'path_index': i, 'k': list(K[i])}] + list(g))
+    for it in extras:
+        free = [b for b in bat if len(b) < nkbatch]
+        if not free: sys.exit('extras 放不下，增大 --nkbatch')
+        z = fold_kz(it['k'][2])
+        next((b for b in free if z in {fold_kz(x['k'][2]) for x in b}), free[0]).append(it)
+    bat.sort(key=lambda b: -len(b))                    # 不满的批放到最后
+    for b in bat[:-1]:
+        b += pad(b, nkbatch - len(b))
+        if len(b) != nkbatch: sys.exit('补点后批的大小仍不等于 nkbatch')
+    pts, recs, batches = [], [], []
+    for n, b in enumerate(bat):
+        s = len(pts)
+        for it in b:
+            it = dict(it); k = it.pop('k'); it['k_index'] = len(pts); it['batch'] = n; pts.append(np.array(k)); recs.append(it)
+        batches.append([s, len(pts)])
+    return pts, recs, batches
+
+
+def batch_summary(pts, batches):
+    """每批的点数、kz 取值数、Γ–A 线（kx = ky = 0）上的点数，供对照 FOCK_FCC 崩溃的经验规律。"""
+    out = []
+    for s, e in batches:
+        P = np.array(pts[s:e]); f = P - np.round(P)
+        out.append({'k_index': [s, e], 'n': e - s, 'n_kz': len({fold_kz(p[2]) for p in P}),
+                    'n_Gamma_A': int(np.sum(np.all(np.isclose(f[:, :2], 0, atol=1e-8), axis=1)))})
+    return out
+
+
+def write_batches(d, stem, title, pts, batches):
+    """每批另写一个 KPOINTS_OPT（<stem>_b01 …），可各开一个作业并行算；结果按批号顺序交给 analyze/fit 的 --parts。"""
+    for n, (s, e) in enumerate(batches):
+        write_kpoints(os.path.join(d, f'{stem}_b{n + 1:02d}'), f'{title} | batch {n + 1}/{len(batches)}, global k_index {s}-{e - 1}', pts[s:e])
+
+
+def read_parts(d, parts, meta):
+    """parts 为空时读 d 里的 PROCAR_OPT；否则按顺序读各批目录的 PROCAR_OPT 并接起来，逐批核对点数。"""
+    if not parts: return read_procar(find_procar(d))
+    got = [read_procar(find_procar(p)) for p in parts]
+    want = [e - s for s, e in meta.get('batches', [])]
+    if want and [E.shape[0] for E, _ in got] != want: sys.exit(f'各批 PROCAR 的 k 点数 {[E.shape[0] for E, _ in got]} 与记录 {want} 不符')
+    nb = min(E.shape[1] for E, _ in got)
+    return np.vstack([E[:, :nb] for E, _ in got]), np.vstack([f[:, :nb] for _, f in got])
+
+
 def cmd_grid(a):
     B = recip(a.material)
     us = np.round(np.arange(0, a.umin - 1e-9, -a.du), 10)
@@ -134,19 +206,35 @@ def cmd_grid(a):
         for jw, w in enumerate(ws):
             r = n % 3 if a.rotate else 0; n += 1
             items.append({'kind': 'grid', 'grid': [iu, jw], 'rep': r, 'k': c3_images((u, 0.0, w))[r].tolist()})
-    items.append({'kind': 'check', 'path_index': 101, 'k': K[101].tolist()})        # 不在自洽网格上的 c2 校验点
-    sym = []
-    for u0, w0 in ((-0.2, 0.25), (-0.35, -1 / 3)):
-        iu, jw = int(np.argmin(abs(us - u0))), int(np.argmin(abs(ws - w0)))
-        used = next(it['rep'] for it in items if it['kind'] == 'grid' and it['grid'] == [iu, jw])
-        for r in range(3):
-            if r != used:
-                items.append({'kind': 'symcheck', 'grid': [iu, jw], 'rep': r, 'k': c3_images((us[iu], 0.0, ws[jw]))[r].tolist()})
-    pts, recs = layout(items, K, a.nkbatch)
+    check = {'kind': 'check', 'path_index': 101, 'k': K[101].tolist()}               # 不在自洽网格上的 c2 校验点
+    symcheck = lambda iu, jw, r: {'kind': 'symcheck', 'grid': [iu, jw], 'rep': r, 'k': c3_images((us[iu], 0.0, ws[jw]))[r].tolist()}
+    batches = None
+    if a.wgroup:
+        # 按 w 分组：每批只含 a.wgroup 个 w（间隔 nw/wgroup，第一组是 w = −1/2 与 0 两个自洽网格面）× 全部 u，批内 kz 取值少
+        if a.nw % a.wgroup: sys.exit('--nw 必须能被 --wgroup 整除')
+        st = a.nw // a.wgroup
+        groups = [[it for it in items if it['grid'][1] % st == j] for j in range(st)]
+
+        def pad(b, n):                                 # 用批内网格点的另一个旋转表示补位（kz 不变），同时就是对称校验
+            g = [it for it in b if it['kind'] == 'grid']
+            mid = sorted(g, key=lambda it: (abs(us[it['grid'][0]] - a.umin / 2), it['grid'][1]))
+            return [symcheck(*it['grid'], (it['rep'] + 1) % 3) for it in mid[:n]]
+        pts, recs, batches = layout_groups(groups, [check], K, a.nkbatch, pad)
+    else:
+        items.append(check)
+        for u0, w0 in ((-0.2, 0.25), (-0.35, -1 / 3)):
+            iu, jw = int(np.argmin(abs(us - u0))), int(np.argmin(abs(ws - w0)))
+            used = next(it['rep'] for it in items if it['kind'] == 'grid' and it['grid'] == [iu, jw])
+            items += [symcheck(iu, jw, r) for r in range(3) if r != used]
+        pts, recs = layout(items, K, a.nkbatch)
     os.makedirs(a.out, exist_ok=True)
-    write_kpoints(os.path.join(a.out, 'KPOINTS_OPT'),
-                  f'c4 mirror-plane grid for {a.material}: u in [{a.umin},0] step {a.du}, w in [-1/2,1/2) /{a.nw}; '
-                  f'C3-rotated reps, one c2 anchor per batch of {a.nkbatch}; set KPOINTS_OPT_NKBATCH = {a.nkbatch}; see c4_grid.json', pts)
+    title = (f'c4 mirror-plane grid for {a.material}: u in [{a.umin},0] step {a.du}, w in [-1/2,1/2) /{a.nw}; '
+             + (f'{"C3-rotated reps" if a.rotate else "(u,0,w) reps"}, batches grouped by w ({a.wgroup} w values each), '
+                if a.wgroup else 'C3-rotated reps, ')
+             + f'one c2 anchor per batch of {a.nkbatch}; set KPOINTS_OPT_NKBATCH = {a.nkbatch}; see c4_grid.json')
+    write_kpoints(os.path.join(a.out, 'KPOINTS_OPT'), title, pts)
+    if batches is None: batches = [[s, min(s + a.nkbatch, len(pts))] for s in range(0, len(pts), a.nkbatch)]
+    if a.split: write_batches(a.out, 'KPOINTS_OPT', title, pts, batches)
     gk = [[None] * len(ws) for _ in us]
     for r_ in recs:
         if r_['kind'] == 'grid': gk[r_['grid'][0]][r_['grid'][1]] = r_['k_index']
@@ -154,13 +242,17 @@ def cmd_grid(a):
             'n_grid': len(us) * len(ws), 'grid_k_index': gk,
             'checks': [{'path_index': r_['path_index'], 'k_index': r_['k_index']} for r_ in recs if r_['kind'] in ('anchor', 'check')],
             'symchecks': [{'grid': r_['grid'], 'rep': r_['rep'], 'k_index': r_['k_index']} for r_ in recs if r_['kind'] == 'symcheck'],
-            'records': recs, 'n_kpoints': len(pts), 'B_rows_cart_invA': B.tolist()}
+            'records': recs, 'n_kpoints': len(pts), 'B_rows_cart_invA': B.tolist(),
+            'batches': batches, 'batch_summary': batch_summary(pts, batches)}
     json.dump(meta, open(os.path.join(a.out, 'c4_grid.json'), 'w'), indent=1, ensure_ascii=False)
     nb1, cz = np.linalg.norm(B[0]), B[2, 2]
     na = sum(r_['kind'] == 'anchor' for r_ in recs)
     print(f'{len(pts)} 个 k 点 = 网格 {len(us)}×{len(ws)} + 锚点 {na}（每批 1 个）+ 校验 1 + 对称校验 {len(meta["symchecks"])}'
-          f' → {a.out}/KPOINTS_OPT；INCAR 设 KPOINTS_OPT_NKBATCH = {a.nkbatch}（共 {-(-len(pts) // a.nkbatch)} 批）')
+          f' → {a.out}/KPOINTS_OPT；INCAR 设 KPOINTS_OPT_NKBATCH = {a.nkbatch}（共 {len(batches)} 批）')
     print(f'网格间距：沿线 {a.du * nb1:.4f} Å⁻¹，沿 c {cz / a.nw:.4f} Å⁻¹')
+    for n, s in enumerate(meta['batch_summary']):
+        print(f'  批 {n + 1}：k_index {s["k_index"][0]}–{s["k_index"][1] - 1}，{s["n"]} 点，kz 取值 {s["n_kz"]} 个，Γ–A 线上 {s["n_Gamma_A"]} 点'
+              + (f'  → KPOINTS_OPT_b{n + 1:02d}' if a.split else ''))
 
 
 # ------------------------------------------------------------------ c4 分析
@@ -219,7 +311,7 @@ def cmd_analyze(a):
     meta = json.load(open(os.path.join(a.dir, 'c4_grid.json')))
     m, nel = meta['material'], meta['nelect']
     B = np.array(meta['B_rows_cart_invA']); nb1, cz = np.linalg.norm(B[0]), B[2, 2]
-    E, fs = read_procar(find_procar(a.dir))
+    E, fs = read_parts(a.dir, a.parts, meta)
     if E.shape[0] != meta['n_kpoints']: sys.exit(f"PROCAR 有 {E.shape[0]} 个 k 点，应为 {meta['n_kpoints']}")
     P = read_path_eigen(os.path.join(mat_dir(m), 'c2_hse', 'path_eigen.txt'))
     dev = max(abs(E[c['k_index'], nel - 5:nel + 4] - P[c['path_index'], nel - 5:nel + 4]).max() for c in meta['checks'])
@@ -267,29 +359,46 @@ def cmd_analyze(a):
                      'E_c4_eV': e['E'], 'delta': a.delta, 'delta_z': a.delta_z})
         for (st, *_), kp in zip(STENCIL, star_points(B, c, a.delta, a.delta_z)):
             items.append({'kind': 'star', 'label': lab, 'stencil': st, 'k': kp.tolist()})
-    items.append({'kind': 'check', 'path_index': 101, 'k': K[101].tolist()})
-    pts, recs = layout(items, K, a.nkbatch)
+    check = {'kind': 'check', 'path_index': 101, 'k': K[101].tolist()}
+    nk5, batches = a.nkbatch, None
+    if a.c5_group and vals:
+        # 每个谷一批（锚点 + 11 点星形），批内 kz 只有 3–4 个；空位用星形中心的另两个旋转表示补（kz 不变，fit 不用它们）
+        groups = [[it for it in items if it['label'] == v['label']] for v in vals]
+        nk5 = max(len(g) for g in groups) + 2
+
+        def pad(b, n):
+            c = next(it for it in b if it.get('stencil') == '0')
+            return [{'kind': 'symcheck', 'label': c['label'], 'rep': r, 'k': c3_images(c['k'])[r].tolist()} for r in (1, 2)][:n]
+        pts, recs, batches = layout_groups(groups, [check], K, nk5, pad)
+    else:
+        pts, recs = layout(items + [check], K, nk5)
+    if batches is None: batches = [[s, min(s + nk5, len(pts))] for s in range(0, len(pts), nk5)]
     for v in vals:
-        v['k_indices'] = {r_['stencil']: r_['k_index'] for r_ in recs if r_.get('label') == v['label']}
+        v['k_indices'] = {r_['stencil']: r_['k_index'] for r_ in recs if r_['kind'] == 'star' and r_['label'] == v['label']}
     chk = [{'path_index': r_['path_index'], 'k_index': r_['k_index']} for r_ in recs if r_['kind'] in ('anchor', 'check')]
     sd = os.path.join(os.path.dirname(os.path.abspath(a.dir)), 'c5_star')
     os.makedirs(sd, exist_ok=True)
-    write_kpoints(os.path.join(sd, 'KPOINTS_OPT'), f'c5 stars at the c4 mirror-plane extrema of {m}; one c2 anchor per batch of {a.nkbatch}; '
-                  f'set KPOINTS_OPT_NKBATCH = {a.nkbatch}; see c5_points.json', pts)
+    title = (f'c5 stars at the c4 mirror-plane extrema of {m}; ' + ('one valley per batch, ' if a.c5_group else '')
+             + f'one c2 anchor per batch of {nk5}; set KPOINTS_OPT_NKBATCH = {nk5}; see c5_points.json')
+    write_kpoints(os.path.join(sd, 'KPOINTS_OPT'), title, pts)
+    if a.split: write_batches(sd, 'KPOINTS_OPT', title, pts, batches)
     eline, eperp, _ = frames(B)
-    json.dump({'material': m, 'nelect': nel, 'valleys': vals, 'checks': chk, 'n_kpoints': len(pts), 'nkbatch': a.nkbatch,
+    json.dump({'material': m, 'nelect': nel, 'valleys': vals, 'checks': chk, 'n_kpoints': len(pts), 'nkbatch': nk5,
+               'batches': batches, 'batch_summary': batch_summary(pts, batches),
                'vbm_c4': vbm, 'cbm_c4': cbm, 'path_vbm': vb_path, 'path_cbm': cb_path, 'internal_ref': bool(a.internal_ref),
                'e_line': eline.tolist(), 'e_perp': eperp.tolist(), 'B_rows_cart_invA': B.tolist(), 'records': recs},
               open(os.path.join(sd, 'c5_points.json'), 'w'), indent=1, ensure_ascii=False)
     print(f'\n# c5：{len(sel)} 个谷（价带 {sum(k == "v" for k, _ in sel)}、导带 {sum(k == "c" for k, _ in sel)}）× 11 点 + 锚点与校验 {len(chk)} 个'
-          f' = {len(pts)} 个 k 点 → {sd}/KPOINTS_OPT；INCAR 设 KPOINTS_OPT_NKBATCH = {a.nkbatch}')
+          f' = {len(pts)} 个 k 点 → {sd}/KPOINTS_OPT；INCAR 设 KPOINTS_OPT_NKBATCH = {nk5}（共 {len(batches)} 批）')
+    for n, s in enumerate(batch_summary(pts, batches)):
+        print(f'  批 {n + 1}：{s["n"]} 点，kz 取值 {s["n_kz"]} 个，Γ–A 线上 {s["n_Gamma_A"]} 点' + (f'  → KPOINTS_OPT_b{n + 1:02d}' if a.split else ''))
 
 
 # ------------------------------------------------------------------ c5 拟合
 def cmd_fit(a):
     meta = json.load(open(os.path.join(a.dir, 'c5_points.json')))
     m, nel = meta['material'], meta['nelect']
-    E, fs = read_procar(find_procar(a.dir))
+    E, fs = read_parts(a.dir, a.parts, meta)
     if E.shape[0] != meta['n_kpoints']: sys.exit(f"PROCAR 有 {E.shape[0]} 个 k 点，应为 {meta['n_kpoints']}")
     P = read_path_eigen(os.path.join(mat_dir(m), 'c2_hse', 'path_eigen.txt'))
     dev = max(abs(E[c['k_index'], nel - 5:nel + 4] - P[c['path_index'], nel - 5:nel + 4]).max() for c in meta['checks'])
@@ -341,7 +450,12 @@ def main():
     s.add_argument('--nw', type=int, default=12)
     s.add_argument('--nkbatch', type=int, default=36, help='每批点数，INCAR 的 KPOINTS_OPT_NKBATCH 必须相同')
     s.add_argument('--no-rotate', dest='rotate', action='store_false', help='不做三重旋转轮换（全部写成 (u,0,w)）')
+    s.add_argument('--wgroup', type=int, default=0, help='按 w 分组排批：每批只含这么多个 w（如 2），批内 kz 取值少；0 为原排布')
+    s.add_argument('--split', action='store_true', help='另把每批写成 KPOINTS_OPT_b01 …，可各开一个作业')
     s = sub.add_parser('analyze'); s.add_argument('dir')
+    s.add_argument('--parts', nargs='+', help='逐批作业的目录（按批号顺序），代替 dir 里的单个 PROCAR_OPT')
+    s.add_argument('--c5-group', action='store_true', help='c5 每个谷一批（锚点 + 11 点星形 + 补位），批内 kz 只有 3–4 个')
+    s.add_argument('--split', action='store_true', help='另把 c5 的每批写成 KPOINTS_OPT_b01 …')
     s.add_argument('--nkbatch', type=int, default=36, help='c5 每批点数，INCAR 的 KPOINTS_OPT_NKBATCH 必须相同')
     s.add_argument('--internal-ref', action='store_true', help='NKRED 与 c2 不同时：带边参考取本次计算中的 c2 校验点，而不是 c2 的数值')
     s.add_argument('--win-v', type=float, default=0.060, help='价带极大离价带顶多少 eV 以内做星形')
@@ -349,6 +463,7 @@ def main():
     s.add_argument('--delta', type=float, default=0.02); s.add_argument('--delta-z', type=float, default=0.03)
     s.add_argument('--show', type=int, default=8)
     s = sub.add_parser('fit'); s.add_argument('dir')
+    s.add_argument('--parts', nargs='+', help='逐批作业的目录（按批号顺序），代替 dir 里的单个 PROCAR_OPT')
     a = ap.parse_args()
     {'grid': cmd_grid, 'analyze': cmd_analyze, 'fit': cmd_fit}[a.cmd](a)
 
