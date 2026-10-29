@@ -259,18 +259,6 @@ def solve(V, C, gap, N, T, tau='crta'):
     return num / den / T * 1e6, EF, [(s, nm, x / den) for s, nm, x in parts]
 
 
-def sigma_tau(V, C, gap, N, T):
-    """常数弛豫时间下的 σ/τ（任意单位，只用于同一材料的温度依赖）与空穴、电子浓度，口径与 solve 相同。"""
-    kT = KB * T; occ = _occ(T)
-    EF, (p, n) = fermi_level(V, C, gap, N, T)
-    den = 0.0
-    for sgn, L in ((1, V), (-1, C)):
-        for v in L:
-            eta = ((-v['off'] - EF) if sgn > 0 else (EF - gap - v['off'])) / kT
-            den += v['g'] * np.trapezoid(v['vx2'] * v['dos'] * occ(eta)[1], EPS)
-    return den, p, n
-
-
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('--T', type=float, default=300)
