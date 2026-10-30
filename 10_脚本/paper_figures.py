@@ -627,8 +627,14 @@ def bz_3d(ax, m, B, P, zs):
             for z in zz:
                 ax.plot([c[0]], [c[1]], [z], 'o', ms=4.6 if big else 3.0, color=g['col'], mfc='white' if on_face(f) else g['col'],
                         mew=0.9, alpha=1.0 if big else 0.45)
-    ax.text(-0.10, 0, h + 0.06, 'A', fontsize=6.5, ha='center', va='bottom'); ax.text(0.12, -0.10, -0.08, 'Γ', fontsize=6.5, ha='left', va='top')
-    ax.view_init(elev=22, azim=-62); ax.set_box_aspect((1, 1, 2 * h / 1.9), zoom=1.35); ax.set_axis_off()
+    # 对称点标签，方向与 (a)(b) 的俯视图一致：Γ、A 在轴上，M/L 在 30° 方向的边中点，K/H 在 60° 方向的顶点
+    r0 = 0.5 * np.linalg.norm(B[0][:2]); a0 = np.arctan2(B[0][1], B[0][0]); kv = max(zip(hx, hy), key=lambda t: (round(t[1], 3), t[0]))
+    ax.text(0.06, 0, h + 0.03, 'A', fontsize=6.5, ha='left', va='bottom'); ax.text(0.06, 0, -0.03, 'Γ', fontsize=6.5, ha='left', va='top')
+    for z, (lm, lk) in ((h, ('L', 'H')), (-h, ('M', 'K'))):
+        ax.text(1.08 * r0 * np.cos(a0), 1.08 * r0 * np.sin(a0), z, lm, fontsize=6.5, ha='left', va='center')
+        ax.text(1.05 * kv[0], 1.05 * kv[1], z, lk, fontsize=6.5, ha='left', va='bottom')
+    # 从 −y 方向斜上方看：kx 水平向右，与俯视图 (a)(b) 的方向相同
+    ax.view_init(elev=18, azim=-90); ax.set_box_aspect((1, 1, 2 * h / 1.9), zoom=1.3); ax.set_axis_off()
 
 
 def fig6(out):
@@ -638,8 +644,12 @@ def fig6(out):
     gs = fig.add_gridspec(3, 3, width_ratios=[1, 1, 0.82], height_ratios=[1, 1.0, 0.9], wspace=0.04, hspace=0.10)
     zs = 4
     for k, m in enumerate(data):
-        bz_top(fig.add_subplot(gs[0, k]), m, *data[m], f'({"ab"[k]})')
-        ax = fig.add_subplot(gs[1, k], projection='3d')
+        at = fig.add_subplot(gs[0, k]); bz_top(at, m, *data[m], f'({"ab"[k]})')
+        # 三维面板与俯视面板对齐：中心放在俯视图六边形中心的正下方，宽度相同
+        at.apply_aspect(); pt = at.get_position(); x0, x1 = at.get_xlim()
+        cx = pt.x0 + (0 - x0) / (x1 - x0) * pt.width; c1 = gs[1, k].get_position(fig)
+        wd = 2.1 / (x1 - x0) * pt.width * 1.25
+        ax = fig.add_axes([cx - wd / 2, c1.y0, wd, c1.height], projection='3d')
         bz_3d(ax, m, *data[m], zs=zs)
         ax.text2D(0.5, 0.97, f'{TEX[m]}: 3D view ($k_z$ ×{zs})', transform=ax.transAxes, fontsize=8, ha='center', va='bottom')
         ax.text2D(0.04, 0.97, f'({"cd"[k]})', transform=ax.transAxes, fontsize=9, fontweight='bold', ha='right', va='bottom')
