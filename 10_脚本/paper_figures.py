@@ -373,6 +373,13 @@ def fig3(out):
         dump('Fig3_HSE_bands_cation_s', f'{m}_HSE06+SOC_cation_s.csv',
              ['k_index', 'k_frac_1', 'k_frac_2', 'k_frac_3', 'k_distance_1/A', 'label', 'band', 'E-EVBM_eV', 'cation_s_percent'], rows)
         ax.axhline(0, color='k', lw=0.5, ls=':'); ax.axhline(gap, color='k', lw=0.5, ls=':')
+        for nm, _E, kind, i in levels(m):                    # 标出图 6(e) 中的各谷，名称相同
+            if kind == 'ref': continue
+            y = E[i, nel - 1]
+            ax.plot(x[i], y + 0.035, 'v', ms=3.2, color='k', zorder=4)
+            dx = -0.05 if nm in ('Γ', 'Δ') else (0.05 if nm == 'A' else 0)
+            ax.text(x[i] + dx, y + 0.062, MATH.get(nm, nm), ha='right' if dx < 0 else ('left' if dx > 0 else 'center'), va='bottom',
+                    fontsize=7, zorder=4, bbox=dict(fc='white', ec='none', pad=0.4))
         kticks(ax, x); ax.set_ylim(-0.5, 0.5)
         ax.set_title(f'{TEX[m]}     $E_g$ = {1000 * gap:.0f} meV', fontsize=8, pad=4)
         panel(ax, f'({"abcd"[n]})')
@@ -659,24 +666,24 @@ def bz_3d(ax, m, B, P, zs):
 def levels(m):
     """HSE06+SOC 价带上的能级（相对价带顶，meV）：Γ–A 轴上的谷（Γ、Δ 或 A）、Γ 点本身（不是谷时作参照）、
     孤对电子谷（Sn 系用表 5 的 Σ、R₁、R₂；Pb 系取 Σ、R 线上阳离子 s ≥ 15% 的局部极大，260 meV 以内）。"""
-    v = top_vb(m, 'c2_hse'); ia = max(AXIS, key=lambda i: v[i]); out = [(kname(ia), v[ia], 'axis')]
-    if ia != 90: out.append(('Γ', v[0], 'ref'))
+    v = top_vb(m, 'c2_hse'); ia = max(AXIS, key=lambda i: v[i]); out = [(kname(ia), v[ia], 'axis', ia)]
+    if ia != 90: out.append(('Γ', v[0], 'ref', 90))
     if m.startswith('Sn'):
-        out += [(nm, v[i], 'lp') for nm, i in SNVAL.items() if nm != 'Γ']
+        out += [(nm, v[i], 'lp', i) for nm, i in SNVAL.items() if nm != 'Γ']
     else:
         x, _ = rf.path_x(m); nel = NEL[m]
         E = cv.read_path_eigen(os.path.join(rf.base(m), 'c2_hse', 'path_eigen.txt'))
         _, W = cv.read_procar(os.path.join(rf.base(m), 'c2_hse', 'PROCAR_OPT.gz')); fs = rf.cation_s(W)[:, nel - 2:nel].mean(1)
         for i, _m in cv.extrema(x, E[:, nel - 1], 'max', 600):
-            if (0 < i < 33 or 97 < i < 130) and fs[i] >= LP_MIN and v[i] > -260: out.append((kname(i), v[i], 'lp'))
+            if (0 < i < 33 or 97 < i < 130) and fs[i] >= LP_MIN and v[i] > -260: out.append((kname(i), v[i], 'lp', i))
     return out
 
 
 def fig6(out):
     """左列 Sn₂Sb₂Te₅、右列 Sn₂Bi₂Te₅：(a)(b) 价带口袋沿 c 俯视，(c)(d) 三维透视；(e) 四种材料的价带谷间能量差 ΔE。"""
     data = {m: pockets(m) for m in ('Sn2Sb2Te5', 'Sn2Bi2Te5')}
-    fig = plt.figure(figsize=(W2, 6.3))
-    gs = fig.add_gridspec(3, 3, width_ratios=[1, 1, 0.82], height_ratios=[1, 1.0, 0.9], wspace=0.04, hspace=0.10)
+    fig = plt.figure(figsize=(W2, 7.2))
+    gs = fig.add_gridspec(3, 3, width_ratios=[1, 1, 0.82], height_ratios=[1, 1.0, 1.35], wspace=0.04, hspace=0.10)
     zs = 4
     for k, m in enumerate(data):
         at = fig.add_subplot(gs[0, k]); bz_top(at, m, *data[m], f'({"ab"[k]})')
@@ -696,7 +703,7 @@ def fig6(out):
     L = {m: levels(m) for m in MATS}
     for m in MATS:
         x0 = X[m]
-        for nm, E, kind in L[m]:
+        for nm, E, kind, _i in L[m]:
             col = C_A if kind == 'lp' else C_B; ref = kind == 'ref'
             ax.plot([x0 - hw, x0 + hw], [E, E], color=col, lw=0.9 if ref else 1.6, ls=(0, (2, 1.5)) if ref else '-', zorder=2,
                     alpha=0.7 if ref else 1)
@@ -704,21 +711,21 @@ def fig6(out):
                 ax.plot(x0, E, MK.get(nm, 'o'), ms={'o': 4.2, 's': 3.6, 'D': 3.4}[MK.get(nm, 'o')],
                         color=col, mfc='white' if nm.startswith('R') else col, mew=0.8, zorder=3)
             lv_rows.append([m, nm, kind, r(E, 1)])
-        for nm, E, kind in L[m]:                                   # 轴上的谷标在左侧；不是谷的 Γ 点标在右侧
+        for nm, E, kind, _i in L[m]:                               # 轴上的谷标在左侧；不是谷的 Γ 点标在右侧
             if kind == 'axis': ax.text(x0 - hw - 0.04, E, nm, ha='right', va='center', fontsize=6.5, color=C_B)
             if kind == 'ref': ax.text(x0 + hw + 0.04, E, 'Γ (not a max)', ha='left', va='center', fontsize=6.0, color=C_B)
         d = by[m]['d']
-        ax.text(x0, 22, f"ΔE = {d:+.0f}".replace('-', '−'), ha='center', va='bottom', fontsize=6.5, color=C_A if d > 0 else C_B)
+        ax.text(x0, 30, f"ΔE = {d:+.0f}".replace('-', '−'), ha='center', va='center', fontsize=6.5, color=C_A if d > 0 else C_B)
     for (a1, a2) in (('Pb2Sb2Te5', 'Pb2Bi2Te5'), ('Sn2Sb2Te5', 'Sn2Bi2Te5')):   # 同一个态连虚线：Γ 点、Σ 谷
         for nm, col in (('Γ', C_B), ('Σ', C_A)):
-            e1 = next(E for n, E, k in L[a1] if n == nm); e2 = next(E for n, E, k in L[a2] if n == nm)
+            e1 = next(E for n, E, k, _ in L[a1] if n == nm); e2 = next(E for n, E, k, _ in L[a2] if n == nm)
             ax.plot([X[a1] + hw, X[a2] - hw], [e1, e2], color=col, lw=0.6, ls=(0, (2, 1.5)), zorder=1)
     ax.axhline(0, color='k', lw=0.5, ls=':')
     ax.set_xticks(list(X.values()), [TEX[m] for m in X]); ax.tick_params(axis='x', top=False, length=0)
-    ax.set_xlim(-0.6, 5.0); ax.set_ylim(-262, 40); ax.set_yticks(range(-250, 1, 50))
+    ax.set_xlim(-0.6, 5.0); ax.set_ylim(-262, 52); ax.set_yticks(range(-250, 1, 50))
     ax.set_ylabel(r'$E - E_{\mathrm{VBM}}$ (meV)')
     for xm, t in ((0.5, 'Pb series: Sb → Bi'), (3.4, 'Sn series: Sb → Bi')):
-        ax.text(xm, -0.14, t, ha='center', va='top', fontsize=7, transform=ax.get_xaxis_transform())   # 框外，材料名下方
+        ax.text(xm, -0.085, t, ha='center', va='top', fontsize=7, transform=ax.get_xaxis_transform())   # 框外，材料名下方
     ax.axvline(2.25, color=GRID, lw=0.6)
     ax.text(4.9, -2 * KT300 / 2, r'$2k_\mathrm{B}T$', ha='right', va='center', fontsize=6.3)
     ax.set_title('Valence-band levels of the four compounds (HSE06+SOC)', fontsize=8, pad=4)
