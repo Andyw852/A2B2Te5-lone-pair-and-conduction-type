@@ -625,16 +625,25 @@ def bz_3d(ax, m, B, P, zs):
         for c, f in zip(g['cart'], g['frac']):
             zz = (h, -h) if on_face(f) else (c[2] * zs,)          # 区界面上的口袋：顶面、底面是同一个，两处都画
             for z in zz:
-                ax.plot([c[0]], [c[1]], [z], 'o', ms=4.6 if big else 3.0, color=g['col'], mfc='white' if on_face(f) else g['col'],
-                        mew=0.9, alpha=1.0 if big else 0.45)
+                ax.plot([c[0]], [c[1]], [z], 'o', ms=3.8 if big else 2.6, color=g['col'], mfc='white' if on_face(f) else g['col'],
+                        mew=0.8, alpha=1.0 if big else 0.45)
+    # 每组谷标一次名称，与 (a)(b) 角上的小表对照：R₂ 标在右前方的口袋旁，R₁、Σ 标在左前方，Δ 标在上方的那个点旁
+    for g in P:
+        if g['name'] == 'Γ': continue
+        cs = [np.array([c[0], c[1], h if on_face(f) else c[2] * zs]) for c, f in zip(g['cart'], g['frac'])]
+        if g['name'] == 'R₂': c, dx, ha = max(cs, key=lambda c: (c[0], -c[1])), 0.07, 'left'
+        elif g['name'] == 'Δ': c, dx, ha = max(cs, key=lambda c: c[2]), 0.06, 'left'
+        else: c, dx, ha = min(cs, key=lambda c: (c[0], c[1])), -0.07, 'right'
+        ax.text(c[0] + dx, c[1], c[2], MATH.get(g['name'], g['name']), fontsize=6.5, ha=ha, va='center', color=g['col'],
+                alpha=1.0 if near(g['E']) else 0.6)
     # 对称点标签，方向与 (a)(b) 的俯视图一致：Γ、A 在轴上，M/L 在 30° 方向的边中点，K/H 在 60° 方向的顶点
     r0 = 0.5 * np.linalg.norm(B[0][:2]); a0 = np.arctan2(B[0][1], B[0][0]); kv = max(zip(hx, hy), key=lambda t: (round(t[1], 3), t[0]))
-    ax.text(0.06, 0, h + 0.03, 'A', fontsize=6.5, ha='left', va='bottom'); ax.text(0.06, 0, -0.03, 'Γ', fontsize=6.5, ha='left', va='top')
+    ax.text(0.03, 0, h + 0.05, 'A', fontsize=6.5, ha='left', va='bottom'); ax.text(0.06, 0, -0.03, 'Γ', fontsize=6.5, ha='left', va='top')
     for z, (lm, lk) in ((h, ('L', 'H')), (-h, ('M', 'K'))):
         ax.text(1.08 * r0 * np.cos(a0), 1.08 * r0 * np.sin(a0), z, lm, fontsize=6.5, ha='left', va='center')
         ax.text(1.05 * kv[0], 1.05 * kv[1], z, lk, fontsize=6.5, ha='left', va='bottom')
     # 从 −y 方向斜上方看：kx 水平向右，与俯视图 (a)(b) 的方向相同
-    ax.view_init(elev=18, azim=-90); ax.set_box_aspect((1, 1, 2 * h / 1.9), zoom=1.3); ax.set_axis_off()
+    ax.view_init(elev=30, azim=-90); ax.set_box_aspect((1, 1, 2 * h / 1.9), zoom=1.3); ax.set_axis_off()
 
 
 def fig6(out):
@@ -651,8 +660,8 @@ def fig6(out):
         wd = 2.1 / (x1 - x0) * pt.width * 1.25
         ax = fig.add_axes([cx - wd / 2, c1.y0, wd, c1.height], projection='3d')
         bz_3d(ax, m, *data[m], zs=zs)
-        ax.text2D(0.5, 0.97, f'{TEX[m]}: 3D view ($k_z$ ×{zs})', transform=ax.transAxes, fontsize=8, ha='center', va='bottom')
-        ax.text2D(0.04, 0.97, f'({"cd"[k]})', transform=ax.transAxes, fontsize=9, fontweight='bold', ha='right', va='bottom')
+        ax.text2D(0.5, 1.04, f'{TEX[m]}: 3D view ($k_z$ ×{zs})', transform=ax.transAxes, fontsize=8, ha='center', va='bottom')
+        ax.text2D(-0.08, 1.04, f'({"cd"[k]})', transform=ax.transAxes, fontsize=9, fontweight='bold', ha='right', va='bottom')
     # (e) 价带谷间能量差 ΔE（HSE06+SOC）：正为孤对电子多谷在上（紫），负为 Γ–A 轴上的态在上（橙），与 (a)–(d) 同色
     rows = crossover(); by = {d['m']: d for d in rows}
     ax = fig.add_subplot(gs[2, :2])
@@ -677,7 +686,7 @@ def fig6(out):
          Line2D([], [], ls='', marker='o', ms=5, color='#555555', label=r'filled: $k_z$ = 0 plane or inside'),
          Line2D([], [], ls='', marker='o', ms=5, color='#555555', mfc='white', label=r'open: $k_z$ = ½ zone face'),
          Line2D([], [], ls='', marker='o', ms=3.4, color=C_A, alpha=0.45, label=r'faded: more than $2k_\mathrm{B}T$ below VBM')]
-    lg.legend(handles=h, loc='upper left', bbox_to_anchor=(0.04, 0.80), title='(a)–(d)', title_fontsize=7, handletextpad=0.3, labelspacing=0.6, borderaxespad=0)
+    lg.legend(handles=h, loc='upper left', bbox_to_anchor=(0.04, 0.80), title='(a)–(d): reciprocal (k) space;\neach symbol is a valley, not an atom', title_fontsize=7, handletextpad=0.3, labelspacing=0.6, borderaxespad=0)
     lg.text(0.06, 0.30, 'Labels: line names of the hexagonal zone\n(Σ: Γ–M, R: A–L, Δ: Γ–A); energies in meV\nrelative to the VBM; ×n = equivalent pockets.',
             transform=lg.transAxes, fontsize=6.3, va='bottom', ha='left', color='#333333')
     save(fig, out, 'Fig6_valence_pockets_crossover')
