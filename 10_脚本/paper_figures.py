@@ -583,6 +583,10 @@ def hexagon(B):
     return np.hypot(*K0[:2]) * np.cos(a), np.hypot(*K0[:2]) * np.sin(a)
 
 
+MK = {'Γ': 'o', 'Δ': 'o', 'Σ': 'o', 'R₁': 's', 'R₂': 'D'}   # 形状区分谷：Σ 圆、R₁ 方、R₂ 菱形；实心/空心区分所在面
+MS = {'s': 0.62, 'D': 0.8}                                    # 方块、菱形看起来比圆大，略缩小
+
+
 def near(E):
     return E >= -2 * KT300                      # 价带顶 2k_BT 以内：画大、画实
 
@@ -600,7 +604,7 @@ def bz_top(ax, m, B, P, letter):
     for g in P:
         big = near(g['E'])
         for c, f in zip(g['cart'], g['frac']):
-            ax.plot(c[0], c[1], 'o', ms=5.6 if big else 3.4, mew=0.9, color=g['col'], mfc='white' if on_face(f) else g['col'],
+            ax.plot(c[0], c[1], MK[g['name']], ms=(5.6 if big else 3.4) * MS.get(MK[g['name']], 1), mew=0.9, color=g['col'], mfc='white' if on_face(f) else g['col'],
                     alpha=1.0 if big else 0.45, zorder=3)
     Mq = max(M, key=lambda c: c[0] + 0.1 * c[1]); kv = max(zip(hx, hy), key=lambda t: (round(t[1], 3), t[0]))
     ax.text(Mq[0] + 0.04, Mq[1], 'M (L)', ha='left', va='center', fontsize=6.5)
@@ -610,7 +614,7 @@ def bz_top(ax, m, B, P, letter):
     y = -0.66                                     # 右下角小表：位置名、相对价带顶的能量（meV）、等价口袋数
     for g in P:
         al = 1.0 if near(g['E']) else 0.45
-        ax.plot(0.74, y, 'o', ms=3.4, mew=0.8, color=g['col'], mfc='white' if all(map(on_face, g['frac'])) else g['col'], alpha=al)
+        ax.plot(0.74, y, MK[g['name']], ms=3.6 * (0.9 if MK[g['name']] == 's' else MS.get(MK[g['name']], 1)), mew=0.8, color=g['col'], mfc='white' if all(map(on_face, g['frac'])) else g['col'], alpha=al)
         ax.text(0.83, y, MATH.get(g['name'], g['name']), ha='left', va='center', fontsize=6.3)
         ax.text(1.66, y, f"{g['E']:.0f}".replace('-', '−') + f"  ×{len(g['frac'])}", ha='right', va='center', fontsize=6.3)
         y -= 0.115
@@ -630,7 +634,7 @@ def bz_3d(ax, m, B, P, zs):
         for c, f in zip(g['cart'], g['frac']):
             zz = (h, -h) if on_face(f) else (c[2] * zs,)          # 区界面上的口袋：顶面、底面是同一个，两处都画
             for z in zz:
-                ax.plot([c[0]], [c[1]], [z], 'o', ms=3.8 if big else 2.6, color=g['col'], mfc='white' if on_face(f) else g['col'],
+                ax.plot([c[0]], [c[1]], [z], MK[g['name']], ms=(3.8 if big else 2.6) * MS.get(MK[g['name']], 1), color=g['col'], mfc='white' if on_face(f) else g['col'],
                         mew=0.8, alpha=1.0 if big else 0.45)
     # 每组谷标一次名称，与 (a)(b) 角上的小表对照：R₂ 标在右前方的口袋旁，R₁、Σ 标在左前方，Δ 标在上方的那个点旁
     for g in P:
@@ -687,8 +691,10 @@ def fig6(out):
     panel(ax, '(e)')
     # 右侧：(a)–(d) 的图例
     lg = fig.add_subplot(gs[0:2, 2]); lg.axis('off')
-    h = [Line2D([], [], ls='', marker='o', ms=5, color=C_B, label='Γ–A axis state (p orbitals)'),
-         Line2D([], [], ls='', marker='o', ms=5, color=C_A, label='Sn 5s lone-pair valley'),
+    h = [Line2D([], [], ls='', marker='o', ms=5, color=C_B, label='Γ / Δ: Γ–A axis state (p orbitals)'),
+         Line2D([], [], ls='', marker='o', ms=5, color=C_A, label='Σ: lone-pair valley on Γ–M'),
+         Line2D([], [], ls='', marker='s', ms=4.5, color=C_A, mfc='white', label=r'R$_1$: lone-pair valley on A–L, near A'),
+         Line2D([], [], ls='', marker='D', ms=4.0, color=C_A, mfc='white', label=r'R$_2$: lone-pair valley on A–L, near L'),
          Line2D([], [], ls='', marker='o', ms=5, color='#555555', label=r'filled: $k_z$ = 0 plane or inside'),
          Line2D([], [], ls='', marker='o', ms=5, color='#555555', mfc='white', label=r'open: $k_z$ = ½ zone face'),
          Line2D([], [], ls='', marker='o', ms=3.4, color=C_A, alpha=0.45, label=r'faded: more than $2k_\mathrm{B}T$ below VBM')]
