@@ -1,0 +1,9 @@
+# c5_star 能量（2 个价带谷 x 11 点星形，24 点单批）
+# energy(sigma->0) = -42.33270480
+# E-fermi = 6.3338
+# EDIFF reached = 1
+# General timing = 1
+# 批后 DAV 步数 = 20
+# SCF 电子步 = 6
+# FOCK_FCC 报错 = 0
+# 参考：c_hse_A -42.33270332 ; c3_valley -42.33270481 ; c4_v3 各批 -42.33270480
