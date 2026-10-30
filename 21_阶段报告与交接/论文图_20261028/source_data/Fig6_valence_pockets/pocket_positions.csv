@@ -1,40 +1,46 @@
-﻿material,valley,path_k_index,k_frac_1,k_frac_2,k_frac_3,kx_1/A,ky_1/A,kz_1/A,plane,E-EVBM_meV (HSE06+SOC),n_equivalent_pockets
-Sn2Sb2Te5,Γ,90,0.0,0.0,0.0,0.0,0.0,0.0,kz=0,0.0,1
-Sn2Sb2Te5,Σ,11,0.1667,0.0,0.0,0.2405,0.1388,0.0,kz=0,-131.5,6
-Sn2Sb2Te5,Σ,11,-0.1667,0.0,0.0,-0.2405,-0.1388,0.0,kz=0,-131.5,6
-Sn2Sb2Te5,Σ,11,0.1667,-0.1667,0.0,0.2405,-0.1388,0.0,kz=0,-131.5,6
-Sn2Sb2Te5,Σ,11,-0.1667,0.1667,0.0,-0.2405,0.1388,0.0,kz=0,-131.5,6
-Sn2Sb2Te5,Σ,11,0.0,0.1667,0.0,0.0,0.2777,0.0,kz=0,-131.5,6
-Sn2Sb2Te5,Σ,11,0.0,-0.1667,0.0,0.0,-0.2777,0.0,kz=0,-131.5,6
-Sn2Sb2Te5,R₁,101,0.0606,0.0,0.5,0.0874,0.0505,0.1824,kz=1/2 zone face,-141.0,6
-Sn2Sb2Te5,R₁,101,-0.0606,0.0,0.5,-0.0874,-0.0505,0.1824,kz=1/2 zone face,-141.0,6
-Sn2Sb2Te5,R₁,101,0.0606,-0.0606,0.5,0.0874,-0.0505,0.1824,kz=1/2 zone face,-141.0,6
-Sn2Sb2Te5,R₁,101,-0.0606,0.0606,0.5,-0.0874,0.0505,0.1824,kz=1/2 zone face,-141.0,6
-Sn2Sb2Te5,R₁,101,0.0,0.0606,0.5,0.0,0.101,0.1824,kz=1/2 zone face,-141.0,6
-Sn2Sb2Te5,R₁,101,0.0,-0.0606,0.5,0.0,-0.101,0.1824,kz=1/2 zone face,-141.0,6
-Sn2Sb2Te5,R₂,119,0.3333,0.0,0.5,0.481,0.2777,0.1824,kz=1/2 zone face,-145.9,6
-Sn2Sb2Te5,R₂,119,-0.3333,0.0,0.5,-0.481,-0.2777,0.1824,kz=1/2 zone face,-145.9,6
-Sn2Sb2Te5,R₂,119,0.3333,-0.3333,0.5,0.481,-0.2777,0.1824,kz=1/2 zone face,-145.9,6
-Sn2Sb2Te5,R₂,119,-0.3333,0.3333,0.5,-0.481,0.2777,0.1824,kz=1/2 zone face,-145.9,6
-Sn2Sb2Te5,R₂,119,0.0,0.3333,0.5,0.0,0.5554,0.1824,kz=1/2 zone face,-145.9,6
-Sn2Sb2Te5,R₂,119,0.0,-0.3333,0.5,0.0,-0.5554,0.1824,kz=1/2 zone face,-145.9,6
-Sn2Bi2Te5,Δ,94,0.0,0.0,0.2857,-0.0,0.0,0.1035,Γ–A axis (Δ line),-79.5,2
-Sn2Bi2Te5,Δ,94,0.0,0.0,-0.2857,0.0,-0.0,-0.1035,Γ–A axis (Δ line),-79.5,2
-Sn2Bi2Te5,Σ,11,0.1667,0.0,0.0,0.2372,0.137,-0.0,kz=0,0.0,6
-Sn2Bi2Te5,Σ,11,-0.1667,0.0,0.0,-0.2372,-0.137,0.0,kz=0,0.0,6
-Sn2Bi2Te5,Σ,11,0.1667,-0.1667,0.0,0.2372,-0.137,-0.0,kz=0,0.0,6
-Sn2Bi2Te5,Σ,11,-0.1667,0.1667,0.0,-0.2372,0.137,0.0,kz=0,0.0,6
-Sn2Bi2Te5,Σ,11,0.0,0.1667,0.0,-0.0,0.2739,-0.0,kz=0,0.0,6
-Sn2Bi2Te5,Σ,11,0.0,-0.1667,0.0,0.0,-0.2739,0.0,kz=0,0.0,6
-Sn2Bi2Te5,R₁,101,0.0606,0.0,0.5,0.0863,0.0498,0.181,kz=1/2 zone face,-5.2,6
-Sn2Bi2Te5,R₁,101,-0.0606,0.0,0.5,-0.0863,-0.0498,0.181,kz=1/2 zone face,-5.2,6
-Sn2Bi2Te5,R₁,101,0.0606,-0.0606,0.5,0.0863,-0.0498,0.181,kz=1/2 zone face,-5.2,6
-Sn2Bi2Te5,R₁,101,-0.0606,0.0606,0.5,-0.0863,0.0498,0.181,kz=1/2 zone face,-5.2,6
-Sn2Bi2Te5,R₁,101,0.0,0.0606,0.5,-0.0,0.0996,0.181,kz=1/2 zone face,-5.2,6
-Sn2Bi2Te5,R₁,101,0.0,-0.0606,0.5,0.0,-0.0996,0.181,kz=1/2 zone face,-5.2,6
-Sn2Bi2Te5,R₂,119,0.3333,0.0,0.5,0.4745,0.2739,0.181,kz=1/2 zone face,-17.2,6
-Sn2Bi2Te5,R₂,119,-0.3333,0.0,0.5,-0.4745,-0.2739,0.181,kz=1/2 zone face,-17.2,6
-Sn2Bi2Te5,R₂,119,0.3333,-0.3333,0.5,0.4745,-0.2739,0.181,kz=1/2 zone face,-17.2,6
-Sn2Bi2Te5,R₂,119,-0.3333,0.3333,0.5,-0.4745,0.2739,0.181,kz=1/2 zone face,-17.2,6
-Sn2Bi2Te5,R₂,119,0.0,0.3333,0.5,-0.0,0.5479,0.181,kz=1/2 zone face,-17.2,6
-Sn2Bi2Te5,R₂,119,0.0,-0.3333,0.5,0.0,-0.5479,0.181,kz=1/2 zone face,-17.2,6
+﻿material,valley,path_k_index,k_frac_1,k_frac_2,k_frac_3,kx_1/A,ky_1/A,kz_1/A,plane,E-EVBM_meV (HSE06+SOC),n_equivalent_pockets,source
+Sn2Sb2Te5,Γ,90,0.0,0.0,0.0,0.0,0.0,0.0,kz=0,0.0,1,band path
+Sn2Sb2Te5,Σ,11,0.1667,0.0,0.0,0.2405,0.1388,0.0,kz=0,-131.5,6,band path
+Sn2Sb2Te5,Σ,11,-0.1667,0.0,0.0,-0.2405,-0.1388,0.0,kz=0,-131.5,6,band path
+Sn2Sb2Te5,Σ,11,0.1667,-0.1667,0.0,0.2405,-0.1388,0.0,kz=0,-131.5,6,band path
+Sn2Sb2Te5,Σ,11,-0.1667,0.1667,0.0,-0.2405,0.1388,0.0,kz=0,-131.5,6,band path
+Sn2Sb2Te5,Σ,11,0.0,0.1667,0.0,0.0,0.2777,0.0,kz=0,-131.5,6,band path
+Sn2Sb2Te5,Σ,11,0.0,-0.1667,0.0,0.0,-0.2777,0.0,kz=0,-131.5,6,band path
+Sn2Sb2Te5,R₁,101,0.0606,0.0,0.5,0.0874,0.0505,0.1824,kz=1/2 zone face,-141.0,6,band path
+Sn2Sb2Te5,R₁,101,-0.0606,0.0,0.5,-0.0874,-0.0505,0.1824,kz=1/2 zone face,-141.0,6,band path
+Sn2Sb2Te5,R₁,101,0.0606,-0.0606,0.5,0.0874,-0.0505,0.1824,kz=1/2 zone face,-141.0,6,band path
+Sn2Sb2Te5,R₁,101,-0.0606,0.0606,0.5,-0.0874,0.0505,0.1824,kz=1/2 zone face,-141.0,6,band path
+Sn2Sb2Te5,R₁,101,0.0,0.0606,0.5,0.0,0.101,0.1824,kz=1/2 zone face,-141.0,6,band path
+Sn2Sb2Te5,R₁,101,0.0,-0.0606,0.5,0.0,-0.101,0.1824,kz=1/2 zone face,-141.0,6,band path
+Sn2Sb2Te5,R₂,119,0.3333,0.0,0.5,0.481,0.2777,0.1824,kz=1/2 zone face,-145.9,6,band path
+Sn2Sb2Te5,R₂,119,-0.3333,0.0,0.5,-0.481,-0.2777,0.1824,kz=1/2 zone face,-145.9,6,band path
+Sn2Sb2Te5,R₂,119,0.3333,-0.3333,0.5,0.481,-0.2777,0.1824,kz=1/2 zone face,-145.9,6,band path
+Sn2Sb2Te5,R₂,119,-0.3333,0.3333,0.5,-0.481,0.2777,0.1824,kz=1/2 zone face,-145.9,6,band path
+Sn2Sb2Te5,R₂,119,0.0,0.3333,0.5,0.0,0.5554,0.1824,kz=1/2 zone face,-145.9,6,band path
+Sn2Sb2Te5,R₂,119,0.0,-0.3333,0.5,0.0,-0.5554,0.1824,kz=1/2 zone face,-145.9,6,band path
+Sn2Bi2Te5,Δ,94,0.0,0.0,0.2857,-0.0,0.0,0.1035,Γ–A axis (Δ line),-117.1,2,band path
+Sn2Bi2Te5,Δ,94,0.0,0.0,-0.2857,0.0,-0.0,-0.1035,Γ–A axis (Δ line),-117.1,2,band path
+Sn2Bi2Te5,Σ′,,0.1965,0.0,-0.1232,0.2797,0.1615,-0.0446,"mirror plane, general kz",0.0,6,c5 true extremum
+Sn2Bi2Te5,Σ′,,-0.1965,0.0,0.1232,-0.2797,-0.1615,0.0446,"mirror plane, general kz",0.0,6,c5 true extremum
+Sn2Bi2Te5,Σ′,,0.1965,-0.1965,0.1232,0.2797,-0.1615,0.0446,"mirror plane, general kz",0.0,6,c5 true extremum
+Sn2Bi2Te5,Σ′,,-0.1965,0.1965,-0.1232,-0.2797,0.1615,-0.0446,"mirror plane, general kz",0.0,6,c5 true extremum
+Sn2Bi2Te5,Σ′,,0.0,0.1965,0.1232,-0.0,0.323,0.0446,"mirror plane, general kz",0.0,6,c5 true extremum
+Sn2Bi2Te5,Σ′,,0.0,-0.1965,-0.1232,0.0,-0.323,-0.0446,"mirror plane, general kz",0.0,6,c5 true extremum
+Sn2Bi2Te5,R₂′,,0.3353,0.0,-0.3964,0.4772,0.2755,-0.1435,"mirror plane, general kz",-2.1,6,c5 true extremum
+Sn2Bi2Te5,R₂′,,-0.3353,0.0,0.3964,-0.4772,-0.2755,0.1435,"mirror plane, general kz",-2.1,6,c5 true extremum
+Sn2Bi2Te5,R₂′,,0.3353,-0.3353,0.3964,0.4772,-0.2755,0.1435,"mirror plane, general kz",-2.1,6,c5 true extremum
+Sn2Bi2Te5,R₂′,,-0.3353,0.3353,-0.3964,-0.4772,0.2755,-0.1435,"mirror plane, general kz",-2.1,6,c5 true extremum
+Sn2Bi2Te5,R₂′,,0.0,0.3353,0.3964,-0.0,0.551,0.1435,"mirror plane, general kz",-2.1,6,c5 true extremum
+Sn2Bi2Te5,R₂′,,0.0,-0.3353,-0.3964,0.0,-0.551,-0.1435,"mirror plane, general kz",-2.1,6,c5 true extremum
+Sn2Bi2Te5,R₁′,,0.0833,0.0,0.3333,0.1186,0.0685,0.1207,"mirror plane, general kz",-27.2,6,c4 grid point (lower bound)
+Sn2Bi2Te5,R₁′,,-0.0833,0.0,-0.3333,-0.1186,-0.0685,-0.1207,"mirror plane, general kz",-27.2,6,c4 grid point (lower bound)
+Sn2Bi2Te5,R₁′,,0.0833,-0.0833,-0.3333,0.1186,-0.0685,-0.1207,"mirror plane, general kz",-27.2,6,c4 grid point (lower bound)
+Sn2Bi2Te5,R₁′,,-0.0833,0.0833,0.3333,-0.1186,0.0685,0.1207,"mirror plane, general kz",-27.2,6,c4 grid point (lower bound)
+Sn2Bi2Te5,R₁′,,0.0,0.0833,-0.3333,-0.0,0.137,-0.1207,"mirror plane, general kz",-27.2,6,c4 grid point (lower bound)
+Sn2Bi2Te5,R₁′,,0.0,-0.0833,0.3333,0.0,-0.137,0.1207,"mirror plane, general kz",-27.2,6,c4 grid point (lower bound)
+Sn2Bi2Te5,R₁″,,0.0556,0.0,-0.4167,0.0791,0.0457,-0.1509,"mirror plane, general kz",-42.4,6,c4 grid point (lower bound)
+Sn2Bi2Te5,R₁″,,-0.0556,0.0,0.4167,-0.0791,-0.0457,0.1509,"mirror plane, general kz",-42.4,6,c4 grid point (lower bound)
+Sn2Bi2Te5,R₁″,,0.0556,-0.0556,0.4167,0.0791,-0.0457,0.1509,"mirror plane, general kz",-42.4,6,c4 grid point (lower bound)
+Sn2Bi2Te5,R₁″,,-0.0556,0.0556,-0.4167,-0.0791,0.0457,-0.1509,"mirror plane, general kz",-42.4,6,c4 grid point (lower bound)
+Sn2Bi2Te5,R₁″,,0.0,0.0556,0.4167,-0.0,0.0913,0.1509,"mirror plane, general kz",-42.4,6,c4 grid point (lower bound)
+Sn2Bi2Te5,R₁″,,0.0,-0.0556,-0.4167,0.0,-0.0913,-0.1509,"mirror plane, general kz",-42.4,6,c4 grid point (lower bound)

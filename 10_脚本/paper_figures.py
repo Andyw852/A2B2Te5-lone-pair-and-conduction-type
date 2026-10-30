@@ -136,7 +136,7 @@ def bands(m, side):
 
 # 路径上离开对称点的位置按所在的高对称线命名（六方布里渊区标准记号，Bradley & Cracknell）
 SEGS = [(0, 33, 'Σ'), (33, 52, 'T'), (52, 90, 'Λ'), (90, 97, 'Δ'), (97, 130, 'R'), (130, 149, 'S'), (149, 187, 'Q')]
-MATH = {'R₁': r'R$_1$', 'R₂': r'R$_2$'}          # 图中用 mathtext 写下标
+MATH = {'R₁': r'R$_1$', 'R₂': r'R$_2$', 'R₁′': r'R$_1$′', 'R₁″': r'R$_1$″', 'R₂′': r'R$_2$′'}   # 图中用 mathtext 写下标
 
 
 def kname(i):
@@ -154,6 +154,7 @@ SUB = '₁₂₃₄'
 
 def knames(idx):
     """一组谷（同一材料、同一条带）的位置名。同一条线上有几个谷时按离 Γ–A 轴由近到远加下标；R 线始终用 R₁、R₂（与表 5 一致）。"""
+    idx = [i for i in idx if i is not None]
     base = {i: kname(i) for i in idx}; out = dict(base)
     for n in set(base.values()):
         same = sorted([i for i in idx if base[i] == n], key=AXD.get(n, lambda i: i))
@@ -386,13 +387,15 @@ def fig3(out):
         dump('Fig3_HSE_bands_cation_s', f'{m}_HSE06+SOC_cation_s.csv',
              ['k_index', 'k_frac_1', 'k_frac_2', 'k_frac_3', 'k_distance_1/A', 'label', 'band', 'E-EVBM_eV', 'cation_s_percent'], rows)
         ax.axhline(0, color='k', lw=0.5, ls=':'); ax.axhline(gap, color='k', lw=0.5, ls=':')
-        for nm, _E, kind, i in levels(m):                    # 标出图 6(e) 中的各谷，名称相同
+        for nm, _E, kind, i in levels(m, true=False):        # 标出路径上的各谷（名称与图 5、图 6 相同）
             if kind == 'ref': continue
             # Γ–A 段很窄：Δ，以及带隙很小时的 Γ（▼ 会压到导带上）改用引线，名称放在左上方
             lead = (x[90] - 0.28, 0.10) if nm == 'Δ' or (nm == 'Γ' and gap < 0.1) else None
             vmark(ax, x[i], E[i, nel - 1], nm, lead)
         kticks(ax, x); ax.set_ylim(-0.5, 0.5)
-        ax.set_title(f'{TEX[m]}     $E_g$ = {1000 * gap:.0f} meV', fontsize=8, pad=4)
+        T5 = mv.true_load(m)
+        ax.set_title(f'{TEX[m]}     $E_g$ = {1000 * gap:.0f} meV' + (f' (path); {1000 * (gap - (T5["vbm"] - T5["path_vbm"])):.0f} meV (true)' if T5 else ''),
+                     fontsize=8, pad=4)
         panel(ax, f'({"abcd"[n]})')
     for ax in axs[:, 0]: ax.set_ylabel(r'$E - E_{\mathrm{VBM}}$ (eV)')
     cb = fig.colorbar(plt.cm.ScalarMappable(norm=norm, cmap=cmap), ax=axs, shrink=0.7, pad=0.015, aspect=30, extend='max')
@@ -568,6 +571,28 @@ def top_vb(m, side):
     return 1000 * E[:, nel - 2:nel].mean(1)
 
 
+PATH_LP = {'Σ': (-1 / 6, 0.0), 'R₁': (-2 / 33, 0.5), 'R₂': (-1 / 3, 0.5)}     # 路径上的三组孤对电子谷 (u, w)
+
+
+def true_valleys(m):
+    """镜面内的真实价带谷（c4_mirror_v3 + c5_star；目前只有 Sn₂Bi₂Te₅）。按离哪个路径谷最近命名并加撇：Σ′、R₂′；
+    同一个路径谷演化出两个极大时，能量高的为 ′、低的为 ″（R₁′、R₁″）。能量相对真实价带顶（meV）。没有结果时返回 None。"""
+    T = mv.true_load(m)
+    if T is None: return None
+    def dist(t, uw):
+        dw = abs(t['w'] - uw[1]) % 1; dw = min(dw, 1 - dw)
+        return np.hypot(t['u'] - uw[0], dw)
+    groups = {}
+    for t in T['valleys']:
+        groups.setdefault(min(PATH_LP, key=lambda n: dist(t, PATH_LP[n])), []).append(t)
+    out = []
+    for n, ts in groups.items():
+        for k, t in enumerate(sorted(ts, key=lambda t: -t['E'])):
+            out.append(dict(name=n + '′″'[k], kfrac=(t['u'], 0.0, t['w']), E=1000 * (t['E'] - T['vbm']), s=t['s'],
+                            grid='c4 网格' in t['src'], m=t['m'], principal=t['principal']))
+    return dict(shift=1000 * (T['vbm'] - T['path_vbm']), valleys=sorted(out, key=lambda d: -d['E']))
+
+
 def crossover():
     """价带谷间能量差 ΔE（HSE06+SOC）：最高孤对电子谷（与图 7 同一判据）减 Γ–A 轴（Γ、Δ 线、A）上最高的价带态，四种材料。"""
     K = kpath(); rows = []
@@ -576,19 +601,31 @@ def crossover():
         for side, fn in (('c2_hse', 'HSE06+SOC'),):
             v = top_vb(m, side); ia = max(AXIS, key=lambda i: v[i])
             lp = rf.lone_pair_offset(m, side); il = lp[1]
+            tv = true_valleys(m)
+            if tv:                                                  # 有镜面内的真实谷：价带顶与孤对电子谷取真实值
+                v = v - tv['shift']; t0 = tv['valleys'][0]
+                rows.append(dict(m=m, fn=fn, EG=v[0], Ea=v[ia], ia=ia, na=len(star(K[ia], rots)), El=t0['E'], il=None, lname=t0['name'],
+                                 kl=t0['kfrac'], nl=len(star(t0['kfrac'], rots)), s=t0['s'], d=t0['E'] - v[ia]))
+                continue
             rows.append(dict(m=m, fn=fn, EG=v[0], Ea=v[ia], ia=ia, na=len(star(K[ia], rots)),
-                             El=v[il], il=il, nl=len(star(K[il], rots)), s=lp[2], d=v[il] - v[ia]))
+                             El=v[il], il=il, lname=kname(il), kl=tuple(K[il]), nl=len(star(K[il], rots)), s=lp[2], d=v[il] - v[ia]))
     return rows
 
 
 def pockets(m):
     """HSE06+SOC：Γ–A 轴上最高的价带态与三组孤对电子谷（Σ、R₁、R₂），展开成第一布里渊区内的全部等价口袋。"""
     B, rots = bz_lattice(m); K = kpath(); v = top_vb(m, 'c2_hse')
-    ia = max(AXIS, key=lambda i: v[i])
+    ia = max(AXIS, key=lambda i: v[i]); tv = true_valleys(m)
+    if tv:                                                      # 镜面内的真实谷（价带顶取真实值；轴上的态仍取路径，它在三重轴上）
+        pts = star(K[ia], rots); out = [dict(name=kname(ia), i=ia, E=v[ia] - tv['shift'], col=C_B, frac=pts, cart=[ws(q, B) for q in pts], grid=False)]
+        for t in tv['valleys']:
+            pts = star(t['kfrac'], rots)
+            out.append(dict(name=t['name'], i=None, E=t['E'], col=C_A, frac=pts, cart=[ws(q, B) for q in pts], grid=t['grid']))
+        return B, out
     out = []
     for i, col in [(ia, C_B)] + [(i, C_A) for nm, i in SNVAL.items() if nm != 'Γ']:
         pts = star(K[i], rots)
-        out.append(dict(name=kname(i), i=i, E=v[i], col=col, frac=pts, cart=[ws(q, B) for q in pts]))
+        out.append(dict(name=kname(i), i=i, E=v[i], col=col, frac=pts, cart=[ws(q, B) for q in pts], grid=False))
     return B, out
 
 
@@ -597,8 +634,8 @@ def hexagon(B):
     return np.hypot(*K0[:2]) * np.cos(a), np.hypot(*K0[:2]) * np.sin(a)
 
 
-MK = {'Γ': 'o', 'Δ': 'o', 'Σ': 'o', 'R₁': 's', 'R₂': 'D'}   # 形状区分谷：Σ 圆、R₁ 方、R₂ 菱形；实心/空心区分所在面
-MS = {'s': 0.62, 'D': 0.8}                                    # 方块、菱形看起来比圆大，略缩小
+MK = {'Γ': 'o', 'Δ': 'o', 'Σ': 'o', 'R₁': 's', 'R₂': 'D', 'Σ′': 'o', 'R₁′': 's', 'R₁″': 'p', 'R₂′': 'D'}   # 形状区分谷：Σ 圆、R₁ 方、R₂ 菱形、R₁″ 五边形；实心/空心区分所在面
+MS = {'s': 0.55, 'D': 0.8, 'p': 0.6}                                    # 方块、菱形看起来比圆大，略缩小
 
 
 def near(E):
@@ -630,7 +667,7 @@ def bz_top(ax, m, B, P, letter):
         al = 1.0 if near(g['E']) else 0.45
         ax.plot(0.74, y, MK[g['name']], ms=3.6 * (0.9 if MK[g['name']] == 's' else MS.get(MK[g['name']], 1)), mew=0.8, color=g['col'], mfc='white' if all(map(on_face, g['frac'])) else g['col'], alpha=al)
         ax.text(0.83, y, MATH.get(g['name'], g['name']), ha='left', va='center', fontsize=6.3)
-        ax.text(1.66, y, f"{g['E']:.0f}".replace('-', '−') + f"  ×{len(g['frac'])}", ha='right', va='center', fontsize=6.3)
+        ax.text(1.66, y, f"{g['E']:.0f}".replace('-', '−') + ('*' if g.get('grid') else '') + f"  ×{len(g['frac'])}", ha='right', va='center', fontsize=6.3)
         y -= 0.115
     n = sum(len(g['frac']) for g in P if near(g['E']))
     ax.set_title(f"{TEX[m]}: {n} pocket{'s' if n > 1 else ''} within $2k_\\mathrm{{B}}T$", fontsize=8, pad=2)
@@ -670,10 +707,16 @@ def bz_3d(ax, m, B, P, zs):
     ax.view_init(elev=30, azim=-90); ax.set_box_aspect((1, 1, 2 * h / 1.9), zoom=1.3); ax.set_axis_off()
 
 
-def levels(m):
+def levels(m, true=True):
     """HSE06+SOC 价带上的能级（相对价带顶，meV）：Γ–A 轴上的谷（Γ、Δ 或 A）、Γ 点本身（不是谷时作参照）、
     孤对电子谷（Sn 系用表 5 的 Σ、R₁、R₂；Pb 系取 Σ、R 线上阳离子 s ≥ 15% 的局部极大，260 meV 以内）。"""
-    v = top_vb(m, 'c2_hse'); ia = max(AXIS, key=lambda i: v[i]); out = [(kname(ia), v[ia], 'axis', ia)]
+    v = top_vb(m, 'c2_hse'); ia = max(AXIS, key=lambda i: v[i])
+    tv = true_valleys(m) if true else None
+    if tv:                                                      # 真实谷（相对真实价带顶）；轴上的态与 Γ 点仍取路径值，减去价带顶的移动
+        v = v - tv['shift']
+        out = [(kname(ia), v[ia], 'axis', ia)] + ([('Γ', v[0], 'ref', 90)] if ia != 90 else [])
+        return out + [(t['name'], t['E'], 'lp', None) for t in tv['valleys']]
+    out = [(kname(ia), v[ia], 'axis', ia)]
     if ia != 90: out.append(('Γ', v[0], 'ref', 90))
     if m.startswith('Sn'):
         out += [(nm, v[i], 'lp', i) for nm, i in SNVAL.items() if nm != 'Γ']
@@ -715,8 +758,8 @@ def fig6(out):
             ax.plot([x0 - hw, x0 + hw], [E, E], color=col, lw=0.9 if ref else 1.6, ls=(0, (2, 1.5)) if ref else '-', zorder=2,
                     alpha=0.7 if ref else 1)
             if kind != 'ref':
-                ax.plot(x0, E, MK.get(nm, 'o'), ms={'o': 4.2, 's': 3.6, 'D': 3.4}[MK.get(nm, 'o')],
-                        color=col, mfc='white' if nm.startswith('R') else col, mew=0.8, zorder=3)
+                ax.plot(x0, E, MK.get(nm, 'o'), ms={'o': 4.2, 's': 3.6, 'D': 3.4, 'p': 4.0}[MK.get(nm, 'o')],
+                        color=col, mfc='white' if nm in ('R₁', 'R₂') else col, mew=0.8, zorder=3)
             lv_rows.append([m, nm, kind, r(E, 1)])
         for nm, E, kind, _i in L[m]:                               # 轴上的谷标在左侧；不是谷的 Γ 点标在右侧
             if kind == 'axis': ax.text(x0 - hw - 0.04, E, nm, ha='right', va='center', fontsize=6.5, color=C_B)
@@ -737,7 +780,7 @@ def fig6(out):
         ax.text(x0, 30, f"ΔE = {d:+.0f}".replace('-', '−'), ha='center', va='center', fontsize=6.5, color=C_A if d > 0 else C_B)
     for (a1, a2) in (('Pb2Sb2Te5', 'Pb2Bi2Te5'), ('Sn2Sb2Te5', 'Sn2Bi2Te5')):   # 同一个态连虚线：Γ 点、Σ 谷
         for nm, col in (('Γ', C_B), ('Σ', C_A)):
-            e1 = next(E for n, E, k, _ in L[a1] if n == nm); e2 = next(E for n, E, k, _ in L[a2] if n == nm)
+            e1 = next(E for n, E, k, _ in L[a1] if n.rstrip('′″') == nm); e2 = next(E for n, E, k, _ in L[a2] if n.rstrip('′″') == nm)
             ax.plot([X[a1] + hw, X[a2] - hw], [e1, e2], color=col, lw=0.6, ls=(0, (2, 1.5)), zorder=1)
     ax.axhline(0, color='k', lw=0.5, ls=':')
     ax.set_xticks(list(X.values()), [TEX[m] for m in X]); ax.tick_params(axis='x', top=False, length=0)
@@ -757,11 +800,12 @@ def fig6(out):
          Line2D([], [], ls='', marker='o', ms=5, color=C_A, label='Σ: lone-pair valley on Γ–M'),
          Line2D([], [], ls='', marker='s', ms=4.5, color=C_A, mfc='white', label=r'R$_1$: lone-pair valley on A–L, near A'),
          Line2D([], [], ls='', marker='D', ms=4.0, color=C_A, mfc='white', label=r'R$_2$: lone-pair valley on A–L, near L'),
+         Line2D([], [], ls='', marker='p', ms=4.5, color=C_A, label=r'′, ″: true maximum off the line (Sn$_2$Bi$_2$Te$_5$)'),
          Line2D([], [], ls='', marker='o', ms=5, color='#555555', label=r'filled: $k_z$ = 0 plane or inside'),
          Line2D([], [], ls='', marker='o', ms=5, color='#555555', mfc='white', label=r'open: $k_z$ = ½ zone face'),
          Line2D([], [], ls='', marker='o', ms=3.4, color=C_A, alpha=0.45, label=r'faded: more than $2k_\mathrm{B}T$ below VBM')]
-    lg.legend(handles=h, loc='upper left', bbox_to_anchor=(0.04, 0.80), title='(a)–(d): reciprocal (k) space;\neach symbol is a valley, not an atom', title_fontsize=7, handletextpad=0.3, labelspacing=0.6, borderaxespad=0)
-    lg.text(0.06, 0.30, 'Labels: line names of the hexagonal zone\n(Σ: Γ–M, R: A–L, Δ: Γ–A); energies in meV\nrelative to the VBM; ×n = equivalent pockets.',
+    lg.legend(handles=h, loc='upper left', bbox_to_anchor=(0.04, 0.88), title='(a)–(d): reciprocal (k) space;\neach symbol is a valley, not an atom', title_fontsize=7, handletextpad=0.3, labelspacing=0.6, borderaxespad=0)
+    lg.text(0.06, 0.12, 'Labels: line names of the hexagonal zone\n(Σ: Γ–M, R: A–L, Δ: Γ–A); energies in meV\nrelative to the VBM; ×n = equivalent pockets;\n* c4 grid point, not refined (lower bound).',
             transform=lg.transAxes, fontsize=6.3, va='bottom', ha='left', color='#333333')
     save(fig, out, 'Fig6_valence_pockets_crossover')
     prow = []
@@ -769,16 +813,17 @@ def fig6(out):
         for g in P:
             for f, c in zip(g['frac'], g['cart']):
                 prow.append([m, g['name'], g['i'], *[r(x, 4) for x in f], *[r(x, 4) for x in c],
-                             'kz=1/2 zone face' if on_face(f) else ('kz=0' if np.isclose(f[2], 0) else 'Γ–A axis (Δ line)'),
-                             r(g['E'], 1), len(g['frac'])])
+                             'mirror plane, general kz' if (g['i'] is None) else ('kz=1/2 zone face' if on_face(f) else ('kz=0' if np.isclose(f[2], 0) else 'Γ–A axis (Δ line)')),
+                             r(g['E'], 1), len(g['frac']), 'c4 grid point (lower bound)' if g.get('grid') else ('c5 true extremum' if g['i'] is None else 'band path')])
     dump('Fig6_valence_pockets', 'pocket_positions.csv', ['material', 'valley', 'path_k_index', 'k_frac_1', 'k_frac_2', 'k_frac_3',
-         'kx_1/A', 'ky_1/A', 'kz_1/A', 'plane', 'E-EVBM_meV (HSE06+SOC)', 'n_equivalent_pockets'], prow)
+         'kx_1/A', 'ky_1/A', 'kz_1/A', 'plane', 'E-EVBM_meV (HSE06+SOC)', 'n_equivalent_pockets', 'source'], prow)
     dump('Fig6_valence_pockets', 'valley_offset_HSE.csv',
          ['material', 'functional', 'E_Gamma_meV', 'E_GammaA_axis_max_meV', 'axis_position', 'axis_path_k_index', 'axis_n_pockets',
-          'E_lone_pair_max_meV', 'lone_pair_valley', 'lone_pair_path_k_index', 'lone_pair_n_pockets', 'lone_pair_cation_s_percent',
-          'dE_valley_offset_meV (E_lone_pair - E_axis)', 'E_lone_pair_minus_E_Gamma_meV'],
-         [[d['m'], d['fn'], r(d['EG'], 1), r(d['Ea'], 1), kname(d['ia']), d['ia'], d['na'], r(d['El'], 1), kname(d['il']), d['il'], d['nl'],
-           r(100 * d['s'], 1), r(d['d'], 1), r(d['El'] - d['EG'], 1)] for d in rows])
+          'E_lone_pair_max_meV', 'lone_pair_valley', 'lone_pair_k_frac_1', 'lone_pair_k_frac_3', 'lone_pair_n_pockets', 'lone_pair_cation_s_percent',
+          'dE_valley_offset_meV (E_lone_pair - E_axis)', 'E_lone_pair_minus_E_Gamma_meV', 'source'],
+         [[d['m'], d['fn'], r(d['EG'], 1), r(d['Ea'], 1), kname(d['ia']), d['ia'], d['na'], r(d['El'], 1), d['lname'], r(d['kl'][0], 4), r(d['kl'][2], 4),
+           d['nl'], r(100 * d['s'], 1), r(d['d'], 1), r(d['El'] - d['EG'], 1),
+           'true VBM from c4_mirror_v3 + c5_star (mirror plane)' if d['il'] is None else 'band path c2 (lone-pair valley is a lower bound)'] for d in rows])
     return {m: [(g['name'], len(g['frac']), r(g['E'], 1)) for g in P] for m, (B, P) in data.items()} | \
            {f"{d['m']}|{d['fn']}": r(d['d'], 1) for d in rows}
 
@@ -838,6 +883,7 @@ LP_MIN = 0.15        # 孤对电子谷的判据：谷极值点处阳离子 s 成
 
 def valley_index(name):
     """multivalley_seebeck 的谷名 → c2 路径上的 k 序号（取成分用）。"""
+    if name.startswith('mirror'): return None                       # 镜面内的真实谷（c4/c5），不在路径上
     if name.startswith('#'): return int(name[1:].split()[0])
     if name.startswith('Γ–A'): return 90 + round(float(name.split('±')[1]) * 14)
     return mv.POINTS[name][0][0]
@@ -853,18 +899,21 @@ def valley_shares():
         _, Wp = cv.read_procar(os.path.join(rf.base(m), 'c2_hse', 'PROCAR_OPT.gz'))
         fs = rf.cation_s(Wp); nel = NEL[m]
         nm = {'v': knames([valley_index(v['name']) for v in V]), 'c': knames([valley_index(v['name']) for v in C])}
+        tv = {tuple(np.round(t['kfrac'], 4)): t['name'] for t in (true_valleys(m) or {'valleys': []})['valleys']}
         for N, lab in ((3e19, 'p'), (-3e19, 'n')):
             _, EF, parts = mv.solve(V, C, gap, N, 300)
             lp = 0.0
             for (side, name, w), v in zip(parts, V + C):
-                i = valley_index(name); b = nel - 1 if side == 'v' else nel; cs = fs[i, b]
+                i = valley_index(name); b = nel - 1 if side == 'v' else nel
+                cs = v['s'] if i is None else fs[i, b]; kf = v['kfrac'] if i is None else K[i]
+                lab_v = tv.get(tuple(np.round(kf, 4)), name) if i is None else nm[side][i]
                 flag = (side == 'v' and lab == 'p' and cs >= LP_MIN) or (side == 'c' and lab == 'n' and (name in ('Γ',) or name.startswith('Γ–A')))
                 lp += w if flag else 0.0
-                rows.append([m, lab, r(1000 * EF, 1), 'valence' if side == 'v' else 'conduction', nm[side][i], i]
-                            + [r(x, 4) for x in K[i]] + [r(1000 * v['off'], 1), v['g'], r(100 * cs, 1), r(100 * w, 2), 'yes' if flag else 'no'])
+                rows.append([m, lab, r(1000 * EF, 1), 'valence' if side == 'v' else 'conduction', lab_v, '' if i is None else i]
+                            + [r(x, 4) for x in kf] + [r(1000 * v['off'], 1), v['g'], r(100 * cs, 1), r(100 * w, 2), 'yes' if flag else 'no'])
             summary.append([m, lab, r(100 * lp, 1)])
         # p 型孤对电子谷份额随空穴浓度的变化（判据同上）
-        lpv = [name for name, v in zip([x[1] for x in parts[:len(V)]], V) if fs[valley_index(name), nel - 1] >= LP_MIN]
+        lpv = [v['name'] for v in V if (v['s'] if valley_index(v['name']) is None else fs[valley_index(v['name']), nel - 1]) >= LP_MIN]
         for N in (1e19, 3e19, 1e20, 3e20):
             S, EF, pp = mv.solve(V, C, gap, N, 300)
             scan.append([m, f'{N:.0e}', r(1000 * EF, 1), r(100 * sum(w for side, name, w in pp if side == 'v' and name in lpv), 1), r(S, 1)])

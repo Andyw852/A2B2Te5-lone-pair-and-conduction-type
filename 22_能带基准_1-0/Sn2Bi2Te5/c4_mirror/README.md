@@ -1,5 +1,7 @@
 # Sn₂Bi₂Te₅ · c4_mirror + c5_star：镜面内离轴能谷的真实极值与质量张量（HSE06+SOC）
 
+> **2026-10-30：已完成。** 实际计算用的是 [`../c4_mirror_v3/`](../c4_mirror_v3/README.md)（步长 1/36）与 [`../c5_star/`](../c5_star/)；结果见 c4_mirror_v3 README 的“结果”一节。本目录的输入作废。
+
 2026-10-28，用户同意补算。**请在 `claude/keen-sagan-15fv7v` 分支上工作并推送**（报告的最新版本在这个分支上，脚本也只在这里）：
 
 ```bash

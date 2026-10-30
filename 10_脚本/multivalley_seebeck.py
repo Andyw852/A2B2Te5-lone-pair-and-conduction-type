@@ -10,6 +10,10 @@
   外推的驻点落在采样半径以内）才用拟合质量（抛物）整体替换；否则保留路径估计，并在 --list 中注明原因。
   注意：Γ–M、A–L 线在镜面内而不在二重轴上，对称性不要求沿 c 的梯度为零，离轴谷的真实极大可以在镜面内的一般 kz 处，
   路径给出的离轴谷能量只是下限（SnBi 的 c3 即如此）。
+- 真实谷（c4_mirror_v3 + c5_star，目前只有 SnBi 的 HSE 价带）：有这两步的结果时，镜面网格覆盖范围内（Γ–M、A–L 线上
+  |u| ≤ 网格边界）的路径离轴谷全部换成镜面内的真实极大：c5 星形拟合过的谷用拟合质量（抛物，主轴质量算态数、线与面内垂直
+  方向的质量算面内速度）与极值能量；只在 c4 网格上找到、未细化的谷用网格点能量（下限）和网格二次拟合的（线, c）质量，
+  面内垂直质量取 c5 两个谷的平均。价带顶改为真实价带顶，其余路径谷的离带边能量、带隙随之改为相对真实价带顶。g = 6。
 每个谷当作“三个半轴 k_i(ε) 取自真实色散”的椭球：单个口袋的态数 N(ε) = 2·(4π/3)k1k2k3/(2π)³，
 面内 ⟨v_x²⟩ ≈ (v1² + v2²)/6，v_i = dε/dk_i。
 
@@ -147,9 +151,37 @@ def c3_usable(material, kind='v'):
 
 
 def c3_provisional(material):
-    """没有 c3，或 c3 中有谷不能直接用：该材料 p 型的多谷估计仍为暂定。"""
+    """没有 c3，或 c3 中有谷不能直接用：该材料 p 型的多谷估计仍为暂定。已有 c4/c5 的真实谷时不再暂定。"""
+    if USE_TRUE and true_load(material): return False
     ok, bad = c3_usable(material)
     return ok is None or bool(bad)
+
+
+USE_TRUE = True                            # 有 c4/c5 结果时用镜面内的真实价带谷（--path-only 关闭）
+
+
+def true_load(material):
+    """c4_mirror_v3 的镜面极大 + c5_star 的星形拟合 → 真实价带谷。没有这两步结果时返回 None。"""
+    d = os.path.join(ROOT, '22_能带基准_1-0', material)
+    f4, f5 = os.path.join(d, 'c4_mirror_v3', 'c4_extrema.json'), os.path.join(d, 'c5_star', 'c5_masses.json')
+    if not (os.path.exists(f4) and os.path.exists(f5)): return None
+    c4, c5 = json.load(open(f4, encoding='utf-8')), json.load(open(f5, encoding='utf-8'))
+    c4g = json.load(open(os.path.join(d, 'c4_mirror_v3', 'c4_grid.json'), encoding='utf-8'))
+    v5 = [v for v in c5['valleys'].values() if v['kind'] == 'v' and v['true_extremum_within_star']]
+    mperp = float(np.mean([v['m'][1] for v in v5]))
+    out = []
+    for vm in c4['vb_maxima']:
+        hit = next((v for v in v5 if abs(v['center_frac'][0] - vm['u']) < 2e-3 and abs(v['center_frac'][2] - vm['w']) < 2e-3), None)
+        if hit:
+            out.append(dict(u=hit['center_frac'][0], w=hit['center_frac'][2], E=hit['E_extremum'], m=hit['m'], principal=hit['principal'],
+                            s=hit['cation_s'], src='c5 星形拟合（真极值）'))
+        else:
+            H = np.array(vm['H_line_c_eVA2']); ev = np.linalg.eigvalsh(H)
+            if np.any(ev >= 0): continue
+            out.append(dict(u=vm['u'], w=vm['w'], E=vm['E'], m=[HB / abs(H[0, 0]), mperp, HB / abs(H[1, 1])],
+                            principal=[HB / abs(ev[0]), mperp, HB / abs(ev[1])], s=vm['cation_s'],
+                            src=f'c4 网格点（未细化，能量为下限）；面内垂直质量取 c5 平均 {mperp:.3f}'))
+    return dict(vbm=c5['vbm'], path_vbm=c5['path_vbm'], umin=min(c4g['us']), valleys=out)
 
 
 def build(material, kind, win, c3=None, side='c2_hse'):
@@ -163,10 +195,16 @@ def build(material, kind, win, c3=None, side='c2_hse'):
     sgn = -1 if kind == 'v' else 1
     edge = e.max() if kind == 'v' else e.min()
     gap = E[:, nel].min() - E[:, nel - 1].max()
+    T5 = true_load(material) if (USE_TRUE and kind == 'v' and side == 'c2_hse') else None
+    shift = 0.0
+    if T5:                                                       # 价带顶改为镜面内的真实价带顶
+        shift = T5['vbm'] - e.max(); gap -= shift
+        ucut = -T5['umin'] * 66                                  # Γ–M、A–L 线上 |u| ≤ 网格边界的路径序号跨度（M、L 在 66·½ = 33 步处）
     from c2_valleys import extrema
     valleys, seen = [], set()
     for i, (dE, _) in extrema(x, e, 'max' if kind == 'v' else 'min', win):
-        off = abs(dE) / 1000
+        off = abs(dE) / 1000 + shift
+        if T5 and (0 < i <= ucut or 97 < i <= 97 + ucut): continue   # 由镜面网格的真实谷替代
         name = next((n for n, (ids, *_r) in POINTS.items() if i in ids), None)
         if name:
             if name in seen: continue
@@ -205,6 +243,15 @@ def build(material, kind, win, c3=None, side='c2_hse'):
             (kp, vp), (kz, _) = parabolic(mp), parabolic(mz)
             valleys.append(dict(name=lab, off=off, g=g, k=(kl, kp, kz), kcap=np.pi / c, v2=(vl, vp),
                                 src=f'沿线路径色散；面内垂直取沿线质量 {mp:.3f}、沿 c 余弦估计 {mz:.2f}'))
+    if T5:
+        for t in T5['valleys']:
+            off = T5['vbm'] - t['E']
+            if off > win / 1000: continue
+            p, m = t['principal'], t['m']
+            (k1, _), (k2, _), (k3, _) = parabolic(p[0]), parabolic(p[1]), parabolic(p[2])
+            (_, v1), (_, v2) = parabolic(m[0]), parabolic(m[1])          # 面内速度：沿线、面内垂直两个方向的质量
+            valleys.append(dict(name=f'mirror ({t["u"]:.4f},0,{t["w"]:.4f})', off=off, g=6, k=(k1, k2, k3), kcap=np.pi / c, v2=(v1, v2),
+                                src=t['src'], kfrac=(t['u'], 0.0, t['w']), s=t['s']))
     for v in valleys:
         k1, k2, k3 = v['k']; K = v['kcap']
         # 椭球沿 c 被布里渊区边界 |kz| ≤ K 截断：体积 = π k1 k2 ∫(1 − z²/k3²)dz，k3 → ∞ 时趋于柱面 2πk1k2K
@@ -268,10 +315,11 @@ def main():
     ap.add_argument('--list', action='store_true', help='列出每种材料建出的谷')
     ap.add_argument('--tau', choices=('crta', 'adp'), default='crta', help='散射：常数弛豫时间（默认）或声学形变势')
     ap.add_argument('--side', default='c2_hse', help='c2_hse（默认）或 c2_pbe（用 PBE 路径，与旧 BoltzTraP2 结果对照）')
+    ap.add_argument('--path-only', action='store_true', help='不用 c4/c5 的真实谷，只用路径（与旧结果对照）')
     ap.add_argument('--mz-scale', type=float, default=1.0, help='余弦估计的沿 c 质量乘以该系数（检验敏感性；SnSb Γ 价带的检验显示余弦估计约偏轻一半）')
     a = ap.parse_args()
-    global MZ_SCALE
-    MZ_SCALE = a.mz_scale
+    global MZ_SCALE, USE_TRUE
+    MZ_SCALE = a.mz_scale; USE_TRUE = not a.path_only
     c3all, c3bad = {}, {}
     for m in a.materials:
         ok, bad = c3_usable(m)
