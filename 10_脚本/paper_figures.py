@@ -715,10 +715,10 @@ def fig6(out):
             ax.plot([X[a1] + hw, X[a2] - hw], [e1, e2], color=col, lw=0.6, ls=(0, (2, 1.5)), zorder=1)
     ax.axhline(0, color='k', lw=0.5, ls=':')
     ax.set_xticks(list(X.values()), [TEX[m] for m in X]); ax.tick_params(axis='x', top=False, length=0)
-    ax.set_xlim(-0.6, 5.0); ax.set_ylim(-262, 66); ax.set_yticks(range(-250, 1, 50))
+    ax.set_xlim(-0.6, 5.0); ax.set_ylim(-262, 40); ax.set_yticks(range(-250, 1, 50))
     ax.set_ylabel(r'$E - E_{\mathrm{VBM}}$ (meV)')
     for xm, t in ((0.5, 'Pb series: Sb → Bi'), (3.4, 'Sn series: Sb → Bi')):
-        ax.text(xm, 61, t, ha='center', va='top', fontsize=7)
+        ax.text(xm, -0.14, t, ha='center', va='top', fontsize=7, transform=ax.get_xaxis_transform())   # 框外，材料名下方
     ax.axvline(2.25, color=GRID, lw=0.6)
     ax.text(4.9, -2 * KT300 / 2, r'$2k_\mathrm{B}T$', ha='right', va='center', fontsize=6.3)
     ax.set_title('Valence-band levels of the four compounds (HSE06+SOC)', fontsize=8, pad=4)
