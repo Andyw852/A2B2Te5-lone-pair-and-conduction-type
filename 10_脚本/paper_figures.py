@@ -721,6 +721,18 @@ def fig6(out):
         for nm, E, kind, _i in L[m]:                               # 轴上的谷标在左侧；不是谷的 Γ 点标在右侧
             if kind == 'axis': ax.text(x0 - hw - 0.04, E, nm, ha='right', va='center', fontsize=6.5, color=C_B)
             if kind == 'ref': ax.text(x0 + hw + 0.04, E, 'Γ (not a max)', ha='left', va='center', fontsize=6.0, color=C_B)
+        # 孤对电子谷（紫）标名称：Sb 化合物标在左侧、Bi 化合物标在右侧（避开连线）；相距太近的几条线把名称上下错开，用短线连到各自的能级
+        lp = sorted([(E, nm) for nm, E, kind, _i in L[m] if kind == 'lp'], reverse=True)
+        ys = [E for E, _ in lp]; gap_min = 13.0
+        for _ in range(50):
+            for k in range(1, len(ys)):
+                if ys[k - 1] - ys[k] < gap_min:
+                    mid = (ys[k - 1] + ys[k]) / 2; ys[k - 1], ys[k] = mid + gap_min / 2, mid - gap_min / 2
+        side = -1 if 'Sb' in m else 1
+        xe = x0 + side * hw; xt = xe + side * 0.16
+        for (E, nm), yt in zip(lp, ys):
+            ax.plot([xe, xe + side * 0.10], [E, yt], color=C_A, lw=0.5, zorder=2)
+            ax.text(xt, yt, MATH.get(nm, nm), ha='left' if side > 0 else 'right', va='center', fontsize=6.5, color=C_A)
         d = by[m]['d']
         ax.text(x0, 30, f"ΔE = {d:+.0f}".replace('-', '−'), ha='center', va='center', fontsize=6.5, color=C_A if d > 0 else C_B)
     for (a1, a2) in (('Pb2Sb2Te5', 'Pb2Bi2Te5'), ('Sn2Sb2Te5', 'Sn2Bi2Te5')):   # 同一个态连虚线：Γ 点、Σ 谷
