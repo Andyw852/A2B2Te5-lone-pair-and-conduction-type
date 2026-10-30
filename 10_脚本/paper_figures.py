@@ -472,8 +472,13 @@ def fig5(out):
                 if (row == 0) == (nm != 'Γ'):
                     xi = x[90] if nm == 'Γ' else x[i]
                     ax.plot(xi, E[i, nel - 1] + 0.035, 'v', ms=3.2, color='k', zorder=3)
-                    ax.text(xi, E[i, nel - 1] + 0.062, MATH.get(nm, nm), ha='center', va='bottom', fontsize=7, zorder=3,
-                            bbox=dict(fc='white', ec='none', pad=0.4))   # 位置名，与图 6 对照
+                    ax.text(xi + (-0.06 if nm == 'Γ' else 0), E[i, nel - 1] + 0.062, MATH.get(nm, nm), ha='right' if nm == 'Γ' else 'center',
+                            va='bottom', fontsize=7, zorder=3, bbox=dict(fc='white', ec='none', pad=0.4))   # 位置名，与图 6 对照
+            ia = max(range(90, 98), key=lambda j: E[j, nel - 1])          # Γ–A 段上价带的最高点：不在 Γ 时（Sn₂Bi₂Te₅）另标 Δ
+            if row == 1 and ia != 90:
+                ax.plot(x[ia], E[ia, nel - 1] + 0.035, 'v', ms=3.2, color='k', zorder=3)
+                ax.text(x[ia] + 0.06, E[ia, nel - 1] + 0.062, 'Δ', ha='left', va='bottom', fontsize=7, zorder=3,
+                        bbox=dict(fc='white', ec='none', pad=0.4))
         for nm, i in SNVAL.items():
             bb = [nel - 2, nel - 1]; g = lambda X: r(100 * X[i, bb].mean(), 1)
             lv[(m, nm)] = 1000 * E[i, bb].mean()
@@ -638,7 +643,8 @@ def bz_3d(ax, m, B, P, zs):
                 alpha=1.0 if near(g['E']) else 0.6)
     # 对称点标签，方向与 (a)(b) 的俯视图一致：Γ、A 在轴上，M/L 在 30° 方向的边中点，K/H 在 60° 方向的顶点
     r0 = 0.5 * np.linalg.norm(B[0][:2]); a0 = np.arctan2(B[0][1], B[0][0]); kv = max(zip(hx, hy), key=lambda t: (round(t[1], 3), t[0]))
-    ax.text(0.03, 0, h + 0.05, 'A', fontsize=6.5, ha='left', va='bottom'); ax.text(0.06, 0, -0.03, 'Γ', fontsize=6.5, ha='left', va='top')
+    for z in (0, h, -h): ax.plot([0], [0], [z], marker='+', ms=5, mew=0.9, color='k', zorder=5)     # Γ（区中心）与 A（顶、底面中心）
+    ax.text(0.03, 0, h + 0.05, 'A', fontsize=6.5, ha='left', va='bottom'); ax.text(-0.07, 0, 0.02, 'Γ', fontsize=7, ha='right', va='bottom')
     for z, (lm, lk) in ((h, ('L', 'H')), (-h, ('M', 'K'))):
         ax.text(1.08 * r0 * np.cos(a0), 1.08 * r0 * np.sin(a0), z, lm, fontsize=6.5, ha='left', va='center')
         ax.text(1.05 * kv[0], 1.05 * kv[1], z, lk, fontsize=6.5, ha='left', va='bottom')
