@@ -472,6 +472,8 @@ def fig5(out):
                 if (row == 0) == (nm != 'Γ'):
                     xi = x[90] if nm == 'Γ' else x[i]
                     ax.plot(xi, E[i, nel - 1] + 0.035, 'v', ms=3.2, color='k', zorder=3)
+                    ax.text(xi, E[i, nel - 1] + 0.062, MATH.get(nm, nm), ha='center', va='bottom', fontsize=7, zorder=3,
+                            bbox=dict(fc='white', ec='none', pad=0.4))   # 位置名，与图 6 对照
         for nm, i in SNVAL.items():
             bb = [nel - 2, nel - 1]; g = lambda X: r(100 * X[i, bb].mean(), 1)
             lv[(m, nm)] = 1000 * E[i, bb].mean()
@@ -626,23 +628,24 @@ def bz_3d(ax, m, B, P, zs):
                 ax.plot([c[0]], [c[1]], [z], 'o', ms=4.6 if big else 3.0, color=g['col'], mfc='white' if on_face(f) else g['col'],
                         mew=0.9, alpha=1.0 if big else 0.45)
     ax.text(-0.10, 0, h + 0.06, 'A', fontsize=6.5, ha='center', va='bottom'); ax.text(0.12, -0.10, -0.08, 'Γ', fontsize=6.5, ha='left', va='top')
-    ax.view_init(elev=22, azim=-62); ax.set_box_aspect((1, 1, 2 * h / 1.9)); ax.set_axis_off()
+    ax.view_init(elev=22, azim=-62); ax.set_box_aspect((1, 1, 2 * h / 1.9), zoom=1.35); ax.set_axis_off()
 
 
 def fig6(out):
-    """(a)(b) Sn₂Sb₂Te₅、Sn₂Bi₂Te₅ 价带口袋沿 c 俯视，(c) Sn₂Bi₂Te₅ 三维透视；(d) 四种材料的转变能量。"""
+    """左列 Sn₂Sb₂Te₅、右列 Sn₂Bi₂Te₅：(a)(b) 价带口袋沿 c 俯视，(c)(d) 三维透视；(e) 四种材料的转变能量。"""
     data = {m: pockets(m) for m in ('Sn2Sb2Te5', 'Sn2Bi2Te5')}
-    fig = plt.figure(figsize=(W2, 4.25))
-    gs = fig.add_gridspec(2, 3, width_ratios=[1, 1, 1.05], height_ratios=[1, 0.92], wspace=0.04, hspace=0.16)
+    fig = plt.figure(figsize=(W2, 6.3))
+    gs = fig.add_gridspec(3, 3, width_ratios=[1, 1, 0.82], height_ratios=[1, 1.0, 0.9], wspace=0.04, hspace=0.10)
+    zs = 4
     for k, m in enumerate(data):
         bz_top(fig.add_subplot(gs[0, k]), m, *data[m], f'({"ab"[k]})')
-    ax = fig.add_subplot(gs[0, 2], projection='3d'); zs = 4
-    bz_3d(ax, 'Sn2Bi2Te5', *data['Sn2Bi2Te5'], zs=zs)
-    ax.text2D(0.5, 0.97, f'{TEX["Sn2Bi2Te5"]}: 3D view ($k_z$ ×{zs})', transform=ax.transAxes, fontsize=8, ha='center', va='bottom')
-    ax.text2D(0.04, 0.97, '(c)', transform=ax.transAxes, fontsize=9, fontweight='bold', ha='right', va='bottom')
-    # (d) 转变能量（HSE06+SOC）：正为孤对电子多谷在上（紫），负为 Γ–A 轴上的态在上（橙），与 (a)–(c) 同色
+        ax = fig.add_subplot(gs[1, k], projection='3d')
+        bz_3d(ax, m, *data[m], zs=zs)
+        ax.text2D(0.5, 0.97, f'{TEX[m]}: 3D view ($k_z$ ×{zs})', transform=ax.transAxes, fontsize=8, ha='center', va='bottom')
+        ax.text2D(0.04, 0.97, f'({"cd"[k]})', transform=ax.transAxes, fontsize=9, fontweight='bold', ha='right', va='bottom')
+    # (e) 转变能量（HSE06+SOC）：正为孤对电子多谷在上（紫），负为 Γ–A 轴上的态在上（橙），与 (a)–(d) 同色
     rows = crossover(); by = {d['m']: d for d in rows}
-    ax = fig.add_subplot(gs[1, :2])
+    ax = fig.add_subplot(gs[2, :2])
     ax.axvspan(-KT300, KT300, color='#EEF3F8', zorder=0, lw=0); ax.axvline(0, color='k', lw=0.6, zorder=2)
     for j, m in enumerate(MATS[::-1]):
         d = by[m]; v = d['d']; col = C_A if v > 0 else C_B
@@ -656,16 +659,16 @@ def fig6(out):
     ax.text(85, 3.62, 'lone-pair valleys on top' '\n' '(6 pockets each)', ha='center', va='center', fontsize=6.5, color=C_A)
     ax.text(0, -0.45, r'$\pm k_\mathrm{B}T$', ha='center', va='center', fontsize=6.3, bbox=dict(fc='#EEF3F8', ec='none', pad=0.6), zorder=3)
     ax.set_title('Crossover energy (HSE06+SOC)', fontsize=8, pad=4)
-    panel(ax, '(d)')
-    # 右下：(a)–(c) 的图例
-    lg = fig.add_subplot(gs[1, 2]); lg.axis('off')
+    panel(ax, '(e)')
+    # 右侧：(a)–(d) 的图例
+    lg = fig.add_subplot(gs[0:2, 2]); lg.axis('off')
     h = [Line2D([], [], ls='', marker='o', ms=5, color=C_B, label='B-site p state on the Γ–A axis'),
          Line2D([], [], ls='', marker='o', ms=5, color=C_A, label='Sn 5s lone-pair valley'),
          Line2D([], [], ls='', marker='o', ms=5, color='#555555', label=r'filled: $k_z$ = 0 plane or inside'),
          Line2D([], [], ls='', marker='o', ms=5, color='#555555', mfc='white', label=r'open: $k_z$ = ½ zone face'),
          Line2D([], [], ls='', marker='o', ms=3.4, color=C_A, alpha=0.45, label=r'faded: more than $2k_\mathrm{B}T$ below VBM')]
-    lg.legend(handles=h, loc='upper left', bbox_to_anchor=(0, 0.97), title='(a)–(c)', title_fontsize=7, handletextpad=0.3, labelspacing=0.6, borderaxespad=0)
-    lg.text(0.02, 0.02, 'Labels: line names of the hexagonal zone\n(Σ: Γ–M, R: A–L, Δ: Γ–A); energies in meV\nrelative to the VBM; ×n = equivalent pockets.',
+    lg.legend(handles=h, loc='upper left', bbox_to_anchor=(0.04, 0.80), title='(a)–(d)', title_fontsize=7, handletextpad=0.3, labelspacing=0.6, borderaxespad=0)
+    lg.text(0.06, 0.30, 'Labels: line names of the hexagonal zone\n(Σ: Γ–M, R: A–L, Δ: Γ–A); energies in meV\nrelative to the VBM; ×n = equivalent pockets.',
             transform=lg.transAxes, fontsize=6.3, va='bottom', ha='left', color='#333333')
     save(fig, out, 'Fig6_valence_pockets_crossover')
     prow = []
