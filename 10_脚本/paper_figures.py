@@ -111,6 +111,19 @@ def kticks(ax, x):
     ax.set_xticks(t, l); ax.set_xlim(x[0], x[KEND]); ax.tick_params(axis='x', top=False, length=0, pad=3)
 
 
+def vmark(ax, xp, yp, name, lead=None):
+    """在能带图上标出一个谷。默认在谷顶上方画 ▼ 和名称；lead=(tx, ty) 时把名称放在 (tx, ty)，用细线指向谷顶，
+    用于 Γ–A 这类很窄、两个标记会挤在一起的地方。"""
+    lab = MATH.get(name, name)
+    if lead is None:
+        ax.plot(xp, yp + 0.035, 'v', ms=3.2, color='k', zorder=4)
+        ax.text(xp, yp + 0.062, lab, ha='center', va='bottom', fontsize=7, zorder=4, bbox=dict(fc='white', ec='none', pad=0.3))
+    else:
+        ax.annotate(lab, xy=(xp, yp + 0.01), xytext=lead, ha='center', va='bottom', fontsize=7, zorder=4,
+                    bbox=dict(fc='white', ec='none', pad=0.3),
+                    arrowprops=dict(arrowstyle='-|>', lw=0.5, color='k', mutation_scale=5, shrinkA=0, shrinkB=0))
+
+
 def kpath():
     return cv.read_kpoints_opt(os.path.join(ROOT, '22_能带基准_1-0', 'c2_path', 'KPOINTS_OPT'))
 
@@ -375,11 +388,9 @@ def fig3(out):
         ax.axhline(0, color='k', lw=0.5, ls=':'); ax.axhline(gap, color='k', lw=0.5, ls=':')
         for nm, _E, kind, i in levels(m):                    # 标出图 6(e) 中的各谷，名称相同
             if kind == 'ref': continue
-            y = E[i, nel - 1]
-            ax.plot(x[i], y + 0.035, 'v', ms=3.2, color='k', zorder=4)
-            dx = -0.05 if nm in ('Γ', 'Δ') else (0.05 if nm == 'A' else 0)
-            ax.text(x[i] + dx, y + 0.062, MATH.get(nm, nm), ha='right' if dx < 0 else ('left' if dx > 0 else 'center'), va='bottom',
-                    fontsize=7, zorder=4, bbox=dict(fc='white', ec='none', pad=0.4))
+            # Γ–A 段很窄：Δ，以及带隙很小时的 Γ（▼ 会压到导带上）改用引线，名称放在左上方
+            lead = (x[90] - 0.28, 0.10) if nm == 'Δ' or (nm == 'Γ' and gap < 0.1) else None
+            vmark(ax, x[i], E[i, nel - 1], nm, lead)
         kticks(ax, x); ax.set_ylim(-0.5, 0.5)
         ax.set_title(f'{TEX[m]}     $E_g$ = {1000 * gap:.0f} meV', fontsize=8, pad=4)
         panel(ax, f'({"abcd"[n]})')
@@ -475,17 +486,13 @@ def fig5(out):
             else: ax.tick_params(labelleft=False)
             ax.set_title(f'{TEX[m]}: {lab}', fontsize=8, pad=4, color=col)
             panel(ax, f'({"abcd"[2 * row + c]})')
-            for nm, i in SNVAL.items():                      # 标出四个谷：上排标孤对电子谷，下排标 Γ 单谷
+            ia = max(range(90, 98), key=lambda j: E[j, nel - 1])          # Γ–A 段上价带的最高点：不在 Γ 时（Sn₂Bi₂Te₅）另标 Δ
+            for nm, i in SNVAL.items():                      # 标出四个谷（名称与图 3、图 6 相同）：上排标孤对电子谷，下排标 Γ 单谷
                 if (row == 0) == (nm != 'Γ'):
                     xi = x[90] if nm == 'Γ' else x[i]
-                    ax.plot(xi, E[i, nel - 1] + 0.035, 'v', ms=3.2, color='k', zorder=3)
-                    ax.text(xi + (-0.06 if nm == 'Γ' else 0), E[i, nel - 1] + 0.062, MATH.get(nm, nm), ha='right' if nm == 'Γ' else 'center',
-                            va='bottom', fontsize=7, zorder=3, bbox=dict(fc='white', ec='none', pad=0.4))   # 位置名，与图 6 对照
-            ia = max(range(90, 98), key=lambda j: E[j, nel - 1])          # Γ–A 段上价带的最高点：不在 Γ 时（Sn₂Bi₂Te₅）另标 Δ
-            if row == 1 and ia != 90:
-                ax.plot(x[ia], E[ia, nel - 1] + 0.035, 'v', ms=3.2, color='k', zorder=3)
-                ax.text(x[ia] + 0.06, E[ia, nel - 1] + 0.062, 'Δ', ha='left', va='bottom', fontsize=7, zorder=3,
-                        bbox=dict(fc='white', ec='none', pad=0.4))
+                    vmark(ax, xi, E[i, nel - 1], nm, (x[90] - 0.30, 0.10) if (nm == 'Γ' and ia != 90) else None)
+            if row == 1 and ia != 90:                        # Γ、Δ 挨得很近：两个名称放在同一高度，用引线分别指向
+                vmark(ax, x[ia], E[ia, nel - 1], 'Δ', (x[90] - 0.06, 0.10))
         for nm, i in SNVAL.items():
             bb = [nel - 2, nel - 1]; g = lambda X: r(100 * X[i, bb].mean(), 1)
             lv[(m, nm)] = 1000 * E[i, bb].mean()
