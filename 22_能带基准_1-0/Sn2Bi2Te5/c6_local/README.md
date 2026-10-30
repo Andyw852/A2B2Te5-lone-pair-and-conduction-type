@@ -1,0 +1,59 @@
+# Sn₂Bi₂Te₅ · c6_local：R₁′、R₁″ 两个谷的局部细网格（HSE06+SOC）
+
+2026-10-30。c4_mirror_v3 找到 4 个价带极大，其中 Σ′、R₂′ 已由 c5 星形拟合确认，另两个只有 c4 网格点：
+- R₁′ (−0.0833, 0, −1/3)
+- R₁″ (−0.0556, 0, 5/12)
+
+c4 的网格步长是 0.046 Å⁻¹（沿线）× 0.030 Å⁻¹（沿 c），对这两个谷太粗，**真实极大的位置和能量都没定**：
+- c4 只给出下限（R₁′ ≥ −27 meV，R₁″ ≥ −42 meV）；
+- 质量只是粗拟合。
+
+对 SnBi 的 S 影响很大：同在 3e19、300 K，R₁′/R₁″ 取不同质量假设，S 在 141–188 µV/K 之间。
+
+## 网格（`python 10_脚本/c4_mirror_scan.py local …/c4_mirror_v3 --out …/c6_local --split`）
+
+- 每个谷以 c4 网格极大为中心：
+  - u 方向 7 个，步长 1/60（0.0274 Å⁻¹），±3 步；
+  - w 方向 9 个，步长 1/36（0.0101 Å⁻¹），±4 步。
+- 覆盖：沿线 ±0.082 Å⁻¹、沿 c ±0.040 Å⁻¹，都比一个 c4 步长大，c4 两侧的格点都在里面。
+- 每个谷加 ±δ 两个镜面外的点（δ = 0.02），用来定面内垂直方向的质量。
+- 再加 c2 路径校验点。
+- 共 135 点，`KPOINTS_OPT_NKBATCH = 36`，分 4 批：36/36/36/27。
+- **FOCK_FCC 检查**：所有点都经过奇数/24 检查。u 步长 1/60 时 12u = n/5，不会落到半整数上。
+- 文件：
+  - `KPOINTS_OPT`（4 批合一）、`KPOINTS_OPT_b01`…`_b04`；
+  - `c6_points.json`：每个点的序号与所属谷，**不要手改 KPOINTS_OPT**。
+
+## 计算：设置与 c4_mirror_v3 完全相同
+
+| 项 | 内容 |
+|---|---|
+| INCAR、KPOINTS | 本目录的，从 c4_mirror_v3 原样复制。`NKRED 2 2 1`、`KPOINTS_OPT_NKBATCH = 36`，**都不要改** |
+| POSCAR、POTCAR | 与 c_hse_A、c4_mirror_v3 相同 |
+| WAVECAR | 每个目录各复制一份已收敛的 `c_hse_A/WAVECAR`（`ISTART = 1`） |
+| KPOINTS_OPT | 在 `b01`…`b04` 里各放对应的 `KPOINTS_OPT_bNN`，改名为 `KPOINTS_OPT` |
+| 资源 | 64 核快节点，`--time=0-12:00:00`，后台 `sleep 41400` 后写 `LABORT = .TRUE.`；每批约 6–7 小时 |
+
+**每个作业的检查**（同 c4_mirror_v3）
+1. 自洽能量与 c_hse_A、c4_mirror_v3 一致，差 < 1 meV。
+2. 没有 `internal error`。如果出现，贴原文和批号。
+3. 有 `General timing` 和 `aborting loop because EDIFF is reached`。
+
+**要推送的输出**（每个 `bNN/`）：`PROCAR_OPT.gz`（必须）、`OSZICAR`、`out.log` 中从 `k-point batch` 开始的部分。
+
+## 分析
+
+```bash
+python 10_脚本/c4_mirror_scan.py local-fit 22_能带基准_1-0/Sn2Bi2Te5/c6_local \
+  --parts 22_能带基准_1-0/Sn2Bi2Te5/c6_local/b0{1,2,3,4} \
+  | tee 22_能带基准_1-0/Sn2Bi2Te5/c6_local/fit.log
+```
+
+**验收**
+- 校验点与 c2 路径的最大差 < 0.5 meV。
+- 每个谷的细网格极大不在补丁边界上。如果在边界上，脚本会注明并跳过这个谷；这时停下汇报，Claude 会移动中心重新出点。
+- 如果某个谷高于 c5 的价带顶（Σ′，6.26851 eV），脚本会警告。这不算错误，说明真实价带顶要换，同样汇报即可。
+
+通过后脚本写出 `c6_masses.json`，`multivalley_seebeck.py` 会自动读入：按 `from_c4_uw` 对上 c4 的极大，用 c6 结果替换网格粗估。之后由 Claude 重算 S、重出图表，**不需要再算 c5**。
+
+脚本已用合成的 D3d 对称能带测试：两个谷的位置、能量和三个主质量都能完全还原。

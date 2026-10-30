@@ -13,6 +13,12 @@ K–Γ、H–A 线在二重轴上，那里的谷沿 c 的梯度由对称性为�
             每个用 3×3 邻域的二次曲面拟合定出驻点与能量；给出真实价带顶、导带底和带隙；
             为离带边 --win-v 内的价带极大、--win-c 内的导带极小写出 c5 的星形 KPOINTS_OPT（与 c3 相同的 11 点星形）。
   fit       读 c5 的 PROCAR_OPT(.gz)：每个谷的梯度、曲率、主质量；检查驻点是否落在采样半径内（同 multivalley_seebeck.c3_verdict）。
+  local     c6：c4 中未能细化的价带极大（网格二次拟合的驻点超出一格），在它周围另取一块细网格：u 步长 --du（默认 1/60，
+            12u = n/5 永远不是半整数，避开 FOCK_FCC 的奇数/24 点）、w 步长 --dw（默认 1/36），各 ±--nu、±--nw 格；
+            另在中心加垂直镜面的 ±δ 两点（面内垂直方向的曲率；镜面对称使该方向梯度为零）。
+  local-fit 读 c6：每块细网格上找极大，3×3 二次拟合定驻点与（线, c）曲率，加上垂直方向曲率，给出能量与主质量；
+            极大落在细网格边界上时报告“未收敛”，不写入。结果 c6_masses.json 与 c5_masses.json 同一格式，
+            multivalley_seebeck.true_load 会自动用它替换对应的 c4 网格谷。
 
 KPOINTS_OPT 的排布（2026-10-29，针对 VASP 在 NKRED 2 2 1 下的 FOCK_FCC 内部错误“number of k-points incorrect”）：
   原网格（全部 ky = 0，208 点）第 1 批通过、第 2 批崩溃；第 1 批含落在 12×12×2 自洽网格上的点（Γ、A），第 2 批没有。
@@ -33,6 +39,11 @@ KPOINTS_OPT 的排布（2026-10-29，针对 VASP 在 NKRED 2 2 1 下的 FOCK_FCC
   python 10_脚本/c4_mirror_scan.py grid Sn2Bi2Te5 --out 22_能带基准_1-0/Sn2Bi2Te5/c4_mirror_v3 --du 1/36 --umin=-15/36 --split
   python 10_脚本/c4_mirror_scan.py analyze 22_能带基准_1-0/Sn2Bi2Te5/c4_mirror_v3 --parts <b01…b06 的目录> --split   # 同时写出 ../c5_star/
   python 10_脚本/c4_mirror_scan.py fit 22_能带基准_1-0/Sn2Bi2Te5/c5_star --parts <c5 各批目录>
+  python 10_脚本/c4_mirror_scan.py local 22_能带基准_1-0/Sn2Bi2Te5/c4_mirror_v3 --out 22_能带基准_1-0/Sn2Bi2Te5/c6_local --split   # c6
+  python 10_脚本/c4_mirror_scan.py local-fit 22_能带基准_1-0/Sn2Bi2Te5/c6_local --parts <c6 各批目录>
+Sn2Sb2Te5（孤对电子谷在价带顶下 130–150 meV，analyze 要放宽窗口）：
+  python 10_脚本/c4_mirror_scan.py grid Sn2Sb2Te5 --out 22_能带基准_1-0/Sn2Sb2Te5/c4_mirror_v3 --du 1/36 --umin=-15/36 --split
+  python 10_脚本/c4_mirror_scan.py analyze 22_能带基准_1-0/Sn2Sb2Te5/c4_mirror_v3 --parts <b01…b06> --split --win-v 0.20
 单个作业顺序跑全部批时，去掉 --parts，PROCAR_OPT 放在目录里即可。
 只依赖 numpy。
 """
@@ -457,6 +468,91 @@ def cmd_fit(a):
     print(f"# 写出 {os.path.join(a.dir, 'c5_masses.json')}")
 
 
+# ------------------------------------------------------------------ c6：未细化极大的局部细网格
+def cmd_local(a):
+    ex = json.load(open(os.path.join(a.c4dir, 'c4_extrema.json')))
+    m, nel = ex['material'], ex['nelect']; B = recip(m); nb1, cz = np.linalg.norm(B[0]), B[2, 2]
+    eline, eperp, z = frames(B); to_frac = lambda v: v @ np.linalg.inv(B)
+    cen = [e for e in ex['vb_maxima'] if not e['refined'] and abs(e['u']) > 1e-6 and ex['vbm'] - e['E'] <= a.win_v]
+    if not cen: sys.exit('c4 中没有需要细化的价带极大')
+    K = read_kpoints_opt(os.path.join(ROOT, '22_能带基准_1-0', 'c2_path', 'KPOINTS_OPT'))
+    items, vals, n = [], [], 0
+    for iv, e in enumerate(cen):
+        lab = f'g{iv}'; u0, w0 = e['u'], e['w']
+        us = [u0 + i * a.du for i in range(-a.nu, a.nu + 1)]; ws = [w0 + j * a.dw for j in range(-a.nw, a.nw + 1)]
+        for i, u in enumerate(us):
+            for j, w in enumerate(ws):
+                r = n % 3; n += 1
+                items.append({'kind': 'grid', 'label': lab, 'grid': [i, j], 'k': c3_images((u, 0.0, (w + 0.5) % 1 - 0.5))[r].tolist()})
+        c = np.array([u0, 0.0, w0])
+        for st, sg in (('p+', 1), ('p-', -1)):
+            items.append({'kind': 'perp', 'label': lab, 'stencil': st, 'k': (c + to_frac(sg * a.delta * eperp)).tolist()})
+        vals.append({'label': lab, 'from_c4_uw': [u0, w0], 'E_c4_eV': e['E'], 'us': us, 'ws': ws, 'du': a.du, 'dw': a.dw, 'delta': a.delta})
+    check = {'kind': 'check', 'path_index': 101, 'k': K[101].tolist()}
+    pts, recs = layout(items + [check], K, a.nkbatch)
+    batches = [[s_, min(s_ + a.nkbatch, len(pts))] for s_ in range(0, len(pts), a.nkbatch)]
+    for v in vals:
+        v['grid_k_index'] = [[None] * len(v['ws']) for _ in v['us']]
+        for r_ in recs:
+            if r_.get('label') != v['label']: continue
+            if r_['kind'] == 'grid': v['grid_k_index'][r_['grid'][0]][r_['grid'][1]] = r_['k_index']
+            if r_['kind'] == 'perp': v.setdefault('perp_k_index', {})[r_['stencil']] = r_['k_index']
+    os.makedirs(a.out, exist_ok=True)
+    title = (f'c6 local mirror-plane grids around unrefined c4 maxima of {m}: du {a.du:.6f}, dw {a.dw:.6f}, +perp; '
+             f'one c2 anchor per batch of {a.nkbatch}; set KPOINTS_OPT_NKBATCH = {a.nkbatch}; see c6_points.json')
+    write_kpoints(os.path.join(a.out, 'KPOINTS_OPT'), title, pts)
+    if a.split: write_batches(a.out, 'KPOINTS_OPT', title, pts, batches)
+    chk = [{'path_index': r_['path_index'], 'k_index': r_['k_index']} for r_ in recs if r_['kind'] in ('anchor', 'check')]
+    json.dump({'material': m, 'nelect': nel, 'valleys': vals, 'checks': chk, 'n_kpoints': len(pts), 'nkbatch': a.nkbatch, 'batches': batches,
+               'batch_summary': batch_summary(pts, batches), 'vbm_c4': ex['vbm'], 'path_vbm': ex['path_vbm'], 'path_cbm': ex['path_cbm'],
+               'c5_masses': os.path.relpath(os.path.join(os.path.dirname(os.path.abspath(a.c4dir)), 'c5_star', 'c5_masses.json'), a.out),
+               'B_rows_cart_invA': B.tolist(), 'records': recs}, open(os.path.join(a.out, 'c6_points.json'), 'w'), indent=1, ensure_ascii=False)
+    print(f'{len(cen)} 个未细化的极大 × ({2 * a.nu + 1}×{2 * a.nw + 1} 网格 + 2 个垂直点) + 锚点与校验 {len(chk)} 个 = {len(pts)} 个 k 点'
+          f' → {a.out}/KPOINTS_OPT；INCAR 设 KPOINTS_OPT_NKBATCH = {a.nkbatch}（共 {len(batches)} 批）')
+    print(f'细网格范围：沿线 ±{a.nu * a.du * nb1:.3f} Å⁻¹、沿 c ±{a.nw * a.dw * cz:.3f} Å⁻¹（c4 一格：沿线 {nb1 / 36:.3f}、沿 c {cz / 12:.3f} Å⁻¹）')
+    for v in vals: print(f"  {v['label']}：c4 中心 (u, w) = ({v['from_c4_uw'][0]:+.4f}, {v['from_c4_uw'][1]:+.4f})，E_c4 = {v['E_c4_eV']:.5f} eV")
+    for k, s_ in enumerate(batch_summary(pts, batches)):
+        print(f'  批 {k + 1}：{s_["n"]} 点，kz 取值 {s_["n_kz"]} 个' + (f'  → KPOINTS_OPT_b{k + 1:02d}' if a.split else ''))
+
+
+def cmd_local_fit(a):
+    meta = json.load(open(os.path.join(a.dir, 'c6_points.json')))
+    m, nel = meta['material'], meta['nelect']; B = np.array(meta['B_rows_cart_invA']); nb1, cz = np.linalg.norm(B[0]), B[2, 2]
+    E, fs = read_parts(a.dir, a.parts, meta)
+    if E.shape[0] != meta['n_kpoints']: sys.exit(f"PROCAR 有 {E.shape[0]} 个 k 点，应为 {meta['n_kpoints']}")
+    P = read_path_eigen(os.path.join(mat_dir(m), 'c2_hse', 'path_eigen.txt'))
+    dev = max(abs(E[c['k_index'], nel - 5:nel + 4] - P[c['path_index'], nel - 5:nel + 4]).max() for c in meta['checks'])
+    print(f'# {m}：{len(meta["checks"])} 个校验点与 c2 路径最大差 {1000 * dev:.3f} meV' + ('' if dev < 5e-4 else '  ← 超过 0.5 meV，先查输入'))
+    c5 = json.load(open(os.path.normpath(os.path.join(a.dir, meta['c5_masses']))))
+    vbm = c5['vbm']; b = nel - 1; out = {}
+    for v in meta['valleys']:
+        gk = np.array(v['grid_k_index']); G = E[gk, b]; nu, nw = G.shape
+        i, j = np.unravel_index(np.argmax(G), G.shape)
+        if i in (0, nu - 1) or j in (0, nw - 1):
+            print(f"{v['label']}：细网格上的最高点在边界 (i, j) = ({i}, {j})，极大不在范围内，需要扩大网格；不写入"); continue
+        pts = [(di, dj, G[i + di, j + dj]) for di in (-1, 0, 1) for dj in (-1, 0, 1)]
+        xs = np.array([-p[0] * v['du'] * nb1 for p in pts]); zs = np.array([p[1] * v['dw'] * cz for p in pts]); es = np.array([p[2] for p in pts])
+        c0, g, H2 = quad_fit(xs, zs, es)
+        neg = np.all(np.linalg.eigvalsh(H2) < 0); sft = -np.linalg.solve(H2, g) if neg else np.zeros(2)
+        inside = neg and abs(sft[0]) <= v['du'] * nb1 and abs(sft[1]) <= v['dw'] * cz
+        e0 = c0 + 0.5 * g @ sft if inside else G[i, j]
+        u = v['us'][i] - sft[0] / nb1; w = (v['ws'][j] + sft[1] / cz + 0.5) % 1 - 0.5
+        pk = v['perp_k_index']; ec = E[gk[nu // 2, nw // 2], b]
+        hp = (E[pk['p+'], b] + E[pk['p-'], b] - 2 * ec) / v['delta'] ** 2
+        H = np.array([[H2[0, 0], 0, H2[0, 1]], [0, hp, 0], [H2[0, 1], 0, H2[1, 1]]]); wv = np.linalg.eigvalsh(H)
+        ok = bool(inside and np.all(wv < 0))
+        out[v['label']] = {'kind': 'v', 'from_c4_uw': v['from_c4_uw'], 'center_frac': [float(u), 0.0, float(w)], 'E_extremum': float(e0),
+                           'cation_s': float(fs[gk[i, j], b]), 'm': [float(HB / -H[0, 0]), float(HB / -H[1, 1]), float(HB / -H[2, 2])],
+                           'principal': (HB / -wv).tolist(), 'H_eVA2_line_perp_c': H.tolist(), 'true_extremum_within_star': ok,
+                           'E_rel_edge_meV': float(1000 * (vbm - e0))}
+        print(f"{v['label']}（c4 中心 {np.round(v['from_c4_uw'], 4).tolist()}）：极大 (u, w) = ({u:+.4f}, {w:+.4f})，E = {e0:.5f} eV，"
+              f"离价带顶 {1000 * (vbm - e0):.1f} meV（c4 网格点 {1000 * (vbm - v['E_c4_eV']):.1f}），阳离子 s {100 * fs[gk[i, j], b]:.1f}%")
+        print(f"   主质量 {np.round(HB / -wv, 3).tolist()} mₑ；{'确认是极大' if ok else '未确认（驻点超出一格或曲率不全为负）'}")
+        if e0 > vbm + 1e-4: print('   ← 比 c5 的价带顶还高：价带顶换了位置，停下汇报')
+    json.dump({'vbm': vbm, 'path_vbm': c5['path_vbm'], 'valleys': out}, open(os.path.join(a.dir, 'c6_masses.json'), 'w'), indent=1, ensure_ascii=False)
+    print(f"# 写出 {os.path.join(a.dir, 'c6_masses.json')}")
+
+
 def frac(s):
     from fractions import Fraction
     return float(Fraction(s))
@@ -484,8 +580,16 @@ def main():
     s.add_argument('--show', type=int, default=8)
     s = sub.add_parser('fit'); s.add_argument('dir')
     s.add_argument('--parts', nargs='+', help='逐批作业的目录（按批号顺序），代替 dir 里的单个 PROCAR_OPT')
+    s = sub.add_parser('local'); s.add_argument('c4dir'); s.add_argument('--out', required=True)
+    s.add_argument('--du', type=frac, default=1 / 60); s.add_argument('--dw', type=frac, default=1 / 36)
+    s.add_argument('--nu', type=int, default=3); s.add_argument('--nw', type=int, default=4)
+    s.add_argument('--delta', type=float, default=0.02, help='垂直镜面方向的步长（Å⁻¹）')
+    s.add_argument('--win-v', type=float, default=0.060, help='只细化离价带顶这么多 eV 以内的极大')
+    s.add_argument('--nkbatch', type=int, default=36); s.add_argument('--split', action='store_true')
+    s = sub.add_parser('local-fit'); s.add_argument('dir')
+    s.add_argument('--parts', nargs='+', help='逐批作业的目录（按批号顺序）')
     a = ap.parse_args()
-    {'grid': cmd_grid, 'analyze': cmd_analyze, 'fit': cmd_fit}[a.cmd](a)
+    {'grid': cmd_grid, 'analyze': cmd_analyze, 'fit': cmd_fit, 'local': cmd_local, 'local-fit': cmd_local_fit}[a.cmd](a)
 
 
 if __name__ == '__main__':

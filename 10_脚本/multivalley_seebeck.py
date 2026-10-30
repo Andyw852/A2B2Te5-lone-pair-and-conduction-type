@@ -10,7 +10,7 @@
   外推的驻点落在采样半径以内）才用拟合质量（抛物）整体替换；否则保留路径估计，并在 --list 中注明原因。
   注意：Γ–M、A–L 线在镜面内而不在二重轴上，对称性不要求沿 c 的梯度为零，离轴谷的真实极大可以在镜面内的一般 kz 处，
   路径给出的离轴谷能量只是下限（SnBi 的 c3 即如此）。
-- 真实谷（c4_mirror_v3 + c5_star，目前只有 SnBi 的 HSE 价带）：有这两步的结果时，镜面网格覆盖范围内（Γ–M、A–L 线上
+- 真实谷（c4_mirror_v3 + c5_star，以及 c6_local 对 c4 未细化极大的局部细化；目前只有 SnBi 的 HSE 价带）：有这两步的结果时，镜面网格覆盖范围内（Γ–M、A–L 线上
   |u| ≤ 网格边界）的路径离轴谷全部换成镜面内的真实极大：c5 星形拟合过的谷用拟合质量（抛物，主轴质量算态数、线与面内垂直
   方向的质量算面内速度）与极值能量；只在 c4 网格上找到、未细化的谷用网格点能量（下限）和网格二次拟合的（线, c）质量，
   面内垂直质量取 c5 两个谷的平均。价带顶改为真实价带顶，其余路径谷的离带边能量、带隙随之改为相对真实价带顶。g = 6。
@@ -168,20 +168,27 @@ def true_load(material):
     c4, c5 = json.load(open(f4, encoding='utf-8')), json.load(open(f5, encoding='utf-8'))
     c4g = json.load(open(os.path.join(d, 'c4_mirror_v3', 'c4_grid.json'), encoding='utf-8'))
     v5 = [v for v in c5['valleys'].values() if v['kind'] == 'v' and v['true_extremum_within_star']]
-    mperp = float(np.mean([v['m'][1] for v in v5]))
+    f6 = os.path.join(d, 'c6_local', 'c6_masses.json')               # c6：c4 未细化极大的局部细网格（有就用）
+    v6 = [v for v in json.load(open(f6, encoding='utf-8'))['valleys'].values() if v['true_extremum_within_star']] if os.path.exists(f6) else []
+    mperp = float(np.mean([v['m'][1] for v in v5])) if v5 else 0.05
     out = []
     for vm in c4['vb_maxima']:
         hit = next((v for v in v5 if abs(v['center_frac'][0] - vm['u']) < 2e-3 and abs(v['center_frac'][2] - vm['w']) < 2e-3), None)
+        h6 = next((v for v in v6 if abs(v['from_c4_uw'][0] - vm['u']) < 2e-3 and abs(v['from_c4_uw'][1] - vm['w']) < 2e-3), None)
         if hit:
             out.append(dict(u=hit['center_frac'][0], w=hit['center_frac'][2], E=hit['E_extremum'], m=hit['m'], principal=hit['principal'],
                             s=hit['cation_s'], src='c5 星形拟合（真极值）'))
+        elif h6:
+            out.append(dict(u=h6['center_frac'][0], w=h6['center_frac'][2], E=h6['E_extremum'], m=h6['m'], principal=h6['principal'],
+                            s=h6['cation_s'], src='c6 局部细网格（真极值）'))
         else:
             H = np.array(vm['H_line_c_eVA2']); ev = np.linalg.eigvalsh(H)
             if np.any(ev >= 0): continue
             out.append(dict(u=vm['u'], w=vm['w'], E=vm['E'], m=[HB / abs(H[0, 0]), mperp, HB / abs(H[1, 1])],
                             principal=[HB / abs(ev[0]), mperp, HB / abs(ev[1])], s=vm['cation_s'],
                             src=f'c4 网格点（未细化，能量为下限）；面内垂直质量取 c5 平均 {mperp:.3f}'))
-    return dict(vbm=c5['vbm'], path_vbm=c5['path_vbm'], umin=min(c4g['us']), valleys=out)
+    vbm = max([c5['vbm']] + [v['E'] for v in out if v['src'].startswith('c6')])   # c6 细化后的谷若更高，价带顶随之改
+    return dict(vbm=vbm, path_vbm=c5['path_vbm'], umin=min(c4g['us']), valleys=out)
 
 
 def build(material, kind, win, c3=None, side='c2_hse'):
