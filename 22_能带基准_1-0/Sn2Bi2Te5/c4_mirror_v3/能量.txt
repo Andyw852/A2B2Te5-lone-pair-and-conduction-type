@@ -1,0 +1,12 @@
+# c4_mirror_v3 六个分批作业的能量汇总
+# 每批：energy(sigma->0)、E-fermi、EDIFF reached 行数、DAV 步数、General timing
+批    energy(sigma->0)   E-fermi    EDIFF    DAV      GenTiming
+b01    -42.33270480       6.3338     1        22       1       
+b02    -42.33270481       6.3338     1        21       1       
+b03    -42.33270480       6.3338     1        21       1       
+b04    -42.33270480       6.3338     1        20       1       
+b05    -42.33270480       6.3338     1        20       1       
+b06    -42.33270480       6.3338     1        19       1       
+
+# 参考：c_hse_A  energy(sigma->0) = -42.33270332   E-fermi = 6.3338
+# 对照：c3_valley energy(sigma->0) = -42.33270481
