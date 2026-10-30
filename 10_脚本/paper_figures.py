@@ -656,6 +656,22 @@ def bz_3d(ax, m, B, P, zs):
     ax.view_init(elev=30, azim=-90); ax.set_box_aspect((1, 1, 2 * h / 1.9), zoom=1.3); ax.set_axis_off()
 
 
+def levels(m):
+    """HSE06+SOC 价带上的能级（相对价带顶，meV）：Γ–A 轴上的谷（Γ、Δ 或 A）、Γ 点本身（不是谷时作参照）、
+    孤对电子谷（Sn 系用表 5 的 Σ、R₁、R₂；Pb 系取 Σ、R 线上阳离子 s ≥ 15% 的局部极大，260 meV 以内）。"""
+    v = top_vb(m, 'c2_hse'); ia = max(AXIS, key=lambda i: v[i]); out = [(kname(ia), v[ia], 'axis')]
+    if ia != 90: out.append(('Γ', v[0], 'ref'))
+    if m.startswith('Sn'):
+        out += [(nm, v[i], 'lp') for nm, i in SNVAL.items() if nm != 'Γ']
+    else:
+        x, _ = rf.path_x(m); nel = NEL[m]
+        E = cv.read_path_eigen(os.path.join(rf.base(m), 'c2_hse', 'path_eigen.txt'))
+        _, W = cv.read_procar(os.path.join(rf.base(m), 'c2_hse', 'PROCAR_OPT.gz')); fs = rf.cation_s(W)[:, nel - 2:nel].mean(1)
+        for i, _m in cv.extrema(x, E[:, nel - 1], 'max', 600):
+            if (0 < i < 33 or 97 < i < 130) and fs[i] >= LP_MIN and v[i] > -260: out.append((kname(i), v[i], 'lp'))
+    return out
+
+
 def fig6(out):
     """左列 Sn₂Sb₂Te₅、右列 Sn₂Bi₂Te₅：(a)(b) 价带口袋沿 c 俯视，(c)(d) 三维透视；(e) 四种材料的价带谷间能量差 ΔE。"""
     data = {m: pockets(m) for m in ('Sn2Sb2Te5', 'Sn2Bi2Te5')}
@@ -672,22 +688,42 @@ def fig6(out):
         bz_3d(ax, m, *data[m], zs=zs)
         ax.text2D(0.5, 1.04, f'{TEX[m]}: 3D view ($k_z$ ×{zs})', transform=ax.transAxes, fontsize=8, ha='center', va='bottom')
         ax.text2D(-0.08, 1.04, f'({"cd"[k]})', transform=ax.transAxes, fontsize=9, fontweight='bold', ha='right', va='bottom')
-    # (e) 价带谷间能量差 ΔE（HSE06+SOC）：正为孤对电子多谷在上（紫），负为 Γ–A 轴上的态在上（橙），与 (a)–(d) 同色
+    # (e) 四种材料的价带能级（HSE06+SOC）：Sb → Bi 时 Γ 相对孤对电子谷下降；Pb 系价带顶移到 A（仍是单谷），Sn 系移到孤对电子多谷
     rows = crossover(); by = {d['m']: d for d in rows}
-    ax = fig.add_subplot(gs[2, :2])
-    ax.axvspan(-KT300, KT300, color='#EEF3F8', zorder=0, lw=0); ax.axvline(0, color='k', lw=0.6, zorder=2)
-    for j, m in enumerate(MATS[::-1]):
-        d = by[m]; v = d['d']; col = C_A if v > 0 else C_B
-        ax.barh(j, v, height=0.5, color=col, lw=0, zorder=1)
-        lab = f'{v:+.0f}'.replace('-', '−') + f"  ({kname(d['il'])} − {kname(d['ia'])})"   # 括号内：相减的两个位置
-        ax.text(v + (6 if v > 0 else -6), j, lab, ha='left' if v > 0 else 'right', va='center', fontsize=6.5)
-    ax.set_yticks(range(4), [TEX[m] for m in MATS[::-1]]); ax.set_ylim(-0.6, 4.1); ax.tick_params(axis='y', length=0, right=False)
-    ax.set_xlim(-330, 170)
-    ax.set_xlabel(r'$\Delta E = E_{\Sigma} - E_{\Gamma\mathrm{-A}}$ (meV)')
-    ax.text(-165, 3.62, 'VBM on the Γ–A axis (1–2 pockets)', ha='center', va='center', fontsize=6.5, color=C_B)
-    ax.text(85, 3.62, 'VBM at the lone-pair' '\n' 'valleys (6 per group)', ha='center', va='center', fontsize=6.5, color=C_A)
-    ax.text(0, -0.45, r'$\pm k_\mathrm{B}T$', ha='center', va='center', fontsize=6.3, bbox=dict(fc='#EEF3F8', ec='none', pad=0.6), zorder=3)
-    ax.set_title('Valence-valley offset (HSE06+SOC)', fontsize=8, pad=4)
+    ax = fig.add_subplot(gs[2, :2]); lv_rows = []
+    X = {'Pb2Sb2Te5': 0.0, 'Pb2Bi2Te5': 1.0, 'Sn2Sb2Te5': 2.9, 'Sn2Bi2Te5': 3.9}; hw = 0.26
+    ax.axhspan(-2 * KT300, 0, color='#EEF3F8', zorder=0, lw=0)
+    L = {m: levels(m) for m in MATS}
+    for m in MATS:
+        x0 = X[m]
+        for nm, E, kind in L[m]:
+            col = C_A if kind == 'lp' else C_B; ref = kind == 'ref'
+            ax.plot([x0 - hw, x0 + hw], [E, E], color=col, lw=0.9 if ref else 1.6, ls=(0, (2, 1.5)) if ref else '-', zorder=2,
+                    alpha=0.7 if ref else 1)
+            if kind != 'ref':
+                ax.plot(x0, E, MK.get(nm, 'o'), ms={'o': 4.2, 's': 3.6, 'D': 3.4}[MK.get(nm, 'o')],
+                        color=col, mfc='white' if nm.startswith('R') else col, mew=0.8, zorder=3)
+            lv_rows.append([m, nm, kind, r(E, 1)])
+        for nm, E, kind in L[m]:                                   # 轴上的谷标在左侧；不是谷的 Γ 点标在右侧
+            if kind == 'axis': ax.text(x0 - hw - 0.04, E, nm, ha='right', va='center', fontsize=6.5, color=C_B)
+            if kind == 'ref': ax.text(x0 + hw + 0.04, E, 'Γ (not a max)', ha='left', va='center', fontsize=6.0, color=C_B)
+        d = by[m]['d']
+        ax.text(x0, 22, f"ΔE = {d:+.0f}".replace('-', '−'), ha='center', va='bottom', fontsize=6.5, color=C_A if d > 0 else C_B)
+    for (a1, a2) in (('Pb2Sb2Te5', 'Pb2Bi2Te5'), ('Sn2Sb2Te5', 'Sn2Bi2Te5')):   # 同一个态连虚线：Γ 点、Σ 谷
+        for nm, col in (('Γ', C_B), ('Σ', C_A)):
+            e1 = next(E for n, E, k in L[a1] if n == nm); e2 = next(E for n, E, k in L[a2] if n == nm)
+            ax.plot([X[a1] + hw, X[a2] - hw], [e1, e2], color=col, lw=0.6, ls=(0, (2, 1.5)), zorder=1)
+    ax.axhline(0, color='k', lw=0.5, ls=':')
+    ax.set_xticks(list(X.values()), [TEX[m] for m in X]); ax.tick_params(axis='x', top=False, length=0)
+    ax.set_xlim(-0.6, 5.0); ax.set_ylim(-262, 40)
+    ax.set_ylabel(r'$E - E_{\mathrm{VBM}}$ (meV)')
+    for xm, t in ((0.5, 'Pb series: Sb → Bi'), (3.4, 'Sn series: Sb → Bi')):
+        ax.text(xm, -0.13, t, ha='center', va='top', fontsize=7, transform=ax.get_xaxis_transform())
+    ax.axvline(2.25, color=GRID, lw=0.6)
+    ax.text(4.9, -2 * KT300 / 2, r'$2k_\mathrm{B}T$', ha='right', va='center', fontsize=6.3)
+    ax.set_title('Valence-band levels of the four compounds (HSE06+SOC)', fontsize=8, pad=4)
+    dump('Fig6_valence_pockets', 'levels_HSE.csv', ['material', 'state', 'kind (axis: valley on the Γ–A axis; lp: lone-pair valley; '
+         'ref: Γ point, not a valley)', 'E-EVBM_meV'], lv_rows)
     panel(ax, '(e)')
     # 右侧：(a)–(d) 的图例
     lg = fig.add_subplot(gs[0:2, 2]); lg.axis('off')

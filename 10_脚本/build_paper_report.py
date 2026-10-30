@@ -79,7 +79,7 @@ data/                  每幅图的源数据，即图中画出的数值，目录
   Fig5_SnSb_vs_SnBi/          Sn2Sb2Te5 与 Sn2Bi2Te5 路径能带上的 Sn-s、B-s、Sn-p、B-p、Te-p 投影；Γ 单谷与三组孤对电子谷的能量与成分；
                               Γ 处最高价带与最低导带的能量与成分（Gamma_states.csv）（表 5）
   Fig6_valence_pockets/       Sn2Sb2Te5、Sn2Bi2Te5 价带口袋在布里渊区中的位置（pocket_positions.csv：每个口袋一行，
-                              分数坐标、笛卡尔坐标、所在面、能量、等价口袋数）；四种材料的价带谷间能量差（HSE06+SOC）
+                              分数坐标、笛卡尔坐标、所在面、能量、等价口袋数）；四种材料的价带能级（levels_HSE.csv）与谷间能量差（HSE06+SOC）
                               ΔE = E(Σ 孤对电子谷) − E(Γ–A 轴上最高价带态)（valley_offset_HSE.csv）
   Fig7_lone_pair_valley/      最高孤对电子价带谷相对价带顶的能量（meV）、所在 k 点与成分
   Fig8_Seebeck/               300 K、3×10^19 cm^-3 的面内 S：PBE+SOC（BoltzTraP2）与 HSE 估计；表 6 的逐谷电导份额
