@@ -16,6 +16,7 @@ Fig. 9  S(T) of all four compounds: experiment vs calculation (HSE and PBE)    e
                                                                                A2B2Te5_SOC_dense/materials/<mat>/.../boltztrap_crta.json
 Fig. 10 Neutral formation energies of 12 defect types in O and D               13_DVO缺陷_VASP流程与分析/结果_第一批/analysis/形成能_逐位点.csv
 Fig. 11 Ordering-induced change of the formation energy, O − D                  same
+Fig. S1 Top valence band in the mirror plane (c4 grid) for Sn2Sb2Te5 / Sn2Bi2Te5, with k_z cuts   22_能带基准_1-0/<mat>/c4_mirror_v3/b0*/PROCAR_OPT.gz
 
 Valleys off the high-symmetry points are named after the line they lie on (standard hexagonal notation, Bradley & Cracknell):
 Γ–M Σ, M–K T, K–Γ Λ, Γ–A Δ, A–L R, L–H S, H–A Q; the two A–L valleys are R1 (near A) and R2 (near L). See kname().
@@ -1118,16 +1119,95 @@ def fig11(out):
     save(fig, out, 'Fig11_ordering_induced_change')
 
 
+# ------------------------------------------------------------------ Fig. S1
+def mirror_map(m):
+    """c4_mirror_v3 网格上最高价带（Kramers 对平均）的能量，相对真实价带顶（meV）。返回 x（= −u，指向 M）、w、E[x, w]，
+    用 (u, w) ≡ (−u, −w) 补全 x < 0 的一半。"""
+    import c4_mirror_scan as c4
+    d = os.path.join(ROOT, '22_能带基准_1-0', m, 'c4_mirror_v3'); meta = json.load(open(os.path.join(d, 'c4_grid.json')))
+    E, _ = c4.read_parts(d, [os.path.join(d, f'b0{i}') for i in range(1, 7)], meta); nel = meta['nelect']
+    us, ws = np.array(meta['us']), np.array(meta['ws']); gk = np.array(meta['grid_k_index'])
+    G = 1000 * (E[gk, nel - 2:nel].mean(-1) - mv.true_load(m)['vbm'])          # [u, w]
+    x = -us; jneg = [int(np.argmin(np.abs(((-w - ws) + 0.5) % 1 - 0.5))) for w in ws]   # −w 在网格中的序号
+    X = np.concatenate([-x[:0:-1], x]); GX = np.concatenate([G[:0:-1][:, jneg], G])
+    return X, ws, GX
+
+
+def figS1(out):
+    from scipy.interpolate import RectBivariateSpline
+    fig = plt.figure(figsize=(W2, 5.0))
+    gs = fig.add_gridspec(2, 2, height_ratios=[1.25, 1], hspace=0.42, wspace=0.22)
+    cmap = plt.get_cmap('viridis'); lo = -250
+    cuts = {}; rows = []
+    for k, m in enumerate(('Sn2Sb2Te5', 'Sn2Bi2Te5')):
+        X, ws, GX = mirror_map(m)
+        we = np.concatenate([ws[-2:] - 1, ws, ws[:3] + 1]); Ge = np.concatenate([GX[:, -2:], GX, GX[:, :3]], axis=1)   # w 方向周期延拓
+        S = RectBivariateSpline(X, we, Ge, kx=3, ky=3, s=0)
+        xf, wf = np.linspace(X.min(), X.max(), 241), np.linspace(-0.5, 0.5, 201); F = S(xf, wf)
+        ax = fig.add_subplot(gs[0, k])
+        im = ax.pcolormesh(xf, wf, np.clip(F.T, lo, 0), cmap=cmap, vmin=lo, vmax=0, shading='auto', rasterized=True)
+        ax.contour(xf, wf, F.T, levels=np.arange(-300, 1, 25), colors='white', linewidths=0.35, alpha=0.7)
+        for w0 in (-0.5, 0.0, 0.5): ax.axhline(w0, color='w', lw=1.6, ls=(0, (1, 1)))
+        ax.axvline(0, color='w', lw=1.0, ls=(0, (1, 1)))
+        ax.text(0.39, 0.02, 'Γ–M (path)', color='w', fontsize=6.5, ha='right', va='bottom')
+        ax.text(0.39, 0.48, 'A–L (path)', color='w', fontsize=6.5, ha='right', va='top')
+        ax.text(0.01, -0.33, 'Γ–A', color='w', fontsize=6.5, ha='left', rotation=90)
+        for nm, (u0, w0) in PATH_LP.items():                         # 路径上的谷（空心）
+            for xx, ww in ((-u0, w0), (u0, -w0)):
+                for wv in ((ww, ww - 1) if np.isclose(abs(ww), 0.5) else (ww,)):
+                    if abs(wv) <= 0.5 + 1e-9: ax.plot(xx, wv, MK[nm], ms=5 * MS.get(MK[nm], 1), mfc='none', mec='k', mew=0.9, zorder=4, clip_on=False)
+        for t in true_valleys(m)['valleys']:                             # 三维搜索的真实极大（实心）
+            u0, w0 = t['kfrac'][0], t['kfrac'][2]
+            for xx, ww in ((-u0, w0), (u0, -w0)):
+                ax.plot(xx, ww, MK[t['name']], ms=5.2 * MS.get(MK[t['name']], 1), color='#FF5A5F', mec='k', mew=0.5, zorder=5)
+            right = -u0 > 0.28
+            ax.annotate(f"{MATH.get(t['name'], t['name'])} {t['E']:.0f}".replace('-', '−') + ('*' if t['grid'] else ''), (-u0, w0),
+                        (-6 if right else 6, -11 if (right or w0 > 0.35) else 5), textcoords='offset points', fontsize=6.3, color='w', fontweight='bold',
+                        ha='right' if right else 'left')
+            rows.append([m, t['name'], round(-u0, 4), round(w0, 4), round(t['E'], 1)])
+            if t['name'] in ('Σ′', 'R₂′'): cuts[(m, t['name'])] = (-u0, w0, t['E'], S(np.array([-u0]), wf)[0])
+        ax.set_xlim(X.min(), X.max()); ax.set_ylim(-0.5, 0.5)
+        ax.set_xlabel(r'in-plane $k$ along Γ→M ($-u$, units of $b_1$)'); ax.set_ylabel(r'$k_z$ ($w$, units of $b_3$)' if k == 0 else '')
+        ax.set_title(f'{TEX[m]}: top valence band in the mirror plane', fontsize=8, pad=3); panel(ax, f'({"ab"[k]})')
+        for nm, (u0, w0) in PATH_LP.items():
+            cuts[(m, nm)] = S(np.array([-u0]), np.array([w0]))[0, 0]          # 路径上该谷的能量（同一样条，作对照）
+        dump('FigS1_mirror_plane', f'{m}_mirror_plane_grid_meV.csv', ['x=-u'] + [f'w={w:.4f}' for w in ws], [[round(xx, 4)] + [round(v, 1) for v in row] for xx, row in zip(X, GX)])
+    cb = fig.colorbar(im, ax=fig.axes[:2], fraction=0.025, pad=0.02, extend='min'); cb.set_label(r'$E - E_\mathrm{VBM}$ (meV)')
+    # (c)(d) 沿 c 的切线，经过三维搜索的真实极大；路径只在 w = 0（Γ–M）和 w = ±½（A–L）两处经过这条线附近
+    for k, (tn, pn) in enumerate((('Σ′', 'Σ'), ('R₂′', 'R₂'))):
+        ax = fig.add_subplot(gs[1, k])
+        for m, col in (('Sn2Sb2Te5', C_B), ('Sn2Bi2Te5', C_A)):
+            x0, w0, E0, cut = cuts[(m, tn)]
+            ax.plot(wf, cut, color=col, lw=1.3, label=f'{TEX[m]} ($-u$ = {x0:.3f})')
+            ax.plot(w0, E0, MK[tn], ms=5.5 * MS.get(MK[tn], 1), color=col, mec='k', mew=0.5, zorder=5)
+            wp = PATH_LP[pn][1]; Ep = cuts[(m, pn)]
+            for ww in ((wp,) if wp == 0 else (-0.5, 0.5)):
+                ax.plot(ww, Ep, MK[pn], ms=5.5 * MS.get(MK[pn], 1), mfc='white', mec=col, mew=1.0, zorder=5, clip_on=False)
+            ax.annotate('', (w0, E0), (wp if wp == 0 else 0.5, Ep), arrowprops=dict(arrowstyle='->', lw=0.7, color=col, shrinkA=4, shrinkB=4))
+            ax.text(w0 + 0.04 if wp == 0 else 0.03, (E0 + Ep) / 2 if wp == 0 else E0 - 12, f'+{E0 - Ep:.0f} meV', color=col, fontsize=6.5,
+                    ha='left', va='center')
+            rows += [[m, f'cut through {tn}', round(x0, 4), round(w, 4), round(e, 1)] for w, e in zip(wf[::5], cut[::5])]
+        for ww in ((0.0,) if pn == 'Σ' else (-0.5, 0.5)): ax.axvline(ww, color='#999999', lw=0.8, ls=DASH)
+        ax.text(0.0 if pn == 'Σ' else 0.5, 1.01, 'Γ–M plane (path)' if pn == 'Σ' else 'A–L plane (path)', transform=ax.get_xaxis_transform(),
+                ha='center' if pn == 'Σ' else 'right', va='bottom', fontsize=6.5, color='#555555')
+        ax.set_xlim(-0.5, 0.5); ax.set_ylim(-300, 15); ax.set_xlabel(r'$k_z$ ($w$, units of $b_3$)')
+        ax.set_ylabel(r'$E - E_\mathrm{VBM}$ (meV)' if k == 0 else '')
+        ax.set_title(f'Cut along $k_z$ through {MATH.get(tn, tn)} (filled) vs path {MATH.get(pn, pn)} (open)', fontsize=8, pad=11)
+        ax.legend(loc='upper left' if pn == 'Σ' else 'center', fontsize=6.3, ncol=1); panel(ax, f'({"cd"[k]})', y=1.06)
+    dump('FigS1_mirror_plane', 'valleys_and_cuts.csv', ['material', 'valley_or_cut', 'x=-u', 'w', 'E_minus_VBM_meV'], rows)
+    save(fig, out, 'FigS1_mirror_plane_maps')
+
+
 def main():
     global DATA
     ap = argparse.ArgumentParser(); ap.add_argument('--out', default=os.path.join(ROOT, '21_阶段报告与交接', '论文图_20261028'))
     ap.add_argument('--data'); ap.add_argument('--only', nargs='+'); a = ap.parse_args()
     DATA = a.data or os.path.join(a.out, 'source_data')
     os.makedirs(a.out, exist_ok=True); style()
-    todo = a.only or [str(i) for i in range(1, 12)]
+    todo = a.only or [str(i) for i in range(1, 12)] + ['S1']
     info = {}
     for i in todo:
-        res = {'1': fig1, '2': fig2, '3': fig3, '4': fig4, '5': fig5, '6': fig6, '7': fig7, '8': fig8, '9': fig9, '10': fig10, '11': fig11}[i](a.out)
+        res = {'1': fig1, '2': fig2, '3': fig3, '4': fig4, '5': fig5, '6': fig6, '7': fig7, '8': fig8, '9': fig9, '10': fig10, '11': fig11, 'S1': figS1}[i](a.out)
         if res is not None: info[i] = res
     print(info); print('→', a.out, '；源数据 →', DATA)
 

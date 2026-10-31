@@ -229,6 +229,11 @@ sup.r { font-size: 11px; color: var(--accent); }
   Sn₂Sb₂Te₅（图 6a、c）：R₂′ (−0.346, 0, 0.408) 在 −84 meV，比路径上的 R₂ 高 62 meV；Σ′ (−0.177, 0, 0.063) 在 −127 meV，只比路径上的 Σ 高 4 meV；R₁′ (−0.111, 0, −1/4) 是网格点、未细化，−124 meV 为下限。阳离子 s 26–33%。每组各 6 个口袋。</li>
 </ul>
 <p>两种材料对比：Sn₂Sb₂Te₅ 价带顶 2<i>k</i><sub>B</sub><i>T</i> 内只有 Γ 一个口袋，孤对电子谷在 −84（R₂′）到 −127 meV（Σ′）；Sn₂Bi₂Te₅ 价带顶 2 meV 内有 Σ′、R₂′ 共 12 个口袋，52 meV 内连同 R₁′、R₁″ 共 24 个，Δ 在 −117 meV，已在 2<i>k</i><sub>B</sub><i>T</i> 以外。</p>
+<p><b>为什么能带路径图看不出变化（图 S1）。</b>图 2、3、5 画的是高对称路径，路径没有变，所以图也不变。三维搜索得到的极大不在路径上，而在含 c 轴的镜面内。图 S1 画出这个镜面内最高价带的能量：孤对电子带在 (<i>k</i><sub>面内</sub>, <i>k</i><sub>z</sub>) 平面里是一条条斜向的脊，沿 c 的色散达数百 meV。路径只经过 <i>k</i><sub>z</sub> = 0（Γ–M）和 <i>k</i><sub>z</sub> = ½（A–L）两条水平线，切在脊的侧面，看到的是脊的“腰”而不是“顶”。R₂ 的顶在 <i>k</i><sub>z</sub> ≈ 0.40，A–L 线在 ½ 处，路径低估了 53 meV（Sn₂Bi₂Te₅）和 62 meV（Sn₂Sb₂Te₅）；Σ 的顶离 Γ–M 线较近，差 38、4 meV。</p>
+<figure>
+<img src="{{FIG:FigS1_mirror_plane_maps}}" alt="Fig. S1">
+<figcaption><b>图 S1</b> 含 c 轴的镜面内最高价带的能量（HSE06+SOC，c4 网格 16×12 点，双三次样条插值；相对真实价带顶，meV）。(a) Sn₂Sb₂Te₅，(b) Sn₂Bi₂Te₅。横轴为沿 Γ→M 方向的面内 <i>k</i>（单位 <i>b</i><sub>1</sub>），纵轴为 <i>k</i><sub>z</sub>（单位 <i>b</i><sub>3</sub>）；左半部用对称性 (<i>u</i>, <i>w</i>) ≡ (−<i>u</i>, −<i>w</i>) 补全。白色虚线为能带路径经过的位置：Γ–M（<i>k</i><sub>z</sub> = 0）、A–L（<i>k</i><sub>z</sub> = ±½，上下边）、Γ–A（中间竖线）。空心标记为路径上的谷（圆 Σ、方块 R₁、菱形 R₂），红色实心标记为三维搜索的真实极大，标注名称与能量（* 为网格点、未细化）。(c)(d) 经过真实极大 Σ′、R₂′ 沿 <i>k</i><sub>z</sub> 的切线，空心标记为路径上的值，箭头标出路径低估的量。数据见 <code>data/FigS1_mirror_plane/</code>。</figcaption>
+</figure>
 <p><b>四种材料的价带能级与谷间能量差（图 6e）。</b>能带收敛的文献用两组谷带边之间的能量差 Δ<i>E</i> 描述谁在价带顶、离收敛多远<sup class="r">[15]</sup>。这里比较最高的孤对电子谷与 Γ–A 轴上的谷（Γ、Δ 或 A，取最高者），两者取自同一个计算，Δ<i>E</i> 与能量零点无关。数值见 <code>data/Fig6_valence_pockets/</code> 中的 <code>levels_HSE.csv</code>、<code>valley_offset_HSE.csv</code>。</p>
 <ul>
 <li><b>两个系列中 Sb → Bi 都使 Γ 相对孤对电子谷下降约 200 meV</b>：按路径值比较 Σ 减 Γ 点的能量差，Pb 系从 −236 meV 变为 −39 meV（升 196 meV），Sn 系从 −131 meV 变为 +95 meV（升 226 meV）。Sn₂Bi₂Te₅ 按真实价带顶为 +133 meV。</li>
