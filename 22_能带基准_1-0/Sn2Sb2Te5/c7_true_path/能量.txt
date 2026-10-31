@@ -1,0 +1,4 @@
+# Sn2Sb2Te5 c7_true_path 两批能量
+批   energy(sigma->0)   E-fermi   
+b01   -41.37891724       6.7735    
+b02   -41.37891724       6.7735    
