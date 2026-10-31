@@ -3,7 +3,7 @@ Pb2Sb2Te5,HSE06+SOC,path multivalley model,-1.723e+16,301.58,5.52,-16.7
 Pb2Sb2Te5,PBE+SOC,path multivalley model,1.295e+17,301.58,5.52,-141.3
 Pb2Bi2Te5,HSE06+SOC,path multivalley model,-8.215e+18,302,-89,7.1
 Pb2Bi2Te5,PBE+SOC,path multivalley model,-3.478e+19,302,-89,-103.7
-Sn2Sb2Te5,HSE06+SOC,BoltzTraP2 (PBE) x model HSE/PBE ratio,1.592e+21,300,16,-8.6
+Sn2Sb2Te5,HSE06+SOC,BoltzTraP2 (PBE) x model HSE/PBE ratio,5.610e+20,300,16,-5.0
 Sn2Sb2Te5,PBE+SOC,"BoltzTraP2 (PBE, full BZ)",2.308e+21,300,16,-5.2
-Sn2Bi2Te5,HSE06+SOC,BoltzTraP2 (PBE) x model HSE/PBE ratio,7.054e+20,302,30,-9.7
+Sn2Bi2Te5,HSE06+SOC,BoltzTraP2 (PBE) x model HSE/PBE ratio,7.221e+20,302,30,-10.6
 Sn2Bi2Te5,PBE+SOC,"BoltzTraP2 (PBE, full BZ)",1.242e+21,302,30,-9.7

@@ -1,5 +1,5 @@
 ﻿material,functional,E_Gamma_meV,E_GammaA_axis_max_meV,axis_position,axis_path_k_index,axis_n_pockets,E_lone_pair_max_meV,lone_pair_valley,lone_pair_k_frac_1,lone_pair_k_frac_3,lone_pair_n_pockets,lone_pair_cation_s_percent,dE_valley_offset_meV (E_lone_pair - E_axis),E_lone_pair_minus_E_Gamma_meV,source
 Pb2Sb2Te5,HSE06+SOC,0.0,0.0,Γ,90,1,-235.6,Σ,-0.1667,0.0,6,21.1,-235.6,-235.6,band path c2 (lone-pair valley is a lower bound)
 Pb2Bi2Te5,HSE06+SOC,-51.6,0.0,A,97,1,-91.0,Σ,-0.1667,0.0,6,17.7,-91.0,-39.4,band path c2 (lone-pair valley is a lower bound)
-Sn2Sb2Te5,HSE06+SOC,0.0,0.0,Γ,90,1,-131.5,Σ,-0.1667,0.0,6,26.5,-131.5,-131.5,band path c2 (lone-pair valley is a lower bound)
+Sn2Sb2Te5,HSE06+SOC,0.0,0.0,Γ,90,1,-84.0,R₂′,-0.3459,0.4083,6,33.4,-84.0,-84.0,true VBM from c4_mirror_v3 + c5_star (mirror plane)
 Sn2Bi2Te5,HSE06+SOC,-132.6,-117.1,Δ,94,2,0.0,Σ′,-0.1965,0.1232,6,24.9,117.1,132.6,true VBM from c4_mirror_v3 + c5_star (mirror plane)

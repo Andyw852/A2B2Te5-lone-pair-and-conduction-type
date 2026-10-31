@@ -394,7 +394,7 @@ def fig3(out):
             vmark(ax, x[i], E[i, nel - 1], nm, lead)
         kticks(ax, x); ax.set_ylim(-0.5, 0.5)
         T5 = mv.true_load(m)
-        ax.set_title(f'{TEX[m]}     $E_g$ = {1000 * gap:.0f} meV' + (f' (path); {1000 * (gap - (T5["vbm"] - T5["path_vbm"])):.0f} meV (true)' if T5 else ''),
+        ax.set_title(f'{TEX[m]}     $E_g$ = {1000 * gap:.0f} meV' + (f' (path); {1000 * (gap - (T5["vbm"] - T5["path_vbm"])):.0f} meV (true)' if T5 and T5["vbm"] - T5["path_vbm"] > 5e-4 else ''),
                      fontsize=8, pad=4)
         panel(ax, f'({"abcd"[n]})')
     for ax in axs[:, 0]: ax.set_ylabel(r'$E - E_{\mathrm{VBM}}$ (eV)')
@@ -634,8 +634,8 @@ def hexagon(B):
     return np.hypot(*K0[:2]) * np.cos(a), np.hypot(*K0[:2]) * np.sin(a)
 
 
-MK = {'Γ': 'o', 'Δ': 'o', 'Σ': 'o', 'R₁': 's', 'R₂': 'D', 'Σ′': 'o', 'R₁′': 's', 'R₁″': 'p', 'R₂′': 'D'}   # 形状区分谷：Σ 圆、R₁ 方、R₂ 菱形、R₁″ 五边形；实心/空心区分所在面
-MS = {'s': 0.55, 'D': 0.8, 'p': 0.6}                                    # 方块、菱形看起来比圆大，略缩小
+MK = {'Γ': 'o', 'Δ': 'o', 'Σ': 'o', 'R₁': 's', 'R₂': 'D', 'Σ′': 'o', 'Σ″': 'h', 'R₁′': 's', 'R₁″': 'p', 'R₂′': 'D'}   # 形状区分谷：Σ 圆、R₁ 方、R₂ 菱形、R₁″ 五边形；实心/空心区分所在面
+MS = {'s': 0.55, 'D': 0.8, 'p': 0.6, 'h': 0.65}                                    # 方块、菱形看起来比圆大，略缩小
 
 
 def near(E):
@@ -671,7 +671,7 @@ def bz_top(ax, m, B, P, letter):
         y -= 0.115
     n = sum(len(g['frac']) for g in P if near(g['E']))
     ax.set_title(f"{TEX[m]}: {n} pocket{'s' if n > 1 else ''} within $2k_\\mathrm{{B}}T$", fontsize=8, pad=2)
-    ax.set_aspect('equal'); ax.set_xlim(-1.0, 1.68); ax.set_ylim(-1.12, 0.98); ax.axis('off')
+    ax.set_aspect('equal'); ax.set_xlim(-1.0, 1.68); ax.set_ylim(-1.19, 0.98); ax.axis('off')
     ax.text(0.0, 1.06, letter, transform=ax.transAxes, fontsize=9, fontweight='bold', ha='right', va='bottom')
 
 
@@ -800,7 +800,7 @@ def fig6(out):
          Line2D([], [], ls='', marker='o', ms=5, color=C_A, label='Σ: lone-pair valley on Γ–M'),
          Line2D([], [], ls='', marker='s', ms=4.5, color=C_A, mfc='white', label=r'R$_1$: lone-pair valley on A–L, near A'),
          Line2D([], [], ls='', marker='D', ms=4.0, color=C_A, mfc='white', label=r'R$_2$: lone-pair valley on A–L, near L'),
-         Line2D([], [], ls='', marker='p', ms=4.5, color=C_A, label=r'′, ″: true maximum off the line (Sn$_2$Bi$_2$Te$_5$)'),
+         Line2D([], [], ls='', marker='p', ms=4.5, color=C_A, label=r'′, ″: true maximum off the line (mirror-plane search)'),
          Line2D([], [], ls='', marker='o', ms=5, color='#555555', label=r'filled: $k_z$ = 0 plane or inside'),
          Line2D([], [], ls='', marker='o', ms=5, color='#555555', mfc='white', label=r'open: $k_z$ = ½ zone face'),
          Line2D([], [], ls='', marker='o', ms=3.4, color=C_A, alpha=0.45, label=r'faded: more than $2k_\mathrm{B}T$ below VBM')]

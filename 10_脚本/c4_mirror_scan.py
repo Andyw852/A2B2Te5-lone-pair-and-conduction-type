@@ -516,6 +516,8 @@ def cmd_local(a):
 
 
 def cmd_local_fit(a):
+    from scipy.interpolate import RectBivariateSpline
+    from scipy.optimize import minimize
     meta = json.load(open(os.path.join(a.dir, 'c6_points.json')))
     m, nel = meta['material'], meta['nelect']; B = np.array(meta['B_rows_cart_invA']); nb1, cz = np.linalg.norm(B[0]), B[2, 2]
     E, fs = read_parts(a.dir, a.parts, meta)
@@ -530,13 +532,16 @@ def cmd_local_fit(a):
         i, j = np.unravel_index(np.argmax(G), G.shape)
         if i in (0, nu - 1) or j in (0, nw - 1):
             print(f"{v['label']}：细网格上的最高点在边界 (i, j) = ({i}, {j})，极大不在范围内，需要扩大网格；不写入"); continue
-        pts = [(di, dj, G[i + di, j + dj]) for di in (-1, 0, 1) for dj in (-1, 0, 1)]
-        xs = np.array([-p[0] * v['du'] * nb1 for p in pts]); zs = np.array([p[1] * v['dw'] * cz for p in pts]); es = np.array([p[2] for p in pts])
-        c0, g, H2 = quad_fit(xs, zs, es)
-        neg = np.all(np.linalg.eigvalsh(H2) < 0); sft = -np.linalg.solve(H2, g) if neg else np.zeros(2)
-        inside = neg and abs(sft[0]) <= v['du'] * nb1 and abs(sft[1]) <= v['dw'] * cz
-        e0 = c0 + 0.5 * g @ sft if inside else G[i, j]
-        u = v['us'][i] - sft[0] / nb1; w = (v['ws'][j] + sft[1] / cz + 0.5) % 1 - 0.5
+        # 整块补丁做双三次样条，在样条上找极大、取 Hessian。这里的谷是斜向的窄脊、很不抛物（5×5 内二次拟合残差 5–14 meV），
+        # 只用 3×3 做二次拟合会把驻点外推到一格以外（SnBi R₁″ 曾因此报“未确认”）。x 沿 −u（指向 M），与 c4、c5 的“线”方向一致
+        xs, zs = -np.array(v['us']) * nb1, np.array(v['ws']) * cz
+        S = RectBivariateSpline(xs[::-1], zs, G[::-1], kx=3, ky=3, s=0)
+        f = lambda p: float(S(p[0], p[1])[0, 0])
+        r = minimize(lambda p: -f(p), [xs[i], zs[j]], method='Nelder-Mead', options=dict(xatol=1e-7, fatol=1e-10))
+        px, pz = r.x; e0 = f(r.x)
+        H2 = np.array([[S(px, pz, dx=2)[0, 0], S(px, pz, dx=1, dy=1)[0, 0]], [S(px, pz, dx=1, dy=1)[0, 0], S(px, pz, dy=2)[0, 0]]])
+        inside = bool(np.all(np.linalg.eigvalsh(H2) < 0) and xs[1:-1].min() <= px <= xs[1:-1].max() and zs[1] <= pz <= zs[-2])
+        u = -px / nb1; w = (pz / cz + 0.5) % 1 - 0.5
         pk = v['perp_k_index']; ec = E[gk[nu // 2, nw // 2], b]
         hp = (E[pk['p+'], b] + E[pk['p-'], b] - 2 * ec) / v['delta'] ** 2
         H = np.array([[H2[0, 0], 0, H2[0, 1]], [0, hp, 0], [H2[0, 1], 0, H2[1, 1]]]); wv = np.linalg.eigvalsh(H)
@@ -547,7 +552,7 @@ def cmd_local_fit(a):
                            'E_rel_edge_meV': float(1000 * (vbm - e0))}
         print(f"{v['label']}（c4 中心 {np.round(v['from_c4_uw'], 4).tolist()}）：极大 (u, w) = ({u:+.4f}, {w:+.4f})，E = {e0:.5f} eV，"
               f"离价带顶 {1000 * (vbm - e0):.1f} meV（c4 网格点 {1000 * (vbm - v['E_c4_eV']):.1f}），阳离子 s {100 * fs[gk[i, j], b]:.1f}%")
-        print(f"   主质量 {np.round(HB / -wv, 3).tolist()} mₑ；{'确认是极大' if ok else '未确认（驻点超出一格或曲率不全为负）'}")
+        print(f"   主质量 {np.round(HB / -wv, 3).tolist()} mₑ；{'确认是极大' if ok else '未确认（样条极大落在最外一圈或曲率不全为负）'}；比网格最高点高 {1000 * (e0 - G[i, j]):.2f} meV")
         if e0 > vbm + 1e-4: print('   ← 比 c5 的价带顶还高：价带顶换了位置，停下汇报')
     json.dump({'vbm': vbm, 'path_vbm': c5['path_vbm'], 'valleys': out}, open(os.path.join(a.dir, 'c6_masses.json'), 'w'), indent=1, ensure_ascii=False)
     print(f"# 写出 {os.path.join(a.dir, 'c6_masses.json')}")
