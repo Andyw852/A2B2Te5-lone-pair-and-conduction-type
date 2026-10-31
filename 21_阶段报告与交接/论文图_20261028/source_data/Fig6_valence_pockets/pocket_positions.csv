@@ -6,18 +6,24 @@ Sn2Sb2Te5,R₂′,,0.3459,-0.3459,0.4083,0.4991,-0.2881,0.149,"mirror plane, gen
 Sn2Sb2Te5,R₂′,,-0.3459,0.3459,-0.4083,-0.4991,0.2881,-0.149,"mirror plane, general kz",-84.0,6,c5 true extremum
 Sn2Sb2Te5,R₂′,,0.0,0.3459,0.4083,0.0,0.5763,0.149,"mirror plane, general kz",-84.0,6,c5 true extremum
 Sn2Sb2Te5,R₂′,,0.0,-0.3459,-0.4083,0.0,-0.5763,-0.149,"mirror plane, general kz",-84.0,6,c5 true extremum
-Sn2Sb2Te5,R₁′,,0.1111,0.0,0.25,0.1603,0.0926,0.0912,"mirror plane, general kz",-123.5,6,c4 grid point (lower bound)
-Sn2Sb2Te5,R₁′,,-0.1111,0.0,-0.25,-0.1603,-0.0926,-0.0912,"mirror plane, general kz",-123.5,6,c4 grid point (lower bound)
-Sn2Sb2Te5,R₁′,,0.1111,-0.1111,-0.25,0.1603,-0.0926,-0.0912,"mirror plane, general kz",-123.5,6,c4 grid point (lower bound)
-Sn2Sb2Te5,R₁′,,-0.1111,0.1111,0.25,-0.1603,0.0926,0.0912,"mirror plane, general kz",-123.5,6,c4 grid point (lower bound)
-Sn2Sb2Te5,R₁′,,0.0,0.1111,-0.25,0.0,0.1851,-0.0912,"mirror plane, general kz",-123.5,6,c4 grid point (lower bound)
-Sn2Sb2Te5,R₁′,,0.0,-0.1111,0.25,0.0,-0.1851,0.0912,"mirror plane, general kz",-123.5,6,c4 grid point (lower bound)
+Sn2Sb2Te5,R₁′,,0.108,0.0,0.2443,0.1559,0.09,0.0891,"mirror plane, general kz",-122.0,6,c5 true extremum
+Sn2Sb2Te5,R₁′,,-0.108,0.0,-0.2443,-0.1559,-0.09,-0.0891,"mirror plane, general kz",-122.0,6,c5 true extremum
+Sn2Sb2Te5,R₁′,,0.108,-0.108,-0.2443,0.1559,-0.09,-0.0891,"mirror plane, general kz",-122.0,6,c5 true extremum
+Sn2Sb2Te5,R₁′,,-0.108,0.108,0.2443,-0.1559,0.09,0.0891,"mirror plane, general kz",-122.0,6,c5 true extremum
+Sn2Sb2Te5,R₁′,,0.0,0.108,-0.2443,0.0,0.18,-0.0891,"mirror plane, general kz",-122.0,6,c5 true extremum
+Sn2Sb2Te5,R₁′,,0.0,-0.108,0.2443,0.0,-0.18,0.0891,"mirror plane, general kz",-122.0,6,c5 true extremum
 Sn2Sb2Te5,Σ′,,0.1774,0.0,-0.0625,0.2559,0.1478,-0.0228,"mirror plane, general kz",-127.1,6,c5 true extremum
 Sn2Sb2Te5,Σ′,,-0.1774,0.0,0.0625,-0.2559,-0.1478,0.0228,"mirror plane, general kz",-127.1,6,c5 true extremum
 Sn2Sb2Te5,Σ′,,0.1774,-0.1774,0.0625,0.2559,-0.1478,0.0228,"mirror plane, general kz",-127.1,6,c5 true extremum
 Sn2Sb2Te5,Σ′,,-0.1774,0.1774,-0.0625,-0.2559,0.1478,-0.0228,"mirror plane, general kz",-127.1,6,c5 true extremum
 Sn2Sb2Te5,Σ′,,0.0,0.1774,0.0625,0.0,0.2955,0.0228,"mirror plane, general kz",-127.1,6,c5 true extremum
 Sn2Sb2Te5,Σ′,,0.0,-0.1774,-0.0625,0.0,-0.2955,-0.0228,"mirror plane, general kz",-127.1,6,c5 true extremum
+Sn2Sb2Te5,R₁″,,0.0524,0.0,-0.3858,0.0757,0.0437,-0.1408,"mirror plane, general kz",-129.3,6,c5 true extremum
+Sn2Sb2Te5,R₁″,,-0.0524,0.0,0.3858,-0.0757,-0.0437,0.1408,"mirror plane, general kz",-129.3,6,c5 true extremum
+Sn2Sb2Te5,R₁″,,0.0524,-0.0524,0.3858,0.0757,-0.0437,0.1408,"mirror plane, general kz",-129.3,6,c5 true extremum
+Sn2Sb2Te5,R₁″,,-0.0524,0.0524,-0.3858,-0.0757,0.0437,-0.1408,"mirror plane, general kz",-129.3,6,c5 true extremum
+Sn2Sb2Te5,R₁″,,0.0,0.0524,0.3858,0.0,0.0874,0.1408,"mirror plane, general kz",-129.3,6,c5 true extremum
+Sn2Sb2Te5,R₁″,,0.0,-0.0524,-0.3858,0.0,-0.0874,-0.1408,"mirror plane, general kz",-129.3,6,c5 true extremum
 Sn2Bi2Te5,Δ,94,0.0,0.0,0.2857,-0.0,0.0,0.1035,Γ–A axis (Δ line),-117.1,2,band path
 Sn2Bi2Te5,Δ,94,0.0,0.0,-0.2857,0.0,-0.0,-0.1035,Γ–A axis (Δ line),-117.1,2,band path
 Sn2Bi2Te5,Σ′,,0.1965,0.0,-0.1232,0.2797,0.1615,-0.0446,"mirror plane, general kz",0.0,6,c5 true extremum

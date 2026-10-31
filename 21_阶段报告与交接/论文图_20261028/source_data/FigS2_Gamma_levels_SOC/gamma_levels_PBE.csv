@@ -1,0 +1,13 @@
+﻿material,SOC,state,E_minus_Sigma_meV
+Sn2Sb2Te5,no SOC,s,101.7
+Sn2Sb2Te5,no SOC,pz,128.2
+Sn2Sb2Te5,no SOC,pxy,273.1
+Sn2Sb2Te5,no SOC,p center,224.8
+Sn2Sb2Te5,SOC,s,214.9
+Sn2Sb2Te5,SOC,p1/2,-37.2
+Sn2Bi2Te5,no SOC,s,52.0
+Sn2Bi2Te5,no SOC,pz,313.6
+Sn2Bi2Te5,no SOC,pxy,566.0
+Sn2Bi2Te5,no SOC,p center,481.9
+Sn2Bi2Te5,SOC,s,128.0
+Sn2Bi2Te5,SOC,p1/2,-231.7

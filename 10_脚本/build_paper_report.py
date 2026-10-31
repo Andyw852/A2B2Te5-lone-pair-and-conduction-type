@@ -89,6 +89,7 @@ data/                  每幅图的源数据，即图中画出的数值，目录
   Fig9_S_vs_T/                实验 S(T)、计算 S(T)（HSE 与 PBE 能带）、拟合浓度与最大偏差
   Fig10_formation_energies/   12 类缺陷逐位点的中性形成能（富 Te、贫 Te），两端化学势
   Fig11_ordering/             有序化引起的形成能变化 ΔE_f = E_f(O) − E_f(D)，逐位点与中位数
+  FigS2_Gamma_levels_SOC/     Γ 点能级（PBE，有、无 SOC，SnSb 与 SnBi）与 Sb → Bi 变化的标量/SOC 拆分（10_脚本/soc_mechanism.py）
   FigS1_mirror_plane/         Sn2Sb2Te5、Sn2Bi2Te5 镜面内最高价带的能量网格（c4，meV）；真实极大与沿 k_z 切线（valleys_and_cuts.csv）
   L_layered_defects/          早先一批在所给层状结构上（3×3×1，81 原子）的缺陷计算，即正文表 9、表 10 的 L 列：
                               L_defect_ranking_all_vertices.csv  5 个化学势顶点下全部缺陷在平衡费米能级处的形成能排名

@@ -139,41 +139,41 @@ Pb2Bi2Te5,PBE+SOC,path multivalley model,-3.478e+19,610,-230.83
 Pb2Bi2Te5,PBE+SOC,path multivalley model,-3.478e+19,620,-229.04
 Pb2Bi2Te5,PBE+SOC,path multivalley model,-3.478e+19,630,-226.77
 Pb2Bi2Te5,PBE+SOC,path multivalley model,-3.478e+19,640,-224.09
-Sn2Sb2Te5,HSE06+SOC,BoltzTraP2 (PBE) x model HSE/PBE ratio,5.610e+20,300,16.0
-Sn2Sb2Te5,HSE06+SOC,BoltzTraP2 (PBE) x model HSE/PBE ratio,5.610e+20,310,16.62
-Sn2Sb2Te5,HSE06+SOC,BoltzTraP2 (PBE) x model HSE/PBE ratio,5.610e+20,320,17.24
-Sn2Sb2Te5,HSE06+SOC,BoltzTraP2 (PBE) x model HSE/PBE ratio,5.610e+20,330,17.87
-Sn2Sb2Te5,HSE06+SOC,BoltzTraP2 (PBE) x model HSE/PBE ratio,5.610e+20,340,18.5
-Sn2Sb2Te5,HSE06+SOC,BoltzTraP2 (PBE) x model HSE/PBE ratio,5.610e+20,350,19.13
-Sn2Sb2Te5,HSE06+SOC,BoltzTraP2 (PBE) x model HSE/PBE ratio,5.610e+20,360,19.76
-Sn2Sb2Te5,HSE06+SOC,BoltzTraP2 (PBE) x model HSE/PBE ratio,5.610e+20,370,20.39
-Sn2Sb2Te5,HSE06+SOC,BoltzTraP2 (PBE) x model HSE/PBE ratio,5.610e+20,380,21.03
-Sn2Sb2Te5,HSE06+SOC,BoltzTraP2 (PBE) x model HSE/PBE ratio,5.610e+20,390,21.67
-Sn2Sb2Te5,HSE06+SOC,BoltzTraP2 (PBE) x model HSE/PBE ratio,5.610e+20,400,22.32
-Sn2Sb2Te5,HSE06+SOC,BoltzTraP2 (PBE) x model HSE/PBE ratio,5.610e+20,410,22.96
-Sn2Sb2Te5,HSE06+SOC,BoltzTraP2 (PBE) x model HSE/PBE ratio,5.610e+20,420,23.61
-Sn2Sb2Te5,HSE06+SOC,BoltzTraP2 (PBE) x model HSE/PBE ratio,5.610e+20,430,24.26
-Sn2Sb2Te5,HSE06+SOC,BoltzTraP2 (PBE) x model HSE/PBE ratio,5.610e+20,440,24.91
-Sn2Sb2Te5,HSE06+SOC,BoltzTraP2 (PBE) x model HSE/PBE ratio,5.610e+20,450,25.57
-Sn2Sb2Te5,HSE06+SOC,BoltzTraP2 (PBE) x model HSE/PBE ratio,5.610e+20,460,26.23
-Sn2Sb2Te5,HSE06+SOC,BoltzTraP2 (PBE) x model HSE/PBE ratio,5.610e+20,470,26.89
-Sn2Sb2Te5,HSE06+SOC,BoltzTraP2 (PBE) x model HSE/PBE ratio,5.610e+20,480,27.56
-Sn2Sb2Te5,HSE06+SOC,BoltzTraP2 (PBE) x model HSE/PBE ratio,5.610e+20,490,28.22
-Sn2Sb2Te5,HSE06+SOC,BoltzTraP2 (PBE) x model HSE/PBE ratio,5.610e+20,500,28.89
-Sn2Sb2Te5,HSE06+SOC,BoltzTraP2 (PBE) x model HSE/PBE ratio,5.610e+20,510,29.56
-Sn2Sb2Te5,HSE06+SOC,BoltzTraP2 (PBE) x model HSE/PBE ratio,5.610e+20,520,30.24
-Sn2Sb2Te5,HSE06+SOC,BoltzTraP2 (PBE) x model HSE/PBE ratio,5.610e+20,530,30.91
-Sn2Sb2Te5,HSE06+SOC,BoltzTraP2 (PBE) x model HSE/PBE ratio,5.610e+20,540,31.59
-Sn2Sb2Te5,HSE06+SOC,BoltzTraP2 (PBE) x model HSE/PBE ratio,5.610e+20,550,32.27
-Sn2Sb2Te5,HSE06+SOC,BoltzTraP2 (PBE) x model HSE/PBE ratio,5.610e+20,560,32.96
-Sn2Sb2Te5,HSE06+SOC,BoltzTraP2 (PBE) x model HSE/PBE ratio,5.610e+20,570,33.64
-Sn2Sb2Te5,HSE06+SOC,BoltzTraP2 (PBE) x model HSE/PBE ratio,5.610e+20,580,34.33
-Sn2Sb2Te5,HSE06+SOC,BoltzTraP2 (PBE) x model HSE/PBE ratio,5.610e+20,590,35.02
-Sn2Sb2Te5,HSE06+SOC,BoltzTraP2 (PBE) x model HSE/PBE ratio,5.610e+20,600,35.72
-Sn2Sb2Te5,HSE06+SOC,BoltzTraP2 (PBE) x model HSE/PBE ratio,5.610e+20,610,36.41
-Sn2Sb2Te5,HSE06+SOC,BoltzTraP2 (PBE) x model HSE/PBE ratio,5.610e+20,620,37.11
-Sn2Sb2Te5,HSE06+SOC,BoltzTraP2 (PBE) x model HSE/PBE ratio,5.610e+20,630,37.82
-Sn2Sb2Te5,HSE06+SOC,BoltzTraP2 (PBE) x model HSE/PBE ratio,5.610e+20,640,38.52
+Sn2Sb2Te5,HSE06+SOC,BoltzTraP2 (PBE) x model HSE/PBE ratio,6.157e+20,300,16.0
+Sn2Sb2Te5,HSE06+SOC,BoltzTraP2 (PBE) x model HSE/PBE ratio,6.157e+20,310,16.61
+Sn2Sb2Te5,HSE06+SOC,BoltzTraP2 (PBE) x model HSE/PBE ratio,6.157e+20,320,17.23
+Sn2Sb2Te5,HSE06+SOC,BoltzTraP2 (PBE) x model HSE/PBE ratio,6.157e+20,330,17.85
+Sn2Sb2Te5,HSE06+SOC,BoltzTraP2 (PBE) x model HSE/PBE ratio,6.157e+20,340,18.47
+Sn2Sb2Te5,HSE06+SOC,BoltzTraP2 (PBE) x model HSE/PBE ratio,6.157e+20,350,19.09
+Sn2Sb2Te5,HSE06+SOC,BoltzTraP2 (PBE) x model HSE/PBE ratio,6.157e+20,360,19.72
+Sn2Sb2Te5,HSE06+SOC,BoltzTraP2 (PBE) x model HSE/PBE ratio,6.157e+20,370,20.35
+Sn2Sb2Te5,HSE06+SOC,BoltzTraP2 (PBE) x model HSE/PBE ratio,6.157e+20,380,20.99
+Sn2Sb2Te5,HSE06+SOC,BoltzTraP2 (PBE) x model HSE/PBE ratio,6.157e+20,390,21.63
+Sn2Sb2Te5,HSE06+SOC,BoltzTraP2 (PBE) x model HSE/PBE ratio,6.157e+20,400,22.27
+Sn2Sb2Te5,HSE06+SOC,BoltzTraP2 (PBE) x model HSE/PBE ratio,6.157e+20,410,22.91
+Sn2Sb2Te5,HSE06+SOC,BoltzTraP2 (PBE) x model HSE/PBE ratio,6.157e+20,420,23.56
+Sn2Sb2Te5,HSE06+SOC,BoltzTraP2 (PBE) x model HSE/PBE ratio,6.157e+20,430,24.21
+Sn2Sb2Te5,HSE06+SOC,BoltzTraP2 (PBE) x model HSE/PBE ratio,6.157e+20,440,24.86
+Sn2Sb2Te5,HSE06+SOC,BoltzTraP2 (PBE) x model HSE/PBE ratio,6.157e+20,450,25.52
+Sn2Sb2Te5,HSE06+SOC,BoltzTraP2 (PBE) x model HSE/PBE ratio,6.157e+20,460,26.18
+Sn2Sb2Te5,HSE06+SOC,BoltzTraP2 (PBE) x model HSE/PBE ratio,6.157e+20,470,26.84
+Sn2Sb2Te5,HSE06+SOC,BoltzTraP2 (PBE) x model HSE/PBE ratio,6.157e+20,480,27.5
+Sn2Sb2Te5,HSE06+SOC,BoltzTraP2 (PBE) x model HSE/PBE ratio,6.157e+20,490,28.17
+Sn2Sb2Te5,HSE06+SOC,BoltzTraP2 (PBE) x model HSE/PBE ratio,6.157e+20,500,28.84
+Sn2Sb2Te5,HSE06+SOC,BoltzTraP2 (PBE) x model HSE/PBE ratio,6.157e+20,510,29.51
+Sn2Sb2Te5,HSE06+SOC,BoltzTraP2 (PBE) x model HSE/PBE ratio,6.157e+20,520,30.19
+Sn2Sb2Te5,HSE06+SOC,BoltzTraP2 (PBE) x model HSE/PBE ratio,6.157e+20,530,30.87
+Sn2Sb2Te5,HSE06+SOC,BoltzTraP2 (PBE) x model HSE/PBE ratio,6.157e+20,540,31.55
+Sn2Sb2Te5,HSE06+SOC,BoltzTraP2 (PBE) x model HSE/PBE ratio,6.157e+20,550,32.23
+Sn2Sb2Te5,HSE06+SOC,BoltzTraP2 (PBE) x model HSE/PBE ratio,6.157e+20,560,32.92
+Sn2Sb2Te5,HSE06+SOC,BoltzTraP2 (PBE) x model HSE/PBE ratio,6.157e+20,570,33.61
+Sn2Sb2Te5,HSE06+SOC,BoltzTraP2 (PBE) x model HSE/PBE ratio,6.157e+20,580,34.3
+Sn2Sb2Te5,HSE06+SOC,BoltzTraP2 (PBE) x model HSE/PBE ratio,6.157e+20,590,35.0
+Sn2Sb2Te5,HSE06+SOC,BoltzTraP2 (PBE) x model HSE/PBE ratio,6.157e+20,600,35.7
+Sn2Sb2Te5,HSE06+SOC,BoltzTraP2 (PBE) x model HSE/PBE ratio,6.157e+20,610,36.4
+Sn2Sb2Te5,HSE06+SOC,BoltzTraP2 (PBE) x model HSE/PBE ratio,6.157e+20,620,37.1
+Sn2Sb2Te5,HSE06+SOC,BoltzTraP2 (PBE) x model HSE/PBE ratio,6.157e+20,630,37.81
+Sn2Sb2Te5,HSE06+SOC,BoltzTraP2 (PBE) x model HSE/PBE ratio,6.157e+20,640,38.52
 Sn2Sb2Te5,PBE+SOC,"BoltzTraP2 (PBE, full BZ)",2.308e+21,300,16.0
 Sn2Sb2Te5,PBE+SOC,"BoltzTraP2 (PBE, full BZ)",2.308e+21,310,16.56
 Sn2Sb2Te5,PBE+SOC,"BoltzTraP2 (PBE, full BZ)",2.308e+21,320,17.13

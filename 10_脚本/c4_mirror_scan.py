@@ -529,18 +529,24 @@ def cmd_local_fit(a):
     vbm = c5['vbm']; b = nel - 1; out = {}
     for v in meta['valleys']:
         gk = np.array(v['grid_k_index']); G = E[gk, b]; nu, nw = G.shape
-        i, j = np.unravel_index(np.argmax(G), G.shape)
-        if i in (0, nu - 1) or j in (0, nw - 1):
-            print(f"{v['label']}：细网格上的最高点在边界 (i, j) = ({i}, {j})，极大不在范围内，需要扩大网格；不写入"); continue
-        # 整块补丁做双三次样条，在样条上找极大、取 Hessian。这里的谷是斜向的窄脊、很不抛物（5×5 内二次拟合残差 5–14 meV），
-        # 只用 3×3 做二次拟合会把驻点外推到一格以外（SnBi R₁″ 曾因此报“未确认”）。x 沿 −u（指向 M），与 c4、c5 的“线”方向一致
+        # 取补丁内部离中心最近的局部极大（8 邻域），而不是整块补丁的最高点：补丁一角可能伸到别的更高的带区
+        # （SnSb 的 g2 一角就是 Γ–A 轴附近的价带），那不是要细化的这个谷
+        loc = [(a, b) for a in range(1, nu - 1) for b in range(1, nw - 1) if G[a, b] >= G[a - 1:a + 2, b - 1:b + 2].max()]
+        if not loc:
+            print(f"{v['label']}：细网格内部没有局部极大（最高点 {np.unravel_index(np.argmax(G), G.shape)} 在边界），极大不在范围内；不写入"); continue
+        i, j = min(loc, key=lambda t: (t[0] - nu // 2) ** 2 + (t[1] - nw // 2) ** 2)
+        # 整块补丁做双三次样条，在样条上求极大和 Hessian，搜索限制在最外一圈以内。这里的谷是斜向的窄脊、很不抛物
+        # （5×5 内二次拟合残差 5–14 meV），只用 3×3 做二次拟合会把驻点外推到一格以外（SnBi R₁″ 曾因此报“未确认”）。
+        # x 沿 −u（指向 M），与 c4、c5 的“线”方向一致
         xs, zs = -np.array(v['us']) * nb1, np.array(v['ws']) * cz
         S = RectBivariateSpline(xs[::-1], zs, G[::-1], kx=3, ky=3, s=0)
         f = lambda p: float(S(p[0], p[1])[0, 0])
-        r = minimize(lambda p: -f(p), [xs[i], zs[j]], method='Nelder-Mead', options=dict(xatol=1e-7, fatol=1e-10))
+        bx, bz = (min(xs[1], xs[-2]), max(xs[1], xs[-2])), (zs[1], zs[-2])
+        r = minimize(lambda p: -f(p), [xs[i], zs[j]], method='L-BFGS-B', bounds=[bx, bz])
         px, pz = r.x; e0 = f(r.x)
         H2 = np.array([[S(px, pz, dx=2)[0, 0], S(px, pz, dx=1, dy=1)[0, 0]], [S(px, pz, dx=1, dy=1)[0, 0], S(px, pz, dy=2)[0, 0]]])
-        inside = bool(np.all(np.linalg.eigvalsh(H2) < 0) and xs[1:-1].min() <= px <= xs[1:-1].max() and zs[1] <= pz <= zs[-2])
+        edge = min(abs(px - bx[0]), abs(px - bx[1]), abs(pz - bz[0]), abs(pz - bz[1])) < 1e-6
+        inside = bool(np.all(np.linalg.eigvalsh(H2) < 0) and not edge)
         u = -px / nb1; w = (pz / cz + 0.5) % 1 - 0.5
         pk = v['perp_k_index']; ec = E[gk[nu // 2, nw // 2], b]
         hp = (E[pk['p+'], b] + E[pk['p-'], b] - 2 * ec) / v['delta'] ** 2
@@ -552,7 +558,7 @@ def cmd_local_fit(a):
                            'E_rel_edge_meV': float(1000 * (vbm - e0))}
         print(f"{v['label']}（c4 中心 {np.round(v['from_c4_uw'], 4).tolist()}）：极大 (u, w) = ({u:+.4f}, {w:+.4f})，E = {e0:.5f} eV，"
               f"离价带顶 {1000 * (vbm - e0):.1f} meV（c4 网格点 {1000 * (vbm - v['E_c4_eV']):.1f}），阳离子 s {100 * fs[gk[i, j], b]:.1f}%")
-        print(f"   主质量 {np.round(HB / -wv, 3).tolist()} mₑ；{'确认是极大' if ok else '未确认（样条极大落在最外一圈或曲率不全为负）'}；比网格最高点高 {1000 * (e0 - G[i, j]):.2f} meV")
+        print(f"   主质量 {np.round(HB / -wv, 3).tolist()} mₑ；{'确认是极大' if ok else ('未确认：样条极大顶到搜索边界，脊沿这个方向延伸出补丁' if edge else '未确认：曲率不全为负')}；比网格最高点高 {1000 * (e0 - G[i, j]):.2f} meV")
         if e0 > vbm + 1e-4: print('   ← 比 c5 的价带顶还高：价带顶换了位置，停下汇报')
     json.dump({'vbm': vbm, 'path_vbm': c5['path_vbm'], 'valleys': out}, open(os.path.join(a.dir, 'c6_masses.json'), 'w'), indent=1, ensure_ascii=False)
     print(f"# 写出 {os.path.join(a.dir, 'c6_masses.json')}")

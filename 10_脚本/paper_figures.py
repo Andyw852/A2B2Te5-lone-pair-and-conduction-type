@@ -580,9 +580,10 @@ def true_valleys(m):
     同一个路径谷演化出两个极大时，能量高的为 ′、低的为 ″（R₁′、R₁″）。能量相对真实价带顶（meV）。没有结果时返回 None。"""
     T = mv.true_load(m)
     if T is None: return None
-    def dist(t, uw):
+    B, _ = bz_lattice(m); nb1, cz = np.linalg.norm(B[0]), abs(B[2, 2])
+    def dist(t, uw):                                            # 笛卡尔距离（Å⁻¹）；分数坐标下沿 c 的距离被放大约 4.6 倍
         dw = abs(t['w'] - uw[1]) % 1; dw = min(dw, 1 - dw)
-        return np.hypot(t['u'] - uw[0], dw)
+        return np.hypot((t['u'] - uw[0]) * nb1, dw * cz)
     groups = {}
     for t in T['valleys']:
         groups.setdefault(min(PATH_LP, key=lambda n: dist(t, PATH_LP[n])), []).append(t)
@@ -759,7 +760,7 @@ def fig6(out):
             ax.plot([x0 - hw, x0 + hw], [E, E], color=col, lw=0.9 if ref else 1.6, ls=(0, (2, 1.5)) if ref else '-', zorder=2,
                     alpha=0.7 if ref else 1)
             if kind != 'ref':
-                ax.plot(x0, E, MK.get(nm, 'o'), ms={'o': 4.2, 's': 3.6, 'D': 3.4, 'p': 4.0}[MK.get(nm, 'o')],
+                ax.plot(x0, E, MK.get(nm, 'o'), ms={'o': 4.2, 's': 3.6, 'D': 3.4, 'p': 4.0, 'h': 4.0}[MK.get(nm, 'o')],
                         color=col, mfc='white' if nm in ('R₁', 'R₂') else col, mew=0.8, zorder=3)
             lv_rows.append([m, nm, kind, r(E, 1)])
         for nm, E, kind, _i in L[m]:                               # 轴上的谷标在左侧；不是谷的 Γ 点标在右侧
