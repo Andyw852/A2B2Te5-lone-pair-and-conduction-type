@@ -395,6 +395,11 @@ def fig3(out):
             vmark(ax, x[i], E[i, nel - 1], nm, lead)
         kticks(ax, x); ax.set_ylim(-0.5, 0.5)
         T5 = mv.true_load(m)
+        if T5 and T5['vbm'] - T5['path_vbm'] > 5e-4:           # 真实价带顶在路径外（Sn₂Bi₂Te₅）：路径上的带线达不到它，用红色虚线标出
+            dv = T5['vbm'] - T5['path_vbm']
+            ax.axhline(dv, color='#C0392B', lw=0.8, ls=(0, (4, 2)), zorder=1)
+            ax.text(x[KEND] - 0.03, dv + 0.01, f'true VBM: +{1000 * dv:.0f} meV\n(Σ′, off the path)', color='#C0392B',
+                    fontsize=6.3, ha='right', va='bottom', linespacing=1.1)
         ax.set_title(f'{TEX[m]}     $E_g$ = {1000 * gap:.0f} meV' + (f' (path); {1000 * (gap - (T5["vbm"] - T5["path_vbm"])):.0f} meV (true)' if T5 and T5["vbm"] - T5["path_vbm"] > 5e-4 else ''),
                      fontsize=8, pad=4)
         panel(ax, f'({"abcd"[n]})')

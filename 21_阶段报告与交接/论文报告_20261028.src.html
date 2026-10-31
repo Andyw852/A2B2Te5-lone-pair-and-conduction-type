@@ -167,7 +167,7 @@ sup.r { font-size: 11px; color: var(--accent); }
 <h2 id="s3">3 孤对电子态在哪里、来自哪个原子</h2>
 <figure>
 <img src="{{FIG:Fig3_HSE_bands_cation_s}}" alt="Fig. 3">
-<figcaption><b>图 3</b> HSE06+SOC 能带，颜色和线宽表示阳离子 s 成分，即孤对电子 s 态的权重。两条虚线为价带顶和导带底。(d) 的标题同时给出路径带隙与真实带隙（1.2 节）。▼ 标出路径上的价带谷，名称与图 5、图 6 相同：Γ、A、Δ 在 Γ–A 轴上（Δ 为 Γ–A 线中间的极大），Σ 在 Γ–M 线上，R₁、R₂ 在 A–L 线上（1.2 节）。</figcaption>
+<figcaption><b>图 3</b> HSE06+SOC 能带，颜色和线宽表示阳离子 s 成分，即孤对电子 s 态的权重。两条虚线为价带顶和导带底。(d) 中红色虚线为真实价带顶：它在路径之外的 Σ′ 处（1.2 节、图 S1），比路径上的最高点高 38 meV。能带图只画路径上的能量，所以带线到不了这条线；标题同时给出路径带隙与真实带隙。▼ 标出路径上的价带谷，名称与图 5、图 6 相同：Γ、A、Δ 在 Γ–A 轴上（Δ 为 Γ–A 线中间的极大），Σ 在 Γ–M 线上，R₁、R₂ 在 A–L 线上（1.2 节）。</figcaption>
 </figure>
 <p>深色粗线即孤对电子态（阳离子 s–Te p 反键，阳离子 s 占 20–30%）。它出现在两处：离开 Γ 的价带谷（Γ–M 线上的 Σ 谷，A–L 线上的 R₁、R₂ 谷），以及 Γ 处的导带底。Γ 处的价带顶（Pb₂Sb₂Te₅、Sn₂Sb₂Te₅）是阳离子 p 态，几乎不含 s。这与孤对电子的“修正模型”一致<sup class="r">[25,26]</sup>。</p>
 <p class="tcap"><b>表 3</b> HSE06+SOC 的带边：位置、主质量（面内两向 / 沿 c，单位 <i>m</i><sub>e</sub>）与轨道成分。</p>
@@ -323,6 +323,7 @@ sup.r { font-size: 11px; color: var(--accent); }
 </ol>
 
 <h2 id="s6">6 退火前后的主导缺陷与 p/n 转变</h2>
+<p><b>结论：</b>退火前的无序相以“Pb 填入结构空位”这类施主为主，呈 n 型。退火时，结构空位先排成层，最后塌缩成范德华间隙，这类施主变得很难形成；而受主 Pb<sub>Sb</sub> 始终只要 0.07–0.14 eV，于是材料转为 p 型。这与 Evang 等<sup class="r">[16]</sup>的结论一致。</p>
 <figure>
 <img src="{{FIG:Fig10_defect_formation_energies}}" alt="Fig. 10">
 <figcaption><b>图 10</b> 12 类缺陷的中性形成能，每个点为一个位点。绿色为有序 O，紫红为无序 D。(a) 富 Te；(b) 贫 Te。上半部（灰底）为施主，下半部为受主；括号内为名义电荷。</figcaption>
@@ -334,14 +335,16 @@ sup.r { font-size: 11px; color: var(--accent); }
 <tr><td>富 Te</td><td><b>Pb<sub>Sb</sub>(−1) 0.14</b> &lt; Sb<sub>Pb</sub>(+1) 0.60 &lt; <i>V</i><sub>Pb</sub>(−2) 0.66 &lt; Te<sub>Pb</sub>(+2) 0.79 ≈ Te<sub>Sb</sub>(+1) 0.80 &lt; 其余 ≥ 0.94</td><td><b>Pb<sub>Vac</sub>(+2) −0.09</b> &lt; Pb<sub>Sb</sub>(−1) 0.07 &lt; Sb<sub>Pb</sub>(+1) 0.09 &lt; Sb<sub>Vac</sub>(+3) 0.19 &lt; Te<sub>Pb</sub>(+2) 0.27 &lt; Te<sub>Sb</sub>(+1) 0.46 &lt; 其余 ≥ 0.66</td></tr>
 <tr><td>贫 Te</td><td><b>Pb<sub>Sb</sub>(−1) 0.25</b> &lt; Sb<sub>Te</sub>(−1) 0.42 &lt; Sb<sub>Pb</sub>(+1) 0.50 &lt; 其余 ≥ 0.87</td><td><b>Pb<sub>Vac</sub>(+2) −0.30</b> &lt; Sb<sub>Vac</sub>(+3) −0.13 &lt; Sb<sub>Pb</sub>(+1) −0.02 &lt; Pb<sub>Sb</sub>(−1) 0.17 &lt; 其余 ≥ 0.69</td></tr>
 </tbody></table>
+<p><b>有序化的作用（图 11）。</b>有序相 O 与无序相 D 的组成和晶格相同，两者形成能之差只来自有序化，与化学势无关。</p>
+<ul>
+<li><b>施主全部变难</b>：形成能全部升高（中位数：Pb<sub>Vac</sub> +1.56、Sb<sub>Vac</sub> +1.38、Te<sub>Pb</sub> +0.52、Sb<sub>Pb</sub> +0.50、Te<sub>Sb</sub> +0.33、<i>V</i><sub>Te</sub> +0.24 eV），最主要的两种填空位施主升高约 1.5 eV，远大于位点之间的离散。原因：无序相中，把阳离子放进随机分布的空位几乎不破坏结构；有序后，同样的操作要破坏空位层和阳离子层。</li>
+<li><b>受主不变</b>：Pb<sub>Sb</sub> 只变 −0.02 eV，因为它在两相中都是替换同一层内的阳离子。</li>
+</ul>
 <figure>
 <img src="{{FIG:Fig11_ordering_induced_change}}" alt="Fig. 11" style="max-width:520px;margin:0 auto">
 <figcaption><b>图 11</b> 有序化引起的形成能变化 Δ<i>E</i><sub>f</sub> = <i>E</i><sub>f</sub><sup>O</sup> − <i>E</i><sub>f</sub><sup>D</sup>，与化学势无关。点为无序相各位点，条为中位数；正值表示退火后更难形成。</figcaption>
 </figure>
-<ul>
-<li><b>有序化抑制施主</b>：施主的形成能全部升高（中位数 Pb<sub>Vac</sub> +1.56、Sb<sub>Vac</sub> +1.38、Sb<sub>Pb</sub> +0.50、Te<sub>Pb</sub> +0.52、Te<sub>Sb</sub> +0.33 eV），差值远大于位点之间的离散。无序相中把阳离子放进随机分布的空位几乎不破坏什么；有序后，这要破坏空位层和阳离子层，代价大增。</li>
-<li><b>受主不变</b>：Pb<sub>Sb</sub> 只变 −0.02 eV，它在两相中都是替换同一层内的阳离子。</li>
-</ul>
+<p><b>从无序相到层状相（表 9、表 10）。</b>“填空位”施主 Pb<sub>Vac</sub> 的形成能在 D 中为负（−0.09 eV），在 O 中升到 1.7 eV；到层状相 L，空位面已变成范德华间隙，它对应间隙原子，约 3 eV。受主 Pb<sub>Sb</sub> 在三种结构中都只要 0.07–0.14 eV。L 是早先一批计算，设置与 D、O 不同，只比较排序和量级。</p>
 <p class="tcap"><b>表 9</b> 三种结构中各类缺陷的最低中性形成能（eV）。D、O 取富 Te 端，L 取富 Te 顶点；L 的计算设置不同，只比较排序与量级。</p>
 <table data-csv="Table9_defects_D_O_L">
 <thead><tr><th>缺陷</th><th class="num">D：无序立方（退火前）</th><th class="num">O：有序立方</th><th class="num">L：所给层状相（退火后）</th></tr></thead>
@@ -367,11 +370,15 @@ sup.r { font-size: 11px; color: var(--accent); }
 <thead><tr><th></th><th>D：无序立方（退火前）</th><th>O：有序立方</th><th>L：所给层状相（退火后）</th></tr></thead>
 <tbody>
 <tr><td>主导缺陷</td><td>施主 Pb<sub>Vac</sub>，其次 Sb<sub>Pb</sub>、Sb<sub>Vac</sub></td><td>受主 Pb<sub>Sb</sub></td><td>受主 Pb<sub>Sb</sub>；贫 Te 端为受主 Sb<sub>Te</sub></td></tr>
-<tr><td>净载流子</td><td>净施主（浅能级近似；负形成能使稀薄近似失效，只取符号）</td><td>净受主 1.6×10¹⁹–3.6×10²⁰ cm⁻³（浅能级近似，473–573 K，上限）</td><td>含带电态自洽求解：v0 净空穴 1.5×10¹⁸ cm⁻³；其余顶点 p 型（有负形成能，只取符号）</td></tr>
-<tr><td>导电类型</td><td><b>n 型</b>：贫 Te 端明确；富 Te 端施主中位只比 Pb<sub>Sb</sub> 低约 0.06 eV，较弱</td><td><b>p 型</b>，整个化学势范围内成立</td><td><b>p 型</b>，5 个化学势顶点都成立</td></tr>
+<tr><td>净载流子</td><td>净施主（形成能为负，浓度无法可靠估计，只取符号）</td><td>净受主 1.6×10¹⁹–3.6×10²⁰ cm⁻³（473–573 K，上限）</td><td>净空穴 1.5×10¹⁸ cm⁻³（富 Te 顶点，含带电态自洽求解）；其余顶点也是 p 型</td></tr>
+<tr><td>导电类型</td><td><b>n 型</b>（贫 Te 端明确；富 Te 端施主只领先约 0.06 eV，较弱）</td><td><b>p 型</b>（整个化学势范围）</td><td><b>p 型</b>（全部 5 个化学势顶点）</td></tr>
 </tbody></table>
-<p><b>结论</b>：退火前（D）以填空位施主为主，呈 n 型。退火时空位先成层（O），这些施主升高 0.5–1.6 eV；最终空位面塌缩成范德华间隙（L，即所给结构），对应的间隙原子要约 3 eV，施主通道关闭。受主 Pb<sub>Sb</sub> 在三种结构中都只要 0.07–0.14 eV，成为主导，材料转为 p 型。这与 Evang 等<sup class="r">[16]</sup>的结论一致。</p>
-<p><b>局限</b>：D、O 只算中性态，无序相只用了一个随机构型，计算不含 SOC；最弱的一环是无序相的富 Te 端（施主只比 Pb<sub>Sb</sub> 低约 0.06 eV）。L 的净空穴（1.5×10¹⁸ cm⁻³）按 HSE 能带对应 300 K 的 S ≈ +130 µV/K，比实测 Pb₂Sb₂Te₅ 的 +5.5 µV/K 高得多，说明实测样品的补偿更强，或并非完全退火的层状相。</p>
+<p><b>局限</b></p>
+<ul>
+<li>D、O 只算中性态，不含 SOC；无序相只用了一个随机构型。</li>
+<li>最弱的一环是无序相的富 Te 端：施主只比 Pb<sub>Sb</sub> 低约 0.06 eV，那里的 n 型结论较弱。</li>
+<li>L 的净空穴 1.5×10¹⁸ cm⁻³ 按 HSE 能带对应 300 K 的 S ≈ +130 µV/K，远高于实测 Pb₂Sb₂Te₅ 的 +5.5 µV/K。这说明实测样品的补偿更强，或并未完全退火成层状相。</li>
+</ul>
 
 <h2 id="ref">参考文献</h2>
 <ol class="ref">
