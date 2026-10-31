@@ -1,0 +1,26 @@
+SYSTEM = Sn2Sb2Te5 PBE noSOC (SOC 机制检验 ①)
+
+ISTART = 0
+ICHARG = 2
+GGA    = PE
+IVDW   = 12
+PREC   = Accurate
+ENCUT    = 370
+LREAL  = .FALSE.
+LASPH  = .TRUE.
+ALGO   = Normal
+EDIFF  = 1E-8
+NELM   = 200
+NELMIN = 6
+ISMEAR = 0
+SIGMA  = 0.01
+IBRION = -1
+NSW    = 0
+LORBIT = 11
+NEDOS  = 5000
+LOPTICS = .FALSE.
+NCORE  = 4
+KPAR   = 2
+NBANDS = 42
+LWAVE    = .FALSE.
+LCHARG   = .FALSE.
