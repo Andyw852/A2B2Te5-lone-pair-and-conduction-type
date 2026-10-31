@@ -1,0 +1,17 @@
+成分         晶格         SOC      Γ价带顶    Γ B位p态   B-p%    pz比例     Γ导带   （meV，相对 Σ 谷）
+Pb2Sb2Te5  Pb2Sb2Te5  有          -6        -6     38    0.44     227
+Pb2Sb2Te5  Pb2Sb2Te5  无          47     -2071     39    0.00     274  （B 位 p 态在价带顶下第 9 条）
+Sn2Sb2Te5  Sn2Sb2Te5  有         -37       -37     40    0.30     215
+Sn2Sb2Te5  Sn2Sb2Te5  无         102     -2225     36    0.00     128  （B 位 p 态在价带顶下第 9 条）
+Pb2Bi2Te5  Pb2Bi2Te5  有        -182      -182     40    0.35     182
+Pb2Bi2Te5  Pb2Bi2Te5  无          32     -1680     37    0.00     517  （B 位 p 态在价带顶下第 9 条）
+Sn2Bi2Te5  Sn2Bi2Te5  有        -232      -232     39    0.24     128
+Sn2Bi2Te5  Sn2Bi2Te5  无          52     -1882     30    0.00     314  （B 位 p 态在价带顶下第 9 条）
+Sn2Bi2Te5  Sn2Sb2Te5  有        -258      -258     38    0.29     112
+Sn2Sb2Te5  Sn2Bi2Te5  有         -12       -12     42    0.25     223
+
+# Sb → Bi：Γ 处 B 位 p 态相对 Σ 谷的变化（meV），以及双重差分
+  Pb 系：有 SOC -177；无 SOC +390；双重差分（Bi 比 Sb 多出的 SOC 的贡献）-567
+  Sn 系：有 SOC -194；无 SOC +343；双重差分（Bi 比 Sb 多出的 SOC 的贡献）-538
+
+# 晶格交换（PBE+SOC）：SnSb 晶格中 Sb → Bi -221 meV；SnBi 晶格中 Sb → Bi -220 meV。与原生晶格的变化接近，说明主要是化学（B 位元素）效应；差得多则体积效应也重要

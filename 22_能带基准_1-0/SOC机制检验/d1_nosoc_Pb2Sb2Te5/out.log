@@ -1,0 +1,323 @@
+ running   32 mpi-ranks, on    1 nodes
+ distrk:  each k-point on   16 cores,    2 groups
+ distr:  one band on    1 cores,   16 groups
+ vasp.6.4.3 19Mar24 (build Jun  3 2026 23:48:27) complex                         
+ POSCAR found type information on POSCAR SbTePb
+ POSCAR found :  3 types and       9 ions
+ scaLAPACK will be used
+ -----------------------------------------------------------------------------
+|                                                                             |
+|           W    W    AA    RRRRR   N    N  II  N    N   GGGG   !!!           |
+|           W    W   A  A   R    R  NN   N  II  NN   N  G    G  !!!           |
+|           W    W  A    A  R    R  N N  N  II  N N  N  G       !!!           |
+|           W WW W  AAAAAA  RRRRR   N  N N  II  N  N N  G  GGG   !            |
+|           WW  WW  A    A  R   R   N   NN  II  N   NN  G    G                |
+|           W    W  A    A  R    R  N    N  II  N    N   GGGG   !!!           |
+|                                                                             |
+|     For optimal performance we recommend to set                             |
+|       NCORE = 2 up to number-of-cores-per-socket                            |
+|     NCORE specifies how many cores store one orbital (NPAR=cpu/NCORE).      |
+|     This setting can greatly improve the performance of VASP for DFT.       |
+|     The default, NCORE=1 might be grossly inefficient on modern             |
+|     multi-core architectures or massively parallel machines. Do your        |
+|     own testing! More info at https://www.vasp.at/wiki/index.php/NCORE      |
+|     Unfortunately you need to use the default for GW and RPA                |
+|     calculations (for HF NCORE is supported but not extensively tested      |
+|     yet).                                                                   |
+|                                                                             |
+ -----------------------------------------------------------------------------
+
+ LDA part: xc-table for (Slater+PW92), standard interpolation
+ POSCAR, INCAR and KPOINTS ok, starting setup
+ FFT: planning ... GRIDC
+ FFT: planning ... GRID_SOFT
+ FFT: planning ... GRID
+ WAVECAR not read
+ entering main loop
+       N       E                     dE             d eps       ncg     rms          rms(c)
+DAV:   1     0.451232865504E+03    0.45123E+03   -0.22274E+04  3648   0.944E+02
+DAV:   2     0.431803748301E+01   -0.44691E+03   -0.42999E+03  4240   0.265E+02
+DAV:   3    -0.324618136837E+02   -0.36780E+02   -0.36121E+02  4912   0.815E+01
+DAV:   4    -0.334931079088E+02   -0.10313E+01   -0.10306E+01  4624   0.178E+01
+DAV:   5    -0.335199970341E+02   -0.26889E-01   -0.26888E-01  5232   0.230E+00    0.104E+01
+DAV:   6    -0.331569678843E+02    0.36303E+00   -0.52494E-01  5312   0.371E+00    0.681E+00
+DAV:   7    -0.332197639123E+02   -0.62796E-01   -0.73652E-01  4768   0.315E+00    0.162E+00
+DAV:   8    -0.331782069419E+02    0.41557E-01   -0.30721E-01  4512   0.221E+00    0.102E+00
+DAV:   9    -0.331674627850E+02    0.10744E-01   -0.45751E-02  4576   0.923E-01    0.718E-01
+DAV:  10    -0.331681141606E+02   -0.65138E-03   -0.18240E-02  4544   0.477E-01    0.155E-01
+DAV:  11    -0.331680277273E+02    0.86433E-04   -0.16067E-03  4400   0.159E-01    0.880E-02
+DAV:  12    -0.331680389110E+02   -0.11184E-04   -0.10934E-04  4784   0.395E-02    0.724E-02
+DAV:  13    -0.331680609303E+02   -0.22019E-04   -0.49772E-05  3920   0.281E-02    0.410E-02
+DAV:  14    -0.331680553307E+02    0.55995E-05   -0.81965E-06  5184   0.146E-02    0.146E-02
+DAV:  15    -0.331680553425E+02   -0.11759E-07   -0.22982E-06  4176   0.455E-03    0.106E-02
+DAV:  16    -0.331680558739E+02   -0.53143E-06   -0.19638E-07  4736   0.163E-03    0.362E-03
+DAV:  17    -0.331680563668E+02   -0.49284E-06   -0.18216E-07  3952   0.170E-03    0.435E-03
+DAV:  18    -0.331680561848E+02    0.18197E-06   -0.11188E-08  3584   0.539E-04    0.237E-03
+DAV:  19    -0.331680561429E+02    0.41924E-07   -0.29457E-09  2544   0.229E-04    0.189E-03
+DAV:  20    -0.331680560756E+02    0.67237E-07   -0.80212E-09  2688   0.384E-04    0.463E-04
+DAV:  21    -0.331680560698E+02    0.58544E-08   -0.36039E-09  2144   0.224E-04
+   1 F= -.37082822E+02 E0= -.37082822E+02  d E =-.134083E-11
+ Start KPOINTS_OPT (optional k-point list driver)
+k-point batch [1-38\204]
+       N       E                     dE             ncg
+DAV:   1     0.125113486366E+05   -0.17940E+05     3648
+DAV:   2    -0.443834404903E+04   -0.16950E+05     4208
+DAV:   3    -0.590597543672E+04   -0.14676E+04     4944
+DAV:   4    -0.594863851513E+04   -0.42663E+02     4528
+DAV:   5    -0.594976177052E+04   -0.11233E+01     5360
+DAV:   6    -0.594977457584E+04   -0.12805E-01     4672
+DAV:   7    -0.594977486591E+04   -0.29007E-03     5392
+DAV:   8    -0.594977486919E+04   -0.32778E-05     4720
+DAV:   9    -0.594977486925E+04   -0.62153E-07     4144
+DAV:  10    -0.594977486925E+04   -0.26675E-08     2720
+k-point batch [39-76\204]
+       N       E                     dE             ncg
+DAV:   1     0.113848598274E+05   -0.42300E+05     3648
+DAV:   2    -0.518204595990E+04   -0.16567E+05     4352
+DAV:   3    -0.647923858712E+04   -0.12972E+04     4832
+DAV:   4    -0.651498561984E+04   -0.35747E+02     4848
+DAV:   5    -0.651571635045E+04   -0.73073E+00     5136
+DAV:   6    -0.651572662771E+04   -0.10277E-01     5040
+DAV:   7    -0.651572679737E+04   -0.16966E-03     5088
+DAV:   8    -0.651572680023E+04   -0.28543E-05     5056
+DAV:   9    -0.651572680026E+04   -0.32620E-07     3856
+DAV:  10    -0.651572680027E+04   -0.48840E-08     2832
+k-point batch [77-114\204]
+       N       E                     dE             ncg
+DAV:   1     0.135791686336E+05    0.69520E+04     3648
+DAV:   2    -0.356628351826E+04   -0.17145E+05     4000
+DAV:   3    -0.528076733943E+04   -0.17145E+04     5072
+DAV:   4    -0.533394019748E+04   -0.53173E+02     3920
+DAV:   5    -0.533600795313E+04   -0.20678E+01     5808
+DAV:   6    -0.533604105102E+04   -0.33098E-01     4512
+DAV:   7    -0.533604185526E+04   -0.80423E-03     5840
+DAV:   8    -0.533604186244E+04   -0.71864E-05     4496
+DAV:   9    -0.533604186258E+04   -0.13215E-06     4736
+DAV:  10    -0.533604186258E+04   -0.27285E-10     2976
+k-point batch [115-152\204]
+       N       E                     dE             ncg
+DAV:   1     0.114584629563E+05   -0.43699E+05     3648
+DAV:   2    -0.520482046568E+04   -0.16663E+05     4432
+DAV:   3    -0.648857051311E+04   -0.12838E+04     4736
+DAV:   4    -0.652391922222E+04   -0.35349E+02     4992
+DAV:   5    -0.652459421142E+04   -0.67499E+00     4832
+DAV:   6    -0.652461301159E+04   -0.18800E-01     5232
+DAV:   7    -0.652461319727E+04   -0.18567E-03     4880
+DAV:   8    -0.652461320116E+04   -0.38941E-05     5168
+DAV:   9    -0.652461320120E+04   -0.37777E-07     3792
+DAV:  10    -0.652461320120E+04   -0.26812E-08     3024
+k-point batch [153-190\204]
+       N       E                     dE             ncg
+DAV:   1     0.124267569639E+05   -0.19010E+05     3648
+DAV:   2    -0.442560070291E+04   -0.16852E+05     4144
+DAV:   3    -0.594094927356E+04   -0.15153E+04     4960
+DAV:   4    -0.598557744038E+04   -0.44628E+02     4464
+DAV:   5    -0.598692899461E+04   -0.13516E+01     5408
+DAV:   6    -0.598694910632E+04   -0.20112E-01     4704
+DAV:   7    -0.598694954738E+04   -0.44106E-03     5456
+DAV:   8    -0.598694955195E+04   -0.45692E-05     4736
+DAV:   9    -0.598694955202E+04   -0.73472E-07     4288
+DAV:  10    -0.598694955203E+04   -0.42437E-08     2944
+k-point batch [191-204\204]
+       N       E                     dE             ncg
+DAV:   1     0.150912623367E+05   -0.18861E+05     1344
+DAV:   2     0.905941876973E+04   -0.60318E+04     1632
+DAV:   3     0.859928193885E+04   -0.46014E+03     1792
+DAV:   4     0.858684755511E+04   -0.12434E+02     1824
+DAV:   5     0.858669794856E+04   -0.14961E+00     1840
+DAV:   6     0.858669452920E+04   -0.34194E-02     1856
+DAV:   7     0.858669448999E+04   -0.39206E-04     1840
+DAV:   8     0.858669448905E+04   -0.94502E-06     1872
+DAV:   9     0.858669448904E+04   -0.70813E-08     1424
+Warning: ieee_invalid is signaling
+Warning: ieee_divide_by_zero is signaling
+Warning: ieee_overflow is signaling
+Warning: ieee_underflow is signaling
+Warning: ieee_inexact is signaling
+FORTRAN STOP
+Warning: ieee_invalid is signaling
+Warning: ieee_divide_by_zero is signaling
+Warning: ieee_overflow is signaling
+Warning: ieee_underflow is signaling
+Warning: ieee_inexact is signaling
+FORTRAN STOP
+Warning: ieee_invalid is signaling
+Warning: ieee_divide_by_zero is signaling
+Warning: ieee_overflow is signaling
+Warning: ieee_underflow is signaling
+Warning: ieee_inexact is signaling
+FORTRAN STOP
+Warning: ieee_invalid is signaling
+Warning: ieee_divide_by_zero is signaling
+Warning: ieee_overflow is signaling
+Warning: ieee_underflow is signaling
+Warning: ieee_inexact is signaling
+FORTRAN STOP
+Warning: ieee_invalid is signaling
+Warning: ieee_divide_by_zero is signaling
+Warning: ieee_overflow is signaling
+Warning: ieee_underflow is signaling
+Warning: ieee_inexact is signaling
+FORTRAN STOP
+Warning: ieee_invalid is signaling
+Warning: ieee_divide_by_zero is signaling
+Warning: ieee_overflow is signaling
+Warning: ieee_underflow is signaling
+Warning: ieee_inexact is signaling
+FORTRAN STOP
+Warning: ieee_invalid is signaling
+Warning: ieee_divide_by_zero is signaling
+Warning: ieee_overflow is signaling
+Warning: ieee_underflow is signaling
+Warning: ieee_inexact is signaling
+FORTRAN STOP
+Warning: ieee_invalid is signaling
+Warning: ieee_divide_by_zero is signaling
+Warning: ieee_overflow is signaling
+Warning: ieee_underflow is signaling
+Warning: ieee_inexact is signaling
+FORTRAN STOP
+Warning: ieee_invalid is signaling
+Warning: ieee_divide_by_zero is signaling
+Warning: ieee_overflow is signaling
+Warning: ieee_underflow is signaling
+Warning: ieee_inexact is signaling
+FORTRAN STOP
+Warning: ieee_invalid is signaling
+Warning: ieee_divide_by_zero is signaling
+Warning: ieee_overflow is signaling
+Warning: ieee_underflow is signaling
+Warning: ieee_inexact is signaling
+FORTRAN STOP
+Warning: ieee_invalid is signaling
+Warning: ieee_divide_by_zero is signaling
+Warning: ieee_overflow is signaling
+Warning: ieee_underflow is signaling
+Warning: ieee_inexact is signaling
+FORTRAN STOP
+Warning: ieee_invalid is signaling
+Warning: ieee_divide_by_zero is signaling
+Warning: ieee_overflow is signaling
+Warning: ieee_underflow is signaling
+Warning: ieee_inexact is signaling
+FORTRAN STOP
+Warning: ieee_invalid is signaling
+Warning: ieee_divide_by_zero is signaling
+Warning: ieee_overflow is signaling
+Warning: ieee_underflow is signaling
+Warning: ieee_inexact is signaling
+FORTRAN STOP
+Warning: ieee_invalid is signaling
+Warning: ieee_divide_by_zero is signaling
+Warning: ieee_overflow is signaling
+Warning: ieee_underflow is signaling
+Warning: ieee_inexact is signaling
+FORTRAN STOP
+Warning: ieee_invalid is signaling
+Warning: ieee_divide_by_zero is signaling
+Warning: ieee_overflow is signaling
+Warning: ieee_underflow is signaling
+Warning: ieee_inexact is signaling
+FORTRAN STOP
+Warning: ieee_invalid is signaling
+Warning: ieee_divide_by_zero is signaling
+Warning: ieee_overflow is signaling
+Warning: ieee_underflow is signaling
+Warning: ieee_inexact is signaling
+FORTRAN STOP
+Warning: ieee_invalid is signaling
+Warning: ieee_divide_by_zero is signaling
+Warning: ieee_overflow is signaling
+Warning: ieee_underflow is signaling
+Warning: ieee_inexact is signaling
+FORTRAN STOP
+Warning: ieee_invalid is signaling
+Warning: ieee_divide_by_zero is signaling
+Warning: ieee_overflow is signaling
+Warning: ieee_underflow is signaling
+Warning: ieee_inexact is signaling
+FORTRAN STOP
+Warning: ieee_invalid is signaling
+Warning: ieee_divide_by_zero is signaling
+Warning: ieee_overflow is signaling
+Warning: ieee_underflow is signaling
+Warning: ieee_inexact is signaling
+FORTRAN STOP
+Warning: ieee_invalid is signaling
+Warning: ieee_divide_by_zero is signaling
+Warning: ieee_overflow is signaling
+Warning: ieee_underflow is signaling
+Warning: ieee_inexact is signaling
+FORTRAN STOP
+Warning: ieee_invalid is signaling
+Warning: ieee_divide_by_zero is signaling
+Warning: ieee_overflow is signaling
+Warning: ieee_underflow is signaling
+Warning: ieee_inexact is signaling
+FORTRAN STOP
+Warning: ieee_invalid is signaling
+Warning: ieee_divide_by_zero is signaling
+Warning: ieee_overflow is signaling
+Warning: ieee_underflow is signaling
+Warning: ieee_inexact is signaling
+FORTRAN STOP
+Warning: ieee_invalid is signaling
+Warning: ieee_divide_by_zero is signaling
+Warning: ieee_overflow is signaling
+Warning: ieee_underflow is signaling
+Warning: ieee_inexact is signaling
+FORTRAN STOP
+Warning: ieee_invalid is signaling
+Warning: ieee_divide_by_zero is signaling
+Warning: ieee_overflow is signaling
+Warning: ieee_underflow is signaling
+Warning: ieee_inexact is signaling
+FORTRAN STOP
+Warning: ieee_invalid is signaling
+Warning: ieee_divide_by_zero is signaling
+Warning: ieee_overflow is signaling
+Warning: ieee_underflow is signaling
+Warning: ieee_inexact is signaling
+FORTRAN STOP
+Warning: ieee_invalid is signaling
+Warning: ieee_divide_by_zero is signaling
+Warning: ieee_overflow is signaling
+Warning: ieee_underflow is signaling
+Warning: ieee_inexact is signaling
+FORTRAN STOP
+Warning: ieee_invalid is signaling
+Warning: ieee_divide_by_zero is signaling
+Warning: ieee_overflow is signaling
+Warning: ieee_underflow is signaling
+Warning: ieee_inexact is signaling
+FORTRAN STOP
+Warning: ieee_invalid is signaling
+Warning: ieee_divide_by_zero is signaling
+Warning: ieee_overflow is signaling
+Warning: ieee_underflow is signaling
+Warning: ieee_inexact is signaling
+FORTRAN STOP
+Warning: ieee_invalid is signaling
+Warning: ieee_divide_by_zero is signaling
+Warning: ieee_overflow is signaling
+Warning: ieee_underflow is signaling
+Warning: ieee_inexact is signaling
+FORTRAN STOP
+Warning: ieee_invalid is signaling
+Warning: ieee_divide_by_zero is signaling
+Warning: ieee_overflow is signaling
+Warning: ieee_underflow is signaling
+Warning: ieee_inexact is signaling
+FORTRAN STOP
+Warning: ieee_invalid is signaling
+Warning: ieee_divide_by_zero is signaling
+Warning: ieee_overflow is signaling
+Warning: ieee_underflow is signaling
+Warning: ieee_inexact is signaling
+FORTRAN STOP
+Warning: ieee_invalid is signaling
+Warning: ieee_divide_by_zero is signaling
+Warning: ieee_overflow is signaling
+Warning: ieee_underflow is signaling
+Warning: ieee_inexact is signaling
+FORTRAN STOP

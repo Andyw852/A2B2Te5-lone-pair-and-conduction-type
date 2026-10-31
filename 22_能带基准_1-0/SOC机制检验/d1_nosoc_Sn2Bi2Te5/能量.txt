@@ -1,0 +1,6 @@
+  energy without entropy =      704.78199352  energy(sigma->0) =      704.78186082
+ E-fermi :   6.6355     XC(G=0):  -9.4243     alpha+bet :-11.2570
+------------------------ aborting loop because EDIFF is reached ----------------------------------------
+ General timing and accounting informations for this job:
+   k-points           NKPTS =     38   k-points in BZ     NKDIM =     38   number of bands    NBANDS=     64
+OK
