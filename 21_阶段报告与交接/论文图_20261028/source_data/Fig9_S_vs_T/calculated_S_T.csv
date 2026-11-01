@@ -1,144 +1,214 @@
 ﻿material,bands,method,net_doping_p-n_cm-3,T_K,S_calc_uV/K
-Pb2Sb2Te5,HSE06+SOC,path multivalley model,-1.723e+16,300,5.27
-Pb2Sb2Te5,HSE06+SOC,path multivalley model,-1.723e+16,310,6.74
-Pb2Sb2Te5,HSE06+SOC,path multivalley model,-1.723e+16,320,7.96
-Pb2Sb2Te5,HSE06+SOC,path multivalley model,-1.723e+16,330,8.95
-Pb2Sb2Te5,HSE06+SOC,path multivalley model,-1.723e+16,340,9.76
-Pb2Sb2Te5,HSE06+SOC,path multivalley model,-1.723e+16,350,10.4
-Pb2Sb2Te5,HSE06+SOC,path multivalley model,-1.723e+16,360,10.9
-Pb2Sb2Te5,HSE06+SOC,path multivalley model,-1.723e+16,370,11.28
-Pb2Sb2Te5,HSE06+SOC,path multivalley model,-1.723e+16,380,11.54
-Pb2Sb2Te5,HSE06+SOC,path multivalley model,-1.723e+16,390,11.7
-Pb2Sb2Te5,HSE06+SOC,path multivalley model,-1.723e+16,400,11.77
-Pb2Sb2Te5,HSE06+SOC,path multivalley model,-1.723e+16,410,11.76
-Pb2Sb2Te5,HSE06+SOC,path multivalley model,-1.723e+16,420,11.68
-Pb2Sb2Te5,HSE06+SOC,path multivalley model,-1.723e+16,430,11.52
-Pb2Sb2Te5,HSE06+SOC,path multivalley model,-1.723e+16,440,11.3
-Pb2Sb2Te5,HSE06+SOC,path multivalley model,-1.723e+16,450,11.02
-Pb2Sb2Te5,HSE06+SOC,path multivalley model,-1.723e+16,460,10.68
-Pb2Sb2Te5,HSE06+SOC,path multivalley model,-1.723e+16,470,10.29
-Pb2Sb2Te5,HSE06+SOC,path multivalley model,-1.723e+16,480,9.85
-Pb2Sb2Te5,HSE06+SOC,path multivalley model,-1.723e+16,490,9.37
-Pb2Sb2Te5,HSE06+SOC,path multivalley model,-1.723e+16,500,8.85
-Pb2Sb2Te5,HSE06+SOC,path multivalley model,-1.723e+16,510,8.29
-Pb2Sb2Te5,HSE06+SOC,path multivalley model,-1.723e+16,520,7.69
-Pb2Sb2Te5,HSE06+SOC,path multivalley model,-1.723e+16,530,7.06
-Pb2Sb2Te5,HSE06+SOC,path multivalley model,-1.723e+16,540,6.4
-Pb2Sb2Te5,HSE06+SOC,path multivalley model,-1.723e+16,550,5.72
-Pb2Sb2Te5,HSE06+SOC,path multivalley model,-1.723e+16,560,5.01
-Pb2Sb2Te5,HSE06+SOC,path multivalley model,-1.723e+16,570,4.28
-Pb2Sb2Te5,HSE06+SOC,path multivalley model,-1.723e+16,580,3.53
-Pb2Sb2Te5,HSE06+SOC,path multivalley model,-1.723e+16,590,2.76
-Pb2Sb2Te5,HSE06+SOC,path multivalley model,-1.723e+16,600,1.98
-Pb2Sb2Te5,HSE06+SOC,path multivalley model,-1.723e+16,610,1.19
-Pb2Sb2Te5,HSE06+SOC,path multivalley model,-1.723e+16,620,0.39
-Pb2Sb2Te5,HSE06+SOC,path multivalley model,-1.723e+16,630,-0.41
-Pb2Sb2Te5,HSE06+SOC,path multivalley model,-1.723e+16,640,-1.22
-Pb2Sb2Te5,PBE+SOC,path multivalley model,1.295e+17,300,9.58
-Pb2Sb2Te5,PBE+SOC,path multivalley model,1.295e+17,310,-13.54
-Pb2Sb2Te5,PBE+SOC,path multivalley model,1.295e+17,320,-31.5
-Pb2Sb2Te5,PBE+SOC,path multivalley model,1.295e+17,330,-45.64
-Pb2Sb2Te5,PBE+SOC,path multivalley model,1.295e+17,340,-56.92
-Pb2Sb2Te5,PBE+SOC,path multivalley model,1.295e+17,350,-66.06
-Pb2Sb2Te5,PBE+SOC,path multivalley model,1.295e+17,360,-73.56
-Pb2Sb2Te5,PBE+SOC,path multivalley model,1.295e+17,370,-79.81
-Pb2Sb2Te5,PBE+SOC,path multivalley model,1.295e+17,380,-85.08
-Pb2Sb2Te5,PBE+SOC,path multivalley model,1.295e+17,390,-89.58
-Pb2Sb2Te5,PBE+SOC,path multivalley model,1.295e+17,400,-93.47
-Pb2Sb2Te5,PBE+SOC,path multivalley model,1.295e+17,410,-96.86
-Pb2Sb2Te5,PBE+SOC,path multivalley model,1.295e+17,420,-99.85
-Pb2Sb2Te5,PBE+SOC,path multivalley model,1.295e+17,430,-102.5
-Pb2Sb2Te5,PBE+SOC,path multivalley model,1.295e+17,440,-104.87
-Pb2Sb2Te5,PBE+SOC,path multivalley model,1.295e+17,450,-107.0
-Pb2Sb2Te5,PBE+SOC,path multivalley model,1.295e+17,460,-108.93
-Pb2Sb2Te5,PBE+SOC,path multivalley model,1.295e+17,470,-110.67
-Pb2Sb2Te5,PBE+SOC,path multivalley model,1.295e+17,480,-112.26
-Pb2Sb2Te5,PBE+SOC,path multivalley model,1.295e+17,490,-113.71
-Pb2Sb2Te5,PBE+SOC,path multivalley model,1.295e+17,500,-115.04
-Pb2Sb2Te5,PBE+SOC,path multivalley model,1.295e+17,510,-116.25
-Pb2Sb2Te5,PBE+SOC,path multivalley model,1.295e+17,520,-117.36
-Pb2Sb2Te5,PBE+SOC,path multivalley model,1.295e+17,530,-118.38
-Pb2Sb2Te5,PBE+SOC,path multivalley model,1.295e+17,540,-119.31
-Pb2Sb2Te5,PBE+SOC,path multivalley model,1.295e+17,550,-120.16
-Pb2Sb2Te5,PBE+SOC,path multivalley model,1.295e+17,560,-120.93
-Pb2Sb2Te5,PBE+SOC,path multivalley model,1.295e+17,570,-121.64
-Pb2Sb2Te5,PBE+SOC,path multivalley model,1.295e+17,580,-122.28
-Pb2Sb2Te5,PBE+SOC,path multivalley model,1.295e+17,590,-122.85
-Pb2Sb2Te5,PBE+SOC,path multivalley model,1.295e+17,600,-123.37
-Pb2Sb2Te5,PBE+SOC,path multivalley model,1.295e+17,610,-123.83
-Pb2Sb2Te5,PBE+SOC,path multivalley model,1.295e+17,620,-124.24
-Pb2Sb2Te5,PBE+SOC,path multivalley model,1.295e+17,630,-124.6
-Pb2Sb2Te5,PBE+SOC,path multivalley model,1.295e+17,640,-124.91
-Pb2Bi2Te5,HSE06+SOC,path multivalley model,-8.215e+18,300,-88.5
-Pb2Bi2Te5,HSE06+SOC,path multivalley model,-8.215e+18,310,-90.98
-Pb2Bi2Te5,HSE06+SOC,path multivalley model,-8.215e+18,320,-93.42
-Pb2Bi2Te5,HSE06+SOC,path multivalley model,-8.215e+18,330,-95.81
-Pb2Bi2Te5,HSE06+SOC,path multivalley model,-8.215e+18,340,-98.15
-Pb2Bi2Te5,HSE06+SOC,path multivalley model,-8.215e+18,350,-100.45
-Pb2Bi2Te5,HSE06+SOC,path multivalley model,-8.215e+18,360,-102.69
-Pb2Bi2Te5,HSE06+SOC,path multivalley model,-8.215e+18,370,-104.87
-Pb2Bi2Te5,HSE06+SOC,path multivalley model,-8.215e+18,380,-106.99
-Pb2Bi2Te5,HSE06+SOC,path multivalley model,-8.215e+18,390,-109.05
-Pb2Bi2Te5,HSE06+SOC,path multivalley model,-8.215e+18,400,-111.02
-Pb2Bi2Te5,HSE06+SOC,path multivalley model,-8.215e+18,410,-112.92
-Pb2Bi2Te5,HSE06+SOC,path multivalley model,-8.215e+18,420,-114.74
-Pb2Bi2Te5,HSE06+SOC,path multivalley model,-8.215e+18,430,-116.45
-Pb2Bi2Te5,HSE06+SOC,path multivalley model,-8.215e+18,440,-118.07
-Pb2Bi2Te5,HSE06+SOC,path multivalley model,-8.215e+18,450,-119.57
-Pb2Bi2Te5,HSE06+SOC,path multivalley model,-8.215e+18,460,-120.96
-Pb2Bi2Te5,HSE06+SOC,path multivalley model,-8.215e+18,470,-122.21
-Pb2Bi2Te5,HSE06+SOC,path multivalley model,-8.215e+18,480,-123.33
-Pb2Bi2Te5,HSE06+SOC,path multivalley model,-8.215e+18,490,-124.3
-Pb2Bi2Te5,HSE06+SOC,path multivalley model,-8.215e+18,500,-125.11
-Pb2Bi2Te5,HSE06+SOC,path multivalley model,-8.215e+18,510,-125.76
-Pb2Bi2Te5,HSE06+SOC,path multivalley model,-8.215e+18,520,-126.23
-Pb2Bi2Te5,HSE06+SOC,path multivalley model,-8.215e+18,530,-126.52
-Pb2Bi2Te5,HSE06+SOC,path multivalley model,-8.215e+18,540,-126.63
-Pb2Bi2Te5,HSE06+SOC,path multivalley model,-8.215e+18,550,-126.54
-Pb2Bi2Te5,HSE06+SOC,path multivalley model,-8.215e+18,560,-126.26
-Pb2Bi2Te5,HSE06+SOC,path multivalley model,-8.215e+18,570,-125.79
-Pb2Bi2Te5,HSE06+SOC,path multivalley model,-8.215e+18,580,-125.11
-Pb2Bi2Te5,HSE06+SOC,path multivalley model,-8.215e+18,590,-124.24
-Pb2Bi2Te5,HSE06+SOC,path multivalley model,-8.215e+18,600,-123.17
-Pb2Bi2Te5,HSE06+SOC,path multivalley model,-8.215e+18,610,-121.92
-Pb2Bi2Te5,HSE06+SOC,path multivalley model,-8.215e+18,620,-120.48
-Pb2Bi2Te5,HSE06+SOC,path multivalley model,-8.215e+18,630,-118.87
-Pb2Bi2Te5,HSE06+SOC,path multivalley model,-8.215e+18,640,-117.09
-Pb2Bi2Te5,PBE+SOC,path multivalley model,-3.478e+19,300,-88.18
-Pb2Bi2Te5,PBE+SOC,path multivalley model,-3.478e+19,310,-92.4
-Pb2Bi2Te5,PBE+SOC,path multivalley model,-3.478e+19,320,-96.87
-Pb2Bi2Te5,PBE+SOC,path multivalley model,-3.478e+19,330,-101.62
-Pb2Bi2Te5,PBE+SOC,path multivalley model,-3.478e+19,340,-106.65
-Pb2Bi2Te5,PBE+SOC,path multivalley model,-3.478e+19,350,-111.97
-Pb2Bi2Te5,PBE+SOC,path multivalley model,-3.478e+19,360,-117.57
-Pb2Bi2Te5,PBE+SOC,path multivalley model,-3.478e+19,370,-123.46
-Pb2Bi2Te5,PBE+SOC,path multivalley model,-3.478e+19,380,-129.61
-Pb2Bi2Te5,PBE+SOC,path multivalley model,-3.478e+19,390,-136.01
-Pb2Bi2Te5,PBE+SOC,path multivalley model,-3.478e+19,400,-142.62
-Pb2Bi2Te5,PBE+SOC,path multivalley model,-3.478e+19,410,-149.4
-Pb2Bi2Te5,PBE+SOC,path multivalley model,-3.478e+19,420,-156.32
-Pb2Bi2Te5,PBE+SOC,path multivalley model,-3.478e+19,430,-163.31
-Pb2Bi2Te5,PBE+SOC,path multivalley model,-3.478e+19,440,-170.33
-Pb2Bi2Te5,PBE+SOC,path multivalley model,-3.478e+19,450,-177.29
-Pb2Bi2Te5,PBE+SOC,path multivalley model,-3.478e+19,460,-184.15
-Pb2Bi2Te5,PBE+SOC,path multivalley model,-3.478e+19,470,-190.81
-Pb2Bi2Te5,PBE+SOC,path multivalley model,-3.478e+19,480,-197.21
-Pb2Bi2Te5,PBE+SOC,path multivalley model,-3.478e+19,490,-203.27
-Pb2Bi2Te5,PBE+SOC,path multivalley model,-3.478e+19,500,-208.91
-Pb2Bi2Te5,PBE+SOC,path multivalley model,-3.478e+19,510,-214.08
-Pb2Bi2Te5,PBE+SOC,path multivalley model,-3.478e+19,520,-218.71
-Pb2Bi2Te5,PBE+SOC,path multivalley model,-3.478e+19,530,-222.73
-Pb2Bi2Te5,PBE+SOC,path multivalley model,-3.478e+19,540,-226.12
-Pb2Bi2Te5,PBE+SOC,path multivalley model,-3.478e+19,550,-228.83
-Pb2Bi2Te5,PBE+SOC,path multivalley model,-3.478e+19,560,-230.84
-Pb2Bi2Te5,PBE+SOC,path multivalley model,-3.478e+19,570,-232.16
-Pb2Bi2Te5,PBE+SOC,path multivalley model,-3.478e+19,580,-232.79
-Pb2Bi2Te5,PBE+SOC,path multivalley model,-3.478e+19,590,-232.76
-Pb2Bi2Te5,PBE+SOC,path multivalley model,-3.478e+19,600,-232.09
-Pb2Bi2Te5,PBE+SOC,path multivalley model,-3.478e+19,610,-230.83
-Pb2Bi2Te5,PBE+SOC,path multivalley model,-3.478e+19,620,-229.04
-Pb2Bi2Te5,PBE+SOC,path multivalley model,-3.478e+19,630,-226.77
-Pb2Bi2Te5,PBE+SOC,path multivalley model,-3.478e+19,640,-224.09
+Pb2Sb2Te5,HSE06+SOC,"path multivalley model, crta",-1.723e+16,300,5.27
+Pb2Sb2Te5,HSE06+SOC,"path multivalley model, crta",-1.723e+16,310,6.74
+Pb2Sb2Te5,HSE06+SOC,"path multivalley model, crta",-1.723e+16,320,7.96
+Pb2Sb2Te5,HSE06+SOC,"path multivalley model, crta",-1.723e+16,330,8.95
+Pb2Sb2Te5,HSE06+SOC,"path multivalley model, crta",-1.723e+16,340,9.76
+Pb2Sb2Te5,HSE06+SOC,"path multivalley model, crta",-1.723e+16,350,10.4
+Pb2Sb2Te5,HSE06+SOC,"path multivalley model, crta",-1.723e+16,360,10.9
+Pb2Sb2Te5,HSE06+SOC,"path multivalley model, crta",-1.723e+16,370,11.28
+Pb2Sb2Te5,HSE06+SOC,"path multivalley model, crta",-1.723e+16,380,11.54
+Pb2Sb2Te5,HSE06+SOC,"path multivalley model, crta",-1.723e+16,390,11.7
+Pb2Sb2Te5,HSE06+SOC,"path multivalley model, crta",-1.723e+16,400,11.77
+Pb2Sb2Te5,HSE06+SOC,"path multivalley model, crta",-1.723e+16,410,11.76
+Pb2Sb2Te5,HSE06+SOC,"path multivalley model, crta",-1.723e+16,420,11.68
+Pb2Sb2Te5,HSE06+SOC,"path multivalley model, crta",-1.723e+16,430,11.52
+Pb2Sb2Te5,HSE06+SOC,"path multivalley model, crta",-1.723e+16,440,11.3
+Pb2Sb2Te5,HSE06+SOC,"path multivalley model, crta",-1.723e+16,450,11.02
+Pb2Sb2Te5,HSE06+SOC,"path multivalley model, crta",-1.723e+16,460,10.68
+Pb2Sb2Te5,HSE06+SOC,"path multivalley model, crta",-1.723e+16,470,10.29
+Pb2Sb2Te5,HSE06+SOC,"path multivalley model, crta",-1.723e+16,480,9.85
+Pb2Sb2Te5,HSE06+SOC,"path multivalley model, crta",-1.723e+16,490,9.37
+Pb2Sb2Te5,HSE06+SOC,"path multivalley model, crta",-1.723e+16,500,8.85
+Pb2Sb2Te5,HSE06+SOC,"path multivalley model, crta",-1.723e+16,510,8.29
+Pb2Sb2Te5,HSE06+SOC,"path multivalley model, crta",-1.723e+16,520,7.69
+Pb2Sb2Te5,HSE06+SOC,"path multivalley model, crta",-1.723e+16,530,7.06
+Pb2Sb2Te5,HSE06+SOC,"path multivalley model, crta",-1.723e+16,540,6.4
+Pb2Sb2Te5,HSE06+SOC,"path multivalley model, crta",-1.723e+16,550,5.72
+Pb2Sb2Te5,HSE06+SOC,"path multivalley model, crta",-1.723e+16,560,5.01
+Pb2Sb2Te5,HSE06+SOC,"path multivalley model, crta",-1.723e+16,570,4.28
+Pb2Sb2Te5,HSE06+SOC,"path multivalley model, crta",-1.723e+16,580,3.53
+Pb2Sb2Te5,HSE06+SOC,"path multivalley model, crta",-1.723e+16,590,2.76
+Pb2Sb2Te5,HSE06+SOC,"path multivalley model, crta",-1.723e+16,600,1.98
+Pb2Sb2Te5,HSE06+SOC,"path multivalley model, crta",-1.723e+16,610,1.19
+Pb2Sb2Te5,HSE06+SOC,"path multivalley model, crta",-1.723e+16,620,0.39
+Pb2Sb2Te5,HSE06+SOC,"path multivalley model, crta",-1.723e+16,630,-0.41
+Pb2Sb2Te5,HSE06+SOC,"path multivalley model, crta",-1.723e+16,640,-1.22
+Pb2Sb2Te5,"HSE06+SOC, acoustic phonon","path multivalley model, adp",2.296e+16,300,5.57
+Pb2Sb2Te5,"HSE06+SOC, acoustic phonon","path multivalley model, adp",2.296e+16,310,5.34
+Pb2Sb2Te5,"HSE06+SOC, acoustic phonon","path multivalley model, adp",2.296e+16,320,5.22
+Pb2Sb2Te5,"HSE06+SOC, acoustic phonon","path multivalley model, adp",2.296e+16,330,5.2
+Pb2Sb2Te5,"HSE06+SOC, acoustic phonon","path multivalley model, adp",2.296e+16,340,5.24
+Pb2Sb2Te5,"HSE06+SOC, acoustic phonon","path multivalley model, adp",2.296e+16,350,5.33
+Pb2Sb2Te5,"HSE06+SOC, acoustic phonon","path multivalley model, adp",2.296e+16,360,5.45
+Pb2Sb2Te5,"HSE06+SOC, acoustic phonon","path multivalley model, adp",2.296e+16,370,5.61
+Pb2Sb2Te5,"HSE06+SOC, acoustic phonon","path multivalley model, adp",2.296e+16,380,5.79
+Pb2Sb2Te5,"HSE06+SOC, acoustic phonon","path multivalley model, adp",2.296e+16,390,5.98
+Pb2Sb2Te5,"HSE06+SOC, acoustic phonon","path multivalley model, adp",2.296e+16,400,6.18
+Pb2Sb2Te5,"HSE06+SOC, acoustic phonon","path multivalley model, adp",2.296e+16,410,6.39
+Pb2Sb2Te5,"HSE06+SOC, acoustic phonon","path multivalley model, adp",2.296e+16,420,6.6
+Pb2Sb2Te5,"HSE06+SOC, acoustic phonon","path multivalley model, adp",2.296e+16,430,6.82
+Pb2Sb2Te5,"HSE06+SOC, acoustic phonon","path multivalley model, adp",2.296e+16,440,7.03
+Pb2Sb2Te5,"HSE06+SOC, acoustic phonon","path multivalley model, adp",2.296e+16,450,7.24
+Pb2Sb2Te5,"HSE06+SOC, acoustic phonon","path multivalley model, adp",2.296e+16,460,7.45
+Pb2Sb2Te5,"HSE06+SOC, acoustic phonon","path multivalley model, adp",2.296e+16,470,7.65
+Pb2Sb2Te5,"HSE06+SOC, acoustic phonon","path multivalley model, adp",2.296e+16,480,7.85
+Pb2Sb2Te5,"HSE06+SOC, acoustic phonon","path multivalley model, adp",2.296e+16,490,8.04
+Pb2Sb2Te5,"HSE06+SOC, acoustic phonon","path multivalley model, adp",2.296e+16,500,8.23
+Pb2Sb2Te5,"HSE06+SOC, acoustic phonon","path multivalley model, adp",2.296e+16,510,8.41
+Pb2Sb2Te5,"HSE06+SOC, acoustic phonon","path multivalley model, adp",2.296e+16,520,8.58
+Pb2Sb2Te5,"HSE06+SOC, acoustic phonon","path multivalley model, adp",2.296e+16,530,8.74
+Pb2Sb2Te5,"HSE06+SOC, acoustic phonon","path multivalley model, adp",2.296e+16,540,8.9
+Pb2Sb2Te5,"HSE06+SOC, acoustic phonon","path multivalley model, adp",2.296e+16,550,9.05
+Pb2Sb2Te5,"HSE06+SOC, acoustic phonon","path multivalley model, adp",2.296e+16,560,9.19
+Pb2Sb2Te5,"HSE06+SOC, acoustic phonon","path multivalley model, adp",2.296e+16,570,9.32
+Pb2Sb2Te5,"HSE06+SOC, acoustic phonon","path multivalley model, adp",2.296e+16,580,9.45
+Pb2Sb2Te5,"HSE06+SOC, acoustic phonon","path multivalley model, adp",2.296e+16,590,9.56
+Pb2Sb2Te5,"HSE06+SOC, acoustic phonon","path multivalley model, adp",2.296e+16,600,9.67
+Pb2Sb2Te5,"HSE06+SOC, acoustic phonon","path multivalley model, adp",2.296e+16,610,9.78
+Pb2Sb2Te5,"HSE06+SOC, acoustic phonon","path multivalley model, adp",2.296e+16,620,9.87
+Pb2Sb2Te5,"HSE06+SOC, acoustic phonon","path multivalley model, adp",2.296e+16,630,9.96
+Pb2Sb2Te5,"HSE06+SOC, acoustic phonon","path multivalley model, adp",2.296e+16,640,10.04
+Pb2Sb2Te5,PBE+SOC,"path multivalley model, crta",1.295e+17,300,9.58
+Pb2Sb2Te5,PBE+SOC,"path multivalley model, crta",1.295e+17,310,-13.54
+Pb2Sb2Te5,PBE+SOC,"path multivalley model, crta",1.295e+17,320,-31.5
+Pb2Sb2Te5,PBE+SOC,"path multivalley model, crta",1.295e+17,330,-45.64
+Pb2Sb2Te5,PBE+SOC,"path multivalley model, crta",1.295e+17,340,-56.92
+Pb2Sb2Te5,PBE+SOC,"path multivalley model, crta",1.295e+17,350,-66.06
+Pb2Sb2Te5,PBE+SOC,"path multivalley model, crta",1.295e+17,360,-73.56
+Pb2Sb2Te5,PBE+SOC,"path multivalley model, crta",1.295e+17,370,-79.81
+Pb2Sb2Te5,PBE+SOC,"path multivalley model, crta",1.295e+17,380,-85.08
+Pb2Sb2Te5,PBE+SOC,"path multivalley model, crta",1.295e+17,390,-89.58
+Pb2Sb2Te5,PBE+SOC,"path multivalley model, crta",1.295e+17,400,-93.47
+Pb2Sb2Te5,PBE+SOC,"path multivalley model, crta",1.295e+17,410,-96.86
+Pb2Sb2Te5,PBE+SOC,"path multivalley model, crta",1.295e+17,420,-99.85
+Pb2Sb2Te5,PBE+SOC,"path multivalley model, crta",1.295e+17,430,-102.5
+Pb2Sb2Te5,PBE+SOC,"path multivalley model, crta",1.295e+17,440,-104.87
+Pb2Sb2Te5,PBE+SOC,"path multivalley model, crta",1.295e+17,450,-107.0
+Pb2Sb2Te5,PBE+SOC,"path multivalley model, crta",1.295e+17,460,-108.93
+Pb2Sb2Te5,PBE+SOC,"path multivalley model, crta",1.295e+17,470,-110.67
+Pb2Sb2Te5,PBE+SOC,"path multivalley model, crta",1.295e+17,480,-112.26
+Pb2Sb2Te5,PBE+SOC,"path multivalley model, crta",1.295e+17,490,-113.71
+Pb2Sb2Te5,PBE+SOC,"path multivalley model, crta",1.295e+17,500,-115.04
+Pb2Sb2Te5,PBE+SOC,"path multivalley model, crta",1.295e+17,510,-116.25
+Pb2Sb2Te5,PBE+SOC,"path multivalley model, crta",1.295e+17,520,-117.36
+Pb2Sb2Te5,PBE+SOC,"path multivalley model, crta",1.295e+17,530,-118.38
+Pb2Sb2Te5,PBE+SOC,"path multivalley model, crta",1.295e+17,540,-119.31
+Pb2Sb2Te5,PBE+SOC,"path multivalley model, crta",1.295e+17,550,-120.16
+Pb2Sb2Te5,PBE+SOC,"path multivalley model, crta",1.295e+17,560,-120.93
+Pb2Sb2Te5,PBE+SOC,"path multivalley model, crta",1.295e+17,570,-121.64
+Pb2Sb2Te5,PBE+SOC,"path multivalley model, crta",1.295e+17,580,-122.28
+Pb2Sb2Te5,PBE+SOC,"path multivalley model, crta",1.295e+17,590,-122.85
+Pb2Sb2Te5,PBE+SOC,"path multivalley model, crta",1.295e+17,600,-123.37
+Pb2Sb2Te5,PBE+SOC,"path multivalley model, crta",1.295e+17,610,-123.83
+Pb2Sb2Te5,PBE+SOC,"path multivalley model, crta",1.295e+17,620,-124.24
+Pb2Sb2Te5,PBE+SOC,"path multivalley model, crta",1.295e+17,630,-124.6
+Pb2Sb2Te5,PBE+SOC,"path multivalley model, crta",1.295e+17,640,-124.91
+Pb2Bi2Te5,HSE06+SOC,"path multivalley model, crta",-8.215e+18,300,-88.5
+Pb2Bi2Te5,HSE06+SOC,"path multivalley model, crta",-8.215e+18,310,-90.98
+Pb2Bi2Te5,HSE06+SOC,"path multivalley model, crta",-8.215e+18,320,-93.42
+Pb2Bi2Te5,HSE06+SOC,"path multivalley model, crta",-8.215e+18,330,-95.81
+Pb2Bi2Te5,HSE06+SOC,"path multivalley model, crta",-8.215e+18,340,-98.15
+Pb2Bi2Te5,HSE06+SOC,"path multivalley model, crta",-8.215e+18,350,-100.45
+Pb2Bi2Te5,HSE06+SOC,"path multivalley model, crta",-8.215e+18,360,-102.69
+Pb2Bi2Te5,HSE06+SOC,"path multivalley model, crta",-8.215e+18,370,-104.87
+Pb2Bi2Te5,HSE06+SOC,"path multivalley model, crta",-8.215e+18,380,-106.99
+Pb2Bi2Te5,HSE06+SOC,"path multivalley model, crta",-8.215e+18,390,-109.05
+Pb2Bi2Te5,HSE06+SOC,"path multivalley model, crta",-8.215e+18,400,-111.02
+Pb2Bi2Te5,HSE06+SOC,"path multivalley model, crta",-8.215e+18,410,-112.92
+Pb2Bi2Te5,HSE06+SOC,"path multivalley model, crta",-8.215e+18,420,-114.74
+Pb2Bi2Te5,HSE06+SOC,"path multivalley model, crta",-8.215e+18,430,-116.45
+Pb2Bi2Te5,HSE06+SOC,"path multivalley model, crta",-8.215e+18,440,-118.07
+Pb2Bi2Te5,HSE06+SOC,"path multivalley model, crta",-8.215e+18,450,-119.57
+Pb2Bi2Te5,HSE06+SOC,"path multivalley model, crta",-8.215e+18,460,-120.96
+Pb2Bi2Te5,HSE06+SOC,"path multivalley model, crta",-8.215e+18,470,-122.21
+Pb2Bi2Te5,HSE06+SOC,"path multivalley model, crta",-8.215e+18,480,-123.33
+Pb2Bi2Te5,HSE06+SOC,"path multivalley model, crta",-8.215e+18,490,-124.3
+Pb2Bi2Te5,HSE06+SOC,"path multivalley model, crta",-8.215e+18,500,-125.11
+Pb2Bi2Te5,HSE06+SOC,"path multivalley model, crta",-8.215e+18,510,-125.76
+Pb2Bi2Te5,HSE06+SOC,"path multivalley model, crta",-8.215e+18,520,-126.23
+Pb2Bi2Te5,HSE06+SOC,"path multivalley model, crta",-8.215e+18,530,-126.52
+Pb2Bi2Te5,HSE06+SOC,"path multivalley model, crta",-8.215e+18,540,-126.63
+Pb2Bi2Te5,HSE06+SOC,"path multivalley model, crta",-8.215e+18,550,-126.54
+Pb2Bi2Te5,HSE06+SOC,"path multivalley model, crta",-8.215e+18,560,-126.26
+Pb2Bi2Te5,HSE06+SOC,"path multivalley model, crta",-8.215e+18,570,-125.79
+Pb2Bi2Te5,HSE06+SOC,"path multivalley model, crta",-8.215e+18,580,-125.11
+Pb2Bi2Te5,HSE06+SOC,"path multivalley model, crta",-8.215e+18,590,-124.24
+Pb2Bi2Te5,HSE06+SOC,"path multivalley model, crta",-8.215e+18,600,-123.17
+Pb2Bi2Te5,HSE06+SOC,"path multivalley model, crta",-8.215e+18,610,-121.92
+Pb2Bi2Te5,HSE06+SOC,"path multivalley model, crta",-8.215e+18,620,-120.48
+Pb2Bi2Te5,HSE06+SOC,"path multivalley model, crta",-8.215e+18,630,-118.87
+Pb2Bi2Te5,HSE06+SOC,"path multivalley model, crta",-8.215e+18,640,-117.09
+Pb2Bi2Te5,"HSE06+SOC, acoustic phonon","path multivalley model, adp",-3.423e+18,300,-88.42
+Pb2Bi2Te5,"HSE06+SOC, acoustic phonon","path multivalley model, adp",-3.423e+18,310,-91.3
+Pb2Bi2Te5,"HSE06+SOC, acoustic phonon","path multivalley model, adp",-3.423e+18,320,-94.11
+Pb2Bi2Te5,"HSE06+SOC, acoustic phonon","path multivalley model, adp",-3.423e+18,330,-96.83
+Pb2Bi2Te5,"HSE06+SOC, acoustic phonon","path multivalley model, adp",-3.423e+18,340,-99.46
+Pb2Bi2Te5,"HSE06+SOC, acoustic phonon","path multivalley model, adp",-3.423e+18,350,-101.99
+Pb2Bi2Te5,"HSE06+SOC, acoustic phonon","path multivalley model, adp",-3.423e+18,360,-104.41
+Pb2Bi2Te5,"HSE06+SOC, acoustic phonon","path multivalley model, adp",-3.423e+18,370,-106.71
+Pb2Bi2Te5,"HSE06+SOC, acoustic phonon","path multivalley model, adp",-3.423e+18,380,-108.88
+Pb2Bi2Te5,"HSE06+SOC, acoustic phonon","path multivalley model, adp",-3.423e+18,390,-110.91
+Pb2Bi2Te5,"HSE06+SOC, acoustic phonon","path multivalley model, adp",-3.423e+18,400,-112.77
+Pb2Bi2Te5,"HSE06+SOC, acoustic phonon","path multivalley model, adp",-3.423e+18,410,-114.48
+Pb2Bi2Te5,"HSE06+SOC, acoustic phonon","path multivalley model, adp",-3.423e+18,420,-116.01
+Pb2Bi2Te5,"HSE06+SOC, acoustic phonon","path multivalley model, adp",-3.423e+18,430,-117.35
+Pb2Bi2Te5,"HSE06+SOC, acoustic phonon","path multivalley model, adp",-3.423e+18,440,-118.5
+Pb2Bi2Te5,"HSE06+SOC, acoustic phonon","path multivalley model, adp",-3.423e+18,450,-119.45
+Pb2Bi2Te5,"HSE06+SOC, acoustic phonon","path multivalley model, adp",-3.423e+18,460,-120.2
+Pb2Bi2Te5,"HSE06+SOC, acoustic phonon","path multivalley model, adp",-3.423e+18,470,-120.75
+Pb2Bi2Te5,"HSE06+SOC, acoustic phonon","path multivalley model, adp",-3.423e+18,480,-121.1
+Pb2Bi2Te5,"HSE06+SOC, acoustic phonon","path multivalley model, adp",-3.423e+18,490,-121.24
+Pb2Bi2Te5,"HSE06+SOC, acoustic phonon","path multivalley model, adp",-3.423e+18,500,-121.2
+Pb2Bi2Te5,"HSE06+SOC, acoustic phonon","path multivalley model, adp",-3.423e+18,510,-120.96
+Pb2Bi2Te5,"HSE06+SOC, acoustic phonon","path multivalley model, adp",-3.423e+18,520,-120.55
+Pb2Bi2Te5,"HSE06+SOC, acoustic phonon","path multivalley model, adp",-3.423e+18,530,-119.97
+Pb2Bi2Te5,"HSE06+SOC, acoustic phonon","path multivalley model, adp",-3.423e+18,540,-119.23
+Pb2Bi2Te5,"HSE06+SOC, acoustic phonon","path multivalley model, adp",-3.423e+18,550,-118.35
+Pb2Bi2Te5,"HSE06+SOC, acoustic phonon","path multivalley model, adp",-3.423e+18,560,-117.33
+Pb2Bi2Te5,"HSE06+SOC, acoustic phonon","path multivalley model, adp",-3.423e+18,570,-116.19
+Pb2Bi2Te5,"HSE06+SOC, acoustic phonon","path multivalley model, adp",-3.423e+18,580,-114.94
+Pb2Bi2Te5,"HSE06+SOC, acoustic phonon","path multivalley model, adp",-3.423e+18,590,-113.59
+Pb2Bi2Te5,"HSE06+SOC, acoustic phonon","path multivalley model, adp",-3.423e+18,600,-112.16
+Pb2Bi2Te5,"HSE06+SOC, acoustic phonon","path multivalley model, adp",-3.423e+18,610,-110.64
+Pb2Bi2Te5,"HSE06+SOC, acoustic phonon","path multivalley model, adp",-3.423e+18,620,-109.06
+Pb2Bi2Te5,"HSE06+SOC, acoustic phonon","path multivalley model, adp",-3.423e+18,630,-107.43
+Pb2Bi2Te5,"HSE06+SOC, acoustic phonon","path multivalley model, adp",-3.423e+18,640,-105.74
+Pb2Bi2Te5,PBE+SOC,"path multivalley model, crta",-3.478e+19,300,-88.18
+Pb2Bi2Te5,PBE+SOC,"path multivalley model, crta",-3.478e+19,310,-92.4
+Pb2Bi2Te5,PBE+SOC,"path multivalley model, crta",-3.478e+19,320,-96.87
+Pb2Bi2Te5,PBE+SOC,"path multivalley model, crta",-3.478e+19,330,-101.62
+Pb2Bi2Te5,PBE+SOC,"path multivalley model, crta",-3.478e+19,340,-106.65
+Pb2Bi2Te5,PBE+SOC,"path multivalley model, crta",-3.478e+19,350,-111.97
+Pb2Bi2Te5,PBE+SOC,"path multivalley model, crta",-3.478e+19,360,-117.57
+Pb2Bi2Te5,PBE+SOC,"path multivalley model, crta",-3.478e+19,370,-123.46
+Pb2Bi2Te5,PBE+SOC,"path multivalley model, crta",-3.478e+19,380,-129.61
+Pb2Bi2Te5,PBE+SOC,"path multivalley model, crta",-3.478e+19,390,-136.01
+Pb2Bi2Te5,PBE+SOC,"path multivalley model, crta",-3.478e+19,400,-142.62
+Pb2Bi2Te5,PBE+SOC,"path multivalley model, crta",-3.478e+19,410,-149.4
+Pb2Bi2Te5,PBE+SOC,"path multivalley model, crta",-3.478e+19,420,-156.32
+Pb2Bi2Te5,PBE+SOC,"path multivalley model, crta",-3.478e+19,430,-163.31
+Pb2Bi2Te5,PBE+SOC,"path multivalley model, crta",-3.478e+19,440,-170.33
+Pb2Bi2Te5,PBE+SOC,"path multivalley model, crta",-3.478e+19,450,-177.29
+Pb2Bi2Te5,PBE+SOC,"path multivalley model, crta",-3.478e+19,460,-184.15
+Pb2Bi2Te5,PBE+SOC,"path multivalley model, crta",-3.478e+19,470,-190.81
+Pb2Bi2Te5,PBE+SOC,"path multivalley model, crta",-3.478e+19,480,-197.21
+Pb2Bi2Te5,PBE+SOC,"path multivalley model, crta",-3.478e+19,490,-203.27
+Pb2Bi2Te5,PBE+SOC,"path multivalley model, crta",-3.478e+19,500,-208.91
+Pb2Bi2Te5,PBE+SOC,"path multivalley model, crta",-3.478e+19,510,-214.08
+Pb2Bi2Te5,PBE+SOC,"path multivalley model, crta",-3.478e+19,520,-218.71
+Pb2Bi2Te5,PBE+SOC,"path multivalley model, crta",-3.478e+19,530,-222.73
+Pb2Bi2Te5,PBE+SOC,"path multivalley model, crta",-3.478e+19,540,-226.12
+Pb2Bi2Te5,PBE+SOC,"path multivalley model, crta",-3.478e+19,550,-228.83
+Pb2Bi2Te5,PBE+SOC,"path multivalley model, crta",-3.478e+19,560,-230.84
+Pb2Bi2Te5,PBE+SOC,"path multivalley model, crta",-3.478e+19,570,-232.16
+Pb2Bi2Te5,PBE+SOC,"path multivalley model, crta",-3.478e+19,580,-232.79
+Pb2Bi2Te5,PBE+SOC,"path multivalley model, crta",-3.478e+19,590,-232.76
+Pb2Bi2Te5,PBE+SOC,"path multivalley model, crta",-3.478e+19,600,-232.09
+Pb2Bi2Te5,PBE+SOC,"path multivalley model, crta",-3.478e+19,610,-230.83
+Pb2Bi2Te5,PBE+SOC,"path multivalley model, crta",-3.478e+19,620,-229.04
+Pb2Bi2Te5,PBE+SOC,"path multivalley model, crta",-3.478e+19,630,-226.77
+Pb2Bi2Te5,PBE+SOC,"path multivalley model, crta",-3.478e+19,640,-224.09
 Sn2Sb2Te5,HSE06+SOC,BoltzTraP2 (PBE) x model HSE/PBE ratio,6.157e+20,300,16.0
 Sn2Sb2Te5,HSE06+SOC,BoltzTraP2 (PBE) x model HSE/PBE ratio,6.157e+20,310,16.61
 Sn2Sb2Te5,HSE06+SOC,BoltzTraP2 (PBE) x model HSE/PBE ratio,6.157e+20,320,17.23
@@ -174,6 +244,41 @@ Sn2Sb2Te5,HSE06+SOC,BoltzTraP2 (PBE) x model HSE/PBE ratio,6.157e+20,610,36.4
 Sn2Sb2Te5,HSE06+SOC,BoltzTraP2 (PBE) x model HSE/PBE ratio,6.157e+20,620,37.1
 Sn2Sb2Te5,HSE06+SOC,BoltzTraP2 (PBE) x model HSE/PBE ratio,6.157e+20,630,37.81
 Sn2Sb2Te5,HSE06+SOC,BoltzTraP2 (PBE) x model HSE/PBE ratio,6.157e+20,640,38.52
+Sn2Sb2Te5,"HSE06+SOC, acoustic phonon",BoltzTraP2 (PBE) x model HSE(adp)/PBE(crta) ratio,5.411e+20,300,16.0
+Sn2Sb2Te5,"HSE06+SOC, acoustic phonon",BoltzTraP2 (PBE) x model HSE(adp)/PBE(crta) ratio,5.411e+20,310,16.64
+Sn2Sb2Te5,"HSE06+SOC, acoustic phonon",BoltzTraP2 (PBE) x model HSE(adp)/PBE(crta) ratio,5.411e+20,320,17.29
+Sn2Sb2Te5,"HSE06+SOC, acoustic phonon",BoltzTraP2 (PBE) x model HSE(adp)/PBE(crta) ratio,5.411e+20,330,17.93
+Sn2Sb2Te5,"HSE06+SOC, acoustic phonon",BoltzTraP2 (PBE) x model HSE(adp)/PBE(crta) ratio,5.411e+20,340,18.58
+Sn2Sb2Te5,"HSE06+SOC, acoustic phonon",BoltzTraP2 (PBE) x model HSE(adp)/PBE(crta) ratio,5.411e+20,350,19.24
+Sn2Sb2Te5,"HSE06+SOC, acoustic phonon",BoltzTraP2 (PBE) x model HSE(adp)/PBE(crta) ratio,5.411e+20,360,19.9
+Sn2Sb2Te5,"HSE06+SOC, acoustic phonon",BoltzTraP2 (PBE) x model HSE(adp)/PBE(crta) ratio,5.411e+20,370,20.56
+Sn2Sb2Te5,"HSE06+SOC, acoustic phonon",BoltzTraP2 (PBE) x model HSE(adp)/PBE(crta) ratio,5.411e+20,380,21.22
+Sn2Sb2Te5,"HSE06+SOC, acoustic phonon",BoltzTraP2 (PBE) x model HSE(adp)/PBE(crta) ratio,5.411e+20,390,21.89
+Sn2Sb2Te5,"HSE06+SOC, acoustic phonon",BoltzTraP2 (PBE) x model HSE(adp)/PBE(crta) ratio,5.411e+20,400,22.56
+Sn2Sb2Te5,"HSE06+SOC, acoustic phonon",BoltzTraP2 (PBE) x model HSE(adp)/PBE(crta) ratio,5.411e+20,410,23.23
+Sn2Sb2Te5,"HSE06+SOC, acoustic phonon",BoltzTraP2 (PBE) x model HSE(adp)/PBE(crta) ratio,5.411e+20,420,23.91
+Sn2Sb2Te5,"HSE06+SOC, acoustic phonon",BoltzTraP2 (PBE) x model HSE(adp)/PBE(crta) ratio,5.411e+20,430,24.58
+Sn2Sb2Te5,"HSE06+SOC, acoustic phonon",BoltzTraP2 (PBE) x model HSE(adp)/PBE(crta) ratio,5.411e+20,440,25.27
+Sn2Sb2Te5,"HSE06+SOC, acoustic phonon",BoltzTraP2 (PBE) x model HSE(adp)/PBE(crta) ratio,5.411e+20,450,25.95
+Sn2Sb2Te5,"HSE06+SOC, acoustic phonon",BoltzTraP2 (PBE) x model HSE(adp)/PBE(crta) ratio,5.411e+20,460,26.64
+Sn2Sb2Te5,"HSE06+SOC, acoustic phonon",BoltzTraP2 (PBE) x model HSE(adp)/PBE(crta) ratio,5.411e+20,470,27.33
+Sn2Sb2Te5,"HSE06+SOC, acoustic phonon",BoltzTraP2 (PBE) x model HSE(adp)/PBE(crta) ratio,5.411e+20,480,28.03
+Sn2Sb2Te5,"HSE06+SOC, acoustic phonon",BoltzTraP2 (PBE) x model HSE(adp)/PBE(crta) ratio,5.411e+20,490,28.73
+Sn2Sb2Te5,"HSE06+SOC, acoustic phonon",BoltzTraP2 (PBE) x model HSE(adp)/PBE(crta) ratio,5.411e+20,500,29.43
+Sn2Sb2Te5,"HSE06+SOC, acoustic phonon",BoltzTraP2 (PBE) x model HSE(adp)/PBE(crta) ratio,5.411e+20,510,30.13
+Sn2Sb2Te5,"HSE06+SOC, acoustic phonon",BoltzTraP2 (PBE) x model HSE(adp)/PBE(crta) ratio,5.411e+20,520,30.84
+Sn2Sb2Te5,"HSE06+SOC, acoustic phonon",BoltzTraP2 (PBE) x model HSE(adp)/PBE(crta) ratio,5.411e+20,530,31.55
+Sn2Sb2Te5,"HSE06+SOC, acoustic phonon",BoltzTraP2 (PBE) x model HSE(adp)/PBE(crta) ratio,5.411e+20,540,32.26
+Sn2Sb2Te5,"HSE06+SOC, acoustic phonon",BoltzTraP2 (PBE) x model HSE(adp)/PBE(crta) ratio,5.411e+20,550,32.98
+Sn2Sb2Te5,"HSE06+SOC, acoustic phonon",BoltzTraP2 (PBE) x model HSE(adp)/PBE(crta) ratio,5.411e+20,560,33.7
+Sn2Sb2Te5,"HSE06+SOC, acoustic phonon",BoltzTraP2 (PBE) x model HSE(adp)/PBE(crta) ratio,5.411e+20,570,34.42
+Sn2Sb2Te5,"HSE06+SOC, acoustic phonon",BoltzTraP2 (PBE) x model HSE(adp)/PBE(crta) ratio,5.411e+20,580,35.14
+Sn2Sb2Te5,"HSE06+SOC, acoustic phonon",BoltzTraP2 (PBE) x model HSE(adp)/PBE(crta) ratio,5.411e+20,590,35.87
+Sn2Sb2Te5,"HSE06+SOC, acoustic phonon",BoltzTraP2 (PBE) x model HSE(adp)/PBE(crta) ratio,5.411e+20,600,36.61
+Sn2Sb2Te5,"HSE06+SOC, acoustic phonon",BoltzTraP2 (PBE) x model HSE(adp)/PBE(crta) ratio,5.411e+20,610,37.34
+Sn2Sb2Te5,"HSE06+SOC, acoustic phonon",BoltzTraP2 (PBE) x model HSE(adp)/PBE(crta) ratio,5.411e+20,620,38.08
+Sn2Sb2Te5,"HSE06+SOC, acoustic phonon",BoltzTraP2 (PBE) x model HSE(adp)/PBE(crta) ratio,5.411e+20,630,38.82
+Sn2Sb2Te5,"HSE06+SOC, acoustic phonon",BoltzTraP2 (PBE) x model HSE(adp)/PBE(crta) ratio,5.411e+20,640,39.57
 Sn2Sb2Te5,PBE+SOC,"BoltzTraP2 (PBE, full BZ)",2.308e+21,300,16.0
 Sn2Sb2Te5,PBE+SOC,"BoltzTraP2 (PBE, full BZ)",2.308e+21,310,16.56
 Sn2Sb2Te5,PBE+SOC,"BoltzTraP2 (PBE, full BZ)",2.308e+21,320,17.13
@@ -244,6 +349,41 @@ Sn2Bi2Te5,HSE06+SOC,BoltzTraP2 (PBE) x model HSE/PBE ratio,7.221e+20,610,60.54
 Sn2Bi2Te5,HSE06+SOC,BoltzTraP2 (PBE) x model HSE/PBE ratio,7.221e+20,620,61.55
 Sn2Bi2Te5,HSE06+SOC,BoltzTraP2 (PBE) x model HSE/PBE ratio,7.221e+20,630,62.56
 Sn2Bi2Te5,HSE06+SOC,BoltzTraP2 (PBE) x model HSE/PBE ratio,7.221e+20,640,63.58
+Sn2Bi2Te5,"HSE06+SOC, acoustic phonon",BoltzTraP2 (PBE) x model HSE(adp)/PBE(crta) ratio,3.534e+20,300,29.75
+Sn2Bi2Te5,"HSE06+SOC, acoustic phonon",BoltzTraP2 (PBE) x model HSE(adp)/PBE(crta) ratio,3.534e+20,310,31.0
+Sn2Bi2Te5,"HSE06+SOC, acoustic phonon",BoltzTraP2 (PBE) x model HSE(adp)/PBE(crta) ratio,3.534e+20,320,32.24
+Sn2Bi2Te5,"HSE06+SOC, acoustic phonon",BoltzTraP2 (PBE) x model HSE(adp)/PBE(crta) ratio,3.534e+20,330,33.49
+Sn2Bi2Te5,"HSE06+SOC, acoustic phonon",BoltzTraP2 (PBE) x model HSE(adp)/PBE(crta) ratio,3.534e+20,340,34.75
+Sn2Bi2Te5,"HSE06+SOC, acoustic phonon",BoltzTraP2 (PBE) x model HSE(adp)/PBE(crta) ratio,3.534e+20,350,36.0
+Sn2Bi2Te5,"HSE06+SOC, acoustic phonon",BoltzTraP2 (PBE) x model HSE(adp)/PBE(crta) ratio,3.534e+20,360,37.26
+Sn2Bi2Te5,"HSE06+SOC, acoustic phonon",BoltzTraP2 (PBE) x model HSE(adp)/PBE(crta) ratio,3.534e+20,370,38.52
+Sn2Bi2Te5,"HSE06+SOC, acoustic phonon",BoltzTraP2 (PBE) x model HSE(adp)/PBE(crta) ratio,3.534e+20,380,39.78
+Sn2Bi2Te5,"HSE06+SOC, acoustic phonon",BoltzTraP2 (PBE) x model HSE(adp)/PBE(crta) ratio,3.534e+20,390,41.05
+Sn2Bi2Te5,"HSE06+SOC, acoustic phonon",BoltzTraP2 (PBE) x model HSE(adp)/PBE(crta) ratio,3.534e+20,400,42.32
+Sn2Bi2Te5,"HSE06+SOC, acoustic phonon",BoltzTraP2 (PBE) x model HSE(adp)/PBE(crta) ratio,3.534e+20,410,43.58
+Sn2Bi2Te5,"HSE06+SOC, acoustic phonon",BoltzTraP2 (PBE) x model HSE(adp)/PBE(crta) ratio,3.534e+20,420,44.86
+Sn2Bi2Te5,"HSE06+SOC, acoustic phonon",BoltzTraP2 (PBE) x model HSE(adp)/PBE(crta) ratio,3.534e+20,430,46.13
+Sn2Bi2Te5,"HSE06+SOC, acoustic phonon",BoltzTraP2 (PBE) x model HSE(adp)/PBE(crta) ratio,3.534e+20,440,47.4
+Sn2Bi2Te5,"HSE06+SOC, acoustic phonon",BoltzTraP2 (PBE) x model HSE(adp)/PBE(crta) ratio,3.534e+20,450,48.68
+Sn2Bi2Te5,"HSE06+SOC, acoustic phonon",BoltzTraP2 (PBE) x model HSE(adp)/PBE(crta) ratio,3.534e+20,460,49.96
+Sn2Bi2Te5,"HSE06+SOC, acoustic phonon",BoltzTraP2 (PBE) x model HSE(adp)/PBE(crta) ratio,3.534e+20,470,51.25
+Sn2Bi2Te5,"HSE06+SOC, acoustic phonon",BoltzTraP2 (PBE) x model HSE(adp)/PBE(crta) ratio,3.534e+20,480,52.54
+Sn2Bi2Te5,"HSE06+SOC, acoustic phonon",BoltzTraP2 (PBE) x model HSE(adp)/PBE(crta) ratio,3.534e+20,490,53.83
+Sn2Bi2Te5,"HSE06+SOC, acoustic phonon",BoltzTraP2 (PBE) x model HSE(adp)/PBE(crta) ratio,3.534e+20,500,55.13
+Sn2Bi2Te5,"HSE06+SOC, acoustic phonon",BoltzTraP2 (PBE) x model HSE(adp)/PBE(crta) ratio,3.534e+20,510,56.43
+Sn2Bi2Te5,"HSE06+SOC, acoustic phonon",BoltzTraP2 (PBE) x model HSE(adp)/PBE(crta) ratio,3.534e+20,520,57.74
+Sn2Bi2Te5,"HSE06+SOC, acoustic phonon",BoltzTraP2 (PBE) x model HSE(adp)/PBE(crta) ratio,3.534e+20,530,59.05
+Sn2Bi2Te5,"HSE06+SOC, acoustic phonon",BoltzTraP2 (PBE) x model HSE(adp)/PBE(crta) ratio,3.534e+20,540,60.38
+Sn2Bi2Te5,"HSE06+SOC, acoustic phonon",BoltzTraP2 (PBE) x model HSE(adp)/PBE(crta) ratio,3.534e+20,550,61.71
+Sn2Bi2Te5,"HSE06+SOC, acoustic phonon",BoltzTraP2 (PBE) x model HSE(adp)/PBE(crta) ratio,3.534e+20,560,63.05
+Sn2Bi2Te5,"HSE06+SOC, acoustic phonon",BoltzTraP2 (PBE) x model HSE(adp)/PBE(crta) ratio,3.534e+20,570,64.4
+Sn2Bi2Te5,"HSE06+SOC, acoustic phonon",BoltzTraP2 (PBE) x model HSE(adp)/PBE(crta) ratio,3.534e+20,580,65.76
+Sn2Bi2Te5,"HSE06+SOC, acoustic phonon",BoltzTraP2 (PBE) x model HSE(adp)/PBE(crta) ratio,3.534e+20,590,67.13
+Sn2Bi2Te5,"HSE06+SOC, acoustic phonon",BoltzTraP2 (PBE) x model HSE(adp)/PBE(crta) ratio,3.534e+20,600,68.51
+Sn2Bi2Te5,"HSE06+SOC, acoustic phonon",BoltzTraP2 (PBE) x model HSE(adp)/PBE(crta) ratio,3.534e+20,610,69.91
+Sn2Bi2Te5,"HSE06+SOC, acoustic phonon",BoltzTraP2 (PBE) x model HSE(adp)/PBE(crta) ratio,3.534e+20,620,71.32
+Sn2Bi2Te5,"HSE06+SOC, acoustic phonon",BoltzTraP2 (PBE) x model HSE(adp)/PBE(crta) ratio,3.534e+20,630,72.75
+Sn2Bi2Te5,"HSE06+SOC, acoustic phonon",BoltzTraP2 (PBE) x model HSE(adp)/PBE(crta) ratio,3.534e+20,640,74.2
 Sn2Bi2Te5,PBE+SOC,"BoltzTraP2 (PBE, full BZ)",1.242e+21,300,29.79
 Sn2Bi2Te5,PBE+SOC,"BoltzTraP2 (PBE, full BZ)",1.242e+21,310,30.83
 Sn2Bi2Te5,PBE+SOC,"BoltzTraP2 (PBE, full BZ)",1.242e+21,320,31.88

@@ -1123,9 +1123,13 @@ EXP = {'Pb2Sb2Te5': [(301.58, 5.52), (319.32, 5.39), (370.16, 5.60), (418.62, 4.
        'Sn2Bi2Te5': [(302, 30), (318, 31), (368, 39), (417, 46), (466, 55), (518, 62), (567, 66), (619, 67)]}
 
 
-def model(m, side):
+def model(m, side, tau='crta'):
     V, gap = mv.build(m, 'v', 300, None, side); C, _ = mv.build(m, 'c', 300, side=side)
-    return lambda N, T: mv.solve(V, C, gap, N, T, 'crta')[0]
+    return lambda N, T: mv.solve(V, C, gap, N, T, tau)[0]
+
+
+C_ADP = '#56B4E9'          # 图 9：HSE 能带 + 声学声子散射（浅蓝细线）
+SCOL = {'H': (C_HSE, '-', 1.3), 'A': (C_ADP, '-', 0.9), 'P': (C_PBE, DASH, 1.1)}
 
 
 def bt2(m):
@@ -1171,31 +1175,36 @@ def fig9(out):
     titles = {'Pb2Sb2Te5': 'near-compensated', 'Pb2Bi2Te5': 'n-type', 'Sn2Sb2Te5': 'p-type', 'Sn2Bi2Te5': 'p-type'}
     ylim = {'Pb2Sb2Te5': (-140, 30), 'Pb2Bi2Te5': (-245, -58), 'Sn2Sb2Te5': (0, 57), 'Sn2Bi2Te5': (0, 90)}
     # 拟合出的载流子浓度标在各图空白处：(x, y, 对齐)，轴坐标
-    note = {'Pb2Sb2Te5': (0.97, 0.52, 'right'), 'Pb2Bi2Te5': (0.97, 0.93, 'right'), 'Sn2Sb2Te5': (0.04, 0.93, 'left'), 'Sn2Bi2Te5': (0.04, 0.93, 'left')}
+    note = {'Pb2Sb2Te5': (0.97, 0.63, 'right'), 'Pb2Bi2Te5': (0.97, 0.93, 'right'), 'Sn2Sb2Te5': (0.04, 0.93, 'left'), 'Sn2Bi2Te5': (0.04, 0.93, 'left')}
     exp_rows, calc_rows, fit_rows = [], [], []
     for n, (ax, m) in enumerate(zip(axs.flat, MATS)):
         Te, Se = zip(*EXP[m]); T0, S0 = Te[0], Se[0]
         exp_rows += [[m, t, s] for t, s in EXP[m]]
         curves = []
         if m == 'Pb2Sb2Te5':        # 近补偿：用 301.6 K 的 S 定净掺杂（N 在 ±10¹⁹ 内单调，二分）；比较两种带隙
-            for side, nm in (('c2_hse', 'HSE06+SOC'), ('c2_pbe', 'PBE+SOC')):
-                g = model(m, side); N = solve_N(g, S0, T0, -1e19, 1e19)
+            for side, nm, tau in (('c2_hse', 'HSE06+SOC', 'crta'), ('c2_hse', 'HSE06+SOC, acoustic phonon', 'adp'), ('c2_pbe', 'PBE+SOC', 'crta')):
+                g = model(m, side, tau); N = solve_N(g, S0, T0, -1e19, 1e19)
                 gap = mv.build(m, 'v', 300, None, side)[1]
-                curves.append((nm, 'path multivalley model', g, N, f'{nm[:3]} ($E_g$ = {1000 * gap:.0f} meV): $p-n$ = {"+" if N > 0 else "\u2212"}{sci(N)}'))
+                tag = 'HSE, ac. ph.' if tau == 'adp' else f'{nm[:3]} ($E_g$ = {1000 * gap:.0f} meV)'
+                curves.append((nm, f'path multivalley model, {tau}', g, N, f'{tag}: $p-n$ = {"+" if N > 0 else "\u2212"}{sci(N)}'))
         elif m == 'Pb2Bi2Te5':      # n 型：302 K 的实验值定电子浓度
-            for side, nm in (('c2_hse', 'HSE06+SOC'), ('c2_pbe', 'PBE+SOC')):
-                g = model(m, side); N = solve_log(g, EXP[m], 17, 20, -1)
-                curves.append((nm, 'path multivalley model', g, N, f'{nm[:3]}: $n$ = {sci(N)}'))
+            for side, nm, tau in (('c2_hse', 'HSE06+SOC', 'crta'), ('c2_hse', 'HSE06+SOC, acoustic phonon', 'adp'), ('c2_pbe', 'PBE+SOC', 'crta')):
+                g = model(m, side, tau); N = solve_log(g, EXP[m], 17, 20, -1)
+                curves.append((nm, f'path multivalley model, {tau}', g, N, f'{"HSE, ac. ph." if tau == "adp" else nm[:3]}: $n$ = {sci(N)}'))
         else:                       # Sn 系重掺杂 p 型：BoltzTraP2 全区；HSE = BoltzTraP2 × 模型 HSE/PBE 比值（1.7 节第 5 步）
-            b = bt2(m); gh, gp = model(m, 'c2_hse'), model(m, 'c2_pbe')
+            b = bt2(m); gh, gp, ga = model(m, 'c2_hse'), model(m, 'c2_pbe'), model(m, 'c2_hse', 'adp')
             hse = lambda p, t, b=b, gh=gh, gp=gp: b(p, t) * gh(p, t) / gp(p, t)
-            for nm, meth, g in (('HSE06+SOC', 'BoltzTraP2 (PBE) x model HSE/PBE ratio', hse), ('PBE+SOC', 'BoltzTraP2 (PBE, full BZ)', b)):
+            hsa = lambda p, t, b=b, ga=ga, gp=gp: b(p, t) * ga(p, t) / gp(p, t)          # 声学声子散射：比值换成 HSE(adp)/PBE(crta)
+            for nm, meth, g in (('HSE06+SOC', 'BoltzTraP2 (PBE) x model HSE/PBE ratio', hse),
+                                ('HSE06+SOC, acoustic phonon', 'BoltzTraP2 (PBE) x model HSE(adp)/PBE(crta) ratio', hsa),
+                                ('PBE+SOC', 'BoltzTraP2 (PBE, full BZ)', b)):
                 N = solve_log(g, EXP[m], 20, 21.8)
-                curves.append((nm, meth, g, N, f'{nm[:3]}: $p$ = {sci(N)}'))
+                curves.append((nm, meth, g, N, f'{"HSE, ac. ph." if "acoustic" in nm else nm[:3]}: $p$ = {sci(N)}'))
         ax.plot(Te, Se, 'o', ms=4, mfc='white', mec='k', mew=0.8, ls='', zorder=3)
         for nm, meth, g, N, lab in curves:
             v = [g(N, t) for t in Ts]
-            ax.plot(Ts, v, color=C_HSE if nm[0] == 'H' else C_PBE, ls='-' if nm[0] == 'H' else DASH)
+            c_, ls_, lw_ = SCOL['A' if 'acoustic' in nm else nm[0]]
+            ax.plot(Ts, v, color=c_, ls=ls_, lw=lw_, zorder=2 if 'acoustic' in nm else 3)
             calc_rows += [[m, nm, meth, f'{N:.3e}', int(t), r(s, 2)] for t, s in zip(Ts, v)]
             dev = [g(N, t) - s for t, s in EXP[m]]
             fit_rows.append([m, nm, meth, f'{N:.3e}', T0, S0, r(max(dev, key=abs), 1)])
@@ -1204,13 +1213,14 @@ def fig9(out):
         ax.set_title(f'{TEX[m]} ({titles[m]})', fontsize=8, pad=4)
         x0, y0, ha = note[m]
         for k, (nm, _, _, _, lab) in enumerate(curves):
-            ax.text(x0, y0 - 0.075 * k, lab, transform=ax.transAxes, ha=ha, va='top', fontsize=6.5, color=C_HSE if nm[0] == 'H' else C_PBE)
+            ax.text(x0, y0 - 0.075 * k, lab, transform=ax.transAxes, ha=ha, va='top', fontsize=6.5, color=SCOL['A' if 'acoustic' in nm else nm[0]][0])
         panel(ax, f'({"abcd"[n]})')
     for ax in axs[:, 0]: ax.set_ylabel(r'$S$ (μV K$^{-1}$)')
     for ax in axs[1]: ax.set_xlabel('$T$ (K)')
-    h = [plt.Line2D([], [], ls='', marker='o', ms=4, mfc='white', mec='k', mew=0.8), plt.Line2D([], [], color=C_HSE),
-         plt.Line2D([], [], color=C_PBE, ls=DASH)]
-    fig.legend(h, ['Experiment', 'HSE06+SOC bands', 'PBE+SOC bands'], loc='lower center', ncol=3, bbox_to_anchor=(0.5, 0.935))
+    h = [plt.Line2D([], [], ls='', marker='o', ms=4, mfc='white', mec='k', mew=0.8), plt.Line2D([], [], color=C_HSE, lw=1.3),
+         plt.Line2D([], [], color=C_ADP, lw=0.9), plt.Line2D([], [], color=C_PBE, ls=DASH, lw=1.1)]
+    fig.legend(h, ['Experiment', 'HSE06+SOC, constant $\\tau$', 'HSE06+SOC, acoustic-phonon $\\tau$', 'PBE+SOC, constant $\\tau$'],
+               loc='lower center', ncol=4, bbox_to_anchor=(0.5, 0.935), columnspacing=1.2, handlelength=1.8)
     dump('Fig9_S_vs_T', 'experiment_S_T.csv', ['material', 'T_K', 'S_exp_uV/K'], exp_rows)
     dump('Fig9_S_vs_T', 'calculated_S_T.csv', ['material', 'bands', 'method', 'net_doping_p-n_cm-3', 'T_K', 'S_calc_uV/K'], calc_rows)
     dump('Fig9_S_vs_T', 'fit_summary.csv', ['material', 'bands', 'method', 'net_doping_p-n_cm-3', 'fit_T_K', 'fit_S_exp_uV/K',

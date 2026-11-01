@@ -1,9 +1,13 @@
 ﻿material,bands,method,net_doping_p-n_cm-3,fit_T_K,fit_S_exp_uV/K,max_deviation_calc-exp_uV/K
-Pb2Sb2Te5,HSE06+SOC,path multivalley model,-1.723e+16,301.58,5.52,-16.7
-Pb2Sb2Te5,PBE+SOC,path multivalley model,1.295e+17,301.58,5.52,-141.3
-Pb2Bi2Te5,HSE06+SOC,path multivalley model,-8.215e+18,302,-89,7.1
-Pb2Bi2Te5,PBE+SOC,path multivalley model,-3.478e+19,302,-89,-103.7
+Pb2Sb2Te5,HSE06+SOC,"path multivalley model, crta",-1.723e+16,301.58,5.52,-16.7
+Pb2Sb2Te5,"HSE06+SOC, acoustic phonon","path multivalley model, adp",2.296e+16,301.58,5.52,-7.2
+Pb2Sb2Te5,PBE+SOC,"path multivalley model, crta",1.295e+17,301.58,5.52,-141.3
+Pb2Bi2Te5,HSE06+SOC,"path multivalley model, crta",-8.215e+18,302,-89,7.1
+Pb2Bi2Te5,"HSE06+SOC, acoustic phonon","path multivalley model, adp",-3.423e+18,302,-89,16.5
+Pb2Bi2Te5,PBE+SOC,"path multivalley model, crta",-3.478e+19,302,-89,-103.7
 Sn2Sb2Te5,HSE06+SOC,BoltzTraP2 (PBE) x model HSE/PBE ratio,6.157e+20,300,16,-5.0
+Sn2Sb2Te5,"HSE06+SOC, acoustic phonon",BoltzTraP2 (PBE) x model HSE(adp)/PBE(crta) ratio,5.411e+20,300,16,-4.1
 Sn2Sb2Te5,PBE+SOC,"BoltzTraP2 (PBE, full BZ)",2.308e+21,300,16,-5.2
 Sn2Bi2Te5,HSE06+SOC,BoltzTraP2 (PBE) x model HSE/PBE ratio,7.221e+20,302,30,-10.6
+Sn2Bi2Te5,"HSE06+SOC, acoustic phonon",BoltzTraP2 (PBE) x model HSE(adp)/PBE(crta) ratio,3.534e+20,302,30,-4.5
 Sn2Bi2Te5,PBE+SOC,"BoltzTraP2 (PBE, full BZ)",1.242e+21,302,30,-9.7
