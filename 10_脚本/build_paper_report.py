@@ -76,8 +76,10 @@ data/                  每幅图的源数据，即图中画出的数值，目录
                               最低导带的能量与反转带隙（band_gaps_on_path.csv）
   Fig3_HSE_bands_cation_s/    HSE06+SOC 路径能带及每个 k 点、每条带的阳离子 s 成分（%），能量相对真实价带顶；
                               Sn 系另有穿过真实极大的附加路径 Γ–Σ′–R₂′–L（*_true_valley_path_G-S-R2-L.csv，c7_true_path）
-  Fig4_cation_s_by_atom/      HSE06+SOC 路径能带上每个 k 点、每条带的 A（Pb/Sn）、B（Sb/Bi）、Te 的 s 成分（%）；关键态（表 4）
-  Fig5_SnSb_vs_SnBi/          Sn2Sb2Te5 与 Sn2Bi2Te5 路径能带上的 Sn-s、B-s、Sn-p、B-p、Te-p 投影；Γ 单谷与三组孤对电子谷的能量与成分；
+  Fig4_cation_s_by_atom/      HSE06+SOC 路径能带上每个 k 点、每条带的 A（Pb/Sn）、B（Sb/Bi）、Te 的 s 成分（%）；关键态（表 4）；
+                              能量相对真实价带顶（与图 3 相同）
+  Fig5_SnSb_vs_SnBi/          （levels_true.csv 为 (e) 的真实能级，相对真实价带顶；其余表与表 5 相对路径价带顶）
+                              Sn2Sb2Te5 与 Sn2Bi2Te5 路径能带上的 Sn-s、B-s、Sn-p、B-p、Te-p 投影；Γ 单谷与三组孤对电子谷的能量与成分；
                               Γ 处最高价带与最低导带的能量与成分（Gamma_states.csv）（表 5）
   Fig6_valence_pockets/       Sn2Sb2Te5、Sn2Bi2Te5 价带口袋在布里渊区中的位置（pocket_positions.csv：每个口袋一行，
                               分数坐标、笛卡尔坐标、所在面、能量、等价口袋数）；四种材料的价带能级（levels_HSE.csv）与谷间能量差（HSE06+SOC）

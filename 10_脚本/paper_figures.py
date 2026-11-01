@@ -378,9 +378,28 @@ def true_path_bands(m):
     f = os.path.join(d, 'true_path.json')
     if not os.path.exists(f) or not os.path.isdir(os.path.join(d, 'b01')): return None
     meta = json.load(open(f, encoding='utf-8'))
-    E, fs = c4.read_parts(d, [os.path.join(d, f'b{i + 1:02d}') for i in range(len(meta['batches']))], meta)
+    parts = [os.path.join(d, f'b{i + 1:02d}') for i in range(len(meta['batches']))]
+    E, fs = c4.read_parts(d, parts, meta)
+    W = np.concatenate([cv.read_procar(c4.find_procar(q))[1] for q in parts], axis=0)   # [k, band, ion, orb]，图 4、图 5 用
     k = np.array(meta['path_k_index'])
-    return dict(x=np.array(meta['x_invA']), E=E[k] - meta['vbm'], fs=fs[k], labels={int(i): v for i, v in meta['labels'].items()})
+    return dict(x=np.array(meta['x_invA']), E=E[k] - meta['vbm'], fs=fs[k], W=W[k], labels={int(i): v for i, v in meta['labels'].items()})
+
+
+def tp_decorate(ax, tp, X0, nel, mark=('Σ′', 'R₂′')):
+    """把附加路径 Γ–Σ′–R₂′–L 接在主路径右边之后的装饰：浅色底、粗竖线断开、刻度 A|Γ、Σ′、R₂′、L，真实极大标 ▼ 加名称。
+    先画好主路径并调用 kticks、set_ylim，再调用本函数。"""
+    xe = X0 + tp['x'][-1]
+    ax.axvspan(X0, xe, color='#F1EEF7', zorder=0, lw=0); ax.axvline(X0, color='k', lw=0.8, zorder=1)
+    tk, tl = list(ax.get_xticks()), [t.get_text() for t in ax.get_xticklabels()]
+    tl[-1] = tl[-1] + '|Γ'
+    for i, nm in sorted(tp['labels'].items()):
+        if i == 0: continue
+        tk.append(X0 + tp['x'][i]); tl.append(MATH.get(nm, nm))
+        if nm != 'L': ax.axvline(X0 + tp['x'][i], color=GRID, lw=0.5, zorder=0)
+        if nm in mark: vmark(ax, X0 + tp['x'][i], tp['E'][i, nel - 1], nm)
+    ax.set_xticks(tk, tl); ax.set_xlim(ax.get_xlim()[0], xe)
+    ax.text((X0 + xe) / 2, ax.get_ylim()[0] + 0.015, f'off path\n(k ×{TP_XSCALE:g})', ha='center', va='bottom', fontsize=5.6,
+            linespacing=1.0, color='#444444', bbox=dict(fc='#F1EEF7', ec='none', pad=0.5))
 
 
 def fig3(out):
@@ -420,20 +439,8 @@ def fig3(out):
             lead = (x[90] - 0.28, 0.10) if nm == 'Δ' or (nm == 'Γ' and gap < 0.1) else None
             vmark(ax, x[i], E[i, nel - 1], nm, lead)
         kticks(ax, x); ax.set_ylim(-0.5, 0.5)
-        if tp:                                                   # 附加路径：浅色底、粗竖线断开，刻度 Γ、Σ′、R₂′、L，真实极大标 ▽
-            xe = X0 + tp['x'][-1]
-            ax.axvspan(X0, xe, color='#F1EEF7', zorder=0, lw=0); ax.axvline(X0, color='k', lw=0.8, zorder=1)
-            tk, tl = list(ax.get_xticks()), [t.get_text() for t in ax.get_xticklabels()]
-            tl[-1] = tl[-1] + '|Γ'
-            for i, nm in sorted(tp['labels'].items()):
-                if i == 0: continue
-                tk.append(X0 + tp['x'][i]); tl.append(MATH.get(nm, nm))
-                if nm != 'L': ax.axvline(X0 + tp['x'][i], color=GRID, lw=0.5, zorder=0)
-                if nm in ('Σ′', 'R₂′'):                          # 真实极大：与路径上的谷同样用 ▼ 加名称
-                    vmark(ax, X0 + tp['x'][i], tp['E'][i, nel - 1], nm)
-            ax.set_xticks(tk, tl); ax.set_xlim(x[0], xe)
-            ax.text((X0 + xe) / 2, -0.485, f'off path\n(k ×{TP_XSCALE:g})', ha='center', va='bottom', fontsize=5.6, linespacing=1.0,
-                    color='#444444', bbox=dict(fc='#F1EEF7', ec='none', pad=0.5))
+        if tp:
+            tp_decorate(ax, tp, X0, nel)
             dump('Fig3_HSE_bands_cation_s', f'{m}_true_valley_path_G-S-R2-L.csv',
                  ['i', 'k_distance_1/A', 'label', 'band', 'E-EVBM_true_eV', 'cation_s_percent'],
                  [[i, r(tp['x'][i] / TP_XSCALE, 5), tp['labels'].get(i, ''), bandname(b, nel), r(tp['E'][i, b], 5), r(100 * tp['fs'][i, b], 2)]
@@ -465,6 +472,10 @@ def fig4(out):
     for n, (ax, m) in enumerate(zip(axs.flat, MATS)):
         x, _ = rf.path_x(m); nel = NEL[m]; A_, B_ = m[:2], m[3:5]
         E, gap = bands(m, 'c2_hse')
+        T5 = mv.true_load(m); dv = (T5['vbm'] - T5['path_vbm']) if T5 else 0.0
+        E, gap = E - dv, gap - dv                                # 能量零点取真实价带顶（与图 3 相同）
+        tp = true_path_bands(m); X0 = x[KEND]
+        if tp: tp['x'] = TP_XSCALE * tp['x']; ta, tb, _tt = s_by_atom(tp['W'])
         _, Wp = cv.read_procar(os.path.join(rf.base(m), 'c2_hse', 'PROCAR_OPT.gz'))
         fa, fb, ft = s_by_atom(Wp); rows = []
         for b in range(nel - 8, nel + 6):
@@ -475,6 +486,14 @@ def fig4(out):
                 segs.append([(x[i], E[i, b]), (x[i + 1], E[i + 1, b])])
                 cols.append(w * np.array(SITE_CMAP(norm(a2 / max(tot, 1e-9)))) + (1 - w) * GREY)
                 wid.append(0.5 + 2.4 * np.clip(tot / 0.3, 0, 1))
+            if tp:                                               # 附加路径 Γ–Σ′–R₂′–L，同样着色
+                xs, es = X0 + tp['x'], tp['E'][:, b]
+                for i in range(len(xs) - 1):
+                    a2, b2 = (ta[i, b] + ta[i + 1, b]) / 2, (tb[i, b] + tb[i + 1, b]) / 2
+                    tot = a2 + b2; w = np.clip(tot / 0.15, 0, 1)
+                    segs.append([(xs[i], es[i]), (xs[i + 1], es[i + 1])])
+                    cols.append(w * np.array(SITE_CMAP(norm(a2 / max(tot, 1e-9)))) + (1 - w) * GREY)
+                    wid.append(0.5 + 2.4 * np.clip(tot / 0.3, 0, 1))
             ax.add_collection(LineCollection(segs, colors=cols, linewidths=wid, capstyle='round'))
             rows += [[i] + [r(v, 6) for v in K[i]] + [r(x[i], 5), LAB.get(i, ''), bandname(b, nel), r(E[i, b], 5),
                      r(100 * fa[i, b], 2), r(100 * fb[i, b], 2), r(100 * ft[i, b], 2)] for i in range(KEND + 1)]
@@ -488,6 +507,7 @@ def fig4(out):
                        B_, r(100 * fb[i, bb].mean(), 1), r(100 * ft[i, bb].mean(), 1)])
         ax.axhline(0, color='k', lw=0.5, ls=':'); ax.axhline(gap, color='k', lw=0.5, ls=':')
         kticks(ax, x); ax.set_ylim(-0.5, 0.5)
+        if tp: tp_decorate(ax, tp, X0, nel, mark=())            # 本图主路径也不标谷
         ax.set_title(f'{TEX[m]}     A = {A_}, B = {B_}', fontsize=8, pad=4)
         panel(ax, f'({"abcd"[n]})')
     for ax in axs[:, 0]: ax.set_ylabel(r'$E - E_{\mathrm{VBM}}$ (eV)')
@@ -513,7 +533,13 @@ def fig5(out):
     lv = {}; gam = []
     for c, m in enumerate(mats):
         x, _ = rf.path_x(m); nel = NEL[m]; B_ = m[3:5]
-        E, gap = bands(m, 'c2_hse')
+        E, gap = bands(m, 'c2_hse')                              # E：相对路径价带顶，表 5 与 valence_valleys.csv 用它
+        T5 = mv.true_load(m); dv = (T5['vbm'] - T5['path_vbm']) if T5 else 0.0
+        Ep = E - dv                                              # 画图：能量零点取真实价带顶（与图 3 相同）
+        tp = true_path_bands(m); X0 = x[KEND]
+        if tp:
+            tp['x'] = TP_XSCALE * tp['x']; tW = tp['W']; ttot = np.maximum(tW.sum((-1, -2)), 1e-9)
+            tproj = (tW[:, :, [7, 8], 0].sum(-1) / ttot, tW[:, :, [0, 1], 1:4].sum((-1, -2)) / ttot)   # Sn 5s、B 位 p
         _, Wp = cv.read_procar(os.path.join(rf.base(m), 'c2_hse', 'PROCAR_OPT.gz'))
         tot = np.maximum(Wp.sum((-1, -2)), 1e-9)
         sn_s = Wp[:, :, [7, 8], 0].sum(-1) / tot; b_s = Wp[:, :, [0, 1], 0].sum(-1) / tot
@@ -523,12 +549,18 @@ def fig5(out):
         for row, (w, wmax, col, lab) in enumerate(((sn_s, 0.25, C_A, 'Sn 5s'), (b_p, 0.45, C_B, f'{B_} {"5p" if B_ == "Sb" else "6p"}'))):
             ax = fig.add_subplot(gs[row, c])
             for b in range(nel - 8, nel + 6):
-                ax.plot(x[:KEND + 1], E[:KEND + 1, b], color='#C8C8C8', lw=0.5, zorder=1)
-                segs = [[(x[i], E[i, b]), (x[i + 1], E[i + 1, b])] for i in range(KEND)]
+                ax.plot(x[:KEND + 1], Ep[:KEND + 1, b], color='#C8C8C8', lw=0.5, zorder=1)
+                segs = [[(x[i], Ep[i, b]), (x[i + 1], Ep[i + 1, b])] for i in range(KEND)]
                 wid = [3.2 * np.clip((w[i, b] + w[i + 1, b]) / 2 / wmax, 0, 1) for i in range(KEND)]
+                if tp:                                           # 附加路径 Γ–Σ′–R₂′–L，同一投影
+                    xs, es, tw = X0 + tp['x'], tp['E'][:, b], tproj[row]
+                    ax.plot(xs, es, color='#C8C8C8', lw=0.5, zorder=1)
+                    segs += [[(xs[i], es[i]), (xs[i + 1], es[i + 1])] for i in range(len(xs) - 1)]
+                    wid += [3.2 * np.clip((tw[i, b] + tw[i + 1, b]) / 2 / wmax, 0, 1) for i in range(len(xs) - 1)]
                 ax.add_collection(LineCollection(segs, colors=col, linewidths=wid, capstyle='round', zorder=2))
             ax.axhline(0, color='k', lw=0.5, ls=':')
             kticks(ax, x); ax.set_ylim(-0.42, 0.30)
+            if tp: tp_decorate(ax, tp, X0, nel, mark=('Σ′', 'R₂′') if row == 0 else ())
             if c == 0: ax.set_ylabel(r'$E - E_{\mathrm{VBM}}$ (eV)')
             else: ax.tick_params(labelleft=False)
             ax.set_title(f'{TEX[m]}: {lab}', fontsize=8, pad=4, color=col)
@@ -537,9 +569,9 @@ def fig5(out):
             for nm, i in SNVAL.items():                      # 标出四个谷（名称与图 3、图 6 相同）：上排标孤对电子谷，下排标 Γ 单谷
                 if (row == 0) == (nm != 'Γ'):
                     xi = x[90] if nm == 'Γ' else x[i]
-                    vmark(ax, xi, E[i, nel - 1], nm, (x[90] - 0.30, 0.10) if (nm == 'Γ' and ia != 90) else None)
+                    vmark(ax, xi, Ep[i, nel - 1], nm, (x[90] - 0.30, 0.10) if (nm == 'Γ' and ia != 90) else None)
             if row == 1 and ia != 90:                        # Γ、Δ 挨得很近：两个名称放在同一高度，用引线分别指向
-                vmark(ax, x[ia], E[ia, nel - 1], 'Δ', (x[90] - 0.06, 0.10))
+                vmark(ax, x[ia], Ep[ia, nel - 1], 'Δ', (x[90] - 0.06, 0.10))
         for nm, i in SNVAL.items():
             bb = [nel - 2, nel - 1]; g = lambda X: r(100 * X[i, bb].mean(), 1)
             lv[(m, nm)] = 1000 * E[i, bb].mean()
@@ -553,16 +585,24 @@ def fig5(out):
              ['k_index', 'k_distance_1/A', 'label', 'band', 'E-EVBM_eV', 'Sn_s_percent', f'{B_}_s_percent', 'Sn_p_percent', f'{B_}_p_percent', 'Te_p_percent'],
              [[i, r(x[i], 5), LAB.get(i, ''), bandname(b, nel), r(E[i, b], 5), r(100 * sn_s[i, b], 2), r(100 * b_s[i, b], 2),
                r(100 * sn_p[i, b], 2), r(100 * b_p[i, b], 2), r(100 * te_p[i, b], 2)] for b in range(nel - 8, nel + 6) for i in range(KEND + 1)])
-    # (e) 能级：各自以价带顶为零点
+    # (e) 能级：各自以真实价带顶为零点。Γ 单谷取 Γ 点本身（路径值减价带顶的移动），孤对电子谷取三维搜索的真实极大
     ax = fig.add_subplot(gs[:, 2]); X = (0.0, 1.7); hw = 0.3
-    for nm, col, lw in (('Γ', C_B, 2.0), ('Σ', C_A, 1.4), ('R₁', C_A, 1.4), ('R₂', C_A, 1.4)):
-        y = [lv[(m, nm)] for m in mats]
+    lt = {}
+    for m in mats:
+        tv = true_valleys(m); sh = tv['shift'] if tv else 0.0
+        lt[(m, 'Γ')] = lv[(m, 'Γ')] - sh
+        for t in (tv['valleys'] if tv else []): lt[(m, t['name'])] = t['E']
+    names = [n for n in ('Σ′', 'R₁′', 'R₂′', 'R₁″') if all((m, n) in lt for m in mats)]
+    for nm, col, lw in [('Γ', C_B, 2.0)] + [(n, C_A, 1.4) for n in names]:
+        y = [lt[(m, nm)] for m in mats]
         for k in range(2): ax.plot([X[k] - hw, X[k] + hw], [y[k]] * 2, color=col, lw=lw, solid_capstyle='butt')
         ax.plot([X[0] + hw, X[1] - hw], y, color=col, lw=0.6, ls=(0, (2, 1.5)))
     for k, m in enumerate(mats):                     # 标签放在各自能级上方
-        B_ = m[3:5]; top = max(lv[(m, v)] for v in ('Σ', 'R₁', 'R₂'))
-        ax.text(X[k], lv[(m, 'Γ')] + 2.5, f'Γ ({B_} p)', ha='center', va='bottom', fontsize=6.5, color=C_B)
+        B_ = m[3:5]; top = max(lt[(m, v)] for v in names)
+        ax.text(X[k], lt[(m, 'Γ')] + 2.5, f'Γ ({B_} p)', ha='center', va='bottom', fontsize=6.5, color=C_B)
         ax.text(X[k], top + 2.5 + (9 if k == 1 else 0), 'Sn 5s', ha='center', va='bottom', fontsize=6.5, color=C_A)
+    dump('Fig5_SnSb_vs_SnBi', 'levels_true.csv', ['state', 'E_Sn2Sb2Te5_meV', 'E_Sn2Bi2Te5_meV'],
+         [[nm, r(lt[('Sn2Sb2Te5', nm)], 1), r(lt[('Sn2Bi2Te5', nm)], 1)] for nm in ['Γ'] + names])
     ax.axhline(0, color='k', lw=0.5, ls=':')
     ax.set_xlim(-0.75, 2.45); ax.set_ylim(-165, 26)
     ax.set_xticks(X, [TEX[m] for m in mats], fontsize=6.5); ax.tick_params(axis='x', top=False, length=0)
