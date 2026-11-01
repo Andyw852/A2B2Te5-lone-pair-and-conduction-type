@@ -999,29 +999,52 @@ def fig7(out):
 MCOL = {'Pb2Sb2Te5': '#ABABAB', 'Pb2Bi2Te5': '#4D4D4D', 'Sn2Sb2Te5': '#A38CCB', 'Sn2Bi2Te5': '#5D3A9B'}
 
 
+def sample_conc():
+    """样品所在的浓度（与图 9 相同的反推，HSE 能带）：p 型取两个 Sn 样品的几何平均，n 型取 Pb₂Bi₂Te₅ 样品。返回 (Np, Nn, 各样品浓度)。"""
+    fit = {}
+    for m in ('Sn2Sb2Te5', 'Sn2Bi2Te5'):
+        b = bt2_signed(m, 1); gh, gp = model(m, 'c2_hse'), model(m, 'c2_pbe')
+        fit[m] = solve_log(lambda p, t, b=b, gh=gh, gp=gp: b(p, t) * gh(p, t) / gp(p, t), EXP[m], 20, 21.8)
+    fit['Pb2Bi2Te5'] = solve_log(model('Pb2Bi2Te5', 'c2_hse'), EXP['Pb2Bi2Te5'], 17, 20, -1)
+    return np.sqrt(fit['Sn2Sb2Te5'] * fit['Sn2Bi2Te5']), abs(fit['Pb2Bi2Te5']), fit
+
+
 def fig8(out):
-    est = rf.hse_estimates(); prov = mv.c3_provisional('Sn2Bi2Te5')
+    """(a)(b)：四种材料在样品所在的浓度下比较（p 型取两个 Sn 样品的浓度，n 型取 Pb₂Bi₂Te₅ 样品的浓度），PBE = BoltzTraP2 插值，
+    HSE = PBE × 模型 HSE/PBE 比值；空心圆为该浓度下测量的样品。(c)(d)：S 随浓度。表 6 的 3×10¹⁹ 数据仍由 rf.hse_estimates 写出。"""
+    est = rf.hse_estimates(); Np, Nn, fit = sample_conc()
     fig, A = plt.subplots(2, 2, figsize=(W2, 5.0), gridspec_kw=dict(wspace=0.24, hspace=0.38, height_ratios=[1, 1.05]))
-    axs = A[0]
-    xs = np.arange(4); w = 0.36
-    for k, ax in enumerate(axs):
-        pb = [abs(rf.BTP[m][k]) for m in MATS]; hs = [abs(est[m][k]) for m in MATS]
+    axs = A[0]; xs = np.arange(4); w = 0.36; rows = []
+    expv = {0: {'Sn2Sb2Te5': EXP['Sn2Sb2Te5'][0][1], 'Sn2Bi2Te5': EXP['Sn2Bi2Te5'][0][1]}, 1: {'Pb2Bi2Te5': -EXP['Pb2Bi2Te5'][0][1]}}
+    for k, (ax, sign, N) in enumerate(zip(axs, (1, -1), (Np, Nn))):
+        pb, hs = [], []
+        for m in MATS:
+            b = bt2_signed(m, sign); gh, gp = model(m, 'c2_hse'), model(m, 'c2_pbe')
+            v = b(sign * N, 300); pb.append(sign * v); hs.append(sign * v * gh(sign * N, 300) / gp(sign * N, 300))
+            rows.append([m, 'pn'[k], f'{N:.3e}', r(sign * v, 1), r(hs[-1], 1), expv[k].get(m, '')])
         ax.bar(xs - w / 2, pb, w * 0.95, color=C_PBE, label='PBE+SOC (BoltzTraP2)', lw=0)
-        bars = ax.bar(xs + w / 2, hs, w * 0.95, color=C_HSE, label='HSE06+SOC (this work)', lw=0)
+        ax.bar(xs + w / 2, hs, w * 0.95, color=C_HSE, label='HSE06+SOC (this work)', lw=0)
+        top = max(pb + hs)
         for i, v in enumerate(hs):
-            ax.text(xs[i] + w / 2, v + 4, f'{v:.0f}' + ('*' if (k == 0 and i == 3 and prov) else ''), ha='center', fontsize=6.5)
-        if k == 0 and prov: bars[3].set_hatch('/////'); bars[3].set_edgecolor('white')
+            e = abs(expv[k].get(MATS[i], -1e9)); y = max(v, e + 0.035 * top) if abs(e - v) < 0.06 * top else v   # 数值别压在实验横线上
+            ax.text(xs[i] + w / 2, y + 0.02 * top * 1.3, f'{v:.0f}', ha='center', fontsize=6.5)
+        for m, e in expv[k].items():
+            i = MATS.index(m)                                   # 实验值：横跨整组柱子的黑色短横线
+            ax.plot([xs[i] - w - 0.04, xs[i] + w + 0.04], [abs(e)] * 2, color='k', lw=1.8, solid_capstyle='butt', zorder=5, label='Experiment (300 K)')
         ax.set_xticks(xs, [TEX[m] for m in MATS]); ax.tick_params(axis='x', top=False)
-        ax.set_ylim(0, 270); ax.set_ylabel(r'$|S|$ (μV K$^{-1}$)' if k else r'$S$ (μV K$^{-1}$)')
-        ax.text(0.04, 0.97, ('p-type' if k == 0 else 'n-type') + r', $3\times10^{19}$ cm$^{-3}$, 300 K', transform=ax.transAxes, ha='left', va='top', fontsize=7)
+        ax.set_ylim(0, 1.3 * top); ax.set_ylabel(r'$|S|$ (μV K$^{-1}$)' if k else r'$S$ (μV K$^{-1}$)')
+        ex = sci(N).split(' ')[0] if False else None
+        lab = ('p-type, ' + sci(Np) + ' (Sn samples)') if k == 0 else ('n-type, ' + sci(Nn) + r' (Pb$_2$Bi$_2$Te$_5$ sample)')
+        ax.text(0.04, 0.97, lab + ', 300 K', transform=ax.transAxes, ha='left', va='top', fontsize=7)
         panel(ax, f'({"ab"[k]})')
-    dump('Fig8_Seebeck', 'S_300K_3e19.csv', ['material', 'carrier_type', 'carrier_conc_cm-3', 'S_PBE+SOC_BoltzTraP2_uV/K',
-                                             'S_HSE06+SOC_estimate_uV/K', 'provisional'],
-         [[m, 'pn'[k], 3e19, rf.BTP[m][k], r(est[m][k], 1), 'yes' if (k == 0 and m == 'Sn2Bi2Te5' and prov) else 'no']
-          for k in range(2) for m in MATS])
-    h, l = axs[0].get_legend_handles_labels()
-    fig.legend(h, l, loc='upper center', ncol=2, bbox_to_anchor=(0.5, 0.955), handlelength=1.2)
-    seebeck_vs_p(A[1])
+    dump('Fig8_Seebeck', 'S_300K_at_sample_concentration.csv', ['material', 'carrier_type', 'concentration_cm-3', 'S_PBE+SOC_BoltzTraP2_uV/K',
+                                                               'S_HSE06+SOC_estimate_uV/K', 'S_exp_300K_uV/K (sample at this concentration)'], rows)
+    dump('Fig8_Seebeck', 'S_300K_3e19.csv', ['material', 'carrier_type', 'carrier_conc_cm-3', 'S_PBE+SOC_BoltzTraP2_uV/K', 'S_HSE06+SOC_estimate_uV/K'],
+         [[m, 'pn'[k], 3e19, rf.BTP[m][k], r(est[m][k], 1)] for k in range(2) for m in MATS])
+    h, l = axs[0].get_legend_handles_labels(); keep = {}
+    for hh, ll in zip(h, l): keep.setdefault(ll, hh)
+    fig.legend(list(keep.values()), list(keep.keys()), loc='upper center', ncol=3, bbox_to_anchor=(0.5, 0.955), handlelength=1.2)
+    seebeck_vs_p(A[1], Np, Nn, fit)
     save(fig, out, 'Fig8_Seebeck_PBE_vs_HSE')
     valley_shares()
     return est
@@ -1361,37 +1384,36 @@ def bt2_signed(m, sign):
     return f
 
 
-def seebeck_vs_p(axs):
+def seebeck_vs_p(axs, Np, Nn, fit):
     """图 8(c)(d)：四种材料 300 K 面内 S 随载流子浓度的变化（HSE 估计 = BoltzTraP2 × 模型 HSE/PBE 比值，与 (a)(b) 的做法相同，
     BoltzTraP2 取插值，3×10¹⁹ 处与柱子差 1–3 μV/K）。多谷模型只覆盖带边附近，费米能级超出其能量范围时 S 失真（符号翻转或 |S| > 400），
     这些点不画（只有 Pb₂Bi₂Te₅ 的 n 型在 2×10²⁰ cm⁻³ 以上）。(c) 中空心圆为两个 Sn 样品：浓度由 300 K 的实验 S 反推（与图 9 相同），故落在曲线上。"""
-    Ns = np.logspace(19, np.log10(1.5e21), 45); T = 300; rows = []; samples = []
+    T = 300; rows = []; samples = []
     for k, (sign, ax) in enumerate(zip((1, -1), axs)):
+        lo = 1e19 if sign == 1 else 5e18; Ns = np.logspace(np.log10(lo), np.log10(1.5e21), 48)
         for m in MATS:
             b = bt2_signed(m, sign); gh, gp = model(m, 'c2_hse'), model(m, 'c2_pbe')
             hse = lambda N, t, b=b, gh=gh, gp=gp: b(N, t) * gh(N, t) / gp(N, t)
             v = np.array([sign * hse(sign * N, T) for N in Ns])
-            bad = np.where((v < 0) | (v > 400))[0]; cut = bad[0] if len(bad) else len(Ns)
-            ax.plot(Ns[:cut], v[:cut], color=MCOL[m], lw=1.6, label=TEX[m], solid_capstyle='round')
-            rows += [[m, 'pn'[k], f'{N:.3e}', r(x, 1) if i < cut else '', r(sign * b(sign * N, T), 1)] for i, (N, x) in enumerate(zip(Ns, v))]
-            if sign == 1 and m.startswith('Sn'):
-                q = solve_log(hse, EXP[m], 20, 21.8); samples.append([m, f'{q:.3e}', EXP[m][0][1]])
-                ax.plot(q, EXP[m][0][1], 'o', ms=4.5, mfc='white', mec=MCOL[m], mew=1.2, zorder=5)
-        ax.axvline(3e19, color='#999999', lw=0.6, ls=(0, (1, 1.5)), zorder=0)
-        ax.text(3.3e19, 8, '(a)' if sign == 1 else '(b)', fontsize=6.5, color='#666666', va='bottom')
-        ax.set_xscale('log'); ax.set_xlim(1e19, 1.5e21); ax.set_ylim(0, 320)
+            ok = (v >= 0) & (v <= 400)
+            bad = np.where(~ok)[0]
+            if len(bad): ok[bad[0]:] = False         # 第一个失效点以后全部不画（Pb₂Bi₂Te₅ 的 n 型之后会跳回 +250 一类的无意义值）
+            ax.plot(Ns, np.where(ok, v, np.nan), color=MCOL[m], lw=1.6, label=TEX[m], solid_capstyle='round')
+            rows += [[m, 'pn'[k], f'{N:.3e}', r(x, 1) if g else '', r(sign * b(sign * N, T), 1)] for N, x, g in zip(Ns, v, ok)]
+            if (sign == 1 and m.startswith('Sn')) or (sign == -1 and m == 'Pb2Bi2Te5'):     # 样品：浓度由 300 K 的实验 S 反推
+                q = abs(fit[m]); samples.append([m, 'pn'[k], f'{q:.3e}', EXP[m][0][1]])
+                ax.plot(q, abs(EXP[m][0][1]), 'o', ms=4.5, mfc='white', mec=MCOL[m], mew=1.2, zorder=5)
+        N0 = Np if sign == 1 else Nn
+        ax.axvline(N0, color='#999999', lw=0.6, ls=(0, (1, 1.5)), zorder=0)
+        ax.set_xscale('log'); ax.set_xlim(lo, 1.5e21); ax.set_ylim(0, 320)
         ax.set_xlabel(('Hole' if sign == 1 else 'Electron') + r' concentration (cm$^{-3}$)')
         ax.set_ylabel(r'$S$ (μV K$^{-1}$)' if sign == 1 else r'$|S|$ (μV K$^{-1}$)')
         ax.text(0.04, 0.97, ('p-type' if sign == 1 else 'n-type') + ', 300 K, HSE06+SOC', transform=ax.transAxes, ha='left', va='top', fontsize=7)
         h, l = ax.get_legend_handles_labels(); o = [MATS.index(x) for x in ('Sn2Bi2Te5', 'Sn2Sb2Te5', 'Pb2Bi2Te5', 'Pb2Sb2Te5')]
         ax.legend([h[i] for i in o], [l[i] for i in o], loc='upper right', fontsize=6.4, handlelength=1.8, labelspacing=0.3, borderaxespad=0.4)
-        if sign == 1:
-            q = [float(x[1]) for x in samples]
-            ax.annotate('samples', xy=(q[1], EXP['Sn2Bi2Te5'][0][1] + 7), xytext=(q[1], 95), fontsize=6.4, ha='center',
-                        color='#555555', arrowprops=dict(arrowstyle='-', lw=0.5, color='#777777', shrinkA=1, shrinkB=2))
         panel(ax, f'({"cd"[k]})')
     dump('Fig8_Seebeck', 'S_vs_concentration_300K_HSE.csv', ['material', 'carrier_type', 'concentration_cm-3', '|S|_HSE_estimate_uV/K (blank: outside model range)', '|S|_PBE_BoltzTraP2_uV/K'], rows)
-    dump('Fig8_Seebeck', 'Sn_samples_fitted_p_HSE.csv', ['material', 'p_cm-3', 'S_exp_300K_uV/K'], samples)
+    dump('Fig8_Seebeck', 'samples_fitted_concentration_HSE.csv', ['material', 'carrier_type', 'concentration_cm-3', 'S_exp_300K_uV/K'], samples)
 
 
 def main():

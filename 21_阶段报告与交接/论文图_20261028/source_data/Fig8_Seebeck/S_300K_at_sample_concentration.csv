@@ -1,0 +1,9 @@
+﻿material,carrier_type,concentration_cm-3,S_PBE+SOC_BoltzTraP2_uV/K,S_HSE06+SOC_estimate_uV/K,S_exp_300K_uV/K (sample at this concentration)
+Pb2Sb2Te5,p,6.668e+20,32.7,11.5,
+Pb2Bi2Te5,p,6.668e+20,35.9,26.8,
+Sn2Sb2Te5,p,6.668e+20,33.3,14.8,16
+Sn2Bi2Te5,p,6.668e+20,45.9,31.3,30
+Pb2Sb2Te5,n,8.215e+18,98.3,30.4,
+Pb2Bi2Te5,n,8.215e+18,181.7,94.6,89
+Sn2Sb2Te5,n,8.215e+18,217.3,197.8,
+Sn2Bi2Te5,n,8.215e+18,212.7,255.1,

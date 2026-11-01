@@ -66,7 +66,7 @@ sup.r { font-size: 11px; color: var(--accent); }
 <ol>
 <li><b>孤对电子态在哪里</b>：它是已填满的阳离子 s–Te p 反键态，在能带中出现在两处：Γ 以外的几组价带谷（决定 p 型），以及 Γ 处的导带底（n 型载流子所在的态，由两种阳离子的 s 大致均分）。Γ 处的带反转也使 Sn₂Sb₂Te₅、Pb₂Bi₂Te₅、Sn₂Bi₂Te₅ 成为强拓扑绝缘体。</li>
 <li><b>p 型：孤对电子谷越靠近价带顶，S 越高。</b>3×10¹⁹ cm⁻³、300 K 时，Sn 系（Sn₂Sb₂Te₅ 171、Sn₂Bi₂Te₅ 167 µV/K）明显高于 Pb 系（Pb₂Bi₂Te₅ 110、Pb₂Sb₂Te₅ 58 µV/K）。Sn 系最高的孤对电子谷（以 Sn 5s 为主）就在价带顶（Sn₂Bi₂Te₅）或其下 84 meV（Sn₂Sb₂Te₅）；Pb 系的在 91 meV（Pb₂Bi₂Te₅）和 236 meV（Pb₂Sb₂Te₅）以下。</li>
-<li><b>Sb → Bi：把孤对电子谷推到价带顶。</b>Γ 处的价带顶以 B 位 p 为主；Bi 6p 的自旋–轨道耦合比 Sb 5p 强得多，把这个态压低约 200 meV，Sn₂Bi₂Te₅ 的价带顶于是变成孤对电子多谷（2<i>k</i><sub>B</sub><i>T</i> 内 24 个口袋）。Sn₂Sb₂Te₅ 的孤对电子谷在 Γ 谷之下 84 meV，只有费米能级恰好落到这些谷顶附近时（3×10¹⁹–1×10²⁰ cm⁻³）两者 S 才相同；其余浓度 Sn₂Bi₂Te₅ 都更高，在实验样品的重掺杂区高 1.4–2.3 倍，与实验之比 1.6–2.1 一致（图 8c）。</li>
+<li><b>Sb → Bi：把孤对电子谷推到价带顶。</b>Γ 处的价带顶以 B 位 p 为主；Bi 6p 的自旋–轨道耦合比 Sb 5p 强得多，把这个态压低约 200 meV，Sn₂Bi₂Te₅ 的价带顶于是变成孤对电子多谷（2<i>k</i><sub>B</sub><i>T</i> 内 24 个口袋）。Sn₂Sb₂Te₅ 的孤对电子谷在 Γ 谷之下 84 meV，只有费米能级恰好落到这些谷顶附近时（3×10¹⁹–1×10²⁰ cm⁻³）两者 S 才相同；其余浓度 Sn₂Bi₂Te₅ 都更高。在 Sn 样品的浓度（6.7×10²⁰ cm⁻³）为 31 对 15 µV/K，与实验的 30、16 一致（图 8a）。</li>
 <li><b>n 型</b>：四种材料的导带底都是 Γ 处的孤对电子 s 态（单谷）。Sn 系 |S| 更高，主要来自约 65 meV 以上的另一组导带口袋（阳离子 p），与孤对电子无关。</li>
 <li><b>与实验对照</b>：每个样品只调一个参数（载流子浓度，由约 300 K 的实验 S 定出），HSE 能带重现了四种材料 S(T) 的量级和趋势；PBE 能带在 Pb₂Sb₂Te₅（带隙）和 Pb₂Bi₂Te₅（谷结构）上与实验矛盾。</li>
 </ol>
@@ -136,7 +136,7 @@ sup.r { font-size: 11px; color: var(--accent); }
 
 <div class="box"><b>载流子浓度有两种用法，不要混淆：</b>
 <ol>
-<li><b>比较材料、分析各谷的贡献（第 3、4 节）：统一取 300 K、3×10¹⁹ cm⁻³</b>（另给 1×10²⁰ 作对照）。这是人为选定的比较条件，不是哪个样品的浓度。不用样品的浓度：它没有测量，只能由 S 反推，代回去 300 K 的计算 S 必然等于实验值，比不出材料的差别。理由：只有同浓度比较，材料间 S 的差别才只来自能带<sup class="r">[22,23]</sup>；这一浓度落在碲化物常见的最佳掺杂区间（10¹⁹–10²⁰ cm⁻³）<sup class="r">[22]</sup>；四种材料的费米能级都还在建谷窗口内；校准用的 PBE + BoltzTraP2 结果也是这个浓度。</li>
+<li><b>比较材料（第 4 节）：四种材料取同一浓度、300 K</b>，这样材料间 S 的差别只来自能带<sup class="r">[22,23]</sup>。图 8(a)(b) 取样品所在的浓度：p 型 6.7×10²⁰ cm⁻³（两个 Sn 样品），n 型 8.2×10¹⁸ cm⁻³（Pb₂Bi₂Te₅ 样品）。这些浓度没有测量，是由 300 K 的实验 S 用 HSE 能带反推的（第 5 节），所以 HSE 与这几个样品接近是必然的；要看的是同一浓度下材料之间、两种泛函之间的差别。分析各谷的电导份额（表 6）取 3×10¹⁹ cm⁻³（另给 1×10²⁰）：四种材料的费米能级都还在建谷窗口内，校准用的 PBE + BoltzTraP2 也是这个浓度。</li>
 <li><b>与实验 S(T) 对照（第 5 节）：浓度由实验 S 反推。</b>能带直接用计算结果（HSE 或 PBE），不按实验调整；唯一可调的是净载流子浓度 <i>N</i>。做法分三步：<br>
   ① 调 <i>N</i>，使最低温度点（约 300 K）的计算 S 等于实验 S；<br>
   ② 固定这个 <i>N</i>，计算其余温度的 S；<br>
@@ -266,14 +266,14 @@ sup.r { font-size: 11px; color: var(--accent); }
 <p><b>拓扑。</b>Sn₂Sb₂Te₅、Pb₂Bi₂Te₅、Sn₂Bi₂Te₅ 在 PBE 和 HSE 下都是 Z₂ = (1;000)，反转都在 Γ：孤对电子的 s 态在 Γ 处被反转到阳离子 p 态之上（由 SOC 造成，见上文与图 S2），这正是非平庸拓扑的来源，也决定了 n 型载流子所在的态。三者 Γ 处的反转带隙（HSE 下 Sn₂Sb₂Te₅ 168、Pb₂Bi₂Te₅ 194、Sn₂Bi₂Te₅ 277 meV，即 Γ 处最低导带与最高价带之差，见图 2 源数据 <code>band_gaps_on_path.csv</code>）远大于数值误差。Pb₂Sb₂Te₅ 在 Γ 处只有 51 meV，宇称待补。</p>
 
 <h2 id="s4">4 孤对电子对 Seebeck 系数的影响</h2>
-<p>本节所有数值都在统一的比较条件下：300 K，净载流子 3×10¹⁹ cm⁻³（另给 1×10²⁰），见 1.4 节。</p>
+<p>本节比较材料时都取同一载流子浓度、300 K：图 8(a)(b) 取样品所在的浓度，表 6 的谷份额分析取 3×10¹⁹ cm⁻³（1.4 节）。</p>
 <figure>
 <img src="{{FIG:Fig7_lone_pair_valley_PBE_vs_HSE}}" alt="Fig. 7" style="max-width:520px;margin:0 auto">
 <figcaption><b>图 7</b> 最高的孤对电子价带谷（阳离子 s ≥ 15%）相对价带顶的能量，阴影为 2<i>k</i><sub>B</sub><i>T</i>（300 K）。Sn 系取路径外的真实谷（HSE：镜面内三维搜索；PBE：附加路径 Γ–Σ′–R₂′–L，1.2 节），零点为真实价带顶。Pb 系取能带路径上的值，离轴谷的真实极大可能更高，图中深度是上限。</figcaption>
 </figure>
 <figure>
 <img src="{{FIG:Fig8_Seebeck_PBE_vs_HSE}}" alt="Fig. 8">
-<figcaption><b>图 8</b> 300 K 的面内 S。(a) p 型、(b) n 型，四种材料取同一浓度 3×10¹⁹ cm⁻³（1.4 节）；橙色为 PBE+SOC + BoltzTraP2，蓝色为 HSE 估计。(c) p 型、(d) n 型：HSE 估计随载流子浓度的变化，点线为 (a)(b) 的浓度。紫色为 Sn 系（孤对电子谷在价带顶附近，与图 5 的 Sn 5s 同色），灰色为 Pb 系；深色为 Bi，浅色为 Sb。(c) 中空心圆为两个 Sn 样品，浓度由 300 K 的实验 S 反推（图 9）。Pb₂Bi₂Te₅ 的 n 型在 2×10²⁰ cm⁻³ 以上超出模型范围，未画。</figcaption>
+<figcaption><b>图 8</b> 300 K 的面内 S，四种材料在同一载流子浓度下比较。(a) p 型，取两个 Sn 样品的浓度 6.7×10²⁰ cm⁻³；(b) n 型，取 Pb₂Bi₂Te₅ 样品的浓度 8.2×10¹⁸ cm⁻³。橙色为 PBE+SOC + BoltzTraP2，蓝色为 HSE 估计，黑色横线为在该浓度测得的样品。样品浓度没有测量，是由这些实验值用 HSE 能带反推的（图 9），所以 HSE 与它们接近是必然的；要看的是同一浓度下材料之间、两种泛函之间的差别。(c) p 型、(d) n 型：HSE 估计随浓度的变化，点线为 (a)(b) 的浓度，空心圆为样品。紫色为 Sn 系（孤对电子谷在价带顶附近，与图 5 的 Sn 5s 同色），灰色为 Pb 系；深色为 Bi，浅色为 Sb。Pb₂Bi₂Te₅ 的 n 型在 2×10²⁰ cm⁻³ 以上超出模型范围，未画。3×10¹⁹ cm⁻³ 的数值见表 6。</figcaption>
 </figure>
 <p class="tcap"><b>表 6</b> 300 K 面内 S（µV/K；箭头左为 PBE + BoltzTraP2，右为 HSE 估计；Sn 系的价带用三维搜索的真实谷）与孤对电子态承担的电导份额（HSE，3×10¹⁹ cm⁻³）。p 型计入阳离子 s ≥ 15% 的价带谷，n 型计入 Γ 处的导带谷；逐谷数值见 <code>data/Fig8_Seebeck/</code>。</p>
 <table data-csv="Table6_Seebeck_300K">
@@ -284,14 +284,14 @@ sup.r { font-size: 11px; color: var(--accent); }
 <tr><td>Sn₂Sb₂Te₅</td><td class="num">202 → 171</td><td class="num">115 → 93</td><td class="num">−159 → −150</td><td class="num">−94 → −94</td><td>77%</td><td>47%</td></tr>
 <tr><td>Sn₂Bi₂Te₅</td><td class="num">204 → 167</td><td class="num">122 → 89</td><td class="num">−186 → −171</td><td class="num">−93 → −84</td><td>约 100%</td><td>43%</td></tr>
 </tbody></table>
-<p><b>p 型：孤对电子谷越靠近价带顶、承担的电导越多，S 越高。</b>3×10¹⁹ cm⁻³ 时（表 6、图 8a）：</p>
+<p><b>p 型：孤对电子谷越靠近价带顶、承担的电导越多，S 越高。</b>3×10¹⁹ cm⁻³ 时（表 6）：</p>
 <ul>
 <li><b>Sn₂Bi₂Te₅</b>：价带顶就是孤对电子谷（2<i>k</i><sub>B</sub><i>T</i> 内 24 个口袋），电导几乎全部来自孤对电子态。</li>
 <li><b>Sn₂Sb₂Te₅</b>：价带顶是 Γ 处的轻单谷，孤对电子谷低 84–129 meV。费米能级已进入这些谷，它们承担 77% 的电导，S 因此与 Sn₂Bi₂Te₅ 相当；只用路径上较深的谷估算，只有 137 µV/K。</li>
 <li><b>Pb 系</b>：孤对电子谷深（−91、−236 meV），只承担 12–17% 的电导，S 低。</li>
 </ul>
-<p><b>Sb 与 Bi 的差别取决于孤对电子谷能否参与导电（图 8c）。</b>两者只在 3×10¹⁹–1×10²⁰ cm⁻³ 相近，这时 Sn₂Sb₂Te₅ 的费米能级恰好落在它的孤对电子谷顶附近。浓度更低时，Sn₂Sb₂Te₅ 有四成电导来自轻的 Γ 谷；浓度更高时，它顶上 84 meV 内只有 Γ 谷，同样多的空穴要填得更深（6×10²⁰ cm⁻³ 时费米能级在价带内约 360 meV，Sn₂Bi₂Te₅ 只有约 200 meV）。两种情况下 Sn₂Bi₂Te₅ 都更高：1×10¹⁹ cm⁻³ 时高 19–32%，3×10²⁰ cm⁻³ 以上高 1.4–2.3 倍。Bi 的作用是让孤对电子谷在任何浓度下都处在价带顶。</p>
-<p><b>n 型：载流子就在孤对电子 s 态里，但决定 |S| 高低的不是它。</b>四种材料的导带底都是 Γ 处的孤对电子单谷。Pb 系的导带轻、又没有别的谷，|S| 低；Sn 系另有约 65 meV 处的 A–L 阳离子 p 口袋，承担约一半电导，|S| 高 2.4–3.7 倍。</p>
+<p><b>Sb 与 Bi 的差别取决于孤对电子谷能否参与导电（图 8c）。</b>两者只在 3×10¹⁹–1×10²⁰ cm⁻³ 相近，这时 Sn₂Sb₂Te₅ 的费米能级恰好落在它的孤对电子谷顶附近。浓度更低时，Sn₂Sb₂Te₅ 有四成电导来自轻的 Γ 谷；浓度更高时，它顶上 84 meV 内只有 Γ 谷，同样多的空穴要填得更深（6×10²⁰ cm⁻³ 时费米能级在价带内约 360 meV，Sn₂Bi₂Te₅ 只有约 200 meV）。两种情况下 Sn₂Bi₂Te₅ 都更高：1×10¹⁹ cm⁻³ 时高 19–32%，3×10²⁰ cm⁻³ 以上高 1.4–2.3 倍。在 Sn 样品的浓度（6.7×10²⁰ cm⁻³，图 8a）为 31 对 15 µV/K，与两个样品的实验值 30、16 一致。Bi 的作用是让孤对电子谷在任何浓度下都处在价带顶。</p>
+<p><b>n 型：载流子就在孤对电子 s 态里，但决定 |S| 高低的不是它。</b>四种材料的导带底都是 Γ 处的孤对电子单谷。Pb 系的导带轻、又没有别的谷，|S| 低；Sn 系另有约 65 meV 处的 A–L 阳离子 p 口袋，承担约一半电导，|S| 高 2.4–3.7 倍；在 Pb₂Bi₂Te₅ 样品的浓度（8.2×10¹⁸ cm⁻³，图 8b）为 2–9 倍。</p>
 <p class="note"><b>三维搜索对 S 的影响</b>（Sn 系的价带用镜面内的真实谷，1.2 节）。与只用路径相比：Sn₂Bi₂Te₅ 的 p 型 S 由 228 降到 167 µV/K，因为拟合出的面内垂直方向质量（0.04–0.09 <i>m</i><sub>e</sub>）比路径模型的假设（0.15–0.31 <i>m</i><sub>e</sub>）轻得多，态密度较小；Sn₂Sb₂Te₅ 由 137 升到 171 µV/K，因为孤对电子谷升高了 4–62 meV。n 型几乎不变。</p>
 
 <h2 id="s5">5 与实验 S(T) 的对照</h2>
@@ -431,7 +431,7 @@ sup.r { font-size: 11px; color: var(--accent); }
 <tr><td>图 5</td><td><code>Fig5_SnSb_vs_SnBi_orbitals</code></td><td><code>Fig5_SnSb_vs_SnBi/</code>：两种材料路径能带上的 Sn-s、B-s、Sn-p、B-p、Te-p 投影；四个价带态的能量与成分，Γ 处最高价带与最低导带的能量与成分（<code>Gamma_states.csv</code>）（表 5）</td></tr>
 <tr><td>图 6</td><td><code>Fig6_valence_pockets_crossover</code></td><td><code>Fig6_valence_pockets/</code>：Sn₂Sb₂Te₅、Sn₂Bi₂Te₅ 全部价带口袋的位置（分数与笛卡尔坐标、所在面、能量、等价口袋数；<code>pocket_positions.csv</code>）；四种材料的价带能级（<code>levels_HSE.csv</code>）与谷间能量差 Δ<i>E</i> = <i>E</i><sub>Σ</sub> − <i>E</i><sub>Γ–A</sub>（<code>valley_offset_HSE.csv</code>），均为 HSE06+SOC）</td></tr>
 <tr><td>图 7</td><td><code>Fig7_lone_pair_valley_PBE_vs_HSE</code></td><td><code>Fig7_lone_pair_valley/</code>：最高孤对电子价带谷的能量、k 点与成分</td></tr>
-<tr><td>图 8</td><td><code>Fig8_Seebeck_PBE_vs_HSE</code></td><td><code>Fig8_Seebeck/</code>：300 K、3×10¹⁹ cm⁻³ 的 S；300 K 的 p、n 型 S 随载流子浓度（四种材料的 HSE 估计与 PBE BoltzTraP2，<code>S_vs_concentration_300K_HSE.csv</code>），两个 Sn 样品的反推浓度；表 6 的逐谷电导份额（每个谷的位置、离带边能量、阳离子 s 成分、份额）与汇总；孤对电子谷份额随空穴浓度（10¹⁹–3×10²⁰ cm⁻³）的变化；Sn₂Bi₂Te₅ 的 c3 检验（梯度、主质量、驻点位移）</td></tr>
+<tr><td>图 8</td><td><code>Fig8_Seebeck_PBE_vs_HSE</code></td><td><code>Fig8_Seebeck/</code>：300 K 在样品浓度（<code>S_300K_at_sample_concentration.csv</code>）与 3×10¹⁹ cm⁻³ 的 S；300 K 的 p、n 型 S 随载流子浓度（四种材料的 HSE 估计与 PBE BoltzTraP2，<code>S_vs_concentration_300K_HSE.csv</code>），两个 Sn 样品的反推浓度；表 6 的逐谷电导份额（每个谷的位置、离带边能量、阳离子 s 成分、份额）与汇总；孤对电子谷份额随空穴浓度（10¹⁹–3×10²⁰ cm⁻³）的变化；Sn₂Bi₂Te₅ 的 c3 检验（梯度、主质量、驻点位移）</td></tr>
 <tr><td>图 9</td><td><code>Fig9_S_vs_T_experiment</code></td><td><code>Fig9_S_vs_T/</code>：实验数据、计算曲线、拟合汇总</td></tr>
 <tr><td>图 10</td><td><code>Fig10_defect_formation_energies</code></td><td><code>Fig10_formation_energies/</code>：逐位点中性形成能，两端化学势</td></tr>
 <tr><td>图 11</td><td><code>Fig11_ordering_induced_change</code></td><td><code>Fig11_ordering/</code>：逐位点与中位数 Δ<i>E</i><sub>f</sub></td></tr>
