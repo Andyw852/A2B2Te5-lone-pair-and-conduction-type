@@ -1416,16 +1416,69 @@ def seebeck_vs_p(axs, Np, Nn, fit):
     dump('Fig8_Seebeck', 'samples_fitted_concentration_HSE.csv', ['material', 'carrier_type', 'concentration_cm-3', 'S_exp_300K_uV/K'], samples)
 
 
+SIGMA_PBST = os.path.join(ROOT, '21_阶段报告与交接', '实验数据', 'Pb2Sb2Te5_T_sigma_S.csv')   # 用户提供，σ 单位未给出
+
+
+def pbst_model(side, tau):
+    """Pb₂Sb₂Te₅ 近补偿模型：返回 S(N, T)（μV/K）与 σ(N, T)（任意单位）。tau='crta' 常数弛豫时间，σ ∝ ∫g v²(−∂f/∂ε)；
+    tau='adp' 声学声子形变势散射，τ ∝ 1/(T·g(ε))，σ ∝ (1/T)∫v²(−∂f/∂ε)。"""
+    m = 'Pb2Sb2Te5'
+    V, gap = mv.build(m, 'v', 300, None, side); C, _ = mv.build(m, 'c', 300, side=side)
+    S = lambda N, T: mv.solve(V, C, gap, N, T, tau)[0]
+
+    def sig(N, T):
+        kT = mv.KB * T; occ = mv._occ(T); EF, _ = mv.fermi_level(V, C, gap, N, T); den = 0.0
+        for sgn, L in ((1, V), (-1, C)):
+            for v in L:
+                eta = ((-v['off'] - EF) if sgn > 0 else (EF - gap - v['off'])) / kT
+                den += v['g'] * np.trapezoid(v['vx2'] * (v['dos'] if tau == 'crta' else 1.0) * occ(eta)[1], mv.EPS)
+        return den / (1.0 if tau == 'crta' else T)
+    return S, sig, gap
+
+
+def figS3(out):
+    """Pb₂Sb₂Te₅：电导率随温度的相对变化 σ(T)/σ(302 K)（单位未知，只比形状）与 S(T)，两种散射口径。
+    每条曲线的净掺杂都由 302 K 的实验 S 定出（与图 9 相同），σ 再按同一掺杂计算。"""
+    d = np.loadtxt(SIGMA_PBST, delimiter=',', skiprows=1, encoding='utf-8-sig'); Te, se, Se = d[:, 0], d[:, 1], d[:, 2]
+    Ts = np.linspace(Te[0], 640, 36)
+    fig, axs = plt.subplots(1, 2, figsize=(W2, 2.6), gridspec_kw=dict(wspace=0.30))
+    rows, fits = [], []
+    axs[0].plot(Te, se / se[0], 'o', ms=4, mfc='white', mec='k', mew=0.8, zorder=5, label='Experiment')
+    axs[1].plot(Te, Se, 'o', ms=4, mfc='white', mec='k', mew=0.8, zorder=5, label='Experiment')
+    for side, nm, col in (('c2_hse', 'HSE', C_HSE), ('c2_pbe', 'PBE', C_PBE)):
+        for tau, ls, lw, tl in (('adp', '-', 1.4, 'acoustic-phonon $\\tau$'), ('crta', (0, (1.2, 1.2)), 0.9, 'constant $\\tau$')):
+            S, sig, gap = pbst_model(side, tau)
+            N = solve_N(S, Se[0], Te[0], -1e19, 1e19); s0 = sig(N, Te[0])
+            sr = np.array([sig(N, t) / s0 for t in Ts]); sv = np.array([S(N, t) for t in Ts])
+            lab = f'{nm} ($E_g$ = {1000 * gap:.0f} meV), {tl}'
+            axs[0].plot(Ts, sr, color=col, ls=ls, lw=lw, label=lab); axs[1].plot(Ts, sv, color=col, ls=ls, lw=lw, label=lab)
+            dev = max((S(N, t) - s for t, s in zip(Te, Se)), key=abs)
+            fits.append([nm, tau, f'{N:+.3e}', r(sig(N, Te[-1]) / s0, 3), r(dev, 1)])
+            rows += [[nm, tau, f'{N:+.3e}', r(t, 1), r(a, 4), r(b, 2)] for t, a, b in zip(Ts, sr, sv)]
+    ax = axs[0]; ax.set_yscale('log'); ax.set_ylim(0.3, 60); ax.set_xlim(280, 650)
+    ax.set_yticks([0.3, 0.5, 1, 2, 5, 10, 20, 50], ['0.3', '0.5', '1', '2', '5', '10', '20', '50']); ax.minorticks_off()
+    ax.set_ylabel(r'$\sigma(T)\,/\,\sigma(302\ \mathrm{K})$'); ax.set_xlabel('$T$ (K)'); ax.axhline(1, color='k', lw=0.5, ls=':')
+    ax.legend(loc='upper left', fontsize=5.8, handlelength=2.0, labelspacing=0.25); panel(ax, '(a)')
+    ax = axs[1]; ax.set_xlim(280, 650); ax.set_ylim(-140, 30); ax.axhline(0, color='k', lw=0.5, ls=':')
+    ax.set_ylabel(r'$S$ (μV K$^{-1}$)'); ax.set_xlabel('$T$ (K)'); panel(ax, '(b)')
+    dump('FigS3_Pb2Sb2Te5_sigma', 'experiment_T_sigma_S.csv', ['T_K', 'sigma_unit_not_given', 'sigma_over_sigma302', 'S_uV/K'],
+         [[r(t, 2), r(a, 4), r(a / se[0], 4), r(b, 3)] for t, a, b in zip(Te, se, Se)])
+    dump('FigS3_Pb2Sb2Te5_sigma', 'model_sigma_ratio_and_S.csv', ['bands', 'scattering', 'net_doping_p-n_cm-3', 'T_K', 'sigma_over_sigma302', 'S_uV/K'], rows)
+    dump('FigS3_Pb2Sb2Te5_sigma', 'fit_summary.csv', ['bands', 'scattering', 'net_doping_p-n_cm-3 (from S at 302 K)', 'sigma619_over_sigma302 (exp 0.413)',
+                                                     'max_dev_S_uV/K'], fits)
+    save(fig, out, 'FigS3_Pb2Sb2Te5_sigma_S')
+
+
 def main():
     global DATA
     ap = argparse.ArgumentParser(); ap.add_argument('--out', default=os.path.join(ROOT, '21_阶段报告与交接', '论文图_20261028'))
     ap.add_argument('--data'); ap.add_argument('--only', nargs='+'); a = ap.parse_args()
     DATA = a.data or os.path.join(a.out, 'source_data')
     os.makedirs(a.out, exist_ok=True); style()
-    todo = a.only or [str(i) for i in range(1, 12)] + ['S1']
+    todo = a.only or [str(i) for i in range(1, 12)] + ['S1', 'S3']
     info = {}
     for i in todo:
-        res = {'1': fig1, '2': fig2, '3': fig3, '4': fig4, '5': fig5, '6': fig6, '7': fig7, '8': fig8, '9': fig9, '10': fig10, '11': fig11, 'S1': figS1}[i](a.out)
+        res = {'1': fig1, '2': fig2, '3': fig3, '4': fig4, '5': fig5, '6': fig6, '7': fig7, '8': fig8, '9': fig9, '10': fig10, '11': fig11, 'S1': figS1, 'S3': figS3}[i](a.out)
         if res is not None: info[i] = res
     print(info); print('→', a.out, '；源数据 →', DATA)
 
