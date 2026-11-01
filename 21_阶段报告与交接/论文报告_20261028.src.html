@@ -104,7 +104,7 @@ sup.r { font-size: 11px; color: var(--accent); }
 <p>计算用 VASP<sup class="r">[1]</sup> 与 PAW 赝势<sup class="r">[2,3]</sup>。能带含自旋–轨道耦合（SOC），分别用 PBE<sup class="r">[4]</sup> 和 HSE06<sup class="r">[7–9]</sup>（屏蔽参数 0.2 Å⁻¹，交换比例 0.25）；结构弛豫用 PBE 加 D3(BJ) 色散修正<sup class="r">[5,6]</sup>。截断能 360–370 eV，Γ 中心 12×12×2 网格自洽，EDIFF = 10⁻⁶ eV；HSE 的 Fock 项用 <code>PRECFOCK = Fast</code>，面内 k 点约化 2×2。</p>
 <p>能带在收敛的自洽结果上沿 204 点高对称路径（Γ–M–K–Γ–A–L–H–A|L–M|H–K）计算，PBE 与 HSE 同一路径。路径上与自洽网格重合的 18 个点逐带核对，一致到 0.07 meV。轨道成分取 PROCAR 中各原子球内的投影，对 Kramers 对求和。拓扑不变量用 Fu–Kane 宇称判据<sup class="r">[10]</sup>，宇称由 IrRep<sup class="r">[11]</sup> 和自写脚本两种方法独立计算。</p>
 <p><b>能谷的名称。</b>对称点用 Γ、M、K、A、L、H。不在对称点上的谷按所在的高对称线命名，用六方布里渊区的标准记号<sup class="r">[28]</sup>：Γ–A 线为 Δ，Γ–M 为 Σ，A–L 为 R（其余：Γ–K 为 Λ，M–K 为 T，A–H 为 Q，L–H 为 S）。本文的三组孤对电子价带谷是 Σ（Γ–M 线 1/3 处）、R₁（A–L 线靠近 A 处）和 R₂（A–L 线 2/3 处）。真实极大离开了高对称线的谷加撇，如 Σ′；同一组谷演化出两个极大时，较低的一个加双撇，如 R₁″。</p>
-<p><b>寻找路径之外的极大（Sn 系）。</b>能带路径只经过高对称线，而 Σ、R 这类谷的真实极大可以离开这些线，落在含 c 轴的镜面内（图 S1）。所以对 Sn₂Sb₂Te₅ 和 Sn₂Bi₂Te₅ 在这个镜面内补算了 HSE06+SOC：先用 203 个 k 点的网格找出所有极大，再在每个极大周围加密采样，拟合出它的能量和三个方向的有效质量。各步与路径计算的重合点相差不超过 0.05 meV。结果：</p>
+<p><b>寻找路径之外的极大（Sn 系）。</b>能带路径只经过高对称线，而 Σ、R 这类谷的真实极大可以离开这些线，落在含 c 轴的镜面内（图 S1）。所以对 Sn₂Sb₂Te₅ 和 Sn₂Bi₂Te₅ 在这个镜面内补算了 HSE06+SOC：先用 203 个 k 点的网格找出所有极大，再在每个极大周围加密采样，拟合出它的能量和三个方向的有效质量。各步与路径计算的重合点相差不超过 0.05 meV。为了在能带图上直接看到这些极大，又在镜面内另算了一段穿过 Σ′、R₂′ 的路径 Γ–Σ′–R₂′–L（图 3c、d 右侧），它上面的最高点与拟合得到的真实价带顶相差不到 0.1 meV。结果：</p>
 <ul>
 <li><b>Sn₂Bi₂Te₅</b>：真实价带顶比路径上的高 37.6 meV，带隙由 0.182 eV 变为 0.144 eV。</li>
 <li><b>Sn₂Sb₂Te₅</b>：价带顶仍在 Γ，带隙不变（0.160 eV）；但孤对电子谷升高，最高的在价带顶下 84 meV（路径上为 146 meV）。</li>
@@ -167,7 +167,7 @@ sup.r { font-size: 11px; color: var(--accent); }
 <h2 id="s3">3 孤对电子态在哪里、来自哪个原子</h2>
 <figure>
 <img src="{{FIG:Fig3_HSE_bands_cation_s}}" alt="Fig. 3">
-<figcaption><b>图 3</b> HSE06+SOC 能带，颜色和线宽表示阳离子 s 成分，即孤对电子 s 态的权重。两条虚线为价带顶和导带底。(d) 中红色虚线为真实价带顶：它在路径之外的 Σ′ 处（1.2 节、图 S1），比路径上的最高点高 38 meV。能带图只画路径上的能量，所以带线到不了这条线；标题同时给出路径带隙与真实带隙。▼ 标出路径上的价带谷，名称与图 5、图 6 相同：Γ、A、Δ 在 Γ–A 轴上（Δ 为 Γ–A 线中间的极大），Σ 在 Γ–M 线上，R₁、R₂ 在 A–L 线上（1.2 节）。</figcaption>
+<figcaption><b>图 3</b> HSE06+SOC 能带，颜色和线宽表示阳离子 s 成分，即孤对电子 s 态的权重。两条虚线为价带顶和导带底。(c)(d) 右侧浅紫底的一段是另算的附加路径 Γ–Σ′–R₂′–L：它在含 c 轴的镜面内，穿过三维搜索找到的真实极大（▽，1.2 节、图 S1），为便于看清横向放大 1.8 倍。能量零点取真实价带顶：Sn₂Bi₂Te₅ 的价带顶就在这一段的 Σ′ 处，高对称路径上的最高点比它低 38 meV；标题给出真实带隙，括号内为只看高对称路径得到的带隙。▼ 标出路径上的价带谷，名称与图 5、图 6 相同：Γ、A、Δ 在 Γ–A 轴上（Δ 为 Γ–A 线中间的极大），Σ 在 Γ–M 线上，R₁、R₂ 在 A–L 线上（1.2 节）。</figcaption>
 </figure>
 <p>深色粗线即孤对电子态（阳离子 s–Te p 反键，阳离子 s 占 20–30%）。它出现在两处：离开 Γ 的价带谷（Γ–M 线上的 Σ 谷，A–L 线上的 R₁、R₂ 谷），以及 Γ 处的导带底。Γ 处的价带顶（Pb₂Sb₂Te₅、Sn₂Sb₂Te₅）是阳离子 p 态，几乎不含 s。这与孤对电子的“修正模型”一致<sup class="r">[25,26]</sup>。</p>
 <p class="tcap"><b>表 3</b> HSE06+SOC 的带边：位置、主质量（面内两向 / 沿 c，单位 <i>m</i><sub>e</sub>）与轨道成分。</p>
@@ -252,7 +252,7 @@ sup.r { font-size: 11px; color: var(--accent); }
 <li><b>Sn₂Bi₂Te₅</b>：Σ′ 是价带顶，R₂′ 只低 2 meV，R₁′、R₁″ 低 17、39 meV：2 meV 内 12 个口袋，2<i>k</i><sub>B</sub><i>T</i> 内 24 个。Γ–A 轴上的谷在 Δ（Γ–A 线 4/7 处，−117 meV），已在 2<i>k</i><sub>B</sub><i>T</i> 以外。</li>
 <li><b>Sn₂Sb₂Te₅</b>：2<i>k</i><sub>B</sub><i>T</i> 内只有 Γ 一个口袋；孤对电子谷 R₂′、R₁′、Σ′、R₁″ 依次在 −84、−122、−127、−129 meV。</li>
 </ul>
-<p><b>为什么能带图上看不出这些变化（图 S1）。</b>图 2、3、5 都沿高对称路径，而真实极大不在路径上。图 S1 画出镜面内最高价带的能量：孤对电子带是一条条斜向的“脊”，路径（<i>k</i><sub>z</sub> = 0 的 Γ–M 线和 <i>k</i><sub>z</sub> = ½ 的 A–L 线）从脊的侧面横穿过去，看到的是“山腰”，不是“山顶”。例如 R₂ 的顶在 <i>k</i><sub>z</sub> ≈ 0.40，路径在 <i>k</i><sub>z</sub> = ½ 处，低估了 53–62 meV；Σ 的顶离 Γ–M 线较近，只低估 4–38 meV。</p>
+<p><b>为什么高对称路径看不到这些极大（图 S1）。</b>图 2、5 和图 3 的左边部分都沿高对称路径，而真实极大不在路径上（图 3 右侧另补了一段穿过它们的路径）。图 S1 画出镜面内最高价带的能量：孤对电子带是一条条斜向的“脊”，路径（<i>k</i><sub>z</sub> = 0 的 Γ–M 线和 <i>k</i><sub>z</sub> = ½ 的 A–L 线）从脊的侧面横穿过去，看到的是“山腰”，不是“山顶”。例如 R₂ 的顶在 <i>k</i><sub>z</sub> ≈ 0.40，路径在 <i>k</i><sub>z</sub> = ½ 处，低估了 53–62 meV；Σ 的顶离 Γ–M 线较近，只低估 4–38 meV。</p>
 <figure>
 <img src="{{FIG:FigS1_mirror_plane_maps}}" alt="Fig. S1">
 <figcaption><b>图 S1</b> 含 c 轴的镜面内最高价带的能量（HSE06+SOC，相对价带顶，meV）。(a) Sn₂Sb₂Te₅，(b) Sn₂Bi₂Te₅；横轴为沿 Γ→M 的面内 <i>k</i>，纵轴为 <i>k</i><sub>z</sub>。白色虚线是能带路径经过的位置：Γ–M（<i>k</i><sub>z</sub> = 0）、A–L（上下边）、Γ–A（竖线）。空心标记为路径上的谷，红色实心为真实极大。(c)(d) 沿 <i>k</i><sub>z</sub> 穿过真实极大 Σ′、R₂′ 的切线：空心为路径上的值，箭头上的数字为路径低估的量。</figcaption>
@@ -426,7 +426,7 @@ sup.r { font-size: 11px; color: var(--accent); }
 <tbody>
 <tr><td>图 1、表 1</td><td><code>Fig1_structures</code></td><td><code>Fig1_structures/</code>：O、D 母胞的格点占位与未弛豫 POSCAR；所给层状结构的 POSCAR；(c)(d) 各原子面的高度与堆垛位置；三种结构的对比（表 1 的数值）</td></tr>
 <tr><td>图 2</td><td><code>Fig2_bands_PBE_vs_HSE</code></td><td><code>Fig2_bands_PBE_vs_HSE/</code>：每种材料、每种泛函的路径能带（相对价带顶）；路径带隙及 Γ 处最高价带、最低导带的能量与反转带隙（<code>band_gaps_on_path.csv</code>）</td></tr>
-<tr><td>图 3</td><td><code>Fig3_HSE_bands_cation_s</code></td><td><code>Fig3_HSE_bands_cation_s/</code>：HSE 路径能带及每个 k 点、每条带的阳离子 s 成分</td></tr>
+<tr><td>图 3</td><td><code>Fig3_HSE_bands_cation_s</code></td><td><code>Fig3_HSE_bands_cation_s/</code>：HSE 路径能带及每个 k 点、每条带的阳离子 s 成分（能量相对真实价带顶）；Sn 系另有穿过真实极大的附加路径 Γ–Σ′–R₂′–L（<code>*_true_valley_path_G-S-R2-L.csv</code>）</td></tr>
 <tr><td>图 4</td><td><code>Fig4_cation_s_by_atom</code></td><td><code>Fig4_cation_s_by_atom/</code>：HSE 路径能带上每个 k 点、每条带的 A、B、Te 的 s 成分；关键态（表 4）</td></tr>
 <tr><td>图 5</td><td><code>Fig5_SnSb_vs_SnBi_orbitals</code></td><td><code>Fig5_SnSb_vs_SnBi/</code>：两种材料路径能带上的 Sn-s、B-s、Sn-p、B-p、Te-p 投影；四个价带态的能量与成分，Γ 处最高价带与最低导带的能量与成分（<code>Gamma_states.csv</code>）（表 5）</td></tr>
 <tr><td>图 6</td><td><code>Fig6_valence_pockets_crossover</code></td><td><code>Fig6_valence_pockets/</code>：Sn₂Sb₂Te₅、Sn₂Bi₂Te₅ 全部价带口袋的位置（分数与笛卡尔坐标、所在面、能量、等价口袋数；<code>pocket_positions.csv</code>）；四种材料的价带能级（<code>levels_HSE.csv</code>）与谷间能量差 Δ<i>E</i> = <i>E</i><sub>Σ</sub> − <i>E</i><sub>Γ–A</sub>（<code>valley_offset_HSE.csv</code>），均为 HSE06+SOC）</td></tr>

@@ -367,6 +367,22 @@ def fig2(out):
 
 
 # ------------------------------------------------------------------ Fig. 3
+TP_XSCALE = 1.8      # 图 3 中附加路径的横向放大倍数（它只有 0.85 Å⁻¹，原尺度下刻度挤在一起）
+
+
+def true_path_bands(m):
+    """c7_true_path：穿过镜面内真实价带极大的附加路径 Γ–Σ′–R₂′–L（HSE06+SOC，单独计算）。
+    返回 dict(x[Å⁻¹，从 0 起], E[k, band]（相对真实价带顶，eV）, fs[k, band]（阳离子 s）, labels{序号: 名称})；没有结果时返回 None。"""
+    import c4_mirror_scan as c4
+    d = os.path.join(ROOT, '22_能带基准_1-0', m, 'c7_true_path')
+    f = os.path.join(d, 'true_path.json')
+    if not os.path.exists(f) or not os.path.isdir(os.path.join(d, 'b01')): return None
+    meta = json.load(open(f, encoding='utf-8'))
+    E, fs = c4.read_parts(d, [os.path.join(d, f'b{i + 1:02d}') for i in range(len(meta['batches']))], meta)
+    k = np.array(meta['path_k_index'])
+    return dict(x=np.array(meta['x_invA']), E=E[k] - meta['vbm'], fs=fs[k], labels={int(i): v for i, v in meta['labels'].items()})
+
+
 def fig3(out):
     cmap = LinearSegmentedColormap.from_list('s', ['#DCE8F4', '#9CC3E4', '#4A90C8', '#1F5FA0', '#08306B'])
     norm = Normalize(0, 0.30); K = kpath()
@@ -374,6 +390,10 @@ def fig3(out):
     for n, (ax, m) in enumerate(zip(axs.flat, MATS)):
         x, _ = rf.path_x(m); nel = NEL[m]
         E, gap = bands(m, 'c2_hse')
+        T5 = mv.true_load(m); dv = (T5['vbm'] - T5['path_vbm']) if T5 else 0.0
+        E, gap = E - dv, gap - dv                                # 能量零点取真实价带顶（Sn₂Bi₂Te₅ 比路径上的最高点高 38 meV）
+        tp = true_path_bands(m); X0 = x[KEND]                    # 附加路径 Γ–Σ′–R₂′–L 接在主路径右边，横向放大 TP_XSCALE 倍
+        if tp: tp['x'] = TP_XSCALE * tp['x']
         _, Wp = cv.read_procar(os.path.join(rf.base(m), 'c2_hse', 'PROCAR_OPT.gz'))
         fs = rf.cation_s(Wp); rows = []
         for b in range(nel - 8, nel + 6):
@@ -385,6 +405,12 @@ def fig3(out):
             lc.set_array(cols); ax.add_collection(lc)
             rows += [[i] + [r(v, 6) for v in K[i]] + [r(x[i], 5), LAB.get(i, ''), bandname(b, nel), r(E[i, b], 5), r(100 * fs[i, b], 2)]
                      for i in range(KEND + 1)]
+            if tp:
+                xs, es, fc = X0 + tp['x'], tp['E'][:, b], tp['fs'][:, b]
+                cc = (fc[:-1] + fc[1:]) / 2
+                lc = LineCollection([[(xs[i], es[i]), (xs[i + 1], es[i + 1])] for i in range(len(xs) - 1)], cmap=cmap, norm=norm,
+                                    linewidths=0.5 + 2.4 * np.clip(cc / 0.3, 0, 1), capstyle='round')
+                lc.set_array(cc); ax.add_collection(lc)
         dump('Fig3_HSE_bands_cation_s', f'{m}_HSE06+SOC_cation_s.csv',
              ['k_index', 'k_frac_1', 'k_frac_2', 'k_frac_3', 'k_distance_1/A', 'label', 'band', 'E-EVBM_eV', 'cation_s_percent'], rows)
         ax.axhline(0, color='k', lw=0.5, ls=':'); ax.axhline(gap, color='k', lw=0.5, ls=':')
@@ -394,13 +420,25 @@ def fig3(out):
             lead = (x[90] - 0.28, 0.10) if nm == 'Δ' or (nm == 'Γ' and gap < 0.1) else None
             vmark(ax, x[i], E[i, nel - 1], nm, lead)
         kticks(ax, x); ax.set_ylim(-0.5, 0.5)
-        T5 = mv.true_load(m)
-        if T5 and T5['vbm'] - T5['path_vbm'] > 5e-4:           # 真实价带顶在路径外（Sn₂Bi₂Te₅）：路径上的带线达不到它，用红色虚线标出
-            dv = T5['vbm'] - T5['path_vbm']
-            ax.axhline(dv, color='#C0392B', lw=0.8, ls=(0, (4, 2)), zorder=1)
-            ax.text(x[KEND] - 0.03, dv + 0.01, f'true VBM: +{1000 * dv:.0f} meV\n(Σ′, off the path)', color='#C0392B',
-                    fontsize=6.3, ha='right', va='bottom', linespacing=1.1)
-        ax.set_title(f'{TEX[m]}     $E_g$ = {1000 * gap:.0f} meV' + (f' (path); {1000 * (gap - (T5["vbm"] - T5["path_vbm"])):.0f} meV (true)' if T5 and T5["vbm"] - T5["path_vbm"] > 5e-4 else ''),
+        if tp:                                                   # 附加路径：浅色底、粗竖线断开，刻度 Γ、Σ′、R₂′、L，真实极大标 ▽
+            xe = X0 + tp['x'][-1]
+            ax.axvspan(X0, xe, color='#F1EEF7', zorder=0, lw=0); ax.axvline(X0, color='k', lw=0.8, zorder=1)
+            tk, tl = list(ax.get_xticks()), [t.get_text() for t in ax.get_xticklabels()]
+            tl[-1] = tl[-1] + '|Γ'
+            for i, nm in sorted(tp['labels'].items()):
+                if i == 0: continue
+                tk.append(X0 + tp['x'][i]); tl.append(MATH.get(nm, nm))
+                if nm != 'L': ax.axvline(X0 + tp['x'][i], color=GRID, lw=0.5, zorder=0)
+                if nm in ('Σ′', 'R₂′'):
+                    ax.plot(X0 + tp['x'][i], tp['E'][i, nel - 1] + 0.035, 'v', ms=3.2, mfc='white', mec='k', mew=0.7, zorder=4)
+            ax.set_xticks(tk, tl); ax.set_xlim(x[0], xe)
+            ax.text((X0 + xe) / 2, -0.485, f'off path\n(k ×{TP_XSCALE:g})', ha='center', va='bottom', fontsize=5.6, linespacing=1.0,
+                    color='#444444', bbox=dict(fc='#F1EEF7', ec='none', pad=0.5))
+            dump('Fig3_HSE_bands_cation_s', f'{m}_true_valley_path_G-S-R2-L.csv',
+                 ['i', 'k_distance_1/A', 'label', 'band', 'E-EVBM_true_eV', 'cation_s_percent'],
+                 [[i, r(tp['x'][i] / TP_XSCALE, 5), tp['labels'].get(i, ''), bandname(b, nel), r(tp['E'][i, b], 5), r(100 * tp['fs'][i, b], 2)]
+                  for b in range(nel - 8, nel + 6) for i in range(len(tp['x']))])
+        ax.set_title(f'{TEX[m]}     $E_g$ = {1000 * gap:.0f} meV' + (f' (path only: {1000 * (gap + dv):.0f} meV)' if dv > 5e-4 else ''),
                      fontsize=8, pad=4)
         panel(ax, f'({"abcd"[n]})')
     for ax in axs[:, 0]: ax.set_ylabel(r'$E - E_{\mathrm{VBM}}$ (eV)')

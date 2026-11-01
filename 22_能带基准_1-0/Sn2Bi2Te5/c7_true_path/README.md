@@ -7,3 +7,7 @@
 **k 点**：步长 ≤ 0.015 Å⁻¹，每批开头放一个 c2 路径上的点作锚点；共 2 批（`KPOINTS_OPT_b01`、`_b02`）。
 
 **INCAR、KPOINTS**：与 `c4_mirror_v3` 相同（含 `KPOINTS_OPT_NKBATCH = 36`、`NKRED 2 2 1`）。所有点都已通过 FOCK_FCC 奇数/24 检查。**不要手改 KPOINTS_OPT。**
+
+## 结果（2026-11-01，`check.log`）
+
+DeepSeek 完成（`f5e851a`）：锚点与 c2 路径差 ≤ 0.05 meV，折点能量与 c5 极值相差 ≤ 1.84 meV，路径上的最高点与真实价带顶相差 ≤ 0.1 meV，全部通过验收。已接进论文报告图 3(c)(d) 右侧（`10_脚本/paper_figures.py` 的 `true_path_bands`，横向放大 1.8 倍）。
