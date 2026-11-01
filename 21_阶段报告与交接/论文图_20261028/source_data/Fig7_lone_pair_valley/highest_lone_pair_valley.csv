@@ -1,9 +1,9 @@
-﻿material,functional,E-EVBM_meV,path_k_index,k_frac_1,k_frac_2,k_frac_3,cation_s_percent
-Pb2Sb2Te5,HSE06+SOC,-235.6,11,-0.1667,0.0,0.0,21.1
-Pb2Sb2Te5,PBE+SOC,-1.7,11,-0.1667,0.0,0.0,19.7
-Pb2Bi2Te5,HSE06+SOC,-91.0,11,-0.1667,0.0,0.0,17.7
-Pb2Bi2Te5,PBE+SOC,-16.8,10,-0.1515,0.0,0.0,15.3
-Sn2Sb2Te5,HSE06+SOC,-131.5,11,-0.1667,0.0,0.0,26.5
-Sn2Sb2Te5,PBE+SOC,0.0,10,-0.1515,0.0,0.0,24.0
-Sn2Bi2Te5,HSE06+SOC,0.0,11,-0.1667,0.0,0.0,24.1
-Sn2Bi2Te5,PBE+SOC,0.0,10,-0.1515,0.0,0.0,21.6
+﻿material,functional,E-EVBM_meV,where,k_frac_1,k_frac_2,k_frac_3,cation_s_percent
+Pb2Sb2Te5,HSE06+SOC,-235.6,path 11,-0.1667,0.0,0.0,21.1
+Pb2Sb2Te5,PBE+SOC,-1.7,path 11,-0.1667,0.0,0.0,19.7
+Pb2Bi2Te5,HSE06+SOC,-91.0,path 11,-0.1667,0.0,0.0,17.7
+Pb2Bi2Te5,PBE+SOC,-16.8,path 10,-0.1515,0.0,0.0,15.3
+Sn2Sb2Te5,HSE06+SOC,-84.0,R₂′ (mirror-plane search),-0.3459,0.0,0.4083,33.4
+Sn2Sb2Te5,PBE+SOC,0.0,c7:41 R₂′ (true-valley path),-0.3459,0.0,0.4083,31.4
+Sn2Bi2Te5,HSE06+SOC,0.0,Σ′ (mirror-plane search),-0.1965,0.0,0.1232,24.9
+Sn2Bi2Te5,PBE+SOC,0.0,c7:21 (true-valley path),-0.1876,0.0,0.1176,22.2

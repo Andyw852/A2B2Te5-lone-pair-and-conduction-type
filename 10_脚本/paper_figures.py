@@ -343,23 +343,53 @@ def fig2(out):
     K = kpath(); gaps = []
     fig, axs = plt.subplots(2, 2, figsize=(W2, 5.0), sharey=True, gridspec_kw=dict(hspace=0.34, wspace=0.06))
     for n, (ax, m) in enumerate(zip(axs.flat, MATS)):
-        x, _ = rf.path_x(m); nel = NEL[m]; g = {}; gam = []
+        x, _ = rf.path_x(m); nel = NEL[m]; g = {}; gt = {}; sh = {}; gam = []; X0 = x[KEND]; tpx = None; xv = {}
         for side, nm, col, ls, lw, z in (('c2_pbe', 'PBE', C_PBE, DASH, 0.9, 2), ('c2_hse', 'HSE', C_HSE, '-', 1.1, 3)):
             E, g[nm] = bands(m, side); bs = range(nel - 10, nel + 8)
-            gam += [r(1000 * E[0, nel - 1], 1), r(1000 * E[0, nel], 1), r(1000 * (E[0, nel] - E[0, nel - 1]), 1)]   # Γ 处最高价带、最低导带、两者之差
+            gam += [r(1000 * E[0, nel - 1], 1), r(1000 * E[0, nel], 1), r(1000 * (E[0, nel] - E[0, nel - 1]), 1)]   # Γ 处最高价带、最低导带、两者之差（相对路径价带顶）
+            # Sn 系接上附加路径 Γ–Σ′–R₂′–L（c7，两种泛函同一组 k 点）；零点改为两段路径上的最高价带：
+            # HSE 取 c5/c6 拟合的真实价带顶（与附加路径上的最高点相差 ≤ 0.1 meV），PBE 取附加路径上的最高点
+            tp = true_path_bands(m, side)
+            if tp: tp['x'] = TP_XSCALE * tp['x']; tpx = tp
+            if side == 'c2_hse':
+                T5 = mv.true_load(m); dv = (T5['vbm'] - T5['path_vbm']) if T5 else 0.0
+            else:
+                dv = max(0.0, float(np.nanmax(tp['E'][:, nel - 1]))) if tp else 0.0
+                if tp: tp['E'] = tp['E'] - dv
+            E = E - dv; sh[nm] = dv
+            gt[nm] = min(np.nanmin(E[:, nel]), np.nanmin(tp['E'][:, nel]) if tp else np.inf)
             for b in bs:
                 ax.plot(x[:KEND + 1], E[:KEND + 1, b], color=col, ls=ls, lw=lw, zorder=z)
+                if tp: ax.plot(X0 + tp['x'], tp['E'][:, b], color=col, ls=ls, lw=lw, zorder=z)
+            # ▼（颜色同线）：该泛函的价带顶在哪里。与路径上的最高点相差 0.5 meV 以内算同一高度；
+            # 价带顶在 Γ 或 A 时（路径首尾、附加路径起点都有 Γ），标在中间的 Γ–A 段上
+            vb = E[:KEND + 1, nel - 1]; top = np.nanmax(vb)
+            if tp and np.nanmax(tp['E'][:, nel - 1]) > top + 5e-4:
+                xv[nm] = X0 + tp['x'][int(np.nanargmax(tp['E'][:, nel - 1]))]
+            else:
+                cand = [i for i in range(KEND + 1) if vb[i] > top - 5e-4]
+                xv[nm] = x[next((i for i in cand if i in AXIS), cand[0])]
             dump('Fig2_bands_PBE_vs_HSE', f'{m}_{nm.replace("HSE", "HSE06")}+SOC.csv',
                  ['k_index', 'k_frac_1', 'k_frac_2', 'k_frac_3', 'k_distance_1/A', 'label'] + [bandname(b, nel) + '_E-EVBM_eV' for b in bs],
                  [[i] + [r(v, 6) for v in K[i]] + [r(x[i], 5), LAB.get(i, '')] + [r(E[i, b], 5) for b in bs] for i in range(KEND + 1)])
-        gaps.append([m, r(1000 * g['PBE'], 1), r(1000 * g['HSE'], 1)] + gam)
+            if tp:
+                dump('Fig2_bands_PBE_vs_HSE', f'{m}_{nm.replace("HSE", "HSE06")}+SOC_true_valley_path_G-S-R2-L.csv',
+                     ['i', 'k_distance_1/A', 'label'] + [bandname(b, nel) + '_E-EVBM_eV' for b in bs],
+                     [[i, r(tp['x'][i] / TP_XSCALE, 5), tp['labels'].get(i, '')] + [r(tp['E'][i, b], 5) for b in bs] for i in range(len(tp['x']))])
+        gaps.append([m, r(1000 * g['PBE'], 1), r(1000 * g['HSE'], 1)] + gam
+                    + [r(1000 * gt['PBE'], 1), r(1000 * gt['HSE'], 1), r(1000 * sh['PBE'], 1), r(1000 * sh['HSE'], 1)])
         ax.axhline(0, color='k', lw=0.5, ls=':', zorder=1)
         kticks(ax, x); ax.set_ylim(-0.66, 0.66); ax.set_yticks(np.arange(-0.6, 0.61, 0.2))
-        ax.set_title(f'{TEX[m]}     $E_g$: PBE {1000 * g["PBE"]:.0f} meV, HSE {1000 * g["HSE"]:.0f} meV', fontsize=8, pad=4)
+        if tpx: tp_decorate(ax, tpx, X0, nel, mark=())
+        stack = abs(xv['PBE'] - xv['HSE']) < 0.012 * (ax.get_xlim()[1] - ax.get_xlim()[0])   # 两个 ▼ 重叠时上下叠放，PBE 在上
+        for nm, col in (('HSE', C_HSE), ('PBE', C_PBE)):
+            ax.plot(xv[nm], 0.085 if (stack and nm == 'PBE') else 0.04, 'v', ms=3.6, color=col, mec='white', mew=0.3, zorder=5)
+        ax.set_title(f'{TEX[m]}     $E_g$: PBE {1000 * gt["PBE"]:.0f} meV, HSE {1000 * gt["HSE"]:.0f} meV', fontsize=8, pad=4)
         panel(ax, f'({"abcd"[n]})')
     dump('Fig2_bands_PBE_vs_HSE', 'band_gaps_on_path.csv',
          ['material', 'Eg_PBE+SOC_meV', 'Eg_HSE06+SOC_meV'] +
-         [f'{s}_Gamma_{q}_meV' for s in ('PBE+SOC', 'HSE06+SOC') for q in ('VB', 'CB', 'gap')], gaps)
+         [f'{s}_Gamma_{q}_meV' for s in ('PBE+SOC', 'HSE06+SOC') for q in ('VB', 'CB', 'gap')] +
+         ['Eg_PBE+SOC_incl_true_path_meV', 'Eg_HSE06+SOC_incl_true_path_meV', 'VBM_above_path_PBE+SOC_meV', 'VBM_above_path_HSE06+SOC_meV'], gaps)
     for ax in axs[:, 0]: ax.set_ylabel(r'$E - E_{\mathrm{VBM}}$ (eV)')
     h = [plt.Line2D([], [], color=C_HSE, lw=1.1), plt.Line2D([], [], color=C_PBE, lw=0.9, ls=DASH)]
     fig.legend(h, ['HSE06+SOC', 'PBE+SOC'], loc='lower center', ncol=2, bbox_to_anchor=(0.5, 0.905))
@@ -370,19 +400,26 @@ def fig2(out):
 TP_XSCALE = 1.8      # 图 3 中附加路径的横向放大倍数（它只有 0.85 Å⁻¹，原尺度下刻度挤在一起）
 
 
-def true_path_bands(m):
-    """c7_true_path：穿过镜面内真实价带极大的附加路径 Γ–Σ′–R₂′–L（HSE06+SOC，单独计算）。
-    返回 dict(x[Å⁻¹，从 0 起], E[k, band]（相对真实价带顶，eV）, fs[k, band]（阳离子 s）, labels{序号: 名称})；没有结果时返回 None。"""
+def true_path_bands(m, side='c2_hse'):
+    """c7_true_path：穿过镜面内真实价带极大的附加路径 Γ–Σ′–R₂′–L（HSE06+SOC，单独计算，分批）。
+    side='c2_pbe'：同一组 k 点的 PBE+SOC（c7_true_path_pbe，一次算完），能量相对 PBE 高对称路径上的价带顶。
+    返回 dict(x[Å⁻¹，从 0 起], E[k, band]（HSE 相对真实价带顶，eV）, fs[k, band]（阳离子 s）, labels{序号: 名称})；没有结果时返回 None。"""
     import c4_mirror_scan as c4
-    d = os.path.join(ROOT, '22_能带基准_1-0', m, 'c7_true_path')
+    pbe = side == 'c2_pbe'
+    d = os.path.join(ROOT, '22_能带基准_1-0', m, 'c7_true_path' + ('_pbe' if pbe else ''))
     f = os.path.join(d, 'true_path.json')
-    if not os.path.exists(f) or not os.path.isdir(os.path.join(d, 'b01')): return None
+    if not os.path.exists(f): return None
     meta = json.load(open(f, encoding='utf-8'))
-    parts = [os.path.join(d, f'b{i + 1:02d}') for i in range(len(meta['batches']))]
+    if pbe:
+        if not any(os.path.exists(os.path.join(d, q)) for q in ('PROCAR_OPT.gz', 'PROCAR_OPT')): return None
+        parts, ref = None, np.nanmax(cv.read_path_eigen(os.path.join(rf.base(m), 'c2_pbe', 'path_eigen.txt'))[:, NEL[m] - 1])
+    else:
+        if not os.path.isdir(os.path.join(d, 'b01')): return None
+        parts, ref = [os.path.join(d, f'b{i + 1:02d}') for i in range(len(meta['batches']))], meta['vbm']
     E, fs = c4.read_parts(d, parts, meta)
-    W = np.concatenate([cv.read_procar(c4.find_procar(q))[1] for q in parts], axis=0)   # [k, band, ion, orb]，图 4、图 5 用
-    k = np.array(meta['path_k_index'])
-    return dict(x=np.array(meta['x_invA']), E=E[k] - meta['vbm'], fs=fs[k], W=W[k], labels={int(i): v for i, v in meta['labels'].items()})
+    W = np.concatenate([cv.read_procar(c4.find_procar(q))[1] for q in (parts or [d])], axis=0)   # [k, band, ion, orb]，图 4、图 5 用
+    k = np.array(meta['path_k_index']); Kq = np.array(c4.read_kpoints_opt(os.path.join(d, 'KPOINTS_OPT')))
+    return dict(x=np.array(meta['x_invA']), E=E[k] - ref, fs=fs[k], W=W[k], k=Kq[k], labels={int(i): v for i, v in meta['labels'].items()})
 
 
 def tp_decorate(ax, tp, X0, nel, mark=('Σ′', 'R₂′')):
@@ -502,9 +539,19 @@ def fig4(out):
               f'A_{A_}_s_percent', f'B_{B_}_s_percent', 'Te_s_percent'], rows)
         # 关键态：价带顶、导带底、最高孤对电子价带谷（Kramers 对平均）
         iv = int(np.nanargmax(E[:KEND + 1, nel - 1])); ic = int(np.nanargmin(E[:KEND + 1, nel])); lp = rf.lone_pair_offset(m, 'c2_hse')
-        for st, i, bb in (('VBM', iv, [nel - 2, nel - 1]), ('lone-pair valence valley', lp[1], [nel - 2, nel - 1]), ('CBM', ic, [nel, nel + 1])):
-            key.append([m, st, i] + [r(v, 4) for v in K[i]] + [r(1000 * E[i, bb].mean(), 1), A_, r(100 * fa[i, bb].mean(), 1),
-                       B_, r(100 * fb[i, bb].mean(), 1), r(100 * ft[i, bb].mean(), 1)])
+        vb, cb = [nel - 2, nel - 1], [nel, nel + 1]
+        P = lambda i, bb: [i] + [r(v, 4) for v in K[i]] + [r(1000 * E[i, bb].mean(), 1), A_, r(100 * fa[i, bb].mean(), 1),
+                                                          B_, r(100 * fb[i, bb].mean(), 1), r(100 * ft[i, bb].mean(), 1)]
+        Q = lambda i, bb: [f'c7:{i} {tp["labels"].get(i, "")}'.strip()] + [r(v, 4) for v in tp['k'][i]] + [
+            r(1000 * tp['E'][i, bb].mean(), 1), A_, r(100 * ta[i, bb].mean(), 1), B_, r(100 * tb[i, bb].mean(), 1), r(100 * _tt[i, bb].mean(), 1)]
+        kv, kl = P(iv, vb), P(lp[1], vb)
+        if tp:                                                   # Sn 系：价带顶、孤对电子谷取附加路径上的真实极大（与图 7 相同）
+            jv = int(np.nanargmax(tp['E'][:, nel - 1]))
+            if tp['E'][jv, nel - 1] > E[iv, nel - 1] + 5e-4: kv = Q(jv, vb); kv[4] = 0.0           # 它就是真实价带顶
+            tv = true_valleys(m); t0 = tv['valleys'][0]; jl = next((i for i, nm in tp['labels'].items() if nm == t0['name']), None)
+            if jl is not None: kl = Q(jl, vb); kl[4] = r(t0['E'], 1)       # 成分取附加路径上的这一点，能量取三维搜索值
+        for st, row in (('VBM', kv), ('lone-pair valence valley', kl), ('CBM', P(ic, cb))):
+            key.append([m, st] + row)
         ax.axhline(0, color='k', lw=0.5, ls=':'); ax.axhline(gap, color='k', lw=0.5, ls=':')
         kticks(ax, x); ax.set_ylim(-0.5, 0.5)
         if tp: tp_decorate(ax, tp, X0, nel, mark=())            # 本图主路径也不标谷
@@ -514,7 +561,7 @@ def fig4(out):
     cb = fig.colorbar(plt.cm.ScalarMappable(norm=norm, cmap=SITE_CMAP), ax=axs, shrink=0.7, pad=0.015, aspect=30)
     cb.set_label('Share of cation-s on the A site'); cb.set_ticks([0, 0.5, 1], labels=['B only\n(Sb, Bi)', 'equal', 'A only\n(Pb, Sn)'])
     cb.ax.tick_params(direction='in', length=2, width=0.6, labelsize=6.5); cb.outline.set_linewidth(0.6)
-    dump('Fig4_cation_s_by_atom', 'key_states.csv', ['material', 'state', 'path_k_index', 'k_frac_1', 'k_frac_2', 'k_frac_3', 'E-EVBM_meV',
+    dump('Fig4_cation_s_by_atom', 'key_states.csv', ['material', 'state', 'k_index (c7: true-valley path)', 'k_frac_1', 'k_frac_2', 'k_frac_3', 'E-EVBM_meV',
                                                      'A', 'A_s_percent', 'B', 'B_s_percent', 'Te_s_percent'], key)
     save(fig, out, 'Fig4_cation_s_by_atom')
     return {f'{k[0]}|{k[1]}': (k[8], k[10]) for k in key}
@@ -921,15 +968,26 @@ def fig7(out):
     ax.axvspan(-kT2, 0, color='#EEF3F8', zorder=0, lw=0)
     ax.text(-kT2 / 2, 3.55, r'$2k_\mathrm{B}T$', ha='center', va='center', fontsize=6.5)
     for j, m in enumerate(MATS[::-1]):
-        p, h = rf.lone_pair_offset(m, 'c2_pbe'), rf.lone_pair_offset(m, 'c2_hse')
-        for nm, v in (('PBE+SOC', p), ('HSE06+SOC', h)):
-            rows.append([m, nm, r(v[0], 1), v[1]] + [r(c, 4) for c in K[v[1]]] + [r(100 * v[2], 1)])
+        nel = NEL[m]; v = {}
+        for side, nm in (('c2_pbe', 'PBE+SOC'), ('c2_hse', 'HSE06+SOC')):
+            lp = rf.lone_pair_offset(m, side); c = (lp[0], f'path {lp[1]}', tuple(K[lp[1]]), lp[2])
+            tq = true_path_bands(m, side)
+            if tq and side == 'c2_hse':                          # Sn 系 HSE：镜面内三维搜索的真实谷，相对真实价带顶
+                t0 = true_valleys(m)['valleys'][0]; c = (t0['E'], t0['name'] + ' (mirror-plane search)', t0['kfrac'], t0['s'])
+            elif tq:                                             # Sn 系 PBE：附加路径上的孤对电子极大也参与比较，零点取两段路径上的最高价带
+                e = 1000 * tq['E'][:, nel - 1]; sh = max(0.0, float(np.nanmax(e))); c = (c[0] - sh,) + c[1:]
+                fq = tq['fs'][:, nel - 2:nel].mean(1)
+                for i in range(1, len(e) - 1):
+                    if e[i] >= e[i - 1] and e[i] >= e[i + 1] and fq[i] >= 0.15 and e[i] - sh > c[0]:
+                        c = (e[i] - sh, f'c7:{i} {tq["labels"].get(i, "")}'.strip() + ' (true-valley path)', tuple(tq['k'][i]), fq[i])
+            v[nm] = c; rows.append([m, nm, r(c[0], 1), c[1]] + [r(q, 4) for q in c[2]] + [r(100 * c[3], 1)])
+        p, h = v['PBE+SOC'], v['HSE06+SOC']
         ax.plot([p[0], h[0]], [j, j], color='#BDBDBD', lw=1.2, zorder=1)
         ax.plot(p[0], j + 0.08, 'o', ms=4.5, color=C_PBE, mec='white', mew=0.6, zorder=3, label='PBE+SOC' if j == 0 else None)
         ax.plot(h[0], j - 0.08, 'o', ms=4.5, color=C_HSE, mec='white', mew=0.6, zorder=3, label='HSE06+SOC' if j == 0 else None)
         ax.text(h[0] - 7, j - 0.08, f'{h[0]:.0f}'.replace('-', '−'), ha='right', va='center', fontsize=6.3)
     dump('Fig7_lone_pair_valley', 'highest_lone_pair_valley.csv',
-         ['material', 'functional', 'E-EVBM_meV', 'path_k_index', 'k_frac_1', 'k_frac_2', 'k_frac_3', 'cation_s_percent'], rows[::-1])
+         ['material', 'functional', 'E-EVBM_meV', 'where', 'k_frac_1', 'k_frac_2', 'k_frac_3', 'cation_s_percent'], rows[::-1])
     ax.set_yticks(range(4), [TEX[m] for m in MATS[::-1]]); ax.set_ylim(-0.6, 3.85)
     ax.set_xlim(-275, 15); ax.set_xlabel('Highest lone-pair valence valley, $E - E_{\\mathrm{VBM}}$ (meV)')
     ax.tick_params(axis='y', length=0, right=False); ax.legend(loc='lower left', handletextpad=0.2, borderaxespad=0.2)
