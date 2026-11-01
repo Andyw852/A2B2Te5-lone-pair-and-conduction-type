@@ -995,7 +995,8 @@ def fig7(out):
 
 
 # ------------------------------------------------------------------ Fig. 8
-MCOL = {'Pb2Sb2Te5': '#9A9A9A', 'Pb2Bi2Te5': '#E69F00', 'Sn2Sb2Te5': '#009E73', 'Sn2Bi2Te5': '#5D3A9B'}   # 图 8(c)(d) 的材料配色
+# 图 8(c)(d) 的配色：色相按 A 位（Sn 紫，与图 5 的 Sn 5s 孤对电子同色；Pb 灰），深浅按 B 位（Bi 深、Sb 浅）
+MCOL = {'Pb2Sb2Te5': '#ABABAB', 'Pb2Bi2Te5': '#4D4D4D', 'Sn2Sb2Te5': '#A38CCB', 'Sn2Bi2Te5': '#5D3A9B'}
 
 
 def fig8(out):
@@ -1371,22 +1372,23 @@ def seebeck_vs_p(axs):
             hse = lambda N, t, b=b, gh=gh, gp=gp: b(N, t) * gh(N, t) / gp(N, t)
             v = np.array([sign * hse(sign * N, T) for N in Ns])
             bad = np.where((v < 0) | (v > 400))[0]; cut = bad[0] if len(bad) else len(Ns)
-            ax.plot(Ns[:cut], v[:cut], color=MCOL[m], lw=1.6 if m.startswith('Sn') else 1.1, label=TEX[m])
+            ax.plot(Ns[:cut], v[:cut], color=MCOL[m], lw=1.6, label=TEX[m], solid_capstyle='round')
             rows += [[m, 'pn'[k], f'{N:.3e}', r(x, 1) if i < cut else '', r(sign * b(sign * N, T), 1)] for i, (N, x) in enumerate(zip(Ns, v))]
             if sign == 1 and m.startswith('Sn'):
                 q = solve_log(hse, EXP[m], 20, 21.8); samples.append([m, f'{q:.3e}', EXP[m][0][1]])
-                ax.plot(q, EXP[m][0][1], 'o', ms=4.5, mfc='white', mec=MCOL[m], mew=1.1, zorder=5)
+                ax.plot(q, EXP[m][0][1], 'o', ms=4.5, mfc='white', mec=MCOL[m], mew=1.2, zorder=5)
         ax.axvline(3e19, color='#999999', lw=0.6, ls=(0, (1, 1.5)), zorder=0)
         ax.text(3.3e19, 8, '(a)' if sign == 1 else '(b)', fontsize=6.5, color='#666666', va='bottom')
         ax.set_xscale('log'); ax.set_xlim(1e19, 1.5e21); ax.set_ylim(0, 320)
         ax.set_xlabel(('Hole' if sign == 1 else 'Electron') + r' concentration (cm$^{-3}$)')
         ax.set_ylabel(r'$S$ (μV K$^{-1}$)' if sign == 1 else r'$|S|$ (μV K$^{-1}$)')
         ax.text(0.04, 0.97, ('p-type' if sign == 1 else 'n-type') + ', 300 K, HSE06+SOC', transform=ax.transAxes, ha='left', va='top', fontsize=7)
+        h, l = ax.get_legend_handles_labels(); o = [MATS.index(x) for x in ('Sn2Bi2Te5', 'Sn2Sb2Te5', 'Pb2Bi2Te5', 'Pb2Sb2Te5')]
+        ax.legend([h[i] for i in o], [l[i] for i in o], loc='upper right', fontsize=6.4, handlelength=1.8, labelspacing=0.3, borderaxespad=0.4)
         if sign == 1:
-            ax.legend(loc='upper right', fontsize=6.3, handlelength=1.8, labelspacing=0.25, borderaxespad=0.3)
             q = [float(x[1]) for x in samples]
-            ax.annotate('Sn samples\n(exp. S, 300 K)', xy=(q[1], EXP['Sn2Bi2Te5'][0][1] + 6), xytext=(2.6e20, 130), fontsize=6.2, ha='center',
-                        color='#555555', linespacing=1.0, arrowprops=dict(arrowstyle='-', lw=0.5, color='#777777', shrinkA=1, shrinkB=2))
+            ax.annotate('samples', xy=(q[1], EXP['Sn2Bi2Te5'][0][1] + 7), xytext=(q[1], 95), fontsize=6.4, ha='center',
+                        color='#555555', arrowprops=dict(arrowstyle='-', lw=0.5, color='#777777', shrinkA=1, shrinkB=2))
         panel(ax, f'({"cd"[k]})')
     dump('Fig8_Seebeck', 'S_vs_concentration_300K_HSE.csv', ['material', 'carrier_type', 'concentration_cm-3', '|S|_HSE_estimate_uV/K (blank: outside model range)', '|S|_PBE_BoltzTraP2_uV/K'], rows)
     dump('Fig8_Seebeck', 'Sn_samples_fitted_p_HSE.csv', ['material', 'p_cm-3', 'S_exp_300K_uV/K'], samples)
