@@ -995,9 +995,13 @@ def fig7(out):
 
 
 # ------------------------------------------------------------------ Fig. 8
+MCOL = {'Pb2Sb2Te5': '#9A9A9A', 'Pb2Bi2Te5': '#E69F00', 'Sn2Sb2Te5': '#009E73', 'Sn2Bi2Te5': '#5D3A9B'}   # 图 8(c)(d) 的材料配色
+
+
 def fig8(out):
     est = rf.hse_estimates(); prov = mv.c3_provisional('Sn2Bi2Te5')
-    fig, axs = plt.subplots(1, 2, figsize=(W2, 2.5), gridspec_kw=dict(wspace=0.18))
+    fig, A = plt.subplots(2, 2, figsize=(W2, 5.0), gridspec_kw=dict(wspace=0.24, hspace=0.38, height_ratios=[1, 1.05]))
+    axs = A[0]
     xs = np.arange(4); w = 0.36
     for k, ax in enumerate(axs):
         pb = [abs(rf.BTP[m][k]) for m in MATS]; hs = [abs(est[m][k]) for m in MATS]
@@ -1015,7 +1019,8 @@ def fig8(out):
          [[m, 'pn'[k], 3e19, rf.BTP[m][k], r(est[m][k], 1), 'yes' if (k == 0 and m == 'Sn2Bi2Te5' and prov) else 'no']
           for k in range(2) for m in MATS])
     h, l = axs[0].get_legend_handles_labels()
-    fig.legend(h, l, loc='upper center', ncol=2, bbox_to_anchor=(0.5, 1.07), handlelength=1.2)
+    fig.legend(h, l, loc='upper center', ncol=2, bbox_to_anchor=(0.5, 0.955), handlelength=1.2)
+    seebeck_vs_p(A[1])
     save(fig, out, 'Fig8_Seebeck_PBE_vs_HSE')
     valley_shares()
     return est
@@ -1340,49 +1345,44 @@ def figS1(out):
     save(fig, out, 'FigS1_mirror_plane_maps')
 
 
-def figS3(out):
-    """Sn₂Sb₂Te₅ 与 Sn₂Bi₂Te₅ 的 S 随空穴浓度的变化（300 K，面内）：HSE 估计 = BoltzTraP2 × 模型 HSE/PBE 比值（与图 8、图 9 相同），
-    PBE = BoltzTraP2 全区。(b) 两者之比。实验 S 只有一个温度序列、没有霍尔浓度，画成水平线：它与曲线的交点就是图 9 反推的浓度。"""
-    mats = ['Sn2Sb2Te5', 'Sn2Bi2Te5']; col = {'Sn2Sb2Te5': '#009E73', 'Sn2Bi2Te5': '#5D3A9B'}
+def seebeck_vs_p(axs):
+    """图 8(c)(d)：p 型 S 随空穴浓度（300 K，面内）。HSE 估计 = BoltzTraP2 × 模型 HSE/PBE 比值（与 (a)、图 9 相同的做法，
+    这里 BoltzTraP2 取插值，3×10¹⁹ 处与 (a) 的柱子差 1–3 μV/K）。(d) 为 Sn₂Bi₂Te₅ / Sn₂Sb₂Te₅，与实验之比对照。"""
     ps = np.logspace(19, np.log10(1.5e21), 45); T = 300; S = {}; rows = []; pfit = []
-    for m in mats:
+    for m in MATS:
         b = bt2(m); gh, gp = model(m, 'c2_hse'), model(m, 'c2_pbe')
         hse = lambda p, t, b=b, gh=gh, gp=gp: b(p, t) * gh(p, t) / gp(p, t)
         S[(m, 'HSE')] = np.array([hse(p, T) for p in ps]); S[(m, 'PBE')] = np.array([b(p, T) for p in ps])
-        pfit.append(solve_log(hse, EXP[m], 20, 21.8))                # 与图 9 相同：HSE 能带下反推的样品浓度
-    fig, axs = plt.subplots(1, 2, figsize=(W2, 2.5), gridspec_kw=dict(wspace=0.28))
+        if m.startswith('Sn'): pfit.append(solve_log(hse, EXP[m], 20, 21.8))       # 与图 9 相同：HSE 能带下反推的样品浓度
     ax = axs[0]
-    for m in mats:
-        ax.plot(ps, S[(m, 'HSE')], color=col[m], lw=1.3, label=f'{TEX[m]} HSE')
-        ax.plot(ps, S[(m, 'PBE')], color=col[m], lw=0.9, ls=DASH, label=f'{TEX[m]} PBE')
-        s0 = EXP[m][0][1]
-        ax.axhline(s0, color=col[m], lw=0.6, ls=':', zorder=0)
-        up = m == 'Sn2Bi2Te5'                                 # 两条实验线只差 14 μV/K：一个标签放线上方，一个放线下方
-        ax.text(1.06e19, s0 + (3 if up else -3), f'exp. {s0:.0f} μV/K (300 K)', color=col[m], fontsize=6.2, va='bottom' if up else 'top')
+    for m in MATS:
+        ax.plot(ps, S[(m, 'HSE')], color=MCOL[m], lw=1.6 if m.startswith('Sn') else 1.1, label=TEX[m])
     ax.axvline(3e19, color='#999999', lw=0.6, ls=(0, (1, 1.5)), zorder=0)
-    ax.text(3.2e19, 345, 'Fig. 8\n(3×10$^{19}$)', fontsize=6.2, color='#666666', va='top', linespacing=1.0)
-    ax.set_xscale('log'); ax.set_xlim(1e19, 1.5e21); ax.set_ylim(0, 350)
-    ax.set_xlabel(r'Hole concentration $p$ (cm$^{-3}$)'); ax.set_ylabel(r'$S$ at 300 K (μV K$^{-1}$)')
-    ax.legend(loc='upper right', fontsize=6.2, handlelength=2.2, borderaxespad=0.3, labelspacing=0.25); panel(ax, '(a)')
-    ax = axs[1]
-    for f, ls, lw in (('HSE', '-', 1.3), ('PBE', DASH, 0.9)):
-        ax.plot(ps, S[(mats[1], f)] / S[(mats[0], f)], color='k', ls=ls, lw=lw, label=f'{f} bands')
-    re = [b_ / a_ for (_, a_), (_, b_) in zip(EXP[mats[0]], EXP[mats[1]])]
+    ax.text(3.3e19, 8, '(a)', fontsize=6.5, color='#666666', va='bottom')
+    ax.axvspan(min(pfit), max(pfit), color='#E3E3E3', lw=0, zorder=0)
+    ax.text(np.sqrt(min(pfit) * max(pfit)), 135, 'Sn\nsamples', fontsize=6.2, ha='center', va='bottom', color='#555555', linespacing=1.0)
+    ax.set_xscale('log'); ax.set_xlim(1e19, 1.5e21); ax.set_ylim(0, 320)
+    ax.set_xlabel(r'Hole concentration $p$ (cm$^{-3}$)'); ax.set_ylabel(r'$S$ (μV K$^{-1}$)')
+    ax.text(0.04, 0.97, 'p-type, 300 K, HSE06+SOC', transform=ax.transAxes, ha='left', va='top', fontsize=7)
+    ax.legend(loc='upper right', fontsize=6.3, handlelength=1.8, labelspacing=0.25, borderaxespad=0.3); panel(ax, '(c)')
+    ax = axs[1]; a_, b_ = 'Sn2Sb2Te5', 'Sn2Bi2Te5'
+    re = [y / x for (_, x), (_, y) in zip(EXP[a_], EXP[b_])]
     ax.axhspan(min(re), max(re), color='#E8E2F2', lw=0, zorder=0)
-    ax.text(1.06e19, max(re) - 0.04, f'experiment, 300–620 K: {min(re):.1f}–{max(re):.1f}', fontsize=6.2, color='#5D3A9B', va='top')
+    ax.text(1.08e19, max(re) - 0.04, f'experiment (300–620 K): {min(re):.1f}–{max(re):.1f}', fontsize=6.3, color=MCOL[b_], va='top')
+    ax.axvspan(min(pfit), max(pfit), color='#E3E3E3', lw=0, zorder=0)
+    for f, ls, lw in (('HSE', '-', 1.6), ('PBE', DASH, 1.0)):
+        ax.plot(ps, S[(b_, f)] / S[(a_, f)], color='k', ls=ls, lw=lw, label=f'{f} bands')
     ax.axhline(1, color='k', lw=0.5, ls=':')
-    ax.axvspan(min(pfit), max(pfit), color='#D9D9D9', lw=0, zorder=0)
-    ax.text(np.sqrt(min(pfit) * max(pfit)), 2.55, 'samples\n(HSE fit)', fontsize=6.2, ha='center', va='top', color='#555555', linespacing=1.0)
     ax.axvline(3e19, color='#999999', lw=0.6, ls=(0, (1, 1.5)), zorder=0)
     ax.set_xscale('log'); ax.set_xlim(1e19, 1.5e21); ax.set_ylim(0.6, 2.6)
     ax.set_xlabel(r'Hole concentration $p$ (cm$^{-3}$)'); ax.set_ylabel(r'$S$(Sn$_2$Bi$_2$Te$_5$) / $S$(Sn$_2$Sb$_2$Te$_5$)')
-    ax.legend(loc='lower left', fontsize=6.2, handlelength=2.2); panel(ax, '(b)')
+    ax.legend(loc='lower left', fontsize=6.3, handlelength=2.2); panel(ax, '(d)')
     for i, p in enumerate(ps):
-        rows.append([f'{p:.3e}'] + [r(S[(m, f)][i], 1) for m in mats for f in ('HSE', 'PBE')]
-                    + [r(S[(mats[1], f)][i] / S[(mats[0], f)][i], 3) for f in ('HSE', 'PBE')])
-    dump('FigS3_Pisarenko_SnSb_vs_SnBi', 'S_vs_p_300K.csv',
-         ['p_cm-3'] + [f'S_{m}_{f}_uV/K' for m in mats for f in ('HSE_estimate', 'PBE_BoltzTraP2')] + ['ratio_Bi/Sb_HSE', 'ratio_Bi/Sb_PBE'], rows)
-    save(fig, out, 'FigS3_Pisarenko_SnSb_vs_SnBi')
+        rows.append([f'{p:.3e}'] + [r(S[(m, f)][i], 1) for m in MATS for f in ('HSE', 'PBE')]
+                    + [r(S[(b_, f)][i] / S[(a_, f)][i], 3) for f in ('HSE', 'PBE')])
+    dump('Fig8_Seebeck', 'S_vs_p_300K.csv',
+         ['p_cm-3'] + [f'S_{m}_{f}_uV/K' for m in MATS for f in ('HSE_estimate', 'PBE_BoltzTraP2')] + ['ratio_Sn2Bi2Te5/Sn2Sb2Te5_HSE', 'ratio_Sn2Bi2Te5/Sn2Sb2Te5_PBE'], rows)
+    dump('Fig8_Seebeck', 'Sn_samples_fitted_p_HSE.csv', ['material', 'p_cm-3'], [[m, f'{q:.3e}'] for m, q in zip(('Sn2Sb2Te5', 'Sn2Bi2Te5'), pfit)])
 
 
 def main():
@@ -1391,10 +1391,10 @@ def main():
     ap.add_argument('--data'); ap.add_argument('--only', nargs='+'); a = ap.parse_args()
     DATA = a.data or os.path.join(a.out, 'source_data')
     os.makedirs(a.out, exist_ok=True); style()
-    todo = a.only or [str(i) for i in range(1, 12)] + ['S1', 'S3']
+    todo = a.only or [str(i) for i in range(1, 12)] + ['S1']
     info = {}
     for i in todo:
-        res = {'1': fig1, '2': fig2, '3': fig3, '4': fig4, '5': fig5, '6': fig6, '7': fig7, '8': fig8, '9': fig9, '10': fig10, '11': fig11, 'S1': figS1, 'S3': figS3}[i](a.out)
+        res = {'1': fig1, '2': fig2, '3': fig3, '4': fig4, '5': fig5, '6': fig6, '7': fig7, '8': fig8, '9': fig9, '10': fig10, '11': fig11, 'S1': figS1}[i](a.out)
         if res is not None: info[i] = res
     print(info); print('→', a.out, '；源数据 →', DATA)
 

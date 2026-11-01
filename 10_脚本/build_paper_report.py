@@ -94,7 +94,6 @@ data/                  每幅图的源数据，即图中画出的数值，目录
   Fig11_ordering/             有序化引起的形成能变化 ΔE_f = E_f(O) − E_f(D)，逐位点与中位数
   FigS2_Gamma_levels_SOC/     Γ 点能级（PBE，有、无 SOC，SnSb 与 SnBi）与 Sb → Bi 变化的标量/SOC 拆分（10_脚本/soc_mechanism.py）
   FigS1_mirror_plane/         Sn2Sb2Te5、Sn2Bi2Te5 镜面内最高价带的能量网格（c4，meV）；真实极大与沿 k_z 切线（valleys_and_cuts.csv）
-  FigS3_Pisarenko_SnSb_vs_SnBi/ Sn2Sb2Te5、Sn2Bi2Te5 在 300 K 的 S 随空穴浓度（HSE 估计与 PBE BoltzTraP2）及两者之比
   L_layered_defects/          早先一批在所给层状结构上（3×3×1，81 原子）的缺陷计算，即正文表 9、表 10 的 L 列：
                               L_defect_ranking_all_vertices.csv  5 个化学势顶点下全部缺陷在平衡费米能级处的形成能排名
                               L_formation_energy_results.json    原始结果（各电荷态的形成能、转变能级、化学势、载流子浓度）
