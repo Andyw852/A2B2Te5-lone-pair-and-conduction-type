@@ -612,13 +612,9 @@ def fig5(out):
             else: ax.tick_params(labelleft=False)
             ax.set_title(f'{TEX[m]}: {lab}', fontsize=8, pad=4, color=col)
             panel(ax, f'({"abcd"[2 * row + c]})')
-            ia = max(range(90, 98), key=lambda j: E[j, nel - 1])          # Γ–A 段上价带的最高点：不在 Γ 时（Sn₂Bi₂Te₅）另标 Δ
             for nm, i in SNVAL.items():                      # 标出四个谷（名称与图 3、图 6 相同）：上排标孤对电子谷，下排标 Γ 单谷
                 if (row == 0) == (nm != 'Γ'):
-                    xi = x[90] if nm == 'Γ' else x[i]
-                    vmark(ax, xi, Ep[i, nel - 1], nm, (x[90] - 0.30, 0.10) if (nm == 'Γ' and ia != 90) else None)
-            if row == 1 and ia != 90:                        # Γ、Δ 挨得很近：两个名称放在同一高度，用引线分别指向
-                vmark(ax, x[ia], Ep[ia, nel - 1], 'Δ', (x[90] - 0.06, 0.10))
+                    vmark(ax, x[90] if nm == 'Γ' else x[i], Ep[i, nel - 1], nm)
         for nm, i in SNVAL.items():
             bb = [nel - 2, nel - 1]; g = lambda X: r(100 * X[i, bb].mean(), 1)
             lv[(m, nm)] = 1000 * E[i, bb].mean()
@@ -640,18 +636,22 @@ def fig5(out):
         lt[(m, 'Γ')] = lv[(m, 'Γ')] - sh
         for t in (tv['valleys'] if tv else []): lt[(m, t['name'])] = t['E']
     names = [n for n in ('Σ′', 'R₁′', 'R₂′', 'R₁″') if all((m, n) in lt for m in mats)]
-    for nm, col, lw in [('Γ', C_B, 2.0)] + [(n, C_A, 1.4) for n in names]:
-        y = [lt[(m, nm)] for m in mats]
-        for k in range(2): ax.plot([X[k] - hw, X[k] + hw], [y[k]] * 2, color=col, lw=lw, solid_capstyle='butt')
-        ax.plot([X[0] + hw, X[1] - hw], y, color=col, lw=0.6, ls=(0, (2, 1.5)))
-    for k, m in enumerate(mats):                     # 标签放在各自能级上方
-        B_ = m[3:5]; top = max(lt[(m, v)] for v in names)
-        ax.text(X[k], lt[(m, 'Γ')] + 2.5, f'Γ ({B_} p)', ha='center', va='bottom', fontsize=6.5, color=C_B)
-        ax.text(X[k], top + 2.5 + (9 if k == 1 else 0), 'Sn 5s', ha='center', va='bottom', fontsize=6.5, color=C_A)
+    lpt = [max(lt[(m, n)] for n in names) for m in mats]; lpb = [min(lt[(m, n)] for n in names) for m in mats]
+    for k in range(2):                               # Sn 5s 孤对电子谷：色块标出范围，细线为各个谷
+        ax.add_patch(plt.Rectangle((X[k] - hw, lpb[k]), 2 * hw, lpt[k] - lpb[k], color=C_A, alpha=0.13, lw=0, zorder=1))
+        for n in names: ax.plot([X[k] - hw, X[k] + hw], [lt[(mats[k], n)]] * 2, color=C_A, lw=1.0, solid_capstyle='butt', zorder=2)
+        ax.plot([X[k] - hw, X[k] + hw], [lt[(mats[k], 'Γ')]] * 2, color=C_B, lw=2.2, solid_capstyle='butt', zorder=3)
+    for y, col in ((lpt, C_A), ([lt[(m, 'Γ')] for m in mats], C_B)):   # 只连两组的最高点与 Γ：一升一降
+        ax.plot([X[0] + hw, X[1] - hw], y, color=col, lw=0.8, ls=(0, (2, 1.5)), zorder=2)
+    kw = dict(fontsize=6.5, ha='center')
+    ax.text(X[0], lt[(mats[0], 'Γ')] + 3, 'Γ (Sb p)', va='bottom', color=C_B, **kw)
+    ax.text(X[0], lpb[0] - 3, 'Sn 5s\n(4 valleys)', va='top', color=C_A, linespacing=1.1, **kw)
+    ax.text(X[1], lt[(mats[1], 'Γ')] - 3, 'Γ (Bi p)', va='top', color=C_B, **kw)
+    ax.text(X[1], lpb[1] - 3, 'Sn 5s\n(4 valleys)', va='top', color=C_A, linespacing=1.1, **kw)
     dump('Fig5_SnSb_vs_SnBi', 'levels_true.csv', ['state', 'E_Sn2Sb2Te5_meV', 'E_Sn2Bi2Te5_meV'],
          [[nm, r(lt[('Sn2Sb2Te5', nm)], 1), r(lt[('Sn2Bi2Te5', nm)], 1)] for nm in ['Γ'] + names])
     ax.axhline(0, color='k', lw=0.5, ls=':')
-    ax.set_xlim(-0.75, 2.45); ax.set_ylim(-165, 26)
+    ax.set_xlim(-0.6, 2.3); ax.set_ylim(-160, 14)
     ax.set_xticks(X, [TEX[m] for m in mats], fontsize=6.5); ax.tick_params(axis='x', top=False, length=0)
     ax.set_ylabel(r'$E - E_{\mathrm{VBM}}$ (meV)'); ax.yaxis.set_label_position('right'); ax.yaxis.tick_right()
     ax.tick_params(axis='y', left=True, labelleft=False, right=True, labelright=True)
@@ -1340,16 +1340,61 @@ def figS1(out):
     save(fig, out, 'FigS1_mirror_plane_maps')
 
 
+def figS3(out):
+    """Sn₂Sb₂Te₅ 与 Sn₂Bi₂Te₅ 的 S 随空穴浓度的变化（300 K，面内）：HSE 估计 = BoltzTraP2 × 模型 HSE/PBE 比值（与图 8、图 9 相同），
+    PBE = BoltzTraP2 全区。(b) 两者之比。实验 S 只有一个温度序列、没有霍尔浓度，画成水平线：它与曲线的交点就是图 9 反推的浓度。"""
+    mats = ['Sn2Sb2Te5', 'Sn2Bi2Te5']; col = {'Sn2Sb2Te5': '#009E73', 'Sn2Bi2Te5': '#5D3A9B'}
+    ps = np.logspace(19, np.log10(1.5e21), 45); T = 300; S = {}; rows = []; pfit = []
+    for m in mats:
+        b = bt2(m); gh, gp = model(m, 'c2_hse'), model(m, 'c2_pbe')
+        hse = lambda p, t, b=b, gh=gh, gp=gp: b(p, t) * gh(p, t) / gp(p, t)
+        S[(m, 'HSE')] = np.array([hse(p, T) for p in ps]); S[(m, 'PBE')] = np.array([b(p, T) for p in ps])
+        pfit.append(solve_log(hse, EXP[m], 20, 21.8))                # 与图 9 相同：HSE 能带下反推的样品浓度
+    fig, axs = plt.subplots(1, 2, figsize=(W2, 2.5), gridspec_kw=dict(wspace=0.28))
+    ax = axs[0]
+    for m in mats:
+        ax.plot(ps, S[(m, 'HSE')], color=col[m], lw=1.3, label=f'{TEX[m]} HSE')
+        ax.plot(ps, S[(m, 'PBE')], color=col[m], lw=0.9, ls=DASH, label=f'{TEX[m]} PBE')
+        s0 = EXP[m][0][1]
+        ax.axhline(s0, color=col[m], lw=0.6, ls=':', zorder=0)
+        up = m == 'Sn2Bi2Te5'                                 # 两条实验线只差 14 μV/K：一个标签放线上方，一个放线下方
+        ax.text(1.06e19, s0 + (3 if up else -3), f'exp. {s0:.0f} μV/K (300 K)', color=col[m], fontsize=6.2, va='bottom' if up else 'top')
+    ax.axvline(3e19, color='#999999', lw=0.6, ls=(0, (1, 1.5)), zorder=0)
+    ax.text(3.2e19, 345, 'Fig. 8\n(3×10$^{19}$)', fontsize=6.2, color='#666666', va='top', linespacing=1.0)
+    ax.set_xscale('log'); ax.set_xlim(1e19, 1.5e21); ax.set_ylim(0, 350)
+    ax.set_xlabel(r'Hole concentration $p$ (cm$^{-3}$)'); ax.set_ylabel(r'$S$ at 300 K (μV K$^{-1}$)')
+    ax.legend(loc='upper right', fontsize=6.2, handlelength=2.2, borderaxespad=0.3, labelspacing=0.25); panel(ax, '(a)')
+    ax = axs[1]
+    for f, ls, lw in (('HSE', '-', 1.3), ('PBE', DASH, 0.9)):
+        ax.plot(ps, S[(mats[1], f)] / S[(mats[0], f)], color='k', ls=ls, lw=lw, label=f'{f} bands')
+    re = [b_ / a_ for (_, a_), (_, b_) in zip(EXP[mats[0]], EXP[mats[1]])]
+    ax.axhspan(min(re), max(re), color='#E8E2F2', lw=0, zorder=0)
+    ax.text(1.06e19, max(re) - 0.04, f'experiment, 300–620 K: {min(re):.1f}–{max(re):.1f}', fontsize=6.2, color='#5D3A9B', va='top')
+    ax.axhline(1, color='k', lw=0.5, ls=':')
+    ax.axvspan(min(pfit), max(pfit), color='#D9D9D9', lw=0, zorder=0)
+    ax.text(np.sqrt(min(pfit) * max(pfit)), 2.55, 'samples\n(HSE fit)', fontsize=6.2, ha='center', va='top', color='#555555', linespacing=1.0)
+    ax.axvline(3e19, color='#999999', lw=0.6, ls=(0, (1, 1.5)), zorder=0)
+    ax.set_xscale('log'); ax.set_xlim(1e19, 1.5e21); ax.set_ylim(0.6, 2.6)
+    ax.set_xlabel(r'Hole concentration $p$ (cm$^{-3}$)'); ax.set_ylabel(r'$S$(Sn$_2$Bi$_2$Te$_5$) / $S$(Sn$_2$Sb$_2$Te$_5$)')
+    ax.legend(loc='lower left', fontsize=6.2, handlelength=2.2); panel(ax, '(b)')
+    for i, p in enumerate(ps):
+        rows.append([f'{p:.3e}'] + [r(S[(m, f)][i], 1) for m in mats for f in ('HSE', 'PBE')]
+                    + [r(S[(mats[1], f)][i] / S[(mats[0], f)][i], 3) for f in ('HSE', 'PBE')])
+    dump('FigS3_Pisarenko_SnSb_vs_SnBi', 'S_vs_p_300K.csv',
+         ['p_cm-3'] + [f'S_{m}_{f}_uV/K' for m in mats for f in ('HSE_estimate', 'PBE_BoltzTraP2')] + ['ratio_Bi/Sb_HSE', 'ratio_Bi/Sb_PBE'], rows)
+    save(fig, out, 'FigS3_Pisarenko_SnSb_vs_SnBi')
+
+
 def main():
     global DATA
     ap = argparse.ArgumentParser(); ap.add_argument('--out', default=os.path.join(ROOT, '21_阶段报告与交接', '论文图_20261028'))
     ap.add_argument('--data'); ap.add_argument('--only', nargs='+'); a = ap.parse_args()
     DATA = a.data or os.path.join(a.out, 'source_data')
     os.makedirs(a.out, exist_ok=True); style()
-    todo = a.only or [str(i) for i in range(1, 12)] + ['S1']
+    todo = a.only or [str(i) for i in range(1, 12)] + ['S1', 'S3']
     info = {}
     for i in todo:
-        res = {'1': fig1, '2': fig2, '3': fig3, '4': fig4, '5': fig5, '6': fig6, '7': fig7, '8': fig8, '9': fig9, '10': fig10, '11': fig11, 'S1': figS1}[i](a.out)
+        res = {'1': fig1, '2': fig2, '3': fig3, '4': fig4, '5': fig5, '6': fig6, '7': fig7, '8': fig8, '9': fig9, '10': fig10, '11': fig11, 'S1': figS1, 'S3': figS3}[i](a.out)
         if res is not None: info[i] = res
     print(info); print('→', a.out, '；源数据 →', DATA)
 
