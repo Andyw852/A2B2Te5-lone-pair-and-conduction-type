@@ -7,12 +7,15 @@ c2 的高对称路径只在 k_z = 0（Γ–M）与 k_z = ½（A–L）两处穿�
   make  <材料> --out <目录> [--dk 0.015] [--nkbatch 36] [--split]
         生成 KPOINTS_OPT（及 _bNN 分批文件）与 true_path.json。每批开头放一个 c2 路径上的点作锚点，用来核对。
         所有点经过 FOCK_FCC 奇数/24 检查；落在判据边界上的点沿路径挪开 0.2 步。
-  check <目录> [--parts b01 b02 …]
+  check <目录> [--parts b01 b02 …] [--side c2_hse|c2_pbe]
         读 PROCAR_OPT：锚点与 c2 路径的差、折点处能量与 c5 极值的差，写出 true_path_eigen.csv（各带能量，相对真实价带顶）。
+        --side c2_pbe：同一路径的 PBE+SOC 计算（c7_true_path_pbe，为图 2 统一 PBE/HSE 用）。锚点对 c2_pbe 核对，
+        不比 c5（c5 是 HSE），报告本路径上的价带最高点比 PBE 路径价带顶高多少，能量相对 PBE 路径价带顶。
 
 例：
   python 10_脚本/true_valley_path.py make Sn2Bi2Te5 --out 22_能带基准_1-0/Sn2Bi2Te5/c7_true_path --split
   python 10_脚本/true_valley_path.py check 22_能带基准_1-0/Sn2Bi2Te5/c7_true_path --parts <b01 b02>
+  python 10_脚本/true_valley_path.py check 22_能带基准_1-0/Sn2Bi2Te5/c7_true_path_pbe --side c2_pbe
 """
 import argparse, csv, json, os, sys
 import numpy as np
@@ -78,16 +81,25 @@ def cmd_check(a):
     meta = json.load(open(os.path.join(a.dir, 'true_path.json'))); m, nel = meta['material'], meta['nelect']
     E, fs = c4.read_parts(a.dir, a.parts, meta)
     if E.shape[0] != meta['n_kpoints']: sys.exit(f"PROCAR 有 {E.shape[0]} 个 k 点，应为 {meta['n_kpoints']}")
-    P = c4.read_path_eigen(os.path.join(c4.mat_dir(m), 'c2_hse', 'path_eigen.txt'))
+    P = c4.read_path_eigen(os.path.join(c4.mat_dir(m), a.side, 'path_eigen.txt'))
     dev = max(abs(E[c['k_index'], nel - 5:nel + 4] - P[c['path_index'], nel - 5:nel + 4]).max() for c in meta['checks'])
     print(f'# {m}：{len(meta["checks"])} 个锚点与 c2 路径最大差 {1000 * dev:.3f} meV' + ('' if dev < 5e-4 else '  ← 超过 0.5 meV，停下检查'))
     _, _, nodes, (sig, r2) = true_nodes(m)
     k = np.array(meta['path_k_index']); top = E[k, nel - 1]; lab = {int(i): n for i, n in meta['labels'].items()}
-    for i, n in lab.items():
+    if a.side == 'c2_pbe':                                   # PBE：不比 c5（HSE 的拟合），只看本路径比 PBE 路径高多少
+        pv = float(np.nanmax(P[:, nel - 1]))
+        i0 = int(top.argmax())
+        print(f"PBE：本路径上价带最高 {top.max():.5f} eV（第 {i0} 点{('，' + lab[i0]) if i0 in lab else ''}），"
+              f"PBE 路径价带顶 {pv:.5f} eV，高 {1000 * (top.max() - pv):+.1f} meV")
+        for i, n in lab.items():
+            if n in ('Σ′', 'R₂′'): print(f"  {n}（HSE 极大的位置）处 PBE 价带 {top[i]:.5f} eV，比 PBE 路径价带顶 {1000 * (top[i] - pv):+.1f} meV")
+        meta = dict(meta, vbm=pv)                            # 下面 csv 的能量相对 PBE 路径价带顶
+    for i, n in (lab.items() if a.side == 'c2_hse' else ()):
         if n in ('Σ′', 'R₂′'):
             ref = sig if n == 'Σ′' else r2
             print(f'{n}：本路径上 {top[i]:.5f} eV，c5 极值 {ref["E"]:.5f} eV，差 {1000 * (top[i] - ref["E"]):+.2f} meV')
-    print(f"本路径上价带最高 {top.max():.5f} eV（第 {int(top.argmax())} 点），真实价带顶 {meta['vbm']:.5f} eV，差 {1000 * (top.max() - meta['vbm']):+.2f} meV")
+    if a.side == 'c2_hse':
+        print(f"本路径上价带最高 {top.max():.5f} eV（第 {int(top.argmax())} 点），真实价带顶 {meta['vbm']:.5f} eV，差 {1000 * (top.max() - meta['vbm']):+.2f} meV")
     with open(os.path.join(a.dir, 'true_path_eigen.csv'), 'w', newline='', encoding='utf-8-sig') as f:
         w = csv.writer(f); bands = range(nel - 8, nel + 6)
         w.writerow(['i', 'x_invA', 'label', 'k1', 'k2', 'k3'] + [f'band_{b + 1}' for b in bands] + ['cation_s_topVB'])
@@ -95,7 +107,7 @@ def cmd_check(a):
         for j, (ki, xx) in enumerate(zip(k, meta['x_invA'])):
             w.writerow([j, round(xx, 5), lab.get(j, '')] + [round(v, 6) for v in K[ki]] + [round(E[ki, b] - meta['vbm'], 5) for b in bands]
                        + [round(100 * fs[ki, nel - 1], 2)])
-    print(f"# 写出 {os.path.join(a.dir, 'true_path_eigen.csv')}（能量相对真实价带顶，eV）")
+    print(f"# 写出 {os.path.join(a.dir, 'true_path_eigen.csv')}（能量相对{'真实价带顶' if a.side == 'c2_hse' else ' PBE 路径价带顶'}，eV）")
 
 
 def main():
@@ -103,6 +115,7 @@ def main():
     s = sp.add_parser('make'); s.add_argument('material'); s.add_argument('--out', required=True)
     s.add_argument('--dk', type=float, default=0.015); s.add_argument('--nkbatch', type=int, default=36); s.add_argument('--split', action='store_true')
     s = sp.add_parser('check'); s.add_argument('dir'); s.add_argument('--parts', nargs='*')
+    s.add_argument('--side', default='c2_hse', choices=('c2_hse', 'c2_pbe'))
     a = ap.parse_args(); {'make': cmd_make, 'check': cmd_check}[a.cmd](a)
 
 
