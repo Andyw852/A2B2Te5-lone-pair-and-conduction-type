@@ -429,8 +429,8 @@ def fig3(out):
                 if i == 0: continue
                 tk.append(X0 + tp['x'][i]); tl.append(MATH.get(nm, nm))
                 if nm != 'L': ax.axvline(X0 + tp['x'][i], color=GRID, lw=0.5, zorder=0)
-                if nm in ('Σ′', 'R₂′'):
-                    ax.plot(X0 + tp['x'][i], tp['E'][i, nel - 1] + 0.035, 'v', ms=3.2, mfc='white', mec='k', mew=0.7, zorder=4)
+                if nm in ('Σ′', 'R₂′'):                          # 真实极大：与路径上的谷同样用 ▼ 加名称
+                    vmark(ax, X0 + tp['x'][i], tp['E'][i, nel - 1], nm)
             ax.set_xticks(tk, tl); ax.set_xlim(x[0], xe)
             ax.text((X0 + xe) / 2, -0.485, f'off path\n(k ×{TP_XSCALE:g})', ha='center', va='bottom', fontsize=5.6, linespacing=1.0,
                     color='#444444', bbox=dict(fc='#F1EEF7', ec='none', pad=0.5))
