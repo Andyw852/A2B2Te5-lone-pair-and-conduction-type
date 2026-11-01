@@ -1,0 +1,5 @@
+# Sn2Sb2Te5 c7_true_path_pbe（PBE+SOC）
+energy(sigma->0)     -37.98358988
+E-fermi              6.8079
+EDIFF reached        1
+General timing       1

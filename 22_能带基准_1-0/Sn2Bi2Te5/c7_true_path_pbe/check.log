@@ -1,0 +1,5 @@
+# Sn2Bi2Te5：2 个锚点与 c2 路径最大差 0.048 meV
+PBE：本路径上价带最高 6.49572 eV（第 21 点），PBE 路径价带顶 6.45380 eV，高 +41.9 meV
+  Σ′（HSE 极大的位置）处 PBE 价带 6.49332 eV，比 PBE 路径价带顶 +39.5 meV
+  R₂′（HSE 极大的位置）处 PBE 价带 6.47513 eV，比 PBE 路径价带顶 +21.3 meV
+# 写出 22_能带基准_1-0/Sn2Bi2Te5/c7_true_path_pbe/true_path_eigen.csv（能量相对 PBE 路径价带顶，eV）
