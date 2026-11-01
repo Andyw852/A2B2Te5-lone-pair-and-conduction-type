@@ -1345,44 +1345,51 @@ def figS1(out):
     save(fig, out, 'FigS1_mirror_plane_maps')
 
 
+def bt2_signed(m, sign):
+    """BoltzTraP2（PBE+SOC，全区，CRTA，面内）的 S(N, T)：sign = +1 空穴、−1 电子，N 取绝对值的对数插值，T 方向二次插值。"""
+    d = json.load(open(os.path.join(ROOT, 'A2B2Te5_SOC_dense', 'materials', m, 'ke-dft-cpu', 'result', 'step8.1_boltztrap', 'boltztrap_crta.json')))
+    T = np.array(d['temperatures_K']); c = np.array(d['carrier_conc_cm-3'])
+    S = (np.array(d['seebeck_xx_V_per_K']) + np.array(d['seebeck_yy_V_per_K'])) / 2 * 1e6
+
+    def f(N, t):
+        v = []
+        for it in range(len(T)):
+            ok = sign * c[it] > 0; x = np.log10(sign * c[it][ok]); o = np.argsort(x)
+            v.append(np.interp(np.log10(abs(N)), x[o], S[it][ok][o]))
+        return np.polyval(np.polyfit(T, v, 2), t)
+    return f
+
+
 def seebeck_vs_p(axs):
-    """图 8(c)(d)：p 型 S 随空穴浓度（300 K，面内）。HSE 估计 = BoltzTraP2 × 模型 HSE/PBE 比值（与 (a)、图 9 相同的做法，
-    这里 BoltzTraP2 取插值，3×10¹⁹ 处与 (a) 的柱子差 1–3 μV/K）。(d) 为 Sn₂Bi₂Te₅ / Sn₂Sb₂Te₅，与实验之比对照。"""
-    ps = np.logspace(19, np.log10(1.5e21), 45); T = 300; S = {}; rows = []; pfit = []
-    for m in MATS:
-        b = bt2(m); gh, gp = model(m, 'c2_hse'), model(m, 'c2_pbe')
-        hse = lambda p, t, b=b, gh=gh, gp=gp: b(p, t) * gh(p, t) / gp(p, t)
-        S[(m, 'HSE')] = np.array([hse(p, T) for p in ps]); S[(m, 'PBE')] = np.array([b(p, T) for p in ps])
-        if m.startswith('Sn'): pfit.append(solve_log(hse, EXP[m], 20, 21.8))       # 与图 9 相同：HSE 能带下反推的样品浓度
-    ax = axs[0]
-    for m in MATS:
-        ax.plot(ps, S[(m, 'HSE')], color=MCOL[m], lw=1.6 if m.startswith('Sn') else 1.1, label=TEX[m])
-    ax.axvline(3e19, color='#999999', lw=0.6, ls=(0, (1, 1.5)), zorder=0)
-    ax.text(3.3e19, 8, '(a)', fontsize=6.5, color='#666666', va='bottom')
-    ax.axvspan(min(pfit), max(pfit), color='#E3E3E3', lw=0, zorder=0)
-    ax.text(np.sqrt(min(pfit) * max(pfit)), 135, 'Sn\nsamples', fontsize=6.2, ha='center', va='bottom', color='#555555', linespacing=1.0)
-    ax.set_xscale('log'); ax.set_xlim(1e19, 1.5e21); ax.set_ylim(0, 320)
-    ax.set_xlabel(r'Hole concentration $p$ (cm$^{-3}$)'); ax.set_ylabel(r'$S$ (μV K$^{-1}$)')
-    ax.text(0.04, 0.97, 'p-type, 300 K, HSE06+SOC', transform=ax.transAxes, ha='left', va='top', fontsize=7)
-    ax.legend(loc='upper right', fontsize=6.3, handlelength=1.8, labelspacing=0.25, borderaxespad=0.3); panel(ax, '(c)')
-    ax = axs[1]; a_, b_ = 'Sn2Sb2Te5', 'Sn2Bi2Te5'
-    re = [y / x for (_, x), (_, y) in zip(EXP[a_], EXP[b_])]
-    ax.axhspan(min(re), max(re), color='#E8E2F2', lw=0, zorder=0)
-    ax.text(1.08e19, max(re) - 0.04, f'experiment (300–620 K): {min(re):.1f}–{max(re):.1f}', fontsize=6.3, color=MCOL[b_], va='top')
-    ax.axvspan(min(pfit), max(pfit), color='#E3E3E3', lw=0, zorder=0)
-    for f, ls, lw in (('HSE', '-', 1.6), ('PBE', DASH, 1.0)):
-        ax.plot(ps, S[(b_, f)] / S[(a_, f)], color='k', ls=ls, lw=lw, label=f'{f} bands')
-    ax.axhline(1, color='k', lw=0.5, ls=':')
-    ax.axvline(3e19, color='#999999', lw=0.6, ls=(0, (1, 1.5)), zorder=0)
-    ax.set_xscale('log'); ax.set_xlim(1e19, 1.5e21); ax.set_ylim(0.6, 2.6)
-    ax.set_xlabel(r'Hole concentration $p$ (cm$^{-3}$)'); ax.set_ylabel(r'$S$(Sn$_2$Bi$_2$Te$_5$) / $S$(Sn$_2$Sb$_2$Te$_5$)')
-    ax.legend(loc='lower left', fontsize=6.3, handlelength=2.2); panel(ax, '(d)')
-    for i, p in enumerate(ps):
-        rows.append([f'{p:.3e}'] + [r(S[(m, f)][i], 1) for m in MATS for f in ('HSE', 'PBE')]
-                    + [r(S[(b_, f)][i] / S[(a_, f)][i], 3) for f in ('HSE', 'PBE')])
-    dump('Fig8_Seebeck', 'S_vs_p_300K.csv',
-         ['p_cm-3'] + [f'S_{m}_{f}_uV/K' for m in MATS for f in ('HSE_estimate', 'PBE_BoltzTraP2')] + ['ratio_Sn2Bi2Te5/Sn2Sb2Te5_HSE', 'ratio_Sn2Bi2Te5/Sn2Sb2Te5_PBE'], rows)
-    dump('Fig8_Seebeck', 'Sn_samples_fitted_p_HSE.csv', ['material', 'p_cm-3'], [[m, f'{q:.3e}'] for m, q in zip(('Sn2Sb2Te5', 'Sn2Bi2Te5'), pfit)])
+    """图 8(c)(d)：四种材料 300 K 面内 S 随载流子浓度的变化（HSE 估计 = BoltzTraP2 × 模型 HSE/PBE 比值，与 (a)(b) 的做法相同，
+    BoltzTraP2 取插值，3×10¹⁹ 处与柱子差 1–3 μV/K）。多谷模型只覆盖带边附近，费米能级超出其能量范围时 S 失真（符号翻转或 |S| > 400），
+    这些点不画（只有 Pb₂Bi₂Te₅ 的 n 型在 2×10²⁰ cm⁻³ 以上）。(c) 中空心圆为两个 Sn 样品：浓度由 300 K 的实验 S 反推（与图 9 相同），故落在曲线上。"""
+    Ns = np.logspace(19, np.log10(1.5e21), 45); T = 300; rows = []; samples = []
+    for k, (sign, ax) in enumerate(zip((1, -1), axs)):
+        for m in MATS:
+            b = bt2_signed(m, sign); gh, gp = model(m, 'c2_hse'), model(m, 'c2_pbe')
+            hse = lambda N, t, b=b, gh=gh, gp=gp: b(N, t) * gh(N, t) / gp(N, t)
+            v = np.array([sign * hse(sign * N, T) for N in Ns])
+            bad = np.where((v < 0) | (v > 400))[0]; cut = bad[0] if len(bad) else len(Ns)
+            ax.plot(Ns[:cut], v[:cut], color=MCOL[m], lw=1.6 if m.startswith('Sn') else 1.1, label=TEX[m])
+            rows += [[m, 'pn'[k], f'{N:.3e}', r(x, 1) if i < cut else '', r(sign * b(sign * N, T), 1)] for i, (N, x) in enumerate(zip(Ns, v))]
+            if sign == 1 and m.startswith('Sn'):
+                q = solve_log(hse, EXP[m], 20, 21.8); samples.append([m, f'{q:.3e}', EXP[m][0][1]])
+                ax.plot(q, EXP[m][0][1], 'o', ms=4.5, mfc='white', mec=MCOL[m], mew=1.1, zorder=5)
+        ax.axvline(3e19, color='#999999', lw=0.6, ls=(0, (1, 1.5)), zorder=0)
+        ax.text(3.3e19, 8, '(a)' if sign == 1 else '(b)', fontsize=6.5, color='#666666', va='bottom')
+        ax.set_xscale('log'); ax.set_xlim(1e19, 1.5e21); ax.set_ylim(0, 320)
+        ax.set_xlabel(('Hole' if sign == 1 else 'Electron') + r' concentration (cm$^{-3}$)')
+        ax.set_ylabel(r'$S$ (μV K$^{-1}$)' if sign == 1 else r'$|S|$ (μV K$^{-1}$)')
+        ax.text(0.04, 0.97, ('p-type' if sign == 1 else 'n-type') + ', 300 K, HSE06+SOC', transform=ax.transAxes, ha='left', va='top', fontsize=7)
+        if sign == 1:
+            ax.legend(loc='upper right', fontsize=6.3, handlelength=1.8, labelspacing=0.25, borderaxespad=0.3)
+            q = [float(x[1]) for x in samples]
+            ax.annotate('Sn samples\n(exp. S, 300 K)', xy=(q[1], EXP['Sn2Bi2Te5'][0][1] + 6), xytext=(2.6e20, 130), fontsize=6.2, ha='center',
+                        color='#555555', linespacing=1.0, arrowprops=dict(arrowstyle='-', lw=0.5, color='#777777', shrinkA=1, shrinkB=2))
+        panel(ax, f'({"cd"[k]})')
+    dump('Fig8_Seebeck', 'S_vs_concentration_300K_HSE.csv', ['material', 'carrier_type', 'concentration_cm-3', '|S|_HSE_estimate_uV/K (blank: outside model range)', '|S|_PBE_BoltzTraP2_uV/K'], rows)
+    dump('Fig8_Seebeck', 'Sn_samples_fitted_p_HSE.csv', ['material', 'p_cm-3', 'S_exp_300K_uV/K'], samples)
 
 
 def main():
