@@ -1264,7 +1264,7 @@ def fit_N(f, data, how):
 
 def figS3(out):
     """附录 A：实验 S(T) 与计算。每个样品、每种能带只调一个常数——净载流子浓度，使 300–620 K 的 S(T) 与实验最接近；能带不调，
-    温度为测量温度。拟合出的浓度与室温霍尔浓度并列（fit_summary.csv）。"""
+    温度为测量温度。拟合出的浓度与室温霍尔浓度并列（fit_summary.csv）。图上只画 HSE；PBE 的拟合仍算出并写入 csv（表 A1）。"""
     Ts = np.arange(300, 641, 10)
     fig, axs = plt.subplots(2, 2, figsize=(W2, 4.9), gridspec_kw=dict(hspace=0.42, wspace=0.24))
     ylim = {'Pb2Sb2Te5': (-10, 30), 'Pb2Bi2Te5': (-175, 0), 'Sn2Sb2Te5': (0, 60), 'Sn2Bi2Te5': (0, 90)}
@@ -1276,13 +1276,13 @@ def figS3(out):
         txt = []
         for key, nm in (('P', 'PBE'), ('H', 'HSE')):
             f = meth[key]; N, rmsv = fit_N(f, data, how); v = [f(N, t) for t in Ts]; c_, ls_, lw_ = SCOL[key]
-            if rmsv <= 30: ax.plot(Ts, v, color=c_, ls=ls_, lw=1.4 if key == 'H' else 1.2, zorder=3)   # 拟合失败（均方根 > 30 µV/K）不画
+            if key == 'H' and rmsv <= 30: ax.plot(Ts, v, color=c_, ls=ls_, lw=1.4, zorder=3)   # 只画 HSE；拟合失败（均方根 > 30 µV/K）不画
             calc_rows += [[m, SNAME[key], f'{N:.3e}', int(t), r(x, 2)] for t, x in zip(Ts, v)]
             dev = [f(N, t) - S for t, S in data]
             ratio = r(abs(N) / abs(h['N']), 3) if how[0] == 'log' else ''
             fit_rows.append([m, SNAME[key], f'{N:.3e}', f'{h["N"]:.3e}', 'yes' if h['flagged'] else 'no', ratio, r(rmsv, 1), r(max(dev, key=abs), 1)])
             kind = ('$p$' if N > 0 else '$n$') if how[0] == 'log' else ('$p-n$')
-            txt.append((c_, f'{nm}: no single concentration fits (rms {rmsv:.0f} μV K$^{{-1}}$)' if rmsv > 30 else
+            if key == 'H': txt.append((c_, f'{nm}: no single concentration fits (rms {rmsv:.0f} μV K$^{{-1}}$)' if rmsv > 30 else
                         f'{nm}: {kind} = {"+" if (how[0] == "lin" and N > 0) else ""}{"−" if (how[0] == "lin" and N < 0) else ""}{sci(abs(N))}, rms {rmsv:.1f}'))
         if m == 'Pb2Sb2Te5': ax.axhline(0, color='k', lw=0.5, ls=':')
         ax.set_xlim(280, 640); ax.set_ylim(*ylim[m])
@@ -1290,15 +1290,14 @@ def figS3(out):
         y0 = 0.95
         for k, (c_, t_) in enumerate(txt):
             ax.text(0.04, y0 - 0.085 * k, t_, transform=ax.transAxes, ha='left', va='top', fontsize=6.5, color=c_)
-        ax.text(0.04, y0 - 0.085 * 2, f'Hall: {sci(abs(h["N"]))}' + (' (flagged)' if h['flagged'] else ''), transform=ax.transAxes,
+        ax.text(0.04, y0 - 0.085 * len(txt), f'Hall: {sci(abs(h["N"]))}' + (' (flagged)' if h['flagged'] else ''), transform=ax.transAxes,
                 ha='left', va='top', fontsize=6.5, color='#555555')
         panel(ax, f'({"abcd"[n]})')
     for ax in axs[:, 0]: ax.set_ylabel(r'$S$ (μV K$^{-1}$)')
     for ax in axs[1]: ax.set_xlabel('$T$ (K)')
-    hh = [plt.Line2D([], [], ls='', marker='o', ms=4.5, mfc='white', mec='k', mew=0.9), plt.Line2D([], [], color=C_HSE, lw=1.4),
-          plt.Line2D([], [], color=C_PBE, ls=DASH, lw=1.2)]
-    fig.legend(hh, ['Experiment', 'HSE06+SOC (fitted carrier concentration)', 'PBE+SOC (fitted carrier concentration)'],
-               loc='lower center', ncol=3, bbox_to_anchor=(0.5, 0.935), columnspacing=1.4, handlelength=1.8)
+    hh = [plt.Line2D([], [], ls='', marker='o', ms=4.5, mfc='white', mec='k', mew=0.9), plt.Line2D([], [], color=C_HSE, lw=1.4)]
+    fig.legend(hh, ['Experiment', 'HSE06+SOC (fitted carrier concentration)'],
+               loc='lower center', ncol=2, bbox_to_anchor=(0.5, 0.935), columnspacing=1.4, handlelength=1.8)
     dump('FigS3_S_vs_T', 'experiment_T_sigma_S.csv', ['material', 'T_K', 'sigma_exp_S/m', 'S_exp_uV/K'], exp_rows)
     dump('FigS3_S_vs_T', 'hall_room_temperature.csv', ['material', 'carrier_conc_signed_cm-3 (+ holes, - electrons)', 'Hall_mobility_cm2/Vs', 'flagged_by_instrument'],
          [[m, f'{h["N"]:.3e}', h['mu'], 'yes' if h['flagged'] else 'no'] for m, h in HALL.items()])

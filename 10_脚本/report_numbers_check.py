@@ -53,6 +53,14 @@ def main():
             print(f'     {pf.SNAME[k]:28s} {f(N, d[0][0]):+7.1f} … {f(N, d[-1][0]):+7.1f}  偏差 {min(dev):+6.1f}…{max(dev):+6.1f}  '
                   f'均方根 {np.sqrt(np.mean(np.square(dev))):5.1f}  {inv}')
 
+    print('\n# 附录 A：Pb₂Sb₂Te₅ 再放开带隙（第二个参数），HSE 多谷模型，每个带隙只调净掺杂 N')
+    m = 'Pb2Sb2Te5'; d = pf.EXP[m]; how = pf.st_methods(m)[1]
+    V, g0 = mv.build(m, 'v', mv.WIN, None, 'c2_hse'); C, _ = mv.build(m, 'c', mv.WIN, side='c2_hse')
+    for g in (g0, -0.06, -0.03, 0.0, 0.02, 0.08, 0.12, 0.2, 0.3):
+        N, rmsv = pf.fit_N(lambda N, t: mv.solve(V, C, g, N, t)[0], d, how)
+        print(f'  带隙 {g * 1e3:+4.0f} meV：N = {N:+.2e}，均方根 {rmsv:5.1f}  计算 ' + ' '.join(f'{mv.solve(V, C, g, N, t)[0]:5.1f}' for t, _ in d))
+    print('  实验 ' + ' '.join(f'{S:5.1f}' for _, S in d))
+
     print('\n# 表 7：Pisarenko 有效质量（300 K，单抛物带、声学声子散射；计算值在霍尔浓度下算 S 再读 m*）')
     for m in ('Sn2Bi2Te5', 'Sn2Sb2Te5', 'Pb2Bi2Te5'):
         h = pf.HALL[m]; N = h['N']; s = 1 if N > 0 else -1; S0 = pf.EXP[m][0][1]; f = meth[(m, s)]
