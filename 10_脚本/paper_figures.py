@@ -41,6 +41,7 @@ from matplotlib.collections import LineCollection
 from matplotlib.colors import LinearSegmentedColormap, Normalize
 from matplotlib.lines import Line2D
 import spglib
+from scipy import integrate, optimize
 
 HERE = os.path.dirname(os.path.abspath(__file__)); ROOT = os.path.dirname(HERE)
 sys.path.insert(0, HERE)
@@ -1002,39 +1003,33 @@ MCOL = {'Pb2Sb2Te5': '#ABABAB', 'Pb2Bi2Te5': '#4D4D4D', 'Sn2Sb2Te5': '#A38CCB', 
 
 
 def fig8(out):
-    """300 K 的 S 随载流子浓度（Pisarenko 图）。左列 HSE 估计（BoltzTraP2 × 多谷模型 HSE/PBE 比值），右列 PBE+SOC BoltzTraP2；
-    上排 p 型、下排 n 型。圆点为样品：S 取最低温度点（约 300 K）的实验值，浓度取室温霍尔；空心为仪器标红的测量。
-    多谷模型只覆盖带边 mv.WIN 以内，超出时 S 失真（符号翻转或 |S| > 400），从第一个失效点起不画。表 6（3×10¹⁹）由 rf.hse_estimates 写出。"""
-    est = rf.hse_estimates(); T = 300; rows, samples = [], []
-    fig, A = plt.subplots(2, 2, figsize=(W2, 5.0), sharey='row', gridspec_kw=dict(wspace=0.07, hspace=0.42))
-    for i, (sign, lo, hi, top) in enumerate(((1, 1e19, 2.5e21, 255), (-1, 5e18, 2e20, 270))):   # 更高浓度时费米能级进入更深的谷，属模型外推，不画
-        Ns = np.logspace(np.log10(lo), np.log10(hi), 61)
-        meths = {m: s_methods(m, sign) for m in MATS}
-        for j, key in enumerate(('H', 'P')):
-            ax = A[i, j]
-            for m in MATS:
-                v = np.array([sign * meths[m][key](sign * N, T) for N in Ns]); ok = (v >= 0) & (v <= 400)
+    """300 K 面内 S 随载流子浓度（理论）：四种材料的 HSE 估计（BoltzTraP2 × 多谷模型 HSE/PBE 比值）；灰带为 PBE+SOC BoltzTraP2
+    四种材料的范围。(a) p 型，(b) n 型。多谷模型只覆盖带边 mv.WIN 以内，超出时 S 失真（符号翻转或 |S| > 400），从第一个失效点起不画。
+    表 6（3×10¹⁹）由 rf.hse_estimates 写出。"""
+    est = rf.hse_estimates(); T = 300; rows = []
+    fig, A = plt.subplots(1, 2, figsize=(W2, 2.75), gridspec_kw=dict(wspace=0.26))
+    for i, (ax, sign, lo, hi, top) in enumerate(zip(A, (1, -1), (1e19, 5e18), (2.5e21, 2e20), (290, 290))):
+        Ns = np.logspace(np.log10(lo), np.log10(hi), 61); pbe = []
+        for m in MATS:
+            f = s_methods(m, sign)
+            for key in ('H', 'P'):
+                v = np.array([sign * f[key](sign * N, T) for N in Ns]); ok = (v >= 0) & (v <= 400)
                 bad = np.where(~ok)[0]
                 if len(bad): ok[bad[0]:] = False
-                ax.plot(Ns, np.where(ok, v, np.nan), color=MCOL[m], lw=1.5, label=TEX[m], solid_capstyle='round')
+                if key == 'H': ax.plot(Ns, np.where(ok, v, np.nan), color=MCOL[m], lw=1.6, label=TEX[m], solid_capstyle='round', zorder=3)
+                else: pbe.append(v)
                 rows += [[m, 'pn'[i], SNAME[key], f'{N:.3e}', r(x, 1) if g else ''] for N, x, g in zip(Ns, v, ok)]
-            for m, h in HALL.items():
-                if (h['N'] > 0) != (sign > 0): continue
-                ax.plot(abs(h['N']), sign * EXP[m][0][1], 'o', ms=5.5, mfc='white' if h['flagged'] else MCOL[m], mec=MCOL[m], mew=1.4, zorder=5)
-                if j == 0:
-                    samples.append([m, 'pn'[i], f'{h["N"]:.3e}', 'yes' if h['flagged'] else 'no', r(EXP[m][0][0], 1), r(EXP[m][0][1], 2),
-                                    r(meths[m]['H'](h['N'], T), 1), r(meths[m]['P'](h['N'], T), 1)])
-            ax.set_xscale('log'); ax.set_xlim(lo, hi); ax.set_ylim(0, top)
-            ax.set_xlabel(('Hole' if sign > 0 else 'Electron') + r' concentration (cm$^{-3}$)')
-            if j == 0: ax.set_ylabel(r'$S$ (μV K$^{-1}$)' if sign > 0 else r'$|S|$ (μV K$^{-1}$)')
-            ax.set_title(f'{"p" if sign > 0 else "n"}-type, 300 K, {"HSE06+SOC (estimate)" if key == "H" else "PBE+SOC (BoltzTraP2)"}', fontsize=8, pad=4)
-            panel(ax, f'({"abcd"[2 * i + j]})')
-    A[0, 0].legend(loc='upper right', fontsize=6.5, handlelength=1.6, labelspacing=0.3)
-    hh = [plt.Line2D([], [], ls='', marker='o', ms=5.5, mfc='#777777', mec='#777777'), plt.Line2D([], [], ls='', marker='o', ms=5.5, mfc='white', mec='#777777', mew=1.4)]
-    A[0, 1].legend(hh, ['Sample (Hall)', 'Sample (Hall flagged)'], loc='upper right', fontsize=6.5, handletextpad=0.3)
+        pbe = np.array(pbe)
+        ax.fill_between(Ns, pbe.min(0), pbe.max(0), color='#D9D9D9', lw=0, zorder=1, label='PBE+SOC, all four')
+        ax.set_xscale('log'); ax.set_xlim(lo, hi); ax.set_ylim(0, top)
+        ax.set_xlabel(('Hole' if sign > 0 else 'Electron') + r' concentration (cm$^{-3}$)')
+        ax.set_ylabel(r'$S$ (μV K$^{-1}$)' if sign > 0 else r'$|S|$ (μV K$^{-1}$)')
+        ax.set_title(f'{"p" if sign > 0 else "n"}-type, 300 K', fontsize=8, pad=4)
+        ax.axvline(3e19, color='#999999', lw=0.6, ls=(0, (1, 1.5)), zorder=0)
+        panel(ax, f'({"ab"[i]})')
+    h, l = A[0].get_legend_handles_labels()
+    A[0].legend(h, l, loc='upper right', fontsize=6.5, handlelength=1.6, labelspacing=0.3)
     dump('Fig8_Seebeck', 'S_vs_concentration_300K.csv', ['material', 'carrier_type', 'bands', 'concentration_cm-3', '|S|_uV/K (blank: outside model range)'], rows)
-    dump('Fig8_Seebeck', 'samples_Hall.csv', ['material', 'carrier_type', 'Hall_conc_signed_cm-3', 'Hall_flagged', 'T_exp_K', 'S_exp_uV/K',
-                                             'S_HSE_estimate_at_Hall_conc_300K', 'S_PBE_BoltzTraP2_at_Hall_conc_300K'], samples)
     dump('Fig8_Seebeck', 'S_300K_3e19.csv', ['material', 'carrier_type', 'carrier_conc_cm-3', 'S_PBE+SOC_BoltzTraP2_uV/K', 'S_HSE06+SOC_estimate_uV/K'],
          [[m, 'pn'[k], 3e19, rf.BTP[m][k], r(est[m][k], 1)] for k in range(2) for m in MATS])
     save(fig, out, 'Fig8_Seebeck_PBE_vs_HSE')
@@ -1171,7 +1166,91 @@ def s_methods(m, sign):
 SNAME = {'H': 'HSE06+SOC', 'A': 'HSE06+SOC, acoustic phonon', 'P': 'PBE+SOC'}
 
 
+# 单抛物带（声学声子散射，λ = 0）的 Pisarenko 关系：文献中常用来由 S 与霍尔浓度读出态密度有效质量（May & Snyder；Pei 等）
+KBe = 86.17333262     # k_B/e，µV/K
+
+
+def fd(j, eta):
+    return integrate.quad(lambda x: x ** j / (1 + np.exp(x - eta)), 0, max(60.0, eta + 60.0))[0]
+
+
+def spb_S(eta):
+    return KBe * (2 * fd(1, eta) / fd(0, eta) - eta)
+
+
+def spb_n(eta, ms, T=300):
+    """cm⁻³：n = 4π(2 m* k_B T / h²)^{3/2} F_{1/2}(η)。"""
+    return 4 * np.pi * (2 * ms * 9.1093837e-31 * 1.380649e-23 * T / 6.62607015e-34 ** 2) ** 1.5 * fd(0.5, eta) * 1e-6
+
+
+def spb_mass(S, n, T=300):
+    """由 |S|（µV/K）与浓度（cm⁻³）反推单抛物带态密度有效质量（m_e）。"""
+    eta = optimize.brentq(lambda x: spb_S(x) - abs(S), -15, 60)
+    return (abs(n) / spb_n(eta, 1.0, T)) ** (2 / 3)
+
+
+SPB_ETA = np.linspace(-3, 40, 120)
+SPB_CURVE = [(spb_S(e), e) for e in SPB_ETA]
+
+
 def fig9(out):
+    """与实验对照（文献常用的 Pisarenko 图）：300 K 的 S 对室温霍尔浓度。每个面板两条单抛物带（声学声子散射）参考线：
+    点线为 HSE 下 Γ 单谷的态密度质量，灰实线穿过实验点（即由该点读出的 m*）。彩色为样品所属材料的计算（实线 HSE 估计，虚线 PBE+SOC
+    BoltzTraP2）；圆点为样品，空心为霍尔被仪器标红。(a) p 型：两个 Sn 样品（Pb₂Sb₂Te₅ 为补偿体系，单一载流子的关系不适用，见附录图 S3）；
+    (b) n 型：Pb₂Bi₂Te₅。"""
+    T = 300; rows, lines, samples = [], [], []
+    fig, A = plt.subplots(1, 2, figsize=(W2, 2.9), gridspec_kw=dict(wspace=0.26))
+    spec = ((A[0], 1, 1e19, 3e21, ('Sn2Bi2Te5', 'Sn2Sb2Te5'), 0.14, r'Sn$_2$Sb$_2$Te$_5$ $\Gamma$ valley (HSE)'),
+            (A[1], -1, 5e18, 3e20, ('Pb2Bi2Te5',), 0.23, r'Pb$_2$Bi$_2$Te$_5$ $\Gamma$ valley (HSE)'))
+    ss = np.array([S for S, _ in SPB_CURVE])
+    for i, (ax, sign, lo, hi, mats, m_single, single) in enumerate(spec):
+        Ns = np.logspace(np.log10(lo), np.log10(hi), 61); hs = []
+        for m in mats:
+            f = s_methods(m, sign)
+            for key, ls in (('H', '-'), ('P', DASH)):
+                v = np.array([sign * f[key](sign * N, T) for N in Ns]); ok = (v >= 0) & (v <= 400)
+                bad = np.where(~ok)[0]
+                if len(bad): ok[bad[0]:] = False
+                ax.plot(Ns, np.where(ok, v, np.nan), color=MCOL[m], lw=1.5 if key == 'H' else 1.2, ls=ls, zorder=3)
+                rows += [[m, 'pn'[i], SNAME[key], f'{N:.3e}', r(x, 1) if g else ''] for N, x, g in zip(Ns, v, ok)]
+            h = HALL[m]; S0 = abs(EXP[m][0][1]); n0 = abs(h['N']); ms_exp = spb_mass(S0, n0, T)
+            ms_h, ms_p = (spb_mass(abs(f[k](h['N'], T)), n0, T) for k in ('H', 'P'))
+            hs.append(ax.plot(n0, S0, 'o', ms=6, mfc='white' if h['flagged'] else MCOL[m], mec=MCOL[m], mew=1.4, zorder=5,
+                              label=f'{TEX[m]}: $m^*$ = {ms_exp:.2f} $m_e$' + (' (Hall flagged)' if h['flagged'] else ''))[0])
+            samples.append([m, 'pn'[i], f'{h["N"]:.3e}', 'yes' if h['flagged'] else 'no', r(EXP[m][0][1], 2), r(ms_exp, 3),
+                            r(f['H'](h['N'], T), 1), r(ms_h, 3), r(f['P'](h['N'], T), 1), r(ms_p, 3)])
+        m_ref = float(samples[-len(mats)][5])                     # 参考线穿过第一个（霍尔正常的）样品
+        for ms, ls, lab, ylab in ((m_single, (0, (1.2, 1.2)), f'{single}: {m_single:.2f} $m_e$', 0.5),
+                                  (m_ref, '-', f'$m^*$ = {m_ref:.2f} $m_e$', 0.62)):
+            ns = np.array([spb_n(e, ms, T) for e in SPB_ETA]); ok = (ns >= lo) & (ns <= hi)
+            ax.plot(ns[ok], ss[ok], color='#8C8C8C', lw=0.8, ls=ls, zorder=2)
+            lines += [[('p', 'n')[i], r(ms, 3), f'{n_:.3e}', r(S_, 2)] for n_, S_ in zip(ns, ss)]
+            if ls == '-':                                          # 实验质量线：标在 S = 0.62 × 250 处
+                j = int(np.argmin(abs(ss - ylab * 250)))
+                ax.text(ns[j] * 1.12, ylab * 250, lab, fontsize=6.3, color='#6E6E6E', ha='left', va='bottom', clip_on=True,
+                        bbox=dict(boxstyle='square,pad=0.1', fc='white', ec='none', alpha=0.85))
+            else:                                                  # Γ 单谷线：标在左下角空白处，分两行
+                ax.text(lo * 1.12, 4, f'{single}\n{ms:.2f} $m_e$ (dotted)', fontsize=6.3, color='#6E6E6E', ha='left', va='bottom',
+                        bbox=dict(boxstyle='square,pad=0.1', fc='white', ec='none', alpha=0.85), zorder=4)
+        ax.set_xscale('log'); ax.set_xlim(lo, hi); ax.set_ylim(0, 250)
+        ax.set_xlabel(('Hall hole' if sign > 0 else 'Hall electron') + r' concentration (cm$^{-3}$)')
+        ax.set_ylabel(r'$S$ (μV K$^{-1}$)' if sign > 0 else r'$|S|$ (μV K$^{-1}$)')
+        ax.set_title(f'{"p" if sign > 0 else "n"}-type, 300 K', fontsize=8, pad=4)
+        ax.legend(handles=hs, loc='upper right', fontsize=6.5, handletextpad=0.3, borderaxespad=0.4)
+        panel(ax, f'({"ab"[i]})')
+    hh = [plt.Line2D([], [], color='#555555', lw=1.5), plt.Line2D([], [], color='#555555', lw=1.2, ls=DASH),
+          plt.Line2D([], [], color='#8C8C8C', lw=0.8)]
+    fig.legend(hh, ['HSE06+SOC (estimate)', 'PBE+SOC (BoltzTraP2)', 'Single parabolic band (acoustic phonons)'],
+               loc='lower center', ncol=3, bbox_to_anchor=(0.5, 0.93), columnspacing=1.4, handlelength=1.8)
+    dump('Fig9_Pisarenko', 'calculated_S_vs_concentration_300K.csv', ['material', 'carrier_type', 'bands', 'concentration_cm-3', '|S|_uV/K (blank: outside model range)'], rows)
+    dump('Fig9_Pisarenko', 'single_parabolic_band_lines.csv', ['carrier_type', 'm_DOS_me', 'concentration_cm-3', '|S|_uV/K'], lines)
+    dump('Fig9_Pisarenko', 'samples_Pisarenko_mass.csv', ['material', 'carrier_type', 'Hall_conc_signed_cm-3', 'Hall_flagged', 'S_exp_300K_uV/K', 'm_DOS_exp_SPB_me',
+                                                        'S_HSE_at_Hall_conc', 'm_DOS_HSE_SPB_me', 'S_PBE_at_Hall_conc', 'm_DOS_PBE_SPB_me'], samples)
+    save(fig, out, 'Fig9_Pisarenko_experiment')
+    return samples
+
+
+def figS3(out):
     """实验 S(T) 与计算：载流子浓度取室温霍尔，没有可调参数。另给“由约 300 K 的实验 S 反推的浓度 ÷ 霍尔值”作对照（fit_summary.csv）。"""
     Ts = np.arange(300, 641, 10)
     fig, axs = plt.subplots(2, 2, figsize=(W2, 4.9), gridspec_kw=dict(hspace=0.42, wspace=0.24))
@@ -1204,14 +1283,14 @@ def fig9(out):
           plt.Line2D([], [], color=C_ADP, lw=0.9), plt.Line2D([], [], color=C_PBE, ls=DASH, lw=1.1)]
     fig.legend(hh, ['Experiment', 'HSE06+SOC, constant $\\tau$', 'HSE06+SOC, acoustic-phonon $\\tau$', 'PBE+SOC, constant $\\tau$'],
                loc='lower center', ncol=4, bbox_to_anchor=(0.5, 0.935), columnspacing=1.2, handlelength=1.8)
-    dump('Fig9_S_vs_T', 'experiment_T_sigma_S.csv', ['material', 'T_K', 'sigma_exp_S/m', 'S_exp_uV/K'], exp_rows)
-    dump('Fig9_S_vs_T', 'hall_room_temperature.csv', ['material', 'carrier_conc_signed_cm-3 (+ holes, - electrons)', 'Hall_mobility_cm2/Vs', 'flagged_by_instrument'],
+    dump('FigS3_S_vs_T', 'experiment_T_sigma_S.csv', ['material', 'T_K', 'sigma_exp_S/m', 'S_exp_uV/K'], exp_rows)
+    dump('FigS3_S_vs_T', 'hall_room_temperature.csv', ['material', 'carrier_conc_signed_cm-3 (+ holes, - electrons)', 'Hall_mobility_cm2/Vs', 'flagged_by_instrument'],
          [[m, f'{h["N"]:.3e}', h['mu'], 'yes' if h['flagged'] else 'no'] for m, h in HALL.items()])
-    dump('Fig9_S_vs_T', 'calculated_S_T.csv', ['material', 'bands', 'carrier_conc_Hall_cm-3', 'T_K', 'S_calc_uV/K'], calc_rows)
-    dump('Fig9_S_vs_T', 'fit_summary.csv', ['material', 'bands', 'carrier_conc_Hall_cm-3', 'Hall_flagged', 'S_calc_lowest_T_uV/K', 'S_exp_lowest_T_uV/K',
+    dump('FigS3_S_vs_T', 'calculated_S_T.csv', ['material', 'bands', 'carrier_conc_Hall_cm-3', 'T_K', 'S_calc_uV/K'], calc_rows)
+    dump('FigS3_S_vs_T', 'fit_summary.csv', ['material', 'bands', 'carrier_conc_Hall_cm-3', 'Hall_flagged', 'S_calc_lowest_T_uV/K', 'S_exp_lowest_T_uV/K',
                                              'rms_deviation_calc-exp_uV/K', 'max_deviation_calc-exp_uV/K',
                                              'conc_from_S_at_lowest_T_cm-3 (comparison only)', 'that_over_Hall'], fit_rows)
-    save(fig, out, 'Fig9_S_vs_T_experiment')
+    save(fig, out, 'FigS3_S_vs_T_Hall')
     return {f'{a}|{b}': (g, x) for a, b, _, _, _, _, g, _, _, x in fit_rows}
 
 
@@ -1387,10 +1466,10 @@ def main():
     ap.add_argument('--data'); ap.add_argument('--only', nargs='+'); a = ap.parse_args()
     DATA = a.data or os.path.join(a.out, 'source_data')
     os.makedirs(a.out, exist_ok=True); style()
-    todo = a.only or [str(i) for i in range(1, 12)] + ['S1']
+    todo = a.only or [str(i) for i in range(1, 12)] + ['S1', 'S3']
     info = {}
     for i in todo:
-        res = {'1': fig1, '2': fig2, '3': fig3, '4': fig4, '5': fig5, '6': fig6, '7': fig7, '8': fig8, '9': fig9, '10': fig10, '11': fig11, 'S1': figS1}[i](a.out)
+        res = {'1': fig1, '2': fig2, '3': fig3, '4': fig4, '5': fig5, '6': fig6, '7': fig7, '8': fig8, '9': fig9, '10': fig10, '11': fig11, 'S1': figS1, 'S3': figS3}[i](a.out)
         if res is not None: info[i] = res
     print(info); print('→', a.out, '；源数据 →', DATA)
 

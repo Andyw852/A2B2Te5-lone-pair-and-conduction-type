@@ -41,7 +41,7 @@ def main():
     for k in ('H', 'P'):
         print(f'  {abs(Nn):.2e} {pf.SNAME[k]:10s}: ' + '  '.join(f'{m} {-meth[(m, -1)][k](Nn, T):6.1f}' for m in pf.MATS))
 
-    print('\n# 样品：霍尔浓度下的 S、偏差、反推浓度（同 Fig9_S_vs_T/fit_summary.csv）')
+    print('\n# 附录 A：霍尔浓度下的 S、偏差、反推浓度（同 FigS3_S_vs_T/fit_summary.csv）')
     for m in pf.MATS:
         h = pf.HALL[m]; N = h['N']; s = 1 if N > 0 else -1; d = pf.EXP[m]
         lo, hi = (17.5, 20.5) if s < 0 else (19, 21.8)
@@ -52,6 +52,14 @@ def main():
             except ValueError: inv = '反推无解'
             print(f'     {pf.SNAME[k]:28s} {f(N, d[0][0]):+7.1f} … {f(N, d[-1][0]):+7.1f}  偏差 {min(dev):+6.1f}…{max(dev):+6.1f}  '
                   f'均方根 {np.sqrt(np.mean(np.square(dev))):5.1f}  {inv}')
+
+    print('\n# 表 7：Pisarenko 有效质量（300 K，单抛物带、声学声子散射；计算值在霍尔浓度下算 S 再读 m*）')
+    for m in ('Sn2Bi2Te5', 'Sn2Sb2Te5', 'Pb2Bi2Te5'):
+        h = pf.HALL[m]; N = h['N']; s = 1 if N > 0 else -1; S0 = pf.EXP[m][0][1]; f = meth[(m, s)]
+        sh, sp = f['H'](N, T), f['P'](N, T)
+        print(f'  {m}: 实验 S {S0:+.1f} → m* {pf.spb_mass(S0, N):.2f}；HSE {sh:+.1f} → {pf.spb_mass(sh, N):.2f}；PBE {sp:+.1f} → {pf.spb_mass(sp, N):.2f}')
+    print('  参照：Γ 单谷 HSE 态密度质量 Sn₂Sb₂Te₅ 价带 (0.077·0.080·0.460)^⅓ = %.3f，Pb₂Bi₂Te₅ 导带 (0.082·0.084·1.822)^⅓ = %.3f'
+          % ((0.077 * 0.080 * 0.460) ** (1 / 3), (0.082 * 0.084 * 1.822) ** (1 / 3)))
 
     print('\n# Sn 两个样品之比（约 300 K）')
     ex = pf.EXP['Sn2Bi2Te5'][0][1] / pf.EXP['Sn2Sb2Te5'][0][1]

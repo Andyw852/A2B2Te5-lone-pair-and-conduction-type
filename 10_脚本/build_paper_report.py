@@ -85,12 +85,14 @@ data/                  每幅图的源数据，即图中画出的数值，目录
                               分数坐标、笛卡尔坐标、所在面、能量、等价口袋数）；四种材料的价带能级（levels_HSE.csv）与谷间能量差（HSE06+SOC）
                               ΔE = E(最高的孤对电子谷) − E(Γ–A 轴上最高价带态)（valley_offset_HSE.csv）；Sn 系的孤对电子谷为镜面内三维搜索的真实极大
   Fig7_lone_pair_valley/      最高孤对电子价带谷相对价带顶的能量（meV）、所在 k 点与成分
-  Fig8_Seebeck/               300 K 的面内 S 随载流子浓度（PBE+SOC BoltzTraP2 与 HSE 估计，S_vs_concentration_300K.csv）；
-                              样品的霍尔浓度、实验 S 与该浓度下的计算值（samples_Hall.csv）；3×10^19 cm^-3 的 S（表 6）；表 6 的逐谷电导份额
+  Fig8_Seebeck/               四种材料 300 K 的面内 S 随载流子浓度（HSE 估计与 PBE+SOC BoltzTraP2，S_vs_concentration_300K.csv）；
+                              3×10^19 cm^-3 的 S（表 6）；表 6 的逐谷电导份额
                               （valley_conductivity_shares.csv：每个谷的位置、离带边能量、阳离子 s 成分、份额；lone_pair_share_summary.csv：汇总）
                               lone_pair_share_vs_concentration.csv：孤对电子谷份额随空穴浓度的变化；
                               Sn2Bi2Te5_c3_valley_check.csv：SnBi 价带谷 c3 拟合的梯度、主质量、驻点位移与是否采用
-  Fig9_S_vs_T/                四个样品的实验 T、σ（S/m）、S 与室温霍尔；霍尔浓度下的计算 S(T)（HSE 与 PBE 能带）；偏差与反推浓度对照
+  Fig9_Pisarenko/             与实验对照的 Pisarenko 图：样品材料的计算 S 随浓度、单抛物带参考线、样品的霍尔浓度与 S，
+                              以及由此读出的态密度有效质量（实验与计算同口径，samples_Pisarenko_mass.csv，即表 7）
+  FigS3_S_vs_T/               附录 A：四个样品的实验 T、σ（S/m）、S 与室温霍尔；霍尔浓度下的计算 S(T)；偏差与反推浓度对照
   Fig10_formation_energies/   12 类缺陷逐位点的中性形成能（富 Te、贫 Te），两端化学势
   Fig11_ordering/             有序化引起的形成能变化 ΔE_f = E_f(O) − E_f(D)，逐位点与中位数
   FigS2_Gamma_levels_SOC/     Γ 点能级（PBE，有、无 SOC，SnSb 与 SnBi）与 Sb → Bi 变化的标量/SOC 拆分（10_脚本/soc_mechanism.py）

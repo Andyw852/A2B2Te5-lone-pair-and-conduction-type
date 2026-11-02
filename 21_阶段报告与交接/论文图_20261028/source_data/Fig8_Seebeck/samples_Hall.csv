@@ -1,5 +1,0 @@
-﻿material,carrier_type,Hall_conc_signed_cm-3,Hall_flagged,T_exp_K,S_exp_uV/K,S_HSE_estimate_at_Hall_conc_300K,S_PBE_BoltzTraP2_at_Hall_conc_300K
-Pb2Sb2Te5,p,1.040e+21,yes,301.6,5.52,16.5,25.9
-Sn2Bi2Te5,p,9.070e+20,no,301.1,29.29,25.3,37.9
-Sn2Sb2Te5,p,1.720e+21,yes,300.8,15.85,16.7,21.5
-Pb2Bi2Te5,n,-8.110e+19,no,301.8,-89.54,-19.9,-89.9
