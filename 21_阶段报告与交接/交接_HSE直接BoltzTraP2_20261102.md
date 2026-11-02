@@ -14,47 +14,62 @@
 
   原因：模型是椭球谷近似，只取一条价带、一条导带。约 10²¹ cm⁻³ 时费米能级深入带内 400–500 meV，这些近似都不成立。样品浓度是 8×10¹⁹–1.7×10²¹ cm⁻³，正好落在这个范围里。
 - 已有的全区 HSE 数据，就是 1-0 基准的 HSE06+SOC 自洽计算：Γ 中心 12×12×2 网格，38 个不可约点，四种材料都有。文献的常规做法是用 BoltzTraP2 直接插值这些 HSE 本征值，不加剪刀修正。
+- 与实验的对照，用户已确定（2026-11-02）：在室温霍尔浓度下直接算 S(T)，不调任何参数。
 
-## 要跑的作业（4 种材料 × 2）
+## 输入（集群上的 8 个作业目录，都是同一 12×12×2 网格）
 
-| 材料 | HSE06+SOC（主结果） | PBE+SOC 同网格（检验网格够不够） |
-|---|---|---|
-| Pb₂Sb₂Te₅ | clus_xa `~/autozt_work/1_0/Pb2Sb2Te5/c1_scf/`（vasprun.xml 14 MB） | jzzn `~/ke_1_0_bandgap/Pb2Sb2Te5/b_pbe_parity2/` |
-| Pb₂Bi₂Te₅ | hanhai 1-0 的 `c_hse_A`（作业 306976） | 1-0 的 `a_pbe`（作业 305553–305555 之一） |
-| Sn₂Sb₂Te₅ | hanhai `c_hse_A`（作业 306978） | `a_pbe` |
-| Sn₂Bi₂Te₅ | hanhai `c_hse_A`（作业 307002） | `a_pbe` |
+| 材料 | HSE06+SOC（主结果） | PBE+SOC 同网格（检验网格够不够） | NELECT |
+|---|---|---|---|
+| Pb₂Sb₂Te₅ | clus_xa `~/autozt_work/1_0/Pb2Sb2Te5/c1_scf/`（vasprun.xml 14 MB） | jzzn `~/ke_1_0_bandgap/Pb2Sb2Te5/b_pbe_parity2/` | 68 |
+| Pb₂Bi₂Te₅ | hanhai 1-0 的 `c_hse_A`（作业 306976） | 1-0 的 `a_pbe`（作业 305553–305555 之一） | 88 |
+| Sn₂Sb₂Te₅ | hanhai `c_hse_A`（作业 306978） | `a_pbe` | 68 |
+| Sn₂Bi₂Te₅ | hanhai `c_hse_A`（作业 307002） | `a_pbe` | 88 |
 
-八个目录都是同一 12×12×2 网格。`run_boltztrap_crta` 读目录里的 vasprun.xml。如果某个目录没有 vasprun.xml、只有 EIGENVAL，告诉我，另想办法。
+每个目录先核对四项：
+- vasprun.xml 存在；
+- KPOINTS 是 Gamma 12 12 2；
+- INCAR 有 `LSORBIT = .TRUE.`；HSE 目录有 `LHFCALC = .TRUE.`，PBE 目录没有；
+- OUTCAR 已收敛。
 
-## 设置
+## 运行
 
-- 与现有密网格结果（`A2B2Te5_SOC_dense/materials/<材料>/ke-dft-cpu/result/step8.1_boltztrap/boltztrap_crta.json`）用同一函数、同一输出格式：CRTA，面内取 (xx+yy)/2，带符号载流子浓度（+ 为空穴）。
-- **HSE**：`scissor_gap_eV=None`，用 HSE 自己的带隙。
-- **PBE 同网格**：剪刀与密网格一致（`run_bt2_soc.py` 的 GAPS：PbBi 0.1141、PbSb 0.0654、SnBi 0.1366、SnSb 0.1352 eV）。这样它与密网格结果只差 k 网格。
-- **温度**：300–650 K，每 25 K（实验点在 300–620 K；密网格只算了 300、500、700 K）。
-- **插值倍数 `kmesh_mult`**：38 个点很少，密网格用的 2 不够。HSE、PBE 都跑 20 和 60 两档。300 K 下两档的 S 相差 < 5% 才算收敛，取 60 档。
-- **化学势**：`mu_window_ev=2.0`，`mu_npts` ≥ 1000，`dos_npts` 3000。要能覆盖 ±10¹⁸ 到 ±3×10²¹ cm⁻³。
+脚本 `10_脚本/run_bt2_hse_grid.py`。它不改 AutoZT，只调用 AutoZT 的 `gen_step11_boltztrap.run_boltztrap_crta`（与密网格结果同一函数），设置如下：
+- 温度 300–650 K，每 25 K；
+- 化学势 ±1.2 eV、600 点，DOS 6000 点；
+- HSE 不加剪刀；PBE 剪刀与密网格相同（PbBi 0.1141、PbSb 0.0654、SnBi 0.1366、SnSb 0.1352 eV），这样它与密网格只差 k 网格；
+- NELECT 不符时报错退出。
+
+每个目录跑三档插值倍数 `--mult 5 20 60`（38 个点很少，要看结果是否随倍数收敛），4 × 2 × 3 = 24 次。例：
+
+```
+python 10_脚本/run_bt2_hse_grid.py --autozt <AutoZT 的 step8.1 目录> --material Sn2Sb2Te5 --functional hse \
+    --run-dir <c_hse_A 目录> --mult 20 --out 22_能带基准_1-0/Sn2Sb2Te5/c1_HSE_SOC/bt2_mult20 \
+    --kcheck 22_能带基准_1-0/Sn2Sb2Te5/bt2_check_kpoints.txt
+```
+
+`--kcheck` 让脚本另外输出插值能带在检验 k 点上的能量（`bands_check.txt`）：
+- 0–203 号是 c2 的 HSE 路径；
+- Sn 系另有 c5 镜面内的两个真实价带谷。
 
 ## 结果放哪
 
 ```
-22_能带基准_1-0/<材料>/c1_HSE_SOC/bt2_mult20/boltztrap_crta.json
-22_能带基准_1-0/<材料>/c1_HSE_SOC/bt2_mult60/boltztrap_crta.json
-22_能带基准_1-0/<材料>/b_PBE_SOC/bt2_mult20/boltztrap_crta.json
-22_能带基准_1-0/<材料>/b_PBE_SOC/bt2_mult60/boltztrap_crta.json
+22_能带基准_1-0/<材料>/c1_HSE_SOC/bt2_mult{5,20,60}/{boltztrap_crta.json, bands_check.txt}
+22_能带基准_1-0/<材料>/b_PBE_SOC/bt2_mult{5,20,60}/{boltztrap_crta.json, bands_check.txt}
 ```
 
-Pb₂Sb₂Te₅ 没有材料子目录，直接放在 `22_能带基准_1-0/c1_HSE_SOC/`、`22_能带基准_1-0/b_PBE_SOC/` 下面。
+Pb₂Sb₂Te₅ 没有材料子目录，直接放在 `22_能带基准_1-0/c1_HSE_SOC/`、`22_能带基准_1-0/b_PBE_SOC/` 下。每个 JSON 约 0.5 MB。
 
-## 验收（我来做）
+## 验收（Claude 做）
 
-1. **网格够不够**：比较 PBE 12×12×2 与 PBE 28×28×7（密网格），看 300 K、p 型与 n 型、3×10¹⁹–2×10²¹ cm⁻³ 的 S。
+1. **倍数收敛**：mult 20 与 60 的 S（300 K，±10²⁰、±10²¹ cm⁻³）相差 < 5%。
+2. **网格够不够**：比较 PBE 12×12×2 与 PBE 28×28×7 密网格（`A2B2Te5_SOC_dense/.../step8.1_boltztrap/boltztrap_crta.json`），看 300 K、p 型与 n 型、3×10¹⁹–2×10²¹ cm⁻³ 的 S。
    - 相差 ≤ 10%：12×12×2 够用，HSE 结果直接进报告。
    - 相差更大：需要更密的 HSE 网格（非自洽 HSE，费时）或 Wannier 插值，另议。
-2. **价带顶是否插值出来**：价带顶在镜面内的一般位置（c4/c5 真实谷），不在网格点上。用插值后的 HSE 价带顶能量，对照直接计算的真实谷能量。如果 AutoZT 能输出插值能带（或 .bt2 文件），一并带回。
+3. **插值能带**：`bands_check.txt` 与直接计算对照。路径对 `c2_hse/path_eigen.txt`；Sn 系镜面内的真实价带谷对 c5 的结果，看插值有没有把价带顶放对。
 
 ## 之后报告怎么改
 
 - 所有 HSE 数值改为 HSE BoltzTraP2 的直接结果，删去比值法：图 8、表 6、图 9、表 7、图 S3、表 A1。
+- 图 S3 改为在室温霍尔浓度下直接计算的 S(T)，没有可调参数。表 A1 改为霍尔浓度下的计算值与偏差；“需要多少浓度才能对上”只在正文提一句作诊断。
 - 多谷模型只保留定性用途：说明哪些谷在导电（孤对电子谷的电导占比）。
-- S(T) 对照建议改为在霍尔浓度下直接计算，没有可调参数；“需要多少浓度才能对上”只作诊断。待用户确认。
