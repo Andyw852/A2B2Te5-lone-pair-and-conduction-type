@@ -1,9 +1,5 @@
 ﻿material,bands,fitted_net_carrier_conc_cm-3 (+ holes),Hall_conc_cm-3,Hall_flagged,fitted_over_Hall,rms_deviation_uV/K,max_deviation_calc-exp_uV/K
-Pb2Sb2Te5,PBE+SOC,1.887e+17,1.040e+21,yes,,100.9,-140.0
 Pb2Sb2Te5,HSE06+SOC,-1.920e+16,1.040e+21,yes,,10.7,-26.4
-Pb2Bi2Te5,PBE+SOC,-1.073e+20,-8.110e+19,no,1.323,8.6,-20.3
 Pb2Bi2Te5,HSE06+SOC,-7.935e+18,-8.110e+19,no,0.098,4.3,6.0
-Sn2Sb2Te5,PBE+SOC,2.108e+21,1.720e+21,yes,1.226,2.6,-4.0
 Sn2Sb2Te5,HSE06+SOC,1.312e+21,1.720e+21,yes,0.763,3.2,4.7
-Sn2Bi2Te5,PBE+SOC,1.077e+21,9.070e+20,no,1.187,3.3,4.9
 Sn2Bi2Te5,HSE06+SOC,6.003e+20,9.070e+20,no,0.662,3.3,5.0
