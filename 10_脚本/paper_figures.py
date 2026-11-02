@@ -10,9 +10,11 @@ Fig. 5  Sn2Sb2Te5 vs Sn2Bi2Te5: Sn-5s and B-site p (Sb 5p / Bi 6p) projections n
 Fig. 6  Valence pockets in the Brillouin zone (Sn2Sb2Te5 vs Sn2Bi2Te5) and the valence-valley offset ΔE = E(Σ) − E(Γ–A), HSE only
                                                                                same + A2B2Te5_SOC_dense/materials/<mat>/POSCAR (spglib)
 Fig. 7  Energy of the highest lone-pair valence valley, PBE vs HSE            same
-Fig. 8  Seebeck coefficient at 3e19 cm-3: PBE (BoltzTraP2) vs HSE estimate     10_脚本/multivalley_seebeck.py
-        (+ per-valley conductivity shares and cation-s character for Table 6)
-Fig. 9  S(T) of all four compounds: experiment vs calculation (HSE and PBE)    experimental S(T) from the user;
+Fig. 8  Pisarenko plots at 300 K (HSE estimate | PBE BoltzTraP2; p | n) with the samples at their Hall concentrations
+                                                                               10_脚本/multivalley_seebeck.py; boltztrap_crta.json; 21_…/实验数据/
+        (+ Table 6 at 3e19 cm-3, per-valley conductivity shares and cation-s character)
+Fig. 9  S(T) of all four samples: experiment vs calculation at the room-temperature Hall concentration (no free parameter)
+                                                                               21_阶段报告与交接/实验数据/（raw T–σ–S, Hall）;
                                                                                A2B2Te5_SOC_dense/materials/<mat>/.../boltztrap_crta.json
 Fig. 10 Neutral formation energies of 12 defect types in O and D               13_DVO缺陷_VASP流程与分析/结果_第一批/analysis/形成能_逐位点.csv
 Fig. 11 Ordering-induced change of the formation energy, O − D                  same
@@ -999,52 +1001,42 @@ def fig7(out):
 MCOL = {'Pb2Sb2Te5': '#ABABAB', 'Pb2Bi2Te5': '#4D4D4D', 'Sn2Sb2Te5': '#A38CCB', 'Sn2Bi2Te5': '#5D3A9B'}
 
 
-def sample_conc():
-    """样品所在的浓度（与图 9 相同的反推，HSE 能带）：p 型取两个 Sn 样品的几何平均，n 型取 Pb₂Bi₂Te₅ 样品。返回 (Np, Nn, 各样品浓度)。"""
-    fit = {}
-    for m in ('Sn2Sb2Te5', 'Sn2Bi2Te5'):
-        b = bt2_signed(m, 1); gh, gp = model(m, 'c2_hse'), model(m, 'c2_pbe')
-        fit[m] = solve_log(lambda p, t, b=b, gh=gh, gp=gp: b(p, t) * gh(p, t) / gp(p, t), EXP[m], 20, 21.8)
-    fit['Pb2Bi2Te5'] = solve_log(model('Pb2Bi2Te5', 'c2_hse'), EXP['Pb2Bi2Te5'], 17, 20, -1)
-    return np.sqrt(fit['Sn2Sb2Te5'] * fit['Sn2Bi2Te5']), abs(fit['Pb2Bi2Te5']), fit
-
-
 def fig8(out):
-    """(a)(b)：四种材料在样品所在的浓度下比较（p 型取两个 Sn 样品的浓度，n 型取 Pb₂Bi₂Te₅ 样品的浓度），PBE = BoltzTraP2 插值，
-    HSE = PBE × 模型 HSE/PBE 比值；空心圆为该浓度下测量的样品。(c)(d)：S 随浓度。表 6 的 3×10¹⁹ 数据仍由 rf.hse_estimates 写出。"""
-    est = rf.hse_estimates(); Np, Nn, fit = sample_conc()
-    fig, A = plt.subplots(2, 2, figsize=(W2, 5.0), gridspec_kw=dict(wspace=0.24, hspace=0.38, height_ratios=[1, 1.05]))
-    axs = A[0]; xs = np.arange(4); w = 0.36; rows = []
-    expv = {0: {'Sn2Sb2Te5': EXP['Sn2Sb2Te5'][0][1], 'Sn2Bi2Te5': EXP['Sn2Bi2Te5'][0][1]}, 1: {'Pb2Bi2Te5': -EXP['Pb2Bi2Te5'][0][1]}}
-    for k, (ax, sign, N) in enumerate(zip(axs, (1, -1), (Np, Nn))):
-        pb, hs = [], []
-        for m in MATS:
-            b = bt2_signed(m, sign); gh, gp = model(m, 'c2_hse'), model(m, 'c2_pbe')
-            v = b(sign * N, 300); pb.append(sign * v); hs.append(sign * v * gh(sign * N, 300) / gp(sign * N, 300))
-            rows.append([m, 'pn'[k], f'{N:.3e}', r(sign * v, 1), r(hs[-1], 1), expv[k].get(m, '')])
-        ax.bar(xs - w / 2, pb, w * 0.95, color=C_PBE, label='PBE+SOC (BoltzTraP2)', lw=0)
-        ax.bar(xs + w / 2, hs, w * 0.95, color=C_HSE, label='HSE06+SOC (this work)', lw=0)
-        top = max(pb + hs)
-        for i, v in enumerate(hs):
-            e = abs(expv[k].get(MATS[i], -1e9)); y = max(v, e + 0.035 * top) if abs(e - v) < 0.06 * top else v   # 数值别压在实验横线上
-            ax.text(xs[i] + w / 2, y + 0.02 * top * 1.3, f'{v:.0f}', ha='center', fontsize=6.5)
-        for m, e in expv[k].items():
-            i = MATS.index(m)                                   # 实验值：横跨整组柱子的黑色短横线
-            ax.plot([xs[i] - w - 0.04, xs[i] + w + 0.04], [abs(e)] * 2, color='k', lw=1.8, solid_capstyle='butt', zorder=5, label='Experiment (300 K)')
-        ax.set_xticks(xs, [TEX[m] for m in MATS]); ax.tick_params(axis='x', top=False)
-        ax.set_ylim(0, 1.3 * top); ax.set_ylabel(r'$|S|$ (μV K$^{-1}$)' if k else r'$S$ (μV K$^{-1}$)')
-        ex = sci(N).split(' ')[0] if False else None
-        lab = ('p-type, ' + sci(Np) + ' (Sn samples)') if k == 0 else ('n-type, ' + sci(Nn) + r' (Pb$_2$Bi$_2$Te$_5$ sample)')
-        ax.text(0.04, 0.97, lab + ', 300 K', transform=ax.transAxes, ha='left', va='top', fontsize=7)
-        panel(ax, f'({"ab"[k]})')
-    dump('Fig8_Seebeck', 'S_300K_at_sample_concentration.csv', ['material', 'carrier_type', 'concentration_cm-3', 'S_PBE+SOC_BoltzTraP2_uV/K',
-                                                               'S_HSE06+SOC_estimate_uV/K', 'S_exp_300K_uV/K (sample at this concentration)'], rows)
+    """300 K 的 S 随载流子浓度（Pisarenko 图）。左列 HSE 估计（BoltzTraP2 × 多谷模型 HSE/PBE 比值），右列 PBE+SOC BoltzTraP2；
+    上排 p 型、下排 n 型。圆点为样品：S 取最低温度点（约 300 K）的实验值，浓度取室温霍尔；空心为仪器标红的测量。
+    多谷模型只覆盖带边 mv.WIN 以内，超出时 S 失真（符号翻转或 |S| > 400），从第一个失效点起不画。表 6（3×10¹⁹）由 rf.hse_estimates 写出。"""
+    est = rf.hse_estimates(); T = 300; rows, samples = [], []
+    fig, A = plt.subplots(2, 2, figsize=(W2, 5.0), sharey='row', gridspec_kw=dict(wspace=0.07, hspace=0.42))
+    for i, (sign, lo, hi, top) in enumerate(((1, 1e19, 2.5e21, 255), (-1, 5e18, 2e20, 270))):   # 更高浓度时费米能级进入更深的谷，属模型外推，不画
+        Ns = np.logspace(np.log10(lo), np.log10(hi), 61)
+        meths = {m: s_methods(m, sign) for m in MATS}
+        for j, key in enumerate(('H', 'P')):
+            ax = A[i, j]
+            for m in MATS:
+                v = np.array([sign * meths[m][key](sign * N, T) for N in Ns]); ok = (v >= 0) & (v <= 400)
+                bad = np.where(~ok)[0]
+                if len(bad): ok[bad[0]:] = False
+                ax.plot(Ns, np.where(ok, v, np.nan), color=MCOL[m], lw=1.5, label=TEX[m], solid_capstyle='round')
+                rows += [[m, 'pn'[i], SNAME[key], f'{N:.3e}', r(x, 1) if g else ''] for N, x, g in zip(Ns, v, ok)]
+            for m, h in HALL.items():
+                if (h['N'] > 0) != (sign > 0): continue
+                ax.plot(abs(h['N']), sign * EXP[m][0][1], 'o', ms=5.5, mfc='white' if h['flagged'] else MCOL[m], mec=MCOL[m], mew=1.4, zorder=5)
+                if j == 0:
+                    samples.append([m, 'pn'[i], f'{h["N"]:.3e}', 'yes' if h['flagged'] else 'no', r(EXP[m][0][0], 1), r(EXP[m][0][1], 2),
+                                    r(meths[m]['H'](h['N'], T), 1), r(meths[m]['P'](h['N'], T), 1)])
+            ax.set_xscale('log'); ax.set_xlim(lo, hi); ax.set_ylim(0, top)
+            ax.set_xlabel(('Hole' if sign > 0 else 'Electron') + r' concentration (cm$^{-3}$)')
+            if j == 0: ax.set_ylabel(r'$S$ (μV K$^{-1}$)' if sign > 0 else r'$|S|$ (μV K$^{-1}$)')
+            ax.set_title(f'{"p" if sign > 0 else "n"}-type, 300 K, {"HSE06+SOC (estimate)" if key == "H" else "PBE+SOC (BoltzTraP2)"}', fontsize=8, pad=4)
+            panel(ax, f'({"abcd"[2 * i + j]})')
+    A[0, 0].legend(loc='upper right', fontsize=6.5, handlelength=1.6, labelspacing=0.3)
+    hh = [plt.Line2D([], [], ls='', marker='o', ms=5.5, mfc='#777777', mec='#777777'), plt.Line2D([], [], ls='', marker='o', ms=5.5, mfc='white', mec='#777777', mew=1.4)]
+    A[0, 1].legend(hh, ['Sample (Hall)', 'Sample (Hall flagged)'], loc='upper right', fontsize=6.5, handletextpad=0.3)
+    dump('Fig8_Seebeck', 'S_vs_concentration_300K.csv', ['material', 'carrier_type', 'bands', 'concentration_cm-3', '|S|_uV/K (blank: outside model range)'], rows)
+    dump('Fig8_Seebeck', 'samples_Hall.csv', ['material', 'carrier_type', 'Hall_conc_signed_cm-3', 'Hall_flagged', 'T_exp_K', 'S_exp_uV/K',
+                                             'S_HSE_estimate_at_Hall_conc_300K', 'S_PBE_BoltzTraP2_at_Hall_conc_300K'], samples)
     dump('Fig8_Seebeck', 'S_300K_3e19.csv', ['material', 'carrier_type', 'carrier_conc_cm-3', 'S_PBE+SOC_BoltzTraP2_uV/K', 'S_HSE06+SOC_estimate_uV/K'],
          [[m, 'pn'[k], 3e19, rf.BTP[m][k], r(est[m][k], 1)] for k in range(2) for m in MATS])
-    h, l = axs[0].get_legend_handles_labels(); keep = {}
-    for hh, ll in zip(h, l): keep.setdefault(ll, hh)
-    fig.legend(list(keep.values()), list(keep.keys()), loc='upper center', ncol=3, bbox_to_anchor=(0.5, 0.955), handlelength=1.2)
-    seebeck_vs_p(A[1], Np, Nn, fit)
     save(fig, out, 'Fig8_Seebeck_PBE_vs_HSE')
     valley_shares()
     return est
@@ -1067,7 +1059,7 @@ def valley_shares():
     K = kpath(); rows, summary, scan = [], [], []
     for m in MATS:
         c3 = mv.c3_usable(m)[0]
-        V, gap = mv.build(m, 'v', 300, c3); C, _ = mv.build(m, 'c', 300)
+        V, gap = mv.build(m, 'v', mv.WIN, c3); C, _ = mv.build(m, 'c', mv.WIN)
         _, Wp = cv.read_procar(os.path.join(rf.base(m), 'c2_hse', 'PROCAR_OPT.gz'))
         fs = rf.cation_s(Wp); nel = NEL[m]
         nm = {'v': knames([valley_index(v['name']) for v in V]), 'c': knames([valley_index(v['name']) for v in C])}
@@ -1115,36 +1107,36 @@ def valley_shares():
 
 
 # ------------------------------------------------------------------ Fig. 9
-# 实验 S(T)，从所给曲线图读取（µV/K）
-# 实验 S(T)（µV/K），用户提供。Pb₂Sb₂Te₅ 为原始数据（2026-10-29，见 21_阶段报告与交接/实验数据/），其余三种从所给曲线图读取
-EXP = {'Pb2Sb2Te5': [(301.58, 5.52), (319.32, 5.39), (370.16, 5.60), (418.62, 4.94), (468.56, 5.09), (519.25, 6.93), (568.17, 10.67), (619.36, 17.10)],
-       'Pb2Bi2Te5': [(302, -89), (318, -89), (368, -101), (415, -116), (463, -127), (513, -133), (562, -132), (611, -127)],
-       'Sn2Sb2Te5': [(300, 16), (320, 16), (370, 19), (418, 23), (467, 28), (518, 33), (567, 37), (618, 42)],
-       'Sn2Bi2Te5': [(302, 30), (318, 31), (368, 39), (417, 46), (466, 55), (518, 62), (567, 66), (619, 67)]}
+# 实验数据（用户提供，21_阶段报告与交接/实验数据/）：四个样品的原始 T、σ（10⁴ S/m）、S（2026-11-02），与室温霍尔
+EXPDIR = os.path.join(ROOT, '21_阶段报告与交接', '实验数据')
+
+
+def read_exp(m):
+    """T（K）、σ（S/m）、S（µV/K）。Pb₂Sb₂Te₅ 的文件表头写“单位未给出”，σ 同为 10⁴ S/m（实验数据/README.md）。"""
+    rows = list(csv.reader(open(os.path.join(EXPDIR, f'{m}_T_sigma_S.csv'), encoding='utf-8-sig')))[1:]
+    return [(float(t), float(s) * 1e4, float(S)) for t, s, S in rows]
+
+
+def read_hall():
+    """室温霍尔：N（cm⁻³，正为空穴、负为电子）、μ_H（cm²/V·s）、仪器是否把结果标红。"""
+    out = {}
+    for d in csv.DictReader(open(os.path.join(EXPDIR, '霍尔_20261102.csv'), encoding='utf-8-sig')):
+        out[d['sample']] = dict(N=(1 if d['carrier_type'] == 'P' else -1) * float(d['n_cm-3']), mu=float(d['mu_H_cm2/Vs']),
+                                flagged=d['instrument_flag'] != 'none')
+    return out
+
+
+EXP = {m: [(t, S) for t, _, S in read_exp(m)] for m in MATS}
+HALL = read_hall()
 
 
 def model(m, side, tau='crta'):
-    V, gap = mv.build(m, 'v', 300, None, side); C, _ = mv.build(m, 'c', 300, side=side)
+    V, gap = mv.build(m, 'v', mv.WIN, None, side); C, _ = mv.build(m, 'c', mv.WIN, side=side)
     return lambda N, T: mv.solve(V, C, gap, N, T, tau)[0]
 
 
 C_ADP = '#56B4E9'          # 图 9：HSE 能带 + 声学声子散射（浅蓝细线）
 SCOL = {'H': (C_HSE, '-', 1.3), 'A': (C_ADP, '-', 0.9), 'P': (C_PBE, DASH, 1.1)}
-
-
-def bt2(m):
-    """PBE+SOC BoltzTraP2（全布里渊区，CRTA，面内 xx、yy 平均）的 S(p, T)，p > 0 为空穴。只算了 300、500、700 K，T 方向二次插值。"""
-    d = json.load(open(os.path.join(ROOT, 'A2B2Te5_SOC_dense', 'materials', m, 'ke-dft-cpu', 'result', 'step8.1_boltztrap', 'boltztrap_crta.json')))
-    T = np.array(d['temperatures_K']); c = np.array(d['carrier_conc_cm-3'])
-    S = (np.array(d['seebeck_xx_V_per_K']) + np.array(d['seebeck_yy_V_per_K'])) / 2 * 1e6
-
-    def f(p, t):
-        v = []
-        for it in range(len(T)):
-            ok = c[it] > 0; o = np.argsort(c[it][ok])
-            v.append(np.interp(np.log10(p), np.log10(c[it][ok][o]), S[it][ok][o]))
-        return np.polyval(np.polyfit(T, v, 2), t)
-    return f
 
 
 def solve_N(f, target, T, lo, hi):
@@ -1169,64 +1161,59 @@ def solve_log(f, data, lo, hi, sign=1):
     return min(roots, key=lambda N: max(abs(f(N, t) - s) for t, s in data))
 
 
+def s_methods(m, sign):
+    """与图 8 同口径的三种算法，返回 S(N, T)（N 带符号，正为空穴）：'P' PBE+SOC BoltzTraP2 全区（常数弛豫时间）；
+    'H' HSE 估计 = BoltzTraP2 × 多谷模型 HSE/PBE 比值（常数弛豫时间）；'A' 同上，比值的分子换成声学声子散射。"""
+    b = bt2_signed(m, sign); gh, gp, ga = model(m, 'c2_hse'), model(m, 'c2_pbe'), model(m, 'c2_hse', 'adp')
+    return {'H': lambda N, t: b(N, t) * gh(N, t) / gp(N, t), 'A': lambda N, t: b(N, t) * ga(N, t) / gp(N, t), 'P': lambda N, t: b(N, t)}
+
+
+SNAME = {'H': 'HSE06+SOC', 'A': 'HSE06+SOC, acoustic phonon', 'P': 'PBE+SOC'}
+
+
 def fig9(out):
+    """实验 S(T) 与计算：载流子浓度取室温霍尔，没有可调参数。另给“由约 300 K 的实验 S 反推的浓度 ÷ 霍尔值”作对照（fit_summary.csv）。"""
     Ts = np.arange(300, 641, 10)
-    fig, axs = plt.subplots(2, 2, figsize=(W2, 4.9), gridspec_kw=dict(hspace=0.40, wspace=0.24))
-    titles = {'Pb2Sb2Te5': 'near-compensated', 'Pb2Bi2Te5': 'n-type', 'Sn2Sb2Te5': 'p-type', 'Sn2Bi2Te5': 'p-type'}
-    ylim = {'Pb2Sb2Te5': (-140, 30), 'Pb2Bi2Te5': (-245, -58), 'Sn2Sb2Te5': (0, 57), 'Sn2Bi2Te5': (0, 90)}
-    # 拟合出的载流子浓度标在各图空白处：(x, y, 对齐)，轴坐标
-    note = {'Pb2Sb2Te5': (0.97, 0.63, 'right'), 'Pb2Bi2Te5': (0.97, 0.93, 'right'), 'Sn2Sb2Te5': (0.04, 0.93, 'left'), 'Sn2Bi2Te5': (0.04, 0.93, 'left')}
+    fig, axs = plt.subplots(2, 2, figsize=(W2, 4.9), gridspec_kw=dict(hspace=0.42, wspace=0.24))
+    ylim = {'Pb2Sb2Te5': (0, 75), 'Pb2Bi2Te5': (-175, 0), 'Sn2Sb2Te5': (0, 62), 'Sn2Bi2Te5': (0, 92)}
     exp_rows, calc_rows, fit_rows = [], [], []
     for n, (ax, m) in enumerate(zip(axs.flat, MATS)):
-        Te, Se = zip(*EXP[m]); T0, S0 = Te[0], Se[0]
-        exp_rows += [[m, t, s] for t, s in EXP[m]]
-        curves = []
-        if m == 'Pb2Sb2Te5':        # 近补偿：用 301.6 K 的 S 定净掺杂（N 在 ±10¹⁹ 内单调，二分）；比较两种带隙
-            for side, nm, tau in (('c2_hse', 'HSE06+SOC', 'crta'), ('c2_hse', 'HSE06+SOC, acoustic phonon', 'adp'), ('c2_pbe', 'PBE+SOC', 'crta')):
-                g = model(m, side, tau); N = solve_N(g, S0, T0, -1e19, 1e19)
-                gap = mv.build(m, 'v', 300, None, side)[1]
-                tag = 'HSE, ac. ph.' if tau == 'adp' else f'{nm[:3]} ($E_g$ = {1000 * gap:.0f} meV)'
-                curves.append((nm, f'path multivalley model, {tau}', g, N, f'{tag}: $p-n$ = {"+" if N > 0 else "\u2212"}{sci(N)}'))
-        elif m == 'Pb2Bi2Te5':      # n 型：302 K 的实验值定电子浓度
-            for side, nm, tau in (('c2_hse', 'HSE06+SOC', 'crta'), ('c2_hse', 'HSE06+SOC, acoustic phonon', 'adp'), ('c2_pbe', 'PBE+SOC', 'crta')):
-                g = model(m, side, tau); N = solve_log(g, EXP[m], 17, 20, -1)
-                curves.append((nm, f'path multivalley model, {tau}', g, N, f'{"HSE, ac. ph." if tau == "adp" else nm[:3]}: $n$ = {sci(N)}'))
-        else:                       # Sn 系重掺杂 p 型：BoltzTraP2 全区；HSE = BoltzTraP2 × 模型 HSE/PBE 比值（1.7 节第 5 步）
-            b = bt2(m); gh, gp, ga = model(m, 'c2_hse'), model(m, 'c2_pbe'), model(m, 'c2_hse', 'adp')
-            hse = lambda p, t, b=b, gh=gh, gp=gp: b(p, t) * gh(p, t) / gp(p, t)
-            hsa = lambda p, t, b=b, ga=ga, gp=gp: b(p, t) * ga(p, t) / gp(p, t)          # 声学声子散射：比值换成 HSE(adp)/PBE(crta)
-            for nm, meth, g in (('HSE06+SOC', 'BoltzTraP2 (PBE) x model HSE/PBE ratio', hse),
-                                ('HSE06+SOC, acoustic phonon', 'BoltzTraP2 (PBE) x model HSE(adp)/PBE(crta) ratio', hsa),
-                                ('PBE+SOC', 'BoltzTraP2 (PBE, full BZ)', b)):
-                N = solve_log(g, EXP[m], 20, 21.8)
-                curves.append((nm, meth, g, N, f'{"HSE, ac. ph." if "acoustic" in nm else nm[:3]}: $p$ = {sci(N)}'))
-        ax.plot(Te, Se, 'o', ms=4, mfc='white', mec='k', mew=0.8, ls='', zorder=3)
-        for nm, meth, g, N, lab in curves:
-            v = [g(N, t) for t in Ts]
-            c_, ls_, lw_ = SCOL['A' if 'acoustic' in nm else nm[0]]
-            ax.plot(Ts, v, color=c_, ls=ls_, lw=lw_, zorder=2 if 'acoustic' in nm else 3)
-            calc_rows += [[m, nm, meth, f'{N:.3e}', int(t), r(s, 2)] for t, s in zip(Ts, v)]
-            dev = [g(N, t) - s for t, s in EXP[m]]
-            fit_rows.append([m, nm, meth, f'{N:.3e}', T0, S0, r(max(dev, key=abs), 1)])
-        if m == 'Pb2Sb2Te5': ax.axhline(0, color='k', lw=0.5, ls=':')
+        h = HALL[m]; N = h['N']; sign = 1 if N > 0 else -1; meth = s_methods(m, sign)
+        lo, hi = (17.5, 20.5) if sign < 0 else (19, 21.8)
+        Te, Se = zip(*EXP[m]); exp_rows += [[m, r(t, 2), r(sg, 1), r(s, 3)] for t, sg, s in read_exp(m)]
+        ax.plot(Te, Se, 'o', ms=4, mfc='white', mec='k', mew=0.8, ls='', zorder=4)
+        for key in ('A', 'P', 'H'):
+            f = meth[key]; v = [f(N, t) for t in Ts]; c_, ls_, lw_ = SCOL[key]
+            ax.plot(Ts, v, color=c_, ls=ls_, lw=lw_, zorder=2 if key == 'A' else 3)
+            calc_rows += [[m, SNAME[key], f'{N:.3e}', int(t), r(s, 2)] for t, s in zip(Ts, v)]
+            dev = [f(N, t) - s for t, s in EXP[m]]
+            try: Nf = f'{abs(solve_log(f, EXP[m], lo, hi, sign)):.3e}'; ratio = r(float(Nf) / abs(N), 2)
+            except ValueError: Nf, ratio = 'no solution', ''
+            fit_rows.append([m, SNAME[key], f'{N:.3e}', 'yes' if h['flagged'] else 'no', r(f(N, Te[0]), 1), r(Se[0], 1),
+                             r(np.sqrt(np.mean(np.square(dev))), 1), r(max(dev, key=abs), 1), Nf, ratio])
+        if sign > 0: ax.axhline(0, color='k', lw=0.5, ls=':')
         ax.set_xlim(280, 640); ax.set_ylim(*ylim[m])
-        ax.set_title(f'{TEX[m]} ({titles[m]})', fontsize=8, pad=4)
-        x0, y0, ha = note[m]
-        for k, (nm, _, _, _, lab) in enumerate(curves):
-            ax.text(x0, y0 - 0.075 * k, lab, transform=ax.transAxes, ha=ha, va='top', fontsize=6.5, color=SCOL['A' if 'acoustic' in nm else nm[0]][0])
+        ax.set_title(f'{TEX[m]} ({"n" if sign < 0 else "p"}-type)', fontsize=8, pad=4)
+        ax.text(0.04, 0.95 if sign > 0 else 0.05,
+                f'Hall: {"$p$" if sign > 0 else "$n$"} = {sci(abs(N))}' + ('\n(flagged by the instrument)' if h['flagged'] else ''),
+                transform=ax.transAxes, ha='left', va='top' if sign > 0 else 'bottom', fontsize=6.5)
         panel(ax, f'({"abcd"[n]})')
     for ax in axs[:, 0]: ax.set_ylabel(r'$S$ (μV K$^{-1}$)')
     for ax in axs[1]: ax.set_xlabel('$T$ (K)')
-    h = [plt.Line2D([], [], ls='', marker='o', ms=4, mfc='white', mec='k', mew=0.8), plt.Line2D([], [], color=C_HSE, lw=1.3),
-         plt.Line2D([], [], color=C_ADP, lw=0.9), plt.Line2D([], [], color=C_PBE, ls=DASH, lw=1.1)]
-    fig.legend(h, ['Experiment', 'HSE06+SOC, constant $\\tau$', 'HSE06+SOC, acoustic-phonon $\\tau$', 'PBE+SOC, constant $\\tau$'],
+    hh = [plt.Line2D([], [], ls='', marker='o', ms=4, mfc='white', mec='k', mew=0.8), plt.Line2D([], [], color=C_HSE, lw=1.3),
+          plt.Line2D([], [], color=C_ADP, lw=0.9), plt.Line2D([], [], color=C_PBE, ls=DASH, lw=1.1)]
+    fig.legend(hh, ['Experiment', 'HSE06+SOC, constant $\\tau$', 'HSE06+SOC, acoustic-phonon $\\tau$', 'PBE+SOC, constant $\\tau$'],
                loc='lower center', ncol=4, bbox_to_anchor=(0.5, 0.935), columnspacing=1.2, handlelength=1.8)
-    dump('Fig9_S_vs_T', 'experiment_S_T.csv', ['material', 'T_K', 'S_exp_uV/K'], exp_rows)
-    dump('Fig9_S_vs_T', 'calculated_S_T.csv', ['material', 'bands', 'method', 'net_doping_p-n_cm-3', 'T_K', 'S_calc_uV/K'], calc_rows)
-    dump('Fig9_S_vs_T', 'fit_summary.csv', ['material', 'bands', 'method', 'net_doping_p-n_cm-3', 'fit_T_K', 'fit_S_exp_uV/K',
-                                             'max_deviation_calc-exp_uV/K'], fit_rows)
+    dump('Fig9_S_vs_T', 'experiment_T_sigma_S.csv', ['material', 'T_K', 'sigma_exp_S/m', 'S_exp_uV/K'], exp_rows)
+    dump('Fig9_S_vs_T', 'hall_room_temperature.csv', ['material', 'carrier_conc_signed_cm-3 (+ holes, - electrons)', 'Hall_mobility_cm2/Vs', 'flagged_by_instrument'],
+         [[m, f'{h["N"]:.3e}', h['mu'], 'yes' if h['flagged'] else 'no'] for m, h in HALL.items()])
+    dump('Fig9_S_vs_T', 'calculated_S_T.csv', ['material', 'bands', 'carrier_conc_Hall_cm-3', 'T_K', 'S_calc_uV/K'], calc_rows)
+    dump('Fig9_S_vs_T', 'fit_summary.csv', ['material', 'bands', 'carrier_conc_Hall_cm-3', 'Hall_flagged', 'S_calc_lowest_T_uV/K', 'S_exp_lowest_T_uV/K',
+                                             'rms_deviation_calc-exp_uV/K', 'max_deviation_calc-exp_uV/K',
+                                             'conc_from_S_at_lowest_T_cm-3 (comparison only)', 'that_over_Hall'], fit_rows)
     save(fig, out, 'Fig9_S_vs_T_experiment')
-    return {f'{a}|{b}': (c, g) for a, b, _, c, _, _, g in fit_rows}
+    return {f'{a}|{b}': (g, x) for a, b, _, _, _, _, g, _, _, x in fit_rows}
+
 
 
 # ------------------------------------------------------------------ Fig. 10, 11
@@ -1394,101 +1381,16 @@ def bt2_signed(m, sign):
     return f
 
 
-def seebeck_vs_p(axs, Np, Nn, fit):
-    """图 8(c)(d)：四种材料 300 K 面内 S 随载流子浓度的变化（HSE 估计 = BoltzTraP2 × 模型 HSE/PBE 比值，与 (a)(b) 的做法相同，
-    BoltzTraP2 取插值，3×10¹⁹ 处与柱子差 1–3 μV/K）。多谷模型只覆盖带边附近，费米能级超出其能量范围时 S 失真（符号翻转或 |S| > 400），
-    这些点不画（只有 Pb₂Bi₂Te₅ 的 n 型在 2×10²⁰ cm⁻³ 以上）。(c) 中空心圆为两个 Sn 样品：浓度由 300 K 的实验 S 反推（与图 9 相同），故落在曲线上。"""
-    T = 300; rows = []; samples = []
-    for k, (sign, ax) in enumerate(zip((1, -1), axs)):
-        lo = 1e19 if sign == 1 else 5e18; Ns = np.logspace(np.log10(lo), np.log10(1.5e21), 48)
-        for m in MATS:
-            b = bt2_signed(m, sign); gh, gp = model(m, 'c2_hse'), model(m, 'c2_pbe')
-            hse = lambda N, t, b=b, gh=gh, gp=gp: b(N, t) * gh(N, t) / gp(N, t)
-            v = np.array([sign * hse(sign * N, T) for N in Ns])
-            ok = (v >= 0) & (v <= 400)
-            bad = np.where(~ok)[0]
-            if len(bad): ok[bad[0]:] = False         # 第一个失效点以后全部不画（Pb₂Bi₂Te₅ 的 n 型之后会跳回 +250 一类的无意义值）
-            ax.plot(Ns, np.where(ok, v, np.nan), color=MCOL[m], lw=1.6, label=TEX[m], solid_capstyle='round')
-            rows += [[m, 'pn'[k], f'{N:.3e}', r(x, 1) if g else '', r(sign * b(sign * N, T), 1)] for N, x, g in zip(Ns, v, ok)]
-            if (sign == 1 and m.startswith('Sn')) or (sign == -1 and m == 'Pb2Bi2Te5'):     # 样品：浓度由 300 K 的实验 S 反推
-                q = abs(fit[m]); samples.append([m, 'pn'[k], f'{q:.3e}', EXP[m][0][1]])
-                ax.plot(q, abs(EXP[m][0][1]), 'o', ms=4.5, mfc='white', mec=MCOL[m], mew=1.2, zorder=5)
-        N0 = Np if sign == 1 else Nn
-        ax.axvline(N0, color='#999999', lw=0.6, ls=(0, (1, 1.5)), zorder=0)
-        ax.set_xscale('log'); ax.set_xlim(lo, 1.5e21); ax.set_ylim(0, 320)
-        ax.set_xlabel(('Hole' if sign == 1 else 'Electron') + r' concentration (cm$^{-3}$)')
-        ax.set_ylabel(r'$S$ (μV K$^{-1}$)' if sign == 1 else r'$|S|$ (μV K$^{-1}$)')
-        ax.text(0.04, 0.97, ('p-type' if sign == 1 else 'n-type') + ', 300 K, HSE06+SOC', transform=ax.transAxes, ha='left', va='top', fontsize=7)
-        h, l = ax.get_legend_handles_labels(); o = [MATS.index(x) for x in ('Sn2Bi2Te5', 'Sn2Sb2Te5', 'Pb2Bi2Te5', 'Pb2Sb2Te5')]
-        ax.legend([h[i] for i in o], [l[i] for i in o], loc='upper right', fontsize=6.4, handlelength=1.8, labelspacing=0.3, borderaxespad=0.4)
-        panel(ax, f'({"cd"[k]})')
-    dump('Fig8_Seebeck', 'S_vs_concentration_300K_HSE.csv', ['material', 'carrier_type', 'concentration_cm-3', '|S|_HSE_estimate_uV/K (blank: outside model range)', '|S|_PBE_BoltzTraP2_uV/K'], rows)
-    dump('Fig8_Seebeck', 'samples_fitted_concentration_HSE.csv', ['material', 'carrier_type', 'concentration_cm-3', 'S_exp_300K_uV/K'], samples)
-
-
-SIGMA_PBST = os.path.join(ROOT, '21_阶段报告与交接', '实验数据', 'Pb2Sb2Te5_T_sigma_S.csv')   # 用户提供，σ 单位未给出
-
-
-def pbst_model(side, tau):
-    """Pb₂Sb₂Te₅ 近补偿模型：返回 S(N, T)（μV/K）与 σ(N, T)（任意单位）。tau='crta' 常数弛豫时间，σ ∝ ∫g v²(−∂f/∂ε)；
-    tau='adp' 声学声子形变势散射，τ ∝ 1/(T·g(ε))，σ ∝ (1/T)∫v²(−∂f/∂ε)。"""
-    m = 'Pb2Sb2Te5'
-    V, gap = mv.build(m, 'v', 300, None, side); C, _ = mv.build(m, 'c', 300, side=side)
-    S = lambda N, T: mv.solve(V, C, gap, N, T, tau)[0]
-
-    def sig(N, T):
-        kT = mv.KB * T; occ = mv._occ(T); EF, _ = mv.fermi_level(V, C, gap, N, T); den = 0.0
-        for sgn, L in ((1, V), (-1, C)):
-            for v in L:
-                eta = ((-v['off'] - EF) if sgn > 0 else (EF - gap - v['off'])) / kT
-                den += v['g'] * np.trapezoid(v['vx2'] * (v['dos'] if tau == 'crta' else 1.0) * occ(eta)[1], mv.EPS)
-        return den / (1.0 if tau == 'crta' else T)
-    return S, sig, gap
-
-
-def figS3(out):
-    """Pb₂Sb₂Te₅：电导率随温度的相对变化 σ(T)/σ(302 K)（单位未知，只比形状）与 S(T)，两种散射口径。
-    每条曲线的净掺杂都由 302 K 的实验 S 定出（与图 9 相同），σ 再按同一掺杂计算。"""
-    d = np.loadtxt(SIGMA_PBST, delimiter=',', skiprows=1, encoding='utf-8-sig'); Te, se, Se = d[:, 0], d[:, 1], d[:, 2]
-    Ts = np.linspace(Te[0], 640, 36)
-    fig, axs = plt.subplots(1, 2, figsize=(W2, 2.6), gridspec_kw=dict(wspace=0.30))
-    rows, fits = [], []
-    axs[0].plot(Te, se / se[0], 'o', ms=4, mfc='white', mec='k', mew=0.8, zorder=5, label='Experiment')
-    axs[1].plot(Te, Se, 'o', ms=4, mfc='white', mec='k', mew=0.8, zorder=5, label='Experiment')
-    for side, nm, col in (('c2_hse', 'HSE', C_HSE), ('c2_pbe', 'PBE', C_PBE)):
-        for tau, ls, lw, tl in (('adp', '-', 1.4, 'acoustic-phonon $\\tau$'), ('crta', (0, (1.2, 1.2)), 0.9, 'constant $\\tau$')):
-            S, sig, gap = pbst_model(side, tau)
-            N = solve_N(S, Se[0], Te[0], -1e19, 1e19); s0 = sig(N, Te[0])
-            sr = np.array([sig(N, t) / s0 for t in Ts]); sv = np.array([S(N, t) for t in Ts])
-            lab = f'{nm} ($E_g$ = {1000 * gap:.0f} meV), {tl}'
-            axs[0].plot(Ts, sr, color=col, ls=ls, lw=lw, label=lab); axs[1].plot(Ts, sv, color=col, ls=ls, lw=lw, label=lab)
-            dev = max((S(N, t) - s for t, s in zip(Te, Se)), key=abs)
-            fits.append([nm, tau, f'{N:+.3e}', r(sig(N, Te[-1]) / s0, 3), r(dev, 1)])
-            rows += [[nm, tau, f'{N:+.3e}', r(t, 1), r(a, 4), r(b, 2)] for t, a, b in zip(Ts, sr, sv)]
-    ax = axs[0]; ax.set_yscale('log'); ax.set_ylim(0.3, 60); ax.set_xlim(280, 650)
-    ax.set_yticks([0.3, 0.5, 1, 2, 5, 10, 20, 50], ['0.3', '0.5', '1', '2', '5', '10', '20', '50']); ax.minorticks_off()
-    ax.set_ylabel(r'$\sigma(T)\,/\,\sigma(302\ \mathrm{K})$'); ax.set_xlabel('$T$ (K)'); ax.axhline(1, color='k', lw=0.5, ls=':')
-    ax.legend(loc='upper left', fontsize=5.8, handlelength=2.0, labelspacing=0.25); panel(ax, '(a)')
-    ax = axs[1]; ax.set_xlim(280, 650); ax.set_ylim(-140, 30); ax.axhline(0, color='k', lw=0.5, ls=':')
-    ax.set_ylabel(r'$S$ (μV K$^{-1}$)'); ax.set_xlabel('$T$ (K)'); panel(ax, '(b)')
-    dump('FigS3_Pb2Sb2Te5_sigma', 'experiment_T_sigma_S.csv', ['T_K', 'sigma_unit_not_given', 'sigma_over_sigma302', 'S_uV/K'],
-         [[r(t, 2), r(a, 4), r(a / se[0], 4), r(b, 3)] for t, a, b in zip(Te, se, Se)])
-    dump('FigS3_Pb2Sb2Te5_sigma', 'model_sigma_ratio_and_S.csv', ['bands', 'scattering', 'net_doping_p-n_cm-3', 'T_K', 'sigma_over_sigma302', 'S_uV/K'], rows)
-    dump('FigS3_Pb2Sb2Te5_sigma', 'fit_summary.csv', ['bands', 'scattering', 'net_doping_p-n_cm-3 (from S at 302 K)', 'sigma619_over_sigma302 (exp 0.413)',
-                                                     'max_dev_S_uV/K'], fits)
-    save(fig, out, 'FigS3_Pb2Sb2Te5_sigma_S')
-
-
 def main():
     global DATA
     ap = argparse.ArgumentParser(); ap.add_argument('--out', default=os.path.join(ROOT, '21_阶段报告与交接', '论文图_20261028'))
     ap.add_argument('--data'); ap.add_argument('--only', nargs='+'); a = ap.parse_args()
     DATA = a.data or os.path.join(a.out, 'source_data')
     os.makedirs(a.out, exist_ok=True); style()
-    todo = a.only or [str(i) for i in range(1, 12)] + ['S1', 'S3']
+    todo = a.only or [str(i) for i in range(1, 12)] + ['S1']
     info = {}
     for i in todo:
-        res = {'1': fig1, '2': fig2, '3': fig3, '4': fig4, '5': fig5, '6': fig6, '7': fig7, '8': fig8, '9': fig9, '10': fig10, '11': fig11, 'S1': figS1, 'S3': figS3}[i](a.out)
+        res = {'1': fig1, '2': fig2, '3': fig3, '4': fig4, '5': fig5, '6': fig6, '7': fig7, '8': fig8, '9': fig9, '10': fig10, '11': fig11, 'S1': figS1}[i](a.out)
         if res is not None: info[i] = res
     print(info); print('→', a.out, '；源数据 →', DATA)
 

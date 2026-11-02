@@ -60,7 +60,7 @@ class Tables(HTMLParser):
 def readme(tables):
     t = '\n'.join(f'      {x["name"]}.csv    {" ".join(x["caption"].split())}' for x in tables)
     return f'''A2B2Te5（A = Pb, Sn；B = Sb, Bi）中的孤对电子与导电类型：论文写作用报告与数据
-生成日期 2026-10-28。全部为理论计算；实验 S(T) 为用户提供的实验值。
+生成日期 2026-10-28，2026-11-02 按霍尔数据更新。计算全部为理论计算；实验 S(T)、σ(T) 与室温霍尔为用户提供的实验值。
 结构：问题一（PBE、HSE 能带与 S）用所给的四种 9 原子层状结构。问题二只算 Pb2Sb2Te5，用了三套缺陷计算：
 D（无序立方）、O（有序立方）为 144 原子岩盐超胞；L 为所给层状结构的 3×3×1 超胞（81 原子，早先一批）。见报告 1.1 节、图 1、表 1。
 
@@ -85,16 +85,16 @@ data/                  每幅图的源数据，即图中画出的数值，目录
                               分数坐标、笛卡尔坐标、所在面、能量、等价口袋数）；四种材料的价带能级（levels_HSE.csv）与谷间能量差（HSE06+SOC）
                               ΔE = E(最高的孤对电子谷) − E(Γ–A 轴上最高价带态)（valley_offset_HSE.csv）；Sn 系的孤对电子谷为镜面内三维搜索的真实极大
   Fig7_lone_pair_valley/      最高孤对电子价带谷相对价带顶的能量（meV）、所在 k 点与成分
-  Fig8_Seebeck/               300 K、3×10^19 cm^-3 的面内 S：PBE+SOC（BoltzTraP2）与 HSE 估计；表 6 的逐谷电导份额
+  Fig8_Seebeck/               300 K 的面内 S 随载流子浓度（PBE+SOC BoltzTraP2 与 HSE 估计，S_vs_concentration_300K.csv）；
+                              样品的霍尔浓度、实验 S 与该浓度下的计算值（samples_Hall.csv）；3×10^19 cm^-3 的 S（表 6）；表 6 的逐谷电导份额
                               （valley_conductivity_shares.csv：每个谷的位置、离带边能量、阳离子 s 成分、份额；lone_pair_share_summary.csv：汇总）
                               lone_pair_share_vs_concentration.csv：孤对电子谷份额随空穴浓度的变化；
                               Sn2Bi2Te5_c3_valley_check.csv：SnBi 价带谷 c3 拟合的梯度、主质量、驻点位移与是否采用
-  Fig9_S_vs_T/                实验 S(T)、计算 S(T)（HSE 与 PBE 能带）、拟合浓度与最大偏差
+  Fig9_S_vs_T/                四个样品的实验 T、σ（S/m）、S 与室温霍尔；霍尔浓度下的计算 S(T)（HSE 与 PBE 能带）；偏差与反推浓度对照
   Fig10_formation_energies/   12 类缺陷逐位点的中性形成能（富 Te、贫 Te），两端化学势
   Fig11_ordering/             有序化引起的形成能变化 ΔE_f = E_f(O) − E_f(D)，逐位点与中位数
   FigS2_Gamma_levels_SOC/     Γ 点能级（PBE，有、无 SOC，SnSb 与 SnBi）与 Sb → Bi 变化的标量/SOC 拆分（10_脚本/soc_mechanism.py）
   FigS1_mirror_plane/         Sn2Sb2Te5、Sn2Bi2Te5 镜面内最高价带的能量网格（c4，meV）；真实极大与沿 k_z 切线（valleys_and_cuts.csv）
-  FigS3_Pb2Sb2Te5_sigma/      Pb2Sb2Te5 的实验 σ(T)（单位未确认）与 S(T)；HSE、PBE 能带在常数弛豫时间与声学声子散射下的 σ/σ(302 K) 与 S
   L_layered_defects/          早先一批在所给层状结构上（3×3×1，81 原子）的缺陷计算，即正文表 9、表 10 的 L 列：
                               L_defect_ranking_all_vertices.csv  5 个化学势顶点下全部缺陷在平衡费米能级处的形成能排名
                               L_formation_energy_results.json    原始结果（各电荷态的形成能、转变能级、化学势、载流子浓度）

@@ -1,5 +1,0 @@
-﻿bands,scattering,net_doping_p-n_cm-3 (from S at 302 K),sigma619_over_sigma302 (exp 0.413),max_dev_S_uV/K
-HSE,adp,+2.295e+16,0.844,-7.2
-HSE,crta,-1.724e+16,4.746,-16.7
-PBE,adp,+2.644e+17,10.957,-131.9
-PBE,crta,+1.295e+17,37.995,-141.3

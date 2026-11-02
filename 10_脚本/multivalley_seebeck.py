@@ -1,6 +1,6 @@
 """HSE 能谷的多谷模型：同浓度的 Seebeck 系数（p、n 分开，含双极），能谷直接取自 c2 路径。
 
-建谷（自动，窗口 --win，默认 300 meV）：沿 c2 HSE 路径找价带、导带的极值（10_脚本/c2_valleys.py 的口径），然后
+建谷（自动，窗口 --win，默认 WIN = 700 meV）：沿 c2 HSE 路径找价带、导带的极值（10_脚本/c2_valleys.py 的口径），然后
 - 对称点 Γ、A、L、M、K、H：三个主方向（两个面内、一个沿 c）在路径上都有，直接用路径上的真实色散 ε(k)（非抛物）；
   三个方向都是极值才算谷，鞍点舍去（例如 PbBi 的 Γ 价带：面内极大、沿 c 极小）。等价谷数 Γ、A 为 1，M、L 为 3，K、H 为 2。
 - Γ–A 线上的驼峰（kz = ±k0）：沿 c 用路径色散（朝 Γ 一侧到 Γ 截止），面内借用 Γ 处的色散形状；g = 2。
@@ -43,6 +43,8 @@ POINTS = {'Γ': ((0, 90), [(0, 1), (90, -1)], [(90, 1)], 1), 'A': ((97, 187), [(
 EPS = np.linspace(0, 0.8, 3201)            # 进入带内的能量网格，eV
 STAR = (0.02, 0.03)                        # c3 星形采样的半径：沿线与面内垂直 δ、沿 c δz（Å⁻¹）
 MZ_SCALE = 1.0                             # 余弦估计的 m_z 乘的系数（敏感性检验用）
+WIN = 700                                  # 取谷范围（meV）。原为 300：约 10²¹ cm⁻³ 时 HSE 的费米能级深入价带约 400–500 meV，
+                                           # 300 会漏谷、S 严重偏低（2026-11-02 复核）；700 与 900 结果相同，3×10¹⁹ 时与 300 相同
 
 
 def read_lat(p):
@@ -319,7 +321,7 @@ def main():
     ap.add_argument('--T', type=float, default=300)
     ap.add_argument('--conc', type=float, nargs='+', default=[1e19, 3e19, 1e20])
     ap.add_argument('--materials', nargs='+', default=['Pb2Sb2Te5', 'Pb2Bi2Te5', 'Sn2Sb2Te5', 'Sn2Bi2Te5'])
-    ap.add_argument('--win', type=float, default=300)
+    ap.add_argument('--win', type=float, default=WIN)
     ap.add_argument('--list', action='store_true', help='列出每种材料建出的谷')
     ap.add_argument('--tau', choices=('crta', 'adp'), default='crta', help='散射：常数弛豫时间（默认）或声学形变势')
     ap.add_argument('--side', default='c2_hse', help='c2_hse（默认）或 c2_pbe（用 PBE 路径，与旧 BoltzTraP2 结果对照）')

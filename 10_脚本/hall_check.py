@@ -18,7 +18,7 @@ import multivalley_seebeck as mv
 
 DATA = os.path.join(ROOT, '21_阶段报告与交接', '实验数据')
 KB, E, H, ME = 1.380649e-23, 1.602176634e-19, 6.62607015e-34, 9.1093837e-31
-WIN = 700   # 多谷模型的取谷范围（meV）。10²¹ cm⁻³ 时 HSE 的费米能级深入价带 400–700 meV，原来的 300 meV 会漏掉谷、S 严重偏低；700 与 900 结果相同
+WIN = mv.WIN   # 多谷模型的取谷范围（meV），与报告相同（700）
 
 
 def read_tss(m):

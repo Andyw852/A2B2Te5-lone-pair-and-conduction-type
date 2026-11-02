@@ -137,7 +137,7 @@ def hse_estimates():
         r = {}
         for side in ('c2_pbe', 'c2_hse'):
             c3 = mv.c3_usable(m)[0] if side == 'c2_hse' else None
-            V, gap = mv.build(m, 'v', 300, c3, side); C, _ = mv.build(m, 'c', 300, side=side)
+            V, gap = mv.build(m, 'v', mv.WIN, c3, side); C, _ = mv.build(m, 'c', mv.WIN, side=side)
             r[side] = [mv.solve(V, C, gap, N, 300, 'crta')[0] for N in (3e19, -3e19)]
         est[m] = [BTP[m][i] * r['c2_hse'][i] / r['c2_pbe'][i] for i in range(2)]
     return est
