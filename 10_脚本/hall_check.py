@@ -18,6 +18,7 @@ import multivalley_seebeck as mv
 
 DATA = os.path.join(ROOT, '21_阶段报告与交接', '实验数据')
 KB, E, H, ME = 1.380649e-23, 1.602176634e-19, 6.62607015e-34, 9.1093837e-31
+WIN = 700   # 多谷模型的取谷范围（meV）。10²¹ cm⁻³ 时 HSE 的费米能级深入价带 400–700 meV，原来的 300 meV 会漏掉谷、S 严重偏低；700 与 900 结果相同
 
 
 def read_tss(m):
@@ -50,7 +51,7 @@ def weighted_mobility(S, sigma, T):
 
 def sigma_over_tau(m, side, N, T, tau):
     """多谷模型的 σ/τ（任意单位，与 mv.solve 同口径），只用于两种材料之比。"""
-    V, gap = mv.build(m, 'v', 300, None, side); C, _ = mv.build(m, 'c', 300, side=side)
+    V, gap = mv.build(m, 'v', WIN, None, side); C, _ = mv.build(m, 'c', WIN, side=side)
     kT = mv.KB * T; occ = mv._occ(T); EF, _ = mv.fermi_level(V, C, gap, N, T); den = 0.0
     for sgn, L in ((1, V), (-1, C)):
         for v in L:
@@ -59,9 +60,14 @@ def sigma_over_tau(m, side, N, T, tau):
     return den
 
 
+def model(m, side, tau='crta'):
+    V, gap = mv.build(m, 'v', WIN, None, side); C, _ = mv.build(m, 'c', WIN, side=side)
+    return lambda N, T: mv.solve(V, C, gap, N, T, tau)[0]
+
+
 def methods(m, sign):
     """与报告图 8、图 9 同口径：PBE = BoltzTraP2 全区；HSE = BoltzTraP2 × 多谷模型 HSE/PBE 比值（常数 τ 或声学声子 τ）。"""
-    b = pf.bt2_signed(m, sign); gh, gp, ga = pf.model(m, 'c2_hse'), pf.model(m, 'c2_pbe'), pf.model(m, 'c2_hse', 'adp')
+    b = pf.bt2_signed(m, sign); gh, gp, ga = model(m, 'c2_hse'), model(m, 'c2_pbe'), model(m, 'c2_hse', 'adp')
     return {'PBE BoltzTraP2': lambda N, t: b(N, t),
             'HSE 常数τ': lambda N, t: b(N, t) * gh(N, t) / gp(N, t),
             'HSE 声学声子τ': lambda N, t: b(N, t) * ga(N, t) / gp(N, t)}
@@ -76,7 +82,7 @@ def main():
               + ('' if hall[m]['instrument_flag'] == 'none' else '  （霍尔仪器标红）'))
 
     print('\n# 2 霍尔浓度下的 S（µV/K）与各方法由约 300 K 的 S 反推的浓度')
-    for m, sign, lo, hi in (('Pb2Bi2Te5', -1, 17.5, 20.5), ('Sn2Bi2Te5', 1, 20, 21.8), ('Sn2Sb2Te5', 1, 20, 21.8)):
+    for m, sign, lo, hi in (('Pb2Bi2Te5', -1, 17.5, 20.5), ('Sn2Bi2Te5', 1, 20, 21.8), ('Sn2Sb2Te5', 1, 20, 21.8), ('Pb2Sb2Te5', 1, 19, 21.8)):
         h = hall[m]; Nh = sign * float(h['n_cm-3']); data = [(t, S) for t, _, S in exp[m]]
         print(f'  {m}：霍尔 {h["carrier_type"]} {abs(Nh):.3g} cm⁻³，μ_H = {h["mu_H_cm2/Vs"]} cm²/V·s'
               + ('' if h['instrument_flag'] == 'none' else '（仪器标红，浓度不可靠）'))
@@ -99,11 +105,8 @@ def main():
         eta, ms = spb_mass(data[0][1], data[0][0], p * 1e6, r)
         print(f'  {m} 单抛物带（{nm}）：η = {eta:.2f}，m*_DOS = {ms:.2f} m_e')
 
-    m = 'Pb2Sb2Te5'; p = float(hall[m]['n_cm-3'])
-    print(f'\n# 3 {m}：霍尔 p = {p:.3g} cm⁻³（仪器标红，相位 {hall[m]["phase_deg"]}°）')
-    b = pf.bt2_signed(m, 1); gh, gp = pf.model(m, 'c2_hse'), pf.model(m, 'c2_pbe')
-    for t, _, S in exp[m][::7]:
-        print(f'  {t:.0f} K：实验 {S:+.1f}；PBE BoltzTraP2 {b(p, t):+.1f}；HSE = BoltzTraP2 × 比值 {b(p, t) * gh(p, t) / gp(p, t):+.1f} µV/K')
+    m = 'Pb2Sb2Te5'
+    print(f'\n# 3 {m}：电导率要求的载流子数')
     s302 = exp[m][0][1]
     for mu in (100, 1000):
         print(f'  σ(302 K) = {s302:.3g} S/m 若迁移率为 {mu} cm²/V·s，需载流子 {s302 / (E * mu * 1e-4) * 1e-6:.1e} cm⁻³'
