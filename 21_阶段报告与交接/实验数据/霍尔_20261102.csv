@@ -1,3 +1,5 @@
 ﻿sample,carrier_type,n_cm-3,mu_H_cm2/Vs,R_H_m3/C,rho_Ohm_m,sigma_S/m,n_sheet_m-2,R_Hsheet_m2/C,rho_sheet_Ohm/sq,V_H_V,phase_deg,thickness_mm,instrument_flag
 Pb2Bi2Te5,N,8.11e+19,50.0,7.69e-08,1.54e-05,64935.1,5.84e+22,0.000107,0.0214,4.9875e-06,179.8,0.72,none
 Pb2Sb2Te5,P,1.04e+21,14.5,5.99e-09,4.14e-06,241545.9,6.37e+23,9.79e-06,0.00677,6.0937e-07,21.0,0.613,"red: mu_H, n, n_sheet, R_H, R_Hsheet, V_H, phase"
+Sn2Bi2Te5,P,9.07e+20,13.9,6.88e-09,4.95e-06,202020.2,6.53e+23,9.55e-06,0.00688,5.9457e-07,-3.0,0.72,none
+Sn2Sb2Te5,P,1.72e+21,4.92,3.62e-09,7.36e-06,135869.6,1.24e+24,5.03e-06,0.0102,3.1306e-07,3.4,0.721,"red: mu_H, n, n_sheet, R_H, R_Hsheet, V_H, phase"

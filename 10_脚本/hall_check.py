@@ -1,9 +1,9 @@
 """霍尔数据与电导率（2026-11-02 用户提供）对照计算，结果写在 21_阶段报告与交接/实验数据/霍尔与电导率对照_20261102.md。
 
-1. σ 的单位：表头为 10⁴ S/m；用霍尔测量的电阻率独立核对（Pb₂Bi₂Te₅、Pb₂Sb₂Te₅）。
-2. Pb₂Bi₂Te₅（n 型，霍尔 n = 8.11×10¹⁹ cm⁻³）：在实测浓度下各种算法的 S(T)；单抛物带 Pisarenko 有效质量。
+1. σ 的单位：表头为 10⁴ S/m；用四次霍尔测量的电阻率独立核对。
+2. Pb₂Bi₂Te₅（n 型）、两个 Sn 样品（p 型）：在霍尔浓度下各种算法的 S(T)、各算法反推的浓度；单抛物带 Pisarenko 有效质量。
 3. Pb₂Sb₂Te₅（霍尔 p = 1.04×10²¹ cm⁻³，仪器标红）：在该浓度下的 S；按报告的近补偿解释，载流子数与实测 σ 是否相容。
-4. 两个 Sn 样品（无霍尔）：σ(SnSb)/σ(SnBi) 的实验值与三种反推浓度下的预测（同一弛豫时间）；Snyder 加权迁移率。
+4. 两个 Sn 样品：σ(SnSb)/σ(SnBi) 的实验值与三种反推浓度下的预测（同一弛豫时间）；Snyder 加权迁移率。
 
 用法：python 10_脚本/hall_check.py      只读仓库内的数据，不写文件。
 """
@@ -59,28 +59,45 @@ def sigma_over_tau(m, side, N, T, tau):
     return den
 
 
+def methods(m, sign):
+    """与报告图 8、图 9 同口径：PBE = BoltzTraP2 全区；HSE = BoltzTraP2 × 多谷模型 HSE/PBE 比值（常数 τ 或声学声子 τ）。"""
+    b = pf.bt2_signed(m, sign); gh, gp, ga = pf.model(m, 'c2_hse'), pf.model(m, 'c2_pbe'), pf.model(m, 'c2_hse', 'adp')
+    return {'PBE BoltzTraP2': lambda N, t: b(N, t),
+            'HSE 常数τ': lambda N, t: b(N, t) * gh(N, t) / gp(N, t),
+            'HSE 声学声子τ': lambda N, t: b(N, t) * ga(N, t) / gp(N, t)}
+
+
 def main():
     hall = read_hall(); exp = {m: read_tss(m) for m in pf.MATS}
-    print('# 1 σ 的单位（表头 10⁴ S/m）：霍尔测得的 1/ρ 与表中最低温 σ 之比')
-    for m in ('Pb2Bi2Te5', 'Pb2Sb2Te5'):
+    print('# 1 σ 的单位（表头 10⁴ S/m）：σ 表最低温一点与霍尔测得的 1/ρ 之比')
+    for m in pf.MATS:
         s_h = 1 / float(hall[m]['rho_Ohm_m']); s_t = exp[m][0][1]
-        print(f'  {m}: 霍尔 {s_h:.3g} S/m，表中 {s_t:.3g} S/m（{exp[m][0][0]:.0f} K），比值 {s_t / s_h:.2f}')
+        print(f'  {m}: 霍尔 {s_h:.3g} S/m，表中 {s_t:.3g} S/m（{exp[m][0][0]:.0f} K），比值 {s_t / s_h:.2f}'
+              + ('' if hall[m]['instrument_flag'] == 'none' else '  （霍尔仪器标红）'))
 
-    m = 'Pb2Bi2Te5'; n = float(hall[m]['n_cm-3']); N = -n; data = [(t, S) for t, _, S in exp[m]]
-    print(f'\n# 2 {m}：霍尔 n = {n:.3g} cm⁻³，μ_H = {hall[m]["mu_H_cm2/Vs"]} cm²/V·s')
-    b = pf.bt2_signed(m, -1); gh, gp, ga = pf.model(m, 'c2_hse'), pf.model(m, 'c2_pbe'), pf.model(m, 'c2_hse', 'adp')
-    meth = {'PBE+SOC BoltzTraP2（全区，常数τ）': lambda N, t: b(N, t),
-            'HSE = BoltzTraP2 × HSE/PBE（常数τ）': lambda N, t: b(N, t) * gh(N, t) / gp(N, t),
-            'HSE = BoltzTraP2 × HSE(声学声子)/PBE': lambda N, t: b(N, t) * ga(N, t) / gp(N, t)}
-    print('  T/K    实验  ' + '  '.join(meth))
-    for t, S in data:
-        print(f'  {t:5.0f} {S:7.1f} ' + ' '.join(f'{f(N, t):9.1f}' for f in meth.values()))
-    for k, f in meth.items():
-        try: Nf = pf.solve_log(f, data, 17.5, 20.5, -1); print(f'  {k}：由 302 K 的 S 反推 n = {abs(Nf):.2e} cm⁻³')
-        except ValueError: print(f'  {k}：10^17.5–10^20.5 内没有解')
+    print('\n# 2 霍尔浓度下的 S（µV/K）与各方法由约 300 K 的 S 反推的浓度')
+    for m, sign, lo, hi in (('Pb2Bi2Te5', -1, 17.5, 20.5), ('Sn2Bi2Te5', 1, 20, 21.8), ('Sn2Sb2Te5', 1, 20, 21.8)):
+        h = hall[m]; Nh = sign * float(h['n_cm-3']); data = [(t, S) for t, _, S in exp[m]]
+        print(f'  {m}：霍尔 {h["carrier_type"]} {abs(Nh):.3g} cm⁻³，μ_H = {h["mu_H_cm2/Vs"]} cm²/V·s'
+              + ('' if h['instrument_flag'] == 'none' else '（仪器标红，浓度不可靠）'))
+        meth = methods(m, sign)
+        print('    T/K    实验  ' + '  '.join(f'{k:>12s}' for k in meth))
+        for t, S in data[::2] + [data[-1]]:
+            print(f'    {t:5.0f} {S:7.1f} ' + ' '.join(f'{f(Nh, t):13.1f}' for f in meth.values()))
+        for k, f in meth.items():
+            try:
+                Nf = abs(pf.solve_log(f, data, lo, hi, sign))
+                print(f'    {k}：反推 {Nf:.2e} cm⁻³，为霍尔值的 {Nf / abs(Nh):.2f} 倍')
+            except ValueError:
+                print(f'    {k}：10^{lo}–10^{hi} 内没有解')
+    m = 'Pb2Bi2Te5'; n = float(hall[m]['n_cm-3']); data = [(t, S) for t, _, S in exp[m]]
     for r, nm in ((-0.5, '声学声子'), (0.0, '常数弛豫时间')):
         eta, ms = spb_mass(data[0][1], data[0][0], n * 1e6, r)
-        print(f'  单抛物带（{nm}）：η = {eta:.2f}，m*_DOS = {ms:.2f} m_e')
+        print(f'  {m} 单抛物带（{nm}）：η = {eta:.2f}，m*_DOS = {ms:.2f} m_e')
+    m = 'Sn2Bi2Te5'; p = float(hall[m]['n_cm-3']); data = [(t, S) for t, _, S in exp[m]]
+    for r, nm in ((-0.5, '声学声子'), (0.0, '常数弛豫时间')):
+        eta, ms = spb_mass(data[0][1], data[0][0], p * 1e6, r)
+        print(f'  {m} 单抛物带（{nm}）：η = {eta:.2f}，m*_DOS = {ms:.2f} m_e')
 
     m = 'Pb2Sb2Te5'; p = float(hall[m]['n_cm-3'])
     print(f'\n# 3 {m}：霍尔 p = {p:.3g} cm⁻³（仪器标红，相位 {hall[m]["phase_deg"]}°）')
