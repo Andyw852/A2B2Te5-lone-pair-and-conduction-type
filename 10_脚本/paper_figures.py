@@ -1240,49 +1240,73 @@ def fig9(out):
     return samples
 
 
+def st_methods(m):
+    """附录 A 拟合 S(T) 用的算法，返回 {'H': S_HSE(N, T), 'P': S_PBE(N, T)} 与浓度的搜索方式。N 带符号（正为空穴）。
+    Sn 系：重掺杂 p 型，PBE = BoltzTraP2，HSE = BoltzTraP2 × 多谷模型 HSE/PBE 比值（与图 8 同口径）。
+    Pb₂Bi₂Te₅：PBE = BoltzTraP2；HSE 拟合出的浓度低于 5×10¹⁸ cm⁻³（BoltzTraP2 插值不可靠），直接用多谷模型。
+    Pb₂Sb₂Te₅：近补偿，净掺杂 N 很小、可正可负，两种能带都直接用多谷模型（含电子与空穴）。"""
+    if m.startswith('Sn'):
+        f = s_methods(m, 1); return {'H': f['H'], 'P': f['P']}, ('log', 1, 19.0, 21.8)
+    if m == 'Pb2Bi2Te5':
+        return {'H': model(m, 'c2_hse'), 'P': s_methods(m, -1)['P']}, ('log', -1, 17.0, 20.5)
+    return {'H': model(m, 'c2_hse'), 'P': model(m, 'c2_pbe')}, ('lin', 0, -3e19, 3e19)
+
+
+def fit_N(f, data, how):
+    """只调一个常数——净载流子浓度 N，使 300–620 K 的计算 S 与实验的均方根偏差最小。先在网格上找，再局部细化。"""
+    kind, sign, lo, hi = how
+    to_N = (lambda x: sign * 10.0 ** x) if kind == 'log' else (lambda x: x)
+    rms = lambda x: np.sqrt(np.mean([(f(to_N(x), t) - S) ** 2 for t, S in data]))
+    xs = np.linspace(lo, hi, 61 if kind == 'log' else 241); vs = [rms(x) for x in xs]; k = int(np.argmin(vs))
+    res = optimize.minimize_scalar(rms, bounds=(xs[max(k - 1, 0)], xs[min(k + 1, len(xs) - 1)]), method='bounded', options=dict(xatol=1e-4 if kind == 'log' else 1e13))
+    return to_N(res.x), float(res.fun)
+
+
 def figS3(out):
-    """实验 S(T) 与计算：载流子浓度取室温霍尔，没有可调参数。另给“由约 300 K 的实验 S 反推的浓度 ÷ 霍尔值”作对照（fit_summary.csv）。"""
+    """附录 A：实验 S(T) 与计算。每个样品、每种能带只调一个常数——净载流子浓度，使 300–620 K 的 S(T) 与实验最接近；能带不调，
+    温度为测量温度。拟合出的浓度与室温霍尔浓度并列（fit_summary.csv）。"""
     Ts = np.arange(300, 641, 10)
     fig, axs = plt.subplots(2, 2, figsize=(W2, 4.9), gridspec_kw=dict(hspace=0.42, wspace=0.24))
-    ylim = {'Pb2Sb2Te5': (0, 75), 'Pb2Bi2Te5': (-175, 0), 'Sn2Sb2Te5': (0, 62), 'Sn2Bi2Te5': (0, 92)}
+    ylim = {'Pb2Sb2Te5': (-10, 30), 'Pb2Bi2Te5': (-175, 0), 'Sn2Sb2Te5': (0, 60), 'Sn2Bi2Te5': (0, 90)}
     exp_rows, calc_rows, fit_rows = [], [], []
     for n, (ax, m) in enumerate(zip(axs.flat, MATS)):
-        h = HALL[m]; N = h['N']; sign = 1 if N > 0 else -1; meth = s_methods(m, sign)
-        lo, hi = (17.5, 20.5) if sign < 0 else (19, 21.8)
-        Te, Se = zip(*EXP[m]); exp_rows += [[m, r(t, 2), r(sg, 1), r(s, 3)] for t, sg, s in read_exp(m)]
-        ax.plot(Te, Se, 'o', ms=4, mfc='white', mec='k', mew=0.8, ls='', zorder=4)
-        for key in ('A', 'P', 'H'):
-            f = meth[key]; v = [f(N, t) for t in Ts]; c_, ls_, lw_ = SCOL[key]
-            ax.plot(Ts, v, color=c_, ls=ls_, lw=lw_, zorder=2 if key == 'A' else 3)
-            calc_rows += [[m, SNAME[key], f'{N:.3e}', int(t), r(s, 2)] for t, s in zip(Ts, v)]
-            dev = [f(N, t) - s for t, s in EXP[m]]
-            try: Nf = f'{abs(solve_log(f, EXP[m], lo, hi, sign)):.3e}'; ratio = r(float(Nf) / abs(N), 2)
-            except ValueError: Nf, ratio = 'no solution', ''
-            fit_rows.append([m, SNAME[key], f'{N:.3e}', 'yes' if h['flagged'] else 'no', r(f(N, Te[0]), 1), r(Se[0], 1),
-                             r(np.sqrt(np.mean(np.square(dev))), 1), r(max(dev, key=abs), 1), Nf, ratio])
-        if sign > 0: ax.axhline(0, color='k', lw=0.5, ls=':')
+        h = HALL[m]; meth, how = st_methods(m); data = EXP[m]
+        Te, Se = zip(*data); exp_rows += [[m, r(t, 2), r(sg, 1), r(s, 3)] for t, sg, s in read_exp(m)]
+        ax.plot(Te, Se, 'o', ms=4.5, mfc='white', mec='k', mew=0.9, ls='', zorder=4)
+        txt = []
+        for key, nm in (('P', 'PBE'), ('H', 'HSE')):
+            f = meth[key]; N, rmsv = fit_N(f, data, how); v = [f(N, t) for t in Ts]; c_, ls_, lw_ = SCOL[key]
+            if rmsv <= 30: ax.plot(Ts, v, color=c_, ls=ls_, lw=1.4 if key == 'H' else 1.2, zorder=3)   # 拟合失败（均方根 > 30 µV/K）不画
+            calc_rows += [[m, SNAME[key], f'{N:.3e}', int(t), r(x, 2)] for t, x in zip(Ts, v)]
+            dev = [f(N, t) - S for t, S in data]
+            ratio = r(abs(N) / abs(h['N']), 3) if how[0] == 'log' else ''
+            fit_rows.append([m, SNAME[key], f'{N:.3e}', f'{h["N"]:.3e}', 'yes' if h['flagged'] else 'no', ratio, r(rmsv, 1), r(max(dev, key=abs), 1)])
+            kind = ('$p$' if N > 0 else '$n$') if how[0] == 'log' else ('$p-n$')
+            txt.append((c_, f'{nm}: no single concentration fits (rms {rmsv:.0f} μV K$^{{-1}}$)' if rmsv > 30 else
+                        f'{nm}: {kind} = {"+" if (how[0] == "lin" and N > 0) else ""}{"−" if (how[0] == "lin" and N < 0) else ""}{sci(abs(N))}, rms {rmsv:.1f}'))
+        if m == 'Pb2Sb2Te5': ax.axhline(0, color='k', lw=0.5, ls=':')
         ax.set_xlim(280, 640); ax.set_ylim(*ylim[m])
-        ax.set_title(f'{TEX[m]} ({"n" if sign < 0 else "p"}-type)', fontsize=8, pad=4)
-        ax.text(0.04, 0.95 if sign > 0 else 0.05,
-                f'Hall: {"$p$" if sign > 0 else "$n$"} = {sci(abs(N))}' + ('\n(flagged by the instrument)' if h['flagged'] else ''),
-                transform=ax.transAxes, ha='left', va='top' if sign > 0 else 'bottom', fontsize=6.5)
+        ax.set_title(f'{TEX[m]} ({"n" if h["N"] < 0 else "p"}-type)', fontsize=8, pad=4)
+        y0 = 0.95
+        for k, (c_, t_) in enumerate(txt):
+            ax.text(0.04, y0 - 0.085 * k, t_, transform=ax.transAxes, ha='left', va='top', fontsize=6.5, color=c_)
+        ax.text(0.04, y0 - 0.085 * 2, f'Hall: {sci(abs(h["N"]))}' + (' (flagged)' if h['flagged'] else ''), transform=ax.transAxes,
+                ha='left', va='top', fontsize=6.5, color='#555555')
         panel(ax, f'({"abcd"[n]})')
     for ax in axs[:, 0]: ax.set_ylabel(r'$S$ (μV K$^{-1}$)')
     for ax in axs[1]: ax.set_xlabel('$T$ (K)')
-    hh = [plt.Line2D([], [], ls='', marker='o', ms=4, mfc='white', mec='k', mew=0.8), plt.Line2D([], [], color=C_HSE, lw=1.3),
-          plt.Line2D([], [], color=C_ADP, lw=0.9), plt.Line2D([], [], color=C_PBE, ls=DASH, lw=1.1)]
-    fig.legend(hh, ['Experiment', 'HSE06+SOC, constant $\\tau$', 'HSE06+SOC, acoustic-phonon $\\tau$', 'PBE+SOC, constant $\\tau$'],
-               loc='lower center', ncol=4, bbox_to_anchor=(0.5, 0.935), columnspacing=1.2, handlelength=1.8)
+    hh = [plt.Line2D([], [], ls='', marker='o', ms=4.5, mfc='white', mec='k', mew=0.9), plt.Line2D([], [], color=C_HSE, lw=1.4),
+          plt.Line2D([], [], color=C_PBE, ls=DASH, lw=1.2)]
+    fig.legend(hh, ['Experiment', 'HSE06+SOC (fitted carrier concentration)', 'PBE+SOC (fitted carrier concentration)'],
+               loc='lower center', ncol=3, bbox_to_anchor=(0.5, 0.935), columnspacing=1.4, handlelength=1.8)
     dump('FigS3_S_vs_T', 'experiment_T_sigma_S.csv', ['material', 'T_K', 'sigma_exp_S/m', 'S_exp_uV/K'], exp_rows)
     dump('FigS3_S_vs_T', 'hall_room_temperature.csv', ['material', 'carrier_conc_signed_cm-3 (+ holes, - electrons)', 'Hall_mobility_cm2/Vs', 'flagged_by_instrument'],
          [[m, f'{h["N"]:.3e}', h['mu'], 'yes' if h['flagged'] else 'no'] for m, h in HALL.items()])
-    dump('FigS3_S_vs_T', 'calculated_S_T.csv', ['material', 'bands', 'carrier_conc_Hall_cm-3', 'T_K', 'S_calc_uV/K'], calc_rows)
-    dump('FigS3_S_vs_T', 'fit_summary.csv', ['material', 'bands', 'carrier_conc_Hall_cm-3', 'Hall_flagged', 'S_calc_lowest_T_uV/K', 'S_exp_lowest_T_uV/K',
-                                             'rms_deviation_calc-exp_uV/K', 'max_deviation_calc-exp_uV/K',
-                                             'conc_from_S_at_lowest_T_cm-3 (comparison only)', 'that_over_Hall'], fit_rows)
+    dump('FigS3_S_vs_T', 'calculated_S_T.csv', ['material', 'bands', 'fitted_net_carrier_conc_cm-3', 'T_K', 'S_calc_uV/K'], calc_rows)
+    dump('FigS3_S_vs_T', 'fit_summary.csv', ['material', 'bands', 'fitted_net_carrier_conc_cm-3 (+ holes)', 'Hall_conc_cm-3', 'Hall_flagged',
+                                              'fitted_over_Hall', 'rms_deviation_uV/K', 'max_deviation_calc-exp_uV/K'], fit_rows)
     save(fig, out, 'FigS3_S_vs_T_Hall')
-    return {f'{a}|{b}': (g, x) for a, b, _, _, _, _, g, _, _, x in fit_rows}
-
+    return fit_rows
 
 
 # ------------------------------------------------------------------ Fig. 10, 11
