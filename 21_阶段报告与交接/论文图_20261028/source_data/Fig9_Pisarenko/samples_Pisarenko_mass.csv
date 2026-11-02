@@ -1,4 +1,5 @@
-﻿material,carrier_type,Hall_conc_signed_cm-3,Hall_flagged,S_exp_300K_uV/K,m_DOS_exp_SPB_me,S_HSE_at_Hall_conc,m_DOS_HSE_SPB_me,S_PBE_at_Hall_conc,m_DOS_PBE_SPB_me
-Sn2Bi2Te5,p,9.070e+20,no,29.29,1.354,25.3,1.17,37.9,1.742
-Sn2Sb2Te5,p,1.720e+21,yes,15.85,1.129,16.7,1.192,21.5,1.53
-Pb2Bi2Te5,n,-8.110e+19,no,-89.54,0.839,-19.9,0.184,-89.9,0.843
+﻿material,carrier_type,Hall_conc_signed_cm-3,Hall_flagged,S_exp_300K_uV/K,m_DOS_exp_SPB_me,S_HSE_at_Hall_conc,m_DOS_HSE_SPB_me,S_PBE_at_Hall_conc,m_DOS_PBE_SPB_me,single_valley_m_DOS_HSE_me
+Pb2Sb2Te5,p,1.040e+21,yes,5.52,not applicable (compensated),16.5,0.842,25.9,1.316,0.1
+Pb2Bi2Te5,n,-8.110e+19,no,-89.54,0.839,-19.9,0.184,-89.9,0.843,0.23
+Sn2Sb2Te5,p,1.720e+21,yes,15.85,1.129,16.7,1.192,21.5,1.53,0.14
+Sn2Bi2Te5,p,9.070e+20,no,29.29,1.354,25.3,1.17,37.9,1.742,0.13
