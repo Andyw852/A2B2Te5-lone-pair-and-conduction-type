@@ -4,6 +4,8 @@
    （同一 vasprun.xml、同一剪刀，直接读全网格），300、500 K。
 2. 插值倍数：各网格 mult 5 对 20。
 3. 子网格对完整密网格（都取 mult 20），300、600 K，p、n 各 3×10¹⁹–2×10²¹ cm⁻³，以及四个样品的霍尔浓度。
+4. 21×21×7/6（单独的 PBE 自洽，分支 bt2-gridtest2）对完整密网格，都取约 3 万、6 万个星函数的大倍数：
+   先看各自的插值倍数是否收敛，再比 300–600 K 的 S，以及霍尔浓度下的 S(T)。
 
 用法：python 10_脚本/bt2_gridtest_compare.py      只读，不写文件。
 """
@@ -27,6 +29,27 @@ def gj(m, grid, mult=20):
 
 def rel(a, b):
     return (a - b) / abs(b)
+
+
+BIG = {'Pb2Sb2Te5': (60, 120), 'Sn2Sb2Te5': (60, 120), 'Pb2Bi2Te5': (70, 140), 'Sn2Bi2Te5': (70, 140)}
+G21 = {'Pb2Sb2Te5': '21x21x7', 'Sn2Sb2Te5': '21x21x7', 'Pb2Bi2Te5': '21x21x6', 'Sn2Bi2Te5': '21x21x6'}
+
+
+def part4():
+    print('\n# 4 21 网格对完整密网格（大倍数）。差值单位 µV/K；相对差只在 |S| ≥ 30 µV/K 处统计')
+    for m in FULL:
+        f_lo, f_hi = (gj(m, FULL[m], k) for k in BIG[m]); g_lo, g_hi = (gj(m, G21[m], k) for k in (100, 200))
+        conv = [max(abs(s_at(a, N, T) - s_at(b, N, T)) for N in NS for T in (300, 450, 600)) for a, b in ((f_lo, f_hi), (g_lo, g_hi))]
+        print('  %s：插值倍数加倍后 S 最多变 %.1f（%s）、%.1f（%s）' % (m, conv[0], FULL[m], conv[1], G21[m]))
+        for T in (300, 450, 600):
+            d = [(s_at(g_hi, N, T), s_at(f_hi, N, T), N) for N in NS]
+            ab = max(abs(a - b) for a, b, _ in d); big = [abs(a - b) / abs(b) for a, b, _ in d if abs(b) >= 30]
+            worst = max(d, key=lambda x: abs(x[0] - x[1]))
+            print('     %d K：最大差 %.1f（%+.0e：%.1f / %.1f），相对差最大 %.1f%%、均值 %.1f%%' %
+                  (T, ab, worst[2], worst[0], worst[1], 100 * max(big), 100 * np.mean(big)))
+        h = HALL[m]; Ts = (300, 350, 400, 450, 500, 550, 600)
+        print('     霍尔浓度 %+.2e 的 S(T)：21 网格 %s；完整 %s' % (h, ' '.join('%.1f' % s_at(g_hi, h, T) for T in Ts),
+                                                          ' '.join('%.1f' % s_at(f_hi, h, T) for T in Ts)))
 
 
 def main():
@@ -61,6 +84,7 @@ def main():
             h = HALL[m]; hs = [(s_at(gj(m, g), h, T), s_at(gj(m, FULL[m]), h, T)) for T in (300, 600)]
             out.append('霍尔浓度 %+.2e：300 K %.1f/%.1f、600 K %.1f/%.1f' % (h, hs[0][0], hs[0][1], hs[1][0], hs[1][1]))
             print('  %s %s：%s' % (m, g, '；'.join(out)))
+    part4()
 
 
 if __name__ == '__main__':

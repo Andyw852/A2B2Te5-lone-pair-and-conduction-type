@@ -63,8 +63,8 @@ def inspect_input(run, material):
             raise SystemExit('[ERROR] %s 是 %s 的数据，不是 %s' % (run, s['material'], material))
         energy = next(run.glob('*.energy'))
         srcf = s.get('source_file', s.get('source_eigenval'))                  # 来源文件（11-03 前的 source.json 键名为 source_eigenval）
-        eig = Path(__file__).resolve().parents[1] / srcf                        # 在仓库里运行时，核对来源文件没变（绝对路径则原样）
-        if eig.is_file() and sha256(eig) != s['source_sha256']:
+        eig = Path(__file__).resolve().parents[1] / srcf if isinstance(srcf, str) else None   # 多个来源（分批）时不核对
+        if eig is not None and eig.is_file() and sha256(eig) != s['source_sha256']:
             raise SystemExit('[ERROR] %s 与生成 GENE 时的指纹不同，先重跑 eigenval_to_gene.py' % eig)
         lo = (s['soc_bands_written_1based'][0] - 1) // 2
         return {'functional': s['functional'], 'grid': s['grid'], 'nelect_bt2': s['nelect_bt2'], 'format': 'GENE',
