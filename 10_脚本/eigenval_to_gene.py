@@ -73,8 +73,22 @@ def convert(m, kind):
     if abs(np.linalg.norm(lat[0]) - a_e) > 1e-4 or abs(np.linalg.norm(lat[2]) - c_e) > 1e-4:
         raise SystemExit('[ERROR] %s：POSCAR 晶格与 EIGENVAL 不符' % m)
     nel, ks, E = read_eigenval(ev)
+    return write_gene(os.path.join(OUT, m, kind), m, {'hse': 'HSE06+SOC', 'pbe': 'PBE+SOC'}[kind], hf, lat, sym, frac, ks, E, nel,
+                      'Gamma %s (%d irreducible k-points), 1-0 benchmark SCF' % (' x '.join(mesh), len(ks)),
+                      os.path.relpath(ev, ROOT), sha256(ev),
+                      heads=('%s %s+SOC 1-0 benchmark (POSCAR of A2B2Te5_SOC_dense), Bohr' % (m, kind.upper()),
+                             '%s %s+SOC Gamma %s, one band per Kramers pair, Ry' % (m, kind.upper(), 'x'.join(mesh))))
+
+
+def write_gene(out, m, functional, hf, lat, sym, frac, ks, E, nel, grid, source, source_sha, heads):
+    """写 GENE 目录：每对 Kramers 简并能带写一条（nspin = 1），只写费米能级附近、收敛的能带。
+    lat (3,3) Å；frac (natom,3) 分数坐标；ks (nk,3) 倒格子分数坐标；E (nk, nband) eV，nband 为全部 SOC 能带。
+    heads：.structure、.energy 两个文件的标题行。"""
+    E = np.asarray(E, float); ks = np.asarray(ks, float)
     assert E.shape[1] % 2 == 0 and nel % 2 == 0
     vbm, cbm = E[:, nel - 1].max(), E[:, nel].min()
+    if cbm <= vbm:
+        raise SystemExit('[ERROR] %s：带隙为负（%.4f eV），不能用半满中点作费米能级' % (m, cbm - vbm))
     ef = (vbm + cbm) / 2
     P = E[:, 0::2]                                           # 每对取一条，(nk, npair)
     keep = [j for j in range(P.shape[1] - SKIP_TOP) if P[:, j].max() >= ef - WIN[0] and P[:, j].min() <= ef + WIN[1]]
@@ -82,31 +96,31 @@ def convert(m, kind):
     assert keep == list(range(lo, hi + 1)) and lo < nel // 2 <= hi
     above = P[:, hi + 1].min() - ef                           # 第一条没写入的导带
     if above < GAP_ABOVE:
-        raise SystemExit('[ERROR] %s %s：第一条没写入的导带只高出费米能级 %.2f eV' % (m, kind, above))
+        raise SystemExit('[ERROR] %s：第一条没写入的导带只高出费米能级 %.2f eV' % (m, above))
     split = np.abs(E[:, 2 * lo:2 * hi + 2:2] - E[:, 2 * lo + 1:2 * hi + 2:2]).max()
     if split > KRAMERS_TOL:
-        raise SystemExit('[ERROR] %s %s：写入的能带 Kramers 二重简并不满足（最大差 %.4f eV）' % (m, kind, split))
+        raise SystemExit('[ERROR] %s：写入的能带 Kramers 二重简并不满足（最大差 %.4f eV）' % (m, split))
     Eh = P[:, lo:hi + 1]
-    out = os.path.join(OUT, m, kind); os.makedirs(out, exist_ok=True)
+    os.makedirs(out, exist_ok=True)
     cart = frac @ lat
     with open(os.path.join(out, m + '.structure'), 'w') as f:
-        f.write('%s %s+SOC 1-0 benchmark (POSCAR of A2B2Te5_SOC_dense), Bohr\n' % (m, kind.upper()))
+        f.write(heads[0] + '\n')
         for v in lat: f.write('%.10f %.10f %.10f\n' % tuple(v / BOHR))
         f.write('%d\n' % len(sym))
-        for s, r in zip(sym, cart): f.write('%s %.10f %.10f %.10f\n' % ((s,) + tuple(r / BOHR)))
+        for s_, r in zip(sym, cart): f.write('%s %.10f %.10f %.10f\n' % ((s_,) + tuple(r / BOHR)))
     with open(os.path.join(out, m + '.energy'), 'w') as f:
-        f.write('%s %s+SOC Gamma %s, one band per Kramers pair, Ry\n' % (m, kind.upper(), 'x'.join(mesh)))
+        f.write(heads[1] + '\n')
         f.write('%d 1 %.10f\n' % (len(ks), ef / RY))
         for k, e in zip(ks, Eh):
             f.write('%.12f %.12f %.12f %d\n' % (k[0], k[1], k[2], len(e)))
             for x in e: f.write('%.10f\n' % (x / RY))
-    info = {'material': m, 'functional': {'hse': 'HSE06+SOC', 'pbe': 'PBE+SOC'}[kind], 'LHFCALC': hf,
-            'grid': 'Gamma %s (%d irreducible k-points), 1-0 benchmark SCF' % (' x '.join(mesh), len(ks)),
+    info = {'material': m, 'functional': functional, 'LHFCALC': hf, 'grid': grid,
             'nelect': nel, 'nelect_bt2': nel - 2 * lo, 'nbands_soc': int(E.shape[1]), 'nbands_written': int(Eh.shape[1]),
             'soc_bands_written_1based': [2 * lo + 1, 2 * hi + 2], 'window_below_above_eV': list(WIN),
             'first_unwritten_cb_min_above_EF_eV': round(float(above), 3),
-            'vbm_band_written_1based': nel // 2 - lo, 'kramers_max_split_eV': round(float(split), 5), 'vbm_eV': vbm, 'cbm_eV': cbm, 'gap_eV': round(cbm - vbm, 4),
-            'source_eigenval': os.path.relpath(ev, ROOT), 'source_sha256': sha256(ev),
+            'vbm_band_written_1based': nel // 2 - lo, 'kramers_max_split_eV': round(float(split), 5),
+            'vbm_eV': float(vbm), 'cbm_eV': float(cbm), 'gap_eV': round(float(cbm - vbm), 4),
+            'source_file': source, 'source_sha256': source_sha,
             'note': 'GENE nspin=1（每态占据 2）只写每对 Kramers 简并能带中的一条，等价于全部 SOC 能带、每态占据 1。'
                     'BoltzTraP2 的电子数用 nelect_bt2（已扣除未写入的深能级）；价带顶是写入的第 vbm_band_written_1based 条'}
     json.dump(info, open(os.path.join(out, 'source.json'), 'w'), ensure_ascii=False, indent=1)

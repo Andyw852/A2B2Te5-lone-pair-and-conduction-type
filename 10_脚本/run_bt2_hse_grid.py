@@ -62,13 +62,14 @@ def inspect_input(run, material):
         if s['material'] != material:
             raise SystemExit('[ERROR] %s 是 %s 的数据，不是 %s' % (run, s['material'], material))
         energy = next(run.glob('*.energy'))
-        eig = Path(__file__).resolve().parents[1] / s['source_eigenval']      # 在仓库里运行时，核对来源 EIGENVAL 没变
+        srcf = s.get('source_file', s.get('source_eigenval'))                  # 来源文件（11-03 前的 source.json 键名为 source_eigenval）
+        eig = Path(__file__).resolve().parents[1] / srcf                        # 在仓库里运行时，核对来源文件没变（绝对路径则原样）
         if eig.is_file() and sha256(eig) != s['source_sha256']:
             raise SystemExit('[ERROR] %s 与生成 GENE 时的指纹不同，先重跑 eigenval_to_gene.py' % eig)
         lo = (s['soc_bands_written_1based'][0] - 1) // 2
         return {'functional': s['functional'], 'grid': s['grid'], 'nelect_bt2': s['nelect_bt2'], 'format': 'GENE',
                 'soc_row': lambda b: (b - 1) // 2 - lo,
-                'fingerprint': {energy.name: sha256(energy), 'source': s['source_eigenval'], 'source_sha256': s['source_sha256'],
+                'fingerprint': {energy.name: sha256(energy), 'source': srcf, 'source_sha256': s['source_sha256'],
                                 'gap_on_grid_eV': s['gap_eV']}}
     vr = run / 'vasprun.xml'
     if not vr.is_file():
