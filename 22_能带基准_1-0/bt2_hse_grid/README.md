@@ -1,3 +1,5 @@
+作废：输入是 PBE+SOC 密网格 vasprun.xml（SHA-256 与 PBE 密网格 BoltzTraP2 的输入相同），不是 HSE。
+
 # HSE06+SOC 直接 BoltzTraP2（密网格 28×28×7/6）结果汇总
 
 2026-11-03。四材料统一用 **A2B2Te5_SOC_dense 的密网格 step3_uniform 的 HSE06+SOC 能带**直接跑 BoltzTraP2（CRTA），不再用 PBE 比值法。
