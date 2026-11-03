@@ -19,6 +19,7 @@
 先用 PBE 测出多密才够（不用跑 VASP）：
 - 把 PBE+SOC 28×28×7/6 密网格的 vasprun.xml 抽稀成子网格（`10_脚本/vasprun_to_gene.py --sub`），和完整密网格比 BoltzTraP2 的 S。
 - 完整密网格也走同一条 GENE 流程，顺带核对 GENE 路线本身：结果应与 AutoZT 原有的密网格结果一致。
+- 这四个密网格当时用 `ISYM = −1`（关掉对称性），vasprun.xml 里是全部 28×28×7 = 5488（Bi 系 4704）个点。`vasprun_to_gene.py` 先抽稀，再用 spglib 约化到不可约点（与 HSE 的 KPOINTS_OPT 输入口径一致），同时核对对称等价点的本征值相同（差 ≤ 5 meV）。11-03 第一次运行在这里报错停下，已修正。
 
 可选网格（必须避开 12·k 为半整数，否则 HSE 的 KPOINTS_OPT 会因 FOCK_FCC 崩溃；不可约点数由 spglib 算出，12×12×2 得 38，与 VASP 相同）：
 

@@ -10,8 +10,11 @@
 k 点表、自洽或 KPOINTS_OPT 的本征值、末态结构（finalpos）与元素。GENE 的写法与 eigenval_to_gene.write_gene 相同
 （每对 Kramers 简并能带写一条、只写费米能级附近、扣除深能级电子），所以 run_bt2_hse_grid.py 可以直接跑。
 
-抽稀（--sub nx ny nz）：只保留 k·n 为整数的不可约点。Γ 中心网格的子格在对称操作下不变，保留下来的正好是子网格的
-一套不可约点；装了 spglib 时再用它数一遍核对。
+抽稀（--sub nx ny nz）：只保留 k·n 为整数的点。Γ 中心网格的子格在对称操作下不变，所以不可约点抽稀后仍是子网格的一套
+不可约点。
+全网格输入（ISYM = −1，例如 A2B2Te5_SOC_dense 的 PBE 密网格，vasprun.xml 里是全部 nx·ny·nz 个点）：先抽稀，再用 spglib
+（含时间反演）约化到不可约点，与 HSE 的 KPOINTS_OPT 输入口径一致；约化时核对对称等价点的本征值相同（费米能级附近的能带，
+差 ≤ EQUIV_TOL），不满足即报错。最后用 spglib 数一遍不可约点核对。需要 spglib。
 
 用法：
   python 10_脚本/vasprun_to_gene.py --vasprun <.../vasprun.xml> --material Sn2Sb2Te5 --functional pbe \
@@ -27,6 +30,7 @@ import eigenval_to_gene as g
 
 FUNC = {'hse': 'HSE06+SOC', 'pbe': 'PBE+SOC'}
 NELECT = {'Pb2Sb2Te5': 68, 'Sn2Sb2Te5': 68, 'Pb2Bi2Te5': 88, 'Sn2Bi2Te5': 88}
+EQUIV_TOL = 5e-3                           # eV，对称等价点本征值允许的差（vasprun.xml 只有 4 位小数）
 FLUSH = {'set', 'varray', 'array', 'projected', 'projected_kpoints_opt', 'dos', 'scstep', 'dynmat', 'partial', 'total'}
 
 
@@ -82,14 +86,37 @@ def parse(path, opt):
     return out
 
 
+def ir_mesh(lat, frac, symbols, mesh):
+    import spglib
+    nums = {s: i + 1 for i, s in enumerate(sorted(set(symbols)))}
+    return spglib.get_ir_reciprocal_mesh(np.array(mesh), (lat, frac, [nums[s] for s in symbols]), is_shift=[0, 0, 0], is_time_reversal=True)
+
+
 def ibz_count(lat, frac, symbols, mesh):
     try:
-        import spglib
+        return len(np.unique(ir_mesh(lat, frac, symbols, mesh)[0]))
     except ImportError:
         return None
-    nums = {s: i + 1 for i, s in enumerate(sorted(set(symbols)))}
-    mapping, _ = spglib.get_ir_reciprocal_mesh(mesh, (lat, frac, [nums[s] for s in symbols]), is_shift=[0, 0, 0], is_time_reversal=True)
-    return len(np.unique(mapping))
+
+
+def reduce_full(ks, E, mesh, lat, frac, symbols, nel):
+    """全网格（每个网格点一个 k）→ 不可约点。返回 (ks, E, 对称等价点本征值的最大差 eV)。"""
+    mesh = np.array(mesh); x = ks * mesh
+    if np.abs(x - np.round(x)).max() > 1e-6:
+        raise SystemExit('[ERROR] k 点不在 %s 网格上' % mesh.tolist())
+    key = lambda a: tuple(np.mod(np.asarray(a, int), mesh))
+    row = {key(a): i for i, a in enumerate(np.round(x).astype(int))}
+    if len(row) != len(ks) or len(ks) != mesh.prod():
+        raise SystemExit('[ERROR] 不是完整的全网格：%d 个 k 点（去重后 %d），网格应有 %d 个' % (len(ks), len(row), mesh.prod()))
+    mapping, grid = ir_mesh(lat, frac, symbols, mesh)
+    vrow = np.array([row[key(a)] for a in grid])               # spglib 第 j 个网格点 → vasprun 中的行
+    rrow = vrow[mapping]                                        # 它所属的不可约代表点 → vasprun 中的行
+    bands = slice(max(nel - 24, 0), min(nel + 20, E.shape[1]))   # 费米能级附近（SOC 序号）
+    spread = float(np.abs(E[vrow, bands] - E[rrow, bands]).max())
+    if spread > EQUIV_TOL:
+        raise SystemExit('[ERROR] 对称等价点的本征值最多差 %.4f eV，对称性与数据不符' % spread)
+    reps = vrow[np.unique(mapping)]
+    return ks[reps], E[reps], spread
 
 
 def main():
@@ -123,12 +150,20 @@ def main():
         keep = np.all(np.abs(x - np.round(x)) < 1e-6, axis=1)
         ks, E, mesh = ks[keep], E[keep], list(a.sub)
     lat, frac, sym = np.array(d['basis']), np.array(d['pos']), d['symbols']
+    full, spread = len(ks) == int(np.prod(mesh)) and len(ks) > 1, None
     n_ibz = ibz_count(lat, frac, sym, mesh)
+    if full and n_ibz is None:
+        raise SystemExit('[ERROR] 输入是全网格（ISYM = −1），约化到不可约点需要 spglib')
+    if full and n_ibz != len(ks):
+        nfull = len(ks)
+        ks, E, spread = reduce_full(ks, E, mesh, lat, frac, sym, nel)
+        print('[OK] 全网格 %d 个点 → 不可约点 %d 个；对称等价点本征值最多差 %.4f eV' % (nfull, len(ks), spread))
     if n_ibz is not None and n_ibz != len(ks):
         raise SystemExit('[ERROR] 网格 %s 的不可约点应为 %d 个，这里有 %d 个' % (mesh, n_ibz, len(ks)))
-    grid = 'Gamma %s (%d irreducible k-points)%s%s' % (' x '.join(map(str, mesh)), len(ks),
-                                                      ', subsampled from %s' % 'x'.join(map(str, d['divisions'])) if a.sub and not a.opt else '',
-                                                      ', KPOINTS_OPT (non-SCF)' if a.opt else '')
+    grid = 'Gamma %s (%d irreducible k-points)%s%s%s' % (' x '.join(map(str, mesh)), len(ks),
+                                                        ', subsampled from %s' % 'x'.join(map(str, d['divisions'])) if a.sub and not a.opt else '',
+                                                        ', reduced from full grid (ISYM=-1)' if spread is not None else '',
+                                                        ', KPOINTS_OPT (non-SCF)' if a.opt else '')
     info = g.write_gene(a.out, a.material, FUNC[a.functional], hf, lat, sym, frac, ks, E, nel, grid,
                         os.path.abspath(a.vasprun), sha256(a.vasprun),
                         heads=('%s %s from vasprun.xml finalpos, Bohr' % (a.material, FUNC[a.functional]),
