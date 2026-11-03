@@ -1,0 +1,27 @@
+{
+ "material": "Sn2Bi2Te5",
+ "functional": "HSE06+SOC",
+ "LHFCALC": true,
+ "grid": "Gamma 12 x 12 x 2 (38 irreducible k-points), 1-0 benchmark SCF",
+ "nelect": 88,
+ "nelect_bt2": 28,
+ "nbands_soc": 128,
+ "nbands_written": 23,
+ "soc_bands_written_1based": [
+  61,
+  106
+ ],
+ "window_below_above_eV": [
+  3.0,
+  2.5
+ ],
+ "first_unwritten_cb_min_above_EF_eV": 2.895,
+ "vbm_band_written_1based": 14,
+ "kramers_max_split_eV": 1e-05,
+ "vbm_eV": 6.230894,
+ "cbm_eV": 6.41263,
+ "gap_eV": 0.1817,
+ "source_eigenval": "22_能带基准_1-0/Sn2Bi2Te5/c1_HSE_SOC/EIGENVAL",
+ "source_sha256": "c4fe0003918483b8a4ccf9ea6c39a8dbc6fded356db33b4a1c52c2a20bcf9888",
+ "note": "GENE nspin=1（每态占据 2）只写每对 Kramers 简并能带中的一条，等价于全部 SOC 能带、每态占据 1。BoltzTraP2 的电子数用 nelect_bt2（已扣除未写入的深能级）；价带顶是写入的第 vbm_band_written_1based 条"
+}

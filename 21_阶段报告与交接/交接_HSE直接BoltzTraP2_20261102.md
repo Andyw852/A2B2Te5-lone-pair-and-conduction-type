@@ -1,6 +1,49 @@
-# 交接：直接用 HSE 能带跑 BoltzTraP2（2026-11-02）
+# 交接：直接用 HSE 能带跑 BoltzTraP2（2026-11-02；11-03 第二版）
 
 给 AutoZT 的 BoltzTraP2 步骤（step8.1，`run_boltztrap_crta`）。只做后处理，不需要新的 VASP 计算。
+
+## 11-03 更新：第一轮结果作废（分支 `bt2-hse-grid` 的输入是 PBE）
+
+分支 `bt2-hse-grid`（提交 9204897）的 12 个 `boltztrap_crta.json` 标为 HSE06+SOC，但输入不是 HSE：
+- 输入是 `A2B2Te5_SOC_dense/.../step3_uniform/vasprun.xml`（28×28×7/6）。
+- 四个文件的 SHA-256 与现有 PBE+SOC 密网格 BoltzTraP2 的输入（各 `step8.1_boltztrap/boltztrap_crta.json` 的 `input_files`）逐字节相同。
+
+| 材料 | 输入 vasprun.xml 的 SHA-256（前 16 位） | PBE 密网格的输入 |
+|---|---|---|
+| Pb₂Sb₂Te₅ | b221582fae938df9 | 相同 |
+| Pb₂Bi₂Te₅ | 691ccfce655b4422 | 相同 |
+| Sn₂Sb₂Te₅ | 2a4ccfabc343c67a | 相同 |
+| Sn₂Bi₂Te₅ | 50fb45909de52332 | 相同 |
+
+所以那批结果是 **PBE+SOC 密网格、不加剪刀**。数值也与 PBE 密网格（加剪刀）几乎一样，例如 300 K、3×10¹⁹ cm⁻³ 空穴时 Pb₂Sb₂Te₅ 为 219 对 203 µV/K。不能用于报告。
+
+原因有两个：
+- 28×28×7 的 HSE06+SOC 从来没算过（12×12×2 的 HSE 自洽就要 21 小时）。
+- 脚本当时只按 `--functional` 参数贴标签，没有核对输入。
+
+现已修正：
+1. **不再依赖集群上的 vasprun.xml。** 仓库里四种材料的 HSE06+SOC、PBE+SOC 12×12×2 自洽 EIGENVAL 都在（HSE 的 INCAR 有 `LHFCALC = .TRUE.`）。`10_脚本/eigenval_to_gene.py` 把它们转成 BoltzTraP2 自带的 GENE 格式，放在 `22_能带基准_1-0/bt2_gene/<材料>/{hse,pbe}/`。
+   - 每个目录的 `source.json` 记录泛函、网格、来源文件指纹和带边。
+   - Pb₂Sb₂Te₅ 也在其中，不用去已到期的 clus_xa 上找。
+2. **`run_bt2_hse_grid.py` 运行前核对泛函。**
+   - GENE 目录读 `source.json`；VASP 目录读 vasprun.xml 的 `LHFCALC`。
+   - 与 `--functional` 不符就报错退出。
+   - 网格从输入读出，不再写死。
+
+GENE 转换的细节：
+- **SOC 能带**：P-3m1 有反演对称、非磁，SOC 能带两两 Kramers 简并。只写每对中的一条，标为 nspin = 1（每态占据 2），与“全部 SOC 能带、每态占据 1”等价。写入的能带逐 k 点检查了简并，最大差 0.0000 eV。
+- **能带范围**：只写费米能级下 3.0、上 2.5 eV 内的能带。最顶上 2 对不写，它们没收敛好，简并被破坏，HSE 中最多差 1.2 eV。第一条没写入的导带都高于费米能级 1.9 eV 以上；化学势只扫 ±1.2 eV。
+- **电子数**：深能级的电子从电子数中扣除（`nelect_bt2`），脚本自动使用。
+- **核对**：按 BoltzTraP2 的读法复读 GENE 文件，与 EIGENVAL 差 ≤ 0.003 meV，晶格与 POSCAR 一致，费米能级以下的能带数 × 2 = `nelect_bt2`。
+
+| 材料 | HSE06+SOC 网格上带隙（eV） | PBE+SOC 网格上带隙（eV） |
+|---|---|---|
+| Pb₂Sb₂Te₅ | 0.0513 | 0.2268 |
+| Pb₂Bi₂Te₅ | 0.1420 | 0.1510 |
+| Sn₂Sb₂Te₅ | 0.1683 | 0.2164 |
+| Sn₂Bi₂Te₅ | 0.1817 | 0.1303 |
+
+（只是 12×12×2 网格点上的带隙。Sn₂Bi₂Te₅ 的 HSE 价带顶在镜面内的一般位置，不在网格点上，真实带隙更小；插值能否找回来，由 `bands_check.txt` 检验。）
 
 ## 为什么要跑
 
@@ -12,53 +55,25 @@
   | 1×10²⁰ | 120 / 193 | 121 / 210 | 113 / 157 | 122 / 193 |
   | 1×10²¹ | 27 / 79 | 32 / 102 | 28 / 59 | 35 / 81 |
 
-  原因：模型是椭球谷近似，只取一条价带、一条导带。约 10²¹ cm⁻³ 时费米能级深入带内 400–500 meV，这些近似都不成立。样品浓度是 8×10¹⁹–1.7×10²¹ cm⁻³，正好落在这个范围里。
-- 已有的全区 HSE 数据，就是 1-0 基准的 HSE06+SOC 自洽计算：Γ 中心 12×12×2 网格，38 个不可约点，四种材料都有。文献的常规做法是用 BoltzTraP2 直接插值这些 HSE 本征值，不加剪刀修正。
 - 与实验的对照，用户已确定（2026-11-02）：在室温霍尔浓度下直接算 S(T)，不调任何参数。
 
-## 输入（集群上的 8 个作业目录，都是同一 12×12×2 网格）
+## 运行（第二版）
 
-| 材料 | HSE06+SOC（主结果） | PBE+SOC 同网格（检验网格够不够） | NELECT |
-|---|---|---|---|
-| Pb₂Sb₂Te₅ | clus_xa `~/autozt_work/1_0/Pb2Sb2Te5/c1_scf/`（vasprun.xml 14 MB） | jzzn `~/ke_1_0_bandgap/Pb2Sb2Te5/b_pbe_parity2/` | 68 |
-| Pb₂Bi₂Te₅ | hanhai 1-0 的 `c_hse_A`（作业 306976） | 1-0 的 `a_pbe`（作业 305553–305555 之一） | 88 |
-| Sn₂Sb₂Te₅ | hanhai `c_hse_A`（作业 306978） | `a_pbe` | 68 |
-| Sn₂Bi₂Te₅ | hanhai `c_hse_A`（作业 307002） | `a_pbe` | 88 |
-
-每个目录先核对四项：
-- vasprun.xml 存在；
-- KPOINTS 是 Gamma 12 12 2；
-- INCAR 有 `LSORBIT = .TRUE.`；HSE 目录有 `LHFCALC = .TRUE.`，PBE 目录没有；
-- OUTCAR 已收敛。
-
-## 运行
-
-脚本 `10_脚本/run_bt2_hse_grid.py`。它不改 AutoZT，只调用 AutoZT 的 `gen_step11_boltztrap.run_boltztrap_crta`（与密网格结果同一函数），设置如下：
-- 温度 300–650 K，每 25 K；
-- 化学势 ±1.2 eV、600 点，DOS 6000 点；
-- HSE 不加剪刀；PBE 剪刀与密网格相同（PbBi 0.1141、PbSb 0.0654、SnBi 0.1366、SnSb 0.1352 eV），这样它与密网格只差 k 网格；
-- NELECT 不符时报错退出。
-
-每个目录跑三档插值倍数 `--mult 5 20 60`（38 个点很少，要看结果是否随倍数收敛），4 × 2 × 3 = 24 次。例：
+每种材料 × {hse, pbe} × 插值倍数 {5, 20, 60}，共 24 次。38 个 k 点的插值很小，mult 60 也只要几分钟、内存不大。
 
 ```
-python 10_脚本/run_bt2_hse_grid.py --autozt <AutoZT 的 step8.1 目录> --material Sn2Sb2Te5 --functional hse \
-    --run-dir <c_hse_A 目录> --mult 20 --out 22_能带基准_1-0/Sn2Sb2Te5/c1_HSE_SOC/bt2_mult20 \
-    --kcheck 22_能带基准_1-0/Sn2Sb2Te5/bt2_check_kpoints.txt
+python 10_脚本/run_bt2_hse_grid.py --autozt <AutoZT 的 step8.1 目录> --material <材料> --functional <hse|pbe> \
+    --run-dir 22_能带基准_1-0/bt2_gene/<材料>/<hse|pbe> --mult <5|20|60> \
+    --out 22_能带基准_1-0/bt2_gene/<材料>/<hse|pbe>/bt2_mult<5|20|60> \
+    --kcheck <检验 k 点文件>
 ```
 
-`--kcheck` 让脚本另外输出插值能带在检验 k 点上的能量（`bands_check.txt`）：
-- 0–203 号是 c2 的 HSE 路径；
-- Sn 系另有 c5 镜面内的两个真实价带谷。
-
-## 结果放哪
-
-```
-22_能带基准_1-0/<材料>/c1_HSE_SOC/bt2_mult{5,20,60}/{boltztrap_crta.json, bands_check.txt}
-22_能带基准_1-0/<材料>/b_PBE_SOC/bt2_mult{5,20,60}/{boltztrap_crta.json, bands_check.txt}
-```
-
-Pb₂Sb₂Te₅ 没有材料子目录，直接放在 `22_能带基准_1-0/c1_HSE_SOC/`、`22_能带基准_1-0/b_PBE_SOC/` 下。每个 JSON 约 0.5 MB。
+- 检验 k 点文件：`22_能带基准_1-0/<材料>/bt2_check_kpoints.txt`。Pb₂Sb₂Te₅ 的是 `22_能带基准_1-0/bt2_check_kpoints.txt`。
+- 每次运行先打印一行 `[OK] 输入核对：GENE，HSE06+SOC，Gamma 12 x 12 x 2 (38 irreducible k-points)…`；pbe 目录应显示 PBE+SOC。不符就会报错退出。
+- 设置：
+  - 温度 300–650 K，每 25 K；
+  - 化学势 ±1.2 eV、600 点，DOS 6000 点；
+  - HSE 不加剪刀；PBE 剪刀与密网格相同（PbBi 0.1141、PbSb 0.0654、SnBi 0.1366、SnSb 0.1352 eV），这样它与密网格只差 k 网格。
 
 ## 验收（Claude 做）
 
@@ -66,6 +81,7 @@ Pb₂Sb₂Te₅ 没有材料子目录，直接放在 `22_能带基准_1-0/c1_HSE
 2. **网格够不够**：比较 PBE 12×12×2 与 PBE 28×28×7 密网格（`A2B2Te5_SOC_dense/.../step8.1_boltztrap/boltztrap_crta.json`），看 300 K、p 型与 n 型、3×10¹⁹–2×10²¹ cm⁻³ 的 S。
    - 相差 ≤ 10%：12×12×2 够用，HSE 结果直接进报告。
    - 相差更大：需要更密的 HSE 网格（非自洽 HSE，费时）或 Wannier 插值，另议。
+   - 分支 `bt2-hse-grid` 的 PBE 密网格（不加剪刀）结果可作参考：网格相同，只差剪刀。
 3. **插值能带**：`bands_check.txt` 与直接计算对照。路径对 `c2_hse/path_eigen.txt`；Sn 系镜面内的真实价带谷对 c5 的结果，看插值有没有把价带顶放对。
 
 ## 之后报告怎么改
