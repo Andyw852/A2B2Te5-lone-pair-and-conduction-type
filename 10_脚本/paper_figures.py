@@ -999,32 +999,28 @@ def fig7(out):
 
 # ------------------------------------------------------------------ Fig. 8
 # 图 8(c)(d) 的配色：色相按 A 位（Sn 紫，与图 5 的 Sn 5s 孤对电子同色；Pb 灰），深浅按 B 位（Bi 深、Sb 浅）
-# 图 8、图 9：每种材料一个颜色（2026-11-04 用户要求），四色为分类色板的前四格，已用 dataviz 的 validate_palette.js 校验
-# （色盲相邻 ΔE ≥ 9，正常视觉 ≥ 23；青绿、黄对白底对比度 < 3:1，靠图例与表格辨认）
-MCOL = {'Pb2Sb2Te5': '#2a78d6', 'Pb2Bi2Te5': '#eb6834', 'Sn2Sb2Te5': '#1baf7a', 'Sn2Bi2Te5': '#eda100'}
+# 图 8、图 9：每种材料一个颜色，取自用户用 Origin 画的第一版 S(T) 图（实验数据/四种材料S_T_第一版.webp，2026-11-04 用户要求）。
+# 红、绿两色对红绿色弱区分不足（validate_palette.js：deutan ΔE 5.7），所以同时用 Origin 式的“线 + 符号”，符号与第一版图相同。
+MCOL = {'Pb2Sb2Te5': '#F24040', 'Pb2Bi2Te5': '#525252', 'Sn2Sb2Te5': '#39AE6B', 'Sn2Bi2Te5': '#1B72DF'}
+MMARK = {'Pb2Sb2Te5': 'o', 'Pb2Bi2Te5': 's', 'Sn2Sb2Te5': 'v', 'Sn2Bi2Te5': '^'}
 
 
 def fig8(out):
     """300 K 面内 S 随载流子浓度（理论）：四种材料 PBE+SOC 密网格（28×28×7/6）BoltzTraP2、不加剪刀的直接结果
     （22_能带基准_1-0/bt2_pbe_dense，pbe_dense()），不用任何估计法（2026-11-04 用户要求）。(a) p 型，(b) n 型。
     浓度在 BoltzTraP2 的化学势网格上按 log|N| 线性取值。HSE06+SOC 的直接结果（c8_hse_dense）完成后加入。
-    实验点（2026-11-04 用户要求）：最低测量温度（约 301 K）的 S 画在室温霍尔浓度处；霍尔被仪器标红的画空心。"""
-    T0 = 300; rows, tab, exp_rows = [], [], []
+    只画计算，不画实验值（与实验的对照在图 9、图 S3；2026-11-04 用户要求）。"""
+    T0 = 300; rows, tab = [], []
     fig, A = plt.subplots(1, 2, figsize=(W2, 2.75), gridspec_kw=dict(wspace=0.26))
     Ns = np.logspace(18, np.log10(3e21), 73)
     for i, (ax, sign) in enumerate(zip(A, (1, -1))):
         for m in MATS:
             T, f = pbe_dense(m); it = list(T).index(T0)
             v = np.array([sign * f(sign * N, it) for N in Ns])
-            ax.plot(Ns, v, color=MCOL[m], lw=1.6, label=TEX[m], solid_capstyle='round', zorder=3)
+            ax.plot(Ns, v, color=MCOL[m], lw=1.1, marker=MMARK[m], ms=4.2, markevery=(3 * MATS.index(m) % 6, 6), label=TEX[m], zorder=3)
             rows += [[m, 'pn'[i], f'{N:.3e}', r(x, 2)] for N, x in zip(Ns, v)]
             if i == 0:
                 tab.append([m] + [r(f(N, it), 1) for N in (3e19, 1e20, -3e19, -1e20)])
-            h = HALL[m]
-            if (h['N'] > 0) == (sign > 0):                         # 实验值：最低测量温度（约 301 K）的 S，横坐标为室温霍尔浓度
-                ax.plot(abs(h['N']), sign * EXP[m][0][1], 'o', ms=7, mew=1.5, zorder=5,
-                        mfc='white' if h['flagged'] else MCOL[m], mec=MCOL[m])
-                exp_rows.append([m, 'pn'[i], f'{h["N"]:.3e}', 'yes' if h['flagged'] else 'no', r(EXP[m][0][0], 1), r(EXP[m][0][1], 2)])
         ax.set_xscale('log'); ax.set_yscale('log'); ax.set_xlim(Ns[0], Ns[-1]); ax.set_ylim(3, 600)   # 对数纵轴：样品的 S 只有 5–90 µV/K
         ax.set_yticks([5, 10, 20, 50, 100, 200, 500], ['5', '10', '20', '50', '100', '200', '500']); ax.minorticks_off()
         ax.set_xlabel(('Hole' if sign > 0 else 'Electron') + r' concentration (cm$^{-3}$)')
@@ -1033,16 +1029,12 @@ def fig8(out):
         ax.axvline(3e19, color='#999999', lw=0.6, ls=(0, (1, 1.5)), zorder=0)
         panel(ax, f'({"ab"[i]})')
     h, l = A[0].get_legend_handles_labels()
-    h += [plt.Line2D([], [], ls='', marker='o', ms=6.5, mfc='#555555', mec='#555555'),
-          plt.Line2D([], [], ls='', marker='o', ms=6.5, mfc='white', mec='#555555', mew=1.4)]
-    l += ['Experiment, ~300 K (at Hall conc.)', 'Experiment, Hall flagged']
-    A[0].legend(h, l, loc='lower left', fontsize=6.5, handlelength=1.6, labelspacing=0.3)
+    A[0].legend(h, l, loc='lower left', fontsize=6.5, handlelength=2.2, labelspacing=0.3)
     d = os.path.join(DATA, 'Fig8_Seebeck') if DATA else None
     if d and os.path.isdir(d): shutil.rmtree(d)          # 旧版（HSE 估计、多谷模型的谷份额）的文件一并清掉
     dump('Fig8_Seebeck', 'S_vs_concentration_300K.csv',
          ['material', 'carrier_type', 'concentration_cm-3', '|S|_PBE+SOC_BoltzTraP2_uV/K (28x28x7/6 dense grid, no scissor)'], rows)
     dump('Fig8_Seebeck', 'S_300K_table6.csv', ['material', 'S_p_3e19_uV/K', 'S_p_1e20_uV/K', 'S_n_3e19_uV/K', 'S_n_1e20_uV/K'], tab)
-    dump('Fig8_Seebeck', 'experiment_points.csv', ['material', 'panel (p: a, n: b)', 'Hall_conc_signed_cm-3', 'Hall_flagged', 'T_K', 'S_exp_uV/K'], exp_rows)
     save(fig, out, 'Fig8_Seebeck_vs_concentration')
     return tab
 
