@@ -7,7 +7,7 @@ HSE、PBE EIGENVAL 都在。GENE 是 BoltzTraP2 自带的通用格式（dft.GENE
 SOC 的处理：P-3m1 有反演对称，非磁，SOC 能带处处 Kramers 二重简并（第 2j−1 与 2j 条相同）。GENE 只写每对中的一条、
 nspin = 1（BoltzTraP2 据此取每态占据 2），与“全部 SOC 能带、每态占据 1”完全等价。
 只写费米能级附近的能带（WIN；与 BoltzTraP2 自带的 bandana 相同的做法）：NBANDS 顶端几条高能带没收敛好、简并被破坏，
-不能进插值，最顶上 SKIP_TOP 对一律不写，并检查第一条没写入的导带离费米能级足够远（GAP_ABOVE）；去掉的深能级电子从 nelect 中扣除（source.json 的 nelect_bt2）。写入的能带逐 k 点检查二重简并，不满足即报错。
+不能进插值，最顶上 SKIP_TOP 对一律不写，并检查第一条没写入的导带离费米能级足够远（GAP_ABOVE）；去掉的深能级电子从 nelect 中扣除（source.json 的 nelect_bt2）。写入的能带在能量窗口内逐 k 点检查二重简并（容差 2 meV），不满足即报错；窗口外的差只记录（2026-11-04）。
 
 输出（每个目录）：<材料>.structure（晶格、原子笛卡尔坐标，Bohr）、<材料>.energy（Ry）、source.json（泛函、网格、来源文件
 SHA-256、带边、简并检查），供 run_bt2_hse_grid.py 核对泛函后再跑。
@@ -97,9 +97,20 @@ def write_gene(out, m, functional, hf, lat, sym, frac, ks, E, nel, grid, source,
     above = P[:, hi + 1].min() - ef                           # 第一条没写入的导带
     if above < GAP_ABOVE:
         raise SystemExit('[ERROR] %s：第一条没写入的导带只高出费米能级 %.2f eV' % (m, above))
-    split = np.abs(E[:, 2 * lo:2 * hi + 2:2] - E[:, 2 * lo + 1:2 * hi + 2:2]).max()
+    # Kramers 二重简并只在能量窗口内检查（2026-11-04）：能带按整条取舍，一条带只要有一部分进窗口就整条写入，
+    # 它在窗口外（远离费米能级）的部分不影响输运，那里的本征值又最接近 NBANDS 顶端、迭代对角化最不收敛。
+    # 容差 KRAMERS_TOL 不变；窗口外的最大差照样记进 source.json（kramers_max_split_all_eV 及其位置）。
+    A_, B_ = E[:, 2 * lo:2 * hi + 2:2], E[:, 2 * lo + 1:2 * hi + 2:2]
+    dk = np.abs(A_ - B_); inwin = (np.minimum(A_, B_) >= ef - WIN[0]) & (np.maximum(A_, B_) <= ef + WIN[1])
+    split = dk[inwin].max(); split_all = dk.max()
+    ik, jb = np.unravel_index(int(np.argmax(dk)), dk.shape)
+    where_all = {'k_index_0based': int(ik), 'soc_bands_1based': [int(2 * (lo + jb) + 1), int(2 * (lo + jb) + 2)],
+                 'E_minus_EF_eV': round(float((A_[ik, jb] + B_[ik, jb]) / 2 - ef), 3)}
     if split > KRAMERS_TOL:
-        raise SystemExit('[ERROR] %s：写入的能带 Kramers 二重简并不满足（最大差 %.4f eV）' % (m, split))
+        raise SystemExit('[ERROR] %s：窗口内的能带 Kramers 二重简并不满足（最大差 %.4f eV）' % (m, split))
+    if split_all > KRAMERS_TOL:
+        print('[NOTE] %s：窗口外有 Kramers 差 %.4f eV（k #%d，SOC 能带 %d/%d，E − E_F = %+.2f eV），不影响输运，照常写入'
+              % (m, split_all, where_all['k_index_0based'], *where_all['soc_bands_1based'], where_all['E_minus_EF_eV']))
     Eh = P[:, lo:hi + 1]
     os.makedirs(out, exist_ok=True)
     cart = frac @ lat
@@ -119,6 +130,8 @@ def write_gene(out, m, functional, hf, lat, sym, frac, ks, E, nel, grid, source,
             'soc_bands_written_1based': [2 * lo + 1, 2 * hi + 2], 'window_below_above_eV': list(WIN),
             'first_unwritten_cb_min_above_EF_eV': round(float(above), 3),
             'vbm_band_written_1based': nel // 2 - lo, 'kramers_max_split_eV': round(float(split), 5),
+            'kramers_check': 'within the energy window only (EF - %.1f to EF + %.1f eV), tolerance %.1f meV' % (WIN[0], WIN[1], 1000 * KRAMERS_TOL),
+            'kramers_max_split_all_eV': round(float(split_all), 5), 'kramers_max_split_all_at': where_all,
             'vbm_eV': float(vbm), 'cbm_eV': float(cbm), 'gap_eV': round(float(cbm - vbm), 4),
             'source_file': source, 'source_sha256': source_sha,
             'note': 'GENE nspin=1（每态占据 2）只写每对 Kramers 简并能带中的一条，等价于全部 SOC 能带、每态占据 1。'
