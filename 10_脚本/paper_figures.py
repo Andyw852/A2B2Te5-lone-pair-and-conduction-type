@@ -1014,24 +1014,30 @@ def fig8(out):
     for i, (ax, sign) in enumerate(zip(A, (1, -1))):
         for m in MATS:
             T, f = pbe_dense(m); it = list(T).index(T0)
-            v = np.array([sign * f(sign * N, it) for N in Ns])
-            ax.plot(Ns, v, color=MCOL[m], lw=1.1, marker=MMARK[m], ms=4.2, markevery=(3 * MATS.index(m) % 6, 6), label=TEX[m], zorder=3)
+            v = np.array([sign * f(sign * N, it) for N in Ns])        # 多数载流子的符号为正；为负即 S 已变号（双极）
+            ax.plot(Ns, np.where(v > 0, v, np.nan), color=MCOL[m], lw=1.1, marker=MMARK[m], ms=4.2,
+                    markevery=(3 * MATS.index(m) % 6, 6), label=TEX[m], zorder=3)
+            if (v < 0).any():                                         # 变号的一段画 |S| 的点线（2026-11-04 用户问到 (b) 曲线为何掉出画框）
+                ax.plot(Ns, np.where(v < 0, -v, np.nan), color=MCOL[m], lw=1.1, ls=(0, (1, 1.4)), zorder=3)
             rows += [[m, 'pn'[i], f'{N:.3e}', r(x, 2)] for N, x in zip(Ns, v)]
             if i == 0:
                 tab.append([m] + [r(f(N, it), 1) for N in (3e19, 1e20, -3e19, -1e20)])
         ax.set_xscale('log'); ax.set_yscale('log'); ax.set_xlim(Ns[0], Ns[-1]); ax.set_ylim(3, 600)   # 对数纵轴：样品的 S 只有 5–90 µV/K
         ax.set_yticks([5, 10, 20, 50, 100, 200, 500], ['5', '10', '20', '50', '100', '200', '500']); ax.minorticks_off()
-        ax.set_xlabel(('Hole' if sign > 0 else 'Electron') + r' concentration (cm$^{-3}$)')
+        ax.set_xlabel(('Net hole' if sign > 0 else 'Net electron') + r' concentration (cm$^{-3}$)')
         ax.set_ylabel(r'$S$ (μV K$^{-1}$)' if sign > 0 else r'$|S|$ (μV K$^{-1}$)')
         ax.set_title(f'{"p" if sign > 0 else "n"}-type, 300 K, PBE+SOC + BoltzTraP2', fontsize=8, pad=4)
         ax.axvline(3e19, color='#999999', lw=0.6, ls=(0, (1, 1.5)), zorder=0)
         panel(ax, f'({"ab"[i]})')
     h, l = A[0].get_legend_handles_labels()
     A[0].legend(h, l, loc='lower left', fontsize=6.5, handlelength=2.2, labelspacing=0.3)
+    A[1].text(0.34, 0.04, 'dotted: $S>0$ despite net electrons\n(bipolar, holes dominate $S$)', transform=A[1].transAxes,
+              ha='left', va='bottom', fontsize=6.3, color='#222222', linespacing=1.15, bbox=dict(fc='white', ec='none', pad=0.5))
     d = os.path.join(DATA, 'Fig8_Seebeck') if DATA else None
     if d and os.path.isdir(d): shutil.rmtree(d)          # 旧版（HSE 估计、多谷模型的谷份额）的文件一并清掉
     dump('Fig8_Seebeck', 'S_vs_concentration_300K.csv',
-         ['material', 'carrier_type', 'concentration_cm-3', '|S|_PBE+SOC_BoltzTraP2_uV/K (28x28x7/6 dense grid, no scissor)'], rows)
+         ['material', 'carrier_type', 'net_concentration_cm-3',
+          'S_PBE+SOC_BoltzTraP2_uV/K, sign of majority carrier positive (p: S, n: -S; negative = S has changed sign, bipolar)'], rows)
     dump('Fig8_Seebeck', 'S_300K_table6.csv', ['material', 'S_p_3e19_uV/K', 'S_p_1e20_uV/K', 'S_n_3e19_uV/K', 'S_n_1e20_uV/K'], tab)
     save(fig, out, 'Fig8_Seebeck_vs_concentration')
     return tab

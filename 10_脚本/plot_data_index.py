@@ -45,7 +45,7 @@ INDEX = [
     ('图 7', '', '最高的孤对电子价带谷相对价带顶的能量', 'Fig7_lone_pair_valley/highest_lone_pair_valley.csv',
      'material', 'E-EVBM_meV；按 functional 分组', ''),
     ('图 8', '(a)(b)', '300 K 面内 S 随载流子浓度（PBE+SOC + BoltzTraP2）', 'Fig8_Seebeck/S_vs_concentration_300K.csv',
-     'concentration_cm-3（对数）', '|S|_PBE+SOC_BoltzTraP2_uV/K', '按 material、carrier_type（p → a，n → b）分组'),
+     'net_concentration_cm-3（对数）', 'S_PBE+SOC_BoltzTraP2…（取绝对值作图；为负的一段即 S 已变号，画点线）', '按 material、carrier_type（p → a，n → b）分组'),
     ('图 8、表 6', '', '表 6：3×10¹⁹、1×10²⁰ cm⁻³ 的 S', 'Fig8_Seebeck/S_300K_table6.csv', '', '', ''),
     ('表 8', '', 'Pisarenko 有效质量：霍尔浓度、实验与计算 S、读出的 m*（不作图）', 'Table8_Pisarenko_mass/samples_Pisarenko_mass.csv',
      '', '', '即表 8；Pb₂Sb₂Te₅ 的实验 m* 留空（补偿，见 note）'),
@@ -122,7 +122,7 @@ METHODS = {
         '每个浓度在 BoltzTraP2 的化学势网格上按 log|N| 线性取值。表 6 取 3×10¹⁹、1×10²⁰ cm⁻³。不用任何模型或比值估计。',
         '双对数：横轴为浓度，纵轴为 S（p 型）或 |S|（n 型）；Origin 式“线 + 符号”，每种材料一个颜色和符号（取自实验第一版 Origin 图：'
         'Pb₂Sb₂Te₅ 红圆、Pb₂Bi₂Te₅ 灰方、Sn₂Sb₂Te₅ 绿倒三角、Sn₂Bi₂Te₅ 蓝三角；符号使红绿色弱也能区分）；点线为 3×10¹⁹ cm⁻³；'
-        'n 型低浓度 S 变号时曲线向下离开画框。只画计算，不画实验值。',
+        'n 型低浓度 S 变号（双极）的一段画 |S| 的点线，变号处 |S| 经过 0、在对数轴上向下离开画框。只画计算，不画实验值。',
         'paper_figures.fig8、pbe_dense'),
     'Table8_Pisarenko_mass': ('表 8',
         '实验：最低测量温度（约 301 K）的 S 与室温霍尔浓度（21_阶段报告与交接/实验数据/）。计算：bt2_pbe_dense 在霍尔浓度、300 K 的 S。'
