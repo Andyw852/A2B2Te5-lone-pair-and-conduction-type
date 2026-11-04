@@ -1,9 +1,0 @@
-﻿material,carrier_type,carrier_conc_cm-3,S_PBE+SOC_BoltzTraP2_uV/K,S_HSE06+SOC_estimate_uV/K
-Pb2Sb2Te5,p,3e+19,204,58.9
-Pb2Bi2Te5,p,3e+19,208,109.6
-Sn2Sb2Te5,p,3e+19,202,171.3
-Sn2Bi2Te5,p,3e+19,204,167.2
-Pb2Sb2Te5,n,3e+19,-125,-63.8
-Pb2Bi2Te5,n,3e+19,-128,-46.6
-Sn2Sb2Te5,n,3e+19,-159,-149.9
-Sn2Bi2Te5,n,3e+19,-186,-171.4

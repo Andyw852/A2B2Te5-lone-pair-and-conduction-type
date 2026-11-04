@@ -49,21 +49,17 @@ sup.r { font-size: 11px; color: var(--accent); }
 <h1>A₂B₂Te₅（A = Pb, Sn；B = Sb, Bi）中的孤对电子与导电类型</h1>
 <div class="meta">计算方法与结果（论文写作用）· 全部为理论计算 · 图号与 <code>figures/</code> 中的文件一一对应，每幅图的源数据在 <code>data/</code> 的同名目录中，另有每幅图一个的 Excel（<code>作图数据/</code>，第一页写明每个子图取哪几列） · 2026-11-04 过渡版</div>
 
-<div class="note"><b>版本说明（2026-11-04，过渡版）</b>
+<div class="note"><b>版本说明（2026-11-04）</b>
 <ul>
-<li><b>定稿部分</b>：
+<li><b>本版的 Seebeck 系数全部是直接计算</b>：PBE+SOC 密网格（Sb 系 28×28×7、Bi 系 28×28×6）上用 BoltzTraP2 算出，不加剪刀，不用模型或比值估计（1.4 节）。此前版本中的“HSE 估计”（PBE 结果乘以多谷模型的 HSE/PBE 比值）及由模型给出的各谷电导份额，已全部删除。</li>
+<li><b>HSE06+SOC 的输运正在计算</b>：同一网格，完成后加入图 8、图 9、图 S3 与表 6、表 7、表 A1。在此之前，文中凡讲 HSE 下 S 会怎样，都只从能带定性讨论，不给数值。</li>
+<li><b>不变的部分</b>：能带（HSE、PBE）、问题二的缺陷计算、实验数据。Pb₂Sb₂Te₅ 的 S 以原始数据表为准（第 5 节）。</li>
+<li><b>新增</b>：
   <ul>
-  <li>问题二（缺陷与退火前后的 p/n 转变，第 6 节）；</li>
-  <li>能带结果：带隙、谷的位置与成分、孤对电子谷、拓扑（第 2、3 节）；</li>
-  <li>PBE+SOC 的 BoltzTraP2 数值；</li>
-  <li>实验数据与 Pisarenko 有效质量的实验值。</li>
+  <li>第 5 节写入 Pb₂Sb₂Te₅ 样品可能两相共存的推测；</li>
+  <li>文末“附：每幅图的数据与绘制方法”；</li>
+  <li>每幅图的作图数据另存一个 Excel（<code>作图数据/</code>）。</li>
   </ul></li>
-<li><b>暂用部分</b>：文中标为“HSE”的 Seebeck 系数，包括图 8、图 9，表 6、表 7，以及摘要和第 4、5 节引用的这些数值。
-  <ul>
-  <li>暂用 1.4 节的估计：PBE+SOC BoltzTraP2 的结果乘以多谷模型给出的 HSE/PBE 比值。这不是文献的常规做法。</li>
-  <li>将换成 HSE06+SOC 能带直接用 BoltzTraP2 算的结果：28×28×7/6 网格，与 PBE 密网格相同，计算进行中。替换后这些数值和依赖它们的结论可能改变。</li>
-  </ul></li>
-<li><b>本版的改动</b>：附录 A（图 S3、表 A1）改为在室温霍尔浓度下直接计算 S(T)。计算用 PBE+SOC 密网格直接跑 BoltzTraP2，不加剪刀，不调参数，不用估计法；HSE 的直接结果完成后补上。</li>
 </ul></div>
 
 <div class="toc">
@@ -78,24 +74,42 @@ sup.r { font-size: 11px; color: var(--accent); }
 <a href="#s6">6 退火前后的主导缺陷与 p/n 转变</a><br>
 <a href="#sA">附录 A S(T) 对照：霍尔浓度下直接计算</a><br>
 <a href="#ref">参考文献</a><br>
-<a href="#files">附：图与数据文件</a>
+<a href="#files">附：图与数据文件</a><br>
+<a href="#plotmethods">附：每幅图的数据与绘制方法</a>
 </div>
 
 <h2 id="s0">摘要</h2>
 <p><b>问题一：孤对电子如何影响 S（p、n 分开）。</b>对象是四种材料的层状相（所给的 9 原子结构），能带用 HSE06+SOC，并与 PBE+SOC 对照；四个样品用室温霍尔浓度与 S(T) 检验。</p>
 <ol>
 <li><b>孤对电子态在哪里</b>：它是已填满的阳离子 s–Te p 反键态，在能带中出现在两处：Γ 以外的几组价带谷（决定 p 型），以及 Γ 处的导带底（n 型载流子所在的态，由两种阳离子的 s 大致均分）。Γ 处的带反转也使 Sn₂Sb₂Te₅、Pb₂Bi₂Te₅、Sn₂Bi₂Te₅ 成为强拓扑绝缘体。</li>
-<li><b>p 型：孤对电子谷越靠近价带顶，S 越高（HSE）。</b>3×10¹⁹ cm⁻³、300 K 时，Sn 系（Sn₂Sb₂Te₅ 171、Sn₂Bi₂Te₅ 167 µV/K）明显高于 Pb 系（Pb₂Bi₂Te₅ 110、Pb₂Sb₂Te₅ 59 µV/K）。Sn 系最高的孤对电子谷（以 Sn 5s 为主）就在价带顶（Sn₂Bi₂Te₅）或其下 84 meV（Sn₂Sb₂Te₅）；Pb 系的在 91 meV（Pb₂Bi₂Te₅）和 236 meV（Pb₂Sb₂Te₅）以下。PBE 下四种材料的孤对电子谷都在价带顶附近，同浓度 S 几乎相同（202–208 µV/K）。三个 p 型样品的空穴浓度在 0.9–1.7×10²¹ cm⁻³，那里四种材料的计算 S 都只有 14–38 µV/K，差别远小于 3×10¹⁹ cm⁻³ 时，所以实验还不能检验这一差别。</li>
-<li><b>Sb → Bi：把孤对电子谷推到价带顶，但同浓度的 S 只差约三成。</b>Γ 处的价带顶以 B 位 p 为主；Bi 6p 的自旋–轨道耦合比 Sb 5p 强得多，把这个态压低约 200 meV，Sn₂Bi₂Te₅ 的价带顶于是变成孤对电子多谷（2<i>k</i><sub>B</sub><i>T</i> 内 24 个口袋）。同一空穴浓度下，3×10¹⁹–1×10²⁰ cm⁻³ 两者几乎相同，3×10²⁰–1×10²¹ cm⁻³ Sn₂Bi₂Te₅ 高 1.1–1.4 倍（PBE 1.3–1.4 倍）：Sn₂Sb₂Te₅ 只低 84 meV 的孤对电子谷在这些浓度下也已参与导电。</li>
-<li><b>n 型</b>：HSE 下四种材料的导带底都是 Γ 处的孤对电子 s 态（单谷），Sn 系 |S| 更高，主要来自约 65 meV 以上的另一组导带口袋（阳离子 p）。PBE 下 Pb₂Bi₂Te₅ 的导带底附近另有以 Bi-p 为主的 A 谷和 Γ–A 线上的极小，23 meV 内共三个谷。Pb₂Bi₂Te₅ 样品支持 PBE（见下），所以至少在 Pb₂Bi₂Te₅ 中，n 型载流子不只在孤对电子态里。</li>
-<li><b>与实验对照</b>（第 5 节，退火样品，Pisarenko 分析）：Sn₂Bi₂Te₅ 价带的态密度有效质量为 1.35 <i>m</i><sub>e</sub>，约是单个 Γ 轻谷的 10 倍，说明孤对电子多谷参与导电；Pb₂Bi₂Te₅ 导带为 0.84 <i>m</i><sub>e</sub>，是 HSE 下 Γ 单谷的 3.6 倍，说明以 Bi-p 为主的 A 谷也参与导电（与 PBE 的谷结构一致）。两个 Sn 样品的 S 相差 1.85 倍，约一半来自能带，一半来自浓度。</li>
+<li><b>p 型：孤对电子谷离价带顶多远</b>（HSE 能带，图 7）：
+  <ul>
+  <li>Sn₂Bi₂Te₅ 的价带顶就是以 Sn 5s 为主的孤对电子多谷（2<i>k</i><sub>B</sub><i>T</i> 内 24 个口袋），Sn₂Sb₂Te₅ 的低 84 meV；</li>
+  <li>Pb 系的在 91 meV（Pb₂Bi₂Te₅）和 236 meV（Pb₂Sb₂Te₅）以下；</li>
+  <li>PBE 下四种材料都在价带顶 17 meV 以内。</li>
+  </ul>
+  PBE+SOC + BoltzTraP2 下，同一空穴浓度的 S 四种材料相近：300 K、3×10¹⁹ cm⁻³ 时 199–214 µV/K。HSE 能带上的 BoltzTraP2 计算正在进行，Pb 与 Sn 的差别在 HSE 下有多大，待其结果。</li>
+<li><b>Sb → Bi：把孤对电子谷推到价带顶。</b>Γ 处的价带顶以 B 位 p 为主；Bi 6p 的自旋–轨道耦合比 Sb 5p 强得多，把这个态压低约 200 meV，Sn₂Bi₂Te₅ 的价带顶于是变成孤对电子多谷。PBE 下同一空穴浓度的 S(Sn₂Bi₂Te₅)/S(Sn₂Sb₂Te₅)：3×10¹⁹–1×10²⁰ cm⁻³ 为 0.98–1.06，3×10²⁰–1×10²¹ cm⁻³ 为 1.25–1.32。</li>
+<li><b>n 型</b>：
+  <ul>
+  <li>HSE 下四种材料的导带底都是 Γ 处的孤对电子 s 态（单谷）。</li>
+  <li>PBE 下 Pb₂Bi₂Te₅ 的导带底附近另有以 Bi-p 为主的 A 谷和 Γ–A 线上的极小，23 meV 内共三个谷。</li>
+  <li>Pb₂Bi₂Te₅ 样品的 S 与 PBE 相符（300 K 时 −89.5 对 −88.7 µV/K），所以至少在 Pb₂Bi₂Te₅ 中，n 型载流子不只在孤对电子态里。</li>
+  </ul></li>
+<li><b>与实验对照</b>（第 5 节，退火样品，Pisarenko 分析）：
+  <ul>
+  <li>Sn₂Bi₂Te₅ 价带的态密度有效质量为 1.35 <i>m</i><sub>e</sub>，约是单个孤对电子口袋的 10 倍，说明孤对电子多谷参与导电。</li>
+  <li>Pb₂Bi₂Te₅ 导带为 0.84 <i>m</i><sub>e</sub>，是 HSE 下 Γ 单谷的 3.6 倍；PBE 给出 0.83 <i>m</i><sub>e</sub>，说明以 Bi-p 为主的 A 谷也参与导电。</li>
+  <li>两个 Sn 样品的 S 相差 1.85 倍，PBE 在两者的霍尔浓度下给出 1.77 倍，其中约四成来自能带、六成来自浓度。</li>
+  <li>Pb₂Sb₂Te₅ 的 S 很小，用单一 p 型能带解释不了，可能是 p 型层状相与 n 型立方相共存（见问题二）。</li>
+  </ul></li>
 </ol>
 <p><b>问题二：退火前后的主导缺陷与 p/n 转变（Pb₂Sb₂Te₅）。</b></p>
 <ol>
 <li>用三套结构对应退火过程：D（无序立方，退火前）、O（有序立方）、L（所给的层状相，退火后）。</li>
 <li>D 的主导缺陷是施主 Pb<sub>Vac</sub>（Pb 填入结构空位），n 型；O、L 的主导缺陷都是受主 Pb<sub>Sb</sub>，p 型。</li>
 <li>机理：退火使结构空位成层，最后塌缩成范德华间隙，填空位施主的形成能从负值升到 1.7 eV（O）和约 3 eV（L）；受主 Pb<sub>Sb</sub> 始终只要 0.07–0.14 eV，于是由 n 型转为 p 型，与 Evang 等<sup class="r">[16]</sup>的结论一致。</li>
-<li>实验：退火的 Pb₂Sb₂Te₅ 样品 S 与霍尔都为 p 型，与预测一致；测一块未退火样品可直接检验 n 型。</li>
+<li>实验：退火的 Pb₂Sb₂Te₅ 样品 S 与霍尔都为 p 型，与预测一致。但它的 S 只有 5.5 µV/K、电导率很高，单一 p 型能带给不出这样的结果。一种可能是退火不完全，p 型层状相与残留的 n 型立方相共存（第 5 节）。用 XRD 查物相、测一块未退火样品，可以检验。</li>
 </ol>
 
 <h2 id="s1">1 计算方法</h2>
@@ -149,18 +163,34 @@ sup.r { font-size: 11px; color: var(--accent); }
 <p><b>L</b>：所给结构扩成 3×3×1（81 原子），22 个缺陷，含带电态，在层状相稳定区的 5 个化学势顶点上自洽求费米能级。层状相没有结构空位，“填空位”在这里变成范德华间隙中的间隙原子。L 是早先一批计算，设置与 D、O 不同，所以只比较排序与量级。</p>
 
 <h3 id="s1-4">1.4 Seebeck 系数与载流子浓度</h3>
-<p><b>模型。</b>从 HSE 路径上取带边 700 meV 内的能谷（价带和导带都取；约 10²¹ cm⁻³ 时 HSE 的费米能级深入价带约 400–500 meV，取谷范围必须覆盖到这里，700 与 900 meV 结果相同，3×10¹⁹ cm⁻³ 时与 300 meV 相同），每个谷用 Kane 型非抛物色散<sup class="r">[13,14]</sup> <i>ε</i>(1 + <i>ε</i>/<i>E</i><sub>K</sub>) = ħ²<i>k</i>²/(2<i>m</i>*) 拟合，看作椭球，得到态密度和载流子速度。在常数弛豫时间近似下解 Boltzmann 方程<sup class="r">[20,21]</sup>：</p>
-<div class="eq"><i>S</i> = ± (1/<i>eT</i>) · ∫σ(<i>ε</i>)(<i>ε</i> − <i>μ</i>)(−∂<i>f</i>/∂<i>ε</i>)d<i>ε</i> / ∫σ(<i>ε</i>)(−∂<i>f</i>/∂<i>ε</i>)d<i>ε</i></div>
-<p>电子和空穴都计入。给定净载流子浓度 <i>N</i> = <i>p</i> − <i>n</i>，由电中性解出费米能级 <i>μ</i>，再算 S。同一积分按谷拆开，就得到各谷承担的电导份额（表 6）。绝对值用 PBE + BoltzTraP2 全区计算校准：<i>S</i><sub>HSE</sub> = <i>S</i><sub>BoltzTraP2</sub><sup>PBE</sup> × <i>S</i><sub>模型</sub><sup>HSE</sup> / <i>S</i><sub>模型</sub><sup>PBE</sup>，以抵消模型本身的系统误差。</p>
+<p><b>计算。</b>用 BoltzTraP2<sup class="r">[20,21]</sup> 在常数弛豫时间近似下解 Boltzmann 方程：</p>
+<div class="eq"><i>S</i> = (1/<i>eT</i>) · ∫σ(<i>ε</i>)(<i>ε</i> − <i>μ</i>)(−∂<i>f</i>/∂<i>ε</i>)d<i>ε</i> / ∫σ(<i>ε</i>)(−∂<i>f</i>/∂<i>ε</i>)d<i>ε</i></div>
+<ul>
+<li><b>输运分布函数</b> σ(<i>ε</i>)：由全布里渊区的能带与群速度给出。电子和空穴都计入。</li>
+<li><b>能带</b>：PBE+SOC 自洽之后在密网格上算的本征值。Sb 系 28×28×7、Bi 系 28×28×6，即 <code>A2B2Te5_SOC_dense</code> 的均匀网格；BoltzTraP2 插值倍数 60，加倍后 S 变化 &lt; 0.3 µV/K。<b>不加剪刀</b>：PBE+SOC 的带隙为 0.09–0.22 eV，除 Pb₂Sb₂Te₅（PBE 0.22 eV、HSE 0.05 eV）外与 HSE06+SOC 相近；Pb₂Bi₂Te₅ 由实验 S(T) 估得的带隙与之一致（附录 A）。</li>
+<li><b>输出</b>：面内 S 取 (<i>xx</i> + <i>yy</i>)/2；温度 300–650 K，每 25 K。</li>
+<li><b>载流子浓度</b>：在 BoltzTraP2 的化学势网格上，由能带的态数得到 <i>N</i>(<i>μ</i>, <i>T</i>) = <i>p</i> − <i>n</i>；给定浓度时，在相邻化学势之间按 log|<i>N</i>| 线性取值，网格间距 4 meV。温度方向不插值。</li>
+</ul>
+<p><b>HSE06+SOC。</b>同样的计算正在进行：在 12×12×2 的 HSE 自洽之上，用 KPOINTS_OPT 算同一个 28×28×7/6 网格的 515/450 个不可约点，再用同样的 BoltzTraP2 设置。只用 12×12×2 自洽网格本身做插值不行：插值能带在网格点之间与直接计算最多差 0.2–0.3 eV，Sn₂Bi₂Te₅ 的孤对电子价带谷也被放错了位置（<code>10_脚本/bt2_hse_validate.py</code>）。所以本版不给 HSE 的 S。</p>
 
-<p><b>能带的“轻”与“重”，以及“口袋”。</b>“轻”“重”指有效质量 <i>m</i>*。<i>m</i>* 小的能带陡，带边附近的态少（态密度 ∝ <i>m</i>*<sup>3/2</sup>），同样多的载流子要填到离带边更远的能量，费米能级更深，S 更低，但迁移率高。一个能谷在布里渊区中的每个等价副本称为一个口袋；口袋越多，带边附近的态越多。例如 3×10¹⁹ cm⁻³ 空穴时，Sn₂Bi₂Te₅ 价带顶附近有 24 个口袋（图 6），费米能级只进入价带 27 meV；Sn₂Sb₂Te₅ 的价带顶只有一个轻的 Γ 谷（面内 0.08 <i>m</i><sub>e</sub>），费米能级要深入到 114 meV。多个谷同时靠近带边、提高同浓度下的 S，称为“能带收敛”<sup class="r">[15]</sup>。</p>
+<p><b>能带的“轻”与“重”，以及“口袋”。</b>
+<ul>
+<li>“轻”“重”指有效质量 <i>m</i>*。<i>m</i>* 小的能带陡，带边附近的态少（态密度 ∝ <i>m</i>*<sup>3/2</sup>），同样多的载流子要填到离带边更远的能量，费米能级更深，S 更低，但迁移率高。离带边越远，能带越偏离抛物线（Kane 型非抛物性<sup class="r">[13,14]</sup>）。</li>
+<li>一个能谷在布里渊区中的每个等价副本称为一个口袋；口袋越多，带边附近的态越多。例如 Sn₂Bi₂Te₅ 价带顶附近 2<i>k</i><sub>B</sub><i>T</i> 内有 24 个口袋（图 6），Sn₂Sb₂Te₅ 的价带顶只有 Γ 处一个轻的谷（HSE 面内 0.08 <i>m</i><sub>e</sub>）。</li>
+<li>多个谷同时靠近带边、提高同浓度下的 S，称为“能带收敛”<sup class="r">[15]</sup>。</li>
+</ul></p>
 
 <div class="box"><b>载流子浓度有两种用法，不要混淆：</b>
 <ol>
-<li><b>比较材料（第 4 节）：四种材料取同一浓度、300 K</b>，这样材料间 S 的差别只来自能带<sup class="r">[22,23]</sup>。图 8 给出 S 随浓度的全曲线（Pisarenko 图）。分析各谷的电导份额（表 6）取 3×10¹⁹ cm⁻³（另给 1×10²⁰）：四种材料的费米能级都在带边附近，校准用的 PBE + BoltzTraP2 也是这个浓度。</li>
-<li><b>与实验对照（第 5 节）：浓度取室温霍尔实测值。</b>主要用 300 K 的 Pisarenko 图（S 对霍尔浓度）<sup class="r">[22,23]</sup>：由实验点读出态密度有效质量，再在霍尔浓度下算出 S、用同样方法读出计算的有效质量，两者同口径比较。能带直接用计算结果（HSE 或 PBE），不按实验调整；散射取常数弛豫时间（与 BoltzTraP2 相同），声学声子散射作对照。四个样品的浓度都在 8×10¹⁹ cm⁻³ 以上，都用 BoltzTraP2 全区结果再乘上述比值。逐温度的 S(T) 放在附录 A，取霍尔浓度、不调参数，目前只有 PBE+SOC（密网格 BoltzTraP2，不加剪刀）。</li>
+<li><b>比较材料（第 4 节）：四种材料取同一浓度、300 K</b>。这样材料间 S 的差别只来自能带<sup class="r">[22,23]</sup>。图 8 给出 S 随浓度的全曲线，表 6 取 3×10¹⁹ 与 1×10²⁰ cm⁻³。</li>
+<li><b>与实验对照（第 5 节、附录 A）：浓度取室温霍尔实测值。</b>
+  <ul>
+  <li>300 K 用 Pisarenko 图（S 对霍尔浓度）<sup class="r">[22,23]</sup>：由实验点读出态密度有效质量，再在霍尔浓度下算出 S，用同样方法读出计算的有效质量，两者同口径比较。</li>
+  <li>逐温度的 S(T) 放在附录 A。</li>
+  <li>两处都直接用计算的能带，不按实验调整，不调任何参数。</li>
+  </ul></li>
 </ol></div>
-<p><b>文献依据。</b>Kane 色散<sup class="r">[13,14]</sup>、多谷提高 S<sup class="r">[15]</sup>、常数弛豫时间的 Boltzmann 输运<sup class="r">[20,21]</sup>、Pisarenko 分析<sup class="r">[22,23]</sup>、双极 S 与 Goldsmid–Sharp 关系<sup class="r">[24]</sup> 都是常规做法。本工作新做的是从能带路径构造椭球谷，以及用 PBE + BoltzTraP2 做比值校准，所以绝对值只宜作估计，可靠的是材料排序和 PBE → HSE 的变化方向。</p>
+<p><b>文献依据。</b>常数弛豫时间的 Boltzmann 输运与 BoltzTraP2<sup class="r">[20,21]</sup>、多谷提高 S<sup class="r">[15]</sup>、Pisarenko 分析<sup class="r">[22,23]</sup>、双极 S 与 Goldsmid–Sharp 关系<sup class="r">[24]</sup>，都是常规做法。</p>
 
 <h2 id="s2">2 能带：PBE 与 HSE</h2>
 <figure>
@@ -283,73 +313,132 @@ sup.r { font-size: 11px; color: var(--accent); }
 <p><b>拓扑。</b>Sn₂Sb₂Te₅、Pb₂Bi₂Te₅、Sn₂Bi₂Te₅ 在 PBE 和 HSE 下都是 Z₂ = (1;000)，反转都在 Γ：孤对电子的 s 态在 Γ 处被反转到阳离子 p 态之上（由 SOC 造成，见上文与图 S2），这正是非平庸拓扑的来源，也决定了 n 型载流子所在的态。三者 Γ 处的反转带隙（HSE 下 Sn₂Sb₂Te₅ 168、Pb₂Bi₂Te₅ 194、Sn₂Bi₂Te₅ 277 meV，即 Γ 处最低导带与最高价带之差，见图 2 源数据 <code>band_gaps_on_path.csv</code>）远大于数值误差。Pb₂Sb₂Te₅ 在 Γ 处只有 51 meV，宇称待补。</p>
 
 <h2 id="s4">4 孤对电子对 Seebeck 系数的影响</h2>
-<p>本节比较材料时都取同一载流子浓度、300 K：图 8 给出 S 随浓度的全曲线，表 6 的谷份额分析取 3×10¹⁹ cm⁻³（1.4 节）。与实验的对照见第 5 节。</p>
+<p>本节比较材料时取同一载流子浓度、300 K（图 8、表 6）。输运数值目前只有 PBE+SOC + BoltzTraP2（密网格，不加剪刀，1.4 节）；HSE06+SOC 的同类计算完成后补入。HSE 的影响先从能带看（图 7）。与实验的对照见第 5 节。</p>
 <figure>
 <img src="{{FIG:Fig7_lone_pair_valley_PBE_vs_HSE}}" alt="Fig. 7" style="max-width:520px;margin:0 auto">
 <figcaption><b>图 7</b> 最高的孤对电子价带谷（阳离子 s ≥ 15%）相对价带顶的能量，阴影为 2<i>k</i><sub>B</sub><i>T</i>（300 K）。Sn 系取路径外的真实谷（HSE：镜面内三维搜索；PBE：附加路径 Γ–Σ′–R₂′–L，1.2 节），零点为真实价带顶。Pb 系取能带路径上的值，离轴谷的真实极大可能更高，图中深度是上限。</figcaption>
 </figure>
 <figure>
-<img src="{{FIG:Fig8_Seebeck_PBE_vs_HSE}}" alt="Fig. 8">
-<figcaption><b>图 8</b> 300 K 面内 S 随载流子浓度的变化（理论）。(a) p 型，(b) n 型。彩色为四种材料的 HSE 估计（紫色 Sn 系、灰色 Pb 系；深色 Bi、浅色 Sb），灰带为 PBE+SOC + BoltzTraP2 下四种材料的范围。点线为表 6 的比较浓度 3×10¹⁹ cm⁻³。浓度更高时费米能级进入更深的谷，属模型外推，未画。与实验样品的对照见图 9。<span class="warn">HSE 数值为暂用估计，见文首版本说明。</span></figcaption>
+<img src="{{FIG:Fig8_Seebeck_vs_concentration}}" alt="Fig. 8">
+<figcaption><b>图 8</b> 300 K 面内 S 随载流子浓度的变化：PBE+SOC + BoltzTraP2，28×28×7/6 密网格，不加剪刀，常数弛豫时间。(a) p 型，(b) n 型。紫色为 Sn 系，灰色为 Pb 系；深色为 Bi，浅色为 Sb。点线为表 6 的比较浓度 3×10¹⁹ cm⁻³。(b) 中低浓度时，空穴的双极贡献使 S 变号，|S| 降到 0 以下的部分未画；Sn₂Bi₂Te₅ 的 PBE+SOC 带隙只有 0.09 eV，最明显。HSE06+SOC 的结果完成后加入。</figcaption>
 </figure>
-<p class="tcap"><b>表 6</b> 300 K 面内 S（µV/K；箭头左为 PBE + BoltzTraP2，1×10²⁰ cm⁻³ 由其结果插值；右为 HSE 估计；Sn 系的价带用三维搜索的真实谷）与孤对电子态承担的电导份额（HSE，3×10¹⁹ cm⁻³）。p 型计入阳离子 s ≥ 15% 的价带谷，n 型计入 Γ 处的导带谷；逐谷数值见 <code>data/Fig8_Seebeck/</code>。<span class="warn">HSE 数值为暂用估计，见文首版本说明。</span></p>
+<p class="tcap"><b>表 6</b> 300 K 面内 S（µV/K）：PBE+SOC + BoltzTraP2（密网格，不加剪刀）。HSE06+SOC 的同类结果在计算中。</p>
 <table data-csv="Table6_Seebeck_300K">
-<thead><tr><th>材料</th><th class="num">p 3×10¹⁹</th><th class="num">p 1×10²⁰</th><th class="num">n 3×10¹⁹</th><th class="num">n 1×10²⁰</th><th>p 型：孤对电子谷的电导份额</th><th>n 型：Γ 导带（孤对电子 s 态）的份额</th></tr></thead>
+<thead><tr><th>材料</th><th class="num">p 3×10¹⁹</th><th class="num">p 1×10²⁰</th><th class="num">n 3×10¹⁹</th><th class="num">n 1×10²⁰</th></tr></thead>
 <tbody>
-<tr><td>Pb₂Sb₂Te₅</td><td class="num">204 → 59</td><td class="num">120 → 51</td><td class="num">−125 → −64</td><td class="num">−91 → −63</td><td>17%</td><td>78%</td></tr>
-<tr><td>Pb₂Bi₂Te₅</td><td class="num">208 → 110</td><td class="num">121 → 67</td><td class="num">−128 → −47</td><td class="num">−83 → −16</td><td>12%</td><td>100%</td></tr>
-<tr><td>Sn₂Sb₂Te₅</td><td class="num">202 → 171</td><td class="num">113 → 93</td><td class="num">−159 → −150</td><td class="num">−95 → −95</td><td>77%</td><td>47%</td></tr>
-<tr><td>Sn₂Bi₂Te₅</td><td class="num">204 → 167</td><td class="num">122 → 89</td><td class="num">−186 → −171</td><td class="num">−93 → −84</td><td>约 100%</td><td>43%</td></tr>
+<tr><td>Pb₂Sb₂Te₅</td><td class="num">214</td><td class="num">121</td><td class="num">−133</td><td class="num">−92</td></tr>
+<tr><td>Pb₂Bi₂Te₅</td><td class="num">208</td><td class="num">122</td><td class="num">−128</td><td class="num">−81</td></tr>
+<tr><td>Sn₂Sb₂Te₅</td><td class="num">202</td><td class="num">115</td><td class="num">−160</td><td class="num">−94</td></tr>
+<tr><td>Sn₂Bi₂Te₅</td><td class="num">199</td><td class="num">122</td><td class="num">−163</td><td class="num">−92</td></tr>
 </tbody></table>
-<p><b>p 型：孤对电子谷越靠近价带顶、承担的电导越多，S 越高。</b>3×10¹⁹ cm⁻³ 时（表 6）：</p>
+<p><b>p 型：PBE 下四种材料相近；HSE 下孤对电子谷的位置差别很大。</b></p>
 <ul>
-<li><b>Sn₂Bi₂Te₅</b>：价带顶就是孤对电子谷（2<i>k</i><sub>B</sub><i>T</i> 内 24 个口袋），电导几乎全部来自孤对电子态。</li>
-<li><b>Sn₂Sb₂Te₅</b>：价带顶是 Γ 处的轻单谷，孤对电子谷低 84–129 meV。费米能级已进入这些谷，它们承担 77% 的电导，S 因此与 Sn₂Bi₂Te₅ 相当；只用路径上较深的谷估算，只有 138 µV/K。</li>
-<li><b>Pb 系</b>：孤对电子谷深（−91、−236 meV），只承担 12–17% 的电导，S 低。</li>
+<li><b>PBE</b>：四种材料的孤对电子谷都在价带顶附近（17 meV 以内，图 7），同浓度的 S 相近：3×10¹⁹ cm⁻³ 时 199–214 µV/K，1×10²⁰ 时 115–122 µV/K（表 6、图 8a）。</li>
+<li><b>HSE（能带）</b>：Sn 系的孤对电子谷仍在价带顶（Sn₂Bi₂Te₅，24 个口袋）或其下 84 meV（Sn₂Sb₂Te₅）；Pb 系的被压到 91 meV（Pb₂Bi₂Te₅）和 236 meV（Pb₂Sb₂Te₅）以下，价带顶只剩 Γ 或 A 处的单个谷。按能带收敛的一般规律<sup class="r">[15]</sup>，预期 HSE 下同浓度 Sn 系的 S 高于 Pb 系，3×10¹⁹ cm⁻³ 这样较低的浓度差别最大。具体数值待 HSE 的 BoltzTraP2 结果。</li>
+<li><b>与样品的关系</b>：三个 p 型样品的空穴在 0.9–1.7×10²¹ cm⁻³，那里 PBE 下四种材料的 S 只有 21–38 µV/K（图 8a），差别小，样品还不能区分这一点。</li>
 </ul>
-<p><b>以上是 HSE 的结果。</b>PBE 下四种材料的孤对电子谷都在价带顶附近（17 meV 以内，图 7），同浓度的 p 型 S 几乎相同（3×10¹⁹ cm⁻³ 时 202–208 µV/K，表 6，即图 8a 的灰带）。哪一种更接近实际，三个 p 型样品还不能判断：它们的空穴在 0.9–1.7×10²¹ cm⁻³，那里两种泛函下四种材料的 S 都只有 14–38 µV/K（图 8a、图 9）。</p>
-<p><b>Sb 与 Bi：同一浓度下 S 只差约三成（图 8a）。</b>Bi 让孤对电子谷处在价带顶，但 Sn₂Sb₂Te₅ 的孤对电子谷也只低 84 meV，空穴一多就同样参与导电。所以：</p>
+<p><b>Sb 与 Bi（图 8a）。</b>Bi 6p 的自旋–轨道耦合把 Γ 处以 B 位 p 为主的价带顶压低，Sn₂Bi₂Te₅ 的价带顶变成孤对电子多谷（第 3 节）。PBE 下同一空穴浓度的 S(Sn₂Bi₂Te₅)/S(Sn₂Sb₂Te₅)：</p>
 <ul>
-<li><b>3×10¹⁹–1×10²⁰ cm⁻³</b>：两者几乎相同（HSE 下 Sn₂Bi₂Te₅ 为 Sn₂Sb₂Te₅ 的 0.97 倍）。这时 Sn₂Sb₂Te₅ 的费米能级正落在它的孤对电子谷顶附近。</li>
-<li><b>3×10²⁰–1×10²¹ cm⁻³</b>（接近样品浓度）：Sn₂Bi₂Te₅ 高 1.1–1.4 倍，PBE 为 1.3–1.4 倍；到 1.7×10²¹ cm⁻³ 又接近（HSE 0.8 倍，PBE 1.1 倍）。</li>
-<li><b>1×10¹⁹ cm⁻³</b>：HSE 下 Sn₂Bi₂Te₅ 高 1.3 倍（Sn₂Sb₂Te₅ 的电导有四成来自轻的 Γ 谷），PBE 下两者相同。</li>
+<li>1×10¹⁹ cm⁻³：0.86；</li>
+<li>3×10¹⁹–1×10²⁰ cm⁻³：0.98–1.06；</li>
+<li>3×10²⁰–1×10²¹ cm⁻³（接近样品浓度）：1.25–1.32；</li>
+<li>1.7×10²¹ cm⁻³：1.09。</li>
 </ul>
 <p>两个 Sn 样品的实验 S 相差 1.85 倍（约 300 K），超出了同浓度下的能带差别，其余来自浓度（第 5 节）。</p>
-<p><b>n 型：HSE 下载流子就在孤对电子 s 态里，但决定 |S| 高低的不是它。</b>HSE 下四种材料的导带底都是 Γ 处的孤对电子单谷。Pb 系的导带轻、又没有别的谷，|S| 低；Sn 系另有约 65 meV 处的 A–L 阳离子 p 口袋，承担约一半电导，3×10¹⁹ cm⁻³ 时 |S| 高 2.3–3.7 倍。PBE 下 Pb₂Bi₂Te₅ 的导带底附近另有以 Bi-p 为主的 A 谷和 Γ–A 线上的极小（23 meV 内三个谷），四种材料的 n 型 |S| 相近：在 Pb₂Bi₂Te₅ 样品的霍尔浓度（8.1×10¹⁹ cm⁻³）为 90–107 µV/K，HSE 下为 20（Pb₂Bi₂Te₅）到 102 µV/K（图 8b）。该样品的实验值（−89.5 µV/K）与 PBE 相符（第 5 节），所以至少在 Pb₂Bi₂Te₅ 中，n 型载流子不只在孤对电子态里，以 Bi-p 为主的 A 谷也参与导电。</p>
-<p class="note"><b>三维搜索对 S 的影响</b>（Sn 系的价带用镜面内的真实谷，1.2 节）。与只用路径相比：Sn₂Bi₂Te₅ 的 p 型 S 由 228 降到 167 µV/K，因为拟合出的面内垂直方向质量（0.04–0.09 <i>m</i><sub>e</sub>）比路径模型的假设（0.15–0.31 <i>m</i><sub>e</sub>）轻得多，态密度较小；Sn₂Sb₂Te₅ 由 138 升到 171 µV/K，因为孤对电子谷升高了 4–62 meV。n 型几乎不变。</p>
+<p><b>n 型（图 8b）。</b></p>
+<ul>
+<li><b>导带底</b>：HSE 下四种材料都是 Γ 处的孤对电子 s 态（单谷）。PBE 下 Pb₂Bi₂Te₅ 的导带底附近另有以 Bi-p 为主的 A 谷和 Γ–A 线上的极小，23 meV 内三个谷。</li>
+<li><b>PBE 的 |S|</b>：3×10¹⁹ cm⁻³ 时 Sn 系较高（159–163 对 128–133 µV/K）；在 Pb₂Bi₂Te₅ 样品的霍尔浓度（8.1×10¹⁹ cm⁻³）下，四种材料为 89–107 µV/K。</li>
+<li><b>与样品对照</b>：Pb₂Bi₂Te₅ 的实验值（−89.5 µV/K）与 PBE（−88.7 µV/K）相符（第 5 节、附录 A）。所以至少在 Pb₂Bi₂Te₅ 中，n 型载流子不只在孤对电子态里，以 Bi-p 为主的 A 谷也参与导电。</li>
+</ul>
 
 <h2 id="s5">5 与实验的对照</h2>
-<p>四个样品都经过退火，有室温霍尔、S(T) 与 σ(T)。按文献的通常做法，用 300 K 的 S 对霍尔浓度作 Pisarenko 图（图 9）<sup class="r">[15,22,23]</sup>：单抛物带（声学声子散射）的参考线给出态密度有效质量 <i>m</i>*，实验点落在哪条线上，就读出参与导电的能带有多“重”；同时导电的谷越多，<i>m</i>* 越大（约为单个谷质量的 <i>N</i><sub>v</sub><sup>2/3</sup> 倍）。单抛物带只是把 S 与浓度换算成一个有效质量的“刻度”，实验和计算都用它换算、才能对比；本文计算 S 并不用它：PBE 用 BoltzTraP2 全区能带，HSE 用逐谷模型（每个谷按真实位置、质量和口袋数计入，1.4 节），多谷是能带本身给出的。在样品的霍尔浓度下，HSE 模型中孤对电子谷承担 Sn₂Bi₂Te₅ 99%、Sn₂Sb₂Te₅ 97% 的电导。Pb₂Sb₂Te₅、Sn₂Sb₂Te₅ 的霍尔测量被仪器标红（霍尔电压只有 0.3–0.6 µV），浓度只作参考。逐温度的 S(T) 对照见附录 A。</p>
+<p>四个样品都经过退火，有室温霍尔、S(T) 与 σ(T)。</p>
+<ul>
+<li><b>方法</b>：按文献的通常做法，用 300 K 的 S 对霍尔浓度作 Pisarenko 图（图 9）<sup class="r">[15,22,23]</sup>。
+  <ul>
+  <li>单抛物带（声学声子散射）的参考线给出态密度有效质量 <i>m</i>*：实验点落在哪条线上，就读出参与导电的能带有多“重”。</li>
+  <li>同时导电的谷越多，<i>m</i>* 越大，约为单个谷质量的 <i>N</i><sub>v</sub><sup>2/3</sup> 倍。</li>
+  <li>单抛物带只是把 S 与浓度换算成有效质量的“刻度”，实验和计算都用它换算，才能对比。计算的 S 本身不用它，直接来自 PBE+SOC 全区能带的 BoltzTraP2（1.4 节），多谷是能带本身给出的。</li>
+  </ul></li>
+<li><b>数据质量</b>：
+  <ul>
+  <li>Pb₂Sb₂Te₅、Sn₂Sb₂Te₅ 的霍尔测量被仪器标红（霍尔电压只有 0.3–0.6 µV），浓度只作参考。</li>
+  <li>Pb₂Sb₂Te₅ 的 S 以原始数据表为准：第一版曲线图中它在 300–470 K 约为 0，与表中的 5–6 µV/K 不同；表中的电导率与霍尔测得的电阻率相差 10%，应是同一块样品。</li>
+  </ul></li>
+<li>逐温度的 S(T) 对照见附录 A。</li>
+</ul>
 <figure>
 <img src="{{FIG:Fig9_Pisarenko_experiment}}" alt="Fig. 9">
-<figcaption><b>图 9</b> 与实验对照：300 K 的 |S| 对室温霍尔浓度（Pisarenko 图，双对数）。灰线为单抛物带（声学声子散射）在态密度有效质量 <i>m</i>* = 0.1、0.3、1、3 <i>m</i><sub>e</sub> 时的关系，样品点落在哪条线附近，就读出它的 <i>m</i>*（标在点旁）。实心圆为实验，空心三角、方块为同一霍尔浓度下的计算（HSE 估计、PBE+SOC + BoltzTraP2）。Pb₂Bi₂Te₅ 为 n 型，两个 Sn 样品为 p 型；* 表示霍尔被仪器标红。单个谷的 <i>m</i>* 只有 0.13–0.23 <i>m</i><sub>e</sub>（表 7），在最下面两条线附近。Pb₂Sb₂Te₅ 由电子、空穴相互补偿，单一载流子的关系不适用，未画（附录 A）。<span class="warn">HSE 数值为暂用估计，见文首版本说明。</span></figcaption>
+<figcaption><b>图 9</b> 与实验对照：300 K 的 |S| 对室温霍尔浓度（Pisarenko 图，双对数）。灰线为单抛物带（声学声子散射）在态密度有效质量 <i>m</i>* = 0.1、0.3、1、3 <i>m</i><sub>e</sub> 时的关系，样品点落在哪条线附近，就读出它的 <i>m</i>*（标在点旁）。实心圆为实验，空心方块为同一霍尔浓度下的 PBE+SOC + BoltzTraP2（密网格，不加剪刀）。Pb₂Bi₂Te₅ 为 n 型，两个 Sn 样品为 p 型；* 表示霍尔被仪器标红。单个谷的 <i>m</i>* 只有 0.13–0.23 <i>m</i><sub>e</sub>（表 7），在最下面两条线附近。Pb₂Sb₂Te₅ 的电子、空穴相互补偿，单一载流子的关系不适用，未画。HSE06+SOC 的结果完成后加入。</figcaption>
 </figure>
-<p class="tcap"><b>表 7</b> 由 300 K 的 S 与霍尔浓度读出的态密度有效质量 <i>m</i>*（单抛物带、声学声子散射，单位 <i>m</i><sub>e</sub>）。计算列：在霍尔浓度下算出 S，再用同样的方法读出 <i>m</i>*，与实验同口径。<span class="warn">HSE 数值为暂用估计，见文首版本说明。</span></p>
+<p class="tcap"><b>表 7</b> 由 300 K 的 S 与霍尔浓度读出的态密度有效质量 <i>m</i>*（单抛物带、声学声子散射，单位 <i>m</i><sub>e</sub>）。计算列：在霍尔浓度下用 PBE+SOC + BoltzTraP2 算出 S，再用同样的方法读出 <i>m</i>*，与实验同口径。参照列为 HSE06+SOC 能带上单个谷的态密度质量（由能带曲率拟合）。</p>
 <table data-csv="Table7_Pisarenko_mass">
-<thead><tr><th>样品</th><th>霍尔浓度（cm⁻³）</th><th>实验：S（µV/K）/ <i>m</i>*</th><th>HSE：S / <i>m</i>*</th><th>PBE：S / <i>m</i>*</th><th>参照：HSE 下单个谷的 <i>m</i>*</th></tr></thead>
+<thead><tr><th>样品</th><th>霍尔浓度（cm⁻³）</th><th>实验：S（µV/K）/ <i>m</i>*</th><th>PBE+SOC：S / <i>m</i>*</th><th>参照：HSE 下单个谷的 <i>m</i>*</th></tr></thead>
 <tbody>
-<tr><td>Sn₂Bi₂Te₅</td><td><i>p</i> 9.1×10²⁰</td><td>+29.3 / <b>1.35</b></td><td>+25.3 / 1.17</td><td>+37.9 / 1.74</td><td>0.13（单个孤对电子口袋）</td></tr>
-<tr><td>Sn₂Sb₂Te₅</td><td><i>p</i> 1.7×10²¹（标红）</td><td>+15.9 / <b>1.13</b></td><td>+16.7 / 1.19</td><td>+21.5 / 1.53</td><td>0.14（Γ 价带）</td></tr>
-<tr><td>Pb₂Bi₂Te₅</td><td><i>n</i> 8.1×10¹⁹</td><td>−89.5 / <b>0.84</b></td><td>−19.9 / 0.18</td><td>−89.9 / 0.84</td><td>0.23（Γ 导带）</td></tr>
+<tr><td>Sn₂Bi₂Te₅</td><td><i>p</i> 9.1×10²⁰</td><td>+29.3 / <b>1.35</b></td><td>+37.5 / 1.73</td><td>0.13（单个孤对电子口袋）</td></tr>
+<tr><td>Sn₂Sb₂Te₅</td><td><i>p</i> 1.7×10²¹（标红）</td><td>+15.9 / <b>1.13</b></td><td>+21.2 / 1.51</td><td>0.14（Γ 价带）</td></tr>
+<tr><td>Pb₂Bi₂Te₅</td><td><i>n</i> 8.1×10¹⁹</td><td>−89.5 / <b>0.84</b></td><td>−88.7 / 0.83</td><td>0.23（Γ 导带）</td></tr>
 </tbody></table>
 <p><b>对问题一（孤对电子与 S）：</b></p>
 <ul>
-<li><b>p 型：价带是多谷，即孤对电子谷参与导电。</b>Sn₂Bi₂Te₅ 的实验 <i>m</i>* 为 1.35 <i>m</i><sub>e</sub>（图 9），约是单个孤对电子口袋（0.12–0.13 <i>m</i><sub>e</sub>，镜面搜索拟合）的 10 倍；本文算出的单个价带谷都远轻于此（Γ 谷 0.10–0.14 <i>m</i><sub>e</sub>，最重的 Pb₂Bi₂Te₅ 的 A 谷也只有 0.44 <i>m</i><sub>e</sub>）。它的价带顶在 2<i>k</i><sub>B</sub><i>T</i> 内有 24 个口袋（第 3、4 节），态密度质量约增大 <i>N</i><sub>v</sub><sup>2/3</sup> ≈ 8 倍，正好到 1 <i>m</i><sub>e</sub> 量级。两种泛函的计算夹住实验值（HSE 1.17、PBE 1.74 <i>m</i><sub>e</sub>）。Sn₂Sb₂Te₅ 也有 1.13 <i>m</i><sub>e</sub>（霍尔标红），约是它的 Γ 谷（0.14 <i>m</i><sub>e</sub>）的 8 倍：在 10²¹ cm⁻³ 的空穴下，它只低 84 meV 的孤对电子谷同样参与导电（第 4 节）。</li>
-<li><b>n 型：导带也是多谷。</b>Pb₂Bi₂Te₅ 的实验 <i>m</i>* 为 0.84 <i>m</i><sub>e</sub>，是 HSE 的 Γ 单谷（0.23 <i>m</i><sub>e</sub>）的 3.6 倍；HSE 只给出 0.18 <i>m</i><sub>e</sub>，S 只有实验的约五分之一。PBE 的导带在 23 meV 内有三个谷（Γ 处的孤对电子 s 态、以 Bi-p 为主的 A 谷、Γ–A 线上的极小），给出 0.84 <i>m</i><sub>e</sub>，与实验一致。所以 n 型电子除了占据孤对电子 s 态，还占据以 Bi-p 为主的 A 谷；HSE 把 A 谷放高了约 0.1 eV。</li>
-<li><b>Sb 与 Bi</b>：两个 Sn 样品的实验 S 相差 1.85 倍。同一浓度下能带只给出 1.2–1.3 倍；按霍尔值，Sn₂Sb₂Te₅ 的空穴多约一倍（1.7×10²¹ 对 9.1×10²⁰ cm⁻³），所以差别约一半来自能带，一半来自浓度（后者依赖标红的霍尔值）。</li>
-<li><b>Pb 与 Sn</b>：第 4 节中同浓度 Sn 系的 S 明显高于 Pb 系（3×10¹⁹ cm⁻³ 时 HSE 为 1.5–2.9 倍），是 HSE 的预测；PBE 下四种材料相近。现有 p 型样品都在 10²¹ cm⁻³ 附近，那里差别很小，还不能检验。</li>
+<li><b>p 型：价带是多谷，即孤对电子谷参与导电。</b>
+  <ul>
+  <li>Sn₂Bi₂Te₅ 的实验 <i>m</i>* 为 1.35 <i>m</i><sub>e</sub>（图 9），约是单个孤对电子口袋（0.12–0.13 <i>m</i><sub>e</sub>，镜面搜索拟合）的 10 倍。本文算出的单个价带谷都远轻于此：Γ 谷 0.10–0.14 <i>m</i><sub>e</sub>，最重的 Pb₂Bi₂Te₅ 的 A 谷也只有 0.44 <i>m</i><sub>e</sub>。</li>
+  <li>它的价带顶在 2<i>k</i><sub>B</sub><i>T</i> 内有 24 个口袋（第 3 节），态密度质量约增大 <i>N</i><sub>v</sub><sup>2/3</sup> ≈ 8 倍，正好到 1 <i>m</i><sub>e</sub> 量级。PBE 给出 1.73 <i>m</i><sub>e</sub>，略高于实验。</li>
+  <li>Sn₂Sb₂Te₅ 也有 1.13 <i>m</i><sub>e</sub>（霍尔标红），约是它的 Γ 谷（0.14 <i>m</i><sub>e</sub>）的 8 倍：在 10²¹ cm⁻³ 的空穴下，只低 84 meV（HSE）的孤对电子谷同样参与导电。PBE 给出 1.51 <i>m</i><sub>e</sub>。</li>
+  </ul></li>
+<li><b>n 型：导带也是多谷。</b>
+  <ul>
+  <li>Pb₂Bi₂Te₅ 的实验 <i>m</i>* 为 0.84 <i>m</i><sub>e</sub>，是 HSE 下 Γ 单谷（0.23 <i>m</i><sub>e</sub>）的 3.6 倍。</li>
+  <li>PBE 的导带在 23 meV 内有三个谷：Γ 处的孤对电子 s 态、以 Bi-p 为主的 A 谷、Γ–A 线上的极小。它给出 0.83 <i>m</i><sub>e</sub>，S 为 −88.7 对实验 −89.5 µV/K，与实验一致。</li>
+  <li>所以 n 型电子除了占据孤对电子 s 态，还占据以 Bi-p 为主的 A 谷。HSE 的 A 谷在导带底以上 133 meV（PBE 为 8 meV）；HSE 的输运结果完成后再核对。</li>
+  </ul></li>
+<li><b>Sb 与 Bi</b>：两个 Sn 样品的实验 S 相差 1.85 倍。
+  <ul>
+  <li>PBE 在两者各自的霍尔浓度下给出 1.77 倍，与实验接近。</li>
+  <li>同一浓度（9.1×10²⁰ cm⁻³）下只有 1.28 倍。</li>
+  <li>按对数分，约四成来自能带，六成来自 Sn₂Sb₂Te₅ 多出的空穴（1.7×10²¹ 对 9.1×10²⁰ cm⁻³）。后者依赖标红的霍尔值。</li>
+  </ul></li>
+<li><b>Pb 与 Sn</b>：PBE 下同浓度的四种材料相近；HSE 能带中 Pb 系的孤对电子谷深得多（第 4 节）。这一差别要等 HSE 的输运结果，也需要较低浓度的 p 型样品来检验。</li>
 </ul>
-<p><b>对问题二（缺陷与 p/n 转变）：</b>退火的 Pb₂Sb₂Te₅ 样品 S 为正（300 K 时 +5.5 µV/K），霍尔也是 p 型，与“退火后以受主 Pb<sub>Sb</sub> 为主、呈 p 型”的结论一致（第 6 节）。它的 S 很小而电导率很高（2200 S/cm），说明电子和空穴都很多、相互抵消（附录 A），所以这个样品只能定性地确认 p 型。直接检验 p/n 转变，需要测一块未退火（淬火）的 Pb₂Sb₂Te₅：计算预测它是 n 型。</p>
+<p><b>对问题二（缺陷与 p/n 转变）：</b></p>
+<ul>
+<li><b>导电类型与预测一致</b>：退火的 Pb₂Sb₂Te₅ 样品 S 为正（300 K 时 +5.5 µV/K），霍尔也是 p 型，与“退火后以受主 Pb<sub>Sb</sub> 为主、呈 p 型”的结论一致（第 6 节）。</li>
+<li><b>但单一 p 型能带解释不了它的 S</b>：
+  <ul>
+  <li>PBE+SOC + BoltzTraP2 在 10¹⁹–5×10²¹ cm⁻³ 的任何空穴浓度下，300 K 的 S 都不低于 22 µV/K（附录 A）。</li>
+  <li>实测 S 在 300–470 K 几乎不变（4.9–5.6 µV/K），之后才升到 17 µV/K。</li>
+  <li>电导率高达 2200 S/cm，并随温度下降。</li>
+  <li>霍尔电压只有 0.61 µV，相位偏到 21°。</li>
+  </ul>
+  这些都说明，样品中电子和空穴同时大量存在，并联导电、相互抵消。</li>
+</ul>
+<div class="box"><b>推测：退火不完全，n 型与 p 型两相共存。</b>
+<ul>
+<li><b>两相</b>：按第 6 节，退火前的无序立方相以施主 Pb<sub>Vac</sub> 为主，呈 n 型；退火后的层状相以受主 Pb<sub>Sb</sub> 为主，呈 p 型。若样品中仍残留未转变的立方相（或部分有序的中间相），n 型区与 p 型区就会并联导电。</li>
+<li><b>S 被抵消</b>：并联时总的 S = (σ<sub>n</sub><i>S</i><sub>n</sub> + σ<sub>p</sub><i>S</i><sub>p</sub>)/(σ<sub>n</sub> + σ<sub>p</sub>)。两相的 S 符号相反，可以抵消到接近零；电导率是两者之和，仍然很高。</li>
+<li><b>霍尔被抵消</b>：电子和空穴的霍尔信号同样相互抵消，表现为霍尔电压很小、相位异常，霍尔浓度因此不可靠。</li>
+<li><b>与缺陷计算相符</b>：单一层状相的净空穴只有约 1.5×10¹⁸ cm⁻³（第 6 节，表 10），按 PBE+SOC + BoltzTraP2 对应 300 K 的 S 约 +450 µV/K，约为实测的 80 倍。这也说明样品不是单一的层状相。</li>
+<li><b>检验办法</b>：
+  <ul>
+  <li>XRD 或 TEM 查看是否残留岩盐立方相；</li>
+  <li>测一块未退火（淬火）样品，计算预测它是 n 型；</li>
+  <li>变磁场霍尔，分开两种载流子；</li>
+  <li>更长时间或更高温度退火后重测：若 S 随之升高、霍尔信号变好，即支持这一推测。</li>
+  </ul></li>
+<li><b>限度</b>：这只是定性解释。两相的比例和各自的浓度未知，本工作不做定量拟合。</li>
+</ul></div>
 <p><b>还需要哪些实验数据</b>（按价值排序）：</p>
 <ol>
-<li><b>未退火 Pb₂Sb₂Te₅ 的 S 与霍尔</b>：检验问题二预测的 n 型。</li>
-<li><b>空穴浓度较低（约 3×10¹⁹ cm⁻³）的 p 型样品</b>：这一浓度下 HSE 预测 Sn 系的 S 是 Pb 系的 1.5–2.9 倍，PBE 预测四种材料几乎相同（202–208 µV/K），可直接检验 A 位孤对电子的作用（问题一）。</li>
+<li><b>Pb₂Sb₂Te₅ 的物相（XRD）与未退火样品的 S、霍尔</b>：检验两相共存的推测，以及问题二预测的 n 型。</li>
+<li><b>空穴浓度较低（约 3×10¹⁹ cm⁻³）的 p 型样品</b>：PBE 预测四种材料几乎相同（199–214 µV/K）；HSE 能带中 Pb 系的孤对电子谷深得多，两者的区别在这一浓度最大，可直接检验 A 位孤对电子的作用（问题一）。</li>
 <li><b>Sn₂Sb₂Te₅ 重测霍尔</b>：确定 Sb 与 Bi 的差别中浓度占多少。</li>
 <li><b>Pb₂Sb₂Te₅ 变磁场霍尔</b>：分开电子与空穴。</li>
 </ol>
 
 <h2 id="s6">6 退火前后的主导缺陷与 p/n 转变</h2>
-<p><b>结论：</b>退火前的无序相以“Pb 填入结构空位”这类施主为主，呈 n 型。退火时，结构空位先排成层，最后塌缩成范德华间隙，这类施主变得很难形成；而受主 Pb<sub>Sb</sub> 始终只要 0.07–0.14 eV，于是材料转为 p 型。这与 Evang 等<sup class="r">[16]</sup>的结论一致。本文的退火样品为 p 型（S 与霍尔，第 5 节），与此一致；未退火样品的测量可直接检验 n 型。</p>
+<p><b>结论：</b>退火前的无序相以“Pb 填入结构空位”这类施主为主，呈 n 型。退火时，结构空位先排成层，最后塌缩成范德华间隙，这类施主变得很难形成；而受主 Pb<sub>Sb</sub> 始终只要 0.07–0.14 eV，于是材料转为 p 型。这与 Evang 等<sup class="r">[16]</sup>的结论一致。本文的退火样品为 p 型（S 与霍尔，第 5 节），与此一致；但它的 S 很小，可能还残留未转变的 n 型立方相（第 5 节的推测）。未退火样品的测量可直接检验 n 型。</p>
 <figure>
 <img src="{{FIG:Fig10_defect_formation_energies}}" alt="Fig. 10">
 <figcaption><b>图 10</b> 12 类缺陷的中性形成能，每个点为一个位点。绿色为有序 O，紫红为无序 D。(a) 富 Te；(b) 贫 Te。上半部（灰底）为施主，下半部为受主；括号内为名义电荷。</figcaption>
@@ -403,7 +492,7 @@ sup.r { font-size: 11px; color: var(--accent); }
 <ul>
 <li>D、O 只算中性态，不含 SOC；无序相只用了一个随机构型。</li>
 <li>最弱的一环是无序相的富 Te 端：施主只比 Pb<sub>Sb</sub> 低约 0.06 eV，那里的 n 型结论较弱。</li>
-<li>L 的净空穴 1.5×10¹⁸ cm⁻³ 按 HSE 能带对应 300 K 的 S ≈ +130 µV/K，远高于实测 Pb₂Sb₂Te₅ 的 +5.5 µV/K。这说明实测样品的补偿更强，或并未完全退火成层状相。</li>
+<li>L 的净空穴 1.5×10¹⁸ cm⁻³ 按 PBE+SOC + BoltzTraP2 对应 300 K 的 S ≈ +450 µV/K，远高于实测 Pb₂Sb₂Te₅ 的 +5.5 µV/K。这说明实测样品的补偿更强，或并未完全退火成层状相（第 5 节的两相推测）。</li>
 </ul>
 
 <h2 id="sA">附录 A S(T) 对照：霍尔浓度下直接计算</h2>
@@ -490,16 +579,20 @@ sup.r { font-size: 11px; color: var(--accent); }
 <tr><td>图 5</td><td><code>Fig5_SnSb_vs_SnBi_orbitals</code></td><td><code>Fig5_SnSb_vs_SnBi/</code>：两种材料路径能带上的 Sn-s、B-s、Sn-p、B-p、Te-p 投影；四个价带态的能量与成分，Γ 处最高价带与最低导带的能量与成分（<code>Gamma_states.csv</code>）（表 5）</td></tr>
 <tr><td>图 6</td><td><code>Fig6_valence_pockets_crossover</code></td><td><code>Fig6_valence_pockets/</code>：Sn₂Sb₂Te₅、Sn₂Bi₂Te₅ 全部价带口袋的位置（分数与笛卡尔坐标、所在面、能量、等价口袋数；<code>pocket_positions.csv</code>）；四种材料的价带能级（<code>levels_HSE.csv</code>）与谷间能量差 Δ<i>E</i> = <i>E</i><sub>Σ</sub> − <i>E</i><sub>Γ–A</sub>（<code>valley_offset_HSE.csv</code>），均为 HSE06+SOC）</td></tr>
 <tr><td>图 7</td><td><code>Fig7_lone_pair_valley_PBE_vs_HSE</code></td><td><code>Fig7_lone_pair_valley/</code>：最高孤对电子价带谷的能量、k 点与成分</td></tr>
-<tr><td>图 8、表 6</td><td><code>Fig8_Seebeck_PBE_vs_HSE</code></td><td><code>Fig8_Seebeck/</code>：四种材料 300 K 的 S 随载流子浓度（HSE 估计与 PBE，<code>S_vs_concentration_300K.csv</code>）；3×10¹⁹ cm⁻³ 的 S（表 6）；表 6 的逐谷电导份额与汇总；孤对电子谷份额随空穴浓度的变化；Sn₂Bi₂Te₅ 的 c3 检验</td></tr>
-<tr><td>图 9、表 7</td><td><code>Fig9_Pisarenko_experiment</code></td><td><code>Fig9_Pisarenko/</code>：单抛物带参考线（<code>single_parabolic_band_lines.csv</code>）；样品的霍尔浓度、S、同一浓度下的计算 S，以及由此读出的有效质量（<code>samples_Pisarenko_mass.csv</code>，表 7）</td></tr>
+<tr><td>图 8、表 6</td><td><code>Fig8_Seebeck_vs_concentration</code></td><td><code>Fig8_Seebeck/</code>：四种材料 300 K 的 S 随载流子浓度（PBE+SOC + BoltzTraP2，<code>S_vs_concentration_300K.csv</code>）；表 6 的数值（<code>S_300K_table6.csv</code>）</td></tr>
+<tr><td>图 9、表 7</td><td><code>Fig9_Pisarenko_experiment</code></td><td><code>Fig9_Pisarenko/</code>：单抛物带参考线（<code>single_parabolic_band_lines.csv</code>）；样品的霍尔浓度、实验 S、同一浓度下的 PBE+SOC S，以及由此读出的有效质量（<code>samples_Pisarenko_mass.csv</code>，表 7）</td></tr>
 <tr><td>图 S3、表 A1</td><td><code>FigS3_S_vs_T_Hall</code></td><td><code>FigS3_S_vs_T/</code>：四个样品的实验 T、σ、S（<code>experiment_T_sigma_S.csv</code>）与室温霍尔（<code>hall_room_temperature.csv</code>）；霍尔浓度下的计算曲线（<code>calculated_S_T_at_Hall_conc.csv</code>）；最低、最高温的实验与计算值和偏差（<code>summary_at_Hall_conc.csv</code>，即表 A1）</td></tr>
 <tr><td>图 10</td><td><code>Fig10_defect_formation_energies</code></td><td><code>Fig10_formation_energies/</code>：逐位点中性形成能，两端化学势</td></tr>
 <tr><td>图 11</td><td><code>Fig11_ordering_induced_change</code></td><td><code>Fig11_ordering/</code>：逐位点与中位数 Δ<i>E</i><sub>f</sub></td></tr>
 <tr><td>表 9、表 10 的 L</td><td>—</td><td><code>L_layered_defects/</code>：早先一批层状相缺陷计算的原始结果（5 个化学势顶点下全部缺陷的形成能排名；原始 JSON，含各电荷态、化学势与载流子浓度）</td></tr>
 <tr><td>表 1–10</td><td>—</td><td><code>tables/</code>：正文表格</td></tr>
 </tbody></table>
-<p>图与源数据由仓库中的 <code>10_脚本/paper_figures.py</code> 生成，S 的模型在 <code>10_脚本/multivalley_seebeck.py</code>，打包由 <code>10_脚本/build_paper_report.py</code> 完成。</p>
+<p>图与源数据由仓库中的 <code>10_脚本/paper_figures.py</code> 生成，PBE+SOC 的 BoltzTraP2 结果在 <code>22_能带基准_1-0/bt2_pbe_dense/</code>，打包由 <code>10_脚本/build_paper_report.py</code> 完成；每幅图的绘制方法见下节。</p>
 
+
+<h2 id="plotmethods">附：每幅图的数据与绘制方法</h2>
+<p>每幅图从哪些计算或测量取数、做了什么处理、怎么画、由哪个函数生成。同样的内容也写在每幅图 Excel 的“说明”页（<code>作图数据/</code>）。输运图（图 8、图 9、图 S3）全部是 PBE+SOC 密网格 BoltzTraP2 的直接结果，不用模型或比值估计。</p>
+{{PLOTMETHODS}}
 </main>
 </body>
 </html>

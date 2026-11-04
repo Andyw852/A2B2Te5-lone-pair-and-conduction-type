@@ -1003,38 +1003,35 @@ MCOL = {'Pb2Sb2Te5': '#ABABAB', 'Pb2Bi2Te5': '#4D4D4D', 'Sn2Sb2Te5': '#A38CCB', 
 
 
 def fig8(out):
-    """300 K 面内 S 随载流子浓度（理论）：四种材料的 HSE 估计（BoltzTraP2 × 多谷模型 HSE/PBE 比值）；灰带为 PBE+SOC BoltzTraP2
-    四种材料的范围。(a) p 型，(b) n 型。多谷模型只覆盖带边 mv.WIN 以内，超出时 S 失真（符号翻转或 |S| > 400），从第一个失效点起不画。
-    表 6（3×10¹⁹）由 rf.hse_estimates 写出。"""
-    est = rf.hse_estimates(); T = 300; rows = []
+    """300 K 面内 S 随载流子浓度（理论）：四种材料 PBE+SOC 密网格（28×28×7/6）BoltzTraP2、不加剪刀的直接结果
+    （22_能带基准_1-0/bt2_pbe_dense，pbe_dense()），不用任何估计法（2026-11-04 用户要求）。(a) p 型，(b) n 型。
+    浓度在 BoltzTraP2 的化学势网格上按 log|N| 线性取值。HSE06+SOC 的直接结果（c8_hse_dense）完成后加入。"""
+    T0 = 300; rows, tab = [], []
     fig, A = plt.subplots(1, 2, figsize=(W2, 2.75), gridspec_kw=dict(wspace=0.26))
-    for i, (ax, sign, lo, hi, top) in enumerate(zip(A, (1, -1), (1e19, 5e18), (2.5e21, 2e20), (290, 290))):
-        Ns = np.logspace(np.log10(lo), np.log10(hi), 61); pbe = []
+    Ns = np.logspace(18, np.log10(3e21), 73)
+    for i, (ax, sign) in enumerate(zip(A, (1, -1))):
         for m in MATS:
-            f = s_methods(m, sign)
-            for key in ('H', 'P'):
-                v = np.array([sign * f[key](sign * N, T) for N in Ns]); ok = (v >= 0) & (v <= 400)
-                bad = np.where(~ok)[0]
-                if len(bad): ok[bad[0]:] = False
-                if key == 'H': ax.plot(Ns, np.where(ok, v, np.nan), color=MCOL[m], lw=1.6, label=TEX[m], solid_capstyle='round', zorder=3)
-                else: pbe.append(v)
-                rows += [[m, 'pn'[i], SNAME[key], f'{N:.3e}', r(x, 1) if g else ''] for N, x, g in zip(Ns, v, ok)]
-        pbe = np.array(pbe)
-        ax.fill_between(Ns, pbe.min(0), pbe.max(0), color='#D9D9D9', lw=0, zorder=1, label='PBE+SOC, all four')
-        ax.set_xscale('log'); ax.set_xlim(lo, hi); ax.set_ylim(0, top)
+            T, f = pbe_dense(m); it = list(T).index(T0)
+            v = np.array([sign * f(sign * N, it) for N in Ns])
+            ax.plot(Ns, v, color=MCOL[m], lw=1.6, label=TEX[m], solid_capstyle='round', zorder=3)
+            rows += [[m, 'pn'[i], f'{N:.3e}', r(x, 2)] for N, x in zip(Ns, v)]
+            if i == 0:
+                tab.append([m] + [r(f(N, it), 1) for N in (3e19, 1e20, -3e19, -1e20)])
+        ax.set_xscale('log'); ax.set_xlim(Ns[0], Ns[-1]); ax.set_ylim(0, 500)
         ax.set_xlabel(('Hole' if sign > 0 else 'Electron') + r' concentration (cm$^{-3}$)')
         ax.set_ylabel(r'$S$ (μV K$^{-1}$)' if sign > 0 else r'$|S|$ (μV K$^{-1}$)')
-        ax.set_title(f'{"p" if sign > 0 else "n"}-type, 300 K', fontsize=8, pad=4)
+        ax.set_title(f'{"p" if sign > 0 else "n"}-type, 300 K, PBE+SOC + BoltzTraP2', fontsize=8, pad=4)
         ax.axvline(3e19, color='#999999', lw=0.6, ls=(0, (1, 1.5)), zorder=0)
         panel(ax, f'({"ab"[i]})')
     h, l = A[0].get_legend_handles_labels()
     A[0].legend(h, l, loc='upper right', fontsize=6.5, handlelength=1.6, labelspacing=0.3)
-    dump('Fig8_Seebeck', 'S_vs_concentration_300K.csv', ['material', 'carrier_type', 'bands', 'concentration_cm-3', '|S|_uV/K (blank: outside model range)'], rows)
-    dump('Fig8_Seebeck', 'S_300K_3e19.csv', ['material', 'carrier_type', 'carrier_conc_cm-3', 'S_PBE+SOC_BoltzTraP2_uV/K', 'S_HSE06+SOC_estimate_uV/K'],
-         [[m, 'pn'[k], 3e19, rf.BTP[m][k], r(est[m][k], 1)] for k in range(2) for m in MATS])
-    save(fig, out, 'Fig8_Seebeck_PBE_vs_HSE')
-    valley_shares()
-    return est
+    d = os.path.join(DATA, 'Fig8_Seebeck') if DATA else None
+    if d and os.path.isdir(d): shutil.rmtree(d)          # 旧版（HSE 估计、多谷模型的谷份额）的文件一并清掉
+    dump('Fig8_Seebeck', 'S_vs_concentration_300K.csv',
+         ['material', 'carrier_type', 'concentration_cm-3', '|S|_PBE+SOC_BoltzTraP2_uV/K (28x28x7/6 dense grid, no scissor)'], rows)
+    dump('Fig8_Seebeck', 'S_300K_table6.csv', ['material', 'S_p_3e19_uV/K', 'S_p_1e20_uV/K', 'S_n_3e19_uV/K', 'S_n_1e20_uV/K'], tab)
+    save(fig, out, 'Fig8_Seebeck_vs_concentration')
+    return tab
 
 
 LP_MIN = 0.15        # 孤对电子谷的判据：谷极值点处阳离子 s 成分 ≥ 15%（与图 4 相同）
@@ -1200,8 +1197,9 @@ SINGLE = {'Pb2Sb2Te5': (0.10, r'$\Gamma$ valley'), 'Pb2Bi2Te5': (0.23, r'$\Gamma
 
 def fig9(out):
     """与实验对照（文献常用的 Pisarenko 图，单个面板）：300 K 的 |S| 对室温霍尔浓度（双对数）。灰线为单抛物带（声学声子散射）
-    在 m* = 0.1、0.3、1、3 m_e 下的关系，作读数用的“刻度”；实心圆为样品，空心三角与方块为同一浓度下的计算（HSE 估计、PBE+SOC
-    BoltzTraP2）。Pb₂Sb₂Te₅ 为补偿体系，单一载流子的关系不适用，不画（附录 A）。"""
+    在 m* = 0.1、0.3、1、3 m_e 下的关系，作读数用的“刻度”；实心圆为样品；空心方块为同一霍尔浓度下 PBE+SOC 密网格 BoltzTraP2
+    （不加剪刀）的直接计算，用同样方法读出 m*。不画任何估计值；HSE06+SOC 直接结果完成后加入。
+    Pb₂Sb₂Te₅ 为补偿体系，单一载流子的关系不适用，不画（附录 A）。"""
     T = 300; lines, samples = [], []
     fig, ax = plt.subplots(figsize=(4.2, 3.3))
     ss = np.array([S for S, _ in SPB_CURVE]); lo, hi, ylo, yhi = 1e19, 3e21, 8, 300
@@ -1214,28 +1212,27 @@ def fig9(out):
                 ha='left', va='top' if ss[k] > 0.9 * yhi else 'bottom')
     lab = {'Pb2Bi2Te5': ('n', (8, 2)), 'Sn2Bi2Te5': ('p', (-8, 6)), 'Sn2Sb2Te5': ('p', (-8, -14))}
     for m, (typ, off) in lab.items():
-        h = HALL[m]; sign = 1 if h['N'] > 0 else -1; f = s_methods(m, sign); c = MCOL[m]
-        n0 = abs(h['N']); S0 = abs(EXP[m][0][1]); sh, sp = abs(f['H'](h['N'], T)), abs(f['P'](h['N'], T))
-        ms_exp, ms_h, ms_p = spb_mass(S0, n0, T), spb_mass(sh, n0, T), spb_mass(sp, n0, T)
-        ax.plot(n0, sh, '^', ms=9, mfc='white', mec=c, mew=1.2, zorder=3)          # 计算画得大、实验画得小，重合时两者都看得见
-        ax.plot(n0, sp, 's', ms=8.5, mfc='white', mec=c, mew=1.2, zorder=3)
+        h = HALL[m]; sign = 1 if h['N'] > 0 else -1; c = MCOL[m]; Tg, f = pbe_dense(m)
+        n0 = abs(h['N']); S0 = abs(EXP[m][0][1]); sp = abs(f(h['N'], list(Tg).index(T)))
+        ms_exp, ms_p = spb_mass(S0, n0, T), spb_mass(sp, n0, T)
+        ax.plot(n0, sp, 's', ms=8.5, mfc='white', mec=c, mew=1.2, zorder=3)          # 计算画得大、实验画得小，重合时两者都看得见
         ax.plot(n0, S0, 'o', ms=5, mfc=c, mec=c, zorder=4)
         ax.annotate(f'{TEX[m]} ({typ})' + ('*' if h['flagged'] else '') + f'\n$m^*$ = {ms_exp:.2f} $m_e$', (n0, S0), xytext=off,
                     textcoords='offset points', ha='left' if off[0] > 0 else 'right', va='center', fontsize=6.5, color=c)
         samples.append([m, typ, f'{h["N"]:.3e}', 'yes' if h['flagged'] else 'no', r(EXP[m][0][1], 2), r(ms_exp, 3),
-                        r(sign * sh, 1), r(ms_h, 3), r(sign * sp, 1), r(ms_p, 3), SINGLE[m][0]])
+                        r(sign * sp, 1), r(ms_p, 3), SINGLE[m][0]])
     ax.set_xscale('log'); ax.set_yscale('log'); ax.set_xlim(lo, hi); ax.set_ylim(ylo, yhi)
     ax.set_yticks([10, 20, 50, 100, 200], ['10', '20', '50', '100', '200']); ax.minorticks_off()
     ax.set_xlabel(r'Hall carrier concentration (cm$^{-3}$)'); ax.set_ylabel(r'$|S|$ at 300 K (μV K$^{-1}$)')
     hh = [plt.Line2D([], [], ls='', marker='o', ms=5, mfc='#555555', mec='#555555'),
-          plt.Line2D([], [], ls='', marker='^', ms=8, mfc='white', mec='#555555', mew=1.2),
           plt.Line2D([], [], ls='', marker='s', ms=7.5, mfc='white', mec='#555555', mew=1.2),
           plt.Line2D([], [], color='#A6A6A6', lw=0.8)]
-    ax.legend(hh, ['Experiment', 'HSE06+SOC (calc.)', 'PBE+SOC (calc.)', 'Single parabolic band'], loc='upper right', fontsize=6.5, handletextpad=0.3)
+    ax.legend(hh, ['Experiment', 'PBE+SOC + BoltzTraP2 (calc.)', 'Single parabolic band'], loc='upper right', fontsize=6.5, handletextpad=0.3)
+    d = os.path.join(DATA, 'Fig9_Pisarenko') if DATA else None
+    if d and os.path.isdir(d): shutil.rmtree(d)
     dump('Fig9_Pisarenko', 'single_parabolic_band_lines.csv', ['m_DOS_me', 'concentration_cm-3', '|S|_uV/K'], lines)
     dump('Fig9_Pisarenko', 'samples_Pisarenko_mass.csv', ['material', 'carrier_type', 'Hall_conc_signed_cm-3', 'Hall_flagged', 'S_exp_300K_uV/K', 'm_DOS_exp_SPB_me',
-                                                        'S_HSE_at_Hall_conc', 'm_DOS_HSE_SPB_me', 'S_PBE_at_Hall_conc', 'm_DOS_PBE_SPB_me',
-                                                        'single_valley_m_DOS_HSE_me'], samples)
+                                                        'S_PBE+SOC_BoltzTraP2_at_Hall_conc_uV/K', 'm_DOS_PBE_SPB_me', 'single_valley_m_DOS_HSE_band_fit_me'], samples)
     save(fig, out, 'Fig9_Pisarenko_experiment')
     return samples
 

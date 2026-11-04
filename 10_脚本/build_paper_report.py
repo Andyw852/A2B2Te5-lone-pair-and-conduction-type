@@ -26,6 +26,7 @@ D = os.path.join(ROOT, '21_阶段报告与交接')
 FIGS = os.path.join(D, '论文图_20261028')
 NAME = 'A2B2Te5_report_20261028'
 src = open(os.path.join(D, '论文报告_20261028.src.html'), encoding='utf-8').read()
+src = src.replace('{{PLOTMETHODS}}', plot_data_index.methods_html())      # 每幅图的绘制方法，来自 plot_data_index.METHODS
 
 
 def embed(m):
@@ -64,7 +65,7 @@ class Tables(HTMLParser):
 def readme(tables):
     t = '\n'.join(f'      {x["name"]}.csv    {" ".join(x["caption"].split())}' for x in tables)
     return f'''A2B2Te5（A = Pb, Sn；B = Sb, Bi）中的孤对电子与导电类型：论文写作用报告与数据
-生成日期 2026-10-28，2026-11-02 按霍尔数据更新，2026-11-04 过渡版（报告中标为 HSE 的 S 为暂用估计，见报告文首的版本说明）。计算全部为理论计算；实验 S(T)、σ(T) 与室温霍尔为用户提供的实验值。
+生成日期 2026-10-28，2026-11-02 按霍尔数据更新，2026-11-04 更新：S 全部为 PBE+SOC 密网格 BoltzTraP2 的直接计算，HSE06+SOC 的输运在计算中（见报告文首的版本说明）。计算全部为理论计算；实验 S(T)、σ(T) 与室温霍尔为用户提供的实验值。
 结构：问题一（PBE、HSE 能带与 S）用所给的四种 9 原子层状结构。问题二只算 Pb2Sb2Te5，用了三套缺陷计算：
 D（无序立方）、O（有序立方）为 144 原子岩盐超胞；L 为所给层状结构的 3×3×1 超胞（81 原子，早先一批）。见报告 1.1 节、图 1、表 1。
 
@@ -92,13 +93,10 @@ data/                  每幅图的源数据，即图中画出的数值，目录
                               分数坐标、笛卡尔坐标、所在面、能量、等价口袋数）；四种材料的价带能级（levels_HSE.csv）与谷间能量差（HSE06+SOC）
                               ΔE = E(最高的孤对电子谷) − E(Γ–A 轴上最高价带态)（valley_offset_HSE.csv）；Sn 系的孤对电子谷为镜面内三维搜索的真实极大
   Fig7_lone_pair_valley/      最高孤对电子价带谷相对价带顶的能量（meV）、所在 k 点与成分
-  Fig8_Seebeck/               四种材料 300 K 的面内 S 随载流子浓度（HSE 估计与 PBE+SOC BoltzTraP2，S_vs_concentration_300K.csv）；
-                              3×10^19 cm^-3 的 S（表 6）；表 6 的逐谷电导份额
-                              （valley_conductivity_shares.csv：每个谷的位置、离带边能量、阳离子 s 成分、份额；lone_pair_share_summary.csv：汇总）
-                              lone_pair_share_vs_concentration.csv：孤对电子谷份额随空穴浓度的变化；
-                              Sn2Bi2Te5_c3_valley_check.csv：SnBi 价带谷 c3 拟合的梯度、主质量、驻点位移与是否采用
-  Fig9_Pisarenko/             与实验对照的 Pisarenko 图：单抛物带参考线（m* = 0.1、0.3、1、3 m_e）；样品的霍尔浓度、S，
-                              同一浓度下的计算 S，以及由此读出的态密度有效质量（实验与计算同口径，samples_Pisarenko_mass.csv，即表 7）
+  Fig8_Seebeck/               四种材料 300 K 的面内 S 随载流子浓度（PBE+SOC 密网格 BoltzTraP2，不加剪刀，S_vs_concentration_300K.csv）；
+                              表 6 的数值（S_300K_table6.csv）
+  Fig9_Pisarenko/             与实验对照的 Pisarenko 图：单抛物带参考线（m* = 0.1、0.3、1、3 m_e）；样品的霍尔浓度、实验 S，
+                              同一浓度下的 PBE+SOC S，以及由此读出的态密度有效质量（实验与计算同口径，samples_Pisarenko_mass.csv，即表 7）
   FigS3_S_vs_T/               附录 A：四个样品的实验 T、σ（S/m）、S 与室温霍尔；霍尔浓度下直接计算的 S(T)（PBE+SOC 密网格 BoltzTraP2，不加剪刀，不调参数）；最低、最高温的实验与计算值和偏差（表 A1）
   Fig10_formation_energies/   12 类缺陷逐位点的中性形成能（富 Te、贫 Te），两端化学势
   Fig11_ordering/             有序化引起的形成能变化 ΔE_f = E_f(O) − E_f(D)，逐位点与中位数
@@ -115,7 +113,7 @@ k 点坐标为倒格矢分数坐标；谷的名称为所在高对称点或高对
 Q：A–H，T：M–K；同一条线上的几个谷按离 Γ–A 轴由近到远加下标，如 R₁、R₂），见报告 1.2 节；能带 CSV 中 band_N 为 VASP 能带序号（SOC，_VB_top 为价带顶，_CB_bottom 为导带底）。
 CSV 为 UTF-8（带 BOM），可直接用 Excel、Origin 打开。
 
-生成脚本（在仓库中）：10_脚本/paper_figures.py（图与源数据）、10_脚本/multivalley_seebeck.py（S 的模型）、
+生成脚本（在仓库中）：10_脚本/paper_figures.py（图与源数据）、22_能带基准_1-0/bt2_pbe_dense/（PBE+SOC BoltzTraP2 结果）、
 10_脚本/build_paper_report.py（本压缩包）。
 '''.replace('\n', '\r\n')
 
