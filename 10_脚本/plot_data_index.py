@@ -47,10 +47,8 @@ INDEX = [
     ('图 8', '(a)(b)', '300 K 面内 S 随载流子浓度（PBE+SOC + BoltzTraP2）', 'Fig8_Seebeck/S_vs_concentration_300K.csv',
      'concentration_cm-3（对数）', '|S|_PBE+SOC_BoltzTraP2_uV/K', '按 material、carrier_type（p → a，n → b）分组'),
     ('图 8、表 6', '', '表 6：3×10¹⁹、1×10²⁰ cm⁻³ 的 S', 'Fig8_Seebeck/S_300K_table6.csv', '', '', ''),
-    ('图 9', '灰线', '单抛物带 Pisarenko 参考线', 'Fig9_Pisarenko/single_parabolic_band_lines.csv',
-     'concentration_cm-3（对数）', '|S|_uV/K（对数）；按 m_DOS_me 分组', ''),
-    ('图 9、表 7', '点', '样品：霍尔浓度、实验与计算 S、有效质量', 'Fig9_Pisarenko/samples_Pisarenko_mass.csv',
-     '|Hall_conc_signed_cm-3|', '|S_exp_300K|（实心圆）、|S_PBE+SOC_BoltzTraP2_at_Hall_conc|（空心方块）', '即表 7；Pb₂Sb₂Te₅ 的实验 m* 留空（补偿，见 note）'),
+    ('表 7', '', 'Pisarenko 有效质量：霍尔浓度、实验与计算 S、读出的 m*（不作图）', 'Table7_Pisarenko_mass/samples_Pisarenko_mass.csv',
+     '', '', '即表 7；Pb₂Sb₂Te₅ 的实验 m* 留空（补偿，见 note）'),
     ('图 S1', '(a)(b)', '镜面内最高价带的能量网格', 'FigS1_mirror_plane/*_mirror_plane_grid_meV.csv',
      '行：x=-u（面内）', '列：w（kz）；值 = E − VBM（meV）', '矩阵，画等高图'),
     ('图 S1', '(c)(d)', '真实极大与沿 kz 的切线', 'FigS1_mirror_plane/valleys_and_cuts.csv', 'w', 'E_minus_VBM_meV；按 valley_or_cut 分组', ''),
@@ -62,11 +60,11 @@ INDEX = [
      'T_K', 'S_PBE+SOC_BoltzTraP2_uV/K', 'PBE+SOC 密网格（28×28×7/6）BoltzTraP2，不加剪刀；T 即计算温度（每 25 K）'),
     ('图 S3', '灰字', '室温霍尔', 'FigS3_S_vs_T/hall_room_temperature.csv', '', '', ''),
     ('图 S3、表 A1', '', '最低、最高温的实验与计算值和偏差', 'FigS3_S_vs_T/summary_at_Hall_conc.csv', '', '', '即表 A1；计算值为 PBE+SOC'),
-    ('图 10', '(a)(b)', '12 类缺陷逐位点的中性形成能', 'Fig10_formation_energies/formation_energy_per_site.csv',
+    ('图 9', '(a)(b)', '12 类缺陷逐位点的中性形成能', 'Fig9_formation_energies/formation_energy_per_site.csv',
      'Ef_Te-rich_eV（a）或 Ef_Te-poor_eV（b）', 'defect_type（括号内 nominal_charge）；颜色按 phase', ''),
-    ('图 10', '', '两端化学势', 'Fig10_formation_energies/chemical_potentials.csv', '', '', ''),
-    ('图 11', '点', '有序化引起的形成能变化（逐位点）', 'Fig11_ordering/delta_Ef_per_site.csv', 'defect_type', 'dEf_O-D_eV', ''),
-    ('图 11', '条', '同上，中位数', 'Fig11_ordering/delta_Ef_median.csv', 'defect_type', 'median_dEf_O-D_eV', ''),
+    ('图 9', '', '两端化学势', 'Fig9_formation_energies/chemical_potentials.csv', '', '', ''),
+    ('图 10', '点', '有序化引起的形成能变化（逐位点）', 'Fig10_ordering/delta_Ef_per_site.csv', 'defect_type', 'dEf_O-D_eV', ''),
+    ('图 10', '条', '同上，中位数', 'Fig10_ordering/delta_Ef_median.csv', 'defect_type', 'median_dEf_O-D_eV', ''),
     ('表 9、表 10', 'L 列', '层状相缺陷计算（3×3×1，81 原子）全部顶点的形成能排名', 'L_layered_defects/*.csv', '', '', ''),
     ('表 9、表 10', 'L 列', '同上，原始结果', 'L_layered_defects/*.json', '', '', 'JSON，不进 Excel'),
     ('正文表格', '', '表 1–10、表 A1（从报告 HTML 抽出）', 'tables/*.csv', '', '', ''),
@@ -120,14 +118,12 @@ METHODS = {
         'Pb₂Sb₂Te₅ 红圆、Pb₂Bi₂Te₅ 灰方、Sn₂Sb₂Te₅ 绿倒三角、Sn₂Bi₂Te₅ 蓝三角；符号使红绿色弱也能区分）；点线为 3×10¹⁹ cm⁻³；'
         'n 型低浓度 S 变号时曲线向下离开画框。只画计算，不画实验值。',
         'paper_figures.fig8、pbe_dense'),
-    'Fig9_Pisarenko': ('图 9、表 7',
+    'Table7_Pisarenko_mass': ('表 7',
         '实验：最低测量温度（约 301 K）的 S 与室温霍尔浓度（21_阶段报告与交接/实验数据/）。计算：bt2_pbe_dense 在霍尔浓度、300 K 的 S。'
         '参照：HSE06+SOC 能带上单个谷的态密度质量（能带曲率拟合）。',
-        '单抛物带、声学声子散射：S =（kB/e）(2F₁/F₀ − η)，n = 4π(2m*kBT/h²)^{3/2}·F_{1/2}(η)。给定 m* 扫 η 得到参考线；'
-        '每个样品由 |S| 解出 η，再由霍尔浓度解出 m*，实验点与计算点各自读出。',
-        '双对数；灰线为 m* = 0.1、0.3、1、3 me；实心圆为实验，空心方块为计算，同一样品以虚线相连，颜色同图 8；点旁标实验的 m*。'
-        'Pb₂Sb₂Te₅（补偿）只画点、不读 m*。',
-        'paper_figures.fig9、spb_mass'),
+        '单抛物带、声学声子散射：S =（kB/e）(2F₁/F₀ − η)，n = 4π(2m*kBT/h²)^{3/2}·F_{1/2}(η)。每个样品由 |S| 解出 η，'
+        '再由霍尔浓度解出 m*，实验与计算各自读出。Pb₂Sb₂Te₅（电子、空穴补偿）的实验 m* 不适用，留空。',
+        '（不作图；原图 9 的 Pisarenko 图已删去）', 'paper_figures.table7、spb_mass'),
     'FigS1_mirror_plane': ('图 S1',
         'c4_mirror_v3：Sn 系含 c 轴的镜面内 HSE06+SOC 网格（面内步长 1/36，kz 取 12 个值，KPOINTS_OPT 分 6 批）；c5_star：真实极大附近的星形采样与拟合。',
         '最高价带的能量相对真实价带顶（meV）；沿 kz 穿过真实极大取切线。',
@@ -145,16 +141,16 @@ METHODS = {
         '均方根偏差在 8 个测量温度上比较，计算值按 25 K 网格线性内插。',
         '四个子图，空心圆为实验，橙线为计算；灰字为霍尔浓度（标红的注明 flagged），橙字为均方根偏差。',
         'paper_figures.figS3'),
-    'Fig10_formation_energies': ('图 10、表 8',
+    'Fig9_formation_energies': ('图 9、表 8',
         '13_DVO缺陷_VASP流程与分析/结果_第一批/analysis：D、O 两个 144 原子母胞中 12 类缺陷逐位点的中性形成能（PBE-D3），以及两端化学势。',
         'E_f = E(缺陷) − E(母胞) − Σ nᵢμᵢ；分富 Te、贫 Te 两端；每个位点一个值。',
         '横轴为形成能，纵轴为缺陷类型（上半施主、灰底，下半受主），绿色为 O、紫红为 D；(a) 富 Te，(b) 贫 Te。',
-        'paper_figures.fig10'),
-    'Fig11_ordering': ('图 11',
+        'paper_figures.fig9'),
+    'Fig10_ordering': ('图 10',
         '同图 10。',
         'ΔE_f = E_f(O，该类缺陷的最低位点) − E_f(D，每个位点)，与化学势无关；每类取中位数。',
         '点为 D 的各位点，条为中位数；正值表示退火后更难形成。',
-        'paper_figures.fig11'),
+        'paper_figures.fig10'),
     'L_layered_defects': ('表 9、表 10 的 L 列',
         '早先一批在所给层状结构上（3×3×1，81 原子）的缺陷计算，原始结果取自 03_缺陷形成能与PN型数据/Pb2Sb2Te5.zip。',
         '各化学势顶点下的形成能排名与原始结果，原样保存。', '（不作图）', 'build_paper_report.package'),
@@ -168,7 +164,7 @@ def methods_html():
     import html
     out = ['<table>', '<thead><tr><th>图</th><th>数据来源</th><th>处理</th><th>画法</th><th>程序</th></tr></thead>', '<tbody>']
     for k, (fig, src, proc, draw, prog) in METHODS.items():
-        if k in ('L_layered_defects', 'tables'):
+        if k in ('L_layered_defects', 'tables') or k.startswith('Table'):
             continue
         out.append('<tr><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td><code>%s</code></td></tr>'
                    % tuple(html.escape(x) for x in (fig, src, proc, draw, prog)))

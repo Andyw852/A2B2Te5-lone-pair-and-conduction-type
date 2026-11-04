@@ -10,15 +10,13 @@ Fig. 5  Sn2Sb2Te5 vs Sn2Bi2Te5: Sn-5s and B-site p (Sb 5p / Bi 6p) projections n
 Fig. 6  Valence pockets in the Brillouin zone (Sn2Sb2Te5 vs Sn2Bi2Te5) and the valence-valley offset ΔE = E(Σ) − E(Γ–A), HSE only
                                                                                same + A2B2Te5_SOC_dense/materials/<mat>/POSCAR (spglib)
 Fig. 7  Energy of the highest lone-pair valence valley, PBE vs HSE            same
-Fig. 8  Pisarenko plots at 300 K (HSE estimate | PBE BoltzTraP2; p | n) with the samples at their Hall concentrations
-                                                                               10_脚本/multivalley_seebeck.py; boltztrap_crta.json; 21_…/实验数据/
-        (+ Table 6 at 3e19 cm-3, per-valley conductivity shares and cation-s character)
-Fig. 9  S(T) of all four samples: experiment vs calculation at the room-temperature Hall concentration (no free parameter)
-                                                                               21_阶段报告与交接/实验数据/（raw T–σ–S, Hall）;
-                                                                               A2B2Te5_SOC_dense/materials/<mat>/.../boltztrap_crta.json
-Fig. 10 Neutral formation energies of 12 defect types in O and D               13_DVO缺陷_VASP流程与分析/结果_第一批/analysis/形成能_逐位点.csv
-Fig. 11 Ordering-induced change of the formation energy, O − D                  same
+Fig. 8  S vs carrier concentration at 300 K (p | n), PBE+SOC dense-grid BoltzTraP2, no scissor   22_能带基准_1-0/bt2_pbe_dense/
+        (+ Table 6 at 3e19 and 1e20 cm-3)
+Table 7 Pisarenko effective masses (no figure): experiment vs PBE+SOC BoltzTraP2 at the Hall concentrations   same + 21_…/实验数据/
+Fig. 9  Neutral formation energies of 12 defect types in O and D               13_DVO缺陷_VASP流程与分析/结果_第一批/analysis/形成能_逐位点.csv
+Fig. 10 Ordering-induced change of the formation energy, O − D                  same
 Fig. S1 Top valence band in the mirror plane (c4 grid) for Sn2Sb2Te5 / Sn2Bi2Te5, with k_z cuts   22_能带基准_1-0/<mat>/c4_mirror_v3/b0*/PROCAR_OPT.gz
+Fig. S3 S(T) of all four samples at the room-temperature Hall concentration (no free parameter), PBE+SOC BoltzTraP2
 
 Valleys off the high-symmetry points are named after the line they lie on (standard hexagonal notation, Bradley & Cracknell):
 Γ–M Σ, M–K T, K–Γ Λ, Γ–A Δ, A–L R, L–H S, H–A Q; the two A–L valleys are R1 (near A) and R2 (near L). See kname().
@@ -293,9 +291,9 @@ def fig1(out):
     bot = gs[1].subgridspec(1, 2, wspace=0.0)
     ac, ad = fig.add_subplot(bot[0]), fig.add_subplot(bot[1])
     HL, HO = H['Pb2Sb2Te5_layered9'], H['O_ordered']
-    side_view(ac, PL, pL, 'Layered phase, $P\\bar{3}m1$, 9 atoms (user structure)\nused for bands, $S$ (Figs. 2–9) and defect set L',
+    side_view(ac, PL, pL, 'Layered phase, $P\\bar{3}m1$, 9 atoms (user structure)\nused for bands, $S$ (Figs. 2–8) and defect set L',
               f'$a_\\mathrm{{hex}}$ = {aL:.3f} Å,  $V$ = {HL["V"]:.1f} Å$^3$/f.u.,  $\\Delta E$ = 0')
-    side_view(ad, PO, pO, 'Ordered model O, 144 atoms (rocksalt supercell)\nhost for the defect calculations (Figs. 10, 11)',
+    side_view(ad, PO, pO, 'Ordered model O, 144 atoms (rocksalt supercell)\nhost for the defect calculations (Figs. 9, 10)',
               f'$a_\\mathrm{{hex}}^\\mathrm{{eq}}$ = {a_eff["O_ordered"] / np.sqrt(2):.3f} Å,  $V$ = {HO["V"]:.1f} Å$^3$/f.u.,  '
               f'$\\Delta E$ = +{HO["E"] - HL["E"]:.3f} eV/f.u.')
     ac.set_ylabel('$z$ (Å)')
@@ -1200,49 +1198,22 @@ SINGLE = {'Pb2Sb2Te5': (0.10, r'$\Gamma$ valley'), 'Pb2Bi2Te5': (0.23, r'$\Gamma
           'Sn2Sb2Te5': (0.14, r'$\Gamma$ valley'), 'Sn2Bi2Te5': (0.13, 'one lone-pair pocket')}
 
 
-def fig9(out):
-    """与实验对照（文献常用的 Pisarenko 图，单个面板）：300 K 的 |S| 对室温霍尔浓度（双对数）。灰线为单抛物带（声学声子散射）
-    在 m* = 0.1、0.3、1、3 m_e 下的关系，作读数用的“刻度”；实心圆为样品；空心方块为同一霍尔浓度下 PBE+SOC 密网格 BoltzTraP2
-    （不加剪刀）的直接计算，用同样方法读出 m*。不画任何估计值；HSE06+SOC 直接结果完成后加入。
-    Pb₂Sb₂Te₅ 为补偿体系，单一载流子的关系不适用，不画（附录 A）。"""
-    T = 300; lines, samples = [], []
-    fig, ax = plt.subplots(figsize=(4.2, 3.3))
-    ss = np.array([S for S, _ in SPB_CURVE]); lo, hi, ylo, yhi = 1e19, 1e22, 4, 300
-    for ms in (0.1, 0.3, 1.0, 3.0):
-        nn = np.array([spb_n(e, ms, T) for e in SPB_ETA]); ok = (nn >= lo) & (nn <= hi) & (ss >= ylo) & (ss <= yhi)
-        ax.plot(nn[ok], ss[ok], color='#A6A6A6', lw=0.8, zorder=1)
-        lines += [[r(ms, 3), f'{a_:.3e}', r(b_, 2)] for a_, b_ in zip(nn, ss)]
-        k = np.where(ok)[0][0]                                   # 标在线段进入画框的一端
-        ax.text(nn[k] * 1.08, ss[k] * (0.93 if ss[k] > 0.9 * yhi else 1.04), f'{ms:g} $m_e$', fontsize=6.5, color='#7F7F7F',
-                ha='left', va='top' if ss[k] > 0.9 * yhi else 'bottom')
-    lab = {'Pb2Bi2Te5': ('n', (8, 2)), 'Sn2Bi2Te5': ('p', (-8, 6)), 'Sn2Sb2Te5': ('p', (8, -2)), 'Pb2Sb2Te5': ('p', (-8, -2))}
-    for m, (typ, off) in lab.items():
-        h = HALL[m]; sign = 1 if h['N'] > 0 else -1; c = MCOL[m]; Tg, f = pbe_dense(m)
+def table7(out):
+    """表 7（Pisarenko 有效质量，不作图；图 9 的 Pisarenko 图已按用户要求删去，2026-11-04）：300 K、室温霍尔浓度下，
+    实验 S（最低测量温度约 301 K）与 PBE+SOC 密网格 BoltzTraP2（不加剪刀）的 S，各自用单抛物带（声学声子散射）读出态密度有效质量 m*。
+    Pb₂Sb₂Te₅ 为电子、空穴补偿体系，实验的 m* 不适用（留空）。参照列为 HSE06+SOC 能带上单个谷的态密度质量（能带曲率拟合）。"""
+    T = 300; samples = []
+    for m in ('Pb2Bi2Te5', 'Sn2Bi2Te5', 'Sn2Sb2Te5', 'Pb2Sb2Te5'):
+        h = HALL[m]; sign = 1 if h['N'] > 0 else -1; Tg, f = pbe_dense(m)
         n0 = abs(h['N']); S0 = abs(EXP[m][0][1]); sp = abs(f(h['N'], list(Tg).index(T)))
-        ms_exp, ms_p = spb_mass(S0, n0, T), spb_mass(sp, n0, T)
-        ax.plot([n0, n0], [S0, sp], color=c, lw=0.8, ls=(0, (1.5, 1.5)), zorder=2)   # 同一样品的实验点与计算点相连
-        ax.plot(n0, sp, 's', ms=8.5, mfc='white', mec=c, mew=1.2, zorder=3)          # 计算画得大、实验画得小，重合时两者都看得见
-        ax.plot(n0, S0, 'o', ms=5, mfc=c, mec=c, zorder=4)
-        comp = m == 'Pb2Sb2Te5'                                   # 电子、空穴补偿：单抛物带的 m* 不适用，只画点
-        ax.annotate(f'{TEX[m]} ({typ})' + ('*' if h['flagged'] else '') + ('\ncompensated, no $m^*$' if comp else f'\n$m^*$ = {ms_exp:.2f} $m_e$'),
-                    (n0, S0), xytext=off, textcoords='offset points', ha='left' if off[0] > 0 else 'right', va='center', fontsize=6.5, color='#333333',
-                    bbox=dict(boxstyle='square,pad=0.15', fc='white', ec='none', alpha=0.85), zorder=6)
-        samples.append([m, typ, f'{h["N"]:.3e}', 'yes' if h['flagged'] else 'no', r(EXP[m][0][1], 2), '' if comp else r(ms_exp, 3),
-                        r(sign * sp, 1), r(ms_p, 3), SINGLE[m][0],
+        comp = m == 'Pb2Sb2Te5'
+        samples.append([m, 'p' if sign > 0 else 'n', f'{h["N"]:.3e}', 'yes' if h['flagged'] else 'no', r(EXP[m][0][1], 2),
+                        '' if comp else r(spb_mass(S0, n0, T), 3), r(sign * sp, 1), r(spb_mass(sp, n0, T), 3), SINGLE[m][0],
                         'electrons and holes compensate; single-band m* not applicable to the experiment' if comp else ''])
-    ax.set_xscale('log'); ax.set_yscale('log'); ax.set_xlim(lo, hi); ax.set_ylim(ylo, yhi)
-    ax.set_yticks([5, 10, 20, 50, 100, 200], ['5', '10', '20', '50', '100', '200']); ax.minorticks_off()
-    ax.set_xlabel(r'Hall carrier concentration (cm$^{-3}$)'); ax.set_ylabel(r'$|S|$ at 300 K (μV K$^{-1}$)')
-    hh = [plt.Line2D([], [], ls='', marker='o', ms=5, mfc='#555555', mec='#555555'),
-          plt.Line2D([], [], ls='', marker='s', ms=7.5, mfc='white', mec='#555555', mew=1.2),
-          plt.Line2D([], [], color='#A6A6A6', lw=0.8)]
-    ax.legend(hh, ['Experiment', 'PBE+SOC + BoltzTraP2 (calc.)', 'Single parabolic band'], loc='upper right', fontsize=6.5, handletextpad=0.3)
-    d = os.path.join(DATA, 'Fig9_Pisarenko') if DATA else None
+    d = os.path.join(DATA, 'Table7_Pisarenko_mass') if DATA else None
     if d and os.path.isdir(d): shutil.rmtree(d)
-    dump('Fig9_Pisarenko', 'single_parabolic_band_lines.csv', ['m_DOS_me', 'concentration_cm-3', '|S|_uV/K'], lines)
-    dump('Fig9_Pisarenko', 'samples_Pisarenko_mass.csv', ['material', 'carrier_type', 'Hall_conc_signed_cm-3', 'Hall_flagged', 'S_exp_300K_uV/K', 'm_DOS_exp_SPB_me',
-                                                        'S_PBE+SOC_BoltzTraP2_at_Hall_conc_uV/K', 'm_DOS_PBE_SPB_me', 'single_valley_m_DOS_HSE_band_fit_me', 'note'], samples)
-    save(fig, out, 'Fig9_Pisarenko_experiment')
+    dump('Table7_Pisarenko_mass', 'samples_Pisarenko_mass.csv', ['material', 'carrier_type', 'Hall_conc_signed_cm-3', 'Hall_flagged', 'S_exp_300K_uV/K', 'm_DOS_exp_SPB_me',
+                                                               'S_PBE+SOC_BoltzTraP2_at_Hall_conc_uV/K', 'm_DOS_PBE_SPB_me', 'single_valley_m_DOS_HSE_band_fit_me', 'note'], samples)
     return samples
 
 
@@ -1326,7 +1297,7 @@ def figS3(out):
     return rows
 
 
-# ------------------------------------------------------------------ Fig. 10, 11
+# ------------------------------------------------------------------ Fig. 9, 10（缺陷）
 NAMES = {'Pb_on_Vac': r'Pb$_{\mathrm{Vac}}$', 'Sb_on_Vac': r'Sb$_{\mathrm{Vac}}$', 'Te_on_Vac': r'Te$_{\mathrm{Vac}}$',
          'Sb_Pb': r'Sb$_{\mathrm{Pb}}$', 'Pb_Sb': r'Pb$_{\mathrm{Sb}}$', 'Te_Pb': r'Te$_{\mathrm{Pb}}$', 'Te_Sb': r'Te$_{\mathrm{Sb}}$',
          'Sb_Te': r'Sb$_{\mathrm{Te}}$', 'Pb_Te': r'Pb$_{\mathrm{Te}}$', 'V_Te': r'$V_{\mathrm{Te}}$', 'V_Pb': r'$V_{\mathrm{Pb}}$', 'V_Sb': r'$V_{\mathrm{Sb}}$'}
@@ -1344,7 +1315,7 @@ def ef_sites():
     return out
 
 
-def fig10(out):
+def fig9(out):
     d = rf.read_ef()
     fig, axs = plt.subplots(1, 2, figsize=(W2, 3.3), sharey=True, gridspec_kw=dict(wspace=0.06))
     for n, (ax, c) in enumerate(zip(axs, ('Te-rich', 'Te-poor'))):
@@ -1365,16 +1336,16 @@ def fig10(out):
     h, l = axs[0].get_legend_handles_labels()
     fig.legend(h, l, loc='upper center', ncol=2, bbox_to_anchor=(0.55, 1.04))
     order = {t: i for i, (t, _) in enumerate(ROWS)}
-    dump('Fig10_formation_energies', 'formation_energy_per_site.csv',
+    dump('Fig9_formation_energies', 'formation_energy_per_site.csv',
          ['phase', 'defect_type', 'nominal_charge', 'site', 'Ef_Te-rich_eV', 'Ef_Te-poor_eV'],
          [[a, b, c, s, r(x, 4), r(y, 4)] for a, b, c, s, x, y in sorted(ef_sites(), key=lambda t: (order[t[1]], t[0] != 'O', t[3]))])
     mu = json.load(open(os.path.join(DEFDIR, 'DVO_结论摘要.json')))['chemical_potentials']['conditions']
-    dump('Fig10_formation_energies', 'chemical_potentials.csv', ['condition', 'mu_Pb_eV', 'mu_Sb_eV', 'mu_Te_eV', 'dmu_Pb_eV', 'dmu_Sb_eV', 'dmu_Te_eV'],
+    dump('Fig9_formation_energies', 'chemical_potentials.csv', ['condition', 'mu_Pb_eV', 'mu_Sb_eV', 'mu_Te_eV', 'dmu_Pb_eV', 'dmu_Sb_eV', 'dmu_Te_eV'],
          [[c] + [r(mu[c][e], 4) for e in ('Pb', 'Sb', 'Te')] + [r(mu[c]['delta'][e], 4) for e in ('Pb', 'Sb', 'Te')] for c in ('Te-rich', 'Te-poor')])
-    save(fig, out, 'Fig10_defect_formation_energies')
+    save(fig, out, 'Fig9_defect_formation_energies')
 
 
-def fig11(out):
+def fig10(out):
     sites = ef_sites(); rows, med = [], []
     fig, ax = plt.subplots(figsize=(W1, 3.0))
     ax.axvline(0, color='k', lw=0.5)
@@ -1392,9 +1363,9 @@ def fig11(out):
     ax.set_xlim(-0.8, 2.0); ax.set_xlabel(r'$\Delta E_f = E_f^{\mathrm{O}} - E_f^{\mathrm{D}}$ (eV)')
     ax.text(-0.76, len(ROWS) - 0.95, 'donors', ha='left', va='center', fontsize=6.5, style='italic')
     ax.text(-0.76, len(rf.ACCEPT) - 0.95, 'acceptors', ha='left', va='center', fontsize=6.5, style='italic')
-    dump('Fig11_ordering', 'delta_Ef_per_site.csv', ['defect_type', 'nominal_charge', 'D_site', 'Ef_O_lowest_site_eV', 'Ef_D_eV', 'dEf_O-D_eV'], rows)
-    dump('Fig11_ordering', 'delta_Ef_median.csv', ['defect_type', 'nominal_charge', 'n_D_sites', 'median_dEf_O-D_eV'], med)
-    save(fig, out, 'Fig11_ordering_induced_change')
+    dump('Fig10_ordering', 'delta_Ef_per_site.csv', ['defect_type', 'nominal_charge', 'D_site', 'Ef_O_lowest_site_eV', 'Ef_D_eV', 'dEf_O-D_eV'], rows)
+    dump('Fig10_ordering', 'delta_Ef_median.csv', ['defect_type', 'nominal_charge', 'n_D_sites', 'median_dEf_O-D_eV'], med)
+    save(fig, out, 'Fig10_ordering_induced_change')
 
 
 # ------------------------------------------------------------------ Fig. S1
@@ -1497,10 +1468,10 @@ def main():
     ap.add_argument('--data'); ap.add_argument('--only', nargs='+'); a = ap.parse_args()
     DATA = a.data or os.path.join(a.out, 'source_data')
     os.makedirs(a.out, exist_ok=True); style()
-    todo = a.only or [str(i) for i in range(1, 12)] + ['S1', 'S3']
+    todo = a.only or [str(i) for i in range(1, 11)] + ['T7', 'S1', 'S3']
     info = {}
     for i in todo:
-        res = {'1': fig1, '2': fig2, '3': fig3, '4': fig4, '5': fig5, '6': fig6, '7': fig7, '8': fig8, '9': fig9, '10': fig10, '11': fig11, 'S1': figS1, 'S3': figS3}[i](a.out)
+        res = {'1': fig1, '2': fig2, '3': fig3, '4': fig4, '5': fig5, '6': fig6, '7': fig7, '8': fig8, '9': fig9, '10': fig10, 'T7': table7, 'S1': figS1, 'S3': figS3}[i](a.out)
         if res is not None: info[i] = res
     print(info); print('→', a.out, '；源数据 →', DATA)
 

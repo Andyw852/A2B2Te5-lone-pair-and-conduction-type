@@ -5,7 +5,7 @@
        A2B2Te5_report_20261028/
          A2B2Te5_report.html     A2B2Te5_report_单文件.html     README.txt
          figures/png/  figures/pdf/
-         data/Fig1_structures/ … data/Fig11_ordering/   （paper_figures.py 写出的源数据）
+         data/Fig1_structures/ … data/Fig10_ordering/   （paper_figures.py 写出的源数据；表 7 的数据在 data/Table7_Pisarenko_mass/）
          data/tables/                                 （正文表 1–10，从 HTML 中抽出）
          data/L_layered_defects/                      （早先一批层状相缺陷计算的原始结果，取自 03_缺陷形成能与PN型数据/Pb2Sb2Te5.zip）
          data/作图数据索引.csv                          （每幅图、每个子图用哪个文件、横轴纵轴取哪一列；10_脚本/plot_data_index.py）
@@ -71,8 +71,8 @@ D（无序立方）、O（有序立方）为 144 原子岩盐超胞；L 为所�
 
 A2B2Te5_report.html    报告正文（用浏览器打开；图片从 figures/png 读取，请先整体解压再打开）
 A2B2Te5_report_单文件.html  同一报告，图片已嵌入，单独打开或转发都能显示
-figures/png/           图 1–11，600 dpi PNG（文件名的 FigN 即正文的图 N）
-figures/pdf/           图 1–11，矢量 PDF（字体已嵌入，英文 Times New Roman，公式 STIX）
+figures/png/           图 1–10、S1–S3，600 dpi PNG（文件名的 FigN 即正文的图 N）
+figures/pdf/           图 1–10、S1–S3，矢量 PDF（字体已嵌入，英文 Times New Roman，公式 STIX）
 作图数据/              每幅图单独一个 Excel（文件名同 data/ 下的目录名；第一页“说明”写明每个子图用哪一页、横轴纵轴取哪一列，
                        其后每个数据表一页，数值为数字格式，可直接在 Excel、Origin 中作图）；正文表格在 tables.xlsx
 data/作图数据索引.csv  同一份索引的 CSV（全部图）
@@ -95,11 +95,10 @@ data/                  每幅图的源数据，即图中画出的数值，目录
   Fig7_lone_pair_valley/      最高孤对电子价带谷相对价带顶的能量（meV）、所在 k 点与成分
   Fig8_Seebeck/               四种材料 300 K 的面内 S 随载流子浓度（PBE+SOC 密网格 BoltzTraP2，不加剪刀，S_vs_concentration_300K.csv）；
                               表 6 的数值（S_300K_table6.csv）
-  Fig9_Pisarenko/             与实验对照的 Pisarenko 图：单抛物带参考线（m* = 0.1、0.3、1、3 m_e）；样品的霍尔浓度、实验 S，
-                              同一浓度下的 PBE+SOC S，以及由此读出的态密度有效质量（实验与计算同口径，samples_Pisarenko_mass.csv，即表 7）
+  Table7_Pisarenko_mass/      表 7（不作图）：样品的霍尔浓度、实验 S，同一浓度下的 PBE+SOC S，以及由此读出的态密度有效质量
   FigS3_S_vs_T/               附录 A：四个样品的实验 T、σ（S/m）、S 与室温霍尔；霍尔浓度下直接计算的 S(T)（PBE+SOC 密网格 BoltzTraP2，不加剪刀，不调参数）；最低、最高温的实验与计算值和偏差（表 A1）
-  Fig10_formation_energies/   12 类缺陷逐位点的中性形成能（富 Te、贫 Te），两端化学势
-  Fig11_ordering/             有序化引起的形成能变化 ΔE_f = E_f(O) − E_f(D)，逐位点与中位数
+  Fig9_formation_energies/    12 类缺陷逐位点的中性形成能（富 Te、贫 Te），两端化学势
+  Fig10_ordering/             有序化引起的形成能变化 ΔE_f = E_f(O) − E_f(D)，逐位点与中位数
   FigS2_Gamma_levels_SOC/     Γ 点能级（PBE，有、无 SOC，SnSb 与 SnBi）与 Sb → Bi 变化的标量/SOC 拆分（10_脚本/soc_mechanism.py）
   FigS1_mirror_plane/         Sn2Sb2Te5、Sn2Bi2Te5 镜面内最高价带的能量网格（c4，meV）；真实极大与沿 k_z 切线（valleys_and_cuts.csv）
   L_layered_defects/          早先一批在所给层状结构上（3×3×1，81 原子）的缺陷计算，即正文表 9、表 10 的 L 列：
