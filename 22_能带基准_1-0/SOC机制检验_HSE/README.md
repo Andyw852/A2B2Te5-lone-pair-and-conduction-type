@@ -1,12 +1,12 @@
 # SOC 机制检验的 HSE 版：HSE06 不加 SOC（2026-11-04）
 
-**目的**：HSE 能带专题（`21_阶段报告与交接/HSE能带专题_20261104.html`）要求全部为 HSE 级别。图 H9（Γ 点能级与 SOC）要对比加、不加 SOC，加 SOC 的 HSE 已有（`<材料>/c2_hse`），**缺的是 HSE06 不加 SOC**。本目录就是这四个计算。PBE 版见 `../SOC机制检验/`。
+**目的**：HSE 能带专题（`21_阶段报告与交接/HSE能带专题_20261104.html`）要求全部为 HSE 级别。图 H8（Γ 点能级与 SOC）要对比加、不加 SOC，加 SOC 的 HSE 已有（`<材料>/c2_hse`），**缺的是 HSE06 不加 SOC**。本目录就是这四个计算。PBE 版见 `../SOC机制检验/`。
 
 ## 四个作业
 
 `e1_hse_nosoc_Pb2Sb2Te5`、`e1_hse_nosoc_Pb2Bi2Te5`、`e1_hse_nosoc_Sn2Sb2Te5`、`e1_hse_nosoc_Sn2Bi2Te5`。
 
-- **优先** Sn₂Sb₂Te₅、Sn₂Bi₂Te₅：图 H9 只画这两种。
+- **优先** Sn₂Sb₂Te₅、Sn₂Bi₂Te₅：图 H8 只画这两种。
 - Pb 系用于表里 Pb 系的拆分（标量 / SOC）。
 
 每个作业目录内由 `submit.sh` 依次跑三步，中断后重交会跳过已完成的步：
@@ -46,7 +46,7 @@
 
 ```
 python 10_脚本/soc_mechanism.py --functional hse --fig <输出目录>     # 打印 HSE 的能级与拆分
-python 10_脚本/hse_band_figures.py --only H9 T                        # 有了 e1 结果，图 H9 自动改用 HSE
+python 10_脚本/hse_band_figures.py --only H8 T                        # 有了 e1 结果，图 H8 自动改用 HSE
 python 10_脚本/build_hse_bands_report.py
 ```
 

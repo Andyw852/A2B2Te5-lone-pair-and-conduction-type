@@ -3,7 +3,7 @@
 
 与论文报告的关系：数据与零点约定完全相同（复用 paper_figures 的读数与判据），只是重新组织、每张图只做一件事，
 每个子图有自己的纵坐标（用户要求）。图 6 拆成 H5（四种材料的价带能级）与 H6（Sn 系口袋在布里渊区中的位置，去掉三维图）；
-图 S1(c)(d) 改为 H8：从路径上的谷沿直线走到镜面内的真实极大，能量升高多少。
+图 S1(c)(d) 删去（用户意见），路径值与真实极大之差并入 H7 的数据；Sn 系的附加路径 Γ–Σ′–R₂′–L 单独画在能带图右侧。
 
   H1  HSE06+SOC 能带（四种材料）
   H2  阳离子 s 成分（孤对电子 s 态的权重）
@@ -12,8 +12,7 @@
   H5  四种材料的价带能级（谷的名称、能量、等价口袋数）
   H6  Sn 系价带口袋在布里渊区中的位置（沿 c 俯视）
   H7  Sn 系含 c 轴的镜面内最高价带的能量
-  H8  路径上的谷与镜面内真实极大的差
-  H9  Γ 点能级与 SOC（目前只有 PBE；HSE 不加 SOC 的计算见 22_能带基准_1-0/SOC机制检验_HSE/）
+  H8  Γ 点能级与 SOC（目前只有 PBE；HSE 不加 SOC 的计算见 22_能带基准_1-0/SOC机制检验_HSE/）
 
 能量零点：真实价带顶（Sn 系取镜面内三维搜索的结果，Pb 系取能带路径上的最高点）。
 用法：python 10_脚本/hse_band_figures.py [--out 21_阶段报告与交接/HSE能带_20261104/图] [--only H1 H5 ...]
@@ -38,7 +37,6 @@ CM = {   # 每种成分一个单色渐变（浅 → 深）
 }
 WMAX = {'cation_s': 0.30, 'A_p': 0.60, 'B_p': 0.60, 'Te_p': 0.80}
 LONG = {'cation_s': 'cation s (A-s + B-s)', 'A_p': 'A-site p', 'B_p': 'B-site p', 'Te_p': 'Te p'}
-VCOL = {'Σ′': '#5D3A9B', 'R₂′': '#1A9850', 'R₁′': '#2C7FB8', 'R₁″': '#74ADD1'}   # H8：每个真实谷一个颜色
 
 
 def comp(W):
@@ -65,26 +63,46 @@ def hse(m):
                 shift=dv)
 
 
-def segs(d, b, w=None):
-    """第 b 条带在主路径与附加路径上的线段，以及每段两端成分 w（dict 键）的平均。"""
-    x, E, tp = d['x'], d['E'], d['tp']
-    S = [[(x[i], E[i, b]), (x[i + 1], E[i + 1, b])] for i in range(KEND)]
-    V = list((d['c'][w][:KEND, b] + d['c'][w][1:KEND + 1, b]) / 2) if w else []
-    if tp and b < tp['E'].shape[1]:
-        xs, es = d['X0'] + tp['x'], tp['E'][:, b]
-        S += [[(xs[i], es[i]), (xs[i + 1], es[i + 1])] for i in range(len(xs) - 1)]
-        if w: V += list((tp['c'][w][:-1, b] + tp['c'][w][1:, b]) / 2)
-    return S, np.array(V)
+def segs(d, b, w=None, part='main'):
+    """第 b 条带在主路径（part='main'）或附加路径（part='tp'）上的线段，以及每段两端成分 w（dict 键）的平均。"""
+    if part == 'main':
+        x, E, c, n = d['x'][:KEND + 1], d['E'][:KEND + 1, b], d['c'], KEND + 1
+    else:
+        tp = d['tp']
+        if tp is None or b >= tp['E'].shape[1]: return [], np.array([])
+        x, E, c, n = tp['x'], tp['E'][:, b], tp['c'], len(tp['x'])
+    S = [[(x[i], E[i]), (x[i + 1], E[i + 1])] for i in range(n - 1)]
+    V = (c[w][:n - 1, b] + c[w][1:n, b]) / 2 if w else np.array([])
+    return S, V
 
 
-def frame(ax, d, ylim, title, n=None, edges=True):
-    """路径刻度、附加路径装饰、带边虚线、标题、纵轴。"""
-    if edges:
+def axes_for(fig, cell, d):
+    """一个子图：主路径一块；Sn 系右边另加一小块画附加路径 Γ–Σ′–R₂′–L（不在高对称路径上，单独画开，2026-11-04 用户意见）。"""
+    if not d['tp']: return [(fig.add_subplot(cell), 'main')]
+    sub = cell.subgridspec(1, 2, width_ratios=[d['x'][KEND] - d['x'][0], d['tp']['x'][-1]], wspace=0.12)
+    a = fig.add_subplot(sub[0]); t = fig.add_subplot(sub[1], sharey=a)
+    return [(a, 'main'), (t, 'tp')]
+
+
+def frame(axs, d, ylim, title, n=None):
+    """主路径：高对称点刻度、纵轴、标题；附加路径：浅紫底、Γ Σ′ R₂′ L 刻度、不重复纵轴。两块都画带边虚线。"""
+    for ax, part in axs:
         ax.axhline(0, color='k', lw=0.5, ls=':', zorder=1); ax.axhline(d['gap'], color='k', lw=0.5, ls=':', zorder=1)
-    pf.kticks(ax, d['x']); ax.set_ylim(*ylim)
-    if d['tp']: pf.tp_decorate(ax, d['tp'], d['X0'], d['nel'], mark=())
-    ax.set_title(title, fontsize=8, pad=4); ax.set_ylabel(r'$E - E_{\mathrm{VBM}}$ (eV)', labelpad=2)
-    if n is not None: pf.panel(ax, f'({"abcdefgh"[n]})')
+        if part == 'main':
+            pf.kticks(ax, d['x']); ax.set_ylim(*ylim)
+            ax.set_title(title, fontsize=8, pad=4); ax.set_ylabel(r'$E - E_{\mathrm{VBM}}$ (eV)', labelpad=2)
+            if n is not None: pf.panel(ax, f'({"abcdefgh"[n]})')
+        else:
+            tp = d['tp']; lab = sorted(tp['labels'].items())
+            ax.set_facecolor('#F1EEF7'); ax.set_xlim(0, tp['x'][-1])
+            ax.set_xticks([tp['x'][i] for i, _ in lab], [pf.MATH.get(nm, nm) for _, nm in lab])
+            for i, _ in lab[1:-1]: ax.axvline(tp['x'][i], color=pf.GRID, lw=0.5, zorder=0)
+            ax.tick_params(axis='x', top=False, length=0, pad=3); ax.tick_params(axis='y', labelleft=False)
+            ax.set_title('off path\n(mirror plane)', fontsize=6.2, pad=3, color='#444444', linespacing=1.0)
+
+
+def figure_cells(nrow=2, ncol=2, h=5.4, ws=0.30):
+    fig = plt.figure(figsize=(W2, h)); return fig, fig.add_gridspec(nrow, ncol, hspace=0.42, wspace=ws)
 
 
 def band_rows(d, keys):
@@ -110,15 +128,15 @@ def dump_bands(sub, d, keys):
 
 # ------------------------------------------------------------------ H1
 def h1(out):
-    fig, axs = plt.subplots(2, 2, figsize=(W2, 5.4), gridspec_kw=dict(hspace=0.38, wspace=0.28))
-    rows = []
-    for n, (ax, m) in enumerate(zip(axs.flat, MATS)):
-        d = hse(m); nel = d['nel']
-        for b in range(nel - 24, min(nel + 16, d['E'].shape[1])):
-            S, _ = segs(d, b)
-            ax.add_collection(LineCollection(S, colors='#B2182B' if b >= nel else '#1F3A93', linewidths=0.9, zorder=3))
-        frame(ax, d, (-1.0, 1.0), f'{TEX[m]}     $E_g$ = {1000 * d["gap"]:.0f} meV', n)
-        ax.set_yticks(np.arange(-1.0, 1.01, 0.5))
+    fig, gs = figure_cells(); rows = []; every = []
+    for n, m in enumerate(MATS):
+        d = hse(m); nel = d['nel']; axs = axes_for(fig, gs[n // 2, n % 2], d); every += [a for a, _ in axs]
+        for ax, part in axs:
+            for b in range(nel - 24, min(nel + 16, d['E'].shape[1])):
+                S, _ = segs(d, b, part=part)
+                if S: ax.add_collection(LineCollection(S, colors='#B2182B' if b >= nel else '#1F3A93', linewidths=0.9, zorder=3))
+        frame(axs, d, (-1.0, 1.0), f'{TEX[m]}     $E_g$ = {1000 * d["gap"]:.0f} meV', n)
+        axs[0][0].set_yticks(np.arange(-1.0, 1.01, 0.5))
         rows.append([m, r(1000 * d['gap'], 1), r(1000 * d['gap_path'], 1), r(1000 * d['shift'], 1)])
         dump_bands('H1_bands', d, [])
     h = [Line2D([], [], color='#1F3A93', lw=1.0), Line2D([], [], color='#B2182B', lw=1.0), Line2D([], [], color='k', lw=0.6, ls=':')]
@@ -132,13 +150,15 @@ def h1(out):
 CMAP = CM['cation_s']          # 所有成分用同一种颜色（2026-11-04 用户要求统一）
 
 
-def fat(ax, d, key, ylim, title, wmax, n=None):
+def fat(axs, d, key, ylim, title, wmax, n=None):
     norm = Normalize(0, wmax); nel = d['nel']
-    for b in range(nel - 24, min(nel + 16, d['E'].shape[1])):
-        S, V = segs(d, b, key)
-        lc = LineCollection(S, cmap=CMAP, norm=norm, linewidths=0.4 + 2.6 * np.clip(V / wmax, 0, 1), capstyle='round', zorder=3)
-        lc.set_array(np.clip(V, 0, wmax)); ax.add_collection(lc)
-    frame(ax, d, ylim, title, n)
+    for ax, part in axs:
+        for b in range(nel - 24, min(nel + 16, d['E'].shape[1])):
+            S, V = segs(d, b, key, part)
+            if not S: continue
+            lc = LineCollection(S, cmap=CMAP, norm=norm, linewidths=0.4 + 2.6 * np.clip(V / wmax, 0, 1), capstyle='round', zorder=3)
+            lc.set_array(np.clip(V, 0, wmax)); ax.add_collection(lc)
+    frame(axs, d, ylim, title, n)
 
 
 def colorbar(fig, axs, wmax, label):
@@ -149,39 +169,44 @@ def colorbar(fig, axs, wmax, label):
 
 
 def h2(out):
-    fig, axs = plt.subplots(2, 2, figsize=(W2, 5.4), gridspec_kw=dict(hspace=0.38, wspace=0.28))
-    for n, (ax, m) in enumerate(zip(axs.flat, MATS)):
-        d = hse(m); fat(ax, d, 'cation_s', (-0.5, 0.5), f'{TEX[m]}     $E_g$ = {1000 * d["gap"]:.0f} meV', 0.30, n)
+    fig, gs = figure_cells(); every = []
+    for n, m in enumerate(MATS):
+        d = hse(m); axs = axes_for(fig, gs[n // 2, n % 2], d); every += [a for a, _ in axs]
+        fat(axs, d, 'cation_s', (-0.5, 0.5), f'{TEX[m]}     $E_g$ = {1000 * d["gap"]:.0f} meV', 0.30, n)
         dump_bands('H2_cation_s', d, ['cation_s'])
-    colorbar(fig, axs, 0.30, 'Cation-s weight (%)')
+    colorbar(fig, every, 0.30, 'Cation-s weight (%)')
     pf.save(fig, out, 'H2_cation_s')
 
 
 def h4(out):
     for j, m in enumerate(MATS):
         d = hse(m); A_, B_ = m[:2], m[3:5]
-        fig, axs = plt.subplots(2, 2, figsize=(W2, 5.4), gridspec_kw=dict(hspace=0.38, wspace=0.28))
-        for n, (ax, key) in enumerate(zip(axs.flat, ('cation_s', 'A_p', 'B_p', 'Te_p'))):
+        fig, gs = figure_cells(); every = []
+        for n, key in enumerate(('cation_s', 'A_p', 'B_p', 'Te_p')):
             lab = {'cation_s': f'cation s ({A_}-s + {B_}-s)', 'A_p': f'A-site p ({A_})', 'B_p': f'B-site p ({B_})', 'Te_p': 'Te p'}[key]
-            fat(ax, d, key, (-0.8, 0.8), f'{TEX[m]}: {lab}', 0.60, n)
-        colorbar(fig, axs, 0.60, 'Orbital weight (%)')
+            axs = axes_for(fig, gs[n // 2, n % 2], d); every += [a for a, _ in axs]
+            fat(axs, d, key, (-0.8, 0.8), lab, 0.60, n)
+        fig.suptitle(f'{TEX[m]} (HSE06+SOC): orbital weights', fontsize=9, y=0.975)
+        colorbar(fig, every, 0.60, 'Orbital weight (%)')
         dump_bands('H4_orbitals', d, ['cation_s', 'A_s', 'B_s', 'Te_s', 'A_p', 'B_p', 'Te_p'])
         pf.save(fig, out, f'H4{"abcd"[j]}_orbitals_{m}')
 
 
 # ------------------------------------------------------------------ H3：s 来自 A 位还是 B 位
 def h3(out):
-    norm = Normalize(0, 1)
-    fig, axs = plt.subplots(2, 2, figsize=(W2, 5.4), gridspec_kw=dict(hspace=0.38, wspace=0.28))
-    for n, (ax, m) in enumerate(zip(axs.flat, MATS)):
-        d = hse(m); nel = d['nel']
-        for b in range(nel - 24, min(nel + 16, d['E'].shape[1])):
-            S, A = segs(d, b, 'A_s'); _, Bs = segs(d, b, 'B_s'); tot = A + Bs; w = np.clip(tot / 0.15, 0, 1)[:, None]
-            cols = w * np.array([pf.SITE_CMAP(norm(a / max(t, 1e-9))) for a, t in zip(A, tot)]) + (1 - w) * pf.GREY
-            ax.add_collection(LineCollection(S, colors=cols, linewidths=0.5 + 2.4 * np.clip(tot / 0.3, 0, 1), capstyle='round', zorder=3))
-        frame(ax, d, (-0.5, 0.5), f'{TEX[m]}     A = {m[:2]}, B = {m[3:5]}', n)
+    norm = Normalize(0, 1); fig, gs = figure_cells(); every = []
+    for n, m in enumerate(MATS):
+        d = hse(m); nel = d['nel']; axs = axes_for(fig, gs[n // 2, n % 2], d); every += [a for a, _ in axs]
+        for ax, part in axs:
+            for b in range(nel - 24, min(nel + 16, d['E'].shape[1])):
+                S, A = segs(d, b, 'A_s', part); _, Bs = segs(d, b, 'B_s', part)
+                if not S: continue
+                tot = A + Bs; w = np.clip(tot / 0.15, 0, 1)[:, None]
+                cols = w * np.array([pf.SITE_CMAP(norm(a / max(t, 1e-9))) for a, t in zip(A, tot)]) + (1 - w) * pf.GREY
+                ax.add_collection(LineCollection(S, colors=cols, linewidths=0.5 + 2.4 * np.clip(tot / 0.3, 0, 1), capstyle='round', zorder=3))
+        frame(axs, d, (-0.5, 0.5), f'{TEX[m]}     A = {m[:2]}, B = {m[3:5]}', n)
         dump_bands('H3_s_by_site', d, ['A_s', 'B_s', 'cation_s'])
-    cb = fig.colorbar(plt.cm.ScalarMappable(norm=norm, cmap=pf.SITE_CMAP), ax=axs, shrink=0.7, pad=0.02, aspect=30)
+    cb = fig.colorbar(plt.cm.ScalarMappable(norm=norm, cmap=pf.SITE_CMAP), ax=every, shrink=0.7, pad=0.02, aspect=30)
     cb.set_label('Share of cation-s on the A site'); cb.set_ticks([0, 0.5, 1], labels=['B only\n(Sb, Bi)', 'equal', 'A only\n(Pb, Sn)'])
     cb.ax.tick_params(direction='in', length=2, width=0.6, labelsize=6.5); cb.outline.set_linewidth(0.6)
     pf.save(fig, out, 'H3_s_by_site')
@@ -246,50 +271,47 @@ def h5(out):
 
 # ------------------------------------------------------------------ H6：Sn 系口袋在布里渊区中的位置
 def h6(out):
-    """(a)(b) 沿 c 俯视，(c)(d) 三维透视（k_z 放大 4 倍）。"""
-    fig = plt.figure(figsize=(W2, 6.1))
-    gs = fig.add_gridspec(2, 2, height_ratios=[1, 1.15], wspace=0.04, hspace=0.02)
-    axs = [fig.add_subplot(gs[0, k]) for k in range(2)]
+    """两列（Sn₂Sb₂Te₅、Sn₂Bi₂Te₅）上下对齐：(a)(b) 沿 c 俯视，(c)(d) 三维透视（k_z 放大 4 倍），下方为每组谷的能量与等价口袋数。"""
+    fig = plt.figure(figsize=(W2, 6.5))
+    gs = fig.add_gridspec(3, 2, height_ratios=[1.0, 1.15, 0.22], wspace=0.08, hspace=0.06, bottom=0.07)
     rows = []
-    for k, (ax, m) in enumerate(zip(axs, SN)):
+    for k, m in enumerate(SN):
         B, P = pf.pockets(m); hx, hy = pf.hexagon(B)
-        a3 = fig.add_subplot(gs[1, k], projection='3d'); pf.bz_3d(a3, m, B, P, zs=4)
-        a3.text2D(0.5, 1.04, f'{TEX[m]}: 3D view ($k_z$ ×4)', transform=a3.transAxes, fontsize=8, ha='center', va='bottom')
-        a3.text2D(0.02, 1.04, f'({"cd"[k]})', transform=a3.transAxes, fontsize=9, fontweight='bold', ha='left', va='bottom')
+        ax = fig.add_subplot(gs[0, k])
         ax.plot(hx, hy, color='k', lw=0.8, zorder=1)
-        r0 = 0.5 * np.linalg.norm(B[0][:2]); a0 = np.arctan2(B[0][1], B[0][0])
-        for t in range(6):
-            q = (r0 * np.cos(a0 + t * np.pi / 3), r0 * np.sin(a0 + t * np.pi / 3)); ax.plot([0, q[0]], [0, q[1]], color='#BDBDBD', lw=0.5, ls=pf.DASH, zorder=0)
+        r0 = 0.5 * np.linalg.norm(B[0][:2]); a0_ = np.arctan2(B[0][1], B[0][0])
+        Ms = [(r0 * np.cos(a0_ + t * np.pi / 3), r0 * np.sin(a0_ + t * np.pi / 3)) for t in range(6)]
+        for q in Ms: ax.plot([0, q[0]], [0, q[1]], color='#BDBDBD', lw=0.5, ls=pf.DASH, zorder=0)
         for g in P:
             big = pf.near(g['E'])
             for c, f in zip(g['cart'], g['frac']):
-                ax.plot(c[0], c[1], pf.MK[g['name']], ms=(6.2 if big else 3.8) * pf.MS.get(pf.MK[g['name']], 1), mew=0.9, color=g['col'],
+                ax.plot(c[0], c[1], pf.MK[g['name']], ms=(6.6 if big else 4.2) * pf.MS.get(pf.MK[g['name']], 1), mew=0.9, color=g['col'],
                         mfc='white' if pf.on_face(f) else g['col'], alpha=1.0 if big else 0.4, zorder=3)
                 rows.append([m, g['name'], r(g['E'], 1), len(g['frac']), *[r(v, 4) for v in f], *[r(v, 4) for v in c], 'yes' if big else 'no'])
-        Mq = max(((r0 * np.cos(a0 + t * np.pi / 3), r0 * np.sin(a0 + t * np.pi / 3)) for t in range(6)), key=lambda c: c[0] + 0.1 * c[1])
-        kv = max(zip(hx, hy), key=lambda t: (round(t[1], 3), t[0]))
+        Mq = max(Ms, key=lambda c: c[0] + 0.1 * c[1]); kv = max(zip(hx, hy), key=lambda t: (round(t[1], 3), t[0]))
         ax.text(Mq[0] + 0.04, Mq[1], 'M', ha='left', va='center', fontsize=7); ax.text(kv[0] + 0.03, kv[1] + 0.02, 'K', ha='left', va='bottom', fontsize=7)
         ax.text(0.03, -0.06, 'Γ', fontsize=7, ha='left', va='top')
-        # 右侧列表：每组谷一行（形状、名称、能量、等价口袋数）
-        y = 0.80
-        for g in sorted(P, key=lambda g: -g['E']):
-            big = pf.near(g['E'])
-            ax.plot(1.06, y, pf.MK[g['name']], ms=4.6 * pf.MS.get(pf.MK[g['name']], 1), mew=0.8, color=g['col'], alpha=1 if big else 0.4,
-                    mfc='white' if all(map(pf.on_face, g['frac'])) else g['col'], clip_on=False)
-            ax.text(1.15, y, pf.MATH.get(g['name'], g['name']), ha='left', va='center', fontsize=6.8)
-            ax.text(1.97, y, f"{g['E']:.0f}".replace('-', '−') + f" meV  ×{len(g['frac'])}", ha='right', va='center', fontsize=6.8)
-            y -= 0.15
         n = sum(len(g['frac']) for g in P if pf.near(g['E']))
-        ax.set_title(f"{TEX[m]}: {n} pocket{'s' if n > 1 else ''} within $2k_\\mathrm{{B}}T$ of the VBM", fontsize=8, pad=2)
-        ax.set_aspect('equal'); ax.set_xlim(-0.98, 2.0); ax.set_ylim(-0.95, 0.95); ax.axis('off')
-        ax.text(0.0, 1.0, f'({"ab"[k]})', transform=ax.transAxes, fontsize=9, fontweight='bold', ha='right', va='bottom')
+        ax.set_title(f"{TEX[m]}: {n} pocket{'s' if n > 1 else ''} within $2k_\\mathrm{{B}}T$", fontsize=8, pad=4)
+        ax.set_aspect('equal'); ax.set_xlim(-1.0, 1.0); ax.set_ylim(-0.92, 0.92); ax.axis('off')
+        ax.text(0.0, 1.02, f'({"ab"[k]})', transform=ax.transAxes, fontsize=9, fontweight='bold', ha='left', va='bottom')
+        a3 = fig.add_subplot(gs[1, k], projection='3d'); pf.bz_3d(a3, m, B, P, zs=4)
+        a3.text2D(0.5, 1.0, f'{TEX[m]}: 3D view ($k_z$ ×4)', transform=a3.transAxes, fontsize=8, ha='center', va='bottom')
+        a3.text2D(0.0, 1.0, f'({"cd"[k]})', transform=a3.transAxes, fontsize=9, fontweight='bold', ha='left', va='bottom')
+        al = fig.add_subplot(gs[2, k]); al.axis('off'); al.set_xlim(0, 1); al.set_ylim(0, 1)
+        for j, g in enumerate(sorted(P, key=lambda g: -g['E'])):        # 每列一个小表：形状、名称、能量、等价口袋数（两栏）
+            x0, y0 = (0.06 if j < 3 else 0.54), 0.90 - 0.36 * (j % 3); big = pf.near(g['E'])
+            al.plot(x0, y0, pf.MK[g['name']], ms=5 * pf.MS.get(pf.MK[g['name']], 1), mew=0.8, color=g['col'], alpha=1 if big else 0.4,
+                    mfc='white' if all(map(pf.on_face, g['frac'])) else g['col'], clip_on=False)
+            al.text(x0 + 0.05, y0, pf.MATH.get(g['name'], g['name']), ha='left', va='center', fontsize=7)
+            al.text(x0 + 0.42, y0, f"{g['E']:.0f}".replace('-', '−') + f" meV  ×{len(g['frac'])}", ha='right', va='center', fontsize=7)
     h = [Line2D([], [], ls='', marker='o', ms=5, color=pf.C_B, label='Γ / Δ: on the Γ–A axis'),
          Line2D([], [], ls='', marker='o', ms=5, color=pf.C_A, label='Σ′: lone-pair valley near Γ–M'),
-         Line2D([], [], ls='', marker='s', ms=4.2, color=pf.C_A, label=r'R$_1$′, R$_1$″: near A–L, close to A'),
+         Line2D([], [], ls='', marker='s', ms=4.2, color=pf.C_A, label=r'R$_1$′: near A–L, close to A'),
+         Line2D([], [], ls='', marker='p', ms=4.6, color=pf.C_A, label=r'R$_1$″: near A–L, closest to A'),
          Line2D([], [], ls='', marker='D', ms=3.8, color=pf.C_A, label=r'R$_2$′: near A–L, close to L'),
          Line2D([], [], ls='', marker='o', ms=3.6, color=pf.C_A, alpha=0.4, label=r'faded: more than $2k_\mathrm{B}T$ below the VBM')]
-    h.insert(4, Line2D([], [], ls='', marker='o', ms=5, color='#555555', mfc='white', label=r'open: on the $k_z$ = ½ zone face'))
-    fig.legend(handles=h, loc='lower center', ncol=3, bbox_to_anchor=(0.5, 0.02), fontsize=6.5, handletextpad=0.3, columnspacing=1.2)
+    fig.legend(handles=h, loc='upper center', ncol=3, bbox_to_anchor=(0.5, 0.065), fontsize=6.5, handletextpad=0.3, columnspacing=1.2)
     pf.dump('H6_pockets', 'pocket_positions.csv', ['material', 'valley', 'E-EVBM_meV', 'n_equivalent_pockets', 'k_frac_1', 'k_frac_2', 'k_frac_3',
                                                   'kx_1/A', 'ky_1/A', 'kz_1/A', 'within_2kBT'], rows)
     pf.save(fig, out, 'H6_pockets_BZ')
@@ -337,54 +359,28 @@ def h7(out):
         rows += [[m, nm + ' (path)', r(-u0, 4), r(w0, 4), r(float(S(np.array([-u0]), np.array([w0]))[0, 0]), 1)] for nm, (u0, w0) in pf.PATH_LP.items()]
     cb = fig.colorbar(im, ax=axs, fraction=0.025, pad=0.02); cb.set_label(r'$E - E_\mathrm{VBM}$ (meV)')
     pf.dump('H7_mirror_plane', 'valleys_in_mirror_plane.csv', ['material', 'valley', 'x=-u', 'w', 'E-EVBM_meV'], rows)
+    pf.dump('H7_mirror_plane', 'path_vs_true_maxima.csv', ['material', 'path_valley', 'true_maximum', 'E_path_meV', 'E_true_meV', 'rise_meV',
+                                                           'k_distance_1/A', 'path_x=-u', 'path_w', 'true_x=-u', 'true_w'], sum((path_vs_true(m) for m in SN), []))
     pf.save(fig, out, 'H7_mirror_plane_maps')
 
 
-# ------------------------------------------------------------------ H8：路径上的谷 → 镜面内的真实极大
 ORDER = ('Σ′', 'R₁′', 'R₁″', 'R₂′')
 
 
+def path_vs_true(m):
+    """每个真实谷与它所来自的路径谷：路径值（c2_hse）、真实极大（c5/c6）、差值、k 空间距离。图 H8 已按用户意见删去，数据并入图 H7。"""
+    tv = pf.true_valleys(m); v = pf.top_vb(m, 'c2_hse') - tv['shift']
+    B, _ = pf.bz_lattice(m); nb1, cz = np.linalg.norm(B[0]), abs(B[2, 2]); out = []
+    for t in sorted(tv['valleys'], key=lambda t: ORDER.index(t['name'])):
+        pn = t['name'].rstrip('′″'); Ep, Et = v[pf.SNVAL[pn]], t['E']; up, wp = pf.PATH_LP[pn]; ut, wt = t['kfrac'][0], t['kfrac'][2]
+        cand = [(up, wp + n) for n in (-1, 0, 1)] + [(-up, -wp + n) for n in (-1, 0, 1)]
+        dk = min(float(np.hypot((c[0] - ut) * nb1, (c[1] - wt) * cz)) for c in cand)
+        out.append([m, pn, t['name'], r(Ep, 1), r(Et, 1), r(Et - Ep, 1), r(dk, 4), r(-up, 4), r(wp, 4), r(-ut, 4), r(wt, 4)])
+    return out
+
+
+# ------------------------------------------------------------------ H8：Γ 点能级与 SOC
 def h8(out):
-    """每个真实谷与它所来自的路径谷成对比较：空心 = 能带路径上的值（c2_hse），实心 = 镜面内三维搜索的真实极大（c5），箭头为路径低估的量。"""
-    fig, axs = plt.subplots(1, 2, figsize=(W2, 2.9), gridspec_kw=dict(wspace=0.26))
-    summ = []
-    for k, (ax, m) in enumerate(zip(axs, SN)):
-        tv = pf.true_valleys(m); v = pf.top_vb(m, 'c2_hse') - tv['shift']           # 路径最高价带，相对真实价带顶（meV）
-        B, _ = pf.bz_lattice(m); nb1, cz = np.linalg.norm(B[0]), abs(B[2, 2])
-        T = sorted(tv['valleys'], key=lambda t: ORDER.index(t['name'])); lo = 0; lab = []
-        ax.axhspan(-2 * pf.KT300, 0, color='#EEF3F8', zorder=0, lw=0)
-        for j, t in enumerate(T):
-            pn = t['name'].rstrip('′″'); Ep, Et = v[pf.SNVAL[pn]], t['E']; col = VCOL[t['name']]; lo = min(lo, Ep)
-            up, wp = pf.PATH_LP[pn]; ut, wt = t['kfrac'][0], t['kfrac'][2]
-            cand = [(up, wp + n) for n in (-1, 0, 1)] + [(-up, -wp + n) for n in (-1, 0, 1)]
-            dk = min(float(np.hypot((c[0] - ut) * nb1, (c[1] - wt) * cz)) for c in cand)
-            ax.annotate('', (j, Et), (j, Ep), arrowprops=dict(arrowstyle='->', lw=1.0, color=col, shrinkA=5, shrinkB=5), zorder=3)
-            ax.plot(j, Ep, pf.MK[pn], ms=6 * pf.MS.get(pf.MK[pn], 1), mfc='white', mec=col, mew=1.2, zorder=5)
-            ax.plot(j, Et, pf.MK[t['name']], ms=6.4 * pf.MS.get(pf.MK[t['name']], 1), color=col, mec='k', mew=0.5, zorder=6)
-            summ.append(None); lab.append((j, Ep, Et))
-            summ.append([m, pn, t['name'], r(Ep, 1), r(Et, 1), r(Et - Ep, 1), r(dk, 4), r(-up, 4), r(wp, 4), r(-ut, 4), r(wt, 4)])
-        summ = [q for q in summ if q is not None]
-        y0, y1 = 10 * np.floor(lo / 10) - 15, 12
-        for j, Ep, Et in lab:                                  # 差值小时两点的数字分到左右两侧，避免重叠
-            close = Et - Ep < 0.12 * (y1 - y0)
-            ax.text(j + 0.13, Et, f'{Et:.0f}'.replace('-', '−') + (f'  (+{Et - Ep:.0f})' if close else ''), fontsize=6.4, ha='left', va='center', color='#222222')
-            ax.text(j - 0.13 if close else j + 0.13, Ep, f'{Ep:.0f}'.replace('-', '−'), fontsize=6.4, ha='right' if close else 'left', va='center', color='#555555')
-            if not close: ax.text(j + 0.13, (Ep + Et) / 2, f'+{Et - Ep:.0f} meV', fontsize=6.6, ha='left', va='center', color='#222222', fontweight='bold')
-        ax.axhline(0, color='k', lw=0.5, ls=':')
-        ax.set_xticks(range(len(T)), [f"{pf.MATH.get(t['name'].rstrip('′″'), t['name'].rstrip('′″'))} → {pf.MATH.get(t['name'], t['name'])}" for t in T])
-        ax.tick_params(axis='x', top=False, length=0); ax.set_xlim(-0.55, len(T) - 0.1); ax.set_ylim(y0, y1)
-        ax.set_ylabel(r'$E - E_\mathrm{VBM}$ (meV)'); ax.set_title(f'{TEX[m]}: band path vs true maximum', fontsize=8, pad=3)
-        pf.panel(ax, f'({"ab"[k]})')
-    h = [Line2D([], [], ls='', marker='o', ms=5, mfc='white', mec='#555555', mew=1.1), Line2D([], [], ls='', marker='o', ms=5.5, color='#555555', mec='k', mew=0.5)]
-    fig.legend(h, ['valley on the band path', 'true maximum in the mirror plane (off the path)'], loc='lower center', ncol=2, bbox_to_anchor=(0.5, 0.94))
-    pf.dump('H8_path_vs_true', 'path_vs_true_summary.csv', ['material', 'path_valley', 'true_maximum', 'E_path_meV', 'E_true_meV', 'rise_meV',
-                                                            'k_distance_1/A', 'path_x=-u', 'path_w', 'true_x=-u', 'true_w'], summ)
-    pf.save(fig, out, 'H8_path_vs_true_maxima')
-    return summ
-
-
-# ------------------------------------------------------------------ H9：Γ 点能级与 SOC
-def h9(out):
     """有 HSE 不加 SOC 的结果（SOC机制检验_HSE/e1_hse_nosoc_<材料>）就画 HSE，否则画 PBE（图名后缀 _HSE / _PBE）。"""
     import soc_mechanism as sm
     fn = 'hse' if all(os.path.exists(os.path.join(sm.R, 'SOC机制检验_HSE', f'e1_hse_nosoc_{m}', 'PROCAR_OPT.gz')) for m in SN) else 'pbe'
@@ -401,8 +397,8 @@ def h9(out):
                        soc=lo[bi] - lo[sb], low_sb=lo[sb], low_bi=lo[bi])
     tag = 'HSE' if fn == 'hse' else 'PBE'
     d0, s0 = pf.dump, pf.save
-    pf.dump = lambda sub, name, header, rows: d0('H9_Gamma_levels_SOC' if sub == 'FigS2_Gamma_levels_SOC' else sub, name, header, rows)
-    pf.save = lambda fig, o, name: s0(fig, o, f'H9_Gamma_levels_SOC_{tag}' if name.startswith('FigS2_Gamma_levels_SOC') else name)
+    pf.dump = lambda sub, name, header, rows: d0('H8_Gamma_levels_SOC' if sub == 'FigS2_Gamma_levels_SOC' else sub, name, header, rows)
+    pf.save = lambda fig, o, name: s0(fig, o, f'H8_Gamma_levels_SOC_{tag}' if name.startswith('FigS2_Gamma_levels_SOC') else name)
     try:
         data = pf.DATA; sm.figure(res, dec, out, fn); pf.DATA = data
     finally:
@@ -413,7 +409,7 @@ def h9(out):
             d = os.path.join(sm.R, side) if mm == 'Pb2Sb2Te5' else os.path.join(sm.R, mm, side)
             q = sm.gamma_states(d, mm)
             rows.append([mm, f_, r(q['p12'], 1), r(q['s'], 1), q['s_in']])
-    pf.dump('H9_Gamma_levels_SOC', 'Gamma_SOC_levels_PBE_vs_HSE.csv',
+    pf.dump('H8_Gamma_levels_SOC', 'Gamma_SOC_levels_PBE_vs_HSE.csv',
             ['material', 'functional', 'Gamma_VB_p1/2_minus_Sigma_meV', 'Gamma_s_state_minus_Sigma_meV', 's_state_in'], rows)
     return fn
 
@@ -468,7 +464,7 @@ def tables(out):
     return key
 
 
-FIGS = {'H1': h1, 'H2': h2, 'H3': h3, 'H4': h4, 'H5': h5, 'H6': h6, 'H7': h7, 'H8': h8, 'H9': h9, 'T': tables}
+FIGS = {'H1': h1, 'H2': h2, 'H3': h3, 'H4': h4, 'H5': h5, 'H6': h6, 'H7': h7, 'H8': h8, 'T': tables}
 
 
 def main():

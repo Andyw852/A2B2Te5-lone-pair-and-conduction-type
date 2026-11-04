@@ -34,16 +34,16 @@ INDEX = [
     ('图 H6', '(a)(b)', '口袋中心在第一布里渊区中的位置', 'H6_pockets/pocket_positions.csv', 'kx_1/A', 'ky_1/A；形状按 valley', ''),
     ('图 H7', '(a)(b)', '镜面内最高价带的能量网格', 'H7_mirror_plane/*_mirror_plane_grid_meV.csv', '行：x = −u', '列：w；值 = E − VBM（meV）', '矩阵，画等高图'),
     ('图 H7', '标记', '路径上的谷与镜面内的真实极大', 'H7_mirror_plane/valleys_in_mirror_plane.csv', 'x=-u', 'w', ''),
-    ('图 H8', '(a)(b)', '路径值与真实极大的能量', 'H8_path_vs_true/path_vs_true_summary.csv', '一对一列', 'E_path_meV（空心）、E_true_meV（实心）', ''),
-    ('图 H9', '', 'Γ 点能级（有、无 SOC；文件名注明泛函）', 'H9_Gamma_levels_SOC/gamma_levels_*.csv', 'material、SOC', 'E_minus_Sigma_meV；按 state', ''),
-    ('图 H9', '箭头', 'Sb → Bi 变化的标量 / SOC 拆分', 'H9_Gamma_levels_SOC/SbBi_decomposition_meV.csv', '', '', ''),
-    ('表 4', '', '加 SOC 时 Γ 点能级，PBE 与 HSE', 'H9_Gamma_levels_SOC/Gamma_SOC_levels_PBE_vs_HSE.csv', '', '', ''),
+    ('图 H7、第 5 节', '', '路径上的谷与真实极大的能量差', 'H7_mirror_plane/path_vs_true_maxima.csv', '', 'E_path_meV、E_true_meV、rise_meV', '不作图'),
+    ('图 H8', '', 'Γ 点能级（有、无 SOC；文件名注明泛函）', 'H8_Gamma_levels_SOC/gamma_levels_*.csv', 'material、SOC', 'E_minus_Sigma_meV；按 state', ''),
+    ('图 H8', '箭头', 'Sb → Bi 变化的标量 / SOC 拆分', 'H8_Gamma_levels_SOC/SbBi_decomposition_meV.csv', '', '', ''),
+    ('表 4', '', '加 SOC 时 Γ 点能级，PBE 与 HSE', 'H8_Gamma_levels_SOC/Gamma_SOC_levels_PBE_vs_HSE.csv', '', '', ''),
     ('正文表格', '', '表 1–4', 'tables/*.csv', '', '', ''),
 ]
 P = '22_能带基准_1-0/<材料>/c2_hse（PROCAR_OPT、path_eigen）'
 BAND = '零点为真实价带顶（Sn₂Bi₂Te₅ 取镜面搜索的 Σ′，其余为路径最高点）；SOC 下每条带是二重简并的一对，源数据逐条列出。'
 METHODS = {
-    'H1_bands': ('图 H1、表 1', P + '；Sn 系附加路径 <材料>/c7_true_path。', BAND, '2×2，每个子图有自己的纵坐标；价带蓝、导带红；两条虚线为价带顶与导带底。', 'hse_band_figures.h1'),
+    'H1_bands': ('图 H1、表 1', P + '；Sn 系附加路径 <材料>/c7_true_path。', BAND, '2×2，每个子图有自己的纵坐标；价带蓝、导带红；两条虚线为价带顶与导带底；Sn 系的附加路径单独画在右侧小图。', 'hse_band_figures.h1'),
     'H2_cation_s': ('图 H2', P + '；c7_true_path。', BAND + ' 阳离子 s = 离子 1–2（B 位）与 8–9（A 位）的 s 投影之和 ÷ 球内总投影。',
                     '颜色深浅与线宽都按阳离子 s；四个子图共用一个普通色柱，满刻度 30%，超过的按 30% 画。', 'hse_band_figures.h2'),
     'H3_s_by_site': ('图 H3', P + '；c7_true_path。', BAND + ' A 位 s、B 位 s 分别取离子 8–9、1–2 的 s 投影。',
@@ -57,12 +57,10 @@ METHODS = {
                    '(a)(b) 六边形为第一布里渊区沿 c 的投影，右侧列表为能量与 ×n；(c)(d) 三维透视，k_z 放大 4 倍；形状区分谷，离价带顶超过 2k_BT 的画浅色。', 'hse_band_figures.h6'),
     'H7_mirror_plane': ('图 H7', '22_能带基准_1-0/<材料>/c4_mirror_v3（6 批）；真实极大取 c5_star、c6_local。',
                         '最高价带（二重简并的一对取平均），相对真实价带顶；用 (u, w) ≡ (−u, −w) 补全另一半，三次样条插值后画图。',
-                        '色图加等高线（每 25 meV），低于 −250 meV 的按 −250 meV 画；白色虚线为能带路径经过的位置；空心为路径上的谷，红色实心为真实极大。', 'hse_band_figures.h7、paper_figures.mirror_map'),
-    'H8_path_vs_true': ('图 H8', '路径值：c2_hse 路径上的谷（Σ：u = −1/6；R₁、R₂：A–L 线上）；真实值：c5_star / c6_local。',
-                        '都相对真实价带顶；差值 = 真实极大 − 路径值。', '每一对一列：空心为路径值，实心为真实极大，箭头标差值。', 'hse_band_figures.h8'),
-    'H9_Gamma_levels_SOC': ('图 H9、表 4', 'PBE：22_能带基准_1-0/SOC机制检验/d1_nosoc_<材料>（不加 SOC）与 <材料>/c2_pbe（加 SOC）；表 4 另取 c2_hse。',
+                        '色图加等高线（每 25 meV），低于 −250 meV 的按 −250 meV 画；白色虚线为能带路径经过的位置；空心为路径上的谷，红色实心为真实极大。path_vs_true_maxima.csv 为两者的能量差（路径值取 c2_hse，真实值取 c5/c6），不作图。', 'hse_band_figures.h7、paper_figures.mirror_map'),
+    'H8_Gamma_levels_SOC': ('图 H8、表 4', 'PBE：22_能带基准_1-0/SOC机制检验/d1_nosoc_<材料>（不加 SOC）与 <材料>/c2_pbe（加 SOC）；表 4 另取 c2_hse。',
                             'Γ 点的态按轨道成分追踪；能量相对 Σ 谷 = Γ–M 段内最高价带的局部极大（2026-11-04 改正，原取段上最大值）。',
-                            '能级图：两种材料各两列（不加、加 SOC）；箭头为 SOC 把 p 态压低的量。', 'soc_mechanism.figure、hse_band_figures.h9'),
+                            '能级图：两种材料各两列（不加、加 SOC）；箭头为 SOC 把 p 态压低的量。', 'soc_mechanism.figure、hse_band_figures.h8'),
     'tables': ('正文表格', '本页 HTML 的表 1，以及 hse_band_figures.tables 生成的表 2–4。', '原样。', '（不作图）', 'hse_band_figures.tables'),
 }
 
@@ -112,12 +110,12 @@ README = """A₂B₂Te₅ 的 HSE06+SOC 能带（专题），2026-11-04
 =====================================================
 HSE能带专题.html          报告（图片用相对路径，需与 figures/ 同目录）
 HSE能带专题_单文件.html    同上，图片已嵌入，可单独转发
-figures/png/  figures/pdf/  图 H1–H9（600 dpi PNG 与矢量 PDF），文件名即图号
+figures/png/  figures/pdf/  图 H1–H8（600 dpi PNG 与矢量 PDF），文件名即图号
 data/<图目录>/             每幅图的源数据（CSV，UTF-8），目录与图的对应见 data/作图数据索引.csv
 data/tables/               正文表 1–4
 作图数据/<图目录>.xlsx      同样的数据，每幅图一个 Excel；第一页“说明”为数据来源、处理与画法
 
-全部为 HSE06+SOC，只有图 H9（SOC 机制）目前是 PBE：HSE 不加 SOC 的计算见仓库 22_能带基准_1-0/SOC机制检验_HSE/。
+全部为 HSE06+SOC，只有图 H8（SOC 机制）目前是 PBE：HSE 不加 SOC 的计算见仓库 22_能带基准_1-0/SOC机制检验_HSE/。
 能量零点为真实价带顶；Sn 系的孤对电子谷取镜面内三维搜索的真实极大。
 程序：10_脚本/hse_band_figures.py、10_脚本/build_hse_bands_report.py、10_脚本/soc_mechanism.py
 """
