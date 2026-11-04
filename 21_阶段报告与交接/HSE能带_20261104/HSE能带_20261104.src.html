@@ -18,8 +18,8 @@
   <ul>
   <li>图 H1 为主报告图 2 的 HSE 部分；</li>
   <li>图 H2、H3 对应图 3、图 4；</li>
-  <li>图 H4 是新加的，四种材料的 s、p 成分都画全了，代替图 5；</li>
-  <li>主报告图 6 拆成图 H5（价带能级）和图 H6（口袋位置），去掉了三维透视图；</li>
+  <li>图 H4 是新加的，四种材料的 s、p 成分都画全了，四个成分用同一色标，代替图 5；</li>
+  <li>主报告图 6 拆成图 H5（价带能级）和图 H6（口袋位置，俯视与三维）；</li>
   <li>主报告图 S1 拆成图 H7（镜面能量图）和图 H8（路径值与真实极大的差），图 S1(c)(d) 的切线改成了成对比较；</li>
   <li>图 H9 对应图 S2。</li>
   </ul></li>
@@ -30,11 +30,11 @@
 
 <div class="toc">
 <a href="#m">1 计算方法</a><br>
-<a href="#b">2 能带与带隙（图 H1，表 1）</a><br>
-<a href="#o">3 轨道成分（图 H2–H4，表 2）</a><br>
-<a href="#v">4 价带谷与口袋（图 H5、H6，表 3）</a><br>
-<a href="#s">5 Sn 系：镜面内的真实价带极大（图 H7、H8）</a><br>
-<a href="#g">6 Γ 点能级与 SOC（图 H9，表 4）</a><br>
+<a href="#b">2 带隙与带边（图 H1，表 1）</a><br>
+<a href="#o">3 孤对电子 s 态在哪里、各能带的轨道成分（图 H2–H4，表 2）</a><br>
+<a href="#v">4 价带顶附近的谷与口袋（图 H5、H6，表 3）</a><br>
+<a href="#s">5 只看能带路径会漏掉什么（图 H7、H8）</a><br>
+<a href="#g">6 Sb → Bi 时 Γ 谷为什么下降（图 H9，表 4）</a><br>
 <a href="#f">附：每幅图的数据与绘制方法、文件</a>
 </div>
 
@@ -57,10 +57,10 @@
 <tr><td>能量零点</td><td>真实价带顶：Sn₂Bi₂Te₅ 取镜面搜索的 Σ′（比路径上的最高点高 37.6 meV）；其余三种材料的价带顶就在路径上</td></tr>
 </tbody></table>
 
-<h2 id="b">2 能带与带隙</h2>
+<h2 id="b">2 HSE 下四种材料的带隙多大、带边在哪里</h2>
 <figure>
 <img src="{{FIG:H1_HSE_bands}}" alt="Fig. H1">
-<figcaption><b>图 H1</b> HSE06+SOC 能带，蓝为价带、红为导带，▼ 为价带顶、▲ 为导带底，两条虚线为带边。(c)(d) 右侧浅紫底的一段是附加路径 Γ–Σ′–R₂′–L，穿过镜面内的真实价带极大（横向放大 1.8 倍）。标题中的带隙为真实值。</figcaption>
+<figcaption><b>图 H1</b> <b>HSE 下四种材料的带隙多大、带边在哪里。</b>HSE06+SOC 能带，蓝为价带、红为导带；两条虚线为价带顶（能量零点）与导带底。(c)(d) 右侧浅紫底的一段是附加路径 Γ–Σ′–R₂′–L，穿过镜面内的真实价带极大（横向放大 1.8 倍）。标题中的带隙为真实值，带边位置见表 1。</figcaption>
 </figure>
 <p class="tcap"><b>表 1</b> 带隙与带边（HSE06+SOC）。</p>
 <table data-csv="T1_band_gaps">
@@ -76,10 +76,10 @@
 <li>只有 Sn₂Bi₂Te₅ 的价带顶离开 Γ–A 轴，落在孤对电子谷 Σ′ 上；其余三种都在 Γ–A 轴上（Γ 或 A）。</li>
 </ul>
 
-<h2 id="o">3 轨道成分</h2>
+<h2 id="o">3 能带由哪些轨道组成：孤对电子 s 态在哪里</h2>
 <figure>
 <img src="{{FIG:H2_cation_s}}" alt="Fig. H2">
-<figcaption><b>图 H2</b> 阳离子 s 成分（A 位 s + B 位 s），即孤对电子 s 态的权重。颜色深浅与线宽都表示这一比例，满刻度 30%。</figcaption>
+<figcaption><b>图 H2</b> <b>孤对电子 s 态在能带的哪里。</b>颜色深浅与线宽表示阳离子 s 成分（A 位 s + B 位 s），即孤对电子 s 态的权重；四个子图共用一个色标，满刻度 30%，超过的按 30% 画。</figcaption>
 </figure>
 <ul>
 <li>深色粗线就是孤对电子态，即阳离子 s 与 Te p 的反键态，出现在两处：
@@ -91,7 +91,7 @@
 </ul>
 <figure>
 <img src="{{FIG:H3_s_by_site}}" alt="Fig. H3">
-<figcaption><b>图 H3</b> 阳离子 s 来自哪个位。线宽表示阳离子 s 的总量（同图 H2）；颜色表示其中 A 位（Pb、Sn，紫）与 B 位（Sb、Bi，橙）的比例。阳离子 s 少于 15% 时逐渐变灰。</figcaption>
+<figcaption><b>图 H3</b> <b>孤对电子 s 来自 A 位还是 B 位。</b>线宽表示阳离子 s 的总量（同图 H2）；颜色表示其中 A 位（Pb、Sn，紫）与 B 位（Sb、Bi，橙）的比例。阳离子 s 少于 15% 时逐渐变灰。</figcaption>
 </figure>
 <ul>
 <li>Sn 系的孤对电子价带谷以 Sn 5s 为主（紫），B 位 s 只占少数。</li>
@@ -99,19 +99,19 @@
 </ul>
 <figure>
 <img src="{{FIG:H4a_orbitals_Pb2Sb2Te5}}" alt="Fig. H4a">
-<figcaption><b>图 H4a</b> Pb₂Sb₂Te₅ 的轨道成分：(a) 阳离子 s，(b) A 位 p（Pb），(c) B 位 p（Sb），(d) Te p。颜色深浅与线宽表示该成分的比例，满刻度见各自的色标（s 30%，阳离子 p 60%，Te p 80%）。</figcaption>
+<figcaption><b>图 H4a</b> <b>Pb₂Sb₂Te₅ 的每条能带由哪些轨道组成。</b>(a) 阳离子 s（Pb-s + Sb-s），(b) A 位 p（Pb），(c) B 位 p（Sb），(d) Te p。四个子图用同一色标：颜色深浅与线宽表示该轨道所占的比例，满刻度 60%，超过的按 60% 画。</figcaption>
 </figure>
 <figure>
 <img src="{{FIG:H4b_orbitals_Pb2Bi2Te5}}" alt="Fig. H4b">
-<figcaption><b>图 H4b</b> Pb₂Bi₂Te₅ 的轨道成分，画法同图 H4a。</figcaption>
+<figcaption><b>图 H4b</b> <b>Pb₂Bi₂Te₅ 的每条能带由哪些轨道组成。</b>(a) 阳离子 s（Pb-s + Bi-s），(b) A 位 p（Pb），(c) B 位 p（Bi），(d) Te p。色标同图 H4a（同一颜色，满刻度 60%）。</figcaption>
 </figure>
 <figure>
 <img src="{{FIG:H4c_orbitals_Sn2Sb2Te5}}" alt="Fig. H4c">
-<figcaption><b>图 H4c</b> Sn₂Sb₂Te₅ 的轨道成分，画法同图 H4a。</figcaption>
+<figcaption><b>图 H4c</b> <b>Sn₂Sb₂Te₅ 的每条能带由哪些轨道组成。</b>(a) 阳离子 s（Sn-s + Sb-s），(b) A 位 p（Sn），(c) B 位 p（Sb），(d) Te p。色标同图 H4a；右侧浅紫底为附加路径。</figcaption>
 </figure>
 <figure>
 <img src="{{FIG:H4d_orbitals_Sn2Bi2Te5}}" alt="Fig. H4d">
-<figcaption><b>图 H4d</b> Sn₂Bi₂Te₅ 的轨道成分，画法同图 H4a。</figcaption>
+<figcaption><b>图 H4d</b> <b>Sn₂Bi₂Te₅ 的每条能带由哪些轨道组成。</b>(a) 阳离子 s（Sn-s + Bi-s），(b) A 位 p（Sn），(c) B 位 p（Bi），(d) Te p。色标同图 H4a；右侧浅紫底为附加路径。</figcaption>
 </figure>
 <ul>
 <li><b>价带</b>：孤对电子谷以 Te p 为主（61–76%），另含约 20% 的阳离子 s；Γ–A 轴上的价带顶则以阳离子 p 为主（如 Sn₂Sb₂Te₅ 的 Γ：B 位 p 43%、A 位 p 21%，Te p 20%）。</li>
@@ -120,10 +120,10 @@
 <p class="tcap"><b>表 2</b> 关键态的轨道成分（HSE06+SOC，%）。位置后注“附加路径”的取自 c7 路径上的点。</p>
 {{TABLE:T2_key_states}}
 
-<h2 id="v">4 价带谷与口袋</h2>
+<h2 id="v">4 价带顶附近有哪些谷、多少个口袋</h2>
 <figure>
 <img src="{{FIG:H5_valence_levels}}" alt="Fig. H5">
-<figcaption><b>图 H5</b> 四种材料的价带能级（HSE06+SOC，相对各自的价带顶）。橙色为 Γ–A 轴上的谷（p 态），橙色虚线为 Γ 点本身不是极大时的能量；紫色为孤对电子谷。每条线右侧为名称、能量（meV）与等价口袋数（×n）。浅蓝底为价带顶以下 2<i>k</i><sub>B</sub><i>T</i>（300 K，52 meV）。Sn 系的孤对电子谷取镜面搜索的真实极大；† 表示 Pb 系的孤对电子谷是能带路径上的值，离开路径的真实极大可能更高。</figcaption>
+<figcaption><b>图 H5</b> <b>价带顶附近有哪些谷、相距多远、各有几个口袋。</b>HSE06+SOC，能量相对各自的价带顶。橙色为 Γ–A 轴上的谷（p 态），橙色虚线为 Γ 点（作参照，它本身不是谷）；紫色为孤对电子谷。每条线右侧为名称、能量（meV）与等价口袋数（×n）。浅蓝底为价带顶以下 2<i>k</i><sub>B</sub><i>T</i>（300 K，52 meV）。Sn 系的孤对电子谷取镜面搜索的真实极大；† 表示 Pb 系的孤对电子谷是能带路径上的值，离开路径的真实极大可能更高。</figcaption>
 </figure>
 <ul>
 <li><b>Sn₂Bi₂Te₅</b>：价带顶是孤对电子多谷。Σ′、R₂′ 两组几乎简并（0、−2 meV），R₁′ 在 −16 meV，2<i>k</i><sub>B</sub><i>T</i> 内共 24 个口袋；Γ–A 轴上的态退到 −117 meV。</li>
@@ -135,18 +135,18 @@
 {{TABLE:T3_valence_valleys}}
 <figure>
 <img src="{{FIG:H6_pockets_BZ}}" alt="Fig. H6">
-<figcaption><b>图 H6</b> Sn 系价带口袋在第一布里渊区中的位置（沿 c 俯视，k<sub>z</sub> 投影到纸面）。每个符号是一个口袋的中心（倒空间中的一点，不是原子）；形状区分谷，颜色同图 H5；离价带顶超过 2<i>k</i><sub>B</sub><i>T</i> 的画成浅色。右侧列表为各组谷的能量与等价口袋数。口袋的 k<sub>z</sub> 位置见图 H7。</figcaption>
+<figcaption><b>图 H6</b> <b>Sn 系的价带口袋在布里渊区里的位置与数目。</b>(a)(b) 沿 c 俯视（k<sub>z</sub> 投影到纸面），右侧列表为各组谷的能量与等价口袋数；(c)(d) 三维透视（k<sub>z</sub> 放大 4 倍），+ 为 Γ 与 A。每个符号是一个口袋的中心（倒空间中的一点，不是原子）；形状区分谷，颜色同图 H5；离价带顶超过 2<i>k</i><sub>B</sub><i>T</i> 的画成浅色。</figcaption>
 </figure>
 
-<h2 id="s">5 Sn 系：镜面内的真实价带极大</h2>
+<h2 id="s">5 只看能带路径会漏掉什么：Sn 系镜面内的真实价带极大</h2>
 <p>能带路径只经过 Γ–M（k<sub>z</sub> = 0）、A–L（k<sub>z</sub> = ½）等几条线，而孤对电子谷的真实极大在这些线之间。所以在含 c 轴的镜面内做了二维搜索（第 1 节 c4–c6）。</p>
 <figure>
 <img src="{{FIG:H7_mirror_plane_maps}}" alt="Fig. H7">
-<figcaption><b>图 H7</b> 含 c 轴的镜面内最高价带的能量（HSE06+SOC，相对价带顶，meV）。横轴为沿 Γ→M 的面内 k，纵轴为 k<sub>z</sub>；白色虚线为能带路径经过的位置，即 Γ–M（k<sub>z</sub> = 0）、A–L（k<sub>z</sub> = ±½）和 Γ–A（竖线）。黑色空心为路径上的谷，红色实心为镜面内的真实极大，旁边是名称与能量。</figcaption>
+<figcaption><b>图 H7</b> <b>Sn 系的真实价带极大在镜面内的哪里。</b>含 c 轴的镜面内最高价带的能量（HSE06+SOC，相对价带顶，meV；低于 −250 meV 的按 −250 meV 画）。横轴为沿 Γ→M 的面内 k，纵轴为 k<sub>z</sub>；白色虚线为能带路径经过的位置，即 Γ–M（k<sub>z</sub> = 0）、A–L（k<sub>z</sub> = ±½）和 Γ–A（竖线）。黑色空心为路径上的谷，红色实心为镜面内的真实极大，旁边是名称与能量。</figcaption>
 </figure>
 <figure>
 <img src="{{FIG:H8_path_vs_true_maxima}}" alt="Fig. H8">
-<figcaption><b>图 H8</b> 路径上的谷与镜面内真实极大的能量对比（HSE06+SOC，相对价带顶）。每一列是一对：空心为能带路径上的谷（横轴标签中箭头左边），实心为由它演化出的真实极大（箭头右边），箭头上的数字为路径低估的量。浅蓝底为价带顶以下 2<i>k</i><sub>B</sub><i>T</i>。</figcaption>
+<figcaption><b>图 H8</b> <b>只看能带路径会把谷低估多少。</b>每一列是一对：空心为能带路径上的谷（横轴标签中箭头左边），实心为由它演化出的镜面内真实极大（箭头右边），箭头上的数字为路径低估的量。HSE06+SOC，能量相对价带顶；浅蓝底为价带顶以下 2<i>k</i><sub>B</sub><i>T</i>。</figcaption>
 </figure>
 <ul>
 <li><b>怎么读图 H8</b>：路径上的谷（空心）在高对称线上，真实极大（实心）在它附近、偏离高对称线。差值就是只看能带路径时低估的谷高。
@@ -157,10 +157,10 @@
 <li>原图 S1(c)(d) 画的是沿 k<sub>z</sub> 穿过真实极大的切线，而路径上的谷不在这条切线上，所以不好读。图 H8 只保留两端的能量。切线数据仍可用 H7 的网格自行取出。</li>
 </ul>
 
-<h2 id="g">6 Γ 点能级与 SOC</h2>
+<h2 id="g">6 为什么 Sb 换成 Bi 后 Γ 谷下降：Γ 点能级与 SOC</h2>
 <figure>
 <img src="{{FIG:H9_Gamma_levels_SOC_PBE}}" alt="Fig. H9" style="max-width:560px;margin:0 auto">
-<figcaption><b>图 H9</b> Γ 点能级（<b>PBE</b>，相对 Σ 谷，meV），两种材料各自不加 SOC（左）与加 SOC（右）。紫色为孤对电子 s 态；橙色虚线为以 B 位 p 为主的 p<sub>z</sub>、p<sub>xy</sub> 态，细线为两者的平均位置；橙色实线为加 SOC 后的 p<sub>1/2</sub> 态；箭头上的数字为 SOC 把 p 态压低的量。HSE 不加 SOC 的计算完成后换成 HSE 版。</figcaption>
+<figcaption><b>图 H9</b> <b>为什么 Bi 把 Γ 处的价带态压下去：SOC 的作用（目前为 PBE）。</b>Γ 点能级相对 Σ 谷（meV），两种材料各自不加 SOC（左）与加 SOC（右）。紫色为孤对电子 s 态；橙色虚线为以 B 位 p 为主的 p<sub>z</sub>、p<sub>xy</sub> 态，细线为两者的平均位置；橙色实线为加 SOC 后的 p<sub>1/2</sub> 态；箭头上的数字为 SOC 把 p 态压低的量。HSE 不加 SOC 的计算完成后换成 HSE 版。</figcaption>
 </figure>
 <ul>
 <li><b>机理（PBE）</b>：

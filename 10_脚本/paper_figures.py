@@ -487,7 +487,7 @@ def fig3(out):
                      fontsize=8, pad=4)
         panel(ax, f'({"abcd"[n]})')
     for ax in axs[:, 0]: ax.set_ylabel(r'$E - E_{\mathrm{VBM}}$ (eV)')
-    cb = fig.colorbar(plt.cm.ScalarMappable(norm=norm, cmap=cmap), ax=axs, shrink=0.7, pad=0.015, aspect=30, extend='max')
+    cb = fig.colorbar(plt.cm.ScalarMappable(norm=norm, cmap=cmap), ax=axs, shrink=0.7, pad=0.015, aspect=30)
     cb.set_label('Cation-s weight (%)'); cb.set_ticks([0, .1, .2, .3], labels=['0', '10', '20', '30'])
     cb.ax.tick_params(direction='in', length=2, width=0.6); cb.outline.set_linewidth(0.6)
     save(fig, out, 'Fig3_HSE_bands_cation_s')
@@ -1388,7 +1388,7 @@ def fig10(out):
         if tp: tp_decorate(ax, tp, X0, nel, mark=())
         ax.set_title(f'{TEX[m]}     $E_g$ = {1000 * gap:.0f} meV', fontsize=8, pad=4)
         panel(ax, f'({"abcd"[n]})')
-    cb = fig.colorbar(plt.cm.ScalarMappable(norm=norm, cmap=cmap), ax=axs, shrink=0.7, pad=0.015, aspect=30, extend='max')
+    cb = fig.colorbar(plt.cm.ScalarMappable(norm=norm, cmap=cmap), ax=axs, shrink=0.7, pad=0.015, aspect=30)
     cb.set_label('Cation-s weight (%)'); cb.set_ticks([0, .1, .2, .3], labels=['0', '10', '20', '30'])
     cb.ax.tick_params(direction='in', length=2, width=0.6); cb.outline.set_linewidth(0.6)
     hh = [Line2D([], [], color=C_WH, lw=1.4, ls=DASH), Line2D([], [], color=C_WL, lw=1.0, ls=DASH)]
@@ -1530,7 +1530,7 @@ def figS1(out):
         for nm, (u0, w0) in PATH_LP.items():
             cuts[(m, nm)] = S(np.array([-u0]), np.array([w0]))[0, 0]          # 路径上该谷的能量（同一样条，作对照）
         dump('FigS1_mirror_plane', f'{m}_mirror_plane_grid_meV.csv', ['x=-u'] + [f'w={w:.4f}' for w in ws], [[round(xx, 4)] + [round(v, 1) for v in row] for xx, row in zip(X, GX)])
-    cb = fig.colorbar(im, ax=fig.axes[:2], fraction=0.025, pad=0.02, extend='min'); cb.set_label(r'$E - E_\mathrm{VBM}$ (meV)')
+    cb = fig.colorbar(im, ax=fig.axes[:2], fraction=0.025, pad=0.02); cb.set_label(r'$E - E_\mathrm{VBM}$ (meV)')
     # (c)(d) 沿 c 的切线，经过三维搜索的真实极大；路径只在 w = 0（Γ–M）和 w = ±½（A–L）两处经过这条线附近
     for k, (tn, pn) in enumerate((('Σ′', 'Σ'), ('R₂′', 'R₂'))):
         ax = fig.add_subplot(gs[1, k])

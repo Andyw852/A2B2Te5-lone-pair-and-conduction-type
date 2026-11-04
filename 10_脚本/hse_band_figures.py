@@ -117,57 +117,54 @@ def h1(out):
         for b in range(nel - 24, min(nel + 16, d['E'].shape[1])):
             S, _ = segs(d, b)
             ax.add_collection(LineCollection(S, colors='#B2182B' if b >= nel else '#1F3A93', linewidths=0.9, zorder=3))
-        # ▼ 价带顶、▲ 导带底：在 Γ 或 A（路径首尾、附加路径起点都有）时标在中间的 Γ–A 段上，同论文图 2
-        for band, sg, mk, dy in ((nel - 1, 1, 'v', 0.06), (nel, -1, '^', -0.06)):
-            e0 = max(np.nanmax(sg * d['E'][:KEND + 1, band]), np.nanmax(sg * d['tp']['E'][:, band]) if d['tp'] else -np.inf)
-            if d['tp'] and np.nanmax(sg * d['tp']['E'][:, band]) > np.nanmax(sg * d['E'][:KEND + 1, band]) + 5e-4:
-                j = int(np.nanargmax(sg * d['tp']['E'][:, band])); xp = d['X0'] + d['tp']['x'][j]
-            else:
-                cand = [i for i in range(KEND + 1) if sg * d['E'][i, band] > e0 - 5e-4]
-                xp = d['x'][next((i for i in cand if i in range(90, 98)), cand[0])]
-            ax.plot(xp, sg * e0 + dy, mk, ms=4, color='k', zorder=5)
         frame(ax, d, (-1.0, 1.0), f'{TEX[m]}     $E_g$ = {1000 * d["gap"]:.0f} meV', n)
         ax.set_yticks(np.arange(-1.0, 1.01, 0.5))
         rows.append([m, r(1000 * d['gap'], 1), r(1000 * d['gap_path'], 1), r(1000 * d['shift'], 1)])
         dump_bands('H1_bands', d, [])
-    h = [Line2D([], [], color='#1F3A93', lw=1.0), Line2D([], [], color='#B2182B', lw=1.0),
-         Line2D([], [], ls='', marker='v', color='k', ms=4), Line2D([], [], ls='', marker='^', color='k', ms=4)]
-    fig.legend(h, ['valence bands', 'conduction bands', 'VBM', 'CBM'], loc='lower center', ncol=4, bbox_to_anchor=(0.5, 0.93))
+    h = [Line2D([], [], color='#1F3A93', lw=1.0), Line2D([], [], color='#B2182B', lw=1.0), Line2D([], [], color='k', lw=0.6, ls=':')]
+    fig.legend(h, ['valence bands', 'conduction bands', 'band edges (VBM = 0, CBM)'], loc='lower center', ncol=3, bbox_to_anchor=(0.5, 0.93))
     pf.dump('H1_bands', 'band_gaps_HSE06+SOC.csv', ['material', 'Eg_true_meV', 'Eg_on_path_meV', 'true_VBM_above_path_VBM_meV'], rows)
     pf.save(fig, out, 'H1_HSE_bands')
     return rows
 
 
 # ------------------------------------------------------------------ H2、H4：单一成分的 fat band
-def fat(ax, d, key, ylim, title, n=None, cbar=True, fig=None):
-    norm = Normalize(0, WMAX[key]); nel = d['nel']
+CMAP = CM['cation_s']          # 所有成分用同一种颜色（2026-11-04 用户要求统一）
+
+
+def fat(ax, d, key, ylim, title, wmax, n=None):
+    norm = Normalize(0, wmax); nel = d['nel']
     for b in range(nel - 24, min(nel + 16, d['E'].shape[1])):
         S, V = segs(d, b, key)
-        lc = LineCollection(S, cmap=CM[key], norm=norm, linewidths=0.4 + 2.6 * np.clip(V / WMAX[key], 0, 1), capstyle='round', zorder=3)
-        lc.set_array(V); ax.add_collection(lc)
+        lc = LineCollection(S, cmap=CMAP, norm=norm, linewidths=0.4 + 2.6 * np.clip(V / wmax, 0, 1), capstyle='round', zorder=3)
+        lc.set_array(np.clip(V, 0, wmax)); ax.add_collection(lc)
     frame(ax, d, ylim, title, n)
-    if cbar:
-        cb = fig.colorbar(plt.cm.ScalarMappable(norm=norm, cmap=CM[key]), ax=ax, fraction=0.045, pad=0.02, aspect=22, extend='max')
-        t = np.arange(0, WMAX[key] + 1e-9, 0.1 if WMAX[key] <= 0.3 else 0.2); cb.set_ticks(t, labels=[f'{100 * v:.0f}' for v in t])
-        cb.set_label(f'{LONG[key]} (%)', fontsize=6.5); cb.ax.tick_params(direction='in', length=2, width=0.6, labelsize=6)
-        cb.outline.set_linewidth(0.6)
+
+
+def colorbar(fig, axs, wmax, label):
+    """整张图一个普通色柱（两端不加箭头）；超过满刻度的按满刻度画。"""
+    cb = fig.colorbar(plt.cm.ScalarMappable(norm=Normalize(0, wmax), cmap=CMAP), ax=axs, shrink=0.7, pad=0.02, aspect=30)
+    t = np.arange(0, wmax + 1e-9, 0.1); cb.set_ticks(t, labels=[f'{100 * v:.0f}' for v in t]); cb.set_label(label)
+    cb.ax.tick_params(direction='in', length=2, width=0.6, labelsize=6.5); cb.outline.set_linewidth(0.6)
 
 
 def h2(out):
-    fig, axs = plt.subplots(2, 2, figsize=(W2, 5.4), gridspec_kw=dict(hspace=0.38, wspace=0.40))
+    fig, axs = plt.subplots(2, 2, figsize=(W2, 5.4), gridspec_kw=dict(hspace=0.38, wspace=0.28))
     for n, (ax, m) in enumerate(zip(axs.flat, MATS)):
-        d = hse(m); fat(ax, d, 'cation_s', (-0.5, 0.5), f'{TEX[m]}     $E_g$ = {1000 * d["gap"]:.0f} meV', n, fig=fig)
+        d = hse(m); fat(ax, d, 'cation_s', (-0.5, 0.5), f'{TEX[m]}     $E_g$ = {1000 * d["gap"]:.0f} meV', 0.30, n)
         dump_bands('H2_cation_s', d, ['cation_s'])
+    colorbar(fig, axs, 0.30, 'Cation-s weight (%)')
     pf.save(fig, out, 'H2_cation_s')
 
 
 def h4(out):
     for j, m in enumerate(MATS):
         d = hse(m); A_, B_ = m[:2], m[3:5]
-        fig, axs = plt.subplots(2, 2, figsize=(W2, 5.4), gridspec_kw=dict(hspace=0.38, wspace=0.40))
+        fig, axs = plt.subplots(2, 2, figsize=(W2, 5.4), gridspec_kw=dict(hspace=0.38, wspace=0.28))
         for n, (ax, key) in enumerate(zip(axs.flat, ('cation_s', 'A_p', 'B_p', 'Te_p'))):
             lab = {'cation_s': f'cation s ({A_}-s + {B_}-s)', 'A_p': f'A-site p ({A_})', 'B_p': f'B-site p ({B_})', 'Te_p': 'Te p'}[key]
-            fat(ax, d, key, (-0.8, 0.8), f'{TEX[m]}: {lab}', n, fig=fig)
+            fat(ax, d, key, (-0.8, 0.8), f'{TEX[m]}: {lab}', 0.60, n)
+        colorbar(fig, axs, 0.60, 'Orbital weight (%)')
         dump_bands('H4_orbitals', d, ['cation_s', 'A_s', 'B_s', 'Te_s', 'A_p', 'B_p', 'Te_p'])
         pf.save(fig, out, f'H4{"abcd"[j]}_orbitals_{m}')
 
@@ -219,7 +216,7 @@ def h5(out):
             col = pf.C_B if v['kind'] in ('axis', 'ref') else pf.C_A; ref = v['kind'] == 'ref'
             ax.plot([x0 - hw, x0 + hw], [v['E']] * 2, color=col, lw=0.9 if ref else 2.0, ls=(0, (2, 1.5)) if ref else '-', solid_capstyle='butt', zorder=3)
             path_lp = v['kind'] == 'lp' and v['mass'] is None
-            txt = ('Γ (not a max)' if ref else pf.MATH.get(v['name'], v['name']) + f'  {v["E"]:.0f}'.replace('-', '−') + f'  ×{v["n"]}' + (' †' if path_lp else ''))
+            txt = ('Γ' if ref else pf.MATH.get(v['name'], v['name']) + f'  {v["E"]:.0f}'.replace('-', '−') + f'  ×{v["n"]}' + (' †' if path_lp else ''))
             lab.append((v['E'], txt, col))
             rows.append([m, v['name'], v['kind'], r(v['E'], 1), v['n'], r(v['k'][0], 4), r(v['k'][1], 4), r(v['k'][2], 4), r(100 * v['s'], 1), v['src']]
                         + ([r(q, 3) for q in v['mass']] if v['mass'] else ['', '', '']))
@@ -238,7 +235,7 @@ def h5(out):
         ax.text(xm, -0.09, t, ha='center', va='top', fontsize=7, transform=ax.get_xaxis_transform())
     ax.text(-0.42, -pf.KT300, r'$2k_\mathrm{B}T$ (300 K)', ha='left', va='center', fontsize=6.3, color='#555555')
     h = [Line2D([], [], color=pf.C_B, lw=2), Line2D([], [], color=pf.C_A, lw=2), Line2D([], [], color=pf.C_B, lw=0.9, ls=(0, (2, 1.5)))]
-    ax.legend(h, ['valley on the Γ–A axis (cation/Te p)', 'lone-pair valley (cation s–Te p)', 'Γ point when it is not a maximum'],
+    ax.legend(h, ['valley on the Γ–A axis (cation/Te p)', 'lone-pair valley (cation s–Te p)', 'Γ point (reference, not a valley)'],
               loc='lower center', bbox_to_anchor=(0.5, 1.0), ncol=3, fontsize=6.5, handlelength=1.8, columnspacing=1.2)
     pf.dump('H5_valence_levels', 'valence_valleys_HSE06+SOC.csv',
             ['material', 'valley', 'kind (axis: on the Γ–A axis; lp: lone-pair valley; ref: Γ point, not a maximum)', 'E-EVBM_meV',
@@ -249,10 +246,16 @@ def h5(out):
 
 # ------------------------------------------------------------------ H6：Sn 系口袋在布里渊区中的位置
 def h6(out):
-    fig, axs = plt.subplots(1, 2, figsize=(W2, 2.95), gridspec_kw=dict(wspace=0.04))
+    """(a)(b) 沿 c 俯视，(c)(d) 三维透视（k_z 放大 4 倍）。"""
+    fig = plt.figure(figsize=(W2, 6.1))
+    gs = fig.add_gridspec(2, 2, height_ratios=[1, 1.15], wspace=0.04, hspace=0.02)
+    axs = [fig.add_subplot(gs[0, k]) for k in range(2)]
     rows = []
     for k, (ax, m) in enumerate(zip(axs, SN)):
         B, P = pf.pockets(m); hx, hy = pf.hexagon(B)
+        a3 = fig.add_subplot(gs[1, k], projection='3d'); pf.bz_3d(a3, m, B, P, zs=4)
+        a3.text2D(0.5, 1.04, f'{TEX[m]}: 3D view ($k_z$ ×4)', transform=a3.transAxes, fontsize=8, ha='center', va='bottom')
+        a3.text2D(0.02, 1.04, f'({"cd"[k]})', transform=a3.transAxes, fontsize=9, fontweight='bold', ha='left', va='bottom')
         ax.plot(hx, hy, color='k', lw=0.8, zorder=1)
         r0 = 0.5 * np.linalg.norm(B[0][:2]); a0 = np.arctan2(B[0][1], B[0][0])
         for t in range(6):
@@ -285,8 +288,8 @@ def h6(out):
          Line2D([], [], ls='', marker='s', ms=4.2, color=pf.C_A, label=r'R$_1$′, R$_1$″: near A–L, close to A'),
          Line2D([], [], ls='', marker='D', ms=3.8, color=pf.C_A, label=r'R$_2$′: near A–L, close to L'),
          Line2D([], [], ls='', marker='o', ms=3.6, color=pf.C_A, alpha=0.4, label=r'faded: more than $2k_\mathrm{B}T$ below the VBM')]
-    axs[0].apply_aspect(); y0 = axs[0].get_position().y0                 # 图例紧贴六边形下方
-    fig.legend(handles=h, loc='upper center', ncol=3, bbox_to_anchor=(0.5, y0 + 0.02), fontsize=6.5, handletextpad=0.3, columnspacing=1.2)
+    h.insert(4, Line2D([], [], ls='', marker='o', ms=5, color='#555555', mfc='white', label=r'open: on the $k_z$ = ½ zone face'))
+    fig.legend(handles=h, loc='lower center', ncol=3, bbox_to_anchor=(0.5, 0.02), fontsize=6.5, handletextpad=0.3, columnspacing=1.2)
     pf.dump('H6_pockets', 'pocket_positions.csv', ['material', 'valley', 'E-EVBM_meV', 'n_equivalent_pockets', 'k_frac_1', 'k_frac_2', 'k_frac_3',
                                                   'kx_1/A', 'ky_1/A', 'kz_1/A', 'within_2kBT'], rows)
     pf.save(fig, out, 'H6_pockets_BZ')
@@ -332,7 +335,7 @@ def h7(out):
                 [[round(xx, 4)] + [round(v, 1) for v in row] for xx, row in zip(X, GX)])
         rows += [[m, t['name'], r(-t['kfrac'][0], 4), r(t['kfrac'][2], 4), r(t['E'], 1)] for t in pf.true_valleys(m)['valleys']]
         rows += [[m, nm + ' (path)', r(-u0, 4), r(w0, 4), r(float(S(np.array([-u0]), np.array([w0]))[0, 0]), 1)] for nm, (u0, w0) in pf.PATH_LP.items()]
-    cb = fig.colorbar(im, ax=axs, fraction=0.025, pad=0.02, extend='min'); cb.set_label(r'$E - E_\mathrm{VBM}$ (meV)')
+    cb = fig.colorbar(im, ax=axs, fraction=0.025, pad=0.02); cb.set_label(r'$E - E_\mathrm{VBM}$ (meV)')
     pf.dump('H7_mirror_plane', 'valleys_in_mirror_plane.csv', ['material', 'valley', 'x=-u', 'w', 'E-EVBM_meV'], rows)
     pf.save(fig, out, 'H7_mirror_plane_maps')
 
