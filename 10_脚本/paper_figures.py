@@ -1300,8 +1300,8 @@ def fig9(out):
 # ------------------------------------------------------------------ Fig. 10
 DENSE = os.path.join(ROOT, 'A2B2Te5_SOC_dense', 'materials')
 N_REF = 3e19          # 低浓度对照，与表 6、图 8 的 3×10¹⁹ cm⁻³ 相同
-WIN = 3               # 阴影半宽（k_BT）：−∂f/∂E 的权重 90.5% 在 µ ± 3k_BT 内
-C_WH, C_WL = '#E69F00', '#7F7F7F'     # 霍尔浓度、3×10¹⁹ 的窗口（与材料色、PBE/HSE 色都不重）
+WIN = 3               # 数据表里给出的窗口半宽（k_BT）：−∂f/∂E 的权重 90.5% 在 µ ± 3k_BT 内；图中只画 µ 的虚线（2026-11-04 用户要求）
+C_WH, C_WL = '#E69F00', '#555555'     # 霍尔浓度、3×10¹⁹ 的 µ 虚线（与材料色、PBE/HSE 色都不重）
 
 
 def dense_gamma(m):
@@ -1322,14 +1322,15 @@ def dense_gamma(m):
 
 
 def fig10(out):
-    """PBE+SOC 能带上的 300 K 费米窗口（第 5.1 节）：样品霍尔浓度与 3×10¹⁹ cm⁻³ 下的化学势 µ 与 µ ± 3k_BT。
+    """PBE+SOC 能带上的 300 K 化学势（第 5.1 节）：样品霍尔浓度与 3×10¹⁹ cm⁻³ 下的 µ，各画一条虚线。
+    每个子图有自己的纵坐标（2026-11-04 用户要求）；µ ± 3k_BT、± 5k_BT 只写进数据表，不画阴影。
     µ 取自 bt2_pbe_dense 的 BoltzTraP2 结果（300 K，浓度按 log|N| 在化学势网格上线性取值），不另作估计。
     能量对齐：BoltzTraP2 的 µ 相对密网格的 E-fermi；密网格与能带路径（c2_pbe）都含 Γ，用 Γ 处最高价带与最低导带
     把密网格的绝对能量移到路径的零点（本泛函在两段路径上的最高价带，同图 2）。只用网格上的最大值作零点不行：
     Sn₂Bi₂Te₅ 的 Σ′ 谷落在网格点之间，网格上的价带顶比真实的低约 18 meV。"""
     cmap = LinearSegmentedColormap.from_list('s', ['#DCE8F4', '#9CC3E4', '#4A90C8', '#1F5FA0', '#08306B'])
     norm = Normalize(0, 0.30); K = kpath(); kT = mv.KB * 300
-    fig, axs = plt.subplots(2, 2, figsize=(W2, 5.2), sharey=True, gridspec_kw=dict(hspace=0.36, wspace=0.06))
+    fig, axs = plt.subplots(2, 2, figsize=(W2, 5.2), gridspec_kw=dict(hspace=0.36, wspace=0.30))
     rows, brow, trow = [], [], []
     for n, (ax, m) in enumerate(zip(axs.flat, MATS)):
         x, _ = rf.path_x(m); nel = NEL[m]; X0 = x[KEND]
@@ -1365,10 +1366,9 @@ def fig10(out):
             assert xx.min() <= np.log10(abs(N)) <= xx.max()
             return float(np.interp(np.log10(abs(N)), xx[o], mu[ok][o]))
         h = HALL[m]; NH = h['N']; NL = np.sign(NH) * N_REF
-        for N, col, ls, lab in ((NL, C_WL, ':', 'reference'), (NH, C_WH, DASH, 'Hall')):
+        for N, col, lw, lab in ((NL, C_WL, 1.0, 'reference'), (NH, C_WH, 1.4, 'Hall')):
             u = mu_at(N)
-            ax.axhspan(u - WIN * kT, u + WIN * kT, color=col, alpha=0.20 if col == C_WH else 0.16, lw=0, zorder=1)
-            ax.axhline(u, color=col if col == C_WH else '#555555', lw=1.1, ls=ls, zorder=4)
+            ax.axhline(u, color=col, lw=lw, ls=DASH, zorder=4)
             depth = (u - gap) if N < 0 else -u                     # 进入能带多深：p 型相对价带顶，n 型相对导带底
             rows.append([m, lab, f'{N:.3e}', r(1000 * u, 1), r(1000 * depth, 1), r(depth / kT, 1),
                          r(1000 * (u - WIN * kT), 1), r(1000 * (u + WIN * kT), 1), r(1000 * (u - 5 * kT), 1), r(1000 * (u + 5 * kT), 1),
@@ -1378,27 +1378,16 @@ def fig10(out):
                     va='bottom' if (N < 0) == (lab == 'Hall') else 'top', fontsize=6.3, color='#222222', zorder=6,
                     bbox=dict(fc='white', ec='none', pad=0.4, alpha=0.85))
         kticks(ax, x); ax.set_ylim(-0.56, 0.50); ax.set_yticks(np.arange(-0.5, 0.51, 0.25))
+        ax.set_ylabel(r'$E - E_{\mathrm{VBM}}$ (eV)', labelpad=2)
         if tp: tp_decorate(ax, tp, X0, nel, mark=())
         ax.set_title(f'{TEX[m]}     $E_g$ = {1000 * gap:.0f} meV', fontsize=8, pad=4)
         panel(ax, f'({"abcd"[n]})')
-    # ±3k_BT 的标尺，画在 (a) 的霍尔窗口左侧
-    a0 = axs.flat[0]; u0 = [q for q in rows if q[0] == MATS[0] and q[1] == 'Hall'][0][3] / 1000; xb = a0.get_xlim()[0] + 0.035 * np.diff(a0.get_xlim())[0]
-    a0.annotate('', xy=(xb, u0 + WIN * kT), xytext=(xb, u0 - WIN * kT), arrowprops=dict(arrowstyle='<->', lw=0.6, color='#222222',
-                mutation_scale=5, shrinkA=0, shrinkB=0), zorder=6)
-    a0.text(xb + 0.012 * np.diff(a0.get_xlim())[0], u0 - WIN * kT - 0.008, r'$\pm3k_\mathrm{B}T$', ha='left', va='top', fontsize=6.3,
-            zorder=6, bbox=dict(fc='white', ec='none', pad=0.3, alpha=0.85))
-    for ax in axs[:, 0]: ax.set_ylabel(r'$E - E_{\mathrm{VBM}}$ (eV)')
     cb = fig.colorbar(plt.cm.ScalarMappable(norm=norm, cmap=cmap), ax=axs, shrink=0.7, pad=0.015, aspect=30, extend='max')
     cb.set_label('Cation-s weight (%)'); cb.set_ticks([0, .1, .2, .3], labels=['0', '10', '20', '30'])
     cb.ax.tick_params(direction='in', length=2, width=0.6); cb.outline.set_linewidth(0.6)
-    from matplotlib.patches import Patch
-    from matplotlib.legend_handler import HandlerTuple
-    hh = [(Patch(fc=C_WH, alpha=0.35, lw=0), Line2D([], [], color=C_WH, lw=1.1, ls=DASH)),
-          (Patch(fc=C_WL, alpha=0.30, lw=0), Line2D([], [], color='#555555', lw=1.1, ls=':'))]
-    fig.legend(hh, [r'Sample Hall concentration: $\mu$ (line) and $\mu\pm3k_\mathrm{B}T$ (300 K)',
-                    r'$3\times10^{19}$ cm$^{-3}$, same carrier type'],
-               handler_map={tuple: HandlerTuple(ndivide=1)}, loc='lower center', ncol=2, bbox_to_anchor=(0.45, 0.925),
-               columnspacing=1.4, handlelength=2.2)
+    hh = [Line2D([], [], color=C_WH, lw=1.4, ls=DASH), Line2D([], [], color=C_WL, lw=1.0, ls=DASH)]
+    fig.legend(hh, [r'$\mu$ at the sample Hall concentration (300 K)', r'$\mu$ at $3\times10^{19}$ cm$^{-3}$, same carrier type'],
+               loc='lower center', ncol=2, bbox_to_anchor=(0.45, 0.925), columnspacing=1.6, handlelength=2.6)
     dump('Fig10_Fermi_window', 'chemical_potential_300K.csv',
          ['material', 'case', 'carrier_conc_signed_cm-3', 'mu-EVBM_meV', 'depth_into_band_meV (p: below VBM, n: above CBM)', 'depth_in_kBT',
           'mu-3kBT_meV', 'mu+3kBT_meV', 'mu-5kBT_meV', 'mu+5kBT_meV', 'Eg_PBE+SOC_meV', 'dense_grid_VBM-EVBM_meV',

@@ -60,8 +60,8 @@ INDEX = [
      'T_K', 'S_PBE+SOC_BoltzTraP2_uV/K', 'PBE+SOC 密网格（28×28×7/6）BoltzTraP2，不加剪刀；T 即计算温度（每 25 K）'),
     ('图 9', '灰字', '室温霍尔', 'Fig9_S_vs_T/hall_room_temperature.csv', '', '', ''),
     ('图 9、表 7', '', '最低、最高温的实验与计算值和偏差', 'Fig9_S_vs_T/summary_at_Hall_conc.csv', '', '', '即表 7；计算值为 PBE+SOC'),
-    ('图 10', '虚线、点线与阴影', '300 K 的化学势 µ 与 µ ± 3k_BT（霍尔浓度、3×10¹⁹ cm⁻³）', 'Fig10_Fermi_window/chemical_potential_300K.csv',
-     '', 'mu-EVBM_meV；阴影为 mu-3kBT_meV 到 mu+3kBT_meV', '按 material 分四个子图；case = Hall 或 reference（3×10¹⁹）'),
+    ('图 10', '虚线', '300 K 的化学势 µ（霍尔浓度、3×10¹⁹ cm⁻³）', 'Fig10_Fermi_window/chemical_potential_300K.csv',
+     '', 'mu-EVBM_meV（µ ± 3k_BT、± 5k_BT 另列，不作图）', '按 material 分四个子图；case = Hall 或 reference（3×10¹⁹）'),
     ('图 10', '能带', 'PBE+SOC 路径能带与阳离子 s 成分', 'Fig10_Fermi_window/PBE+SOC_bands_cation_s.csv',
      'k_distance_1/A', 'E-EVBM_eV；颜色与线宽按 cation_s_percent', '按 material、band 分线'),
     ('图 10', '(c)(d) 右段', '附加路径 Γ–Σ′–R₂′–L 的 PBE+SOC 能带', 'Fig10_Fermi_window/PBE+SOC_true_valley_path_G-S-R2-L_cation_s.csv',
@@ -153,8 +153,8 @@ METHODS = {
         'µ 取 BoltzTraP2 化学势网格上带符号浓度等于霍尔值（或 ±3×10¹⁹ cm⁻³）处的值，按 log|N| 线性取值，不另作估计。'
         'BoltzTraP2 的 µ 相对密网格的 E-fermi；密网格与路径都含 Γ，用 Γ 处最高价带与最低导带的本征值把密网格移到路径的零点'
         '（价带、导带给出的偏移相差 ≤ 0.65 meV）。零点为两段路径上的最高价带（同图 2 的 PBE）。'
-        '阴影半宽 3k_BT（300 K 为 78 meV），−∂f/∂E 的 90% 在其中；S 的权重 (E−µ)(−∂f/∂E) 更宽，±5k_BT 内占 94%（数据表同时给出 ±5k_BT）。',
-        '四个子图（每种材料一个），能带颜色与线宽表示阳离子 s 成分（同图 3）；橙色虚线与橙色阴影为样品霍尔浓度，灰色点线与灰色阴影为同类型 3×10¹⁹ cm⁻³。',
+        '数据表另给 µ ± 3k_BT（300 K 为 ±78 meV，−∂f/∂E 的 90% 在其中）与 µ ± 5k_BT（S 的权重 (E−µ)(−∂f/∂E) 的 94% 在其中），图中不画。',
+        '四个子图（每种材料一个，各有纵坐标），能带颜色与线宽表示阳离子 s 成分（同图 3）；橙色虚线为样品霍尔浓度下的 µ，灰色虚线为同类型 3×10¹⁹ cm⁻³ 下的 µ。',
         'paper_figures.fig10、dense_gamma'),
     'Fig11_formation_energies': ('图 11、表 9',
         '13_DVO缺陷_VASP流程与分析/结果_第一批/analysis：D、O 两个 144 原子母胞中 12 类缺陷逐位点的中性形成能（PBE-D3），以及两端化学势。',
