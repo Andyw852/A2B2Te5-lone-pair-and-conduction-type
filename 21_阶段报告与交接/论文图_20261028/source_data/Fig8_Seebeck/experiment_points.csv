@@ -1,0 +1,5 @@
+﻿material,"panel (p: a, n: b)",Hall_conc_signed_cm-3,Hall_flagged,T_K,S_exp_uV/K
+Pb2Sb2Te5,p,1.040e+21,yes,301.6,5.52
+Sn2Sb2Te5,p,1.720e+21,yes,300.8,15.85
+Sn2Bi2Te5,p,9.070e+20,no,301.1,29.29
+Pb2Bi2Te5,n,-8.110e+19,no,301.8,-89.54

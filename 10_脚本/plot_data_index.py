@@ -47,10 +47,12 @@ INDEX = [
     ('图 8', '(a)(b)', '300 K 面内 S 随载流子浓度（PBE+SOC + BoltzTraP2）', 'Fig8_Seebeck/S_vs_concentration_300K.csv',
      'concentration_cm-3（对数）', '|S|_PBE+SOC_BoltzTraP2_uV/K', '按 material、carrier_type（p → a，n → b）分组'),
     ('图 8、表 6', '', '表 6：3×10¹⁹、1×10²⁰ cm⁻³ 的 S', 'Fig8_Seebeck/S_300K_table6.csv', '', '', ''),
+    ('图 8', '圆点', '实验值：约 301 K 的 S、室温霍尔浓度', 'Fig8_Seebeck/experiment_points.csv',
+     '|Hall_conc_signed_cm-3|', 'S_exp_uV/K（n 型取绝对值）', 'Hall_flagged = yes 的画空心'),
     ('图 9', '灰线', '单抛物带 Pisarenko 参考线', 'Fig9_Pisarenko/single_parabolic_band_lines.csv',
      'concentration_cm-3（对数）', '|S|_uV/K（对数）；按 m_DOS_me 分组', ''),
     ('图 9、表 7', '点', '样品：霍尔浓度、实验与计算 S、有效质量', 'Fig9_Pisarenko/samples_Pisarenko_mass.csv',
-     '|Hall_conc_signed_cm-3|', '|S_exp_300K|（实心圆）、|S_PBE+SOC_BoltzTraP2_at_Hall_conc|（空心方块）', '即表 7'),
+     '|Hall_conc_signed_cm-3|', '|S_exp_300K|（实心圆）、|S_PBE+SOC_BoltzTraP2_at_Hall_conc|（空心方块）', '即表 7；Pb₂Sb₂Te₅ 的实验 m* 留空（补偿，见 note）'),
     ('图 S1', '(a)(b)', '镜面内最高价带的能量网格', 'FigS1_mirror_plane/*_mirror_plane_grid_meV.csv',
      '行：x=-u（面内）', '列：w（kz）；值 = E − VBM（meV）', '矩阵，画等高图'),
     ('图 S1', '(c)(d)', '真实极大与沿 kz 的切线', 'FigS1_mirror_plane/valleys_and_cuts.csv', 'w', 'E_minus_VBM_meV；按 valley_or_cut 分组', ''),
@@ -116,14 +118,16 @@ METHODS = {
         '22_能带基准_1-0/bt2_pbe_dense：PBE+SOC 28×28×7（Sb 系）、28×28×6（Bi 系）全网格，BoltzTraP2 常数弛豫时间，不加剪刀，插值倍数 60。',
         '取 300 K；面内 S =（S_xx + S_yy）/2；在 1×10¹⁸–3×10²¹ cm⁻³ 取 73 个对数等距的浓度，'
         '每个浓度在 BoltzTraP2 的化学势网格上按 log|N| 线性取值。表 6 取 3×10¹⁹、1×10²⁰ cm⁻³。不用任何模型或比值估计。',
-        '横轴为浓度（对数），纵轴为 S（p 型）或 |S|（n 型）；四种材料四色；点线为 3×10¹⁹ cm⁻³；n 型低浓度时 S 变号（降到 0 以下）的部分不画。',
+        '双对数：横轴为浓度，纵轴为 S（p 型）或 |S|（n 型）；每种材料一个颜色（分类色板前四格，已做色盲校验）；'
+        '圆点为实验（约 301 K 的 S 画在霍尔浓度处，霍尔标红的空心）；点线为 3×10¹⁹ cm⁻³；n 型低浓度 S 变号时曲线向下离开画框。',
         'paper_figures.fig8、pbe_dense'),
     'Fig9_Pisarenko': ('图 9、表 7',
         '实验：最低测量温度（约 301 K）的 S 与室温霍尔浓度（21_阶段报告与交接/实验数据/）。计算：bt2_pbe_dense 在霍尔浓度、300 K 的 S。'
         '参照：HSE06+SOC 能带上单个谷的态密度质量（能带曲率拟合）。',
         '单抛物带、声学声子散射：S =（kB/e）(2F₁/F₀ − η)，n = 4π(2m*kBT/h²)^{3/2}·F_{1/2}(η)。给定 m* 扫 η 得到参考线；'
         '每个样品由 |S| 解出 η，再由霍尔浓度解出 m*，实验点与计算点各自读出。',
-        '双对数；灰线为 m* = 0.1、0.3、1、3 me；实心圆为实验，空心方块为计算；点旁标实验的 m*。Pb₂Sb₂Te₅（补偿）不画。',
+        '双对数；灰线为 m* = 0.1、0.3、1、3 me；实心圆为实验，空心方块为计算，同一样品以虚线相连，颜色同图 8；点旁标实验的 m*。'
+        'Pb₂Sb₂Te₅（补偿）只画点、不读 m*。',
         'paper_figures.fig9、spb_mass'),
     'FigS1_mirror_plane': ('图 S1',
         'c4_mirror_v3：Sn 系含 c 轴的镜面内 HSE06+SOC 网格（面内步长 1/36，kz 取 12 个值，KPOINTS_OPT 分 6 批）；c5_star：真实极大附近的星形采样与拟合。',
