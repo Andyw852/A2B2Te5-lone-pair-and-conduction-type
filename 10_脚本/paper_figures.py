@@ -1297,7 +1297,121 @@ def fig9(out):
     return rows
 
 
-# ------------------------------------------------------------------ Fig. 10, 11（缺陷）
+# ------------------------------------------------------------------ Fig. 10
+DENSE = os.path.join(ROOT, 'A2B2Te5_SOC_dense', 'materials')
+N_REF = 3e19          # 低浓度对照，与表 6、图 8 的 3×10¹⁹ cm⁻³ 相同
+WIN = 3               # 阴影半宽（k_BT）：−∂f/∂E 的权重 90.5% 在 µ ± 3k_BT 内
+C_WH, C_WL = '#E69F00', '#7F7F7F'     # 霍尔浓度、3×10¹⁹ 的窗口（与材料色、PBE/HSE 色都不重）
+
+
+def dense_gamma(m):
+    """PBE+SOC 密网格（A2B2Te5_SOC_dense step3_uniform，即 bt2_pbe_dense 的输入）：Γ 处最高价带、最低导带，
+    网格上的价带顶、导带底，以及 E-fermi（BoltzTraP2 化学势的零点）。绝对能量，eV。"""
+    d = os.path.join(DENSE, m, 'ke-dft-cpu', 'result', 'step3_uniform')
+    L = open(os.path.join(d, 'EIGENVAL')).read().split('\n'); ne, nk, nb = map(int, L[5].split())
+    E = np.empty((nk, nb)); K = np.empty((nk, 3)); i = 7
+    for k in range(nk):
+        K[k] = [float(v) for v in L[i].split()[:3]]; i += 1
+        for b in range(nb): E[k, b] = float(L[i].split()[1]); i += 1
+        i += 1
+    g = int(np.where(np.all(np.abs(K) < 1e-6, axis=1))[0][0])
+    ef = None
+    for line in open(os.path.join(d, 'OUTCAR'), errors='ignore'):
+        if 'E-fermi' in line: ef = float(line.split()[2])
+    return dict(vb_g=E[g, ne - 1], cb_g=E[g, ne], vbm=E[:, ne - 1].max(), cbm=E[:, ne].min(), efermi=ef, nel=ne)
+
+
+def fig10(out):
+    """PBE+SOC 能带上的 300 K 费米窗口（第 5.1 节）：样品霍尔浓度与 3×10¹⁹ cm⁻³ 下的化学势 µ 与 µ ± 3k_BT。
+    µ 取自 bt2_pbe_dense 的 BoltzTraP2 结果（300 K，浓度按 log|N| 在化学势网格上线性取值），不另作估计。
+    能量对齐：BoltzTraP2 的 µ 相对密网格的 E-fermi；密网格与能带路径（c2_pbe）都含 Γ，用 Γ 处最高价带与最低导带
+    把密网格的绝对能量移到路径的零点（本泛函在两段路径上的最高价带，同图 2）。只用网格上的最大值作零点不行：
+    Sn₂Bi₂Te₅ 的 Σ′ 谷落在网格点之间，网格上的价带顶比真实的低约 18 meV。"""
+    cmap = LinearSegmentedColormap.from_list('s', ['#DCE8F4', '#9CC3E4', '#4A90C8', '#1F5FA0', '#08306B'])
+    norm = Normalize(0, 0.30); K = kpath(); kT = mv.KB * 300
+    fig, axs = plt.subplots(2, 2, figsize=(W2, 5.2), sharey=True, gridspec_kw=dict(hspace=0.36, wspace=0.06))
+    rows, brow, trow = [], [], []
+    for n, (ax, m) in enumerate(zip(axs.flat, MATS)):
+        x, _ = rf.path_x(m); nel = NEL[m]; X0 = x[KEND]
+        E, _ = bands(m, 'c2_pbe'); tp = true_path_bands(m, 'c2_pbe')
+        dv = max(0.0, float(np.nanmax(tp['E'][:, nel - 1]))) if tp else 0.0     # 零点同图 2 的 PBE
+        E = E - dv
+        if tp: tp['E'] = tp['E'] - dv; tp['x'] = TP_XSCALE * tp['x']
+        gap = min(np.nanmin(E[:KEND + 1, nel]), np.nanmin(tp['E'][:, nel]) if tp else np.inf)
+        _, Wp = cv.read_procar(os.path.join(rf.base(m), 'c2_pbe', 'PROCAR_OPT.gz')); fs = rf.cation_s(Wp)
+        for b in range(nel - 14, nel + 6):
+            segs = [[(x[i], E[i, b]), (x[i + 1], E[i + 1, b])] for i in range(KEND)]
+            cc = (fs[:KEND, b] + fs[1:KEND + 1, b]) / 2
+            if tp:
+                xs, es, fc = X0 + tp['x'], tp['E'][:, b], tp['fs'][:, b]
+                segs += [[(xs[i], es[i]), (xs[i + 1], es[i + 1])] for i in range(len(xs) - 1)]
+                cc = np.concatenate([cc, (fc[:-1] + fc[1:]) / 2])
+            lc = LineCollection(segs, cmap=cmap, norm=norm, linewidths=0.5 + 2.4 * np.clip(cc / 0.3, 0, 1), capstyle='round', zorder=3)
+            lc.set_array(cc); ax.add_collection(lc)
+            brow += [[m, i] + [r(v, 6) for v in K[i]] + [r(x[i], 5), LAB.get(i, ''), bandname(b, nel), r(E[i, b], 5), r(100 * fs[i, b], 2)]
+                     for i in range(KEND + 1)]
+            if tp:
+                trow += [[m, i, r(tp['x'][i] / TP_XSCALE, 5), tp['labels'].get(i, ''), bandname(b, nel), r(tp['E'][i, b], 5), r(100 * tp['fs'][i, b], 2)]
+                         for i in range(len(tp['x']))]
+        # 密网格 → 路径零点：Γ 处价带、导带各给一个偏移，取平均，两者之差记为对齐误差
+        D = dense_gamma(m)
+        o_v, o_c = E[0, nel - 1] - D['vb_g'], E[0, nel] - D['cb_g']; off = (o_v + o_c) / 2
+        bt = json.load(open(os.path.join(PBEDENSE, m, 'boltztrap_crta.json'), encoding='utf-8'))
+        it = bt['temperatures_K'].index(300)
+        mu = np.array(bt['mu_rel_efermi_eV']) + D['efermi'] + off; C = np.array(bt['carrier_conc_cm-3'][it], float)
+
+        def mu_at(N):
+            sg = 1 if N > 0 else -1; ok = sg * C > 0; xx = np.log10(sg * C[ok]); o = np.argsort(xx)
+            assert xx.min() <= np.log10(abs(N)) <= xx.max()
+            return float(np.interp(np.log10(abs(N)), xx[o], mu[ok][o]))
+        h = HALL[m]; NH = h['N']; NL = np.sign(NH) * N_REF
+        for N, col, ls, lab in ((NL, C_WL, ':', 'reference'), (NH, C_WH, DASH, 'Hall')):
+            u = mu_at(N)
+            ax.axhspan(u - WIN * kT, u + WIN * kT, color=col, alpha=0.20 if col == C_WH else 0.16, lw=0, zorder=1)
+            ax.axhline(u, color=col if col == C_WH else '#555555', lw=1.1, ls=ls, zorder=4)
+            depth = (u - gap) if N < 0 else -u                     # 进入能带多深：p 型相对价带顶，n 型相对导带底
+            rows.append([m, lab, f'{N:.3e}', r(1000 * u, 1), r(1000 * depth, 1), r(depth / kT, 1),
+                         r(1000 * (u - WIN * kT), 1), r(1000 * (u + WIN * kT), 1), r(1000 * (u - 5 * kT), 1), r(1000 * (u + 5 * kT), 1),
+                         r(1000 * gap, 1), r(1000 * (D['vbm'] + off), 1), r(1000 * off, 1), r(1000 * (o_v - o_c), 2)])
+            txt = (f'{"$p$" if N > 0 else "$n$"} = {sci(abs(N), unit=False)}' + (' (Hall)' if lab == 'Hall' else ''))
+            ax.text(0.985, u + (0.012 if (N < 0) == (lab == 'Hall') else -0.012), txt, transform=ax.get_yaxis_transform(), ha='right',
+                    va='bottom' if (N < 0) == (lab == 'Hall') else 'top', fontsize=6.3, color='#222222', zorder=6,
+                    bbox=dict(fc='white', ec='none', pad=0.4, alpha=0.85))
+        kticks(ax, x); ax.set_ylim(-0.56, 0.50); ax.set_yticks(np.arange(-0.5, 0.51, 0.25))
+        if tp: tp_decorate(ax, tp, X0, nel, mark=())
+        ax.set_title(f'{TEX[m]}     $E_g$ = {1000 * gap:.0f} meV', fontsize=8, pad=4)
+        panel(ax, f'({"abcd"[n]})')
+    # ±3k_BT 的标尺，画在 (a) 的霍尔窗口左侧
+    a0 = axs.flat[0]; u0 = [q for q in rows if q[0] == MATS[0] and q[1] == 'Hall'][0][3] / 1000; xb = a0.get_xlim()[0] + 0.035 * np.diff(a0.get_xlim())[0]
+    a0.annotate('', xy=(xb, u0 + WIN * kT), xytext=(xb, u0 - WIN * kT), arrowprops=dict(arrowstyle='<->', lw=0.6, color='#222222',
+                mutation_scale=5, shrinkA=0, shrinkB=0), zorder=6)
+    a0.text(xb + 0.012 * np.diff(a0.get_xlim())[0], u0 - WIN * kT - 0.008, r'$\pm3k_\mathrm{B}T$', ha='left', va='top', fontsize=6.3,
+            zorder=6, bbox=dict(fc='white', ec='none', pad=0.3, alpha=0.85))
+    for ax in axs[:, 0]: ax.set_ylabel(r'$E - E_{\mathrm{VBM}}$ (eV)')
+    cb = fig.colorbar(plt.cm.ScalarMappable(norm=norm, cmap=cmap), ax=axs, shrink=0.7, pad=0.015, aspect=30, extend='max')
+    cb.set_label('Cation-s weight (%)'); cb.set_ticks([0, .1, .2, .3], labels=['0', '10', '20', '30'])
+    cb.ax.tick_params(direction='in', length=2, width=0.6); cb.outline.set_linewidth(0.6)
+    from matplotlib.patches import Patch
+    from matplotlib.legend_handler import HandlerTuple
+    hh = [(Patch(fc=C_WH, alpha=0.35, lw=0), Line2D([], [], color=C_WH, lw=1.1, ls=DASH)),
+          (Patch(fc=C_WL, alpha=0.30, lw=0), Line2D([], [], color='#555555', lw=1.1, ls=':'))]
+    fig.legend(hh, [r'Sample Hall concentration: $\mu$ (line) and $\mu\pm3k_\mathrm{B}T$ (300 K)',
+                    r'$3\times10^{19}$ cm$^{-3}$, same carrier type'],
+               handler_map={tuple: HandlerTuple(ndivide=1)}, loc='lower center', ncol=2, bbox_to_anchor=(0.45, 0.925),
+               columnspacing=1.4, handlelength=2.2)
+    dump('Fig10_Fermi_window', 'chemical_potential_300K.csv',
+         ['material', 'case', 'carrier_conc_signed_cm-3', 'mu-EVBM_meV', 'depth_into_band_meV (p: below VBM, n: above CBM)', 'depth_in_kBT',
+          'mu-3kBT_meV', 'mu+3kBT_meV', 'mu-5kBT_meV', 'mu+5kBT_meV', 'Eg_PBE+SOC_meV', 'dense_grid_VBM-EVBM_meV',
+          'alignment_offset_meV (dense grid -> path)', 'alignment_residual_VB-CB_meV'], rows)
+    dump('Fig10_Fermi_window', 'PBE+SOC_bands_cation_s.csv',
+         ['material', 'k_index', 'k_frac_1', 'k_frac_2', 'k_frac_3', 'k_distance_1/A', 'label', 'band', 'E-EVBM_eV', 'cation_s_percent'], brow)
+    dump('Fig10_Fermi_window', 'PBE+SOC_true_valley_path_G-S-R2-L_cation_s.csv',
+         ['material', 'i', 'k_distance_1/A', 'label', 'band', 'E-EVBM_eV', 'cation_s_percent'], trow)
+    save(fig, out, 'Fig10_Fermi_window_PBE')
+    return rows
+
+
+# ------------------------------------------------------------------ Fig. 11, 12（缺陷）
 NAMES = {'Pb_on_Vac': r'Pb$_{\mathrm{Vac}}$', 'Sb_on_Vac': r'Sb$_{\mathrm{Vac}}$', 'Te_on_Vac': r'Te$_{\mathrm{Vac}}$',
          'Sb_Pb': r'Sb$_{\mathrm{Pb}}$', 'Pb_Sb': r'Pb$_{\mathrm{Sb}}$', 'Te_Pb': r'Te$_{\mathrm{Pb}}$', 'Te_Sb': r'Te$_{\mathrm{Sb}}$',
          'Sb_Te': r'Sb$_{\mathrm{Te}}$', 'Pb_Te': r'Pb$_{\mathrm{Te}}$', 'V_Te': r'$V_{\mathrm{Te}}$', 'V_Pb': r'$V_{\mathrm{Pb}}$', 'V_Sb': r'$V_{\mathrm{Sb}}$'}
@@ -1315,7 +1429,7 @@ def ef_sites():
     return out
 
 
-def fig10(out):
+def fig11(out):
     d = rf.read_ef()
     fig, axs = plt.subplots(1, 2, figsize=(W2, 3.3), sharey=True, gridspec_kw=dict(wspace=0.06))
     for n, (ax, c) in enumerate(zip(axs, ('Te-rich', 'Te-poor'))):
@@ -1336,16 +1450,16 @@ def fig10(out):
     h, l = axs[0].get_legend_handles_labels()
     fig.legend(h, l, loc='upper center', ncol=2, bbox_to_anchor=(0.55, 1.04))
     order = {t: i for i, (t, _) in enumerate(ROWS)}
-    dump('Fig10_formation_energies', 'formation_energy_per_site.csv',
+    dump('Fig11_formation_energies', 'formation_energy_per_site.csv',
          ['phase', 'defect_type', 'nominal_charge', 'site', 'Ef_Te-rich_eV', 'Ef_Te-poor_eV'],
          [[a, b, c, s, r(x, 4), r(y, 4)] for a, b, c, s, x, y in sorted(ef_sites(), key=lambda t: (order[t[1]], t[0] != 'O', t[3]))])
     mu = json.load(open(os.path.join(DEFDIR, 'DVO_结论摘要.json')))['chemical_potentials']['conditions']
-    dump('Fig10_formation_energies', 'chemical_potentials.csv', ['condition', 'mu_Pb_eV', 'mu_Sb_eV', 'mu_Te_eV', 'dmu_Pb_eV', 'dmu_Sb_eV', 'dmu_Te_eV'],
+    dump('Fig11_formation_energies', 'chemical_potentials.csv', ['condition', 'mu_Pb_eV', 'mu_Sb_eV', 'mu_Te_eV', 'dmu_Pb_eV', 'dmu_Sb_eV', 'dmu_Te_eV'],
          [[c] + [r(mu[c][e], 4) for e in ('Pb', 'Sb', 'Te')] + [r(mu[c]['delta'][e], 4) for e in ('Pb', 'Sb', 'Te')] for c in ('Te-rich', 'Te-poor')])
-    save(fig, out, 'Fig10_defect_formation_energies')
+    save(fig, out, 'Fig11_defect_formation_energies')
 
 
-def fig11(out):
+def fig12(out):
     sites = ef_sites(); rows, med = [], []
     fig, ax = plt.subplots(figsize=(W1, 3.0))
     ax.axvline(0, color='k', lw=0.5)
@@ -1363,9 +1477,9 @@ def fig11(out):
     ax.set_xlim(-0.8, 2.0); ax.set_xlabel(r'$\Delta E_f = E_f^{\mathrm{O}} - E_f^{\mathrm{D}}$ (eV)')
     ax.text(-0.76, len(ROWS) - 0.95, 'donors', ha='left', va='center', fontsize=6.5, style='italic')
     ax.text(-0.76, len(rf.ACCEPT) - 0.95, 'acceptors', ha='left', va='center', fontsize=6.5, style='italic')
-    dump('Fig11_ordering', 'delta_Ef_per_site.csv', ['defect_type', 'nominal_charge', 'D_site', 'Ef_O_lowest_site_eV', 'Ef_D_eV', 'dEf_O-D_eV'], rows)
-    dump('Fig11_ordering', 'delta_Ef_median.csv', ['defect_type', 'nominal_charge', 'n_D_sites', 'median_dEf_O-D_eV'], med)
-    save(fig, out, 'Fig11_ordering_induced_change')
+    dump('Fig12_ordering', 'delta_Ef_per_site.csv', ['defect_type', 'nominal_charge', 'D_site', 'Ef_O_lowest_site_eV', 'Ef_D_eV', 'dEf_O-D_eV'], rows)
+    dump('Fig12_ordering', 'delta_Ef_median.csv', ['defect_type', 'nominal_charge', 'n_D_sites', 'median_dEf_O-D_eV'], med)
+    save(fig, out, 'Fig12_ordering_induced_change')
 
 
 # ------------------------------------------------------------------ Fig. S1
@@ -1468,10 +1582,10 @@ def main():
     ap.add_argument('--data'); ap.add_argument('--only', nargs='+'); a = ap.parse_args()
     DATA = a.data or os.path.join(a.out, 'source_data')
     os.makedirs(a.out, exist_ok=True); style()
-    todo = a.only or [str(i) for i in range(1, 12)] + ['T8', 'S1']
+    todo = a.only or [str(i) for i in range(1, 13)] + ['T8', 'S1']
     info = {}
     for i in todo:
-        res = {'1': fig1, '2': fig2, '3': fig3, '4': fig4, '5': fig5, '6': fig6, '7': fig7, '8': fig8, '9': fig9, '10': fig10, '11': fig11, 'T8': table8, 'S1': figS1}[i](a.out)
+        res = {'1': fig1, '2': fig2, '3': fig3, '4': fig4, '5': fig5, '6': fig6, '7': fig7, '8': fig8, '9': fig9, '10': fig10, '11': fig11, '12': fig12, 'T8': table8, 'S1': figS1}[i](a.out)
         if res is not None: info[i] = res
     print(info); print('→', a.out, '；源数据 →', DATA)
 
