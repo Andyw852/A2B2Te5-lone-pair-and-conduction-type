@@ -1262,43 +1262,60 @@ def fit_N(f, data, how):
     return to_N(res.x), float(res.fun)
 
 
+PBEDENSE = os.path.join(ROOT, '22_能带基准_1-0', 'bt2_pbe_dense')
+
+
+def pbe_dense(m):
+    """PBE+SOC 密网格（28×28×7/6）BoltzTraP2、不加剪刀（22_能带基准_1-0/bt2_pbe_dense）：返回计算温度 T 与 f(N, i) =
+    第 i 个计算温度、带符号浓度 N（+ 空穴）处的面内 S（µV/K）。浓度方向在 BoltzTraP2 的化学势网格上按 log|N| 线性取值，温度不插值。"""
+    d = json.load(open(os.path.join(PBEDENSE, m, 'boltztrap_crta.json'), encoding='utf-8'))
+    T = np.array(d['temperatures_K']); C = np.array(d['carrier_conc_cm-3'], float)
+    S = (np.array(d['seebeck_xx_V_per_K'], float) + np.array(d['seebeck_yy_V_per_K'], float)) / 2 * 1e6
+
+    def f(N, i):
+        sg = 1 if N > 0 else -1; ok = sg * C[i] > 0; x = np.log10(sg * C[i][ok]); o = np.argsort(x)
+        assert x.min() <= np.log10(abs(N)) <= x.max()
+        return float(np.interp(np.log10(abs(N)), x[o], S[i][ok][o]))
+    return T, f
+
+
 def figS3(out):
     """附录 A：实验 S(T) 与计算，计算直接取室温霍尔浓度，不调任何参数（2026-11-03 用户确定）。
-    计算值暂用报告的 HSE 估计（PBE+SOC BoltzTraP2 × 多谷模型 HSE/PBE 比值，与图 8、9 同口径），待 HSE06+SOC
-    28×28×7/6 网格直接 BoltzTraP2 的结果（22_能带基准_1-0/*/c8_hse_dense）替换。只画 HSE。"""
-    Ts = np.arange(300, 641, 10)
+    计算用 PBE+SOC 密网格 BoltzTraP2、不加剪刀，曲线就是 BoltzTraP2 的计算温度（每 25 K），不用任何估计法（2026-11-04 用户要求）；
+    均方根偏差在测量温度上比较，计算值按 25 K 网格线性内插。HSE06+SOC 的直接结果（c8_hse_dense）完成后再加。"""
     fig, axs = plt.subplots(2, 2, figsize=(W2, 4.9), gridspec_kw=dict(hspace=0.42, wspace=0.24))
-    ylim = {'Pb2Sb2Te5': (0, 50), 'Pb2Bi2Te5': (-175, 0), 'Sn2Sb2Te5': (0, 60), 'Sn2Bi2Te5': (0, 90)}
+    ylim = {'Pb2Sb2Te5': (0, 80), 'Pb2Bi2Te5': (-175, 0), 'Sn2Sb2Te5': (0, 60), 'Sn2Bi2Te5': (0, 90)}
     exp_rows, calc_rows, rows = [], [], []
     for n, (ax, m) in enumerate(zip(axs.flat, MATS)):
-        h = HALL[m]; N = h['N']; sign = 1 if N > 0 else -1; f = s_methods(m, sign)['H']; data = EXP[m]
+        h = HALL[m]; N = h['N']; data = EXP[m]; T, f = pbe_dense(m)
+        v = np.array([f(N, i) for i in range(len(T))]); at = lambda t: float(np.interp(t, T, v))
         Te, Se = zip(*data); exp_rows += [[m, r(t, 2), r(sg, 1), r(x, 3)] for t, sg, x in read_exp(m)]
         ax.plot(Te, Se, 'o', ms=4.5, mfc='white', mec='k', mew=0.9, ls='', zorder=4)
-        v = [f(N, t) for t in Ts]; ax.plot(Ts, v, color=C_HSE, lw=1.4, zorder=3)
-        calc_rows += [[m, f'{N:.3e}', int(t), r(x, 2)] for t, x in zip(Ts, v)]
-        dev = [f(N, t) - S for t, S in data]; rmsv = float(np.sqrt(np.mean(np.square(dev))))
-        rows.append([m, 'p' if N > 0 else 'n', f'{N:.3e}', 'yes' if h['flagged'] else 'no', r(data[0][0], 1), r(data[0][1], 1), r(f(N, data[0][0]), 1),
-                     r(data[-1][0], 1), r(data[-1][1], 1), r(f(N, data[-1][0]), 1), r(rmsv, 1), r(max(dev, key=abs), 1)])
-        ax.set_xlim(280, 640); ax.set_ylim(*ylim[m])
+        ax.plot(T, v, color=C_PBE, lw=1.4, zorder=3)
+        calc_rows += [[m, f'{N:.3e}', int(t), r(x, 2)] for t, x in zip(T, v)]
+        dev = [at(t) - S for t, S in data]; rmsv = float(np.sqrt(np.mean(np.square(dev))))
+        rows.append([m, 'p' if N > 0 else 'n', f'{N:.3e}', 'yes' if h['flagged'] else 'no', r(data[0][0], 1), r(data[0][1], 1), r(at(data[0][0]), 1),
+                     r(data[-1][0], 1), r(data[-1][1], 1), r(at(data[-1][0]), 1), r(rmsv, 1), r(max(dev, key=abs), 1)])
+        ax.set_xlim(280, 660); ax.set_ylim(*ylim[m])
         ax.set_title(f'{TEX[m]} ({"n" if N < 0 else "p"}-type)', fontsize=8, pad=4)
-        y1, y2 = (0.19, 0.105) if m == 'Pb2Bi2Te5' else (0.95, 0.865)        # Pb₂Bi₂Te₅ 的计算曲线在上方，文字放到左下
-        ax.text(0.04, y1, f'Hall: {"$p$" if N > 0 else "$n$"} = {sci(abs(N))}' + (' (flagged)' if h['flagged'] else ''),
+        ax.text(0.04, 0.95, f'Hall: {"$p$" if N > 0 else "$n$"} = {sci(abs(N))}' + (' (flagged)' if h['flagged'] else ''),
                 transform=ax.transAxes, ha='left', va='top', fontsize=6.5, color='#555555')
-        ax.text(0.04, y2, f'rms deviation {rmsv:.0f} μV K$^{{-1}}$', transform=ax.transAxes, ha='left', va='top', fontsize=6.5, color=C_HSE)
+        ax.text(0.04, 0.865, f'rms deviation {rmsv:.0f} μV K$^{{-1}}$', transform=ax.transAxes, ha='left', va='top', fontsize=6.5, color=C_PBE)
         panel(ax, f'({"abcd"[n]})')
     for ax in axs[:, 0]: ax.set_ylabel(r'$S$ (μV K$^{-1}$)')
     for ax in axs[1]: ax.set_xlabel('$T$ (K)')
-    hh = [plt.Line2D([], [], ls='', marker='o', ms=4.5, mfc='white', mec='k', mew=0.9), plt.Line2D([], [], color=C_HSE, lw=1.4)]
-    fig.legend(hh, ['Experiment', 'HSE06+SOC at the Hall concentration (no adjustable parameter)'],
+    hh = [plt.Line2D([], [], ls='', marker='o', ms=4.5, mfc='white', mec='k', mew=0.9), plt.Line2D([], [], color=C_PBE, lw=1.4)]
+    fig.legend(hh, ['Experiment', 'PBE+SOC + BoltzTraP2 at the Hall concentration (no adjustable parameter)'],
                loc='lower center', ncol=2, bbox_to_anchor=(0.5, 0.935), columnspacing=1.4, handlelength=1.8)
     d = os.path.join(DATA, 'FigS3_S_vs_T') if DATA else None
-    if d and os.path.isdir(d): shutil.rmtree(d)          # 旧版（拟合浓度）的文件一并清掉
+    if d and os.path.isdir(d): shutil.rmtree(d)          # 旧版文件一并清掉
     dump('FigS3_S_vs_T', 'experiment_T_sigma_S.csv', ['material', 'T_K', 'sigma_exp_S/m', 'S_exp_uV/K'], exp_rows)
     dump('FigS3_S_vs_T', 'hall_room_temperature.csv', ['material', 'carrier_conc_signed_cm-3 (+ holes, - electrons)', 'Hall_mobility_cm2/Vs', 'flagged_by_instrument'],
          [[k, f'{x["N"]:.3e}', x['mu'], 'yes' if x['flagged'] else 'no'] for k, x in HALL.items()])
-    dump('FigS3_S_vs_T', 'calculated_S_T_at_Hall_conc.csv', ['material', 'Hall_conc_signed_cm-3', 'T_K', 'S_HSE06+SOC_estimate_uV/K'], calc_rows)
-    dump('FigS3_S_vs_T', 'summary_at_Hall_conc.csv', ['material', 'type', 'Hall_conc_signed_cm-3', 'Hall_flagged', 'T_low_K', 'S_exp_low_uV/K', 'S_calc_low_uV/K',
-                                                      'T_high_K', 'S_exp_high_uV/K', 'S_calc_high_uV/K', 'rms_deviation_uV/K', 'max_deviation_calc-exp_uV/K'], rows)
+    dump('FigS3_S_vs_T', 'calculated_S_T_at_Hall_conc.csv',
+         ['material', 'Hall_conc_signed_cm-3', 'T_K', 'S_PBE+SOC_BoltzTraP2_uV/K (28x28x7/6 dense grid, no scissor)'], calc_rows)
+    dump('FigS3_S_vs_T', 'summary_at_Hall_conc.csv', ['material', 'type', 'Hall_conc_signed_cm-3', 'Hall_flagged', 'T_low_K', 'S_exp_low_uV/K', 'S_PBE_low_uV/K',
+                                                      'T_high_K', 'S_exp_high_uV/K', 'S_PBE_high_uV/K', 'rms_deviation_uV/K', 'max_deviation_calc-exp_uV/K'], rows)
     save(fig, out, 'FigS3_S_vs_T_Hall')
     return rows
 
