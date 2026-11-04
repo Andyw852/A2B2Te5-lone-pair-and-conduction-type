@@ -3,7 +3,7 @@
 ① d1_nosoc_<材料>：PBE、不加 SOC，同一条 c2 路径；与现有的 PBE+SOC（<材料>/c2_pbe）对比。
 ② d2_<成分>_in_<晶格>_lattice：PBE+SOC，把 B 位 Sb ↔ Bi 换进另一种材料的晶格和坐标，分开化学与体积效应。
 
-Γ 点的态按轨道成分追踪，不按带序号（能量都相对 Σ 谷，即 Γ–M 段内部最高价带的极大，meV）：
+Γ 点的态按轨道成分追踪，不按带序号（能量都相对 Σ 谷，即 Γ–M 段内部最高价带的局部极大，meV）：
 - s 态：阳离子 s + Te p_z 的反键态（孤对电子在 Γ 处的态）。无 SOC 时是 Γ 价带顶，有 SOC 时被反转到导带底。
 - 阳离子 p 态：无 SOC 时在导带，分成 p_z 单态与 p_xy 二重态（两者以 B 位 p 为主），取 (p_z + 2 p_xy)/3 作为 p 能级中心；
   有 SOC 时其中 j = 1/2 型的组合（B 位 p ≥ 25%，p_z : p_xy ≈ 1 : 2）被压到 s 态之下，成为 Γ 价带顶。
@@ -36,7 +36,9 @@ def gamma_states(d, comp):
     E, W = cv.read_procar(f); soc = soc_of(d)
     nv = NELECT[comp] if soc else NELECT[comp] // 2            # 价带数（SOC 下每条带 1 个电子）
     st = 2 if soc else 1                                       # SOC 下 Kramers 对只取一条
-    esig = E[:, nv - 1][list(SIGMA_SEG)].max()
+    v = E[:, nv - 1]                                           # Σ 谷：Γ–M 段内部最高价带的局部极大（取最高的一个）。
+    loc = [i for i in SIGMA_SEG if v[i] >= v[i - 1] and v[i] >= v[i + 1]]   # 不能直接取段上最大值：HSE 下 Pb 系与 Sn₂Sb₂Te₅
+    esig = max(v[i] for i in loc) if loc else v[list(SIGMA_SEG)].max()      # 的 Σ 谷沉下去，段上最大值落在紧挨 Γ 的点（2026-11-04）
     w = W[0]; tot = w.sum(axis=(1, 2))
     fr = lambda i, sl, o: w[i, sl, o].sum() / tot[i]
     rows = []
@@ -60,8 +62,14 @@ def gamma_states(d, comp):
     return out
 
 
-def runs():
+def runs(functional='pbe'):
+    """functional='hse'：加 SOC 取 <材料>/c2_hse，不加 SOC 取 SOC机制检验_HSE/e1_hse_nosoc_<材料>（2026-11-04 新增，待算）；没有晶格交换的计算。"""
     out = {}
+    if functional == 'hse':
+        for m in NELECT:
+            out[(m, m, True)] = (os.path.join(R, 'c2_hse') if m == 'Pb2Sb2Te5' else os.path.join(R, m, 'c2_hse'), m)
+            out[(m, m, False)] = (os.path.join(R, 'SOC机制检验_HSE', f'e1_hse_nosoc_{m}'), m)
+        return out
     for m in NELECT:
         out[(m, m, True)] = (os.path.join(R, 'c2_pbe') if m == 'Pb2Sb2Te5' else os.path.join(R, m, 'c2_pbe'), m)
         out[(m, m, False)] = (os.path.join(D, f'd1_nosoc_{m}'), m)
@@ -71,12 +79,12 @@ def runs():
 
 
 def main():
-    ap = argparse.ArgumentParser(); ap.add_argument('--fig'); a = ap.parse_args()
+    ap = argparse.ArgumentParser(); ap.add_argument('--fig'); ap.add_argument('--functional', choices=('pbe', 'hse'), default='pbe'); a = ap.parse_args()
     res = {}
     f0 = lambda v: '—' if v is None else f'{v:.0f}'
-    print('# Γ 点各态相对 Σ 谷的能量（meV，PBE）')
+    print(f"# Γ 点各态相对 Σ 谷的能量（meV，{'PBE' if a.functional == 'pbe' else 'HSE06'}）")
     print(f"{'成分':10s} {'晶格':10s} {'SOC':3s} {'Γ价带顶':>7s} {'s态':>6s} {'(位置)':6s} {'p_z':>6s} {'p_xy':>6s} {'p中心':>6s} {'p1/2':>6s} {'B-p%':>5s} {'pz比例':>6s}")
-    for key, (d, comp) in runs().items():
+    for key, (d, comp) in runs(a.functional).items():
         r = gamma_states(d, comp) if os.path.isdir(d) else None
         if r is None:
             print(f'{key[0]:10s} {key[1]:10s} {"有" if key[2] else "无":3s}  — 缺少 PROCAR_OPT（{os.path.relpath(d, ROOT)}）'); continue
@@ -103,10 +111,10 @@ def main():
         print(f"\n# 晶格交换（PBE+SOC，p₁/₂ 态）：原生晶格 Sb → Bi {b_['p12'] - a_['p12']:+.0f}；SnSb 晶格中 {s1['p12'] - a_['p12']:+.0f}；"
               f"SnBi 晶格中 {b_['p12'] - s2['p12']:+.0f} meV。同一成分换晶格：SnBi {s1['p12'] - b_['p12']:+.0f}、SnSb {s2['p12'] - a_['p12']:+.0f} meV")
     if a.fig and all((m, m, s) in res for m in ('Sn2Sb2Te5', 'Sn2Bi2Te5') for s in (True, False)):
-        figure(res, dec, a.fig)
+        figure(res, dec, a.fig, a.functional)
 
 
-def figure(res, dec, out):
+def figure(res, dec, out, functional='pbe'):
     import matplotlib; matplotlib.use('Agg')
     import matplotlib.pyplot as plt
     import paper_figures as pf
@@ -130,19 +138,20 @@ def figure(res, dec, out):
         a0, a1 = res[(m, m, False)], res[(m, m, True)]
         ax.annotate('', (x1 - hw, a1['p12']), (x0 + hw, a0['pc']), arrowprops=dict(arrowstyle='->', color=C_P, lw=0.8))
         ax.plot([x0 + hw, x1 - hw], [a0['s'], a1['s']], color=C_S, lw=0.6, ls=(0, (1, 1)))
-        ax.text((x0 + x1) / 2 + 0.12, a1['p12'] + 0.6 * (a0['pc'] - a1['p12']), f"SOC {a1['p12'] - a0['pc']:+.0f}".replace('-', '−'),
+        ax.text((x0 + x1) / 2 + 0.12, a1['p12'] + 0.35 * (a0['pc'] - a1['p12']), f"SOC {a1['p12'] - a0['pc']:+.0f}".replace('-', '−'),
                 ha='left', va='center', fontsize=6.5, color=C_P)
     ax.axhline(0, color='k', lw=0.6, ls=pf.DASH); ax.text(3.95, 8, 'Σ valley', fontsize=6.5, ha='right', va='bottom')
     ax.set_xticks([0, 1, 2.4, 3.4], ['no SOC', 'SOC', 'no SOC', 'SOC'])
     for x, m in ((0.5, 'Sn2Sb2Te5'), (2.9, 'Sn2Bi2Te5')):
         ax.text(x, -0.09, pf.TEX[m], transform=ax.get_xaxis_transform(), ha='center', va='top', fontsize=7.5)
-    ax.set_xlim(-0.75, 4.0); ax.set_ylabel(r'$E - E_\Sigma$ at $\Gamma$ (meV, PBE)')
+    FN = 'PBE' if functional == 'pbe' else 'HSE06'
+    ax.set_xlim(-0.75, 4.0); ax.set_ylabel(r'$E - E_\Sigma$ at $\Gamma$ (meV, ' + FN + ')')
     ax.set_title('Γ-point levels: SOC pushes the cation-p$_{1/2}$ state below the s state', fontsize=7.5, pad=3)
-    pf.dump('FigS2_Gamma_levels_SOC', 'gamma_levels_PBE.csv', ['material', 'SOC', 'state', 'E_minus_Sigma_meV'], rows)
+    pf.dump('FigS2_Gamma_levels_SOC', f'gamma_levels_{FN}.csv', ['material', 'SOC', 'state', 'E_minus_Sigma_meV'], rows)
     if dec:
         pf.dump('FigS2_Gamma_levels_SOC', 'SbBi_decomposition_meV.csv', ['series', 'total', 'scalar_part', 'SOC_part', 'SOC_lowering_Sb', 'SOC_lowering_Bi'],
                 [[k, round(v['total']), round(v['scalar']), round(v['soc']), round(-v['low_sb']), round(-v['low_bi'])] for k, v in dec.items()])
-    pf.save(fig, out, 'FigS2_Gamma_levels_SOC')
+    pf.save(fig, out, 'FigS2_Gamma_levels_SOC' + ('' if functional == 'pbe' else '_HSE'))
 
 
 if __name__ == '__main__':

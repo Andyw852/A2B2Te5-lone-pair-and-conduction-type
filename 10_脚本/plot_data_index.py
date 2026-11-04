@@ -138,7 +138,7 @@ METHODS = {
         'paper_figures.figS1'),
     'FigS2_Gamma_levels_SOC': ('图 S2',
         '22_能带基准_1-0/SOC机制检验：PBE 下有、无 SOC 的 Γ 点能级（d1：不加 SOC；d2：互换晶格）。',
-        '能量相对 Σ 谷；B 位 p 态分成 pz、pxy 与加 SOC 后的 p1/2；Sb → Bi 的变化拆成标量与 SOC 两部分。',
+        '能量相对 Σ 谷（Γ–M 段内最高价带的局部极大；2026-11-04 改正，原取段上最大值，不加 SOC 时取错）；B 位 p 态分成 pz、pxy 与加 SOC 后的 p1/2；Sb → Bi 的变化拆成标量与 SOC 两部分。',
         '能级图：两种材料各两列（无 SOC、有 SOC），紫色为孤对电子 s 态，橙色为 B 位 p 态，箭头上为 SOC 的压低量。',
         'soc_mechanism.py'),
     'Fig9_S_vs_T': ('图 9、表 7',
