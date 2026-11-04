@@ -1,0 +1,18 @@
+﻿material,valley,"kind (axis: on the Γ–A axis; lp: lone-pair valley; ref: Γ point, not a maximum)",E-EVBM_meV,n_equivalent_pockets,k_frac_1,k_frac_2,k_frac_3,cation_s_percent,source,m1_me,m2_me,m3_me
+Pb2Sb2Te5,Γ,axis,0.0,1,0.0,0.0,0.0,0.4,band path c2,,,
+Pb2Sb2Te5,Σ,lp,-235.6,6,-0.1667,0.0,0.0,21.1,band path c2,,,
+Pb2Bi2Te5,A,axis,0.0,1,0.0,0.0,-0.5,10.8,band path c2,,,
+Pb2Bi2Te5,Γ,ref,-51.6,1,0.0,0.0,0.0,1.6,"band path c2 (Γ point, not a maximum)",,,
+Pb2Bi2Te5,Σ,lp,-91.0,6,-0.1667,0.0,0.0,17.7,band path c2,,,
+Pb2Bi2Te5,R₂,lp,-194.8,6,-0.3182,0.0,-0.5,22.1,band path c2,,,
+Sn2Sb2Te5,Γ,axis,0.0,1,0.0,0.0,0.0,2.0,band path c2,,,
+Sn2Sb2Te5,R₂′,lp,-84.0,6,-0.3459,0.0,0.4083,33.4,c5 star fit (true maximum),0.05,0.069,0.318
+Sn2Sb2Te5,R₁′,lp,-122.0,6,-0.108,0.0,-0.2443,26.6,c5 star fit (true maximum),0.034,0.121,0.13
+Sn2Sb2Te5,Σ′,lp,-127.1,6,-0.1774,0.0,0.0625,26.1,c5 star fit (true maximum),0.039,0.211,0.847
+Sn2Sb2Te5,R₁″,lp,-129.3,6,-0.0524,0.0,0.3858,27.9,c5 star fit (true maximum),0.036,0.065,0.23
+Sn2Bi2Te5,Δ,axis,-117.1,2,0.0,0.0,-0.2857,10.5,band path c2,,,
+Sn2Bi2Te5,Γ,ref,-132.6,1,0.0,0.0,0.0,4.1,"band path c2 (Γ point, not a maximum)",,,
+Sn2Bi2Te5,Σ′,lp,0.0,6,-0.1965,0.0,0.1232,24.9,c5 star fit (true maximum),0.042,0.133,0.276
+Sn2Bi2Te5,R₂′,lp,-2.1,6,-0.3353,0.0,0.3964,31.9,c5 star fit (true maximum),0.053,0.091,0.422
+Sn2Bi2Te5,R₁′,lp,-16.5,6,-0.0963,0.0,-0.2725,24.8,c5 star fit (true maximum),0.038,0.105,0.144
+Sn2Bi2Te5,R₁″,lp,-39.2,6,-0.0525,0.0,0.4388,25.7,c5 star fit (true maximum),0.047,0.081,0.319
