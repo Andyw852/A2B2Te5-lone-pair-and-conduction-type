@@ -1263,49 +1263,44 @@ def fit_N(f, data, how):
 
 
 def figS3(out):
-    """附录 A：实验 S(T) 与计算。每个样品、每种能带只调一个常数——净载流子浓度，使 300–620 K 的 S(T) 与实验最接近；能带不调，
-    温度为测量温度。拟合出的浓度与室温霍尔浓度并列（fit_summary.csv，表 A1）。只用 HSE（2026-11-02 用户要求图、表都不要 PBE）。"""
+    """附录 A：实验 S(T) 与计算，计算直接取室温霍尔浓度，不调任何参数（2026-11-03 用户确定）。
+    计算值暂用报告的 HSE 估计（PBE+SOC BoltzTraP2 × 多谷模型 HSE/PBE 比值，与图 8、9 同口径），待 HSE06+SOC
+    28×28×7/6 网格直接 BoltzTraP2 的结果（22_能带基准_1-0/*/c8_hse_dense）替换。只画 HSE。"""
     Ts = np.arange(300, 641, 10)
     fig, axs = plt.subplots(2, 2, figsize=(W2, 4.9), gridspec_kw=dict(hspace=0.42, wspace=0.24))
-    ylim = {'Pb2Sb2Te5': (-10, 30), 'Pb2Bi2Te5': (-175, 0), 'Sn2Sb2Te5': (0, 60), 'Sn2Bi2Te5': (0, 90)}
-    exp_rows, calc_rows, fit_rows = [], [], []
+    ylim = {'Pb2Sb2Te5': (0, 50), 'Pb2Bi2Te5': (-175, 0), 'Sn2Sb2Te5': (0, 60), 'Sn2Bi2Te5': (0, 90)}
+    exp_rows, calc_rows, rows = [], [], []
     for n, (ax, m) in enumerate(zip(axs.flat, MATS)):
-        h = HALL[m]; meth, how = st_methods(m); data = EXP[m]
-        Te, Se = zip(*data); exp_rows += [[m, r(t, 2), r(sg, 1), r(s, 3)] for t, sg, s in read_exp(m)]
+        h = HALL[m]; N = h['N']; sign = 1 if N > 0 else -1; f = s_methods(m, sign)['H']; data = EXP[m]
+        Te, Se = zip(*data); exp_rows += [[m, r(t, 2), r(sg, 1), r(x, 3)] for t, sg, x in read_exp(m)]
         ax.plot(Te, Se, 'o', ms=4.5, mfc='white', mec='k', mew=0.9, ls='', zorder=4)
-        txt = []
-        for key, nm in (('H', 'HSE'),):
-            f = meth[key]; N, rmsv = fit_N(f, data, how); v = [f(N, t) for t in Ts]; c_, ls_, lw_ = SCOL[key]
-            if rmsv <= 30: ax.plot(Ts, v, color=c_, ls=ls_, lw=1.4, zorder=3)   # 拟合失败（均方根 > 30 µV/K）不画
-            calc_rows += [[m, SNAME[key], f'{N:.3e}', int(t), r(x, 2)] for t, x in zip(Ts, v)]
-            dev = [f(N, t) - S for t, S in data]
-            ratio = r(abs(N) / abs(h['N']), 3) if how[0] == 'log' else ''
-            fit_rows.append([m, SNAME[key], f'{N:.3e}', f'{h["N"]:.3e}', 'yes' if h['flagged'] else 'no', ratio, r(rmsv, 1), r(max(dev, key=abs), 1)])
-            kind = ('$p$' if N > 0 else '$n$') if how[0] == 'log' else ('$p-n$')
-            txt.append((c_, f'{nm}: no single concentration fits (rms {rmsv:.0f} μV K$^{{-1}}$)' if rmsv > 30 else
-                        f'{nm}: {kind} = {"+" if (how[0] == "lin" and N > 0) else ""}{"−" if (how[0] == "lin" and N < 0) else ""}{sci(abs(N))}, rms {rmsv:.1f}'))
-        if m == 'Pb2Sb2Te5': ax.axhline(0, color='k', lw=0.5, ls=':')
+        v = [f(N, t) for t in Ts]; ax.plot(Ts, v, color=C_HSE, lw=1.4, zorder=3)
+        calc_rows += [[m, f'{N:.3e}', int(t), r(x, 2)] for t, x in zip(Ts, v)]
+        dev = [f(N, t) - S for t, S in data]; rmsv = float(np.sqrt(np.mean(np.square(dev))))
+        rows.append([m, 'p' if N > 0 else 'n', f'{N:.3e}', 'yes' if h['flagged'] else 'no', r(data[0][0], 1), r(data[0][1], 1), r(f(N, data[0][0]), 1),
+                     r(data[-1][0], 1), r(data[-1][1], 1), r(f(N, data[-1][0]), 1), r(rmsv, 1), r(max(dev, key=abs), 1)])
         ax.set_xlim(280, 640); ax.set_ylim(*ylim[m])
-        ax.set_title(f'{TEX[m]} ({"n" if h["N"] < 0 else "p"}-type)', fontsize=8, pad=4)
-        y0 = 0.95
-        for k, (c_, t_) in enumerate(txt):
-            ax.text(0.04, y0 - 0.085 * k, t_, transform=ax.transAxes, ha='left', va='top', fontsize=6.5, color=c_)
-        ax.text(0.04, y0 - 0.085 * len(txt), f'Hall: {sci(abs(h["N"]))}' + (' (flagged)' if h['flagged'] else ''), transform=ax.transAxes,
-                ha='left', va='top', fontsize=6.5, color='#555555')
+        ax.set_title(f'{TEX[m]} ({"n" if N < 0 else "p"}-type)', fontsize=8, pad=4)
+        y1, y2 = (0.19, 0.105) if m == 'Pb2Bi2Te5' else (0.95, 0.865)        # Pb₂Bi₂Te₅ 的计算曲线在上方，文字放到左下
+        ax.text(0.04, y1, f'Hall: {"$p$" if N > 0 else "$n$"} = {sci(abs(N))}' + (' (flagged)' if h['flagged'] else ''),
+                transform=ax.transAxes, ha='left', va='top', fontsize=6.5, color='#555555')
+        ax.text(0.04, y2, f'rms deviation {rmsv:.0f} μV K$^{{-1}}$', transform=ax.transAxes, ha='left', va='top', fontsize=6.5, color=C_HSE)
         panel(ax, f'({"abcd"[n]})')
     for ax in axs[:, 0]: ax.set_ylabel(r'$S$ (μV K$^{-1}$)')
     for ax in axs[1]: ax.set_xlabel('$T$ (K)')
     hh = [plt.Line2D([], [], ls='', marker='o', ms=4.5, mfc='white', mec='k', mew=0.9), plt.Line2D([], [], color=C_HSE, lw=1.4)]
-    fig.legend(hh, ['Experiment', 'HSE06+SOC (fitted carrier concentration)'],
+    fig.legend(hh, ['Experiment', 'HSE06+SOC at the Hall concentration (no adjustable parameter)'],
                loc='lower center', ncol=2, bbox_to_anchor=(0.5, 0.935), columnspacing=1.4, handlelength=1.8)
+    d = os.path.join(DATA, 'FigS3_S_vs_T') if DATA else None
+    if d and os.path.isdir(d): shutil.rmtree(d)          # 旧版（拟合浓度）的文件一并清掉
     dump('FigS3_S_vs_T', 'experiment_T_sigma_S.csv', ['material', 'T_K', 'sigma_exp_S/m', 'S_exp_uV/K'], exp_rows)
     dump('FigS3_S_vs_T', 'hall_room_temperature.csv', ['material', 'carrier_conc_signed_cm-3 (+ holes, - electrons)', 'Hall_mobility_cm2/Vs', 'flagged_by_instrument'],
-         [[m, f'{h["N"]:.3e}', h['mu'], 'yes' if h['flagged'] else 'no'] for m, h in HALL.items()])
-    dump('FigS3_S_vs_T', 'calculated_S_T.csv', ['material', 'bands', 'fitted_net_carrier_conc_cm-3', 'T_K', 'S_calc_uV/K'], calc_rows)
-    dump('FigS3_S_vs_T', 'fit_summary.csv', ['material', 'bands', 'fitted_net_carrier_conc_cm-3 (+ holes)', 'Hall_conc_cm-3', 'Hall_flagged',
-                                              'fitted_over_Hall', 'rms_deviation_uV/K', 'max_deviation_calc-exp_uV/K'], fit_rows)
+         [[k, f'{x["N"]:.3e}', x['mu'], 'yes' if x['flagged'] else 'no'] for k, x in HALL.items()])
+    dump('FigS3_S_vs_T', 'calculated_S_T_at_Hall_conc.csv', ['material', 'Hall_conc_signed_cm-3', 'T_K', 'S_HSE06+SOC_estimate_uV/K'], calc_rows)
+    dump('FigS3_S_vs_T', 'summary_at_Hall_conc.csv', ['material', 'type', 'Hall_conc_signed_cm-3', 'Hall_flagged', 'T_low_K', 'S_exp_low_uV/K', 'S_calc_low_uV/K',
+                                                      'T_high_K', 'S_exp_high_uV/K', 'S_calc_high_uV/K', 'rms_deviation_uV/K', 'max_deviation_calc-exp_uV/K'], rows)
     save(fig, out, 'FigS3_S_vs_T_Hall')
-    return fit_rows
+    return rows
 
 
 # ------------------------------------------------------------------ Fig. 10, 11

@@ -8,16 +8,20 @@
          data/Fig1_structures/ … data/Fig11_ordering/   （paper_figures.py 写出的源数据）
          data/tables/                                 （正文表 1–10，从 HTML 中抽出）
          data/L_layered_defects/                      （早先一批层状相缺陷计算的原始结果，取自 03_缺陷形成能与PN型数据/Pb2Sb2Te5.zip）
+         data/作图数据索引.csv                          （每幅图、每个子图用哪个文件、横轴纵轴取哪一列；10_脚本/plot_data_index.py）
+         作图数据/FigN_….xlsx  作图数据/tables.xlsx     （每幅图单独一个 Excel：第一页说明，其后每个数据表一页）
 
 用法：先运行 10_脚本/paper_figures.py 生成图与源数据，再 python 10_脚本/build_paper_report.py
 输入：21_阶段报告与交接/论文报告_20261028.src.html、21_阶段报告与交接/论文图_20261028/（含 source_data/）
 输出：21_阶段报告与交接/论文报告_20261028.html、21_阶段报告与交接/A2B2Te5_report_20261028.zip
 """
-import base64, csv, glob, io, os, re, shutil, tempfile, zipfile
+import base64, csv, glob, io, os, re, shutil, sys, tempfile, zipfile
 from html.parser import HTMLParser
 from PIL import Image
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import plot_data_index
 D = os.path.join(ROOT, '21_阶段报告与交接')
 FIGS = os.path.join(D, '论文图_20261028')
 NAME = 'A2B2Te5_report_20261028'
@@ -60,7 +64,7 @@ class Tables(HTMLParser):
 def readme(tables):
     t = '\n'.join(f'      {x["name"]}.csv    {" ".join(x["caption"].split())}' for x in tables)
     return f'''A2B2Te5（A = Pb, Sn；B = Sb, Bi）中的孤对电子与导电类型：论文写作用报告与数据
-生成日期 2026-10-28，2026-11-02 按霍尔数据更新。计算全部为理论计算；实验 S(T)、σ(T) 与室温霍尔为用户提供的实验值。
+生成日期 2026-10-28，2026-11-02 按霍尔数据更新，2026-11-04 过渡版（报告中标为 HSE 的 S 为暂用估计，见报告文首的版本说明）。计算全部为理论计算；实验 S(T)、σ(T) 与室温霍尔为用户提供的实验值。
 结构：问题一（PBE、HSE 能带与 S）用所给的四种 9 原子层状结构。问题二只算 Pb2Sb2Te5，用了三套缺陷计算：
 D（无序立方）、O（有序立方）为 144 原子岩盐超胞；L 为所给层状结构的 3×3×1 超胞（81 原子，早先一批）。见报告 1.1 节、图 1、表 1。
 
@@ -68,6 +72,9 @@ A2B2Te5_report.html    报告正文（用浏览器打开；图片从 figures/png
 A2B2Te5_report_单文件.html  同一报告，图片已嵌入，单独打开或转发都能显示
 figures/png/           图 1–11，600 dpi PNG（文件名的 FigN 即正文的图 N）
 figures/pdf/           图 1–11，矢量 PDF（字体已嵌入，英文 Times New Roman，公式 STIX）
+作图数据/              每幅图单独一个 Excel（文件名同 data/ 下的目录名；第一页“说明”写明每个子图用哪一页、横轴纵轴取哪一列，
+                       其后每个数据表一页，数值为数字格式，可直接在 Excel、Origin 中作图）；正文表格在 tables.xlsx
+data/作图数据索引.csv  同一份索引的 CSV（全部图）
 data/                  每幅图的源数据，即图中画出的数值，目录名与图文件名对应
   Fig1_structures/            O、D 两个 144 原子母胞的格点占位（每个格点的原子面、种类、坐标）与未弛豫 POSCAR；
                               所给的 9 原子层状结构 POSCAR（问题一的能带与 S 都用它）；图 1c、d 各原子面的高度与堆垛位置；
@@ -92,7 +99,7 @@ data/                  每幅图的源数据，即图中画出的数值，目录
                               Sn2Bi2Te5_c3_valley_check.csv：SnBi 价带谷 c3 拟合的梯度、主质量、驻点位移与是否采用
   Fig9_Pisarenko/             与实验对照的 Pisarenko 图：单抛物带参考线（m* = 0.1、0.3、1、3 m_e）；样品的霍尔浓度、S，
                               同一浓度下的计算 S，以及由此读出的态密度有效质量（实验与计算同口径，samples_Pisarenko_mass.csv，即表 7）
-  FigS3_S_vs_T/               附录 A：四个样品的实验 T、σ（S/m）、S 与室温霍尔；只调载流子浓度拟合的计算 S(T)；拟合浓度、与霍尔值之比、偏差（表 A1）
+  FigS3_S_vs_T/               附录 A：四个样品的实验 T、σ（S/m）、S 与室温霍尔；霍尔浓度下直接计算的 S(T)（不调参数）；最低、最高温的实验与计算值和偏差（表 A1）
   Fig10_formation_energies/   12 类缺陷逐位点的中性形成能（富 Te、贫 Te），两端化学势
   Fig11_ordering/             有序化引起的形成能变化 ΔE_f = E_f(O) − E_f(D)，逐位点与中位数
   FigS2_Gamma_levels_SOC/     Γ 点能级（PBE，有、无 SOC，SnSb 与 SnBi）与 Sb → Bi 变化的标量/SOC 拆分（10_脚本/soc_mechanism.py）
@@ -131,6 +138,8 @@ def package():
     for t in p.tables:
         with open(os.path.join(top, 'data', 'tables', t['name'] + '.csv'), 'w', newline='', encoding='utf-8-sig') as f:
             csv.writer(f).writerows(t['rows'])
+    nfile, nbook, nsheet = plot_data_index.build(os.path.join(top, 'data'), os.path.join(top, '作图数据'))
+    print(f'作图数据：{nfile} 个文件全部在索引里；{nbook} 个 Excel、{nsheet} 个工作表')
     html = re.sub(r'\{\{FIG:([^}]+)\}\}', lambda m: f'figures/png/{m.group(1)}.png', src)
     open(os.path.join(top, 'A2B2Te5_report.html'), 'w', encoding='utf-8').write(html)
     open(os.path.join(top, 'A2B2Te5_report_单文件.html'), 'w', encoding='utf-8').write(standalone)
