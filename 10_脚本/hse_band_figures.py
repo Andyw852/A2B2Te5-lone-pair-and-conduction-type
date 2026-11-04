@@ -135,7 +135,7 @@ def h1(out):
             for b in range(nel - 24, min(nel + 16, d['E'].shape[1])):
                 S, _ = segs(d, b, part=part)
                 if S: ax.add_collection(LineCollection(S, colors='#B2182B' if b >= nel else '#1F3A93', linewidths=0.9, zorder=3))
-        frame(axs, d, (-1.0, 1.0), f'{TEX[m]}     $E_g$ = {1000 * d["gap"]:.0f} meV', n)
+        frame(axs, d, (-1.0, 1.0), f'{TEX[m]}     $E_g$ = {1000 * d["gap"]:.0f} meV', n); mark_valleys(axs, d)
         axs[0][0].set_yticks(np.arange(-1.0, 1.01, 0.5))
         rows.append([m, r(1000 * d['gap'], 1), r(1000 * d['gap_path'], 1), r(1000 * d['shift'], 1)])
         dump_bands('H1_bands', d, [])
@@ -150,13 +150,13 @@ def h1(out):
 CMAP = CM['cation_s']          # 所有成分用同一种颜色（2026-11-04 用户要求统一）
 
 
-def fat(axs, d, key, ylim, title, wmax, n=None):
-    norm = Normalize(0, wmax); nel = d['nel']
+def fat(axs, d, key, ylim, title, wmax, n=None, cmap=None):
+    norm = Normalize(0, wmax); nel = d['nel']; cmap = cmap or CMAP
     for ax, part in axs:
         for b in range(nel - 24, min(nel + 16, d['E'].shape[1])):
             S, V = segs(d, b, key, part)
             if not S: continue
-            lc = LineCollection(S, cmap=CMAP, norm=norm, linewidths=0.4 + 2.6 * np.clip(V / wmax, 0, 1), capstyle='round', zorder=3)
+            lc = LineCollection(S, cmap=cmap, norm=norm, linewidths=0.4 + 2.6 * np.clip(V / wmax, 0, 1), capstyle='round', zorder=3)
             lc.set_array(np.clip(V, 0, wmax)); ax.add_collection(lc)
     frame(axs, d, ylim, title, n)
 
@@ -172,24 +172,69 @@ def h2(out):
     fig, gs = figure_cells(); every = []
     for n, m in enumerate(MATS):
         d = hse(m); axs = axes_for(fig, gs[n // 2, n % 2], d); every += [a for a, _ in axs]
-        fat(axs, d, 'cation_s', (-0.5, 0.5), f'{TEX[m]}     $E_g$ = {1000 * d["gap"]:.0f} meV', 0.30, n)
+        fat(axs, d, 'cation_s', (-0.5, 0.5), f'{TEX[m]}     $E_g$ = {1000 * d["gap"]:.0f} meV', 0.30, n); mark_valleys(axs, d)
         dump_bands('H2_cation_s', d, ['cation_s'])
     colorbar(fig, every, 0.30, 'Cation-s weight (%)')
     pf.save(fig, out, 'H2_cation_s')
 
 
+SITE_COL = {'A': pf.C_A, 'B': pf.C_B, 'Te': '#1A9850'}     # 按原子所在的位着色：A 位紫、B 位橙、Te 绿（与图 H3 一致）
+AREA = 70                                                     # 圆点面积（pt²）= AREA × 该轨道的比例
+
+
+def dots(ax, part, d, items):
+    """圆点 fat band：先画细灰线（能带本身），再叠圆点，面积 ∝ 轨道比例。所有成分的点按面积从大到小画，小点压在大点上面，
+    加白色细边，同一 k 点上几种轨道的贡献都看得见。"""
+    nel = d['nel']; bs = range(nel - 24, min(nel + 16, d['E'].shape[1]))
+    if part == 'main': x, E, c, sl = d['x'][:KEND + 1], d['E'][:KEND + 1], d['c'], slice(0, KEND + 1)
+    else: tp = d['tp']; x, E, c, sl = tp['x'], tp['E'], tp['c'], slice(None)
+    bs = [b for b in bs if b < E.shape[1]]
+    for b in bs: ax.plot(x, E[:, b], color='#B5B5B5', lw=0.5, zorder=1)
+    X, Y, S, C = [], [], [], []
+    for key, col in items:
+        W = c[key][sl]
+        for b in bs:
+            X.append(x); Y.append(E[:, b]); S.append(W[:, b]); C += [col] * len(x)
+    X, Y, S = np.concatenate(X), np.concatenate(Y), np.concatenate(S); C = np.array(C)
+    o = np.argsort(-S); o = o[S[o] > 0.02]
+    ax.scatter(X[o], Y[o], s=AREA * np.clip(S[o], 0, 1), c=C[o], alpha=0.75, edgecolors='white', linewidths=0.25, zorder=2, rasterized=True)
+
+
+def mark_valleys(axs, d):
+    """在最高价带上标出各谷（▼ 加名称，名称与图 H5、H6 相同；同论文图 3、图 5）。附加路径上标 Σ′、R₂′。"""
+    m, nel, x = d['m'], d['nel'], d['x']
+    for ax, part in axs:
+        if part == 'main':
+            for nm, _E, kind, i in pf.levels(m, true=False):
+                if kind == 'ref': continue
+                lead = (x[90] - 0.28, 0.10) if nm == 'Δ' or (nm == 'Γ' and d['gap'] < 0.1) else None
+                pf.vmark(ax, x[i], d['E'][i, nel - 1], nm, lead)
+        else:
+            for i, nm in d['tp']['labels'].items():
+                if nm in ('Σ′', 'R₂′'): pf.vmark(ax, d['tp']['x'][i], d['tp']['E'][i, nel - 1], nm)
+
+
 def h4(out):
+    """一张图：每种材料一行，左 s（A 位 s、B 位 s 叠在同一张能带图上），右 p（A 位 p、B 位 p、Te p 叠在一起）。
+    2026-11-04 用户要求：不同轨道的贡献画在同一张能带图里，s 单独一张。"""
+    fig = plt.figure(figsize=(W2, 10.6)); gs = fig.add_gridspec(4, 2, hspace=0.42, wspace=0.30, top=0.93)
     for j, m in enumerate(MATS):
         d = hse(m); A_, B_ = m[:2], m[3:5]
-        fig, gs = figure_cells(); every = []
-        for n, key in enumerate(('cation_s', 'A_p', 'B_p', 'Te_p')):
-            lab = {'cation_s': f'cation s ({A_}-s + {B_}-s)', 'A_p': f'A-site p ({A_})', 'B_p': f'B-site p ({B_})', 'Te_p': 'Te p'}[key]
-            axs = axes_for(fig, gs[n // 2, n % 2], d); every += [a for a, _ in axs]
-            fat(axs, d, key, (-0.8, 0.8), lab, 0.60, n)
-        fig.suptitle(f'{TEX[m]} (HSE06+SOC): orbital weights', fontsize=9, y=0.975)
-        colorbar(fig, every, 0.60, 'Orbital weight (%)')
+        ns = lambda e: {'Pb': '6s', 'Sn': '5s', 'Sb': '5s', 'Bi': '6s'}[e]
+        for col, (what, items) in enumerate((('s', [('A_s', SITE_COL['A']), ('B_s', SITE_COL['B'])]),
+                                             ('p', [('Te_p', SITE_COL['Te']), ('B_p', SITE_COL['B']), ('A_p', SITE_COL['A'])]))):
+            axs = axes_for(fig, gs[j, col], d)
+            for ax, part in axs: dots(ax, part, d, items)
+            title = (f'{TEX[m]}: s ({A_} {ns(A_)}, {B_} {ns(B_)})' if what == 's' else f'{TEX[m]}: p ({A_} p, {B_} p, Te p)')
+            frame(axs, d, (-0.8, 0.8), title, 2 * j + col)
+            if what == 's': mark_valleys(axs, d)
         dump_bands('H4_orbitals', d, ['cation_s', 'A_s', 'B_s', 'Te_s', 'A_p', 'B_p', 'Te_p'])
-        pf.save(fig, out, f'H4{"abcd"[j]}_orbitals_{m}')
+    hc = [Line2D([], [], ls='', marker='o', ms=6, color=SITE_COL['A'], alpha=0.6), Line2D([], [], ls='', marker='o', ms=6, color=SITE_COL['B'], alpha=0.6),
+          Line2D([], [], ls='', marker='o', ms=6, color=SITE_COL['Te'], alpha=0.6)]
+    hs = [Line2D([], [], ls='', marker='o', ms=np.sqrt(AREA * w), color='#777777', alpha=0.5) for w in (0.1, 0.3, 0.6)]
+    fig.legend(hc + hs, ['A site (Pb, Sn)', 'B site (Sb, Bi)', 'Te', '10%', '30%', '60%'], loc='lower center', ncol=6, bbox_to_anchor=(0.5, 0.945),
+               title='colour = atomic site;  dot area = orbital weight', title_fontsize=7, handletextpad=0.2, columnspacing=1.2)
+    pf.save(fig, out, 'H4_orbitals')
 
 
 # ------------------------------------------------------------------ H3：s 来自 A 位还是 B 位
@@ -204,7 +249,7 @@ def h3(out):
                 tot = A + Bs; w = np.clip(tot / 0.15, 0, 1)[:, None]
                 cols = w * np.array([pf.SITE_CMAP(norm(a / max(t, 1e-9))) for a, t in zip(A, tot)]) + (1 - w) * pf.GREY
                 ax.add_collection(LineCollection(S, colors=cols, linewidths=0.5 + 2.4 * np.clip(tot / 0.3, 0, 1), capstyle='round', zorder=3))
-        frame(axs, d, (-0.5, 0.5), f'{TEX[m]}     A = {m[:2]}, B = {m[3:5]}', n)
+        frame(axs, d, (-0.5, 0.5), f'{TEX[m]}     A = {m[:2]}, B = {m[3:5]}', n); mark_valleys(axs, d)
         dump_bands('H3_s_by_site', d, ['A_s', 'B_s', 'cation_s'])
     cb = fig.colorbar(plt.cm.ScalarMappable(norm=norm, cmap=pf.SITE_CMAP), ax=every, shrink=0.7, pad=0.02, aspect=30)
     cb.set_label('Share of cation-s on the A site'); cb.set_ticks([0, 0.5, 1], labels=['B only\n(Sb, Bi)', 'equal', 'A only\n(Pb, Sn)'])
