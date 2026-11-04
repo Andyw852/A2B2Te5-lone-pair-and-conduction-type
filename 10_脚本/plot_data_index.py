@@ -9,7 +9,7 @@
 
 单独运行（检查用）：python 10_脚本/plot_data_index.py <解压后的 data 目录> <输出目录>
 """
-import csv, fnmatch, os, re, sys
+import csv, shutil, fnmatch, os, re, sys
 
 # (图/表, 子图, 内容, 文件（相对 data/，可用通配符）, 横轴, 纵轴 / 颜色 / 分组, 说明)
 INDEX = [
@@ -221,7 +221,18 @@ def number(x):
         return x
 
 
-def build(data, out_dir):
+CATS = {   # 主报告压缩包的数据分类（2026-11-04 用户要求分门别类）：data/<类别>/<图目录>/，作图数据/<类别>/<图目录>.xlsx
+    'Fig1_structures': '01_结构',
+    'Fig2_bands_PBE_vs_HSE': '02_能带与轨道成分', 'Fig3_HSE_bands_cation_s': '02_能带与轨道成分', 'Fig4_cation_s_by_atom': '02_能带与轨道成分',
+    'Fig5_SnSb_vs_SnBi': '02_能带与轨道成分', 'FigS2_Gamma_levels_SOC': '02_能带与轨道成分',
+    'Fig6_valence_pockets': '03_价带谷与口袋', 'Fig7_lone_pair_valley': '03_价带谷与口袋', 'FigS1_mirror_plane': '03_价带谷与口袋',
+    'Fig8_Seebeck': '04_输运与实验对照', 'Fig9_S_vs_T': '04_输运与实验对照', 'Table8_Pisarenko_mass': '04_输运与实验对照', 'Fig10_Fermi_window': '04_输运与实验对照',
+    'Fig11_formation_energies': '05_缺陷与导电类型', 'Fig12_ordering': '05_缺陷与导电类型', 'L_layered_defects': '05_缺陷与导电类型',
+    'tables': '06_正文表格',
+}
+
+
+def build(data, out_dir, cats=None):
     """data：解压后的 data 目录；out_dir：放每幅图 Excel 的目录。写 data/作图数据索引.csv 与 out_dir/<图目录名>.xlsx。
     返回 (文件数, Excel 个数, 工作表数)。"""
     from openpyxl import Workbook
@@ -235,8 +246,17 @@ def build(data, out_dir):
     every = set(files_of(data, '*')) - {'作图数据索引.csv'}
     if every - listed:
         raise SystemExit('[ERROR] 这些文件不在索引里：%s' % sorted(every - listed))
+    cats = cats or {}
+    cat = lambda folder: cats.get(folder, '')
+    if cats:                                                   # 每个图目录移到 data/<类别>/ 下，索引与 Excel 里的路径跟着改
+        miss = sorted({r[3].split('/', 1)[0] for r in rows} - set(cats))
+        if miss: raise SystemExit('[ERROR] 这些目录没有分类：%s' % miss)
+        for folder in sorted({r[3].split('/', 1)[0] for r in rows}):
+            os.makedirs(os.path.join(data, cat(folder)), exist_ok=True)
+            shutil.move(os.path.join(data, folder), os.path.join(data, cat(folder), folder))
+    full = lambda rel: (cat(rel.split('/', 1)[0]) + '/' if cat(rel.split('/', 1)[0]) else '') + rel
     with open(os.path.join(data, '作图数据索引.csv'), 'w', newline='', encoding='utf-8-sig') as f:
-        w = csv.writer(f); w.writerow(HEAD); w.writerows(rows)
+        w = csv.writer(f); w.writerow(HEAD); w.writerows([r[:3] + (full(r[3]),) + r[4:] for r in rows])
 
     os.makedirs(out_dir, exist_ok=True); nbook = nsheet = 0
     for folder in sorted({r[3].split('/', 1)[0] for r in rows}):
@@ -255,19 +275,20 @@ def build(data, out_dir):
         for fig, panel, what, rel, x, y, note in mine:
             if rel.endswith('.csv') and rel not in sheets:
                 sheets[rel] = sheet_name(rel, used)
-            ix.append([fig, panel, what, 'data/' + rel, x, y, note, sheets.get(rel, '（不是表格，见 data/ 中的原文件）')])
+            ix.append([fig, panel, what, 'data/' + full(rel), x, y, note, sheets.get(rel, '（不是表格，见 data/ 中的原文件）')])
         for col, wd in zip('ABCDEFGH', (11, 10, 34, 52, 30, 40, 40, 24)):
             ix.column_dimensions[col].width = wd
         for row in ix.iter_rows(min_row=2):
             for c in row: c.alignment = Alignment(wrap_text=True, vertical='top')
         for rel, name in sheets.items():
-            ws = wb.create_sheet(name); ws.append(['来源：data/' + rel])
-            with open(os.path.join(data, rel), encoding='utf-8-sig') as f:
+            ws = wb.create_sheet(name); ws.append(['来源：data/' + full(rel)])
+            with open(os.path.join(data, full(rel)), encoding='utf-8-sig') as f:
                 for i, r in enumerate(csv.reader(f)):
                     ws.append(r if i == 0 else [number(v) for v in r])
             for c in ws[2]: c.font = Font(bold=True)
             ws.freeze_panes = 'A3'
-        wb.save(os.path.join(out_dir, folder + '.xlsx')); nbook += 1; nsheet += len(sheets)
+        os.makedirs(os.path.join(out_dir, cat(folder)), exist_ok=True)
+        wb.save(os.path.join(out_dir, cat(folder), folder + '.xlsx')); nbook += 1; nsheet += len(sheets)
     return len(listed), nbook, nsheet
 
 

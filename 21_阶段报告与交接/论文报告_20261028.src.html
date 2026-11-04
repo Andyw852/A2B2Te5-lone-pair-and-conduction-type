@@ -647,26 +647,28 @@ sup.r { font-size: 11px; color: var(--accent); }
 <p style="font-size:13px;color:#444">注：参考文献 [16] 的标题、全部作者请以原文为准，此处只列出可核对的期刊信息。投稿前请逐条核对卷期页码。</p>
 
 <h2 id="files">附：图与数据文件</h2>
-<p>与本报告一起打包。图号与文件名一一对应；每幅图的源数据（即图中画出的数值）在 <code>data/</code> 的同名目录中，均为 CSV（UTF-8，可直接用 Excel 或 Origin 打开）。</p>
-<p>同样的数据另按图各存一个 Excel，在 <code>作图数据/</code> 中，文件名同目录名，正文表格在 <code>tables.xlsx</code>。每个 Excel 的第一页“说明”写明每个子图用哪一页、横轴和纵轴取哪一列、按哪一列分组或着色；其后每个数据表一页，数值为数字格式。全部图的同一份索引另存为 <code>data/作图数据索引.csv</code>。</p>
+<p>与本报告一起打包。图号与文件名一一对应；每幅图的源数据（即图中画出的数值）在 <code>data/</code> 中，先按类别分子目录（01_结构、02_能带与轨道成分、03_价带谷与口袋、04_输运与实验对照、05_缺陷与导电类型、06_正文表格），每幅图再一个同名目录，均为 CSV（UTF-8，可直接用 Excel 或 Origin 打开）。下表第三列为完整路径。</p>
+<p>同样的数据另按图各存一个 Excel，在 <code>作图数据/</code> 中，按同样的类别分子目录，文件名同图目录名，正文表格在 <code>06_正文表格/tables.xlsx</code>。每个 Excel 的第一页“说明”写明每个子图用哪一页、横轴和纵轴取哪一列、按哪一列分组或着色；其后每个数据表一页，数值为数字格式。全部图的同一份索引另存为 <code>data/作图数据索引.csv</code>。</p>
 <table>
 <thead><tr><th>图</th><th>图文件（<code>figures/png</code>、<code>figures/pdf</code>）</th><th>源数据（<code>data/</code>）</th></tr></thead>
 <tbody>
-<tr><td>图 1、表 1</td><td><code>Fig1_structures</code></td><td><code>Fig1_structures/</code>：O、D 母胞的格点占位与未弛豫 POSCAR；所给层状结构的 POSCAR；(c)(d) 各原子面的高度与堆垛位置；三种结构的对比（表 1 的数值）</td></tr>
-<tr><td>图 2</td><td><code>Fig2_bands_PBE_vs_HSE</code></td><td><code>Fig2_bands_PBE_vs_HSE/</code>：每种材料、每种泛函的路径能带（相对该泛函的真实价带顶）；Sn 系另有附加路径 Γ–Σ′–R₂′–L（<code>*_true_valley_path_G-S-R2-L.csv</code>）；路径带隙、含附加路径的带隙、价带顶比路径高多少，以及 Γ 处最高价带、最低导带的能量与反转带隙（相对路径价带顶，<code>band_gaps_on_path.csv</code>）</td></tr>
-<tr><td>图 3</td><td><code>Fig3_HSE_bands_cation_s</code></td><td><code>Fig3_HSE_bands_cation_s/</code>：HSE 路径能带及每个 k 点、每条带的阳离子 s 成分（能量相对真实价带顶）；Sn 系另有穿过真实极大的附加路径 Γ–Σ′–R₂′–L（<code>*_true_valley_path_G-S-R2-L.csv</code>）</td></tr>
-<tr><td>图 4</td><td><code>Fig4_cation_s_by_atom</code></td><td><code>Fig4_cation_s_by_atom/</code>：HSE 路径能带上每个 k 点、每条带的 A、B、Te 的 s 成分；关键态（表 4）</td></tr>
-<tr><td>图 5</td><td><code>Fig5_SnSb_vs_SnBi_orbitals</code></td><td><code>Fig5_SnSb_vs_SnBi/</code>：两种材料路径能带上的 Sn-s、B-s、Sn-p、B-p、Te-p 投影；四个价带态的能量与成分，Γ 处最高价带与最低导带的能量与成分（<code>Gamma_states.csv</code>）（表 5）</td></tr>
-<tr><td>图 6</td><td><code>Fig6_valence_pockets_crossover</code></td><td><code>Fig6_valence_pockets/</code>：Sn₂Sb₂Te₅、Sn₂Bi₂Te₅ 全部价带口袋的位置（分数与笛卡尔坐标、所在面、能量、等价口袋数；<code>pocket_positions.csv</code>）；四种材料的价带能级（<code>levels_HSE.csv</code>）与谷间能量差 Δ<i>E</i> = <i>E</i><sub>Σ</sub> − <i>E</i><sub>Γ–A</sub>（<code>valley_offset_HSE.csv</code>），均为 HSE06+SOC）</td></tr>
-<tr><td>图 7</td><td><code>Fig7_lone_pair_valley_PBE_vs_HSE</code></td><td><code>Fig7_lone_pair_valley/</code>：最高孤对电子价带谷的能量、k 点与成分</td></tr>
-<tr><td>图 8、表 6</td><td><code>Fig8_Seebeck_vs_concentration</code></td><td><code>Fig8_Seebeck/</code>：四种材料 300 K 的 S 随载流子浓度（PBE+SOC + BoltzTraP2，<code>S_vs_concentration_300K.csv</code>）；表 6 的数值（<code>S_300K_table6.csv</code>）</td></tr>
-<tr><td>图 9、表 7</td><td><code>Fig9_S_vs_T_Hall</code></td><td><code>Fig9_S_vs_T/</code>：四个样品的实验 T、σ、S（<code>experiment_T_sigma_S.csv</code>）与室温霍尔（<code>hall_room_temperature.csv</code>）；霍尔浓度下的计算曲线（<code>calculated_S_T_at_Hall_conc.csv</code>）；最低、最高温的实验与计算值和偏差（<code>summary_at_Hall_conc.csv</code>，即表 7）</td></tr>
-<tr><td>表 8</td><td>（不作图）</td><td><code>Table8_Pisarenko_mass/</code>：样品的霍尔浓度、实验 S、同一浓度下的 PBE+SOC S，以及由此读出的有效质量（<code>samples_Pisarenko_mass.csv</code>）</td></tr>
-<tr><td>图 10</td><td><code>Fig10_Fermi_window_PBE</code></td><td><code>Fig10_Fermi_window/</code>：300 K 的化学势 µ 与 µ ± 3k<sub>B</sub>T、± 5k<sub>B</sub>T（霍尔浓度与 3×10¹⁹ cm⁻³，<code>chemical_potential_300K.csv</code>）；PBE+SOC 路径能带与阳离子 s 成分</td></tr>
-<tr><td>图 11</td><td><code>Fig11_defect_formation_energies</code></td><td><code>Fig11_formation_energies/</code>：逐位点中性形成能，两端化学势</td></tr>
-<tr><td>图 12</td><td><code>Fig12_ordering_induced_change</code></td><td><code>Fig12_ordering/</code>：逐位点与中位数 Δ<i>E</i><sub>f</sub></td></tr>
-<tr><td>表 10、表 11 的 L</td><td>—</td><td><code>L_layered_defects/</code>：早先一批层状相缺陷计算的原始结果（5 个化学势顶点下全部缺陷的形成能排名；原始 JSON，含各电荷态、化学势与载流子浓度）</td></tr>
-<tr><td>表 1–11</td><td>—</td><td><code>tables/</code>：正文表格</td></tr>
+<tr><td>图 1、表 1</td><td><code>Fig1_structures</code></td><td><code>01_结构/Fig1_structures/</code>：O、D 母胞的格点占位与未弛豫 POSCAR；所给层状结构的 POSCAR；(c)(d) 各原子面的高度与堆垛位置；三种结构的对比（表 1 的数值）</td></tr>
+<tr><td>图 2</td><td><code>Fig2_bands_PBE_vs_HSE</code></td><td><code>02_能带与轨道成分/Fig2_bands_PBE_vs_HSE/</code>：每种材料、每种泛函的路径能带（相对该泛函的真实价带顶）；Sn 系另有附加路径 Γ–Σ′–R₂′–L（<code>*_true_valley_path_G-S-R2-L.csv</code>）；路径带隙、含附加路径的带隙、价带顶比路径高多少，以及 Γ 处最高价带、最低导带的能量与反转带隙（相对路径价带顶，<code>band_gaps_on_path.csv</code>）</td></tr>
+<tr><td>图 3</td><td><code>Fig3_HSE_bands_cation_s</code></td><td><code>02_能带与轨道成分/Fig3_HSE_bands_cation_s/</code>：HSE 路径能带及每个 k 点、每条带的阳离子 s 成分（能量相对真实价带顶）；Sn 系另有穿过真实极大的附加路径 Γ–Σ′–R₂′–L（<code>*_true_valley_path_G-S-R2-L.csv</code>）</td></tr>
+<tr><td>图 4</td><td><code>Fig4_cation_s_by_atom</code></td><td><code>02_能带与轨道成分/Fig4_cation_s_by_atom/</code>：HSE 路径能带上每个 k 点、每条带的 A、B、Te 的 s 成分；关键态（表 4）</td></tr>
+<tr><td>图 5</td><td><code>Fig5_SnSb_vs_SnBi_orbitals</code></td><td><code>02_能带与轨道成分/Fig5_SnSb_vs_SnBi/</code>：两种材料路径能带上的 Sn-s、B-s、Sn-p、B-p、Te-p 投影；四个价带态的能量与成分，Γ 处最高价带与最低导带的能量与成分（<code>Gamma_states.csv</code>）（表 5）</td></tr>
+<tr><td>图 6</td><td><code>Fig6_valence_pockets_crossover</code></td><td><code>03_价带谷与口袋/Fig6_valence_pockets/</code>：Sn₂Sb₂Te₅、Sn₂Bi₂Te₅ 全部价带口袋的位置（分数与笛卡尔坐标、所在面、能量、等价口袋数；<code>pocket_positions.csv</code>）；四种材料的价带能级（<code>levels_HSE.csv</code>）与谷间能量差 Δ<i>E</i> = <i>E</i><sub>Σ</sub> − <i>E</i><sub>Γ–A</sub>（<code>valley_offset_HSE.csv</code>），均为 HSE06+SOC）</td></tr>
+<tr><td>图 7</td><td><code>Fig7_lone_pair_valley_PBE_vs_HSE</code></td><td><code>03_价带谷与口袋/Fig7_lone_pair_valley/</code>：最高孤对电子价带谷的能量、k 点与成分</td></tr>
+<tr><td>图 8、表 6</td><td><code>Fig8_Seebeck_vs_concentration</code></td><td><code>04_输运与实验对照/Fig8_Seebeck/</code>：四种材料 300 K 的 S 随载流子浓度（PBE+SOC + BoltzTraP2，<code>S_vs_concentration_300K.csv</code>）；表 6 的数值（<code>S_300K_table6.csv</code>）</td></tr>
+<tr><td>图 9、表 7</td><td><code>Fig9_S_vs_T_Hall</code></td><td><code>04_输运与实验对照/Fig9_S_vs_T/</code>：四个样品的实验 T、σ、S（<code>experiment_T_sigma_S.csv</code>）与室温霍尔（<code>hall_room_temperature.csv</code>）；霍尔浓度下的计算曲线（<code>calculated_S_T_at_Hall_conc.csv</code>）；最低、最高温的实验与计算值和偏差（<code>summary_at_Hall_conc.csv</code>，即表 7）</td></tr>
+<tr><td>表 8</td><td>（不作图）</td><td><code>04_输运与实验对照/Table8_Pisarenko_mass/</code>：样品的霍尔浓度、实验 S、同一浓度下的 PBE+SOC S，以及由此读出的有效质量（<code>samples_Pisarenko_mass.csv</code>）</td></tr>
+<tr><td>图 10</td><td><code>Fig10_Fermi_window_PBE</code></td><td><code>04_输运与实验对照/Fig10_Fermi_window/</code>：300 K 的化学势 µ 与 µ ± 3k<sub>B</sub>T、± 5k<sub>B</sub>T（霍尔浓度与 3×10¹⁹ cm⁻³，<code>chemical_potential_300K.csv</code>）；PBE+SOC 路径能带与阳离子 s 成分</td></tr>
+<tr><td>图 11</td><td><code>Fig11_defect_formation_energies</code></td><td><code>05_缺陷与导电类型/Fig11_formation_energies/</code>：逐位点中性形成能，两端化学势</td></tr>
+<tr><td>图 12</td><td><code>Fig12_ordering_induced_change</code></td><td><code>05_缺陷与导电类型/Fig12_ordering/</code>：逐位点与中位数 Δ<i>E</i><sub>f</sub></td></tr>
+<tr><td>图 S1</td><td><code>FigS1_mirror_plane_maps</code></td><td><code>03_价带谷与口袋/FigS1_mirror_plane/</code>：Sn 系镜面内最高价带的能量网格（c4，meV），真实极大与沿 k<sub>z</sub> 的切线</td></tr>
+<tr><td>图 S2</td><td><code>FigS2_Gamma_levels_SOC</code></td><td><code>02_能带与轨道成分/FigS2_Gamma_levels_SOC/</code>：Γ 点能级（PBE，有、无 SOC）与 Sb → Bi 变化的标量 / SOC 拆分</td></tr>
+<tr><td>表 10、表 11 的 L</td><td>—</td><td><code>05_缺陷与导电类型/L_layered_defects/</code>：早先一批层状相缺陷计算的原始结果（5 个化学势顶点下全部缺陷的形成能排名；原始 JSON，含各电荷态、化学势与载流子浓度）</td></tr>
+<tr><td>表 1–11</td><td>—</td><td><code>06_正文表格/tables/</code>：正文表格</td></tr>
 </tbody></table>
 <p>图与源数据由仓库中的 <code>10_脚本/paper_figures.py</code> 生成，PBE+SOC 的 BoltzTraP2 结果在 <code>22_能带基准_1-0/bt2_pbe_dense/</code>，打包由 <code>10_脚本/build_paper_report.py</code> 完成；每幅图的绘制方法见下节。</p>
 

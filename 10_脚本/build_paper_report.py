@@ -5,7 +5,7 @@
        A2B2Te5_report_20261028/
          A2B2Te5_report.html     A2B2Te5_report_单文件.html     README.txt
          figures/png/  figures/pdf/
-         data/Fig1_structures/ … data/Fig12_ordering/   （paper_figures.py 写出的源数据；表 8 的数据在 data/Table8_Pisarenko_mass/）
+         data/<类别>/Fig1_structures/ … data/<类别>/Fig12_ordering/   （paper_figures.py 写出的源数据，按 plot_data_index.CATS 分类）
          data/tables/                                 （正文表 1–11，从 HTML 中抽出）
          data/L_layered_defects/                      （早先一批层状相缺陷计算的原始结果，取自 03_缺陷形成能与PN型数据/Pb2Sb2Te5.zip）
          data/作图数据索引.csv                          （每幅图、每个子图用哪个文件、横轴纵轴取哪一列；10_脚本/plot_data_index.py）
@@ -73,10 +73,13 @@ A2B2Te5_report.html    报告正文（用浏览器打开；图片从 figures/png
 A2B2Te5_report_单文件.html  同一报告，图片已嵌入，单独打开或转发都能显示
 figures/png/           图 1–12、S1、S2，600 dpi PNG（文件名的 FigN 即正文的图 N）
 figures/pdf/           图 1–12、S1、S2，矢量 PDF（字体已嵌入，英文 Times New Roman，公式 STIX）
-作图数据/              每幅图单独一个 Excel（文件名同 data/ 下的目录名；第一页“说明”写明每个子图用哪一页、横轴纵轴取哪一列，
-                       其后每个数据表一页，数值为数字格式，可直接在 Excel、Origin 中作图）；正文表格在 tables.xlsx
+作图数据/<类别>/       每幅图单独一个 Excel（文件名同 data/ 下的图目录名；第一页“说明”写明每个子图用哪一页、横轴纵轴取哪一列，
+                       其后每个数据表一页，数值为数字格式，可直接在 Excel、Origin 中作图）；正文表格在 06_正文表格/tables.xlsx
 data/作图数据索引.csv  同一份索引的 CSV（全部图）
-data/                  每幅图的源数据，即图中画出的数值，目录名与图文件名对应
+data/<类别>/<图目录>/   每幅图的源数据，即图中画出的数值，图目录名与图文件名对应。类别：
+                       01_结构（图 1）；02_能带与轨道成分（图 2–5、S2）；03_价带谷与口袋（图 6、7、S1）；
+                       04_输运与实验对照（图 8–10、表 8）；05_缺陷与导电类型（图 11、12，L 层状相缺陷）；06_正文表格（表 1–11）
+                       下面按图目录逐个说明：
   Fig1_structures/            O、D 两个 144 原子母胞的格点占位（每个格点的原子面、种类、坐标）与未弛豫 POSCAR；
                               所给的 9 原子层状结构 POSCAR（问题一的能带与 S 都用它）；图 1c、d 各原子面的高度与堆垛位置；
                               三种结构的晶格、体积与能量对比（structure_comparison.csv，即表 1）
@@ -137,7 +140,7 @@ def package():
     for t in p.tables:
         with open(os.path.join(top, 'data', 'tables', t['name'] + '.csv'), 'w', newline='', encoding='utf-8-sig') as f:
             csv.writer(f).writerows(t['rows'])
-    nfile, nbook, nsheet = plot_data_index.build(os.path.join(top, 'data'), os.path.join(top, '作图数据'))
+    nfile, nbook, nsheet = plot_data_index.build(os.path.join(top, 'data'), os.path.join(top, '作图数据'), plot_data_index.CATS)
     print(f'作图数据：{nfile} 个文件全部在索引里；{nbook} 个 Excel、{nsheet} 个工作表')
     html = re.sub(r'\{\{FIG:([^}]+)\}\}', lambda m: f'figures/png/{m.group(1)}.png', src)
     open(os.path.join(top, 'A2B2Te5_report.html'), 'w', encoding='utf-8').write(html)

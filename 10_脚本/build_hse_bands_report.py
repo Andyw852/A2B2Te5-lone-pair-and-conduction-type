@@ -26,7 +26,7 @@ INDEX = [
     ('图 H3', '(a)–(d)', '阳离子 s 来自 A 位还是 B 位', 'H3_s_by_site/*_HSE06+SOC_path.csv', 'k_distance_1/A',
      'E-EVBM_eV；颜色按 A_s/(A_s+B_s)，线宽按 cation_s_percent', ''),
     ('图 H3', '(c)(d) 右段', '同上，附加路径', 'H3_s_by_site/*_true_valley_path_G-S-R2-L.csv', 'k_distance_1/A（图中 ×1.8）', '同上', ''),
-    ('图 H4', '左列 s、右列 p', '每种材料的 A 位 s、B 位 s（左），A 位 p、B 位 p、Te p（右）', 'H4_orbitals/*_HSE06+SOC_path.csv', 'k_distance_1/A',
+    ('图 H4、H4a–d', 'H4 左列 s、右列 p；H4a–d 每个成分一个子图', '每种材料的 A 位 s、B 位 s（左），A 位 p、B 位 p、Te p（右）', 'H4_orbitals/*_HSE06+SOC_path.csv', 'k_distance_1/A',
      'E-EVBM_eV；圆点面积按 A_s、B_s 或 A_p、B_p、Te_p（%）', '另列 cation_s、Te_s'),
     ('图 H4', 'Sn 系右侧小图', '同上，附加路径', 'H4_orbitals/*_true_valley_path_G-S-R2-L.csv', 'k_distance_1/A（图中 ×1.8）', '同上', ''),
     ('图 H5、表 3', '', '价带上的谷：能量、等价口袋数、k、阳离子 s、主轴有效质量', 'H5_valence_levels/valence_valleys_HSE06+SOC.csv',
@@ -48,8 +48,8 @@ METHODS = {
                     '颜色深浅与线宽都按阳离子 s；四个子图共用一个普通色柱，满刻度 30%，超过的按 30% 画。', 'hse_band_figures.h2'),
     'H3_s_by_site': ('图 H3', P + '；c7_true_path。', BAND + ' A 位 s、B 位 s 分别取离子 8–9、1–2 的 s 投影。',
                      '线宽按阳离子 s 总量；颜色按 A 位所占比例（紫 A、橙 B），阳离子 s < 15% 时变灰。', 'hse_band_figures.h3'),
-    'H4_orbitals': ('图 H4', P + '；c7_true_path。', BAND + ' p 成分为 p_x、p_y、p_z 投影之和。',
-                    '每种材料一行：左为 s（A 位 s、B 位 s 叠在同一张能带图上），右为 p（A 位 p、B 位 p、Te p 叠在一起）；圆点面积 ∝ 轨道比例，颜色按原子所在的位（A 紫、B 橙、Te 绿），同一 k 点上大的点先画；▼ 标出价带上的谷。', 'hse_band_figures.h4'),
+    'H4_orbitals': ('图 H4、H4a–d', P + '；c7_true_path。', BAND + ' p 成分为 p_x、p_y、p_z 投影之和。',
+                    '每种材料一行：左为 s（A 位 s、B 位 s 叠在同一张能带图上），右为 p（A 位 p、B 位 p、Te p 叠在一起）；圆点面积 ∝ 轨道比例，颜色按原子所在的位（A 紫、B 橙、Te 绿），同一 k 点上大的点先画；▼ 标出价带上的谷。H4a–d 为同一组数据：每种材料一张 3×2，A 位 s、B 位 s、A 位 p、B 位 p、Te p 各一个子图，按位着色的渐变（A 紫、B 橙、Te 绿），满刻度 50%。', 'hse_band_figures.h4、h4_each'),
     'H5_valence_levels': ('图 H5、表 3', P + '；Sn 系 c4_mirror_v3、c5_star、c6_local。',
                           'Γ–A 轴上的谷取路径上 Γ–A 段的最高价带；孤对电子谷：Sn 系取镜面搜索的真实极大，Pb 系取 Σ、R 线上阳离子 s ≥ 15% 的局部极大（路径值）。等价口袋数由 D3d 点群与时间反演展开。',
                           '每种材料一列，线为能级，右侧标名称、能量与 ×n；浅蓝底为 2k_BT（300 K）。', 'hse_band_figures.h5、valley_list'),
@@ -63,6 +63,10 @@ METHODS = {
                             '能级图：两种材料各两列（不加、加 SOC）；箭头为 SOC 把 p 态压低的量。', 'soc_mechanism.figure、hse_band_figures.h8'),
     'tables': ('正文表格', '本页 HTML 的表 1，以及 hse_band_figures.tables 生成的表 2–4。', '原样。', '（不作图）', 'hse_band_figures.tables'),
 }
+
+CATS = {'H1_bands': '01_能带与带隙', 'H2_cation_s': '02_轨道成分', 'H3_s_by_site': '02_轨道成分', 'H4_orbitals': '02_轨道成分',
+        'H5_valence_levels': '03_价带谷与口袋', 'H6_pockets': '03_价带谷与口袋', 'H7_mirror_plane': '04_镜面搜索',
+        'H8_Gamma_levels_SOC': '05_Γ点能级与SOC', 'tables': '06_正文表格'}
 
 
 class Tables(HTMLParser):
@@ -110,10 +114,11 @@ README = """A₂B₂Te₅ 的 HSE06+SOC 能带（专题），2026-11-04
 =====================================================
 HSE能带专题.html          报告（图片用相对路径，需与 figures/ 同目录）
 HSE能带专题_单文件.html    同上，图片已嵌入，可单独转发
-figures/png/  figures/pdf/  图 H1–H8（600 dpi PNG 与矢量 PDF），文件名即图号
-data/<图目录>/             每幅图的源数据（CSV，UTF-8），目录与图的对应见 data/作图数据索引.csv
-data/tables/               正文表 1–4
-作图数据/<图目录>.xlsx      同样的数据，每幅图一个 Excel；第一页“说明”为数据来源、处理与画法
+figures/png/  figures/pdf/  图 H1–H8、H4a–d（600 dpi PNG 与矢量 PDF），文件名即图号
+data/<类别>/<图目录>/      每幅图的源数据（CSV，UTF-8），目录与图的对应见 data/作图数据索引.csv。类别：
+                           01_能带与带隙（H1）；02_轨道成分（H2、H3、H4、H4a–d）；03_价带谷与口袋（H5、H6）；
+                           04_镜面搜索（H7）；05_Γ点能级与SOC（H8、表 4）；06_正文表格（表 1–4）
+作图数据/<类别>/<图目录>.xlsx  同样的数据，每幅图一个 Excel；第一页“说明”为数据来源、处理与画法
 
 全部为 HSE06+SOC，只有图 H8（SOC 机制）目前是 PBE：HSE 不加 SOC 的计算见仓库 22_能带基准_1-0/SOC机制检验_HSE/。
 能量零点为真实价带顶；Sn 系的孤对电子谷取镜面内三维搜索的真实极大。
@@ -140,7 +145,7 @@ def main():
         os.makedirs(os.path.join(top, 'figures', ext))
         for f in sorted(glob.glob(os.path.join(FIGS, f'H*.{ext}'))): shutil.copy(f, os.path.join(top, 'figures', ext))
     shutil.copytree(DATA, os.path.join(top, 'data'))
-    nfile, nbook, nsheet = pdi.build(os.path.join(top, 'data'), os.path.join(top, '作图数据'))
+    nfile, nbook, nsheet = pdi.build(os.path.join(top, 'data'), os.path.join(top, '作图数据'), CATS)
     print(f'作图数据：{nfile} 个文件全部在索引里；{nbook} 个 Excel、{nsheet} 个工作表')
     open(os.path.join(top, 'HSE能带专题.html'), 'w', encoding='utf-8').write(re.sub(r'\{\{FIG:([^}]+)\}\}', lambda m: f'figures/png/{m.group(1)}.png', src))
     open(os.path.join(top, 'HSE能带专题_单文件.html'), 'w', encoding='utf-8').write(standalone)

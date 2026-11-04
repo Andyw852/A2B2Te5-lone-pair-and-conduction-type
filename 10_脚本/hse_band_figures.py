@@ -237,6 +237,34 @@ def h4(out):
     pf.save(fig, out, 'H4_orbitals')
 
 
+SITE_CM = {'A': CM['A_p'], 'B': CM['B_p'], 'Te': CM['Te_p']}   # H4a–d：按原子所在的位着色的渐变（A 位紫、B 位橙、Te 绿）
+W4 = 0.50                                                     # H4a–d 五个子图同一刻度，超过的按满刻度画
+
+
+def h4_each(out):
+    """H4a–d：每种材料一张 3×2，(a) A 位 s，(b) B 位 s，(c) A 位 p，(d) B 位 p，(e) Te p，(f) 色柱；s 子图标出价带谷。
+    与总览图 H4 同一组数据，用户要求两种画法都保留（2026-11-04）。"""
+    for j, m in enumerate(MATS):
+        d = hse(m); A_, B_ = m[:2], m[3:5]
+        ns = lambda e: {'Pb': '6s', 'Sn': '5s', 'Sb': '5s', 'Bi': '6s'}[e]
+        fig = plt.figure(figsize=(W2, 7.9)); gs = fig.add_gridspec(3, 2, hspace=0.42, wspace=0.30)
+        panels = [('A_s', f'A-site s ({A_} {ns(A_)})', 'A'), ('B_s', f'B-site s ({B_} {ns(B_)})', 'B'),
+                  ('A_p', f'A-site p ({A_})', 'A'), ('B_p', f'B-site p ({B_})', 'B'), ('Te_p', 'Te p', 'Te')]
+        for n, (key, lab, site) in enumerate(panels):
+            axs = axes_for(fig, gs[n // 2, n % 2], d)
+            fat(axs, d, key, (-0.8, 0.8), lab, W4, n, SITE_CM[site])
+            if key.endswith('_s'): mark_valleys(axs, d)
+        al = fig.add_subplot(gs[2, 1]); al.axis('off')
+        for i, (site, lab) in enumerate((('A', f'A site ({A_}): s and p'), ('B', f'B site ({B_}): s and p'), ('Te', 'Te: p'))):
+            cax = al.inset_axes([0.12, 0.78 - 0.32 * i, 0.76, 0.08])
+            cb = fig.colorbar(plt.cm.ScalarMappable(norm=Normalize(0, W4), cmap=SITE_CM[site]), cax=cax, orientation='horizontal')
+            t = np.arange(0, W4 + 1e-9, 0.1); cb.set_ticks(t, labels=[f'{100 * v:.0f}' for v in t])
+            cb.ax.tick_params(direction='in', length=2, width=0.6, labelsize=6.5); cb.outline.set_linewidth(0.6)
+            cax.set_title(lab + ' — orbital weight (%)', fontsize=7, pad=2)
+        fig.suptitle(f'{TEX[m]} (HSE06+SOC): orbital weights', fontsize=9, y=0.94)
+        pf.save(fig, out, f'H4{"abcd"[j]}_orbitals_{m}')
+
+
 # ------------------------------------------------------------------ H3：s 来自 A 位还是 B 位
 def h3(out):
     norm = Normalize(0, 1); fig, gs = figure_cells(); every = []
@@ -509,7 +537,7 @@ def tables(out):
     return key
 
 
-FIGS = {'H1': h1, 'H2': h2, 'H3': h3, 'H4': h4, 'H5': h5, 'H6': h6, 'H7': h7, 'H8': h8, 'T': tables}
+FIGS = {'H1': h1, 'H2': h2, 'H3': h3, 'H4': h4, 'H4x': h4_each, 'H5': h5, 'H6': h6, 'H7': h7, 'H8': h8, 'T': tables}
 
 
 def main():
