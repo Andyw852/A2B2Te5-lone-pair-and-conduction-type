@@ -60,9 +60,12 @@ def main():
                 if not re.fullmatch(f'{el}Te\\d+', name): continue
                 y = arr(b['y']); occ = y <= 0; tot = arr(b['x']); I = float(np.trapezoid(tot[occ], y[occ]))
                 if I > -0.3: continue                                           # 远距离的弱相互作用不要
-                # 这组含几根键：∫ / (K·ICOHP) 最接近整数 n 的那根键
-                best = min(((abs(I / (K * n) - r[3]), n, r) for r in ref for n in (1, 2, 3)), key=lambda q: q[0])
-                _, n, r = best; sc = 1.0 / (K * n)
+                # 这组含几根键、是哪几根：组内 n 根键（可重复取同一行）的 ICOHP 平均最接近 ∫/(K·n) 的组合。
+                # 2026-11-05 审核：Pb 系的 A 位组含两根长度几乎相同的键（3.20 + 3.21、3.21 + 3.22 Å），曲线是两者的平均，不是单根键
+                from itertools import combinations_with_replacement as cwr
+                best = min(((abs(I / (K * n) - np.mean([q[3] for q in c])), n, c) for n in (1, 2, 3) for c in cwr(ref, n)), key=lambda q: q[0])
+                _, n, grp = best; sc = 1.0 / (K * n); r = min(grp, key=lambda q: q[2])
+                lens = '+'.join(f'{q[2]:.2f}' for q in sorted(grp, key=lambda q: q[2]))
                 parts, last = contributions(g, len(y))
                 assert np.allclose(last, tot, atol=1e-6), (m, name)
                 cols = {'total': -sc * tot}
@@ -70,16 +73,18 @@ def main():
                     cols[k] = -sc * parts.get(k, 0 * tot)
                 f = os.path.join(OUT, f'{m}_{site}-Te_{r[2]:.2f}A.csv')
                 with open(f, 'w', newline='', encoding='utf-8-sig') as fh:
-                    w = csv.writer(fh); w.writerow(['E-EF_eV'] + [f'-COHP_{k}_per_eV_per_bond' for k in cols])
+                    # 单位：COHP 对能量（eV）积分得 ICOHP（eV/键），所以 COHP 本身是“每根键”的无量纲量（eV/eV），不是 eV⁻¹
+                    w = csv.writer(fh); w.writerow(['E-EF_eV'] + [f'-COHP_{k}_per_bond' for k in cols])
                     for i in range(len(y)): w.writerow([round(float(y[i]), 4)] + [round(float(cols[k][i]), 5) for k in cols])
                 integ = lambda v, lo=-99: float(np.trapezoid(v[occ & (y >= lo)], y[occ & (y >= lo)]))
-                summ.append([m, site, el, f'{r[2]:.2f}', name, n, round(r[3], 4), round(-integ(cols['total']), 4)]
+                summ.append([m, site, el, f'{r[2]:.2f}', lens, name, n, round(float(np.mean([q[3] for q in grp])), 4), round(-integ(cols['total']), 4)]
                             + [round(-integ(cols[k]), 4) for k in list(cols)[1:]] + [round(-integ(cols['cation_s-Te_p'], -1.0), 4)])
-                print(f'{m} {el}–Te {r[2]:.2f} Å ({name}, {n} bond/group): ICOHP total {-integ(cols["total"]):+.3f} (bond_info {r[3]:+.3f}); '
+                print(f'{m} {el}–Te {lens} Å ({name}, {n} bond/group): ICOHP total {-integ(cols["total"]):+.3f} (bond_info {np.mean([q[3] for q in grp]):+.3f}); '
                       f's–p {-integ(cols["cation_s-Te_p"]):+.3f}, p–p {-integ(cols["cation_p-Te_p"]):+.3f}, s–p in top 1 eV {-integ(cols["cation_s-Te_p"], -1.0):+.3f} eV')
     with open(os.path.join(OUT, 'summary.csv'), 'w', newline='', encoding='utf-8-sig') as fh:
         w = csv.writer(fh)
-        w.writerow(['material', 'site', 'cation', 'bond_length_A', 'cogito_bond_id', 'bonds_in_group', 'ICOHP_bond_info_eV', 'ICOHP_total_eV',
+        w.writerow(['material', 'site', 'cation', 'bond_length_A', 'bond_lengths_in_group_A', 'cogito_bond_id', 'bonds_in_group',
+                    'ICOHP_bond_info_eV (mean over the bonds in the group)', 'ICOHP_total_eV',
                     'ICOHP_cation_s-Te_p_eV', 'ICOHP_cation_p-Te_s_eV', 'ICOHP_cation_p-Te_p_eV', 'ICOHP_cation_s-Te_s_eV', 'ICOHP_cation_d-Te_p_eV',
                     'ICOHP_cation_d-Te_s_eV', 'ICOHP_cation_s-Te_p_within_1eV_below_EF_eV'])
         w.writerows(summ)

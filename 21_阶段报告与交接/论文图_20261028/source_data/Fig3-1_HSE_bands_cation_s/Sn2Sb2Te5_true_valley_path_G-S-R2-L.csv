@@ -1,4 +1,4 @@
-﻿i,k_distance_1/A,label,band,E-EVBM_true_eV,cation_s_percent
+﻿i,k_distance_1/A,label,band,E-EVBM_eV,cation_s_percent
 0,0.0,Γ,band_61,-1.46959,0.0
 1,0.01482,,band_61,-1.47995,0.0
 2,0.02964,,band_61,-1.50824,0.37

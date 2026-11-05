@@ -69,14 +69,14 @@ def fig8_1(out):
             ax.plot(NS, np.where(v > 0, v, np.nan), color=pf.MCOL[m], lw=1.1, marker=pf.MMARK[m], ms=4.2,
                     markevery=(3 * MATS.index(m) % 6, 6), label=TEX[m], zorder=3)
             if (v < 0).any(): ax.plot(NS, np.where(v < 0, -v, np.nan), color=pf.MCOL[m], lw=1.1, ls=(0, (1, 1.4)), zorder=3)
-            rows += [[m, 'pn'[i], f'{N:.3e}', r(x, 2)] for N, x in zip(NS, v)]
+            rows += [[m, 'pn'[i], f'{N:.6e}', r(sign * x, 2), 'yes' if x < 0 else 'no'] for N, x in zip(NS, v)]   # 写带符号的 S（n 型为负）
         style_sn(ax, sign, f'{"p" if sign > 0 else "n"}-type, 300 K, HSE06+SOC + BoltzTraP2'); panel(ax, f'({"ab"[i]})')
     A[0].legend(*A[0].get_legend_handles_labels(), loc='lower left', fontsize=6.5, handlelength=2.2, labelspacing=0.3)
-    if any(float(x[3]) < 0 for x in rows):
+    if any(x[4] == 'yes' for x in rows):
         A[1].text(0.34, 0.04, 'dotted: $S>0$ despite net electrons\n(bipolar, holes dominate $S$)', transform=A[1].transAxes,
                   ha='left', va='bottom', fontsize=6.3, color='#222222', linespacing=1.15, bbox=dict(fc='white', ec='none', pad=0.5))
     dump('Fig8-1_Seebeck_HSE', 'S_vs_concentration_300K_HSE.csv', ['material', 'carrier_type', 'net_concentration_cm-3',
-         'S_HSE06+SOC_BoltzTraP2_uV/K, sign of majority carrier positive (negative = S has changed sign, bipolar)'], rows)
+         'S_uV/K (HSE06+SOC + BoltzTraP2, signed: p > 0, n < 0)', 'S_has_changed_sign_bipolar (plotted dotted)'], rows)
     save(fig, out, 'Fig8-1_Seebeck_vs_concentration_HSE')
 
 
@@ -99,7 +99,7 @@ def fig8_2(out):
                 v = np.array([sign * f(sign * N, it) for N in NS])
                 ax.plot(NS, np.where(v > 0, v, np.nan), color=COL[fn], lw=1.3 if fn == 'HSE' else 1.0, ls=ls, zorder=3 if fn == 'HSE' else 2)
                 if (v < 0).any(): ax.plot(NS, np.where(v < 0, -v, np.nan), color=COL[fn], lw=0.8, ls=(0, (1, 1.4)), zorder=2)
-                rows += [[m, fn, 'pn'[sign < 0], f'{N:.3e}', r(x, 2)] for N, x in zip(NS, v)]
+                rows += [[m, FN[fn], 'pn'[sign < 0], f'{N:.6e}', r(sign * x, 2), 'yes' if x < 0 else 'no'] for N, x in zip(NS, v)]
         h = pf.HALL[m]; ax.axvline(abs(h['N']), color='#BBBBBB', lw=0.8, zorder=0)
         ax.text(abs(h['N']) * 0.9, 4, 'Hall', rotation=90, ha='right', va='bottom', fontsize=6.0, color='#777777')
         style_sn(ax, 0, f'{TEX[m]}, 300 K'); ax.set_ylabel(r'$|S|$ (μV K$^{-1}$)'); panel(ax, f'({"abcd"[n]})')
@@ -108,7 +108,7 @@ def fig8_2(out):
     fig.legend(hh, ['HSE06+SOC', 'PBE+SOC', 'p-type', 'n-type (|S|)', 'S has changed sign (bipolar)'], loc='lower center', ncol=5,
                bbox_to_anchor=(0.5, 0.935), columnspacing=1.2, handlelength=2.4)
     dump('Fig8-2_Seebeck_HSE_vs_PBE', 'S_vs_concentration_300K_HSE_and_PBE.csv', ['material', 'functional', 'carrier_type', 'net_concentration_cm-3',
-         'S_uV/K, sign of majority carrier positive (negative = S has changed sign, bipolar)'], rows)
+         'S_uV/K (BoltzTraP2, signed: p > 0, n < 0)', 'S_has_changed_sign_bipolar (plotted dotted)'], rows)
     save(fig, out, 'Fig8-2_Seebeck_vs_concentration_HSE_vs_PBE')
 
 
@@ -159,6 +159,24 @@ def fig9_2(out): fig9(out, ('HSE', 'PBE'), 'Fig9-2_S_vs_T_Hall_HSE_vs_PBE', 'Fig
 
 
 # ------------------------------------------------------------------ 表 6、7、8（HSE 与 PBE）
+def single_valley(m, N):
+    """表 8 参照列：样品载流子所在带边的单个谷的态密度质量 (m1 m2 m3)^(1/3)（HSE06+SOC）。2026-11-05 审核后改为由数据算出（原为手写常数，
+    Sn₂Bi₂Te₅ 写的 0.13 实为 R₂′ 的值）：价带顶在路径外的（Sn₂Bi₂Te₅ 的 Σ′）取 c5 星形拟合的三个主质量；Γ 处的谷取
+    <材料>/c2_谷与有效质量.txt 中 c2_hse 的 Γ–M、Γ–K、Γ–A 质量。返回 (质量, 谷名, 三个质量, 来源)。"""
+    tv = pf.true_valleys(m)
+    if N > 0 and tv and tv['valleys'][0]['E'] > -0.5:           # 真实价带顶就是路径外的孤对电子谷
+        t = tv['valleys'][0]; p = sorted(t['principal'])
+        return float(np.prod(p) ** (1 / 3)), t['name'] + ' (VBM pocket)', p, 'c5_star principal masses'
+    f = os.path.join(pf.rf.base(m), 'c2_谷与有效质量.txt'); want = '价带' if N > 0 else '导带'; ms = {}; on = False
+    for l in open(f, encoding='utf-8'):
+        if l.startswith('#'): on = f'{m} c2_hse' in l; continue
+        if on and l.startswith(want) and l.split()[1] in ('0', '90'):
+            for d, v in __import__('re').findall(r'Γ–([MKA]) ([\d.]+)', l): ms[d] = float(v)
+    p = [ms['M'], ms['K'], ms['A']]
+    return float(np.prod(p) ** (1 / 3)), ('Γ valence band' if N > 0 else 'Γ conduction band'), p, 'c2_hse path masses (Γ–M, Γ–K, Γ–A)'
+
+
+
 def tables_hse_pbe(out):
     T0 = 300; t6, t7, t8 = [], [], []
     for m in MATS:
@@ -179,13 +197,14 @@ def tables_hse_pbe(out):
         n0 = abs(h['N']); S0 = abs(d[0][1]); comp = m == 'Pb2Sb2Te5'; rm = [m, f'{h["N"]:.3e}', r(d[0][1], 2), '' if comp else r(pf.spb_mass(S0, n0, T0), 3)]
         for fn in ('HSE', 'PBE'):
             T, f = LOAD[fn](m); s = f(h['N'], list(T).index(T0)); rm += [r(s, 1), r(pf.spb_mass(abs(s), n0, T0), 3)]
-        rm += [pf.SINGLE[m][0]]; t8.append(rm)
+        sv = single_valley(m, h['N']); rm += [r(sv[0], 3), sv[1], ' / '.join(f'{q:.3f}' for q in sv[2]), sv[3]]; t8.append(rm)
     dump('Table6_S_300K', 'S_300K_HSE_and_PBE.csv', ['material'] + [f'{fn}_{c}' for fn in ('HSE', 'PBE') for c in
          ('S_p_3e19_uV/K', 'S_p_1e20_uV/K', 'S_n_3e19_uV/K', 'S_n_1e20_uV/K')], t6)
     dump('Table7_S_T_at_Hall', 'S_T_at_Hall_HSE_and_PBE.csv', ['material', 'type', 'Hall_conc_signed_cm-3', 'Hall_flagged', 'T_low_K', 'S_exp_low_uV/K',
          'S_HSE_low_uV/K', 'S_PBE_low_uV/K', 'T_high_K', 'S_exp_high_uV/K', 'S_HSE_high_uV/K', 'S_PBE_high_uV/K', 'rms_HSE_uV/K', 'rms_PBE_uV/K'], t7)
     dump('Table8_Pisarenko_mass', 'samples_Pisarenko_mass_HSE_and_PBE.csv', ['material', 'Hall_conc_signed_cm-3', 'S_exp_300K_uV/K', 'm_DOS_exp_SPB_me',
-         'S_HSE_at_Hall_uV/K', 'm_DOS_HSE_SPB_me', 'S_PBE_at_Hall_uV/K', 'm_DOS_PBE_SPB_me', 'single_valley_m_DOS_HSE_band_fit_me'], t8)
+         'S_HSE_at_Hall_uV/K', 'm_DOS_HSE_SPB_me', 'S_PBE_at_Hall_uV/K', 'm_DOS_PBE_SPB_me', 'single_valley_m_DOS_HSE_me (geometric mean)',
+         'single_valley', 'single_valley_masses_me', 'single_valley_mass_source'], t8)
     return t6, t7, t8
 
 
@@ -282,7 +301,7 @@ def fig10_2(out):
             u = B['mu'](NH)
             for a in (ax, at):
                 if a is not None: a.axhline(u, color=COL[fn], lw=1.6, ls=(0, (5, 2)), zorder=5, alpha=0.9)
-            rows.append([m, FN[fn], f'{NH:.3e}', r(1000 * u, 1), r(1000 * B['gap'], 1)])
+            rows.append([m, FN[fn], f'{NH:.3e}', r(1000 * u, 1), r(1000 * B['gap'], 1), r(1000 * B['resid'], 2)])
         for a in (ax, at):
             if a is not None: a.axhline(0, color='k', lw=0.5, ls=':', zorder=1)
         pf.kticks(ax, x); ax.set_ylim(-0.62, 0.52); ax.set_yticks(np.arange(-0.5, 0.51, 0.25)); ax.set_ylabel(r'$E - E_{\mathrm{VBM}}$ (eV)', labelpad=2)
@@ -293,7 +312,7 @@ def fig10_2(out):
                ['HSE06+SOC bands', 'PBE+SOC bands', r'$\mu$ at the Hall concentration, 300 K (colour = functional)'],
                loc='lower center', ncol=3, bbox_to_anchor=(0.5, 0.925), columnspacing=1.4, handlelength=2.6)
     dump('Fig10-2_Fermi_window_HSE_vs_PBE', 'chemical_potential_300K_Hall_HSE_and_PBE.csv',
-         ['material', 'functional', 'Hall_conc_signed_cm-3', 'mu-EVBM_meV (own VBM)', 'Eg_meV'], rows)
+         ['material', 'functional', 'Hall_conc_signed_cm-3', 'mu-EVBM_meV (own VBM)', 'Eg_meV', 'alignment_residual_VB-CB_meV'], rows)
     save(fig, out, 'Fig10-2_Fermi_window_HSE_vs_PBE')
     return rows
 

@@ -64,6 +64,7 @@ sup.r { font-size: 11px; color: var(--accent); }
   <li><b>新增 COHP</b>（图 3-2）：孤对电子是被填满的阳离子 s–Te p 反键态。</li>
   <li><b>HSE 能带专题并入本报告</b>，不再单独成册：图 2-1（HSE 能带）、图 4-2 与图 S3a–d（各轨道成分）、图 6-1（价带谷能级）、图 6-2（口袋在布里渊区中的位置）、图 S1（镜面内的真实极大）。</li>
   <li><b>图号</b>：原图 2 改为 2-2，图 3 改为 3-1，图 4 改为 4-1，原图 6 拆成 6-1、6-2；图与数据目录同名。</li>
+  <li><b>作图数据逐项核对</b>（11-05）：每个数据表都从原始计算（path_eigen、PROCAR、BoltzTraP2、COGITO、缺陷能量）与实验原始表独立重算比对。改正：图 5 的能带数据原以路径价带顶为零点、与图不符（Sn₂Bi₂Te₅ 差 38 meV）；图 6-1 的有效质量原为沿固定轴的质量，改为主质量；表 8 中 Sn₂Bi₂Te₅ 的单谷质量由 0.13 改为 0.12（价带顶的 Σ′）；图 3-2 的 COHP 单位改正，并注明 Pb 系 A 位为两根键的平均。</li>
   <li><b>Excel 重新生成</b>：改用另一种写法（不合并单元格、不写工作簿保护、数值一律为数字），每个文件生成后都读回检查。</li>
   </ul></li>
 <li><b>不变的部分</b>：问题二的缺陷计算、实验数据。Pb₂Sb₂Te₅ 的 S 以原始数据表为准。</li>
@@ -105,7 +106,7 @@ sup.r { font-size: 11px; color: var(--accent); }
   <ul>
   <li>两个 Sn 样品（p 型）：在霍尔浓度下、不调参数，300–620 K 的均方根偏差 HSE 为 3.6–3.7 µV/K，PBE 为 4.8–6.9 µV/K。</li>
   <li>Pb₂Bi₂Te₅（n 型）：约 300 K 时 PBE −89.2 对实验 −89.5 µV/K，HSE 只有 −42.8。HSE 的导带只有 Γ 单谷；PBE 的导带底 23 meV 内有三个谷，含以 Bi-p 为主的 A 谷。n 型载流子不只在 Γ 处的孤对电子 s 态里。</li>
-  <li>由 S 与霍尔浓度读出的态密度有效质量为 0.84–1.35 <i>m</i><sub>e</sub>，是单个谷的 4–10 倍，载流子分布在多个谷中。</li>
+  <li>由 S 与霍尔浓度读出的态密度有效质量为 0.84–1.35 <i>m</i><sub>e</sub>，是单个谷的 4–11 倍，载流子分布在多个谷中。</li>
   <li>样品的浓度高（约 10²¹ cm⁻³），化学势已深入能带（两个 Sn 样品在 HSE 价带顶以下 0.23–0.48 eV，即 9–19 <i>k</i><sub>B</sub><i>T</i>，图 10-1），S 取样的是各个谷合起来的态密度，所以两种泛函只差 3–8 µV/K。反过来，这些样品检验不了带边的细节，要靠约 3×10¹⁹ cm⁻³ 的 p 型样品。</li>
   </ul></li>
 <li><b>Sb → Bi</b>：Bi 6p 的自旋–轨道耦合把 Γ 处以 B 位 p 为主的价带态压低约 200 meV（图 S2），Sn₂Bi₂Te₅ 的价带顶变为孤对电子多谷。
@@ -242,7 +243,7 @@ sup.r { font-size: 11px; color: var(--accent); }
 <p><b>为什么说是“反键”：COHP（图 3-2）。</b>晶体轨道哈密顿布居（COHP）把每根键的能带能量按能量、按轨道对拆开：−COHP 为正是成键，为负是反键；积分到费米能级得 ICOHP（正值为净反键）。用 COGITO 对四种材料最短的 A–Te、B–Te 键做了轨道分辨的 COHP（PBE、不加 SOC、所给结构，<code>06_COGITO成键分析与COHP</code>）。</p>
 <figure>
 <img src="{{FIG:Fig3-2_COHP_cation_s_Te_p}}" alt="Fig. 3-2">
-<figcaption><b>图 3-2</b> <b>孤对电子是填满的阳离子 s–Te p 反键态，位于价带顶。</b>阳离子–Te 键的轨道分辨 −COHP（正为成键，负为反键，单位 eV⁻¹·键⁻¹）。上排 A 位–Te（Pb、Sn），下排 B 位–Te（Sb、Bi），每种材料取最短的键。紫、橙为阳离子 s–Te p，反键一侧填色；灰为阳离子 p–Te p；黑细线为该键的总 COHP；虚线为费米能级（价带顶附近）。框内为积分到 E_F 的 ICOHP（eV/键，正为反键）。PBE、不加 SOC（COGITO），横轴左侧 −6 附近的大峰是 E_F 以上的空态。</figcaption>
+<figcaption><b>图 3-2</b> <b>孤对电子是填满的阳离子 s–Te p 反键态，位于价带顶。</b>阳离子–Te 键的轨道分辨 −COHP（正为成键，负为反键；每根键，对能量积分即 ICOHP，单位 eV/键）。上排 A 位–Te（Pb、Sn），下排 B 位–Te（Sb、Bi），每种材料取最短的键；Pb 系的 A 位有两根几乎等长的 Pb–Te 键（3.20 与 3.21 Å、3.21 与 3.22 Å），COGITO 把它们归为一组，图中为两根键的平均。紫、橙为阳离子 s–Te p，反键一侧填色；灰为阳离子 p–Te p；黑细线为该键的总 COHP；虚线为费米能级（价带顶附近）。框内为积分到 E_F 的 ICOHP（eV/键，正为反键）。PBE、不加 SOC（COGITO），横轴左侧 −6 附近的大峰是 E_F 以上的空态。</figcaption>
 </figure>
 <ul>
 <li><b>s–p 反键态被填满，而且就在价带顶</b>：阳离子 s–Te p 的反键峰在价带顶以下 0–1.5 eV（填色部分）。积分到 E_F，A 位 s–Te p 为 +0.73 到 +0.82 eV/键，B 位 +1.31 到 +1.46 eV/键，均为净反键；对应的成键部分在价带深处（−7 到 −9 eV，阳离子 s 带）。</li>
@@ -490,17 +491,17 @@ sup.r { font-size: 11px; color: var(--accent); }
 <img src="{{FIG:Fig10-2_Fermi_window_HSE_vs_PBE}}" alt="Fig. 10-2">
 <figcaption><b>图 10-2</b> <b>两种泛函下样品的化学势各在哪里。</b>HSE06+SOC（蓝实线）与 PBE+SOC（橙虚线）能带，各以本泛函的真实价带顶为零点；同色长虚线为各自在样品霍尔浓度下 300 K 的 µ。PBE 的 µ 用 A2B2Te5_SOC_dense 的密网格对齐（偏移相差 ≤ 0.7 meV；Sn₂Bi₂Te₅ 的 Σ′ 谷落在网格点之间，网格上的价带顶比真实的低 18 meV，所以不用网格最大值作零点）。(d) 中两种泛函的 µ 几乎重合；(b) 中 HSE 的 µ 比 PBE 高 140 meV，因为 HSE 的导带只有 Γ 单谷。</figcaption>
 </figure>
-<p class="tcap"><b>表 8</b> 由 300 K 的 S 与霍尔浓度读出的态密度有效质量 <i>m</i>*（单抛物带、声学声子散射，单位 <i>m</i><sub>e</sub>）。计算列：在霍尔浓度下用 HSE06+SOC 或 PBE+SOC + BoltzTraP2 算出 S，再用同样的方法读出 <i>m</i>*，与实验同口径。参照列为 HSE06+SOC 能带上单个谷的态密度质量（由能带曲率拟合）。</p>
+<p class="tcap"><b>表 8</b> 由 300 K 的 S 与霍尔浓度读出的态密度有效质量 <i>m</i>*（单抛物带、声学声子散射，单位 <i>m</i><sub>e</sub>）。计算列：在霍尔浓度下用 HSE06+SOC 或 PBE+SOC + BoltzTraP2 算出 S，再用同样的方法读出 <i>m</i>*，与实验同口径。参照列为 HSE06+SOC 能带上、样品载流子所在带边的单个谷的态密度质量 (<i>m</i>₁<i>m</i>₂<i>m</i>₃)<sup>1/3</sup>：Γ 处的谷取路径上 Γ–M、Γ–K、Γ–A 三个方向的曲率质量，Sn₂Bi₂Te₅ 取价带顶 Σ′ 的三个主质量（三维星形拟合，表 3）。</p>
 <table data-csv="Table8_Pisarenko_mass">
 <thead><tr><th>样品</th><th>霍尔浓度（cm⁻³）</th><th>实验：S（µV/K）/ <i>m</i>*</th><th>HSE06+SOC：S / <i>m</i>*</th><th>PBE+SOC：S / <i>m</i>*</th><th>参照：单个谷的 <i>m</i>*</th></tr></thead>
 <tbody>
-<tr><td>Sn₂Bi₂Te₅</td><td><i>p</i> 9.1×10²⁰</td><td>+29.3 / <b>1.35</b></td><td>+34.6 / 1.59</td><td>+37.5 / 1.73</td><td>0.13（单个孤对电子口袋）</td></tr>
+<tr><td>Sn₂Bi₂Te₅</td><td><i>p</i> 9.1×10²⁰</td><td>+29.3 / <b>1.35</b></td><td>+34.6 / 1.59</td><td>+37.5 / 1.73</td><td>0.12（价带顶的单个孤对电子口袋 Σ′）</td></tr>
 <tr><td>Sn₂Sb₂Te₅</td><td><i>p</i> 1.7×10²¹（标红）</td><td>+15.9 / <b>1.13</b></td><td>+18.4 / 1.31</td><td>+21.2 / 1.51</td><td>0.14（Γ 价带）</td></tr>
 <tr><td>Pb₂Bi₂Te₅</td><td><i>n</i> 8.1×10¹⁹</td><td>−89.5 / <b>0.84</b></td><td>−42.5 / 0.39</td><td>−88.7 / 0.83</td><td>0.23（Γ 导带）</td></tr>
 <tr><td>Pb₂Sb₂Te₅</td><td><i>p</i> 1.0×10²¹（标红）</td><td>+5.5 / 不适用（补偿）</td><td>+26.3 / 1.33</td><td>+26.3 / 1.34</td><td>0.10（Γ 价带）</td></tr>
 </tbody></table>
 <ul>
-<li><b>多谷的直接证据</b>：实验 <i>m</i>* 是单个谷的 4–10 倍：Sn₂Bi₂Te₅ 1.35 对 0.13、Sn₂Sb₂Te₅ 1.13 对 0.14、Pb₂Bi₂Te₅ 0.84 对 0.23 <i>m</i><sub>e</sub>。单个谷给不出，只能是多谷导电：
+<li><b>多谷的直接证据</b>：实验 <i>m</i>* 是单个谷的 4–11 倍：Sn₂Bi₂Te₅ 1.35 对 0.12、Sn₂Sb₂Te₅ 1.13 对 0.14、Pb₂Bi₂Te₅ 0.84 对 0.23 <i>m</i><sub>e</sub>。单个谷给不出，只能是多谷导电：
   <ul>
   <li>p 型为孤对电子价带谷（第 4.1 节）。Sn₂Bi₂Te₅ 的价带顶附近有多组孤对电子口袋，态密度质量约增大 <i>N</i><sub>v</sub><sup>2/3</sup> 倍，到 1 <i>m</i><sub>e</sub> 量级。</li>
   <li>n 型为 Pb₂Bi₂Te₅ 导带底 23 meV 内的三个谷。</li>
@@ -518,7 +519,7 @@ sup.r { font-size: 11px; color: var(--accent); }
 </ul>
 <h3 id="s5-2">5.2 对问题一的结论</h3>
 <ul>
-<li><b>p 型：载流子在孤对电子多谷中。</b>在样品浓度下，HSE 与 PBE 都接近两个 Sn 样品（HSE 的均方根偏差 3.6–3.7 µV/K）；实验 <i>m</i>* 是单个谷的 8–10 倍，只能来自多谷。</li>
+<li><b>p 型：载流子在孤对电子多谷中。</b>在样品浓度下，HSE 与 PBE 都接近两个 Sn 样品（HSE 的均方根偏差 3.6–3.7 µV/K）；实验 <i>m</i>* 是单个谷的 8–11 倍，只能来自多谷。</li>
 <li><b>孤对电子提高 S 的作用在低浓度下最明显。</b>HSE 下 3×10¹⁹ cm⁻³ 时，价带顶是孤对电子多谷的 Sn₂Bi₂Te₅ 最高（221 µV/K），价带顶是轻单谷的 Pb₂Sb₂Te₅ 最低（120 µV/K），其余两种居中（185–188 µV/K）。COHP 表明这些谷就是填满的阳离子 s–Te p 反键态（图 3-2）。</li>
 <li><b>n 型：导带也是多谷。</b>Pb₂Bi₂Te₅ 的电子不只在 Γ 处的 s 态里，也在以 Bi-p 为主的 A 谷里：PBE 的导带与样品一致（−88.7 对 −89.5 µV/K），HSE 的不一致（−42.5）。</li>
 <li><b>Sb 与 Bi</b>：两个 Sn 样品的实验 S 相差 1.85 倍，HSE 在两者各自的霍尔浓度下给出 1.88 倍（PBE 1.77）。同一浓度下 HSE 为 1.11–1.17 倍，按对数分，约两成来自能带（Bi 的 SOC 把 Γ 态压下去，价带顶变为孤对电子多谷），八成来自 Sn₂Sb₂Te₅ 多出的空穴（1.7×10²¹ 对 9.1×10²⁰ cm⁻³）。后者依赖标红的霍尔值。</li>
@@ -623,7 +624,7 @@ sup.r { font-size: 11px; color: var(--accent); }
   <ul>
   <li><b>孤对电子态是什么</b>：被填满的阳离子 s–Te p 反键态（COHP，图 3-2），出现在 Σ、R 价带谷（p 型）与 Γ 导带底（n 型）。Sn 5s 比 Pb 6s 浅，Sn 系的反键态更靠近价带顶。</li>
   <li><b>它怎样提高 S</b>：孤对电子谷进入价带顶，口袋增多，同一浓度下 µ 更浅、S 更高。HSE 下只有 Sn₂Bi₂Te₅ 做到了：3×10¹⁹ cm⁻³、300 K 时 221 µV/K，四种中最高；价带顶为轻单谷的 Pb₂Sb₂Te₅ 最低，120 µV/K。</li>
-  <li><b>与样品</b>：两个 Sn 样品（p 型）HSE 更接近（均方根偏差 3.6–3.7 µV/K，PBE 4.8–6.9 µV/K）；Pb₂Bi₂Te₅（n 型）只有 PBE 对（−89.2 对实验 −89.5 µV/K，HSE −42.8），它的导带是多谷的，含以 Bi-p 为主的 A 谷。实验的态密度有效质量是单个谷的 4–10 倍。</li>
+  <li><b>与样品</b>：两个 Sn 样品（p 型）HSE 更接近（均方根偏差 3.6–3.7 µV/K，PBE 4.8–6.9 µV/K）；Pb₂Bi₂Te₅（n 型）只有 PBE 对（−89.2 对实验 −89.5 µV/K，HSE −42.8），它的导带是多谷的，含以 Bi-p 为主的 A 谷。实验的态密度有效质量是单个谷的 4–11 倍。</li>
   <li><b>样品能检验什么</b>：样品浓度高，化学势在价带顶以下 0.23–0.48 eV（图 10-1），S 取样的是各个谷合起来的态密度。带边几十 meV 内的谷序（两种泛函的主要差别）在低浓度下才显出来，这些样品检验不了。</li>
   <li><b>B 位（Sb → Bi）</b>：SOC 压低 Γ 处的 p 态，Sn₂Bi₂Te₅ 的价带顶变为孤对电子多谷；两个 Sn 样品的 S 之差约两成来自能带、八成来自浓度。</li>
   <li><b>A 位（Pb → Sn）</b>：样品浓度下看不出；HSE 预测 3×10¹⁹ cm⁻³ 时 Sn₂Sb₂Te₅ 比 Pb₂Sb₂Te₅ 高 65 µV/K。</li>
@@ -711,22 +712,22 @@ sup.r { font-size: 11px; color: var(--accent); }
 <tr><td>图 2-1</td><td><code>Fig2-1_HSE_bands</code></td><td><code>02_能带与轨道成分/Fig2-1_HSE_bands/</code>：HSE06+SOC 路径能带（相对真实价带顶，<code>*_HSE06+SOC_path.csv</code>）；Sn 系的附加路径 Γ–Σ′–R₂′–L（<code>*_true_valley_path_G-S-R2-L.csv</code>）；真实带隙与路径带隙（<code>band_gaps_HSE06+SOC.csv</code>）</td></tr>
 <tr><td>图 2-2、表 2</td><td><code>Fig2-2_bands_PBE_vs_HSE</code></td><td><code>02_能带与轨道成分/Fig2-2_bands_PBE_vs_HSE/</code>：每种材料、每种泛函的路径能带（相对该泛函的真实价带顶）；Sn 系另有附加路径；路径带隙、含附加路径的带隙、价带顶比路径高多少，以及 Γ 处的能级与反转带隙（<code>band_gaps_on_path.csv</code>）</td></tr>
 <tr><td>图 3-1、表 3</td><td><code>Fig3-1_HSE_bands_cation_s</code></td><td><code>02_能带与轨道成分/Fig3-1_HSE_bands_cation_s/</code>：HSE 路径能带及每个 k 点、每条带的阳离子 s 成分（能量相对真实价带顶）；Sn 系的附加路径</td></tr>
-<tr><td>图 3-2</td><td><code>Fig3-2_COHP_cation_s_Te_p</code></td><td><code>02_能带与轨道成分/Fig3-2_COHP/</code>：每种材料最短的 A–Te、B–Te 键的轨道分辨 −COHP（阳离子 s–Te p、阳离子 p–Te p、总和，eV⁻¹·键⁻¹，<code>*_COHP.csv</code>，文件名含键长）；积分到 E_F 与价带顶以下 1 eV 内的 ICOHP（<code>ICOHP_summary.csv</code>）。PBE、不加 SOC（COGITO）</td></tr>
+<tr><td>图 3-2</td><td><code>Fig3-2_COHP_cation_s_Te_p</code></td><td><code>02_能带与轨道成分/Fig3-2_COHP/</code>：每种材料最短的 A–Te、B–Te 键的轨道分辨 −COHP（阳离子 s–Te p、阳离子 p–Te p、总和；每根键，对能量积分即 ICOHP，<code>*_COHP.csv</code>，文件名含键长；Pb 系 A 位为两根几乎等长的键的平均）；积分到 E_F 与价带顶以下 1 eV 内的 ICOHP 及所平均的键长（<code>ICOHP_summary.csv</code>）。PBE、不加 SOC（COGITO）</td></tr>
 <tr><td>图 4-1、表 4</td><td><code>Fig4-1_cation_s_by_atom</code></td><td><code>02_能带与轨道成分/Fig4-1_cation_s_by_atom/</code>：HSE 路径能带上每个 k 点、每条带的 A、B、Te 的 s 成分；关键态（<code>key_states.csv</code>，表 4）</td></tr>
 <tr><td>图 4-2、图 S3a–d</td><td><code>Fig4-2_HSE_orbitals；FigS3a–d_orbitals_&lt;材料&gt;</code></td><td><code>02_能带与轨道成分/Fig4-2_HSE_orbitals/</code>：HSE 路径能带上每个 k 点、每条带的 A 位 s、B 位 s、A 位 p、B 位 p、Te p（另有 Te s 与阳离子 s 合计）；Sn 系的附加路径。图 4-2 与图 S3a–d 用同一组数据</td></tr>
-<tr><td>图 5、表 5</td><td><code>Fig5_SnSb_vs_SnBi_orbitals</code></td><td><code>02_能带与轨道成分/Fig5_SnSb_vs_SnBi/</code>：两种材料路径能带上的 Sn-s、B-s、Sn-p、B-p、Te-p 投影；路径上的价带谷；价带能级（路径值与真实值）；Γ 处最高价带与最低导带的能量与成分（<code>Gamma_states.csv</code>）</td></tr>
-<tr><td>图 6-1</td><td><code>Fig6-1_valence_levels</code></td><td><code>03_价带谷与口袋/Fig6-1_valence_levels/</code>：四种材料价带上的谷：能量、等价口袋数、k、阳离子 s、主轴有效质量（HSE06+SOC，<code>valence_valleys_HSE06+SOC.csv</code>）</td></tr>
+<tr><td>图 5、表 5</td><td><code>Fig5_SnSb_vs_SnBi_orbitals</code></td><td><code>02_能带与轨道成分/Fig5_SnSb_vs_SnBi/</code>：两种材料路径能带上的 Sn-s、B-s、Sn-p、B-p、Te-p 投影（相对真实价带顶，与图相同），右侧小图的附加路径（<code>*_true_valley_path_G-S-R2-L.csv</code>）；路径上的价带谷（同时给路径值与真实值）；价带能级（路径值 <code>levels.csv</code>，即表 5；真实值 <code>levels_true.csv</code>，即 (e)）；Γ 处最高价带与最低导带的能量（相对路径价带顶）与成分（<code>Gamma_states.csv</code>）</td></tr>
+<tr><td>图 6-1</td><td><code>Fig6-1_valence_levels</code></td><td><code>03_价带谷与口袋/Fig6-1_valence_levels/</code>：四种材料价带上的谷：能量、等价口袋数、k、阳离子 s，路径外的真实极大另给三个主质量（HSE06+SOC，<code>valence_valleys_HSE06+SOC.csv</code>）</td></tr>
 <tr><td>图 6-2</td><td><code>Fig6-2_pockets_BZ</code></td><td><code>03_价带谷与口袋/Fig6-2_pockets_BZ/</code>：Sn 系全部价带口袋在布里渊区中的位置（分数与笛卡尔坐标、能量、等价口袋数，<code>pocket_positions.csv</code>）</td></tr>
 <tr><td>图 7</td><td><code>Fig7_lone_pair_valley_PBE_vs_HSE</code></td><td><code>03_价带谷与口袋/Fig7_lone_pair_valley/</code>：最高孤对电子价带谷的能量、k 点与成分（两种泛函）</td></tr>
-<tr><td>图 8-1</td><td><code>Fig8-1_Seebeck_vs_concentration_HSE</code></td><td><code>04_输运与实验对照/Fig8-1_Seebeck_HSE/</code>：四种材料 300 K 的 S 随载流子浓度（HSE06+SOC + BoltzTraP2，<code>S_vs_concentration_300K_HSE.csv</code>）</td></tr>
+<tr><td>图 8-1</td><td><code>Fig8-1_Seebeck_vs_concentration_HSE</code></td><td><code>04_输运与实验对照/Fig8-1_Seebeck_HSE/</code>：四种材料 300 K 的 S 随载流子浓度（HSE06+SOC + BoltzTraP2，<code>S_vs_concentration_300K_HSE.csv</code>；S 带符号，n 型为负，另一列标出 S 已变号的点）</td></tr>
 <tr><td>图 8-2</td><td><code>Fig8-2_Seebeck_vs_concentration_HSE_vs_PBE</code></td><td><code>04_输运与实验对照/Fig8-2_Seebeck_HSE_vs_PBE/</code>：同上，HSE 与 PBE 两种泛函（<code>S_vs_concentration_300K_HSE_and_PBE.csv</code>，按 functional 列区分）</td></tr>
 <tr><td>表 6</td><td>（不作图）</td><td><code>04_输运与实验对照/Table6_S_300K/</code>：300 K、±3×10¹⁹ 与 ±1×10²⁰ cm⁻³ 的 S（HSE 与 PBE）</td></tr>
 <tr><td>图 9-1</td><td><code>Fig9-1_S_vs_T_Hall_HSE</code></td><td><code>04_输运与实验对照/Fig9-1_S_vs_T_HSE/</code>：四个样品的实验 T、σ、S（<code>experiment_T_sigma_S.csv</code>）与室温霍尔（<code>hall_room_temperature.csv</code>）；霍尔浓度下 HSE06+SOC 计算的 S(T)（<code>calculated_S_T_at_Hall_conc.csv</code>）</td></tr>
 <tr><td>图 9-2</td><td><code>Fig9-2_S_vs_T_Hall_HSE_vs_PBE</code></td><td><code>04_输运与实验对照/Fig9-2_S_vs_T_HSE_vs_PBE/</code>：同上，计算曲线含 HSE 与 PBE</td></tr>
 <tr><td>表 7</td><td>（不作图）</td><td><code>04_输运与实验对照/Table7_S_T_at_Hall/</code>：最低、最高测量温度的实验与计算值（HSE、PBE），300–620 K 的均方根偏差</td></tr>
-<tr><td>表 8</td><td>（不作图）</td><td><code>04_输运与实验对照/Table8_Pisarenko_mass/</code>：样品的霍尔浓度、实验 S、同一浓度下 HSE 与 PBE 的 S，以及由此读出的有效质量</td></tr>
+<tr><td>表 8</td><td>（不作图）</td><td><code>04_输运与实验对照/Table8_Pisarenko_mass/</code>：样品的霍尔浓度、实验 S、同一浓度下 HSE 与 PBE 的 S，以及由此读出的有效质量；参照列所用的谷、三个质量与来源</td></tr>
 <tr><td>图 10-1</td><td><code>Fig10-1_Fermi_window_HSE</code></td><td><code>04_输运与实验对照/Fig10-1_Fermi_window_HSE/</code>：300 K 的化学势 µ 与 µ ± 3<i>k</i><sub>B</sub><i>T</i>、± 5<i>k</i><sub>B</sub><i>T</i>（霍尔浓度与 3×10¹⁹ cm⁻³，HSE06+SOC）；能带与阳离子 s 成分同图 3-1 的数据</td></tr>
-<tr><td>图 10-2</td><td><code>Fig10-2_Fermi_window_HSE_vs_PBE</code></td><td><code>04_输运与实验对照/Fig10-2_Fermi_window_HSE_vs_PBE/</code>：两种泛函各自在霍尔浓度下的 µ（相对各自的真实价带顶）；能带同图 2-2 的数据</td></tr>
+<tr><td>图 10-2</td><td><code>Fig10-2_Fermi_window_HSE_vs_PBE</code></td><td><code>04_输运与实验对照/Fig10-2_Fermi_window_HSE_vs_PBE/</code>：两种泛函各自在霍尔浓度下的 µ（相对各自的真实价带顶）与 Γ 对齐的残差；能带同图 2-2 的数据</td></tr>
 <tr><td>图 11</td><td><code>Fig11_defect_formation_energies</code></td><td><code>05_缺陷与导电类型/Fig11_formation_energies/</code>：逐位点中性形成能，两端化学势</td></tr>
 <tr><td>图 12</td><td><code>Fig12_ordering_induced_change</code></td><td><code>05_缺陷与导电类型/Fig12_ordering/</code>：逐位点与中位数 Δ<i>E</i><sub>f</sub></td></tr>
 <tr><td>图 S1</td><td><code>FigS1_mirror_plane_maps</code></td><td><code>03_价带谷与口袋/FigS1_mirror_plane/</code>：Sn 系镜面内最高价带的能量网格（meV）、路径上的谷与真实极大的位置，以及两者的能量差（<code>path_vs_true_maxima.csv</code>）</td></tr>

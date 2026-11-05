@@ -504,7 +504,7 @@ def fig3(out):
         if tp:
             tp_frame(at, tp, nel)
             dump('Fig3-1_HSE_bands_cation_s', f'{m}_true_valley_path_G-S-R2-L.csv',
-                 ['i', 'k_distance_1/A', 'label', 'band', 'E-EVBM_true_eV', 'cation_s_percent'],
+                 ['i', 'k_distance_1/A', 'label', 'band', 'E-EVBM_eV', 'cation_s_percent'],
                  [[i, r(tp['x'][i] / TP_XSCALE, 5), tp['labels'].get(i, ''), bandname(b, nel), r(tp['E'][i, b], 5), r(100 * tp['fs'][i, b], 2)]
                   for b in range(nel - 8, nel + 6) for i in range(len(tp['x']))])
         ax.set_title(f'{TEX[m]}     $E_g$ = {1000 * gap:.0f} meV' + (f'\n(path only: {1000 * (gap + dv):.0f} meV)' if dv > 5e-4 else ''),
@@ -525,7 +525,7 @@ def fig3_2(out):
     每种材料取最短的键。画 −COHP（成键为正、反键为负）；阳离子 s–Te p 着色，p–p 灰，总 COHP 黑细线。回答：孤对电子是不是填满的反键态、在不在价带顶。"""
     import glob
     summ = {(r['material'], r['bond_length_A'], r['site']): r for r in csv.DictReader(open(os.path.join(COHPD, 'summary.csv'), encoding='utf-8-sig'))}
-    fig, axs = plt.subplots(2, 4, figsize=(W2, 5.8), sharey=True, gridspec_kw=dict(hspace=0.30, wspace=0.10))
+    fig, axs = plt.subplots(2, 4, figsize=(W2, 6.0), sharey=True, gridspec_kw=dict(hspace=0.36, wspace=0.10, top=0.86))
     rows = []
     for j, m in enumerate(MATS):
         for i, site in enumerate(('A', 'B')):
@@ -542,22 +542,25 @@ def fig3_2(out):
             ax.plot(sp, E, color=cc, lw=1.3, zorder=4)
             ax.plot(tot, E, color='k', lw=0.7, zorder=5)
             r = summ[(m, f'{L:.2f}', site)]
-            ax.text(0.04, 0.03, f"ICOHP (eV/bond)\ns–p {float(r['ICOHP_cation_s-Te_p_eV']):+.2f}\np–p {float(r['ICOHP_cation_p-Te_p_eV']):+.2f}\ntotal {float(r['ICOHP_total_eV']):+.2f}",
+            mi = lambda v: f'{float(v):+.2f}'.replace('-', '−')
+            ax.text(0.04, 0.03, f"ICOHP (eV/bond)\ns–p {mi(r['ICOHP_cation_s-Te_p_eV'])}\np–p {mi(r['ICOHP_cation_p-Te_p_eV'])}\ntotal {mi(r['ICOHP_total_eV'])}",
                     transform=ax.transAxes, ha='left', va='bottom', fontsize=6.0, linespacing=1.15, bbox=dict(fc='white', ec='none', pad=0.5, alpha=0.9))
-            ax.set_title(f'{TEX[m]}: {el}–Te {L:.2f} Å', fontsize=7.2, pad=3)
+            lens = r['bond_lengths_in_group_A'].split('+'); two = len(set(lens)) > 1     # Pb 系 A 位：两根几乎等长的键的平均
+            ax.set_title(f'{TEX[m]}\n{el}–Te ' + ('/'.join(lens) + ' Å' if two else f'{L:.2f} Å'), fontsize=7.2, pad=3, linespacing=1.1)
             ax.set_xlim(-6.0, 2.0); ax.set_ylim(-9.5, 2.0); ax.set_xticks([-6, -4, -2, 0, 2])
-            if i == 1: ax.set_xlabel(r'$-$COHP (eV$^{-1}$ bond$^{-1}$)')
+            if i == 1: ax.set_xlabel(r'$-$COHP (per bond)')           # COHP 对能量积分得 ICOHP（eV/键），本身无量纲（2026-11-05 改正，原写 eV⁻¹）
             if j == 0: ax.set_ylabel(r'$E - E_\mathrm{F}$ (eV)')
             pf_ = f'({"abcdefgh"[4 * i + j]})'; panel(ax, pf_)
-            rows.append([m, site, el, f'{L:.2f}', r['ICOHP_cation_s-Te_p_eV'], r['ICOHP_cation_p-Te_p_eV'], r['ICOHP_total_eV'],
+            rows.append([m, site, el, f'{L:.2f}', r['bond_lengths_in_group_A'], r['bonds_in_group'], r['ICOHP_cation_s-Te_p_eV'], r['ICOHP_cation_p-Te_p_eV'], r['ICOHP_total_eV'],
                          r['ICOHP_cation_s-Te_p_within_1eV_below_EF_eV']])
             dump('Fig3-2_COHP', f'{m}_{site}-Te_{L:.2f}A_COHP.csv', hdr, [[round(x, 5) for x in v] for v in V])
     for i, t in enumerate(('A site (Pb, Sn)–Te', 'B site (Sb, Bi)–Te')):
         axs[i, 0].text(-0.42, 0.5, t, transform=axs[i, 0].transAxes, rotation=90, ha='center', va='center', fontsize=8)
     h = [Line2D([], [], color=C_A, lw=1.3), Line2D([], [], color=C_B, lw=1.3), Line2D([], [], color='#9E9E9E', lw=0.9), Line2D([], [], color='k', lw=0.7)]
-    fig.legend(h, ['A-site s – Te p', 'B-site s – Te p', 'cation p – Te p', 'total'], loc='lower center', ncol=4, bbox_to_anchor=(0.5, 0.925),
+    fig.legend(h, ['A-site s – Te p', 'B-site s – Te p', 'cation p – Te p', 'total'], loc='lower center', ncol=4, bbox_to_anchor=(0.5, 0.905),
                title='−COHP > 0: bonding;  < 0 (shaded): antibonding', title_fontsize=6.8)
-    dump('Fig3-2_COHP', 'ICOHP_summary.csv', ['material', 'site', 'cation', 'bond_length_A', 'ICOHP_cation_s-Te_p_eV (positive = antibonding)',
+    dump('Fig3-2_COHP', 'ICOHP_summary.csv', ['material', 'site', 'cation', 'bond_length_A', 'bond_lengths_averaged_A', 'n_bonds_averaged',
+                                              'ICOHP_cation_s-Te_p_eV (positive = antibonding)',
                                               'ICOHP_cation_p-Te_p_eV', 'ICOHP_total_eV', 'ICOHP_cation_s-Te_p_within_1eV_below_EF_eV'], rows)
     save(fig, out, 'Fig3-2_COHP_cation_s_Te_p')
     return rows
@@ -691,16 +694,27 @@ def fig5(out):
         for nm, i in SNVAL.items():
             bb = [nel - 2, nel - 1]; g = lambda X: r(100 * X[i, bb].mean(), 1)
             lv[(m, nm)] = 1000 * E[i, bb].mean()
-            rows.append([nm, i] + [r(v, 4) for v in kpath()[i]] + [r(1000 * E[i, bb].mean(), 1), g(sn_s), g(b_s), g(sn_p), g(b_p), g(te_p)])
+            rows.append([nm, i] + [r(v, 4) for v in kpath()[i]] + [r(1000 * E[i, bb].mean(), 1), r(1000 * Ep[i, bb].mean(), 1),
+                                                                   g(sn_s), g(b_s), g(sn_p), g(b_p), g(te_p)])
         for st, bb in (('Gamma_VB', [nel - 2, nel - 1]), ('Gamma_CB', [nel, nel + 1])):   # Γ 处最高价带、最低导带（表 5 前两行）
             gam.append([m, st, r(1000 * E[0, bb].mean(), 1)] + [r(100 * X[0, bb].mean(), 1) for X in (sn_s, b_s, sn_p, b_p, te_p)])
+        # 2026-11-05 审核：图中 (a)–(d) 以真实价带顶为零点（Ep），源数据同样写 Ep（原来写的是相对路径价带顶的 E，Sn₂Bi₂Te₅ 差 37.6 meV）；
+        # 谷的表同时给两种零点：路径值用于表 5，真实值即图中 ▼ 的高度
         dump('Fig5_SnSb_vs_SnBi', f'{m}_valence_valleys.csv',
-             ['valley', 'path_k_index', 'k_frac_1', 'k_frac_2', 'k_frac_3', 'E-EVBM_meV', 'Sn_s_percent', f'{B_}_s_percent',
-              'Sn_p_percent', f'{B_}_p_percent', 'Te_p_percent'], rows)
+             ['valley', 'path_k_index', 'k_frac_1', 'k_frac_2', 'k_frac_3', 'E-EVBM_path_meV (Table 5)', 'E-EVBM_meV (true VBM = 0, as plotted)',
+              'Sn_s_percent', f'{B_}_s_percent', 'Sn_p_percent', f'{B_}_p_percent', 'Te_p_percent'], rows)
         dump('Fig5_SnSb_vs_SnBi', f'{m}_HSE06+SOC_projections.csv',
              ['k_index', 'k_distance_1/A', 'label', 'band', 'E-EVBM_eV', 'Sn_s_percent', f'{B_}_s_percent', 'Sn_p_percent', f'{B_}_p_percent', 'Te_p_percent'],
-             [[i, r(x[i], 5), LAB.get(i, ''), bandname(b, nel), r(E[i, b], 5), r(100 * sn_s[i, b], 2), r(100 * b_s[i, b], 2),
+             [[i, r(x[i], 5), LAB.get(i, ''), bandname(b, nel), r(Ep[i, b], 5), r(100 * sn_s[i, b], 2), r(100 * b_s[i, b], 2),
                r(100 * sn_p[i, b], 2), r(100 * b_p[i, b], 2), r(100 * te_p[i, b], 2)] for b in range(nel - 8, nel + 6) for i in range(KEND + 1)])
+        if tp:                                                   # 右侧小图（附加路径 Γ–Σ′–R₂′–L）的数据，原来没有写出
+            tsn_s, tb_s = tW[:, :, [7, 8], 0].sum(-1) / ttot, tW[:, :, [0, 1], 0].sum(-1) / ttot
+            tsn_p, tb_p, tte_p = tW[:, :, [7, 8], 1:4].sum((-1, -2)) / ttot, tproj[1], tW[:, :, 2:7, 1:4].sum((-1, -2)) / ttot
+            dump('Fig5_SnSb_vs_SnBi', f'{m}_HSE06+SOC_true_valley_path_G-S-R2-L.csv',
+                 ['i', 'k_distance_1/A', 'label', 'band', 'E-EVBM_eV', 'Sn_s_percent', f'{B_}_s_percent', 'Sn_p_percent', f'{B_}_p_percent', 'Te_p_percent'],
+                 [[i, r(tp['x'][i] / TP_XSCALE, 5), tp['labels'].get(i, ''), bandname(b, nel), r(tp['E'][i, b], 5), r(100 * tsn_s[i, b], 2),
+                   r(100 * tb_s[i, b], 2), r(100 * tsn_p[i, b], 2), r(100 * tb_p[i, b], 2), r(100 * tte_p[i, b], 2)]
+                  for b in range(nel - 8, nel + 6) for i in range(len(tp['x']))])
     # (e) 能级：各自以真实价带顶为零点。Γ 单谷取 Γ 点本身（路径值减价带顶的移动），孤对电子谷取三维搜索的真实极大
     ax = fig.add_subplot(gs[:, 2]); X = (0.0, 1.7); hw = 0.3
     lt = {}
@@ -731,8 +745,8 @@ def fig5(out):
     ax.set_title('Valence-band levels', fontsize=8, pad=4)
     panel(ax, '(e)', x=-0.04)
     dump('Fig5_SnSb_vs_SnBi', 'Gamma_states.csv',
-         ['material', 'state', 'E-EVBM_meV', 'Sn_s_percent', 'B_s_percent', 'Sn_p_percent', 'B_p_percent', 'Te_p_percent'], gam)
-    dump('Fig5_SnSb_vs_SnBi', 'levels.csv', ['valley', 'E_Sn2Sb2Te5_meV', 'E_Sn2Bi2Te5_meV'],
+         ['material', 'state', 'E-EVBM_path_meV', 'Sn_s_percent', 'B_s_percent', 'Sn_p_percent', 'B_p_percent', 'Te_p_percent'], gam)
+    dump('Fig5_SnSb_vs_SnBi', 'levels.csv', ['valley', 'E_Sn2Sb2Te5_path_meV', 'E_Sn2Bi2Te5_path_meV'],
          [[nm, r(lv[('Sn2Sb2Te5', nm)], 1), r(lv[('Sn2Bi2Te5', nm)], 1)] for nm in SNVAL])
     save(fig, out, 'Fig5_SnSb_vs_SnBi_orbitals')
     return {f'{a}|{b}': r(v, 1) for (a, b), v in lv.items()}

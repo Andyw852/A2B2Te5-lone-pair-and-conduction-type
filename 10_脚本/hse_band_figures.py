@@ -298,7 +298,7 @@ def valley_list(m):
         if nm in tv:
             t = tv[nm]
             out.append(dict(name=nm, kind=kind, E=E, k=t['kfrac'], n=len(pf.star(t['kfrac'], rots)), s=t['s'],
-                            src='c4 mirror grid (not refined)' if t['grid'] else 'c5 star fit (true maximum)', mass=sorted(t['m'])))
+                            src='c4 mirror grid (not refined)' if t['grid'] else 'c5 star fit (true maximum)', mass=sorted(t['principal'])))   # 主质量（2026-11-05 改正：原取 t['m']，是沿固定轴的质量）
         else:
             k = tuple(K[i if i is not None else 0]); ii = i if i is not None else 0
             out.append(dict(name=nm, kind=kind, E=E, k=k, n=len(pf.star(k, rots)), s=cs[ii], src='band path c2' + (' (Γ point, not a maximum)' if kind == 'ref' else ''),
@@ -339,7 +339,8 @@ def h5(out):
               loc='lower center', bbox_to_anchor=(0.5, 1.0), ncol=3, fontsize=6.5, handlelength=1.8, columnspacing=1.2)
     pf.dump('H5_valence_levels', 'valence_valleys_HSE06+SOC.csv',
             ['material', 'valley', 'kind (axis: on the Γ–A axis; lp: lone-pair valley; ref: Γ point, not a maximum)', 'E-EVBM_meV',
-             'n_equivalent_pockets', 'k_frac_1', 'k_frac_2', 'k_frac_3', 'cation_s_percent', 'source', 'm1_me', 'm2_me', 'm3_me'], rows)
+             'n_equivalent_pockets', 'k_frac_1', 'k_frac_2', 'k_frac_3', 'cation_s_percent', 'source',
+             'principal_mass_1_me', 'principal_mass_2_me', 'principal_mass_3_me (ascending; c5 star fit, only for true maxima)'], rows)
     pf.save(fig, out, 'H5_valence_levels')
     return rows
 
@@ -430,10 +431,11 @@ def h7(out):
         ax.set_title(f'{TEX[m]}: top valence band in the mirror plane', fontsize=8, pad=3); pf.panel(ax, f'({"ab"[k]})')
         pf.dump('H7_mirror_plane', f'{m}_mirror_plane_grid_meV.csv', ['x=-u'] + [f'w={w:.4f}' for w in ws],
                 [[round(xx, 4)] + [round(v, 1) for v in row] for xx, row in zip(X, GX)])
-        rows += [[m, t['name'], r(-t['kfrac'][0], 4), r(t['kfrac'][2], 4), r(t['E'], 1)] for t in pf.true_valleys(m)['valleys']]
-        rows += [[m, nm + ' (path)', r(-u0, 4), r(w0, 4), r(float(S(np.array([-u0]), np.array([w0]))[0, 0]), 1)] for nm, (u0, w0) in pf.PATH_LP.items()]
+        tvm = pf.true_valleys(m); vp = pf.top_vb(m, 'c2_hse') - tvm['shift']     # 路径上的谷：直接取 c2 路径计算值（与 path_vs_true_maxima.csv 一致）
+        rows += [[m, t['name'], r(-t['kfrac'][0], 4), r(t['kfrac'][2], 4), r(t['E'], 1), 'c5/c6 true maximum'] for t in tvm['valleys']]
+        rows += [[m, nm + ' (path)', r(-u0, 4), r(w0, 4), r(vp[pf.SNVAL[nm]], 1), 'band path c2 (direct)'] for nm, (u0, w0) in pf.PATH_LP.items()]
     cb = fig.colorbar(im, ax=axs, fraction=0.025, pad=0.02); cb.set_label(r'$E - E_\mathrm{VBM}$ (meV)')
-    pf.dump('H7_mirror_plane', 'valleys_in_mirror_plane.csv', ['material', 'valley', 'x=-u', 'w', 'E-EVBM_meV'], rows)
+    pf.dump('H7_mirror_plane', 'valleys_in_mirror_plane.csv', ['material', 'valley', 'x=-u', 'w', 'E-EVBM_meV', 'energy_from'], rows)
     pf.dump('H7_mirror_plane', 'path_vs_true_maxima.csv', ['material', 'path_valley', 'true_maximum', 'E_path_meV', 'E_true_meV', 'rise_meV',
                                                            'k_distance_1/A', 'path_x=-u', 'path_w', 'true_x=-u', 'true_w'], sum((path_vs_true(m) for m in SN), []))
     pf.save(fig, out, 'H7_mirror_plane_maps')

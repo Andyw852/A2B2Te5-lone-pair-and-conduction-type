@@ -1,4 +1,4 @@
-﻿E-EF_eV,-COHP_total_per_eV_per_bond,-COHP_cation_s-Te_p_per_eV_per_bond,-COHP_cation_p-Te_s_per_eV_per_bond,-COHP_cation_p-Te_p_per_eV_per_bond,-COHP_cation_s-Te_s_per_eV_per_bond,-COHP_cation_d-Te_p_per_eV_per_bond,-COHP_cation_d-Te_s_per_eV_per_bond
+﻿E-EF_eV,-COHP_total_per_bond,-COHP_cation_s-Te_p_per_bond,-COHP_cation_p-Te_s_per_bond,-COHP_cation_p-Te_p_per_bond,-COHP_cation_s-Te_s_per_bond,-COHP_cation_d-Te_p_per_bond,-COHP_cation_d-Te_s_per_bond
 -23.5817,0.01993,-1e-05,2e-05,3e-05,0.0,0.01526,0.00462
 -23.5154,0.06382,-2e-05,7e-05,0.00011,1e-05,0.04918,0.01446
 -23.4491,0.13193,-4e-05,0.00013,0.00023,3e-05,0.10235,0.02924
