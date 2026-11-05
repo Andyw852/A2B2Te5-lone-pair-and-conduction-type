@@ -1,0 +1,65 @@
+{
+ "material": "Pb2Bi2Te5",
+ "functional": "HSE06+SOC",
+ "LHFCALC": true,
+ "grid": "Gamma 28 x 28 x 6 (450 irreducible k-points), KPOINTS_OPT (non-SCF, 13 batches)",
+ "nelect": 88,
+ "nelect_bt2": 28,
+ "nbands_soc": 128,
+ "nbands_written": 21,
+ "soc_bands_written_1based": [
+  61,
+  102
+ ],
+ "window_below_above_eV": [
+  3.0,
+  2.5
+ ],
+ "first_unwritten_cb_min_above_EF_eV": 2.508,
+ "vbm_band_written_1based": 14,
+ "kramers_max_split_eV": 0.0001,
+ "kramers_check": "within the energy window only (EF - 3.0 to EF + 2.5 eV), tolerance 2.0 meV",
+ "kramers_max_split_all_eV": 0.0003,
+ "kramers_max_split_all_at": {
+  "k_index_0based": 424,
+  "soc_bands_1based": [
+   101,
+   102
+  ],
+  "E_minus_EF_eV": 4.377
+ },
+ "vbm_eV": 5.7296,
+ "cbm_eV": 5.8715,
+ "gap_eV": 0.1419,
+ "source_file": [
+  "/home/zyzhuqgroup/wangchao217/work/c8_run/Pb2Bi2Te5/b01/vasprun.xml",
+  "/home/zyzhuqgroup/wangchao217/work/c8_run/Pb2Bi2Te5/b02/vasprun.xml",
+  "/home/zyzhuqgroup/wangchao217/work/c8_run/Pb2Bi2Te5/b03/vasprun.xml",
+  "/home/zyzhuqgroup/wangchao217/work/c8_run/Pb2Bi2Te5/b04/vasprun.xml",
+  "/home/zyzhuqgroup/wangchao217/work/c8_run/Pb2Bi2Te5/b05/vasprun.xml",
+  "/home/zyzhuqgroup/wangchao217/work/c8_run/Pb2Bi2Te5/b06/vasprun.xml",
+  "/home/zyzhuqgroup/wangchao217/work/c8_run/Pb2Bi2Te5/b07/vasprun.xml",
+  "/home/zyzhuqgroup/wangchao217/work/c8_run/Pb2Bi2Te5/b08/vasprun.xml",
+  "/home/zyzhuqgroup/wangchao217/work/c8_run/Pb2Bi2Te5/b09/vasprun.xml",
+  "/home/zyzhuqgroup/wangchao217/work/c8_run/Pb2Bi2Te5/b10/vasprun.xml",
+  "/home/zyzhuqgroup/wangchao217/work/c8_run/Pb2Bi2Te5/b11/vasprun.xml",
+  "/home/zyzhuqgroup/wangchao217/work/c8_run/Pb2Bi2Te5/b12/vasprun.xml",
+  "/home/zyzhuqgroup/wangchao217/work/c8_run/Pb2Bi2Te5/b13/vasprun.xml"
+ ],
+ "source_sha256": [
+  "42c04af6f9c01f53d02588a1fb8bf3187d1925eff34ffcb1e0666508a79167e7",
+  "ef6fd51e9ccf85189b27e2f8975854764ccc7c2439b4237e9521ccb7eeefe60b",
+  "a51368fe6f745ccc80710998983ef11d4b0010863fb390c720ee5e032af0e4c7",
+  "533e9d7ec6455cd79b4b559ad65ebe8799ddc127505d55f8a8555c46f60825ed",
+  "316dbf89779f9d9d18a9e34d6700daac77fbde63f52e08aece79e2c09a22646c",
+  "7c6adcbd8232973024071180256ef8986de0db0de0171d9ef126aaef0b9a8292",
+  "19345e98ea2335df9f490e396a19e06acb23ea604684db7ee680c7793b649e68",
+  "664c13784331fae812b9089bc5a2aa73af6a9c81453364f4423ed06d21f9db0a",
+  "7dde2a1816a9dde0e4edb8e07cb2164afa5abdd61d64adbac31d96c5c0b71423",
+  "aa636123a38e7e19714a624438f82e15c494ab2e1fe941fc13472e974ab72511",
+  "b6cbe5f80f1366bf12349bc701e05a0a7396dce0e67d3db41b5b07b7ed7bd3a3",
+  "b40a0ad2f33c6fe82005b2c76c8951a71e61783c5f005265842673862aa315ac",
+  "009548c1a5d8dac6e8b8f110b96a06fe68fd99e7d4841459373be65dc5eb4a14"
+ ],
+ "note": "GENE nspin=1（每态占据 2）只写每对 Kramers 简并能带中的一条，等价于全部 SOC 能带、每态占据 1。BoltzTraP2 的电子数用 nelect_bt2（已扣除未写入的深能级）；价带顶是写入的第 vbm_band_written_1based 条"
+}
