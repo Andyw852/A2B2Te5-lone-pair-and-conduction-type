@@ -517,52 +517,112 @@ def fig3(out):
 
 
 # ------------------------------------------------------------------ 图 3-2：COHP
-COHPD = os.path.join(ROOT, '06_COGITO成键分析与COHP', '审核与重绘', '轨道分辨COHP')
+COHPD = os.path.join(ROOT, '06_COGITO成键分析与COHP', '审核与重绘', '轨道分辨COHP')            # PBE（原运行）
+COHPD_HSE = os.path.join(ROOT, '06_COGITO成键分析与COHP', '审核与重绘', '轨道分辨COHP_HSE')    # HSE06 不加 SOC（补算 f，cohp_extract.py --run hse）
+COHP_FN = {COHPD: 'PBE', COHPD_HSE: 'HSE06'}
 
 
-def fig3_2(out):
-    """阳离子–Te 键的轨道分辨 COHP（COGITO，PBE、不加 SOC、所给结构，10_脚本/cohp_extract.py 取出）：上排 A 位–Te，下排 B 位–Te，
-    每种材料取最短的键。画 −COHP（成键为正、反键为负）；阳离子 s–Te p 着色，p–p 灰，总 COHP 黑细线。回答：孤对电子是不是填满的反键态、在不在价带顶。"""
+def cohp_bonds(d):
+    """cohp_extract.py 的输出目录 d → {(材料, 位): dict}：每种材料、每个位取最短的阳离子–Te 键的 E、−COHP 各轨道对与 summary 行。"""
     import glob
-    summ = {(r['material'], r['bond_length_A'], r['site']): r for r in csv.DictReader(open(os.path.join(COHPD, 'summary.csv'), encoding='utf-8-sig'))}
+    if not os.path.exists(os.path.join(d, 'summary.csv')): raise SystemExit(f'[ERROR] 没有 {d}/summary.csv：先运行 cohp_extract.py')
+    summ = {(r['material'], r['bond_length_A'], r['site']): r for r in csv.DictReader(open(os.path.join(d, 'summary.csv'), encoding='utf-8-sig'))}
+    out = {}
+    for m in MATS:
+        for site in ('A', 'B'):
+            fs = sorted(glob.glob(os.path.join(d, f'{m}_{site}-Te_*A.csv')), key=lambda f: float(f.rsplit('_', 1)[1][:-5]))
+            f = fs[0]; L = float(f.rsplit('_', 1)[1][:-5])
+            D = list(csv.reader(open(f, encoding='utf-8-sig'))); hdr = D[0]; V = np.array([[float(x) for x in r] for r in D[1:]])
+            col = {h.split('_', 1)[1].split('_per')[0]: V[:, k] for k, h in enumerate(hdr) if k}
+            out[(m, site)] = dict(E=V[:, 0], sp=col['cation_s-Te_p'], pp=col['cation_p-Te_p'], tot=col['total'], hdr=hdr, V=V, L=L,
+                                  el=m[:2] if site == 'A' else m[3:5], r=summ[(m, f'{L:.2f}', site)])
+    return out
+
+
+def cohp_title(ax, m, b):
+    lens = b['r']['bond_lengths_in_group_A'].split('+'); two = len(set(lens)) > 1     # Pb 系 A 位：两根几乎等长的键的平均
+    ax.set_title(f'{TEX[m]}\n{b["el"]}–Te ' + ('/'.join(lens) + ' Å' if two else f'{b["L"]:.2f} Å'), fontsize=7.2, pad=3, linespacing=1.1)
+
+
+def cohp_axes(axs):
+    for i, t in enumerate(('A site (Pb, Sn)–Te', 'B site (Sb, Bi)–Te')):
+        axs[i, 0].text(-0.42, 0.5, t, transform=axs[i, 0].transAxes, rotation=90, ha='center', va='center', fontsize=8)
+    for i in range(2):
+        for j in range(4):
+            ax = axs[i, j]; ax.axhline(0, color='k', lw=0.6, ls=DASH, zorder=1); ax.axvline(0, color='#999999', lw=0.5, zorder=1)
+            ax.set_xlim(-6.0, 2.0); ax.set_ylim(-9.5, 2.0); ax.set_xticks([-6, -4, -2, 0, 2])
+            if i == 1: ax.set_xlabel(r'$-$COHP (per bond)')           # COHP 对能量积分得 ICOHP（eV/键），本身无量纲（2026-11-05 改正，原写 eV⁻¹）
+            if j == 0: ax.set_ylabel(r'$E - E_\mathrm{F}$ (eV)')
+            panel(ax, f'({"abcdefgh"[4 * i + j]})')
+
+
+def fig_cohp(out, d=COHPD, name='Fig3-2_COHP_cation_s_Te_p', folder='Fig3-2_COHP'):
+    """阳离子–Te 键的轨道分辨 COHP（COGITO，不加 SOC、所给结构，10_脚本/cohp_extract.py 取出）：上排 A 位–Te，下排 B 位–Te，
+    每种材料取最短的键。画 −COHP（成键为正、反键为负）；阳离子 s–Te p 着色，p–p 灰，总 COHP 黑细线。回答：孤对电子是不是填满的反键态、在不在价带顶。
+    d = COHPD（PBE）或 COHPD_HSE（HSE06）。"""
+    B = cohp_bonds(d); fn = COHP_FN[d]
     fig, axs = plt.subplots(2, 4, figsize=(W2, 6.0), sharey=True, gridspec_kw=dict(hspace=0.36, wspace=0.10, top=0.86))
     rows = []
     for j, m in enumerate(MATS):
         for i, site in enumerate(('A', 'B')):
-            ax = axs[i, j]
-            fs = sorted(glob.glob(os.path.join(COHPD, f'{m}_{site}-Te_*A.csv')), key=lambda f: float(f.rsplit('_', 1)[1][:-5]))
-            f = fs[0]; L = float(f.rsplit('_', 1)[1][:-5]); el = m[:2] if site == 'A' else m[3:5]
-            D = list(csv.reader(open(f, encoding='utf-8-sig'))); hdr = D[0]; V = np.array([[float(x) for x in r] for r in D[1:]])
-            E = V[:, 0]; col = {h.split('_', 1)[1].split('_per')[0]: V[:, k] for k, h in enumerate(hdr) if k}
-            sp, pp, tot = col['cation_s-Te_p'], col['cation_p-Te_p'], col['total']
+            ax = axs[i, j]; b = B[(m, site)]; E, sp, pp, tot, r = b['E'], b['sp'], b['pp'], b['tot'], b['r']
             cc = C_A if site == 'A' else C_B
-            ax.axhline(0, color='k', lw=0.6, ls=DASH, zorder=1); ax.axvline(0, color='#999999', lw=0.5, zorder=1)
             ax.fill_betweenx(E, 0, sp, where=sp < 0, color=cc, alpha=0.35, lw=0, zorder=2)
             ax.plot(pp, E, color='#9E9E9E', lw=0.9, zorder=3)
             ax.plot(sp, E, color=cc, lw=1.3, zorder=4)
             ax.plot(tot, E, color='k', lw=0.7, zorder=5)
-            r = summ[(m, f'{L:.2f}', site)]
             mi = lambda v: f'{float(v):+.2f}'.replace('-', '−')
             ax.text(0.04, 0.03, f"ICOHP (eV/bond)\ns–p {mi(r['ICOHP_cation_s-Te_p_eV'])}\np–p {mi(r['ICOHP_cation_p-Te_p_eV'])}\ntotal {mi(r['ICOHP_total_eV'])}",
                     transform=ax.transAxes, ha='left', va='bottom', fontsize=6.0, linespacing=1.15, bbox=dict(fc='white', ec='none', pad=0.5, alpha=0.9))
-            lens = r['bond_lengths_in_group_A'].split('+'); two = len(set(lens)) > 1     # Pb 系 A 位：两根几乎等长的键的平均
-            ax.set_title(f'{TEX[m]}\n{el}–Te ' + ('/'.join(lens) + ' Å' if two else f'{L:.2f} Å'), fontsize=7.2, pad=3, linespacing=1.1)
-            ax.set_xlim(-6.0, 2.0); ax.set_ylim(-9.5, 2.0); ax.set_xticks([-6, -4, -2, 0, 2])
-            if i == 1: ax.set_xlabel(r'$-$COHP (per bond)')           # COHP 对能量积分得 ICOHP（eV/键），本身无量纲（2026-11-05 改正，原写 eV⁻¹）
-            if j == 0: ax.set_ylabel(r'$E - E_\mathrm{F}$ (eV)')
-            pf_ = f'({"abcdefgh"[4 * i + j]})'; panel(ax, pf_)
-            rows.append([m, site, el, f'{L:.2f}', r['bond_lengths_in_group_A'], r['bonds_in_group'], r['ICOHP_cation_s-Te_p_eV'], r['ICOHP_cation_p-Te_p_eV'], r['ICOHP_total_eV'],
-                         r['ICOHP_cation_s-Te_p_within_1eV_below_EF_eV']])
-            dump('Fig3-2_COHP', f'{m}_{site}-Te_{L:.2f}A_COHP.csv', hdr, [[round(x, 5) for x in v] for v in V])
-    for i, t in enumerate(('A site (Pb, Sn)–Te', 'B site (Sb, Bi)–Te')):
-        axs[i, 0].text(-0.42, 0.5, t, transform=axs[i, 0].transAxes, rotation=90, ha='center', va='center', fontsize=8)
+            cohp_title(ax, m, b)
+            rows.append([m, site, b['el'], f"{b['L']:.2f}", r['bond_lengths_in_group_A'], r['bonds_in_group'], r['ICOHP_cation_s-Te_p_eV'], r['ICOHP_cation_p-Te_p_eV'],
+                         r['ICOHP_total_eV'], r['ICOHP_cation_s-Te_p_within_1eV_below_EF_eV']])
+            dump(folder, f"{m}_{site}-Te_{b['L']:.2f}A_COHP.csv", b['hdr'], [[round(x, 5) for x in v] for v in b['V']])
+    cohp_axes(axs)
     h = [Line2D([], [], color=C_A, lw=1.3), Line2D([], [], color=C_B, lw=1.3), Line2D([], [], color='#9E9E9E', lw=0.9), Line2D([], [], color='k', lw=0.7)]
     fig.legend(h, ['A-site s – Te p', 'B-site s – Te p', 'cation p – Te p', 'total'], loc='lower center', ncol=4, bbox_to_anchor=(0.5, 0.905),
-               title='−COHP > 0: bonding;  < 0 (shaded): antibonding', title_fontsize=6.8)
-    dump('Fig3-2_COHP', 'ICOHP_summary.csv', ['material', 'site', 'cation', 'bond_length_A', 'bond_lengths_averaged_A', 'n_bonds_averaged',
-                                              'ICOHP_cation_s-Te_p_eV (positive = antibonding)',
-                                              'ICOHP_cation_p-Te_p_eV', 'ICOHP_total_eV', 'ICOHP_cation_s-Te_p_within_1eV_below_EF_eV'], rows)
-    save(fig, out, 'Fig3-2_COHP_cation_s_Te_p')
+               title=f'{fn} (no SOC), COGITO.   −COHP > 0: bonding;  < 0 (shaded): antibonding', title_fontsize=6.8)
+    dump(folder, 'ICOHP_summary.csv', ['material', 'site', 'cation', 'bond_length_A', 'bond_lengths_averaged_A', 'n_bonds_averaged',
+                                             'ICOHP_cation_s-Te_p_eV (positive = antibonding)',
+                                             'ICOHP_cation_p-Te_p_eV', 'ICOHP_total_eV', 'ICOHP_cation_s-Te_p_within_1eV_below_EF_eV'], rows)
+    save(fig, out, name)
+    return rows
+
+
+def fig3_2(out):
+    return fig_cohp(out)
+
+
+def fig_cohp_compare(out, name='Fig3-3_COHP_HSE_vs_PBE', folder='Fig3-3_COHP_HSE_vs_PBE'):
+    """HSE06 与 PBE（都不加 SOC，COGITO）的 COHP 对比：同一根键，阳离子 s–Te p（着色）与 p–p（灰），实线 HSE、虚线 PBE；
+    框内为两种泛函的 ICOHP。回答：换成 HSE，孤对电子的 s–p 反键是否仍被填满、反键与成键各变了多少。"""
+    Bh, Bp = cohp_bonds(COHPD_HSE), cohp_bonds(COHPD)
+    fig, axs = plt.subplots(2, 4, figsize=(W2, 6.0), sharey=True, gridspec_kw=dict(hspace=0.36, wspace=0.10, top=0.86))
+    rows = []
+    for j, m in enumerate(MATS):
+        for i, site in enumerate(('A', 'B')):
+            ax = axs[i, j]; h, p = Bh[(m, site)], Bp[(m, site)]; cc = C_A if site == 'A' else C_B
+            assert h['r']['bond_lengths_in_group_A'] == p['r']['bond_lengths_in_group_A'], (m, site)
+            ax.plot(p['pp'], p['E'], color='#9E9E9E', lw=0.8, ls=DASH, zorder=3); ax.plot(h['pp'], h['E'], color='#7A7A7A', lw=0.9, zorder=3)
+            ax.plot(p['sp'], p['E'], color=cc, lw=1.0, ls=DASH, alpha=0.75, zorder=4); ax.plot(h['sp'], h['E'], color=cc, lw=1.3, zorder=5)
+            ax.fill_betweenx(h['E'], 0, h['sp'], where=h['sp'] < 0, color=cc, alpha=0.25, lw=0, zorder=2)
+            g = lambda b, k: float(b['r'][k]); mi = lambda v: f'{v:+.2f}'.replace('-', '−')
+            ks = (('s–p', 'ICOHP_cation_s-Te_p_eV'), ('p–p', 'ICOHP_cation_p-Te_p_eV'), ('total', 'ICOHP_total_eV'))
+            ax.text(0.03, 0.30, 'ICOHP (eV/bond)\nPBE → HSE\n' + '\n'.join(f'{lab} {mi(g(p, k))} → {mi(g(h, k))}' for lab, k in ks),
+                    transform=ax.transAxes, ha='left', va='bottom', fontsize=5.6, linespacing=1.15, bbox=dict(fc='white', ec='none', pad=0.5, alpha=0.9))
+            cohp_title(ax, m, h)
+            rows.append([m, site, h['el'], h['r']['bond_lengths_in_group_A']] + [x for _, k in ks for x in (g(p, k), g(h, k), round(g(h, k) - g(p, k), 4))]
+                        + [g(p, 'ICOHP_cation_s-Te_p_within_1eV_below_EF_eV'), g(h, 'ICOHP_cation_s-Te_p_within_1eV_below_EF_eV')])
+    cohp_axes(axs)
+    hh = [Line2D([], [], color=C_A, lw=1.3), Line2D([], [], color=C_B, lw=1.3), Line2D([], [], color='#7A7A7A', lw=0.9),
+          Line2D([], [], color='#555555', lw=1.3), Line2D([], [], color='#555555', lw=1.0, ls=DASH)]
+    fig.legend(hh, ['A-site s – Te p', 'B-site s – Te p', 'cation p – Te p', 'HSE06', 'PBE'], loc='lower center', ncol=5, bbox_to_anchor=(0.5, 0.905),
+               title='COGITO, no SOC.   −COHP > 0: bonding;  < 0: antibonding (shaded: HSE06 s–p)', title_fontsize=6.8)
+    dump(folder, 'ICOHP_HSE_vs_PBE.csv', ['material', 'site', 'cation', 'bond_lengths_averaged_A', 'ICOHP_s-p_PBE_eV', 'ICOHP_s-p_HSE_eV', 'change_s-p_eV',
+                                          'ICOHP_p-p_PBE_eV', 'ICOHP_p-p_HSE_eV', 'change_p-p_eV', 'ICOHP_total_PBE_eV', 'ICOHP_total_HSE_eV', 'change_total_eV',
+                                          'ICOHP_s-p_top1eV_PBE_eV', 'ICOHP_s-p_top1eV_HSE_eV'], rows)
+    save(fig, out, name)
+    return rows
     return rows
 
 

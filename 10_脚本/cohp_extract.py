@@ -6,8 +6,14 @@
 组内长度 435 的曲线是逐项累加的堆叠边界，相邻相减得各轨道对；总 COHP 积分到 E_F 与 bond_info.txt 的 ICOHP 恰差 1.50 倍\n（有的组含两根等长键时为 3.0 倍），这里换算成每根键、每 eV。
 符号：COGITO 的 COHP 为负表示成键；本脚本另给 −COHP（成键为正）。
 输出：06_COGITO成键分析与COHP/审核与重绘/轨道分辨COHP/<材料>_<键>.csv（E−E_F，−COHP：总、s–p、p–s、p–p、s–s）与 summary.csv。
+
+--run（2026-11-05 补算 f）：
+  pbe      原来的 PBE 运行（图_交互式COHP/、结果/），输出 轨道分辨COHP/（默认）
+  hse      HSE06 不加 SOC：补算_HSE与SOC/f_cogito_hse/<材料>/cogito_hse/（bond_info.txt 与 COGITOpost 的 COHP 交互图 *.html），输出 轨道分辨COHP_HSE/
+  pbe_f    同一批补算里的 PBE 对照：…/cogito_pbe/，输出 轨道分辨COHP_PBE_对照/
+交互图曲线单位与 eV/键之比 K 对每次运行重新核对（单键组的 ∫COHP / ICOHP），与 1.5038 相差超过 1% 时报错。
 """
-import base64, csv, json, os, re
+import argparse, base64, csv, glob, json, os, re
 import numpy as np
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -16,8 +22,25 @@ MATS = ('Pb2Sb2Te5', 'Pb2Bi2Te5', 'Sn2Sb2Te5', 'Sn2Bi2Te5')
 arr = lambda v: np.frombuffer(base64.b64decode(v['bdata']), dtype=v['dtype']).astype(float) if isinstance(v, dict) else np.array(v, float)
 
 
+FDIR = os.path.join(D, '补算_HSE与SOC', 'f_cogito_hse')
+RUNS = {'pbe': (lambda m: os.path.join(D, '图_交互式COHP', f'{m}_COHP交互图.html'), lambda m: os.path.join(D, '结果', m, 'bond_info.txt'),
+                os.path.join(D, '审核与重绘', '轨道分辨COHP')),
+        'hse': (lambda m: cohp_html(os.path.join(FDIR, m, 'cogito_hse')), lambda m: os.path.join(FDIR, m, 'cogito_hse', 'bond_info.txt'),
+                os.path.join(D, '审核与重绘', '轨道分辨COHP_HSE')),
+        'pbe_f': (lambda m: cohp_html(os.path.join(FDIR, m, 'cogito_pbe')), lambda m: os.path.join(FDIR, m, 'cogito_pbe', 'bond_info.txt'),
+                  os.path.join(D, '审核与重绘', '轨道分辨COHP_PBE_对照'))}
+HTML, BINFO = RUNS['pbe'][0], RUNS['pbe'][1]
+
+
+def cohp_html(d):
+    """目录 d 中 COGITOpost 写出的 COHP 交互图：含 'bond COHP' 曲线的那个 html（晶体键图不含）。"""
+    fs = [f for f in sorted(glob.glob(os.path.join(d, '*.html'))) if '"bond COHP"' in open(f, encoding='utf-8', errors='ignore').read()]
+    if len(fs) != 1: raise SystemExit(f'[ERROR] {d} 中含 COHP 曲线的 html 有 {len(fs)} 个：{fs}')
+    return fs[0]
+
+
 def groups(m):
-    t = open(os.path.join(D, '图_交互式COHP', f'{m}_COHP交互图.html'), encoding='utf-8').read()
+    t = open(HTML(m), encoding='utf-8').read()
     j = t.index('[', t.find('Plotly.newPlot')); data, _ = json.JSONDecoder().raw_decode(t[j:])
     out, cur = {}, []
     for d in (d for d in data if d.get('type') == 'scatter'):
@@ -29,7 +52,7 @@ def groups(m):
 
 def bond_info(m):
     rows = []
-    for l in open(os.path.join(D, '结果', m, 'bond_info.txt')).read().splitlines():
+    for l in open(BINFO(m)).read().splitlines():
         p = l.split()
         try: rows.append((p[0], p[1], float(p[2]), float(p[3])))
         except (ValueError, IndexError): pass
@@ -51,7 +74,20 @@ def contributions(g, ny):
 
 
 def main():
+    global HTML, BINFO, OUT
+    ap = argparse.ArgumentParser(); ap.add_argument('--run', choices=list(RUNS), default='pbe'); a = ap.parse_args()
+    HTML, BINFO, OUT = RUNS[a.run]
     os.makedirs(OUT, exist_ok=True); summ = []
+    for m in MATS:                                                     # 核对 K：最短的 B–Te 键在 COGITO 里总是单键一组
+        G, info = groups(m), bond_info(m); B = m[3:5]
+        bt = min((r for r in info if {r[0], r[1]} == {B, 'Te'}), key=lambda r: r[2])
+        ks = []
+        for name, (g, b) in G.items():
+            if re.fullmatch(f'{B}Te\\d+', name):
+                y = arr(b['y']); tot = arr(b['x']); ks.append(float(np.trapezoid(tot[y <= 0], y[y <= 0])) / bt[3])
+        k = min(ks, key=lambda v: abs(v - K))
+        print(f'[K] {m}: 最短 B–Te（{bt[2]:.2f} Å）∫COHP / ICOHP = {k:.4f}（PBE 运行为 {K}）')
+        if abs(k / K - 1) > 0.01: raise SystemExit(f'[ERROR] {m} 的 K 与 PBE 运行差 {100 * (k / K - 1):+.1f}%，交互图的单位可能变了，先查清再用')
     for m in MATS:
         A, B = m[:2], m[3:5]; G = groups(m); info = bond_info(m)
         for site, el in (('A', A), ('B', B)):
