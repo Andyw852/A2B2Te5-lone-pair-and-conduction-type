@@ -1,0 +1,8 @@
+COHPstartEnergy -15
+COHPendEnergy 5
+basisSet pbeVaspFit2015
+basisfunctions Sb 5s 5p
+basisfunctions Te 5s 5p
+basisfunctions Pb 6s 6p 5d
+gaussianSmearingWidth 0.05
+cohpGenerator from 2.95 to 3.30 orbitalWise
