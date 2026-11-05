@@ -1,0 +1,5 @@
+﻿material,type,Hall_flagged,rms_PBE_uV/K,rms_HSE_uV/K,S_exp_300K,S_PBE_300K,S_HSE_300K,m_exp_me,m_PBE_me,m_HSE_me
+Pb2Sb2Te5,p,yes,37.5,32.3,5.5,26.5,26.4,,1.336,1.331
+Pb2Bi2Te5,n,no,16.0,49.6,-89.5,-89.2,-42.8,0.839,0.83,0.391
+Sn2Sb2Te5,p,yes,4.8,3.6,15.9,21.2,18.5,1.129,1.507,1.31
+Sn2Bi2Te5,p,no,6.9,3.7,29.3,37.7,34.7,1.354,1.728,1.593
