@@ -534,8 +534,10 @@ def cohp_bonds(d):
             f = fs[0]; L = float(f.rsplit('_', 1)[1][:-5])
             D = list(csv.reader(open(f, encoding='utf-8-sig'))); hdr = D[0]; V = np.array([[float(x) for x in r] for r in D[1:]])
             col = {h.split('_', 1)[1].split('_per')[0]: V[:, k] for k, h in enumerate(hdr) if k}
-            out[(m, site)] = dict(E=V[:, 0], sp=col['cation_s-Te_p'], pp=col['cation_p-Te_p'], tot=col['total'], hdr=hdr, V=V, L=L,
-                                  el=m[:2] if site == 'A' else m[3:5], r=summ[(m, f'{L:.2f}', site)])
+            r = summ[(m, f'{L:.2f}', site)]; ev = float(r['VB_edge_minus_EF_eV'])
+            # 能量零点改为价带顶（与全部能带图一致）：COGITO 的 E_F 由其紧束缚模型重定，HSE 下可落在价带顶以上 0.15 eV（Sn₂Sb₂Te₅）
+            out[(m, site)] = dict(E=V[:, 0] - ev, sp=col['cation_s-Te_p'], pp=col['cation_p-Te_p'], tot=col['total'], ev=ev,
+                                  hdr=['E-EVBM_eV'] + hdr, V=np.column_stack([V[:, 0] - ev, V]), L=L, el=m[:2] if site == 'A' else m[3:5], r=r)
     return out
 
 
@@ -552,7 +554,7 @@ def cohp_axes(axs):
             ax = axs[i, j]; ax.axhline(0, color='k', lw=0.6, ls=DASH, zorder=1); ax.axvline(0, color='#999999', lw=0.5, zorder=1)
             ax.set_xlim(-6.0, 2.0); ax.set_ylim(-9.5, 2.0); ax.set_xticks([-6, -4, -2, 0, 2])
             if i == 1: ax.set_xlabel(r'$-$COHP (per bond)')           # COHP 对能量积分得 ICOHP（eV/键），本身无量纲（2026-11-05 改正，原写 eV⁻¹）
-            if j == 0: ax.set_ylabel(r'$E - E_\mathrm{F}$ (eV)')
+            if j == 0: ax.set_ylabel(r'$E - E_\mathrm{VBM}$ (eV)')
             panel(ax, f'({"abcdefgh"[4 * i + j]})')
 
 
@@ -572,25 +574,27 @@ def fig_cohp(out, d=COHPD, name='Fig3-2_COHP_cation_s_Te_p', folder='Fig3-2_COHP
             ax.plot(sp, E, color=cc, lw=1.3, zorder=4)
             ax.plot(tot, E, color='k', lw=0.7, zorder=5)
             mi = lambda v: f'{float(v):+.2f}'.replace('-', '−')
-            ax.text(0.04, 0.03, f"ICOHP (eV/bond)\ns–p {mi(r['ICOHP_cation_s-Te_p_eV'])}\np–p {mi(r['ICOHP_cation_p-Te_p_eV'])}\ntotal {mi(r['ICOHP_total_eV'])}",
+            ax.text(0.04, 0.03, f"ICOHP (eV/bond)\ns–p (1 eV) {mi(r['ICOHP_cation_s-Te_p_within_1eV_below_VB_edge_eV'])}\ns–p (all) {mi(r['ICOHP_cation_s-Te_p_eV'])}\n"
+                    f"p–p {mi(r['ICOHP_cation_p-Te_p_eV'])}\ntotal {mi(r['ICOHP_total_eV'])}",
                     transform=ax.transAxes, ha='left', va='bottom', fontsize=6.0, linespacing=1.15, bbox=dict(fc='white', ec='none', pad=0.5, alpha=0.9))
             cohp_title(ax, m, b)
             rows.append([m, site, b['el'], f"{b['L']:.2f}", r['bond_lengths_in_group_A'], r['bonds_in_group'], r['ICOHP_cation_s-Te_p_eV'], r['ICOHP_cation_p-Te_p_eV'],
-                         r['ICOHP_total_eV'], r['ICOHP_cation_s-Te_p_within_1eV_below_EF_eV']])
+                         r['ICOHP_total_eV'], r['VB_edge_minus_EF_eV'], r['ICOHP_cation_s-Te_p_within_1eV_below_VB_edge_eV']])
             dump(folder, f"{m}_{site}-Te_{b['L']:.2f}A_COHP.csv", b['hdr'], [[round(x, 5) for x in v] for v in b['V']])
     cohp_axes(axs)
     h = [Line2D([], [], color=C_A, lw=1.3), Line2D([], [], color=C_B, lw=1.3), Line2D([], [], color='#9E9E9E', lw=0.9), Line2D([], [], color='k', lw=0.7)]
     fig.legend(h, ['A-site s – Te p', 'B-site s – Te p', 'cation p – Te p', 'total'], loc='lower center', ncol=4, bbox_to_anchor=(0.5, 0.905),
-               title=f'{fn} (no SOC), COGITO.   −COHP > 0: bonding;  < 0 (shaded): antibonding', title_fontsize=6.8)
+               title=f'{fn} (no SOC), COGITO.   −COHP > 0: bonding;  < 0 (shaded): antibonding;  dashed line: VBM', title_fontsize=6.8)
     dump(folder, 'ICOHP_summary.csv', ['material', 'site', 'cation', 'bond_length_A', 'bond_lengths_averaged_A', 'n_bonds_averaged',
                                              'ICOHP_cation_s-Te_p_eV (positive = antibonding)',
-                                             'ICOHP_cation_p-Te_p_eV', 'ICOHP_total_eV', 'ICOHP_cation_s-Te_p_within_1eV_below_EF_eV'], rows)
+                                             'ICOHP_cation_p-Te_p_eV', 'ICOHP_total_eV', 'VBM_minus_EF_COGITO_eV', 'ICOHP_cation_s-Te_p_within_1eV_below_VBM_eV'], rows)
     save(fig, out, name)
     return rows
 
 
 def fig3_2(out):
-    return fig_cohp(out)
+    """图 3-2：HSE06（不加 SOC）的 COHP（2026-11-05 起；原来的 PBE 版并入图 3-3 的对比）。"""
+    return fig_cohp(out, COHPD_HSE, 'Fig3-2_COHP_HSE', 'Fig3-2_COHP_HSE')
 
 
 def fig_cohp_compare(out, name='Fig3-3_COHP_HSE_vs_PBE', folder='Fig3-3_COHP_HSE_vs_PBE'):
@@ -607,20 +611,26 @@ def fig_cohp_compare(out, name='Fig3-3_COHP_HSE_vs_PBE', folder='Fig3-3_COHP_HSE
             ax.plot(p['sp'], p['E'], color=cc, lw=1.0, ls=DASH, alpha=0.75, zorder=4); ax.plot(h['sp'], h['E'], color=cc, lw=1.3, zorder=5)
             ax.fill_betweenx(h['E'], 0, h['sp'], where=h['sp'] < 0, color=cc, alpha=0.25, lw=0, zorder=2)
             g = lambda b, k: float(b['r'][k]); mi = lambda v: f'{v:+.2f}'.replace('-', '−')
-            ks = (('s–p', 'ICOHP_cation_s-Te_p_eV'), ('p–p', 'ICOHP_cation_p-Te_p_eV'), ('total', 'ICOHP_total_eV'))
-            ax.text(0.03, 0.30, 'ICOHP (eV/bond)\nPBE → HSE\n' + '\n'.join(f'{lab} {mi(g(p, k))} → {mi(g(h, k))}' for lab, k in ks),
+            ks = (('s–p (1 eV)', 'ICOHP_cation_s-Te_p_within_1eV_below_VB_edge_eV'), ('s–p (all)', 'ICOHP_cation_s-Te_p_eV'),
+                  ('p–p', 'ICOHP_cation_p-Te_p_eV'), ('total', 'ICOHP_total_eV'))
+            ax.text(0.02, 0.30, 'ICOHP (eV/bond)\nPBE → HSE\n' + '\n'.join(f'{lab} {mi(g(p, k))}→{mi(g(h, k))}' for lab, k in ks),
                     transform=ax.transAxes, ha='left', va='bottom', fontsize=5.6, linespacing=1.15, bbox=dict(fc='white', ec='none', pad=0.5, alpha=0.9))
             cohp_title(ax, m, h)
-            rows.append([m, site, h['el'], h['r']['bond_lengths_in_group_A']] + [x for _, k in ks for x in (g(p, k), g(h, k), round(g(h, k) - g(p, k), 4))]
-                        + [g(p, 'ICOHP_cation_s-Te_p_within_1eV_below_EF_eV'), g(h, 'ICOHP_cation_s-Te_p_within_1eV_below_EF_eV')])
+            rows.append([m, site, h['el'], h['r']['bond_lengths_in_group_A']] + [x for _, k in ks[1:] for x in (g(p, k), g(h, k), round(g(h, k) - g(p, k), 4))]
+                        + [g(p, ks[0][1]), g(h, ks[0][1])])
+            for fn, b in (('PBE', p), ('HSE06', h)):
+                dump(folder, f"{m}_{site}-Te_{b['L']:.2f}A_COHP_{fn}.csv", b['hdr'], [[round(x, 5) for x in v] for v in b['V']])
     cohp_axes(axs)
     hh = [Line2D([], [], color=C_A, lw=1.3), Line2D([], [], color=C_B, lw=1.3), Line2D([], [], color='#7A7A7A', lw=0.9),
           Line2D([], [], color='#555555', lw=1.3), Line2D([], [], color='#555555', lw=1.0, ls=DASH)]
     fig.legend(hh, ['A-site s – Te p', 'B-site s – Te p', 'cation p – Te p', 'HSE06', 'PBE'], loc='lower center', ncol=5, bbox_to_anchor=(0.5, 0.905),
-               title='COGITO, no SOC.   −COHP > 0: bonding;  < 0: antibonding (shaded: HSE06 s–p)', title_fontsize=6.8)
+               title='COGITO, no SOC, each functional aligned at its own VBM.   −COHP > 0: bonding;  < 0: antibonding (shaded: HSE06 s–p)', title_fontsize=6.8)
+    lob = os.path.join(ROOT, '06_COGITO成键分析与COHP', '审核与重绘', 'LOBSTER_PBE_对照', 'summary.csv')   # 交叉检验（不作图）
+    if DATA is not None:
+        os.makedirs(os.path.join(DATA, folder), exist_ok=True); shutil.copy(lob, os.path.join(DATA, folder, 'LOBSTER_PBE_crosscheck_s-p_by_energy_window.csv'))
     dump(folder, 'ICOHP_HSE_vs_PBE.csv', ['material', 'site', 'cation', 'bond_lengths_averaged_A', 'ICOHP_s-p_PBE_eV', 'ICOHP_s-p_HSE_eV', 'change_s-p_eV',
                                           'ICOHP_p-p_PBE_eV', 'ICOHP_p-p_HSE_eV', 'change_p-p_eV', 'ICOHP_total_PBE_eV', 'ICOHP_total_HSE_eV', 'change_total_eV',
-                                          'ICOHP_s-p_top1eV_PBE_eV', 'ICOHP_s-p_top1eV_HSE_eV'], rows)
+                                          'ICOHP_s-p_within_1eV_below_VBM_PBE_eV', 'ICOHP_s-p_within_1eV_below_VBM_HSE_eV'], rows)
     save(fig, out, name)
     return rows
     return rows
@@ -1743,7 +1753,7 @@ def main():
             try: return fn(out)
             finally: hb.pf.dump, hb.pf.save = d0, s0
         return run
-    FIGS = {'1': fig1, '2-1': via(hb.h1), '2-2': fig2, '3-1': fig3, '3-2': fig3_2, '4-1': fig4, '4-2': via(hb.h4), '5': fig5,
+    FIGS = {'1': fig1, '2-1': via(hb.h1), '2-2': fig2, '3-1': fig3, '3-2': fig3_2, '3-3': fig_cohp_compare, '4-1': fig4, '4-2': via(hb.h4), '5': fig5,
             '6-1': via(hb.h5), '6-2': via(hb.h6), '7': fig7, '8-1': tf.fig8_1, '8-2': tf.fig8_2, '9-1': tf.fig9_1, '9-2': tf.fig9_2,
             '10-1': tf.fig10_1, '10-2': tf.fig10_2, '11': fig11, '12': fig12, 'T': tf.tables_hse_pbe, 'S1': via(hb.h7), 'S3': via(hb.h4_each)}
     todo = a.only or list(FIGS)

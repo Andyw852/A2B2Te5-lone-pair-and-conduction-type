@@ -1,0 +1,9 @@
+﻿material,site,cation,bond_length_A,bond_lengths_averaged_A,n_bonds_averaged,ICOHP_cation_s-Te_p_eV (positive = antibonding),ICOHP_cation_p-Te_p_eV,ICOHP_total_eV,VBM_minus_EF_COGITO_eV,ICOHP_cation_s-Te_p_within_1eV_below_VBM_eV
+Pb2Sb2Te5,A,Pb,3.20,3.20+3.21,2,0.8274,-1.9876,-0.8725,-0.123,0.6948
+Pb2Sb2Te5,B,Sb,3.02,3.02,1,1.4871,-3.7314,-1.5958,-0.123,1.1907
+Pb2Bi2Te5,A,Pb,3.21,3.21+3.22,2,0.8623,-2.0048,-0.8927,-0.038,0.8652
+Pb2Bi2Te5,B,Bi,3.08,3.08,1,1.3534,-3.6791,-1.7415,-0.038,0.8597
+Sn2Sb2Te5,A,Sn,3.13,3.13+3.13,2,0.8005,-2.0788,-0.9927,-0.15,0.9253
+Sn2Sb2Te5,B,Sb,3.01,3.01,1,1.4472,-3.607,-1.4797,-0.15,0.7127
+Sn2Bi2Te5,A,Sn,3.13,3.13,1,0.9,-2.1111,-0.919,0.007,1.1408
+Sn2Bi2Te5,B,Bi,3.07,3.07,1,1.3321,-3.5656,-1.6042,0.007,0.4806

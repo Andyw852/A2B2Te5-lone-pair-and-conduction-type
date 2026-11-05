@@ -61,7 +61,7 @@ sup.r { font-size: 11px; color: var(--accent); }
 <li><b>本版的改动</b>：
   <ul>
   <li><b>HSE06+SOC 输运完成</b>（四种材料，1.4 节）。输运的图都分成两幅：“-1”只画 HSE，“-2”是 HSE 与 PBE 的对比（图 8-1/8-2、9-1/9-2、10-1/10-2）；表 6–8 加 HSE 列；第 4、5、7 节按 HSE 结果重写。</li>
-  <li><b>新增 COHP</b>（图 3-2）：孤对电子是被填满的阳离子 s–Te p 反键态。</li>
+  <li><b>新增 COHP</b>：图 3-2（HSE06）、图 3-3（HSE06 与 PBE 对比），并用 LOBSTER 交叉检验。孤对电子是被填满的阳离子 s–Te p 反键态；SOC 下的 COHP 现有程序做不了（第 3 节）。</li>
   <li><b>HSE 能带专题并入本报告</b>，不再单独成册：图 2-1（HSE 能带）、图 4-2 与图 S3a–d（各轨道成分）、图 6-1（价带谷能级）、图 6-2（口袋在布里渊区中的位置）、图 S1（镜面内的真实极大）。</li>
   <li><b>图号</b>：原图 2 改为 2-2，图 3 改为 3-1，图 4 改为 4-1，原图 6 拆成 6-1、6-2；图与数据目录同名。</li>
   <li><b>作图数据逐项核对</b>（11-05）：每个数据表都从原始计算（path_eigen、PROCAR、BoltzTraP2、COGITO、缺陷能量）与实验原始表独立重算比对。改正：图 5 的能带数据原以路径价带顶为零点、与图不符（Sn₂Bi₂Te₅ 差 38 meV）；图 6-1 的有效质量原为沿固定轴的质量，改为主质量；表 8 中 Sn₂Bi₂Te₅ 的单谷质量由 0.13 改为 0.12（价带顶的 Σ′）；图 3-2 的 COHP 单位改正，并注明 Pb 系 A 位为两根键的平均。</li>
@@ -90,11 +90,12 @@ sup.r { font-size: 11px; color: var(--accent); }
 <h2 id="s0">摘要</h2>
 <p><b>问题一：孤对电子如何影响 S（p、n 分开）。</b>对象是四种材料的层状相（所给的 9 原子结构）。能带与输运都用 HSE06+SOC 与 PBE+SOC 两种泛函直接计算（BoltzTraP2，同一 28×28×7/6 网格，不加剪刀），并用四个样品的室温霍尔浓度与 S(T) 检验。</p>
 <ol>
-<li><b>孤对电子态是填满的反键态</b>：COHP 表明，阳离子 s 与 Te p 形成的反键态没有空出来，而是被推到价带顶并填满（图 3-2）。
+<li><b>孤对电子态是填满的反键态</b>：COHP 表明，阳离子 s 与 Te p 形成的反键态没有空出来，而是被推到价带顶并填满（图 3-2、3-3）。
   <ul>
-  <li>积分到费米能级，阳离子 s–Te p 为净反键：A 位 +0.73 到 +0.82 eV/键，B 位 +1.31 到 +1.46 eV/键；化学键靠 p–p（−2.2 到 −3.7 eV/键）。</li>
+  <li>HSE06 下，阳离子 s–Te p 的反键峰在价带顶以下 0.6–1.1 eV，价带顶以下 1 eV 内为 +0.48 到 +1.19 eV/键（反键）；成键部分在价带深处的阳离子 s 带。化学键靠 p–p（−2.0 到 −3.7 eV/键）。</li>
+  <li>换成 PBE、换成另一个程序（LOBSTER），这一图像与下面的趋势都不变；只有全部占据态积分后的 s–p 净值随程序而变，不作论据。</li>
   <li>它在能带中出现在两处：Γ 以外的几组价带谷（Σ、R，决定 p 型），以及 Γ 处的导带底（n 型，由两种阳离子的 s 大致均分，图 3-1、4-1）。</li>
-  <li>Sn 5s 比 Pb 6s 浅，Sn–Te 的反键更靠近价带顶，Sn 系的孤对电子谷因此更高。Γ 处的带反转也使 Sn₂Sb₂Te₅、Pb₂Bi₂Te₅、Sn₂Bi₂Te₅ 成为强拓扑绝缘体。</li>
+  <li>Sn 5s 比 Pb 6s 浅：价带顶以下 1 eV 内 Sn–Te 的 s–p 反键多于 Pb–Te（HSE06：+0.93、+1.14 对 +0.69、+0.87 eV/键），Sn 系的孤对电子谷因此更高。Γ 处的带反转也使 Sn₂Sb₂Te₅、Pb₂Bi₂Te₅、Sn₂Bi₂Te₅ 成为强拓扑绝缘体。</li>
   </ul></li>
 <li><b>低浓度 p 型：S 由价带顶的谷结构决定</b>（图 7、8-1，表 6）。
   <ul>
@@ -240,18 +241,43 @@ sup.r { font-size: 11px; color: var(--accent); }
 <figcaption><b>图 3-1</b> <b>孤对电子 s 态在能带的哪里。</b>HSE06+SOC 能带，颜色和线宽表示阳离子 s 成分，即孤对电子 s 态的权重。两条虚线为价带顶和导带底。(c)(d) 右侧单独的浅紫底小图是另算的附加路径 Γ–Σ′–R₂′–L：它在含 c 轴的镜面内，穿过三维搜索找到的真实极大 Σ′、R₂′（▼，1.2 节、图 S1），为便于看清横向放大 1.8 倍。能量零点取真实价带顶：Sn₂Bi₂Te₅ 的价带顶就是这一段的 Σ′，R₂′ 只低 2 meV；高对称路径上的最高点比它低 38 meV；标题给出真实带隙，括号内为只看高对称路径得到的带隙。▼ 标出路径上的价带谷，名称与图 5、图 6-1 相同：Γ、A、Δ 在 Γ–A 轴上（Δ 为 Γ–A 线中间的极大），Σ 在 Γ–M 线上，R₁、R₂ 在 A–L 线上（1.2 节）。</figcaption>
 </figure>
 <p>深色粗线即孤对电子态（阳离子 s–Te p 反键，阳离子 s 占 20–30%）。它出现在两处：离开 Γ 的价带谷（Γ–M 线上的 Σ 谷，A–L 线上的 R₁、R₂ 谷），以及 Γ 处的导带底。Γ 处的价带顶（Pb₂Sb₂Te₅、Sn₂Sb₂Te₅）是阳离子 p 态，几乎不含 s。这与孤对电子的“修正模型”一致<sup class="r">[25,26]</sup>，下面用 COHP 直接验证。</p>
-<p><b>为什么说是“反键”：COHP（图 3-2）。</b>晶体轨道哈密顿布居（COHP）把每根键的能带能量按能量、按轨道对拆开：−COHP 为正是成键，为负是反键；积分到费米能级得 ICOHP（正值为净反键）。用 COGITO 对四种材料最短的 A–Te、B–Te 键做了轨道分辨的 COHP（PBE、不加 SOC、所给结构，<code>06_COGITO成键分析与COHP</code>）。</p>
+<p><b>为什么说是“反键”：COHP（图 3-2、3-3）。</b>晶体轨道哈密顿布居（COHP）把每根键的能带能量按能量、按轨道对拆开：−COHP 为正是成键，为负是反键；对占据态积分得 ICOHP（正值为净反键）。用 COGITO 对四种材料最短的 A–Te、B–Te 键做了轨道分辨的 COHP，HSE06 与 PBE 各一遍，都不加 SOC，结构为所给结构（<code>06_COGITO成键分析与COHP</code>，HSE 的补算在 <code>补算_HSE与SOC/f_cogito_hse/</code>）。另用 LOBSTER（PBE，不同的基组）做了交叉检验。</p>
 <figure>
-<img src="{{FIG:Fig3-2_COHP_cation_s_Te_p}}" alt="Fig. 3-2">
-<figcaption><b>图 3-2</b> <b>孤对电子是填满的阳离子 s–Te p 反键态，位于价带顶。</b>阳离子–Te 键的轨道分辨 −COHP（正为成键，负为反键；每根键，对能量积分即 ICOHP，单位 eV/键）。上排 A 位–Te（Pb、Sn），下排 B 位–Te（Sb、Bi），每种材料取最短的键；Pb 系的 A 位有两根几乎等长的 Pb–Te 键（3.20 与 3.21 Å、3.21 与 3.22 Å），COGITO 把它们归为一组，图中为两根键的平均。紫、橙为阳离子 s–Te p，反键一侧填色；灰为阳离子 p–Te p；黑细线为该键的总 COHP；虚线为费米能级（价带顶附近）。框内为积分到 E_F 的 ICOHP（eV/键，正为反键）。PBE、不加 SOC（COGITO），横轴左侧 −6 附近的大峰是 E_F 以上的空态。</figcaption>
+<img src="{{FIG:Fig3-2_COHP_HSE}}" alt="Fig. 3-2">
+<figcaption><b>图 3-2</b> <b>孤对电子是填满的阳离子 s–Te p 反键态，位于价带顶（HSE06）。</b>阳离子–Te 键的轨道分辨 −COHP（HSE06、不加 SOC，COGITO；正为成键，负为反键；每根键，对能量积分即 ICOHP，单位 eV/键）。上排 A 位–Te（Pb、Sn），下排 B 位–Te（Sb、Bi），每种材料取最短的键；Pb 系的 A 位有两根几乎等长的 Pb–Te 键（3.20 与 3.21 Å、3.21 与 3.22 Å），COGITO 把它们归为一组，图中为两根键的平均。紫、橙为阳离子 s–Te p，反键一侧填色；灰为阳离子 p–Te p；黑细线为该键的总 COHP。能量零点为价带顶（虚线）：COGITO 的费米能由它自己的紧束缚模型确定，可落在带隙中（Sn₂Sb₂Te₅ 在价带顶以上 0.15 eV），所以价带顶取全部阳离子–Te 键的 |COHP| 降到 2% 处（约 ±0.03 eV）。框内为 ICOHP（eV/键，正为反键）：s–p (1 eV) 只积分价带顶以下 1 eV，s–p (all) 积分全部占据态。横轴左侧 −5 附近的大峰在价带顶以上，是空的反键态。</figcaption>
+</figure>
+<figure>
+<img src="{{FIG:Fig3-3_COHP_HSE_vs_PBE}}" alt="Fig. 3-3">
+<figcaption><b>图 3-3</b> <b>换成 HSE，孤对电子的反键与成键各变了多少。</b>同一根键的 −COHP：实线 HSE06、虚线 PBE（都不加 SOC，COGITO），各以本泛函的价带顶为零点（确定方法同图 3-2）。着色为阳离子 s–Te p（HSE06 的反键一侧填色），灰为阳离子 p–Te p。框内为 ICOHP 的 PBE → HSE06 值。PBE 取 06_ 的原运行；同一批补算中按原设置重算的 PBE 复现了它，最短键相差 ≤ 0.03 eV/键。</figcaption>
 </figure>
 <ul>
-<li><b>s–p 反键态被填满，而且就在价带顶</b>：阳离子 s–Te p 的反键峰在价带顶以下 0–1.5 eV（填色部分）。积分到 E_F，A 位 s–Te p 为 +0.73 到 +0.82 eV/键，B 位 +1.31 到 +1.46 eV/键，均为净反键；对应的成键部分在价带深处（−7 到 −9 eV，阳离子 s 带）。</li>
-<li><b>化学键靠 p–p</b>：阳离子 p–Te p 为 −2.2 到 −3.7 eV/键（成键），整根键的 ICOHP 为 −1.1 到 −1.7 eV/键。</li>
+<li><b>s–p 反键态被填满，而且就在价带顶</b>：
+  <ul>
+  <li>阳离子 s–Te p 的反键峰在价带顶以下 0.6–1.1 eV（填色部分），与 PBE 相差不超过 0.2 eV。</li>
+  <li>HSE06 下，价带顶以下 1 eV 内的 s–p 为 +0.48 到 +1.19 eV/键（反键）。</li>
+  <li>对应的成键部分在价带深处的阳离子 s 带（HSE06 下 −8 到 −9 eV）。</li>
+  </ul></li>
+<li><b>化学键靠 p–p</b>：HSE06 下阳离子 p–Te p 为 −2.0 到 −2.1 eV/键（A 位）、−3.6 到 −3.7 eV/键（B 位），整根键的 ICOHP 为 −0.87 到 −0.99（A 位）、−1.48 到 −1.74 eV/键（B 位）。</li>
 <li>这就是孤对电子的“修正模型”<sup class="r">[25,26]</sup>：阳离子 s 与 Te p 形成的反键态没有空出来，而是被推到价带顶并填满。图 3-1 中价带谷里那 20–30% 的阳离子 s，正是这些反键态。</li>
-<li><b>Sn 比 Pb 的反键更靠近价带顶</b>：价带顶以下 1 eV 内的 s–p 反键，Sn–Te 为 +0.86、+1.13 eV/键（Sn₂Sb₂Te₅、Sn₂Bi₂Te₅），Pb–Te 为 +0.61、+0.81 eV/键。Sn 5s 比 Pb 6s 浅，反键态被推得更高，这与 Sn 系孤对电子谷更靠近价带顶一致（图 6-1）。</li>
-<li><b>Bi 的 6s 更惰性</b>：同一能量范围内，Bi–Te 为 +0.60、+0.85 eV/键，Sb–Te 为 +0.74、+1.09 eV/键，与价带顶 B 位 s 成分 Bi 小于 Sb 一致（表 4）。</li>
-<li><b>局限</b>：COHP 是 PBE、不加 SOC 的结果，只用于判断成键与反键的性质；HSE 的 COHP 没有算。两种泛函下这些态的轨道成分只差 3–5 个百分点（下段）。</li>
+<li><b>HSE 与 PBE（图 3-3）</b>：结论不变，只有数值的差别。
+  <ul>
+  <li>HSE 把阳离子 s 带压低 0.6–0.7 eV（A 位 s–p 成键部分的重心），价带顶附近的反键峰基本不动（最多移 0.2 eV）。</li>
+  <li>A 位：全部占据态的 s–p 净反键增加 0.07–0.09 eV/键，p–p 成键减弱约 0.19 eV/键，整根 A–Te 键减弱 0.20–0.23 eV/键。</li>
+  <li>最短的 B–Te 键几乎不变（−0.05 到 +0.01 eV/键）。</li>
+  </ul></li>
+<li><b>Sn 比 Pb 的反键更靠近价带顶</b>：价带顶以下 1 eV 内的 s–p 反键，HSE06 下 Sn–Te 为 +0.93、+1.14 eV/键（Sn₂Sb₂Te₅、Sn₂Bi₂Te₅），Pb–Te 为 +0.69、+0.87 eV/键（PBE：+0.86、+1.13 对 +0.66、+0.81）。Sn 5s 比 Pb 6s 浅，反键态被推得更高，这与 Sn 系孤对电子谷更靠近价带顶一致（图 6-1）。</li>
+<li><b>Bi 的 6s 更惰性</b>：同一能量范围内，HSE06 下 Bi–Te 为 +0.48、+0.86 eV/键（Sn₂Bi₂Te₅、Pb₂Bi₂Te₅），Sb–Te 为 +0.71、+1.19 eV/键（Sn₂Sb₂Te₅、Pb₂Sb₂Te₅）（PBE：+0.60、+0.85 对 +0.74、+1.17），与价带顶 B 位 s 成分 Bi 小于 Sb 一致（表 4）。</li>
+<li><b>换一个程序（LOBSTER，PBE，同样取最短的键）</b>：
+  <ul>
+  <li><b>一致的</b>：价带顶以下 1 eV 内的 s–p 同样是反键（+0.09 到 +0.19 eV/键），1–3 eV 也是（+0.09 到 +0.20），成键部分同样在 3 eV 以下的阳离子 s 带（−0.29 到 −0.47）；Sn–Te 多于 Pb–Te（0.17、0.19 对 0.11、0.14），Bi–Te 少于 Sb–Te（0.13、0.09 对 0.19、0.14）。</li>
+  <li><b>不一致的</b>：全部占据态积分后的 s–p 净值。COGITO 为明显的净反键（HSE06 +0.80 到 +1.49 eV/键），LOBSTER 接近零（−0.06 到 −0.14 eV/键）。两者的基组与轨道划分不同，反键、成键两部分的数值相差几倍，抵消后的净值随之而变，所以本报告不以净值的正负作为论据，只用价带顶附近的反键与上面的趋势。</li>
+  <li>LOBSTER 的整根键 ICOHP 比 COGITO 系统地更负 0.2–0.7 eV/键，同号、同一量级（数据：<code>Fig3-3_COHP_HSE_vs_PBE/LOBSTER_PBE_crosscheck_s-p_by_energy_window.csv</code>）。</li>
+  </ul></li>
+<li><b>局限：COHP 都不加 SOC</b>。
+  <ul>
+  <li>COGITO 要求不加 SOC；LOBSTER 5.1.1 读不了 SOC 的旋量波函数（读入的平面波数正好差 2 倍，四种材料一致）。所以 SOC 下的 COHP 没有算。</li>
+  <li>SOC 的影响用轨道成分检验：同一条能带路径上，价带顶以下 3 eV 内的阳离子 s 电子数，PBE、PBE+SOC、HSE06+SOC 三者相差不到 4%；Σ 谷的阳离子 s 成分，SOC 使之降低 1–3 个百分点（<code>22_能带基准_1-0/SOC机制检验/阳离子s成分_PBE_PBE+SOC_HSE+SOC.csv</code>，<code>10_脚本/soc_s_weight.py</code>）。SOC 主要劈裂 p 态，不会去掉 s–p 反键。</li>
+  </ul></li>
 </ul>
 <p>图 3-1、4-1、4-2、5、6-1 用 HSE06+SOC 的投影。PBE+SOC 下同一批态的成分基本相同：在自洽网格点上，各原子的份额相差 3–5 个百分点（<code>22_能带基准_1-0/&lt;材料&gt;/带边成分_PBE.txt</code> 与 <code>_HSE.txt</code>）。两种泛函的差别主要在这些谷的能量（图 7）。</p>
 <p class="tcap"><b>表 3</b> HSE06+SOC 的带边：位置、主质量（面内两向 / 沿 c，单位 <i>m</i><sub>e</sub>）与轨道成分。</p>
@@ -622,7 +648,7 @@ sup.r { font-size: 11px; color: var(--accent); }
 <ul>
 <li><b>问题一</b>：
   <ul>
-  <li><b>孤对电子态是什么</b>：被填满的阳离子 s–Te p 反键态（COHP，图 3-2），出现在 Σ、R 价带谷（p 型）与 Γ 导带底（n 型）。Sn 5s 比 Pb 6s 浅，Sn 系的反键态更靠近价带顶。</li>
+  <li><b>孤对电子态是什么</b>：被填满的阳离子 s–Te p 反键态（COHP，图 3-2、3-3；HSE06 与 PBE、COGITO 与 LOBSTER 一致），出现在 Σ、R 价带谷（p 型）与 Γ 导带底（n 型）。Sn 5s 比 Pb 6s 浅，Sn 系的反键态更靠近价带顶。</li>
   <li><b>它怎样提高 S</b>：孤对电子谷进入价带顶，口袋增多，同一浓度下 µ 更浅、S 更高。HSE 下只有 Sn₂Bi₂Te₅ 做到了：3×10¹⁹ cm⁻³、300 K 时 221 µV/K，四种中最高；价带顶为轻单谷的 Pb₂Sb₂Te₅ 最低，120 µV/K。</li>
   <li><b>与样品</b>：两个 Sn 样品（p 型）HSE 更接近（均方根偏差 3.6–3.7 µV/K，PBE 4.8–6.9 µV/K）；Pb₂Bi₂Te₅（n 型）只有 PBE 对（−89.2 对实验 −89.5 µV/K，HSE −42.8），它的导带是多谷的，含以 Bi-p 为主的 A 谷。实验的态密度有效质量是单个谷的 4–11 倍。</li>
   <li><b>样品能检验什么</b>：样品浓度高，化学势在价带顶以下 0.23–0.48 eV（图 10-1），S 取样的是各个谷合起来的态密度。带边几十 meV 内的谷序（两种泛函的主要差别）在低浓度下才显出来，这些样品检验不了。</li>
@@ -637,7 +663,7 @@ sup.r { font-size: 11px; color: var(--accent); }
 <li><b>待补（计算）</b>：
   <ol>
   <li>图 S2 的 HSE 版：HSE06 不加 SOC 的能带，检验 Sb → Bi 的 SOC 拆分在 HSE 下是否不变（作业已备好，<code>22_能带基准_1-0/SOC机制检验_HSE/</code>）。</li>
-  <li>COHP 只算了 PBE、不加 SOC（第 3 节），用于判断成键与反键的性质，HSE 下没有算。</li>
+  <li>SOC 下的 COHP：COGITO 不支持 SOC，LOBSTER 5.1.1 读不了旋量波函数，现有程序做不了；SOC 的影响目前只用轨道成分检验（第 3 节）。四种材料的 PBE+SOC 波函数保留在集群上，有支持 SOC 的程序时可直接用。</li>
   <li>输运用常数弛豫时间；与散射计算（AMSET）的定量比较本工作未做。</li>
   </ol></li>
 <li><b>待补（实验）</b>：Pb₂Sb₂Te₅ 的物相与未退火样品；约 3×10¹⁹ cm⁻³ 的 p 型样品（两种泛函在此差别最大）；Sn₂Sb₂Te₅ 重测霍尔（5.3 节）。</li>
@@ -712,7 +738,9 @@ sup.r { font-size: 11px; color: var(--accent); }
 <tr><td>图 2-1</td><td><code>Fig2-1_HSE_bands</code></td><td><code>02_能带与轨道成分/Fig2-1_HSE_bands/</code>：HSE06+SOC 路径能带（相对真实价带顶，<code>*_HSE06+SOC_path.csv</code>）；Sn 系的附加路径 Γ–Σ′–R₂′–L（<code>*_true_valley_path_G-S-R2-L.csv</code>）；真实带隙与路径带隙（<code>band_gaps_HSE06+SOC.csv</code>）</td></tr>
 <tr><td>图 2-2、表 2</td><td><code>Fig2-2_bands_PBE_vs_HSE</code></td><td><code>02_能带与轨道成分/Fig2-2_bands_PBE_vs_HSE/</code>：每种材料、每种泛函的路径能带（相对该泛函的真实价带顶）；Sn 系另有附加路径；路径带隙、含附加路径的带隙、价带顶比路径高多少，以及 Γ 处的能级与反转带隙（<code>band_gaps_on_path.csv</code>）</td></tr>
 <tr><td>图 3-1、表 3</td><td><code>Fig3-1_HSE_bands_cation_s</code></td><td><code>02_能带与轨道成分/Fig3-1_HSE_bands_cation_s/</code>：HSE 路径能带及每个 k 点、每条带的阳离子 s 成分（能量相对真实价带顶）；Sn 系的附加路径</td></tr>
-<tr><td>图 3-2</td><td><code>Fig3-2_COHP_cation_s_Te_p</code></td><td><code>02_能带与轨道成分/Fig3-2_COHP/</code>：每种材料最短的 A–Te、B–Te 键的轨道分辨 −COHP（阳离子 s–Te p、阳离子 p–Te p、总和；每根键，对能量积分即 ICOHP，<code>*_COHP.csv</code>，文件名含键长；Pb 系 A 位为两根几乎等长的键的平均）；积分到 E_F 与价带顶以下 1 eV 内的 ICOHP 及所平均的键长（<code>ICOHP_summary.csv</code>）。PBE、不加 SOC（COGITO）</td></tr>
+<tr><td>图 3-2</td><td><code>Fig3-2_COHP_HSE</code></td><td><code>02_能带与轨道成分/Fig3-2_COHP_HSE/</code>：HSE06（不加 SOC，COGITO）每种材料最短的 A–Te、B–Te 键的轨道分辨 −COHP（阳离子 s–Te p、阳离子 p–Te p、总和；每根键，对能量积分即 ICOHP；<code>*_COHP.csv</code>，第 1 列为相对价带顶的能量，文件名含键长；Pb 系 A 位为两根几乎等长的键的平均）；ICOHP、价带顶相对 COGITO 费米能的位置、价带顶以下 1 eV 内的 s–p ICOHP（<code>ICOHP_summary.csv</code>）</td></tr>
+<tr><td>图 3-3</td><td><code>Fig3-3_COHP_HSE_vs_PBE</code></td><td><code>02_能带与轨道成分/Fig3-3_COHP_HSE_vs_PBE/</code>：同一批键在 HSE06 与 PBE 下的 −COHP（<code>*_COHP_HSE06.csv</code>、<code>*_COHP_PBE.csv</code>）；ICOHP 的 PBE → HSE06 与变化量（<code>ICOHP_HSE_vs_PBE.csv</code>）；LOBSTER（PBE）的交叉检验，s–p ICOHP 按能量窗口分开（<code>LOBSTER_PBE_crosscheck_s-p_by_energy_window.csv</code>，不作图）</td></tr>
+
 <tr><td>图 4-1、表 4</td><td><code>Fig4-1_cation_s_by_atom</code></td><td><code>02_能带与轨道成分/Fig4-1_cation_s_by_atom/</code>：HSE 路径能带上每个 k 点、每条带的 A、B、Te 的 s 成分；关键态（<code>key_states.csv</code>，表 4）</td></tr>
 <tr><td>图 4-2、图 S3a–d</td><td><code>Fig4-2_HSE_orbitals；FigS3a–d_orbitals_&lt;材料&gt;</code></td><td><code>02_能带与轨道成分/Fig4-2_HSE_orbitals/</code>：HSE 路径能带上每个 k 点、每条带的 A 位 s、B 位 s、A 位 p、B 位 p、Te p（另有 Te s 与阳离子 s 合计）；Sn 系的附加路径。图 4-2 与图 S3a–d 用同一组数据</td></tr>
 <tr><td>图 5、表 5</td><td><code>Fig5_SnSb_vs_SnBi_orbitals</code></td><td><code>02_能带与轨道成分/Fig5_SnSb_vs_SnBi/</code>：两种材料路径能带上的 Sn-s、B-s、Sn-p、B-p、Te-p 投影（相对真实价带顶，与图相同），右侧小图的附加路径（<code>*_true_valley_path_G-S-R2-L.csv</code>）；路径上的价带谷（同时给路径值与真实值）；价带能级（路径值 <code>levels.csv</code>，即表 5；真实值 <code>levels_true.csv</code>，即 (e)）；Γ 处最高价带与最低导带的能量（相对路径价带顶）与成分（<code>Gamma_states.csv</code>）</td></tr>

@@ -66,7 +66,7 @@ def readme(tables):
     t = '\n'.join(f'      {x["name"]}.csv    {" ".join(x["caption"].split())}' for x in tables)
     return f'''A2B2Te5（A = Pb, Sn；B = Sb, Bi）中的孤对电子与导电类型：论文写作用报告与数据
 生成日期 2026-10-28，2026-11-05 整合版：HSE06+SOC 能带专题并入本报告；HSE06+SOC 与 PBE+SOC 的 S 都是同一 28×28×7/6 网格上
-BoltzTraP2 的直接计算（不加剪刀）；新增 COHP（图 3-2）。改动见报告文首的版本说明。计算全部为理论计算；实验 S(T)、σ(T) 与室温霍尔为用户提供的实验值。
+BoltzTraP2 的直接计算（不加剪刀）；新增 COHP（图 3-2 为 HSE06，图 3-3 为 HSE06 与 PBE 对比，另用 LOBSTER 交叉检验）。改动见报告文首的版本说明。计算全部为理论计算；实验 S(T)、σ(T) 与室温霍尔为用户提供的实验值。
 结构：问题一（能带、COHP 与 S）用所给的四种 9 原子层状结构。问题二只算 Pb2Sb2Te5，用了三套缺陷计算：
 D（无序立方）、O（有序立方）为 144 原子岩盐超胞；L 为所给层状结构的 3×3×1 超胞（81 原子，早先一批）。见报告 1.1 节、图 1、表 1。
 
@@ -89,8 +89,9 @@ data/<类别>/<图目录>/   每幅图的源数据，即图中画出的数值，
   Fig2-1_HSE_bands/           HSE06+SOC 路径能带；Sn 系的附加路径 Γ–Σ′–R₂′–L（*_true_valley_path_G-S-R2-L.csv）；真实带隙与路径带隙
   Fig2-2_bands_PBE_vs_HSE/    PBE+SOC、HSE06+SOC 的路径能带（各相对本泛函的价带顶）；路径带隙及 Γ 处能级与反转带隙（band_gaps_on_path.csv）
   Fig3-1_HSE_bands_cation_s/  HSE06+SOC 路径能带及每个 k 点、每条带的阳离子 s 成分（%）；Sn 系的附加路径
-  Fig3-2_COHP/                最短 A–Te、B–Te 键的轨道分辨 −COHP（阳离子 s–Te p、阳离子 p–Te p、总和；正为成键，PBE、不加 SOC，COGITO）；
-                              ICOHP（积分到 E_F 与价带顶以下 1 eV 内，ICOHP_summary.csv，正为反键）
+  Fig3-2_COHP_HSE/            HSE06（不加 SOC，COGITO）最短 A–Te、B–Te 键的轨道分辨 −COHP（阳离子 s–Te p、阳离子 p–Te p、总和；正为成键，
+                              能量相对价带顶）；ICOHP（全部占据态与价带顶以下 1 eV 内，ICOHP_summary.csv，正为反键）
+  Fig3-3_COHP_HSE_vs_PBE/     同一批键在 HSE06 与 PBE 下的 −COHP 与 ICOHP 的变化；LOBSTER（PBE）的交叉检验（按能量窗口的 s–p ICOHP）
   Fig4-1_cation_s_by_atom/    HSE06+SOC 路径能带上每个 k 点、每条带的 A（Pb/Sn）、B（Sb/Bi）、Te 的 s 成分（%）；关键态（表 4）
   Fig4-2_HSE_orbitals/        HSE06+SOC 路径能带上的 A 位 s、B 位 s、A 位 p、B 位 p、Te p 成分（图 4-2 与图 S3a–d 共用）
   Fig5_SnSb_vs_SnBi/          Sn2Sb2Te5 与 Sn2Bi2Te5 的轨道投影、价带谷、价带能级（levels_true.csv 为真实值；其余相对路径价带顶）、
@@ -127,7 +128,7 @@ Q：A–H，T：M–K；同一条线上的几个谷按离 Γ–A 轴由近到远
 CSV 为 UTF-8（带 BOM），可直接用 Excel、Origin 打开。
 
 生成脚本（在仓库中）：10_脚本/paper_figures.py（图与源数据；输运图 transport_figures.py，HSE 能带与轨道图 hse_band_figures.py，
-COHP 提取 cohp_extract.py）；BoltzTraP2 结果 22_能带基准_1-0/<材料>/c8_hse_dense/gene/bt2_mult60/（HSE06+SOC）、
+COHP 提取 cohp_extract.py --run pbe/hse/lobster）；BoltzTraP2 结果 22_能带基准_1-0/<材料>/c8_hse_dense/gene/bt2_mult60/（HSE06+SOC）、
 22_能带基准_1-0/bt2_pbe_dense/（PBE+SOC）；10_脚本/build_paper_report.py（本压缩包）。
 '''.replace('\n', '\r\n')
 
