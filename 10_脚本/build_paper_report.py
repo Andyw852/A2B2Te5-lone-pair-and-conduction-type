@@ -5,11 +5,11 @@
        A2B2Te5_report_20261028/
          A2B2Te5_report.html     A2B2Te5_report_单文件.html     README.txt
          figures/png/  figures/pdf/
-         data/<类别>/Fig1_structures/ … data/<类别>/Fig12_ordering/   （paper_figures.py 写出的源数据，按 plot_data_index.CATS 分类）
-         data/tables/                                 （正文表 1–11，从 HTML 中抽出）
-         data/L_layered_defects/                      （早先一批层状相缺陷计算的原始结果，取自 03_缺陷形成能与PN型数据/Pb2Sb2Te5.zip）
+         data/<类别>/<图目录>/    （paper_figures.py 写出的源数据，图 1–12（含 -1/-2 两幅）、S1–S3、表 6–8，按 plot_data_index.CATS 分类）
+         data/06_正文表格/tables/                       （正文表 1–11，从 HTML 中抽出）
+         data/05_缺陷与导电类型/L_layered_defects/      （早先一批层状相缺陷计算的原始结果，取自 03_缺陷形成能与PN型数据/Pb2Sb2Te5.zip）
          data/作图数据索引.csv                          （每幅图、每个子图用哪个文件、横轴纵轴取哪一列；10_脚本/plot_data_index.py）
-         作图数据/FigN_….xlsx  作图数据/tables.xlsx     （每幅图单独一个 Excel：第一页说明，其后每个数据表一页）
+         作图数据/<类别>/<图目录>.xlsx                  （每幅图单独一个 Excel，xlsxwriter 写出并读回检查：第一页说明，其后每个数据表一页）
 
 用法：先运行 10_脚本/paper_figures.py 生成图与源数据，再 python 10_脚本/build_paper_report.py
 输入：21_阶段报告与交接/论文报告_20261028.src.html、21_阶段报告与交接/论文图_20261028/（含 source_data/）
@@ -65,50 +65,59 @@ class Tables(HTMLParser):
 def readme(tables):
     t = '\n'.join(f'      {x["name"]}.csv    {" ".join(x["caption"].split())}' for x in tables)
     return f'''A2B2Te5（A = Pb, Sn；B = Sb, Bi）中的孤对电子与导电类型：论文写作用报告与数据
-生成日期 2026-10-28，2026-11-02 按霍尔数据更新，2026-11-04 更新：S 全部为 PBE+SOC 密网格 BoltzTraP2 的直接计算，HSE06+SOC 的输运在计算中（见报告文首的版本说明）。计算全部为理论计算；实验 S(T)、σ(T) 与室温霍尔为用户提供的实验值。
-结构：问题一（PBE、HSE 能带与 S）用所给的四种 9 原子层状结构。问题二只算 Pb2Sb2Te5，用了三套缺陷计算：
+生成日期 2026-10-28，2026-11-05 整合版：HSE06+SOC 能带专题并入本报告；HSE06+SOC 与 PBE+SOC 的 S 都是同一 28×28×7/6 网格上
+BoltzTraP2 的直接计算（不加剪刀）；新增 COHP（图 3-2）。改动见报告文首的版本说明。计算全部为理论计算；实验 S(T)、σ(T) 与室温霍尔为用户提供的实验值。
+结构：问题一（能带、COHP 与 S）用所给的四种 9 原子层状结构。问题二只算 Pb2Sb2Te5，用了三套缺陷计算：
 D（无序立方）、O（有序立方）为 144 原子岩盐超胞；L 为所给层状结构的 3×3×1 超胞（81 原子，早先一批）。见报告 1.1 节、图 1、表 1。
 
 A2B2Te5_report.html    报告正文（用浏览器打开；图片从 figures/png 读取，请先整体解压再打开）
 A2B2Te5_report_单文件.html  同一报告，图片已嵌入，单独打开或转发都能显示
-figures/png/           图 1–12、S1、S2，600 dpi PNG（文件名的 FigN 即正文的图 N）
-figures/pdf/           图 1–12、S1、S2，矢量 PDF（字体已嵌入，英文 Times New Roman，公式 STIX）
+figures/png/           全部图，600 dpi PNG（文件名的 FigN、FigN-1、FigN-2 即正文的图 N、N-1、N-2）
+figures/pdf/           同上，矢量 PDF（字体已嵌入，英文 Times New Roman，公式 STIX）
+                       输运图都分两幅：“-1”只画 HSE06+SOC，“-2”为 HSE06+SOC 与 PBE+SOC 对比（图 8、9、10）
 作图数据/<类别>/       每幅图单独一个 Excel（文件名同 data/ 下的图目录名；第一页“说明”写明每个子图用哪一页、横轴纵轴取哪一列，
                        其后每个数据表一页，数值为数字格式，可直接在 Excel、Origin 中作图）；正文表格在 06_正文表格/tables.xlsx
 data/作图数据索引.csv  同一份索引的 CSV（全部图）
 data/<类别>/<图目录>/   每幅图的源数据，即图中画出的数值，图目录名与图文件名对应。类别：
-                       01_结构（图 1）；02_能带与轨道成分（图 2–5、S2）；03_价带谷与口袋（图 6、7、S1）；
-                       04_输运与实验对照（图 8–10、表 8）；05_缺陷与导电类型（图 11、12，L 层状相缺陷）；06_正文表格（表 1–11）
-                       下面按图目录逐个说明：
-  Fig1_structures/            O、D 两个 144 原子母胞的格点占位（每个格点的原子面、种类、坐标）与未弛豫 POSCAR；
-                              所给的 9 原子层状结构 POSCAR（问题一的能带与 S 都用它）；图 1c、d 各原子面的高度与堆垛位置；
-                              三种结构的晶格、体积与能量对比（structure_comparison.csv，即表 1）
-  Fig2_bands_PBE_vs_HSE/      四种材料 PBE+SOC、HSE06+SOC 的路径能带（相对价带顶，eV）；路径带隙及 Γ 处最高价带、
-                              最低导带的能量与反转带隙（band_gaps_on_path.csv）
-  Fig3_HSE_bands_cation_s/    HSE06+SOC 路径能带及每个 k 点、每条带的阳离子 s 成分（%），能量相对真实价带顶；
-                              Sn 系另有穿过真实极大的附加路径 Γ–Σ′–R₂′–L（*_true_valley_path_G-S-R2-L.csv，c7_true_path）
-  Fig4_cation_s_by_atom/      HSE06+SOC 路径能带上每个 k 点、每条带的 A（Pb/Sn）、B（Sb/Bi）、Te 的 s 成分（%）；关键态（表 4）；
-                              能量相对真实价带顶（与图 3 相同）
-  Fig5_SnSb_vs_SnBi/          （levels_true.csv 为 (e) 的真实能级，相对真实价带顶；其余表与表 5 相对路径价带顶）
-                              Sn2Sb2Te5 与 Sn2Bi2Te5 路径能带上的 Sn-s、B-s、Sn-p、B-p、Te-p 投影；Γ 单谷与三组孤对电子谷的能量与成分；
-                              Γ 处最高价带与最低导带的能量与成分（Gamma_states.csv）（表 5）
-  Fig6_valence_pockets/       Sn2Sb2Te5、Sn2Bi2Te5 价带口袋在布里渊区中的位置（pocket_positions.csv：每个口袋一行，
-                              分数坐标、笛卡尔坐标、所在面、能量、等价口袋数）；四种材料的价带能级（levels_HSE.csv）与谷间能量差（HSE06+SOC）
-                              ΔE = E(最高的孤对电子谷) − E(Γ–A 轴上最高价带态)（valley_offset_HSE.csv）；Sn 系的孤对电子谷为镜面内三维搜索的真实极大
-  Fig7_lone_pair_valley/      最高孤对电子价带谷相对价带顶的能量（meV）、所在 k 点与成分
-  Fig8_Seebeck/               四种材料 300 K 的面内 S 随载流子浓度（PBE+SOC 密网格 BoltzTraP2，不加剪刀，S_vs_concentration_300K.csv）；
-                              表 6 的数值（S_300K_table6.csv）
-  Table8_Pisarenko_mass/      表 8（不作图）：样品的霍尔浓度、实验 S，同一浓度下的 PBE+SOC S，以及由此读出的态密度有效质量
-  Fig9_S_vs_T/                第 5 节图 9：四个样品的实验 T、σ（S/m）、S 与室温霍尔；霍尔浓度下直接计算的 S(T)（PBE+SOC 密网格 BoltzTraP2，不加剪刀，不调参数）；最低、最高温的实验与计算值和偏差（表 7）
-  Fig10_Fermi_window/         第 5.1 节图 10：PBE+SOC 路径能带（阳离子 s 成分）与 300 K 的化学势 µ、µ ± 3k_BT、µ ± 5k_BT
-                              （样品霍尔浓度与 3×10¹⁹ cm⁻³；µ 取自 BoltzTraP2，密网格与路径用 Γ 处本征值对齐）
+                       01_结构（图 1）；02_能带与轨道成分（图 2-1 至 5、S2、S3）；03_价带谷与口袋（图 6-1、6-2、7、S1）；
+                       04_输运与实验对照（图 8-1 至 10-2、表 6–8）；05_缺陷与导电类型（图 11、12，L 层状相缺陷）；06_正文表格（表 1–11）
+                       下面按图目录逐个说明（能量相对真实价带顶，另注明者除外）：
+  01_结构/
+  Fig1_structures/            O、D 两个 144 原子母胞的格点占位与未弛豫 POSCAR；所给的 9 原子层状结构 POSCAR；
+                              图 1c、d 各原子面的高度与堆垛位置；三种结构的晶格、体积与能量对比（structure_comparison.csv，即表 1）
+  02_能带与轨道成分/
+  Fig2-1_HSE_bands/           HSE06+SOC 路径能带；Sn 系的附加路径 Γ–Σ′–R₂′–L（*_true_valley_path_G-S-R2-L.csv）；真实带隙与路径带隙
+  Fig2-2_bands_PBE_vs_HSE/    PBE+SOC、HSE06+SOC 的路径能带（各相对本泛函的价带顶）；路径带隙及 Γ 处能级与反转带隙（band_gaps_on_path.csv）
+  Fig3-1_HSE_bands_cation_s/  HSE06+SOC 路径能带及每个 k 点、每条带的阳离子 s 成分（%）；Sn 系的附加路径
+  Fig3-2_COHP/                最短 A–Te、B–Te 键的轨道分辨 −COHP（阳离子 s–Te p、阳离子 p–Te p、总和；正为成键，PBE、不加 SOC，COGITO）；
+                              ICOHP（积分到 E_F 与价带顶以下 1 eV 内，ICOHP_summary.csv，正为反键）
+  Fig4-1_cation_s_by_atom/    HSE06+SOC 路径能带上每个 k 点、每条带的 A（Pb/Sn）、B（Sb/Bi）、Te 的 s 成分（%）；关键态（表 4）
+  Fig4-2_HSE_orbitals/        HSE06+SOC 路径能带上的 A 位 s、B 位 s、A 位 p、B 位 p、Te p 成分（图 4-2 与图 S3a–d 共用）
+  Fig5_SnSb_vs_SnBi/          Sn2Sb2Te5 与 Sn2Bi2Te5 的轨道投影、价带谷、价带能级（levels_true.csv 为真实值；其余相对路径价带顶）、
+                              Γ 处最高价带与最低导带的能量与成分（表 5）
+  FigS2_Gamma_levels_SOC/     Γ 点能级（PBE，有、无 SOC）与 Sb → Bi 变化的标量 / SOC 拆分（10_脚本/soc_mechanism.py）
+  03_价带谷与口袋/
+  Fig6-1_valence_levels/      四种材料价带上的谷：能量、等价口袋数、k、阳离子 s、主轴有效质量（HSE06+SOC）
+  Fig6-2_pockets_BZ/          Sn 系全部价带口袋在布里渊区中的位置（pocket_positions.csv：每个口袋一行）
+  Fig7_lone_pair_valley/      最高孤对电子价带谷相对价带顶的能量（meV）、所在 k 点与成分（两种泛函）
+  FigS1_mirror_plane/         Sn 系镜面内最高价带的能量网格（meV）；路径上的谷与真实极大；两者的能量差（path_vs_true_maxima.csv）
+  04_输运与实验对照/          （BoltzTraP2：HSE06+SOC 与 PBE+SOC，同一 28×28×7/6 网格，不加剪刀，常数弛豫时间）
+  Fig8-1_Seebeck_HSE/         300 K 面内 S 随载流子浓度（HSE06+SOC）
+  Fig8-2_Seebeck_HSE_vs_PBE/  同上，两种泛函（按 functional 列区分）
+  Table6_S_300K/              表 6：300 K、±3×10¹⁹ 与 ±1×10²⁰ cm⁻³ 的 S
+  Fig9-1_S_vs_T_HSE/          四个样品的实验 T、σ（S/m）、S 与室温霍尔；霍尔浓度下直接计算的 S(T)（HSE06+SOC，不调参数）
+  Fig9-2_S_vs_T_HSE_vs_PBE/   同上，计算含两种泛函
+  Table7_S_T_at_Hall/         表 7：最低、最高测量温度的实验与计算值，300–620 K 的均方根偏差
+  Table8_Pisarenko_mass/      表 8（不作图）：样品的霍尔浓度、实验 S，同一浓度下 HSE、PBE 的 S，以及由此读出的态密度有效质量
+  Fig10-1_Fermi_window_HSE/   300 K 的化学势 µ（霍尔浓度与 3×10¹⁹ cm⁻³，HSE06+SOC；µ 取自 BoltzTraP2，用 Γ 处本征值对齐到能带路径）
+  Fig10-2_Fermi_window_HSE_vs_PBE/  两种泛函各自在霍尔浓度下的 µ
+  05_缺陷与导电类型/
   Fig11_formation_energies/   12 类缺陷逐位点的中性形成能（富 Te、贫 Te），两端化学势
   Fig12_ordering/             有序化引起的形成能变化 ΔE_f = E_f(O) − E_f(D)，逐位点与中位数
-  FigS2_Gamma_levels_SOC/     Γ 点能级（PBE，有、无 SOC，SnSb 与 SnBi）与 Sb → Bi 变化的标量/SOC 拆分（10_脚本/soc_mechanism.py）
-  FigS1_mirror_plane/         Sn2Sb2Te5、Sn2Bi2Te5 镜面内最高价带的能量网格（c4，meV）；真实极大与沿 k_z 切线（valleys_and_cuts.csv）
   L_layered_defects/          早先一批在所给层状结构上（3×3×1，81 原子）的缺陷计算，即正文表 9、表 10 的 L 列：
                               L_defect_ranking_all_vertices.csv  5 个化学势顶点下全部缺陷在平衡费米能级处的形成能排名
                               L_formation_energy_results.json    原始结果（各电荷态的形成能、转变能级、化学势、载流子浓度）
+  06_正文表格/
   tables/                     正文表格：
 {t}
 
@@ -117,8 +126,9 @@ k 点坐标为倒格矢分数坐标；谷的名称为所在高对称点或高对
 Q：A–H，T：M–K；同一条线上的几个谷按离 Γ–A 轴由近到远加下标，如 R₁、R₂），见报告 1.2 节；能带 CSV 中 band_N 为 VASP 能带序号（SOC，_VB_top 为价带顶，_CB_bottom 为导带底）。
 CSV 为 UTF-8（带 BOM），可直接用 Excel、Origin 打开。
 
-生成脚本（在仓库中）：10_脚本/paper_figures.py（图与源数据）、22_能带基准_1-0/bt2_pbe_dense/（PBE+SOC BoltzTraP2 结果）、
-10_脚本/build_paper_report.py（本压缩包）。
+生成脚本（在仓库中）：10_脚本/paper_figures.py（图与源数据；输运图 transport_figures.py，HSE 能带与轨道图 hse_band_figures.py，
+COHP 提取 cohp_extract.py）；BoltzTraP2 结果 22_能带基准_1-0/<材料>/c8_hse_dense/gene/bt2_mult60/（HSE06+SOC）、
+22_能带基准_1-0/bt2_pbe_dense/（PBE+SOC）；10_脚本/build_paper_report.py（本压缩包）。
 '''.replace('\n', '\r\n')
 
 

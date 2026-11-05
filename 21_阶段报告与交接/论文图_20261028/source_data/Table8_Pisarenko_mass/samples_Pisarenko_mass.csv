@@ -1,5 +1,0 @@
-﻿material,carrier_type,Hall_conc_signed_cm-3,Hall_flagged,S_exp_300K_uV/K,m_DOS_exp_SPB_me,S_PBE+SOC_BoltzTraP2_at_Hall_conc_uV/K,m_DOS_PBE_SPB_me,single_valley_m_DOS_HSE_band_fit_me,note
-Pb2Bi2Te5,n,-8.110e+19,no,-89.54,0.839,-88.7,0.83,0.23,
-Sn2Bi2Te5,p,9.070e+20,no,29.29,1.354,37.5,1.728,0.13,
-Sn2Sb2Te5,p,1.720e+21,yes,15.85,1.129,21.2,1.507,0.14,
-Pb2Sb2Te5,p,1.040e+21,yes,5.52,,26.3,1.336,0.1,electrons and holes compensate; single-band m* not applicable to the experiment

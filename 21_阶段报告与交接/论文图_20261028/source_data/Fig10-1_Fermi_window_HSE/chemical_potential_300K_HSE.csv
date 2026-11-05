@@ -1,0 +1,9 @@
+﻿material,case,carrier_conc_signed_cm-3,mu-EVBM_meV,"depth_into_band_meV (p: below VBM, n: above CBM)",depth_in_kBT,Eg_HSE06+SOC_meV,alignment_residual_VB-CB_meV
+Pb2Sb2Te5,reference,3.000e+19,-205.0,205.0,7.9,51.2,-0.2
+Pb2Sb2Te5,Hall,1.040e+21,-497.1,497.1,19.2,51.2,-0.2
+Pb2Bi2Te5,reference,-3.000e+19,312.2,170.3,6.6,141.9,0.0
+Pb2Bi2Te5,Hall,-8.110e+19,411.3,269.4,10.4,141.9,0.0
+Sn2Sb2Te5,reference,3.000e+19,-111.5,111.5,4.3,160.3,-0.0
+Sn2Sb2Te5,Hall,1.720e+21,-477.8,477.8,18.5,160.3,-0.0
+Sn2Bi2Te5,reference,3.000e+19,-20.2,20.2,0.8,144.1,0.0
+Sn2Bi2Te5,Hall,9.070e+20,-232.1,232.1,9.0,144.1,0.0

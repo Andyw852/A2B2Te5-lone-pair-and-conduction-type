@@ -1,9 +1,0 @@
-﻿material,functional,Gamma_VB_p1/2_minus_Sigma_meV,Gamma_s_state_minus_Sigma_meV,s_state_in
-Pb2Sb2Te5,PBE+SOC,-5.8,226.8,导带底
-Pb2Sb2Te5,HSE06+SOC,235.6,286.8,导带底
-Sn2Sb2Te5,PBE+SOC,-37.2,214.9,导带底
-Sn2Sb2Te5,HSE06+SOC,131.5,299.9,导带底
-Pb2Bi2Te5,PBE+SOC,-182.4,182.5,导带底
-Pb2Bi2Te5,HSE06+SOC,39.4,232.9,导带底
-Sn2Bi2Te5,PBE+SOC,-231.7,128.0,导带底
-Sn2Bi2Te5,HSE06+SOC,-95.0,181.7,导带底

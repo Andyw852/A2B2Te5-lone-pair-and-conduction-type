@@ -1,9 +1,0 @@
-﻿材料,泛函,Γ 处最高价带（p₁/₂ 型）− Σ 谷 (meV),Γ 处 s 态 − Σ 谷 (meV),s 态位于
-Pb₂Sb₂Te₅,PBE+SOC,-6,227,导带底
-Pb₂Sb₂Te₅,HSE06+SOC,236,287,导带底
-Sn₂Sb₂Te₅,PBE+SOC,-37,215,导带底
-Sn₂Sb₂Te₅,HSE06+SOC,132,300,导带底
-Pb₂Bi₂Te₅,PBE+SOC,-182,182,导带底
-Pb₂Bi₂Te₅,HSE06+SOC,39,233,导带底
-Sn₂Bi₂Te₅,PBE+SOC,-232,128,导带底
-Sn₂Bi₂Te₅,HSE06+SOC,-95,182,导带底

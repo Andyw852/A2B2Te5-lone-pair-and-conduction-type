@@ -371,11 +371,11 @@ def fig2(out):
             else:
                 cand = [i for i in range(KEND + 1) if vb[i] > top - 5e-4]
                 xv[nm] = ('main', x[next((i for i in cand if i in AXIS), cand[0])])
-            dump('Fig2_bands_PBE_vs_HSE', f'{m}_{nm.replace("HSE", "HSE06")}+SOC.csv',
+            dump('Fig2-2_bands_PBE_vs_HSE', f'{m}_{nm.replace("HSE", "HSE06")}+SOC.csv',
                  ['k_index', 'k_frac_1', 'k_frac_2', 'k_frac_3', 'k_distance_1/A', 'label'] + [bandname(b, nel) + '_E-EVBM_eV' for b in bs],
                  [[i] + [r(v, 6) for v in K[i]] + [r(x[i], 5), LAB.get(i, '')] + [r(E[i, b], 5) for b in bs] for i in range(KEND + 1)])
             if tp:
-                dump('Fig2_bands_PBE_vs_HSE', f'{m}_{nm.replace("HSE", "HSE06")}+SOC_true_valley_path_G-S-R2-L.csv',
+                dump('Fig2-2_bands_PBE_vs_HSE', f'{m}_{nm.replace("HSE", "HSE06")}+SOC_true_valley_path_G-S-R2-L.csv',
                      ['i', 'k_distance_1/A', 'label'] + [bandname(b, nel) + '_E-EVBM_eV' for b in bs],
                      [[i, r(tp['x'][i] / TP_XSCALE, 5), tp['labels'].get(i, '')] + [r(tp['E'][i, b], 5) for b in bs] for i in range(len(tp['x']))])
         gaps.append([m, r(1000 * g['PBE'], 1), r(1000 * g['HSE'], 1)] + gam
@@ -390,13 +390,13 @@ def fig2(out):
             (at if xv[nm][0] == 'tp' else ax).plot(xv[nm][1], 0.085 if (stack and nm == 'PBE') else 0.04, 'v', ms=3.6, color=col, mec='white', mew=0.3, zorder=5)
         ax.set_title(f'{TEX[m]}\n$E_g$: PBE {1000 * gt["PBE"]:.0f} meV, HSE {1000 * gt["HSE"]:.0f} meV', fontsize=8, pad=4, linespacing=1.15)
         panel(ax, f'({"abcd"[n]})')
-    dump('Fig2_bands_PBE_vs_HSE', 'band_gaps_on_path.csv',
+    dump('Fig2-2_bands_PBE_vs_HSE', 'band_gaps_on_path.csv',
          ['material', 'Eg_PBE+SOC_meV', 'Eg_HSE06+SOC_meV'] +
          [f'{s}_Gamma_{q}_meV' for s in ('PBE+SOC', 'HSE06+SOC') for q in ('VB', 'CB', 'gap')] +
          ['Eg_PBE+SOC_incl_true_path_meV', 'Eg_HSE06+SOC_incl_true_path_meV', 'VBM_above_path_PBE+SOC_meV', 'VBM_above_path_HSE06+SOC_meV'], gaps)
     h = [plt.Line2D([], [], color=C_HSE, lw=1.1), plt.Line2D([], [], color=C_PBE, lw=0.9, ls=DASH)]
     fig.legend(h, ['HSE06+SOC', 'PBE+SOC'], loc='lower center', ncol=2, bbox_to_anchor=(0.5, 0.905))
-    save(fig, out, 'Fig2_bands_PBE_vs_HSE')
+    save(fig, out, 'Fig2-2_bands_PBE_vs_HSE')
 
 
 # ------------------------------------------------------------------ Fig. 3
@@ -491,7 +491,7 @@ def fig3(out):
                 lc = LineCollection([[(xs[i], es[i]), (xs[i + 1], es[i + 1])] for i in range(len(xs) - 1)], cmap=cmap, norm=norm,
                                     linewidths=0.5 + 2.4 * np.clip(cc / 0.3, 0, 1), capstyle='round')
                 lc.set_array(cc); at.add_collection(lc)
-        dump('Fig3_HSE_bands_cation_s', f'{m}_HSE06+SOC_cation_s.csv',
+        dump('Fig3-1_HSE_bands_cation_s', f'{m}_HSE06+SOC_cation_s.csv',
              ['k_index', 'k_frac_1', 'k_frac_2', 'k_frac_3', 'k_distance_1/A', 'label', 'band', 'E-EVBM_eV', 'cation_s_percent'], rows)
         for a_ in (ax, at):
             if a_ is not None: a_.axhline(0, color='k', lw=0.5, ls=':'); a_.axhline(gap, color='k', lw=0.5, ls=':')
@@ -503,7 +503,7 @@ def fig3(out):
         kticks(ax, x); ax.set_ylim(-0.5, 0.5); ax.set_ylabel(r'$E - E_{\mathrm{VBM}}$ (eV)', labelpad=2)
         if tp:
             tp_frame(at, tp, nel)
-            dump('Fig3_HSE_bands_cation_s', f'{m}_true_valley_path_G-S-R2-L.csv',
+            dump('Fig3-1_HSE_bands_cation_s', f'{m}_true_valley_path_G-S-R2-L.csv',
                  ['i', 'k_distance_1/A', 'label', 'band', 'E-EVBM_true_eV', 'cation_s_percent'],
                  [[i, r(tp['x'][i] / TP_XSCALE, 5), tp['labels'].get(i, ''), bandname(b, nel), r(tp['E'][i, b], 5), r(100 * tp['fs'][i, b], 2)]
                   for b in range(nel - 8, nel + 6) for i in range(len(tp['x']))])
@@ -513,7 +513,54 @@ def fig3(out):
     cb = fig.colorbar(plt.cm.ScalarMappable(norm=norm, cmap=cmap), ax=every, shrink=0.7, pad=0.015, aspect=30)
     cb.set_label('Cation-s weight (%)'); cb.set_ticks([0, .1, .2, .3], labels=['0', '10', '20', '30'])
     cb.ax.tick_params(direction='in', length=2, width=0.6); cb.outline.set_linewidth(0.6)
-    save(fig, out, 'Fig3_HSE_bands_cation_s')
+    save(fig, out, 'Fig3-1_HSE_bands_cation_s')
+
+
+# ------------------------------------------------------------------ 图 3-2：COHP
+COHPD = os.path.join(ROOT, '06_COGITO成键分析与COHP', '审核与重绘', '轨道分辨COHP')
+
+
+def fig3_2(out):
+    """阳离子–Te 键的轨道分辨 COHP（COGITO，PBE、不加 SOC、所给结构，10_脚本/cohp_extract.py 取出）：上排 A 位–Te，下排 B 位–Te，
+    每种材料取最短的键。画 −COHP（成键为正、反键为负）；阳离子 s–Te p 着色，p–p 灰，总 COHP 黑细线。回答：孤对电子是不是填满的反键态、在不在价带顶。"""
+    import glob
+    summ = {(r['material'], r['bond_length_A'], r['site']): r for r in csv.DictReader(open(os.path.join(COHPD, 'summary.csv'), encoding='utf-8-sig'))}
+    fig, axs = plt.subplots(2, 4, figsize=(W2, 5.8), sharey=True, gridspec_kw=dict(hspace=0.30, wspace=0.10))
+    rows = []
+    for j, m in enumerate(MATS):
+        for i, site in enumerate(('A', 'B')):
+            ax = axs[i, j]
+            fs = sorted(glob.glob(os.path.join(COHPD, f'{m}_{site}-Te_*A.csv')), key=lambda f: float(f.rsplit('_', 1)[1][:-5]))
+            f = fs[0]; L = float(f.rsplit('_', 1)[1][:-5]); el = m[:2] if site == 'A' else m[3:5]
+            D = list(csv.reader(open(f, encoding='utf-8-sig'))); hdr = D[0]; V = np.array([[float(x) for x in r] for r in D[1:]])
+            E = V[:, 0]; col = {h.split('_', 1)[1].split('_per')[0]: V[:, k] for k, h in enumerate(hdr) if k}
+            sp, pp, tot = col['cation_s-Te_p'], col['cation_p-Te_p'], col['total']
+            cc = C_A if site == 'A' else C_B
+            ax.axhline(0, color='k', lw=0.6, ls=DASH, zorder=1); ax.axvline(0, color='#999999', lw=0.5, zorder=1)
+            ax.fill_betweenx(E, 0, sp, where=sp < 0, color=cc, alpha=0.35, lw=0, zorder=2)
+            ax.plot(pp, E, color='#9E9E9E', lw=0.9, zorder=3)
+            ax.plot(sp, E, color=cc, lw=1.3, zorder=4)
+            ax.plot(tot, E, color='k', lw=0.7, zorder=5)
+            r = summ[(m, f'{L:.2f}', site)]
+            ax.text(0.04, 0.03, f"ICOHP (eV/bond)\ns–p {float(r['ICOHP_cation_s-Te_p_eV']):+.2f}\np–p {float(r['ICOHP_cation_p-Te_p_eV']):+.2f}\ntotal {float(r['ICOHP_total_eV']):+.2f}",
+                    transform=ax.transAxes, ha='left', va='bottom', fontsize=6.0, linespacing=1.15, bbox=dict(fc='white', ec='none', pad=0.5, alpha=0.9))
+            ax.set_title(f'{TEX[m]}: {el}–Te {L:.2f} Å', fontsize=7.2, pad=3)
+            ax.set_xlim(-6.0, 2.0); ax.set_ylim(-9.5, 2.0); ax.set_xticks([-6, -4, -2, 0, 2])
+            if i == 1: ax.set_xlabel(r'$-$COHP (eV$^{-1}$ bond$^{-1}$)')
+            if j == 0: ax.set_ylabel(r'$E - E_\mathrm{F}$ (eV)')
+            pf_ = f'({"abcdefgh"[4 * i + j]})'; panel(ax, pf_)
+            rows.append([m, site, el, f'{L:.2f}', r['ICOHP_cation_s-Te_p_eV'], r['ICOHP_cation_p-Te_p_eV'], r['ICOHP_total_eV'],
+                         r['ICOHP_cation_s-Te_p_within_1eV_below_EF_eV']])
+            dump('Fig3-2_COHP', f'{m}_{site}-Te_{L:.2f}A_COHP.csv', hdr, [[round(x, 5) for x in v] for v in V])
+    for i, t in enumerate(('A site (Pb, Sn)–Te', 'B site (Sb, Bi)–Te')):
+        axs[i, 0].text(-0.42, 0.5, t, transform=axs[i, 0].transAxes, rotation=90, ha='center', va='center', fontsize=8)
+    h = [Line2D([], [], color=C_A, lw=1.3), Line2D([], [], color=C_B, lw=1.3), Line2D([], [], color='#9E9E9E', lw=0.9), Line2D([], [], color='k', lw=0.7)]
+    fig.legend(h, ['A-site s – Te p', 'B-site s – Te p', 'cation p – Te p', 'total'], loc='lower center', ncol=4, bbox_to_anchor=(0.5, 0.925),
+               title='−COHP > 0: bonding;  < 0 (shaded): antibonding', title_fontsize=6.8)
+    dump('Fig3-2_COHP', 'ICOHP_summary.csv', ['material', 'site', 'cation', 'bond_length_A', 'ICOHP_cation_s-Te_p_eV (positive = antibonding)',
+                                              'ICOHP_cation_p-Te_p_eV', 'ICOHP_total_eV', 'ICOHP_cation_s-Te_p_within_1eV_below_EF_eV'], rows)
+    save(fig, out, 'Fig3-2_COHP_cation_s_Te_p')
+    return rows
 
 
 # ------------------------------------------------------------------ Fig. 4
@@ -560,7 +607,7 @@ def fig4(out):
                 at.add_collection(LineCollection(s2, colors=c2, linewidths=w2, capstyle='round'))
             rows += [[i] + [r(v, 6) for v in K[i]] + [r(x[i], 5), LAB.get(i, ''), bandname(b, nel), r(E[i, b], 5),
                      r(100 * fa[i, b], 2), r(100 * fb[i, b], 2), r(100 * ft[i, b], 2)] for i in range(KEND + 1)]
-        dump('Fig4_cation_s_by_atom', f'{m}_HSE06+SOC_s_by_atom.csv',
+        dump('Fig4-1_cation_s_by_atom', f'{m}_HSE06+SOC_s_by_atom.csv',
              ['k_index', 'k_frac_1', 'k_frac_2', 'k_frac_3', 'k_distance_1/A', 'label', 'band', 'E-EVBM_eV',
               f'A_{A_}_s_percent', f'B_{B_}_s_percent', 'Te_s_percent'], rows)
         # 关键态：价带顶、导带底、最高孤对电子价带谷（Kramers 对平均）
@@ -587,9 +634,9 @@ def fig4(out):
     cb = fig.colorbar(plt.cm.ScalarMappable(norm=norm, cmap=SITE_CMAP), ax=every, shrink=0.7, pad=0.015, aspect=30)
     cb.set_label('Share of cation-s on the A site'); cb.set_ticks([0, 0.5, 1], labels=['B only\n(Sb, Bi)', 'equal', 'A only\n(Pb, Sn)'])
     cb.ax.tick_params(direction='in', length=2, width=0.6, labelsize=6.5); cb.outline.set_linewidth(0.6)
-    dump('Fig4_cation_s_by_atom', 'key_states.csv', ['material', 'state', 'k_index (c7: true-valley path)', 'k_frac_1', 'k_frac_2', 'k_frac_3', 'E-EVBM_meV',
+    dump('Fig4-1_cation_s_by_atom', 'key_states.csv', ['material', 'state', 'k_index (c7: true-valley path)', 'k_frac_1', 'k_frac_2', 'k_frac_3', 'E-EVBM_meV',
                                                      'A', 'A_s_percent', 'B', 'B_s_percent', 'Te_s_percent'], key)
-    save(fig, out, 'Fig4_cation_s_by_atom')
+    save(fig, out, 'Fig4-1_cation_s_by_atom')
     return {f'{k[0]}|{k[1]}': (k[8], k[10]) for k in key}
 
 
@@ -1605,10 +1652,30 @@ def main():
     ap.add_argument('--data'); ap.add_argument('--only', nargs='+'); a = ap.parse_args()
     DATA = a.data or os.path.join(a.out, 'source_data')
     os.makedirs(a.out, exist_ok=True); style()
-    todo = a.only or [str(i) for i in range(1, 13)] + ['T8', 'S1']
+    import transport_figures as tf, hse_band_figures as hb
+    tf.pf.DATA = hb.pf.DATA = DATA                 # 它们导入的是另一份 paper_figures 模块，源数据目录要同步
+    # 2026-11-05 整体报告：HSE 能带专题的图并入主报告（图 2-1、4-2、6-1、6-2、S1、S3a–d，复用 hse_band_figures，只改图名与数据目录）；
+    # 原来只有 PBE 的输运图换成 HSE 单独图与 HSE/PBE 对比图（transport_figures：图 8-1/8-2、9-1/9-2、10-1/10-2，表 6–8）。
+    REN = {'H1_HSE_bands': 'Fig2-1_HSE_bands', 'H1_bands': 'Fig2-1_HSE_bands', 'H4_orbitals': 'Fig4-2_HSE_orbitals',
+           'H5_valence_levels': 'Fig6-1_valence_levels', 'H6_pockets_BZ': 'Fig6-2_pockets_BZ', 'H6_pockets': 'Fig6-2_pockets_BZ',
+           'H7_mirror_plane_maps': 'FigS1_mirror_plane_maps', 'H7_mirror_plane': 'FigS1_mirror_plane'}
+    REN.update({f'H4{c}_orbitals_{m}': f'FigS3{c}_orbitals_{m}' for c, m in zip('abcd', MATS)})
+
+    def via(fn):
+        def run(out):
+            d0, s0 = globals()['dump'], globals()['save']
+            hb.pf.dump = lambda sub, name, header, rows: d0(REN.get(sub, sub), name, header, rows)
+            hb.pf.save = lambda fig, o, name: s0(fig, o, REN.get(name, name))
+            try: return fn(out)
+            finally: hb.pf.dump, hb.pf.save = d0, s0
+        return run
+    FIGS = {'1': fig1, '2-1': via(hb.h1), '2-2': fig2, '3-1': fig3, '3-2': fig3_2, '4-1': fig4, '4-2': via(hb.h4), '5': fig5,
+            '6-1': via(hb.h5), '6-2': via(hb.h6), '7': fig7, '8-1': tf.fig8_1, '8-2': tf.fig8_2, '9-1': tf.fig9_1, '9-2': tf.fig9_2,
+            '10-1': tf.fig10_1, '10-2': tf.fig10_2, '11': fig11, '12': fig12, 'T': tf.tables_hse_pbe, 'S1': via(hb.h7), 'S3': via(hb.h4_each)}
+    todo = a.only or list(FIGS)
     info = {}
     for i in todo:
-        res = {'1': fig1, '2': fig2, '3': fig3, '4': fig4, '5': fig5, '6': fig6, '7': fig7, '8': fig8, '9': fig9, '10': fig10, '11': fig11, '12': fig12, 'T8': table8, 'S1': figS1}[i](a.out)
+        res = FIGS[i](a.out)
         if res is not None: info[i] = res
     print(info); print('→', a.out, '；源数据 →', DATA)
 

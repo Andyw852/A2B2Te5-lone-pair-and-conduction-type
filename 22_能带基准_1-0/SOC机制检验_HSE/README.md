@@ -1,6 +1,6 @@
 # SOC 机制检验的 HSE 版：HSE06 不加 SOC（2026-11-04）
 
-**目的**：HSE 能带专题（`21_阶段报告与交接/HSE能带专题_20261104.html`）要求全部为 HSE 级别。图 H8（Γ 点能级与 SOC）要对比加、不加 SOC，加 SOC 的 HSE 已有（`<材料>/c2_hse`），**缺的是 HSE06 不加 SOC**。本目录就是这四个计算。PBE 版见 `../SOC机制检验/`。
+**目的**：主报告（`21_阶段报告与交接/论文报告_20261028.src.html`，2026-11-05 起 HSE 能带专题已并入）的图 S2（Γ 点能级与 SOC）目前只有 PBE，要做 HSE 版（报告第 7 节“待补（计算）”第 1 条）。它要对比加、不加 SOC，加 SOC 的 HSE 已有（`<材料>/c2_hse`），**缺的是 HSE06 不加 SOC**。本目录就是这四个计算。PBE 版见 `../SOC机制检验/`。
 
 ## 四个作业
 
@@ -45,9 +45,8 @@
 ## 收到后（Claude 做）
 
 ```
-python 10_脚本/soc_mechanism.py --functional hse --fig <输出目录>     # 打印 HSE 的能级与拆分
-python 10_脚本/hse_band_figures.py --only H8 T                        # 有了 e1 结果，图 H8 自动改用 HSE
-python 10_脚本/build_hse_bands_report.py
+python 10_脚本/soc_mechanism.py --functional hse --fig <输出目录>     # 打印 HSE 的能级与拆分，出图 S2 的 HSE 版
+python 10_脚本/build_paper_report.py                                  # 把图 S2 的 HSE 版放进主报告后重建（单独的 HSE 专题已取消）
 ```
 
 Σ 谷取 Γ–M 段内最高价带的局部极大。2026-11-04 起这样取；原来取的是段上最大值，不加 SOC 时会落在紧挨 Γ 的点，见 `../SOC机制检验/README.md` 开头的改正。

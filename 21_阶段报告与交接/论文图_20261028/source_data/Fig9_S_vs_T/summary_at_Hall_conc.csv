@@ -1,5 +1,0 @@
-﻿material,type,Hall_conc_signed_cm-3,Hall_flagged,T_low_K,S_exp_low_uV/K,S_PBE_low_uV/K,T_high_K,S_exp_high_uV/K,S_PBE_high_uV/K,rms_deviation_uV/K,max_deviation_calc-exp_uV/K
-Pb2Sb2Te5,p,1.040e+21,yes,301.6,5.5,26.5,619.4,17.1,65.8,37.5,48.7
-Pb2Bi2Te5,n,-8.110e+19,no,301.8,-89.5,-89.2,611.9,-127.1,-162.1,16.0,-35.1
-Sn2Sb2Te5,p,1.720e+21,yes,300.8,15.9,21.2,616.6,42.8,43.7,4.8,6.8
-Sn2Bi2Te5,p,9.070e+20,no,301.1,29.3,37.7,617.9,67.2,76.7,6.9,9.5

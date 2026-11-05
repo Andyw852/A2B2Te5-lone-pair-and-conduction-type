@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
-"""HSE06+SOC 能带专题（2026-11-04 用户要求单独成册）：所有 HSE 能带、轨道成分、价带谷与口袋、镜面搜索、Γ 点能级。
+"""HSE06+SOC 能带与轨道成分的作图函数。2026-11-04 曾单独成册（HSE 能带专题），2026-11-05 起并入主报告：
+paper_figures.main() 调用其中的 h1、h4、h4_each、h5、h6、h7，改名为图 2-1、4-2、S3a–d、6-1、6-2、S1（见 paper_figures.main 中的 REN）。
+单独运行本脚本时仍按下面的 H 编号出图，只供检查。
 
 与论文报告的关系：数据与零点约定完全相同（复用 paper_figures 的读数与判据），只是重新组织、每张图只做一件事，
 每个子图有自己的纵坐标（用户要求）。图 6 拆成 H5（四种材料的价带能级）与 H6（Sn 系口袋在布里渊区中的位置，去掉三维图）；
@@ -15,7 +17,7 @@
   H8  Γ 点能级与 SOC（目前只有 PBE；HSE 不加 SOC 的计算见 22_能带基准_1-0/SOC机制检验_HSE/）
 
 能量零点：真实价带顶（Sn 系取镜面内三维搜索的结果，Pb 系取能带路径上的最高点）。
-用法：python 10_脚本/hse_band_figures.py [--out 21_阶段报告与交接/HSE能带_20261104/图] [--only H1 H5 ...]
+用法：python 10_脚本/hse_band_figures.py [--out <输出目录>] [--only H1 H5 ...]（主报告的图请用 paper_figures.py）
 """
 import argparse, os, sys
 import numpy as np
@@ -542,7 +544,7 @@ FIGS = {'H1': h1, 'H2': h2, 'H3': h3, 'H4': h4, 'H4x': h4_each, 'H5': h5, 'H6': 
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument('--out', default=os.path.join(pf.ROOT, '21_阶段报告与交接', 'HSE能带_20261104', '图'))
+    ap.add_argument('--out', default=os.path.join(pf.ROOT, '21_阶段报告与交接', 'HSE能带_单独检查'))
     ap.add_argument('--only', nargs='+'); a = ap.parse_args()
     os.makedirs(a.out, exist_ok=True); pf.style(); pf.DATA = os.path.join(a.out, 'source_data')
     for k in a.only or FIGS:
