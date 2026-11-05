@@ -1,0 +1,69 @@
+LOBSTER v5.1.1 (g++ 9.3.0)
+Copyright (C) 2024 by Chair of Solid-State and Quantum Chemistry, RWTH Aachen.
+All rights reserved. Contributions by S. Maintz, V. L. Deringer, M. Esser, R. Nelson, C. Ertural, P. C. Mueller, M. Pauls, L. Sann, D. Schnieders, A. L. Tchougreeff, and R. Dronskowski
+starting on host anode112 on 2026-11-05 at 14:48:31 CST using 32 threads
+detecting used PAW program... VASP
+initializing PW system...
+ERROR: The number of plane-waves I would employ (4564) deviates from those that your
+ERROR: input data have (9128) at k-point 100. This is most likely caused by using simplifications like
+ERROR: real-valued wave functions for gamma-point only calculations. This is not yet
+ERROR: supported. Please recreate your data without this simplifications.
+
+ERROR: The number of plane-waves I would employ (4577) deviates from those that your
+ERROR: input data have (9154) at k-point 64. This is most likely caused by using simplifications like
+ERROR: real-valued wave functions for gamma-point only calculations. This is not yet
+ERROR: supported. Please recreate your data without this simplifications.
+
+ERROR: The number of plane-waves I would employ (4557) deviates from those that your
+ERROR: input data have (9114) at k-point 91. This is most likely caused by using simplifications like
+ERROR: real-valued wave functions for gamma-point only calculations. This is not yet
+ERROR: supported. Please recreate your data without this simplifications.
+
+ERROR: The number of plane-waves I would employ (4566) deviates from those that your
+ERROR: input data have (9132) at k-point 199. This is most likely caused by using simplifications like
+ERROR: real-valued wave functions for gamma-point only calculations. This is not yet
+ERROR: supported. Please recreate your data without this simplifications.
+
+ERROR: The number of plane-waves I would employ (4570) deviates from those that your
+ERROR: input data have (9140) at k-point 253. This is most likely caused by using simplifications like
+ERROR: real-valued wave functions for gamma-point only calculations. This is not yet
+ERROR: supported. Please recreate your data without this simplifications.
+
+ERROR: The number of plane-waves I would employ (4545) deviates from those that your
+ERROR: input data have (9090) at k-point 37. This is most likely caused by using simplifications like
+ERROR: real-valued wave functions for gamma-point only calculations. This is not yet
+ERROR: supported. Please recreate your data without this simplifications.
+
+ERROR: The number of plane-waves I would employ (4586) deviates from those that your
+ERROR: input data have (9172) at k-point 172. This is most likely caused by using simplifications like
+ERROR: real-valued wave functions for gamma-point only calculations. This is not yet
+ERROR: supported. Please recreate your data without this simplifications.
+
+ERROR: The number of plane-waves I would employ (4518) deviates from those that your
+ERROR: input data have (9036) at k-point 145. This is most likely caused by using simplifications like
+ERROR: real-valued wave functions for gamma-point only calculations. This is not yet
+ERROR: supported. Please recreate your data without this simplifications.
+
+ERROR: The number of plane-waves I would employ (4577) deviates from those that your
+ERROR: input data have (9154) at k-point 55. This is most likely caused by using simplifications like
+ERROR: real-valued wave functions for gamma-point only calculations. This is not yet
+ERROR: supported. Please recreate your data without this simplifications.
+
+ERROR: The number of plane-waves I would employ (4578) deviates from those that your
+ERROR: input data have (9156) at k-point 28. This is most likely caused by using simplifications like
+ERROR: real-valued wave functions for gamma-point only calculations. This is not yet
+ERROR: supported. Please recreate your data without this simplifications.
+
+ERROR: The number of plane-waves I would employ (4568) deviates from those that your
+ERROR: input data have (9136) at k-point 244. This is most likely caused by using simplifications like
+ERROR: real-valued wave functions for gamma-point only calculations. This is not yet
+ERROR: supported. Please recreate your data without this simplifications.
+terminate called recursively
+
+ERROR: The number of plane-waves I would employ (4578) deviates from those that your
+ERROR: input data have (9156) at k-point 217. This is most likely caused by using simplifications like
+ERROR: real-valued wave functions for gamma-point only calculations. This is not yet
+ERROR: supported. Please recreate your data without this simplifications.
+terminate called recursively
+terminate called recursively
+terminate called recursively

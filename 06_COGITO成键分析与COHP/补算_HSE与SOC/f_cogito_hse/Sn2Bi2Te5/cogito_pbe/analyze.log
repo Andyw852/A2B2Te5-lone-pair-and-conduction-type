@@ -1,0 +1,18 @@
+Saved the orbital change figure.
+Warning: The radial part may not be fully converged with some radial change over 2%:  [0.02005873 0.02005873 0.02030353 0.02005873 0.02005873 0.02030353]
+         To improve convergence, run COGITO generate_TBmodel with a num_outer +1 or +2 higher.
+Warning: The COGITO radii may not be fully converged with some orbital radius change over 1%:  [0.01774112 0.01774112 0.01634347 0.01774112 0.01774112 0.01634347
+ 0.01636861 0.01636861 0.01636439 0.01636861 0.01636861 0.01636439
+ 0.01593133 0.01491391 0.01593133 0.01593133 0.01491391 0.01593133
+ 0.01419349 0.01258373 0.01419349 0.02011554 0.01898398 0.02011554
+ 0.02011554 0.01898398 0.02011554]
+         To improve convergence, run COGITO generate_TBmodel with a num_outer +1 or +2 higher.
+ERROR:   The NRMSE between the projected atomic orbital and Wannier orbital is much larger in later step. This means the convergence procedure isn't working properly.
+         The average change in radial part per loop is:  [0.04809988 0.07998361 0.06289905 0.0535367 ]
+         Solution:
+         Check that this doesn't result from an especially large num_outer (>5) such that COGITO proceeds when already maximally converged. If so, decrease num_outer or ignore error message.
+         No single fix. One could try adding more bands (NBANDS in vasp INCAR), decreasing min_proj (for generate_TBmodel), 
+         or changing orbital initialization (include_excited in generate_TBmodel).
+         If everything else works fine, proceed but interpret results cautiously.
+The band spillage and orbital mixing is within expected range!
+DFT band error analysis failed. Check that (dir+'DFT_band_error'+tag+'.txt') exists.

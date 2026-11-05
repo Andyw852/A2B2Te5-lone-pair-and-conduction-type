@@ -1,0 +1,9 @@
+Saved the orbital change figure.
+Warning: The COGITO radii may not be fully converged with some orbital radius change over 1%:  [0.01223567 0.01223567 0.01315872 0.01223567 0.01223567 0.01315872
+ 0.01620897 0.01620897 0.01666062 0.01620897 0.01620897 0.01666062
+ 0.01785939 0.01541101 0.01785939 0.01785939 0.01541101 0.01785939
+ 0.01648199 0.01302072 0.01648199 0.01147059 0.01920089 0.01693514
+ 0.01920089 0.01147059 0.01920089 0.01693514 0.01920089]
+         To improve convergence, run COGITO generate_TBmodel with a num_outer +1 or +2 higher.
+The band spillage and orbital mixing is within expected range!
+DFT band error analysis failed. Check that (dir+'DFT_band_error'+tag+'.txt') exists.
