@@ -1,0 +1,9 @@
+﻿material,case,carrier_conc_signed_cm-3,mu-EVBM_eV,Hall_flagged_by_instrument
+Pb2Sb2Te5,Hall,1.040e+21,-0.49714,yes
+Pb2Sb2Te5,3e19,3.000e+19,-0.205,no
+Pb2Bi2Te5,Hall,-8.110e+19,0.41135,no
+Pb2Bi2Te5,3e19,-3.000e+19,0.31224,no
+Sn2Sb2Te5,Hall,1.720e+21,-0.47778,yes
+Sn2Sb2Te5,3e19,3.000e+19,-0.11152,no
+Sn2Bi2Te5,Hall,9.070e+20,-0.23211,no
+Sn2Bi2Te5,3e19,3.000e+19,-0.02022,no

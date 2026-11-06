@@ -1,0 +1,5 @@
+﻿material,Eg_meV (incl. off path),has_off_path,VB_top_band_index_1based
+Pb2Sb2Te5,216.4,no,68
+Pb2Bi2Te5,143.0,no,88
+Sn2Sb2Te5,146.3,yes,68
+Sn2Bi2Te5,74.6,yes,88
