@@ -1,0 +1,5 @@
+﻿material,A_site,B_site,type,Hall_conc_cm-3,Hall_flagged_by_instrument
+Sn2Sb2Te5,Sn,Sb,p,1.720e+21,yes
+Sn2Bi2Te5,Sn,Bi,p,9.070e+20,no
+Pb2Sb2Te5,Pb,Sb,p,1.040e+21,yes
+Pb2Bi2Te5,Pb,Bi,n,8.110e+19,no

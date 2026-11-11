@@ -1,0 +1,13 @@
+﻿material,carrier_type,concentration_cm-3,abs_S_PBE+SOC_uV/K
+Pb2Sb2Te5,n,8.110e+19,96.1
+Pb2Bi2Te5,n,8.110e+19,88.7
+Sn2Sb2Te5,n,8.110e+19,101.2
+Sn2Bi2Te5,n,8.110e+19,106.9
+Pb2Sb2Te5,p,8.110e+19,136.2
+Pb2Bi2Te5,p,8.110e+19,135.5
+Sn2Sb2Te5,p,8.110e+19,129.1
+Sn2Bi2Te5,p,8.110e+19,134.4
+Pb2Sb2Te5,p,9.070e+20,28.3
+Pb2Bi2Te5,p,9.070e+20,32.4
+Sn2Sb2Te5,p,9.070e+20,29.3
+Sn2Bi2Te5,p,9.070e+20,37.5
