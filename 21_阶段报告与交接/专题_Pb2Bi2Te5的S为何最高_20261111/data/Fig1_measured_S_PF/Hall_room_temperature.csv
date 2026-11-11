@@ -1,0 +1,5 @@
+﻿material,carrier_type,Hall_conc_cm-3,Hall_mobility_cm2/Vs,flagged_by_instrument
+Pb2Sb2Te5,p,1.040e+21,14.5,yes
+Pb2Bi2Te5,n,8.110e+19,50.0,no
+Sn2Sb2Te5,p,1.720e+21,4.92,yes
+Sn2Bi2Te5,p,9.070e+20,13.9,no
