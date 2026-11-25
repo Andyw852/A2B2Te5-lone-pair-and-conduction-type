@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" class="viz" viewBox="0 0 760 300" width="100%" role="img" aria-label="图4 价带顶 0.1 meV 能窗内 A 位 s 轨道的投影占比" preserveAspectRatio="xMidYMid meet"><style>svg{--surface:#ffffff;--ink:#191919;--ink2:#666666;--grid:#e7e7e7;--axis:#c2c2c2;--band:#f1f1f1;--s1:#257de0;--s2:#f47230;--s3:#00b894;--hl:#6a4ce2;--mute:#a3a3a3;}
+.viz{font-family:system-ui,-apple-system,"PingFang SC","Microsoft YaHei","Noto Sans CJK SC","WenQuanYi Zen Hei","Segoe UI",sans-serif;}
+.viz text{fill:var(--ink2);font-size:12px;}
+.viz .ink{fill:var(--ink);}
+.viz .t-b{font-weight:600;}
+.viz .small{font-size:11px;}
+.viz .grid{stroke:var(--grid);stroke-width:1;}
+.viz .axis{stroke:var(--axis);stroke-width:1;}
+.viz .ref{stroke:var(--ink2);stroke-width:1;}
+.viz .band{fill:var(--band);}
+.viz .bg{fill:var(--surface);}
+.viz .f-s1{fill:var(--s1);} .viz .f-s2{fill:var(--s2);} .viz .f-s3{fill:var(--s3);}
+.viz .f-hl{fill:var(--hl);} .viz .f-mute{fill:var(--mute);} .viz .f-surf{fill:var(--surface);}
+.viz .k-s1{stroke:var(--s1);} .viz .k-s2{stroke:var(--s2);} .viz .k-s3{stroke:var(--s3);}
+.viz .k-hl{stroke:var(--hl);} .viz .k-mute{stroke:var(--mute);} .viz .k-ink2{stroke:var(--ink2);} .viz .k-surf{stroke:var(--surface);}
+.viz .line{fill:none;stroke-width:2;stroke-linejoin:round;stroke-linecap:round;}
+.viz .ext{stroke-dasharray:5 4;opacity:.75;}
+.viz .hit{fill:transparent;stroke:none;}
+.viz [data-tip]{cursor:default;}
+</style><rect class="bg" width="100%" height="100%"/><line class="grid" x1="80" x2="700" y1="230.0" y2="230.0"/><text x="72" y="234.0" text-anchor="end" style="font-variant-numeric:tabular-nums">0</text><line class="grid" x1="80" x2="700" y1="166.7" y2="166.7"/><text x="72" y="170.7" text-anchor="end" style="font-variant-numeric:tabular-nums">10</text><line class="grid" x1="80" x2="700" y1="103.3" y2="103.3"/><text x="72" y="107.3" text-anchor="end" style="font-variant-numeric:tabular-nums">20</text><line class="grid" x1="80" x2="700" y1="40.0" y2="40.0"/><text x="72" y="44.0" text-anchor="end" style="font-variant-numeric:tabular-nums">30</text><line class="axis" x1="80" x2="700" y1="230" y2="230"/><text transform="translate(28.0,135.0) rotate(-90)" text-anchor="middle">VBM 中 A-s 占比（%）</text><g data-tip="Pb₂Bi₂Te₅｜VBM（0.1 meV 能窗）Pb-s = 3.0%｜50 meV 能窗 = 2.6%"><rect class="hit" x="121.5" y="40" width="72" height="190"/><path class="f-hl" d="M129.5,230.0 V215.1 q0,-4 4,-4 H181.5 q4,0 4,4 V230.0 Z"/></g><text class="ink" x="157.5" y="203.1" text-anchor="middle">3.0%</text><text class="ink t-b" x="157.5" y="250" text-anchor="middle">Pb₂Bi₂Te₅</text><text class="small" x="157.5" y="266" text-anchor="middle">Pb-s</text><g data-tip="Pb₂Sb₂Te₅｜VBM（0.1 meV 能窗）Pb-s = 7.4%｜50 meV 能窗 = 7.3%"><rect class="hit" x="276.5" y="40" width="72" height="190"/><path class="f-mute" d="M284.5,230.0 V187.1 q0,-4 4,-4 H336.5 q4,0 4,4 V230.0 Z"/></g><text class="ink" x="312.5" y="175.1" text-anchor="middle">7.4%</text><text class="" x="312.5" y="250" text-anchor="middle">Pb₂Sb₂Te₅</text><text class="small" x="312.5" y="266" text-anchor="middle">Pb-s</text><g data-tip="Sn₂Bi₂Te₅｜VBM（0.1 meV 能窗）Sn-s = 24.8%｜50 meV 能窗 = 23.1%"><rect class="hit" x="431.5" y="40" width="72" height="190"/><path class="f-mute" d="M439.5,230.0 V77.0 q0,-4 4,-4 H491.5 q4,0 4,4 V230.0 Z"/></g><text class="ink" x="467.5" y="65.0" text-anchor="middle">24.8%</text><text class="" x="467.5" y="250" text-anchor="middle">Sn₂Bi₂Te₅</text><text class="small" x="467.5" y="266" text-anchor="middle">Sn-s</text><g data-tip="Sn₂Sb₂Te₅｜VBM（0.1 meV 能窗）Sn-s = 1.9%｜50 meV 能窗 = 3.6%"><rect class="hit" x="586.5" y="40" width="72" height="190"/><path class="f-mute" d="M594.5,230.0 V221.9 q0,-4 4,-4 H646.5 q4,0 4,4 V230.0 Z"/></g><text class="ink" x="622.5" y="209.9" text-anchor="middle">1.9%</text><text class="" x="622.5" y="250" text-anchor="middle">Sn₂Sb₂Te₅</text><text class="small" x="622.5" y="266" text-anchor="middle">Sn-s</text><line class="axis" x1="80" x2="700" y1="230.0" y2="230.0"/></svg>

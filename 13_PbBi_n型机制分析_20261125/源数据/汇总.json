@@ -1,0 +1,396 @@
+{
+  "generated_by": "10_脚本/pbbi_ntype_mechanism.py",
+  "note": "只读取仓库已有输出，未运行新的 DFT；E_F* 为本节后处理判据，不是完整电荷中性求解。",
+  "reconstruction_max_abs_error_eV": 0.0,
+  "pinning_vs_model_type_agreement": "18/18",
+  "materials": {
+    "Pb2Bi2Te5": {
+      "A": "Pb",
+      "B": "Bi",
+      "Eg": 0.1141,
+      "best_vertex": {
+        "material": "Pb2Bi2Te5",
+        "vertex": 3,
+        "mu": {
+          "Pb": -5.13636,
+          "Te": -3.697579,
+          "Bi": -5.594534
+        },
+        "EF_eq_model": 0.18062,
+        "type_model": "n",
+        "EF_pin": 0.1809719999999992,
+        "EF_pin_minus_CBM": 0.0668719999999992,
+        "type_pin": "n",
+        "donor": "Bi_Pb(+1)",
+        "acceptor": "Pb_Bi(-1)",
+        "E_at_pin": 0.090165,
+        "min_defect_model": "Bi_Pb(q=+1)",
+        "min_defect_Ef": 0.08981300000000081,
+        "n_cm3_model": 5.198625706562293e+18,
+        "p_cm3_model": 2071684336489509.5,
+        "ionized_model": {
+          "Bi_Pb": 1.9871947625572185e+20,
+          "Pb_Bi": 1.9350281803022857e+20,
+          "Bi_Pb__Pb_Bi_pair": 0.0,
+          "v_Pb": 2.609725028239923e+16,
+          "Te_Bi": 5820444886078649.0,
+          "Te_Pb": 417087077919.6698
+        },
+        "BA_plus_at_eq": 0.08981300000000081,
+        "AB_minus_at_eq": 0.09051699999999918,
+        "BA_plus_at_CBM": 0.0232930000000008,
+        "AB_minus_at_CBM": 0.1570369999999992,
+        "vA_minus_at_CBM": 0.47261300000000017,
+        "vA_q_at_CBM": -2,
+        "lowest_acceptor_at_CBM": "Pb_Bi(-1)",
+        "lowest_acceptor_E_at_CBM": 0.1570369999999992,
+        "lowest_donor_at_CBM": "Bi_Pb(+1)",
+        "lowest_donor_E_at_CBM": 0.0232930000000008
+      },
+      "n_vertices": 4,
+      "n_type_model": 1,
+      "agree": 4,
+      "exchange": 0.38659,
+      "ionized_pair": 0.18033,
+      "bound_pair": 0.17835,
+      "BA_level": 0.2464,
+      "AB_level": 0.04013,
+      "B_Te": {
+        "d_s": 3.08,
+        "d_l": 3.25,
+        "icohp_s": -1.7414,
+        "icohp_l": -0.7004,
+        "icoop_s": 0.2634,
+        "icoop_l": 0.126
+      },
+      "A_Te": {
+        "d_s": 3.21,
+        "d_l": 3.22,
+        "icohp_s": -1.0526,
+        "icohp_l": -1.1884,
+        "icoop_s": 0.1768,
+        "icoop_l": 0.1829,
+        "single_shell": false
+      },
+      "dA": 3.215,
+      "dB": 3.165,
+      "mismatch": 0.04999999999999982,
+      "ES_A": [
+        [
+          3.2,
+          0.8509645926455038
+        ],
+        [
+          3.21,
+          0.835582537936715
+        ]
+      ],
+      "ES_B_short": [
+        3.09,
+        1.2915350442614615
+      ],
+      "ES_B_long": [
+        3.3,
+        0.7580594971977577
+      ],
+      "qA": 0.664,
+      "qB": 0.6885,
+      "qTe": -0.541,
+      "VBM_As_01": 2.990654205607476,
+      "VBM_As_50": 2.5635156786449995,
+      "CBM_Bp_01": 9.034543844109828,
+      "VBM_Tep_01": 43.364485981308405
+    },
+    "Pb2Sb2Te5": {
+      "A": "Pb",
+      "B": "Sb",
+      "Eg": 0.0654,
+      "best_vertex": {
+        "material": "Pb2Sb2Te5",
+        "vertex": 0,
+        "mu": {
+          "Pb": -5.104381,
+          "Sb": -4.964015,
+          "Te": -3.697579
+        },
+        "EF_eq_model": 0.00285,
+        "type_model": "p",
+        "EF_pin": 0.0023200000000000096,
+        "EF_pin_minus_CBM": -0.06308,
+        "type_pin": "p",
+        "donor": "Sb_Pb(+1)",
+        "acceptor": "Pb_Sb(-1)",
+        "E_at_pin": 0.12252000000000002,
+        "min_defect_model": "Pb_Sb(q=+0)",
+        "min_defect_Ef": 0.07303,
+        "n_cm3_model": 1.0516945889548198e+17,
+        "p_cm3_model": 1.5719209753762578e+18,
+        "ionized_model": {
+          "Pb_Sb": 6.066630205400507e+19,
+          "Sb_Pb": 5.825874671888428e+19,
+          "Te_Sb": 9.407896386297524e+17,
+          "Pb_Sb__Sb_Pb_pair": 0.0,
+          "Te_Pb": 13921386556894.477,
+          "v_Pb": 534741239324.0454
+        },
+        "BA_plus_at_eq": 0.12305,
+        "AB_minus_at_eq": 0.12199,
+        "BA_plus_at_CBM": 0.1856,
+        "AB_minus_at_CBM": 0.05944000000000001,
+        "vA_minus_at_CBM": 0.54313,
+        "vA_q_at_CBM": -1,
+        "lowest_acceptor_at_CBM": "Pb_Sb(-1)",
+        "lowest_acceptor_E_at_CBM": 0.05944000000000001,
+        "lowest_donor_at_CBM": "Sb_Pb(+1)",
+        "lowest_donor_E_at_CBM": 0.1856
+      },
+      "n_vertices": 5,
+      "n_type_model": 0,
+      "agree": 5,
+      "exchange": 0.50369,
+      "ionized_pair": 0.24504,
+      "bound_pair": null,
+      "BA_level": 0.31046,
+      "AB_level": 0.05181,
+      "B_Te": {
+        "d_s": 3.02,
+        "d_l": 3.17,
+        "icohp_s": -1.5516,
+        "icohp_l": -0.5846,
+        "icoop_s": 0.2416,
+        "icoop_l": 0.1172
+      },
+      "A_Te": {
+        "d_s": 3.2,
+        "d_l": 3.21,
+        "icohp_s": -1.069,
+        "icohp_l": -1.131,
+        "icoop_s": 0.1804,
+        "icoop_l": 0.1821,
+        "single_shell": false
+      },
+      "dA": 3.205,
+      "dB": 3.0949999999999998,
+      "mismatch": 0.11000000000000032,
+      "ES_A": [
+        [
+          3.2,
+          0.8182552482804435
+        ],
+        [
+          3.21,
+          0.836549091268725
+        ]
+      ],
+      "ES_B_short": [
+        3.02,
+        1.3167322137568451
+      ],
+      "ES_B_long": [
+        3.17,
+        0.8669709063302977
+      ],
+      "qA": 0.6354,
+      "qB": 0.5399,
+      "qTe": -0.4701,
+      "VBM_As_01": 7.4074074074074066,
+      "VBM_As_50": 7.342007434944238,
+      "CBM_Bp_01": 21.80451127819549,
+      "VBM_Tep_01": 46.666666666666664
+    },
+    "Sn2Bi2Te5": {
+      "A": "Sn",
+      "B": "Bi",
+      "Eg": 0.1366,
+      "best_vertex": {
+        "material": "Sn2Bi2Te5",
+        "vertex": 3,
+        "mu": {
+          "Sn": -4.82268,
+          "Te": -3.697579,
+          "Bi": -5.594534
+        },
+        "EF_eq_model": -0.01116,
+        "type_model": "p",
+        "EF_pin": -0.011016000000000466,
+        "EF_pin_minus_CBM": -0.14761600000000047,
+        "type_pin": "p",
+        "donor": "Bi_Sn(+1)",
+        "acceptor": "Sn_Bi(-1)",
+        "E_at_pin": 0.053485000000000005,
+        "min_defect_model": "Sn_Bi(q=+0)",
+        "min_defect_Ef": 0.002088999999999508,
+        "n_cm3_model": 1.054237056016323e+16,
+        "p_cm3_model": 2.384752205882194e+18,
+        "ionized_model": {
+          "Sn_Bi": 7.623970591578385e+20,
+          "Bi_Sn": 7.69760599837985e+20,
+          "Bi_Sn__Sn_Bi_pair": 0.0,
+          "v_Sn": 9.807836695235695e+18,
+          "Te_Bi": 7.107435295994688e+16,
+          "Te_Sn": 340267623388860.8
+        },
+        "BA_plus_at_eq": 0.05334100000000047,
+        "AB_minus_at_eq": 0.05362899999999954,
+        "BA_plus_at_CBM": 0.20110100000000047,
+        "AB_minus_at_CBM": -0.09413100000000046,
+        "vA_minus_at_CBM": -0.10693200000000003,
+        "vA_q_at_CBM": -2,
+        "lowest_acceptor_at_CBM": "v_Sn(-2)",
+        "lowest_acceptor_E_at_CBM": -0.10693200000000003,
+        "lowest_donor_at_CBM": "Bi_Sn(+1)",
+        "lowest_donor_E_at_CBM": 0.20110100000000047
+      },
+      "n_vertices": 4,
+      "n_type_model": 0,
+      "agree": 4,
+      "exchange": 0.22425,
+      "ionized_pair": 0.10697000000000001,
+      "bound_pair": 0.0967,
+      "BA_level": 0.15767,
+      "AB_level": 0.04038,
+      "B_Te": {
+        "d_s": 3.07,
+        "d_l": 3.26,
+        "icohp_s": -1.6102,
+        "icohp_l": -0.6634,
+        "icoop_s": 0.2591,
+        "icoop_l": 0.1255
+      },
+      "A_Te": {
+        "d_s": 3.13,
+        "d_l": 3.15,
+        "icohp_s": -1.1405,
+        "icohp_l": -1.2908,
+        "icoop_s": 0.1819,
+        "icoop_l": 0.1873,
+        "single_shell": false
+      },
+      "dA": 3.1399999999999997,
+      "dB": 3.165,
+      "mismatch": -0.025000000000000355,
+      "ES_A": [
+        [
+          3.13,
+          0.902788392983337
+        ],
+        [
+          3.15,
+          0.8628229608633948
+        ]
+      ],
+      "ES_B_short": [
+        3.07,
+        1.2951792994406843
+      ],
+      "ES_B_long": [
+        3.26,
+        0.7704903984678874
+      ],
+      "qA": 0.6486,
+      "qB": 0.6544,
+      "qTe": -0.5212,
+      "VBM_As_01": 24.796084828711255,
+      "VBM_As_50": 23.064384678076614,
+      "CBM_Bp_01": 5.942275042444821,
+      "VBM_Tep_01": 59.38009787928222
+    },
+    "Sn2Sb2Te5": {
+      "A": "Sn",
+      "B": "Sb",
+      "Eg": 0.1352,
+      "best_vertex": {
+        "material": "Sn2Sb2Te5",
+        "vertex": 0,
+        "mu": {
+          "Sn": -4.801369,
+          "Sb": -4.964015,
+          "Te": -3.697579
+        },
+        "EF_eq_model": -0.15863,
+        "type_model": "p",
+        "EF_pin": -0.160775,
+        "EF_pin_minus_CBM": -0.295975,
+        "type_pin": "p",
+        "donor": "Sb_Sn(+1)",
+        "acceptor": "Sn_Sb(-1)",
+        "E_at_pin": 0.09368500000000002,
+        "min_defect_model": "Sn_Sb(q=+0)",
+        "min_defect_Ef": -0.12495,
+        "n_cm3_model": 33852835659093.027,
+        "p_cm3_model": 2.652693563721965e+19,
+        "ionized_model": {
+          "Sn_Sb": 1.992438708599659e+20,
+          "v_Sn": 2.5743372468247885e+17,
+          "Sb_Sn": 1.694859927846692e+20,
+          "Te_Sb": 3.451157799839559e+18,
+          "Sb_Sn__Sn_Sb_pair": 0.0,
+          "v_Sb": 46104163386493.47
+        },
+        "BA_plus_at_eq": 0.09583000000000003,
+        "AB_minus_at_eq": 0.09154,
+        "BA_plus_at_CBM": 0.38966,
+        "AB_minus_at_CBM": -0.20228999999999997,
+        "vA_minus_at_CBM": -0.11006999999999997,
+        "vA_q_at_CBM": -2,
+        "lowest_acceptor_at_CBM": "Sn_Sb(-1)",
+        "lowest_acceptor_E_at_CBM": -0.20228999999999997,
+        "lowest_donor_at_CBM": "Sb_Sn(+1)",
+        "lowest_donor_E_at_CBM": 0.38966
+      },
+      "n_vertices": 5,
+      "n_type_model": 0,
+      "agree": 5,
+      "exchange": 0.37495,
+      "ionized_pair": 0.18737000000000004,
+      "bound_pair": 0.14873,
+      "BA_level": 0.24544,
+      "AB_level": 0.05786,
+      "B_Te": {
+        "d_s": 3.01,
+        "d_l": 3.18,
+        "icohp_s": -1.4346,
+        "icohp_l": -0.5033,
+        "icoop_s": 0.2383,
+        "icoop_l": 0.1145
+      },
+      "A_Te": {
+        "d_s": 3.13,
+        "d_l": 5.36,
+        "icohp_s": -1.1944,
+        "icohp_l": -0.0067,
+        "icoop_s": 0.1878,
+        "icoop_l": 0.0003,
+        "single_shell": true
+      },
+      "dA": 3.13,
+      "dB": 3.0949999999999998,
+      "mismatch": 0.03500000000000014,
+      "ES_A": [
+        [
+          3.12,
+          0.8900982604100418
+        ],
+        [
+          3.14,
+          0.868343620715744
+        ]
+      ],
+      "ES_B_short": [
+        3.01,
+        1.322396500950978
+      ],
+      "ES_B_long": [
+        3.18,
+        0.842212987426316
+      ],
+      "qA": 0.6314,
+      "qB": 0.5113,
+      "qTe": -0.4571,
+      "VBM_As_01": 1.9038076152304613,
+      "VBM_As_50": 3.627450980392156,
+      "CBM_Bp_01": 5.017006802721087,
+      "VBM_Tep_01": 20.741482965931866
+    }
+  }
+}
